@@ -201,3 +201,20 @@ int NullBackend::Get_Texture_Bitdepth()
 {
 	return TextureBitDepth;
 }
+
+void NullBackend::Set_Viewport(const void* /*viewport*/)
+{
+}
+
+void NullBackend::Set_DX8_Render_State(int /*state*/, unsigned /*value*/)
+{
+}
+
+void NullBackend::Set_Light_Environment(const void* /*env*/)
+{
+}
+
+void* NullBackend::_Get_DX8_Front_Buffer()
+{
+	return nullptr;
+}

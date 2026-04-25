@@ -41,9 +41,11 @@
 
 #ifndef FRAMEGRAB_H
 #define FRAMEGRAB_H
+#ifdef _WIN32
 
 #ifndef ALWAYS_H
 #include "always.h"
+#endif // _WIN32
 #endif
 
 #ifndef _WINDOWS_

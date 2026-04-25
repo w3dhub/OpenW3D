@@ -35,6 +35,7 @@
 #include "GameResPacket.h"
 #include <assert.h>
 #include <string.h>
+#include <cstddef>
 #include "network-typedefs.h"
 #include <algorithm>
 #include <limits>

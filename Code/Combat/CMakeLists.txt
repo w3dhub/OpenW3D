@@ -6,7 +6,6 @@ set(COMBAT_SRC
     animcontrol.cpp
     armedgameobj.cpp
     assetdep.cpp
-    backgroundmgr.cpp
     basecontroller.cpp
     basegameobj.cpp
     beacongameobj.cpp
@@ -122,7 +121,6 @@ set(COMBAT_SRC
     weaponmanager.cpp
     weapons.cpp
     weaponview.cpp
-    WeatherMgr.cpp
     action.h
     actionparams.h
     activeconversation.h
@@ -131,7 +129,6 @@ set(COMBAT_SRC
     apppackettypes.h
     armedgameobj.h
     assetdep.h
-    backgroundmgr.h
     basecontroller.h
     basegameobj.h
     beacongameobj.h
@@ -252,7 +249,6 @@ set(COMBAT_SRC
     weaponmanager.h
     weapons.h
     weaponview.h
-    WeatherMgr.h
     assets.cpp
     crandom.cpp
     debug.cpp
@@ -266,6 +262,11 @@ set(COMBAT_SRC
     string_ids.h
     timemgr.h
 )
+
+# backgroundmgr.cpp and WeatherMgr.cpp are purely rendering code — only needed for client
+if(W3D_CLIENT)
+    list(APPEND COMBAT_SRC backgroundmgr.cpp backgroundmgr.h WeatherMgr.cpp WeatherMgr.h)
+endif()
 
 # Targets to build.
 add_library(combat STATIC)

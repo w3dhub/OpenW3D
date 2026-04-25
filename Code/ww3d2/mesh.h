@@ -47,7 +47,12 @@
 #include "rendobj.h"
 #include "bittype.h"
 #include "w3derr.h"
+#ifdef _WIN32
 #include "dx8polygonrenderer.h"
+#else
+// stub forward declaration for non-Win32 (DX8 rendering not needed on server)
+class DX8PolygonRendererList;
+#endif
 
 class MeshBuilderClass;
 class HModelClass;
@@ -205,7 +210,12 @@ protected:
 	unsigned int *					UserLighting;			// optional array of user lighting values
 
 	// DX8 Mesh rendering system data
+	// DX8 Mesh rendering system data
+#ifdef _WIN32
 	DX8PolygonRendererList		PolygonRendererList;
+#else
+	void *						PolygonRendererList; // stub: DX8 rendering unused on Linux server
+#endif
 
 	friend class MeshBuilderClass;
 	friend class DX8MeshRendererClass;

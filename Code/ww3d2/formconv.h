@@ -42,6 +42,7 @@
 
 #ifndef FORMCONV_H
 #define FORMCONV_H
+#ifdef _WIN32
 
 #include "ww3dformat.h"
 #include <d3d9.h>
@@ -55,4 +56,5 @@ WW3DFormat D3DFormat_To_WW3DFormat(D3DFORMAT d3d_format);
 
 void Init_D3D_To_WW3_Conversion();
 
+#endif // _WIN32
 #endif

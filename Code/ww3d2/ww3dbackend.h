@@ -87,6 +87,12 @@ public:
     // Texture depth
     virtual void Set_Texture_Bitdepth(int depth) = 0;
     virtual int Get_Texture_Bitdepth() = 0;
+
+    // Render state
+    virtual void Set_Viewport(const void* viewport) = 0;
+    virtual void Set_DX8_Render_State(int state, unsigned value) = 0;
+    virtual void Set_Light_Environment(const void* env) = 0;
+    virtual void* _Get_DX8_Front_Buffer() = 0;
 };
 
 #endif // WW3DBACKEND_H

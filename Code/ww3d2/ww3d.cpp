@@ -807,7 +807,7 @@ WW3DErrorType WW3D::Begin_Render(bool clear,bool clearz,const Vector3 & color, v
 		vp.Height = height;
 		vp.MinZ = 0.0f;;
 		vp.MaxZ = 1.0f;
-		DX8Wrapper::Set_Viewport(&vp);
+		Backend->Set_Viewport(&vp);
 		Backend->Clear(clear, clearz, color);
 	}
 
@@ -915,20 +915,20 @@ WW3DErrorType WW3D::Render(SceneClass * scene,CameraClass * cam,bool clear,bool 
 	// set the rendering mode
 	switch(scene->Get_Polygon_Mode()) {
 		case SceneClass::POINT:
-			DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_POINT);
+			Backend->Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_POINT);
 			break;
 		case SceneClass::LINE:
-			DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_WIREFRAME);
+			Backend->Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_WIREFRAME);
 			break;
 		case SceneClass::FILL:
-			DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_SOLID);
+			Backend->Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_SOLID);
 			break;
 	}
 
 	// Set the global ambient light value here.  If the scene is using the LightEnvironment system
 	// this setting will get overriden.
 	Vector3 ambient = scene->Get_Ambient_Light();
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_AMBIENT, DX8Wrapper::Convert_Color(ambient,0.0f));
+	Backend->Set_DX8_Render_State(D3DRS_AMBIENT, DX8Wrapper::Convert_Color(ambient,0.0f));
 
 	// render the scene
 
@@ -976,11 +976,11 @@ WW3DErrorType WW3D::Render(
 	rinfo.Camera.Apply();
 
 	// set the rendering mode
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_SOLID);
+	Backend->Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_SOLID);
 
 	// Install the lighting environment if one is supplied
 	if (rinfo.light_environment != NULL) {
-		DX8Wrapper::Set_Light_Environment(rinfo.light_environment);
+		Backend->Set_Light_Environment(rinfo.light_environment);
 	}
 
 	// Render the object
@@ -1273,7 +1273,7 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
 	// Lock front buffer and copy
 
 	IDirect3DSurface9 *fb;
-	fb=DX8Wrapper::_Get_DX8_Front_Buffer();
+	fb=(IDirect3DSurface9*)Backend->_Get_DX8_Front_Buffer();
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
 
@@ -1555,7 +1555,7 @@ void WW3D::Update_Movie_Capture( void )
 		// Lock front buffer and copy
 
 	IDirect3DSurface9 *fb;
-	fb=DX8Wrapper::_Get_DX8_Front_Buffer();
+	fb=(IDirect3DSurface9*)Backend->_Get_DX8_Front_Buffer();
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
 

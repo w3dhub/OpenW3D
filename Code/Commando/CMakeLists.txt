@@ -334,8 +334,6 @@ set(COMMANDO_SRC
     skinpackage.h
     skinpackagemgr.cpp
     skinpackagemgr.h
-    WebBrowser.cpp
-    WebBrowser.h
     AnnounceEvent.cpp
     AnnounceEvent.h
     bioevent.cpp
@@ -424,13 +422,20 @@ set(COMMANDO_SRC
     modpackagemgr.h
 )
 
+# Remove WOL/multiplayer online UI files on non-Win32 — they depend on WWOnline (COM/ActiveX)
+if(NOT WIN32)
+    foreach(pattern dlgmpwol DlgWOL WOL WOLBrowser wollocalemgr)
+        list(FILTER COMMANDO_SRC EXCLUDE REGEX ".*${pattern}.*")
+    endforeach()
+endif()
+
 # Common stuff for both client and server builds.
 add_library(commando INTERFACE)
 
 target_link_libraries(commando INTERFACE
     winmm
-    wsock32
-    version
+    $<$<BOOL:${WIN32}>:wsock32>
+    $<$<BOOL:${WIN32}>:version>
     wwcommon
     bandtest
 )
@@ -439,18 +444,18 @@ set(W3D_GROUP_LIBS
     wwdebug
     wwlib
     wwbitpack
-    scontrol
+    $<$<BOOL:${WIN32}>:scontrol>
     wwutil
     wwmath
     wwnet
-    wwonline
+    $<$<BOOL:${WIN32}>:wwonline>
     wwsaveload
     wwtranslatedb
-    wwui
+    $<$<BOOL:${W3D_CLIENT}>:wwui>
     wwaudio
-    ww3d2
-    binkmovie
-    wwphys
+    $<$<BOOL:${W3D_CLIENT}>:ww3d2>
+    $<$<BOOL:${W3D_CLIENT}>:binkmovie>
+    $<$<BOOL:${W3D_CLIENT}>:wwphys>
     combat
 )
 
@@ -469,6 +474,10 @@ if(WIN32)
         ../WOLBrowser/WOLBrowser_i.c
         ../wolapi/WOLAPI_i.c
     )
+endif()
+
+if(W3D_CLIENT)
+    list(APPEND COMMANDO_SRC WebBrowser.cpp WebBrowser.h)
 endif()
 
 # Targets to build.

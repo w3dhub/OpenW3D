@@ -39,7 +39,11 @@
 #include <assert.h>
 #include <wwdebug/wwdebug.h>
 
+#ifdef _WIN32
 #include <winsock2.h>
+#else
+#include <arpa/inet.h>
+#endif
 
 namespace WWOnline {
 

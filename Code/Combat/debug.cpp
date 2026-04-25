@@ -213,7 +213,9 @@ void	DebugManager::Display( char const *buffer )
 	}
 
 	if ( EnabledDevices & DEBUG_DEVICE_WINDOWS ) {
+#ifdef _WIN32
 		OutputDebugStringA( buffer );		// puts it in the MSVC debug window
+#endif
 	}
 }
 
@@ -516,7 +518,9 @@ void operator delete(void *p, size_t /* size */) noexcept
 
 
 
+#ifdef _WIN32
 #include <imagehlp.h>
+#endif
 
 
 #define WALK_FRAMES 8
@@ -527,10 +531,11 @@ struct NewCallerStruct {
 	int AddressLine;
 };
 
-
+#ifdef _WIN32
 void* ReturnAddresses[20];
 int Stack_Walk(void **return_addresses, int num_addresses, CONTEXT *);
 bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement);
+#endif
 void *NewMutex = NULL;
 
 #ifdef _DEBUG

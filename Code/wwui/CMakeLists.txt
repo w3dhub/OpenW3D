@@ -97,7 +97,9 @@ target_compile_definitions(wwui PRIVATE
 
 target_link_libraries(wwui PRIVATE
     wwcommon
-    imm32
 )
+if(WIN32)
+    target_link_libraries(wwui PRIVATE imm32)
+endif()
 
 target_sources(wwui PRIVATE ${WWUI_SRC})

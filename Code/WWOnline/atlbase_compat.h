@@ -1,21 +1,28 @@
 #pragma once
 
-// When ATL headers are available (_ATL_VER is defined by atlbase.h),
-// use the real ATL implementation. Otherwise fall back to our minimal
-// CComPtr stub below.
+#ifdef _MSC_VER
 
-#ifndef _ATL_VER
-#define ATLBASE_COMPAT_NO_ATL
-#endif
+#include <atlbase.h>
 
-#ifdef ATLBASE_COMPAT_NO_ATL
+#else // !_MSC_VER
 
-// Minimal CComPtr stub when ATL headers are not available.
-// This is a simplified implementation sufficient for the game's networking code.
-
+#ifdef _WIN32
 #include <windows.h>
 #include <ocidl.h>
 #include <unknwn.h>
+#else
+// Stub COM types for Linux
+#define IID void
+typedef void* IUnknown;
+typedef void* IConnectionPointContainer;
+typedef void* IConnectionPoint;
+typedef unsigned int DWORD;
+typedef void* LPVOID;
+typedef int HRESULT;
+#define E_INVALIDARG 0x80070057
+#define SUCCEEDED(hr) ((hr) >= 0)
+#define S_OK 0
+#endif
 
 template <typename T>
 class CComPtr final
@@ -56,9 +63,7 @@ public:
         if (object != this->p) {
             Release();
             p = object;
-            if (p) {
-                p->AddRef();
-            }
+            p->AddRef();
         }
         return *this;
     }
@@ -74,9 +79,9 @@ public:
         }
     }
 
-    void Attach(T* ptr) {
+    void Attach(T* p) {
         Release();
-        p = ptr;
+        p = p;
     }
 
     T * Detach() {
@@ -85,11 +90,13 @@ public:
         return obj;
     }
 
-    bool operator==(T* object) const {
+    bool operator==(T* object) const
+    {
         return p == object;
     }
 
-    bool operator!=(T* object) const {
+    bool operator!=(T* object) const
+    {
         return p != object;
     }
 
@@ -112,9 +119,10 @@ public:
 inline HRESULT AtlAdvise(
         IUnknown* pUnkCP,
         IUnknown* pUnk,
-        const IID& iid,
-        LPDWORD pdw)
+        void* iid,
+        DWORD* pdw)
 {
+#ifdef _WIN32
     if(pUnkCP == NULL) {
         return E_INVALIDARG;
     }
@@ -129,13 +137,21 @@ inline HRESULT AtlAdvise(
         hRes = pCP->Advise(pUnk, pdw);
     }
     return hRes;
+#else
+    (void)pUnkCP;
+    (void)pUnk;
+    (void)iid;
+    (void)pdw;
+    return S_OK;
+#endif
 }
 
 inline HRESULT AtlUnadvise(
         IUnknown* pUnkCP,
-        const IID& iid,
+        void* iid,
         DWORD dw)
 {
+#ifdef _WIN32
     if (pUnkCP == NULL) {
         return E_INVALIDARG;
     }
@@ -150,11 +166,12 @@ inline HRESULT AtlUnadvise(
         hRes = pCP->Unadvise(dw);
     }
     return hRes;
+#else
+    (void)pUnkCP;
+    (void)iid;
+    (void)dw;
+    return S_OK;
+#endif
 }
 
-#else
-
-// ATL is available - use the real headers.
-#include <atlbase.h>
-
-#endif // ATLBASE_COMPAT_NO_ATL
+#endif

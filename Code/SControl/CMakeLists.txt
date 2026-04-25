@@ -1,3 +1,4 @@
+if(WIN32)
 set(SCONTROL_SRC
     servercontrol.cpp
     servercontrol.h
@@ -13,3 +14,4 @@ target_link_libraries(scontrol PRIVATE
 )
 
 target_sources(scontrol PRIVATE ${SCONTROL_SRC})
+endif()

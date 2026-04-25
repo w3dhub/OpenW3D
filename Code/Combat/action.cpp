@@ -67,13 +67,16 @@
 #include "playertype.h"
 #include "wwprofile.h"
 
+#ifdef _WIN32
+#include <dinput.h>
+#endif
+
 #include "combat.h"
 #include "waypath.h"
 #include "waypoint.h"
 #include "gameobjmanager.h"
 
 #include "colmathaabox.h"
-#include "dinput.h"
 #include <algorithm>
 
 int _ActionActCalls = 0;
@@ -254,11 +257,13 @@ public:
 
 		if ( obj->As_SoldierGameObj() && obj->As_SoldierGameObj()->Get_Vehicle() ) {
 			VehicleGameObj * vehicle = obj->As_SoldierGameObj()->Get_Vehicle();
+#ifdef _WIN32
 			// Convert turn to straffe
 			if ( vehicle->Is_Aircraft() && (Input::Is_Button_Down (DIK_LCONTROL) || Input::Is_Button_Down (DIK_LMENU) ) ) {
 				left_amount = amount;
 				obj->Set_Analog_Control( ControlClass::ANALOG_TURN_LEFT, 0 );
 			}
+#endif
 		}
 
 		Vector3 move( forward_amount, left_amount, up_amount );

@@ -43,6 +43,8 @@
 #ifndef DX8CAPS_H
 #define DX8CAPS_H
 
+#ifdef _WIN32
+
 #include "always.h"
 #include "ww3dformat.h"
 #include <d3d9.h>
@@ -299,5 +301,7 @@ private:
 	StringClass CapsLog;
 	StringClass CompactLog;
 };
+
+#endif // _WIN32
 
 #endif

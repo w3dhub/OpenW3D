@@ -49,7 +49,10 @@
 #include "simplevec.h"
 #include "refcount.h"
 #include "vector.h"
+#include "dx8polygonrenderer.h"
+#ifdef _WIN32
 #include "dx8list.h"
+#endif
 #include "shader.h"
 #include "dx8wrapper.h"
 #include "hashtemplate.h"

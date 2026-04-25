@@ -60,7 +60,11 @@ ScriptCommands* EngineCommands = NULL;
 /*
 **
 */
+#ifdef _WIN32
 HINSTANCE hDLL = NULL;
+#else
+void* hDLL = NULL;
+#endif
 LPFN_CREATE_SCRIPT ScriptManager::ScriptCreateFunct = NULL;
 LPFN_DESTROY_SCRIPT ScriptManager::ScriptDestroyFunct = NULL;
 SimpleDynVecClass<ScriptClass *> ScriptManager::ActiveScriptList;
@@ -77,22 +81,10 @@ void ScriptManager::Init(void)
 	hDLL = NULL;
 	EngineCommands = Get_Script_Commands();
 
-#ifdef	PARAM_EDITING_ON	// Editor build
+#ifdef _WIN32
 	Load_Scripts("SCRIPTS.DLL");
 #else
-	#ifdef	WWDEBUG		// DEBUG and PROFILE
-		if ( DebugManager::Load_Debug_Scripts() ) {
-			Load_Scripts("SCRIPTSD.DLL");		// DEBUG
-		} else {
-	#ifdef	NDEBUG		// PROFILE
-			Load_Scripts("SCRIPTSP.DLL");		// PROFILE
-	#else
-			Load_Scripts("SCRIPTSD.DLL");		// DEBUG
-	#endif
-		}
-	#else
-		Load_Scripts("SCRIPTS.DLL");		// RELEASE
-	#endif
+	// Script DLL loading not supported on Linux
 #endif
 }
 
@@ -113,10 +105,12 @@ void ScriptManager::Shutdown(void)
 		ActiveScriptList.Delete(0);
 	}
 
+	#ifdef _WIN32
 	if (hDLL != NULL) {
 		FreeLibrary(hDLL);
 		hDLL = NULL;
 	}
+	#endif
 }
 
 
@@ -148,6 +142,7 @@ void ScriptManager::Destroy_Pending(void)
 */
 void ScriptManager::Load_Scripts(const char* dll_filename)
 {
+#ifdef _WIN32
 	char dll_fullpath[MAX_PATH];
 	{
 		char path_to_exe[MAX_PATH];
@@ -273,6 +268,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 			Debug_Say(("Cound not find Set_Script_Commands\n"));
 		}
 	}
+#endif
 }
 
 

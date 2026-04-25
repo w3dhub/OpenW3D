@@ -43,11 +43,13 @@
 
 #ifndef DX8_FVF_H
 #define DX8_FVF_H
+#ifdef _WIN32
 
 #include "always.h"
 #include <d3d9.h>
 #ifdef WWDEBUG
 #include "wwdebug.h"
+#endif // _WIN32
 #endif
 
 class StringClass;

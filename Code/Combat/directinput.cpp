@@ -39,7 +39,11 @@
 #include "debug.h"
 #include "timemgr.h"
 
+#ifdef _WIN32
 #include <dinput.h>
+#endif
+
+#ifdef _WIN32
 
 /*
 **
@@ -754,3 +758,33 @@ void	DirectInput::Update_Double_Clicks (void)
 
 	return ;
 }
+
+#endif // _WIN32
+
+//
+// Linux stubs — no DirectInput available on non-Win32
+//
+#ifdef __linux__
+
+char				DirectInput::DIKeyboardButtons[NUM_KEYBOARD_BUTTONS];
+char				DirectInput::DIMouseButtons[NUM_MOUSE_BUTTONS];
+int					DirectInput::DIMouseAxis[NUM_MOUSE_AXIS];
+char				DirectInput::DIJoystickButtons[NUM_MOUSE_BUTTONS];
+float				DirectInput::ButtonLastHitTime[NUM_KEYBOARD_BUTTONS];
+Vector3				DirectInput::CursorPos (0, 0, 0);
+bool				DirectInput::EatMouseHeld = false;
+bool				DirectInput::Captured = false;
+void *				DirectInput::DirectInputLibrary = NULL;
+int					DirectInput::LastKeyPressed = 0;
+
+void DirectInput::Init( void ) {}
+void DirectInput::Shutdown( void ) {}
+void DirectInput::Read( void ) {}
+void DirectInput::Flush( void ) {}
+void DirectInput::Acquire(void) {}
+void DirectInput::Unacquire(void) {}
+void DirectInput::Eat_Mouse_Held_States (void) {}
+int DirectInput::Get_Joystick_Axis_State( JoystickAxis axis ) { (void)axis; return 0; }
+void DirectInput::Update_Double_Clicks (void) {}
+
+#endif // __linux__

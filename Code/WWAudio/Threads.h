@@ -37,7 +37,16 @@
 #ifndef __WWAUDIO_THREADS_H
 #define __WWAUDIO_THREADS_H
 
+#ifdef _WIN32
 #include <windows.h>
+#else
+#include <stdint.h>
+typedef uintptr_t HANDLE;
+typedef uintptr_t ULONG_PTR;
+typedef void* LPVOID;
+typedef uint32_t DWORD;
+#define WINAPI
+#endif
 #include "vector.h"
 #include "mutex.h"
 
@@ -45,14 +54,14 @@
 class RefCountClass;
 
 
-//////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 //
 //	WWAudioThreadsClass
 //
 //	Simple class that provides a common namespace for tying thread
 // information together.
 //
-//////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 class WWAudioThreadsClass
 {
 	public:
@@ -70,6 +79,26 @@ class WWAudioThreadsClass
 		//
 		//	Delayed release mechanism
 		//
+#ifndef _WIN32
+		// Linux stubs — no delayed-release thread on non-Win32.
+		// Objects are released immediately without the delayed-release queue.
+		static HANDLE		Create_Delayed_Release_Thread (LPVOID = nullptr) { return (HANDLE)nullptr; }
+		static void			End_Delayed_Release_Thread (DWORD = 20000) {}
+		static void			Add_Delayed_Release_Object (RefCountClass* = nullptr, DWORD = 2000) {}
+		static void			Flush_Delayed_Release_Objects (void) {}
+
+	private:
+		// No-op static data on Linux
+		static void*		m_hDelayedReleaseThread;
+		static void*		m_hDelayedReleaseEvent;
+		static void*		m_CriticalSection;
+		static void*		m_ReleaseListHead;
+		static void*		m_ListMutex;
+		static bool		m_IsFlushing;
+
+	public:
+#else // _WIN32
+
 		static HANDLE		Create_Delayed_Release_Thread (LPVOID param = NULL);
 		static void			End_Delayed_Release_Thread (DWORD timeout = 20000);
 		static void			Add_Delayed_Release_Object (RefCountClass *object, DWORD delay = 2000);
@@ -88,7 +117,7 @@ class WWAudioThreadsClass
 		typedef struct _DELAYED_RELEASE_INFO
 		{
 			RefCountClass *	object;
-			DWORD					time;
+			DWORD				time;
 
 			_DELAYED_RELEASE_INFO *next;
 			_DELAYED_RELEASE_INFO *prev;
@@ -100,13 +129,13 @@ class WWAudioThreadsClass
 		//////////////////////////////////////////////////////////////////////
 		//	Private member data
 		//////////////////////////////////////////////////////////////////////
-		static HANDLE						m_hDelayedReleaseThread;
-		static HANDLE						m_hDelayedReleaseEvent;
-		static CriticalSectionClass	m_CriticalSection;
-		static DELAYED_RELEASE_INFO *	m_ReleaseListHead;
-		static CriticalSectionClass	m_ListMutex;
+		static HANDLE							m_hDelayedReleaseThread;
+		static HANDLE							m_hDelayedReleaseEvent;
+		static CriticalSectionClass			m_CriticalSection;
+		static DELAYED_RELEASE_INFO *		m_ReleaseListHead;
+		static CriticalSectionClass			m_ListMutex;
 		static bool							m_IsFlushing;
+#endif // _WIN32
 };
 
 #endif //__WWAUDIO_THREADS_H
-

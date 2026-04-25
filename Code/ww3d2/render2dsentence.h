@@ -102,12 +102,21 @@ private:
 	int									CharHeight;
 	int									PointSize;
 	StringClass							GDIFontName;
-	HFONT									OldGDIFont;
+#ifdef _WIN32
+	HFONT								OldGDIFont;
 	HBITMAP								OldGDIBitmap;
 	HBITMAP								GDIBitmap;
-	HFONT									GDIFont;
-	uint8 *								GDIBitmapBits;
+	HFONT								GDIFont;
+	uint8 *							GDIBitmapBits;
 	HDC									MemDC;
+#else
+	void*								OldGDIFont;
+	void*								OldGDIBitmap;
+	void*								GDIBitmap;
+	void*								GDIFont;
+	uint8*								GDIBitmapBits;
+	void*								MemDC;
+#endif
 	CharDataStruct *					ASCIICharArray[256];
 	CharDataStruct **					UnicodeCharArray;
 	unichar_t								FirstUnicodeChar;

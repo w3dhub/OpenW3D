@@ -63,7 +63,9 @@
 #include <limits>
 
 #include	<conio.h>
+#ifdef _WIN32
 #include	<imagehlp.h>
+#endif
 #include <crtdbg.h>
 #include	<stdio.h>
 #include <inttypes.h>
@@ -116,7 +118,11 @@ void DebugString(char const *, ...){};
 static char ExceptionText [65536];
 
 bool SymbolsAvailable = false;
+#ifdef _WIN32
 HINSTANCE ImageHelp = (HINSTANCE) -1;
+#else
+void* ImageHelp = nullptr;
+#endif
 
 void (*AppCallback)(void) = NULL;
 const char *(*AppVersionCallback)(void) = NULL;
@@ -149,6 +155,7 @@ DynamicVectorClass<ThreadInfoType*> ThreadList;
 ** Definitions to allow run-time linking to the Imagehlp.dll functions.
 **
 */
+#ifdef _WIN32
 typedef BOOL  (WINAPI *SymCleanupType) (HANDLE hProcess);
 typedef BOOL  (WINAPI *SymInitializeType) (HANDLE hProcess, PCSTR UserSearchPath, BOOL fInvadeProcess);
 typedef DWORD (WINAPI *SymSetOptionsType) (DWORD SymOptions);
@@ -159,15 +166,16 @@ typedef BOOL  (WINAPI *StackWalkType) (DWORD MachineType, HANDLE hProcess, HANDL
 typedef LPVOID (WINAPI *SymFunctionTableAccessType) (HANDLE hProcess, DWORD_ARCH AddrBase);
 typedef DWORD (WINAPI *SymGetModuleBaseType) (HANDLE hProcess, DWORD_ARCH dwAddr);
 
-static SymCleanupType							_SymCleanup = NULL;
-static SymGetSymFromAddrType				_SymGetSymFromAddr = NULL;
-static SymInitializeType						_SymInitialize = NULL;
-static SymLoadModuleType						_SymLoadModule = NULL;
-static SymSetOptionsType						_SymSetOptions = NULL;
-static SymUnloadModuleType					_SymUnloadModule = NULL;
-static StackWalkType								_StackWalk = NULL;
+static SymCleanupType									_SymCleanup = NULL;
+static SymGetSymFromAddrType							_SymGetSymFromAddr = NULL;
+static SymInitializeType								_SymInitialize = NULL;
+static SymLoadModuleType								_SymLoadModule = NULL;
+static SymSetOptionsType								_SymSetOptions = NULL;
+static SymUnloadModuleType							_SymUnloadModule = NULL;
+static StackWalkType									_StackWalk = NULL;
 static SymFunctionTableAccessType	_SymFunctionTableAccess = NULL;
-static SymGetModuleBaseType				_SymGetModuleBase = NULL;
+static SymGetModuleBaseType							_SymGetModuleBase = NULL;
+#endif // _WIN32
 
 
 /***********************************************************************************************

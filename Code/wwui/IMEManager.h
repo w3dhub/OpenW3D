@@ -41,7 +41,11 @@
 #include "Notify.h"
 #include "widestring.h"
 #include "win.h"
+#ifdef _WIN32
 #include <imm.h>
+#else
+typedef void* HIMC;
+#endif
 
 namespace IME {
 

@@ -105,9 +105,11 @@
 #include "dx8wrapper.h"
 #include "metalmap.h"
 #include <ini.h>
-#include <windows.h>
 #include <stdio.h>
+#ifdef _WIN32
+#include <windows.h>
 #include <d3d9types.h>
+#endif
 #include "texture.h"
 #include "wwprofile.h"
 #include "assetstatus.h"

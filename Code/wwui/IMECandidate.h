@@ -38,7 +38,18 @@
 #include "Notify.h"
 #include "win.h"
 #include "unichar.h"
+#ifdef _WIN32
 #include <imm.h>
+#else
+// Stub types for non-Windows builds (Linux/macOS).
+// IME functionality is Windows-only; these stubs prevent
+// compile errors on other platforms but provide no real IME support.
+typedef void *HIMC;
+typedef int CANDIDATELIST;
+#define ImmGetContext(x) static_cast<HIMC>(nullptr)
+#define ImmReleaseContext(x, y) 0
+#define ImmGetCandidateListW(x, y) 0
+#endif
 #include <vector>
 
 namespace IME {
