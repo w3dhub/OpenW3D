@@ -1,10 +1,17 @@
 #pragma once
 
-#ifdef _MSC_VER
+// When ATL headers are available (_ATL_VER is defined by atlbase.h),
+// use the real ATL implementation. Otherwise fall back to our minimal
+// CComPtr stub below.
 
-#include <atlbase.h>
+#ifndef _ATL_VER
+#define ATLBASE_COMPAT_NO_ATL
+#endif
 
-#else
+#ifdef ATLBASE_COMPAT_NO_ATL
+
+// Minimal CComPtr stub when ATL headers are not available.
+// This is a simplified implementation sufficient for the game's networking code.
 
 #include <windows.h>
 #include <ocidl.h>
@@ -49,7 +56,9 @@ public:
         if (object != this->p) {
             Release();
             p = object;
-            p->AddRef();
+            if (p) {
+                p->AddRef();
+            }
         }
         return *this;
     }
@@ -65,9 +74,9 @@ public:
         }
     }
 
-    void Attach(T* p) {
+    void Attach(T* ptr) {
         Release();
-        p = p;
+        p = ptr;
     }
 
     T * Detach() {
@@ -76,13 +85,11 @@ public:
         return obj;
     }
 
-    bool operator==(T* object) const
-    {
+    bool operator==(T* object) const {
         return p == object;
     }
 
-    bool operator!=(T* object) const
-    {
+    bool operator!=(T* object) const {
         return p != object;
     }
 
@@ -145,4 +152,9 @@ inline HRESULT AtlUnadvise(
     return hRes;
 }
 
-#endif
+#else
+
+// ATL is available - use the real headers.
+#include <atlbase.h>
+
+#endif // ATLBASE_COMPAT_NO_ATL
