@@ -74,6 +74,8 @@ void __cdecl Print_Win32Error(unsigned int win32Error);
 
 #else // _WIN32
 //#include <unistd.h>
+typedef void *HINSTANCE;
+typedef void *HWND;
 #endif // _WIN32
 
 #endif // WIN_H

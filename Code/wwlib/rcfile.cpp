@@ -26,9 +26,9 @@
  *                                                                                             *
  *                       Author:: Greg Hjelstrom                                               *
  *                                                                                             *
- *                     $Modtime:: 7/09/99 1:37p                                               $*
+ *                     $Modtime:: 7/09/99 1:37p                                               *
  *                                                                                             *
- *                    $Revision:: 5                                                           $*
+ *                    $Revision:: 5                                                           *
  *                                                                                             *
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
@@ -51,96 +51,164 @@ ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 	EndOfFile(NULL)
 {
 	Set_Name(filename);
-	HRSRC hresource = FindResourceA(hmodule,ResourceName,RESOURCE_FILE_TYPE_NAME);
-
-	if (hresource) {
-		HGLOBAL hglob = LoadResource(hmodule,hresource);
-		if (hglob) {
-			FileBytes = (unsigned char *)LockResource(hglob);
-			if (FileBytes) {
-				FilePtr = FileBytes;
-				EndOfFile = FileBytes + SizeofResource(hmodule,hresource);
-			}
-		}
+	if (hmodule != NULL) {
+		hModule = hmodule;
 	}
 }
 
-#else // !_WIN32
-
-ResourceFileClass::ResourceFileClass(void * hmodule, char const *filename) :
-	ResourceName(NULL),
-	hModule(NULL),
-	FileBytes(NULL),
-	FilePtr(NULL),
-	EndOfFile(NULL)
-{
-	Set_Name(filename);
-	// No-op on Linux - resources are not supported
-}
-
-#endif // _WIN32
-
 ResourceFileClass::~ResourceFileClass(void)
 {
-	if (ResourceName)
+	if (ResourceName != NULL) {
 		free(ResourceName);
+	}
 }
 
 char const * ResourceFileClass::Set_Name(char const *filename)
 {
-	if (ResourceName) {
+	if (ResourceName != NULL) {
 		free(ResourceName);
 		ResourceName = NULL;
 	}
-	if (filename) {
+	if (filename != NULL) {
 		ResourceName = strdup(filename);
 	}
 	return ResourceName;
 }
 
-int ResourceFileClass::Read(void *buffer, int size)
+int ResourceFileClass::Create(void)
 {
-	if (!FilePtr) return 0;
+	return false;
+}
 
-	if (FilePtr + size > EndOfFile) {
-		size = EndOfFile - FilePtr;
+int ResourceFileClass::Delete(void)
+{
+	return false;
+}
+
+bool ResourceFileClass::Is_Available(int forced)
+{
+	if (forced) {
+		return Is_Open();
 	}
-	memcpy(buffer,FilePtr,size);
-	FilePtr += size;
-	return size;
+	return true;
+}
+
+bool ResourceFileClass::Is_Open(void) const
+{
+	return (FileBytes != NULL);
+}
+
+int ResourceFileClass::Open(char const *fname, int rights)
+{
+	Set_Name(fname);
+	return Open(rights);
+}
+
+int ResourceFileClass::Open(int rights)
+{
+	if (ResourceName == NULL) {
+		return false;
+	}
+
+	if (Is_Open()) {
+		return true;
+	}
+
+	HRSRC hresource = FindResourceA(hModule, ResourceName, RESOURCE_FILE_TYPE_NAME);
+	if (hresource == NULL) {
+		return false;
+	}
+
+	HGLOBAL hglobal = LoadResource(hModule, hresource);
+	if (hglobal == NULL) {
+		return false;
+	}
+
+	FileBytes = (unsigned char *)LockResource(hglobal);
+	if (FileBytes == NULL) {
+		return false;
+	}
+
+	EndOfFile = FileBytes + SizeofResource(hModule, hresource);
+	FilePtr = FileBytes;
+	return true;
+}
+
+int ResourceFileClass::Read(void * buffer, int size)
+{
+	if (!Is_Open()) {
+		return 0;
+	}
+
+	int bytes_to_copy = size;
+	if (FilePtr + bytes_to_copy > EndOfFile) {
+		bytes_to_copy = (int)(EndOfFile - FilePtr);
+	}
+	if (bytes_to_copy > 0) {
+		memcpy(buffer, FilePtr, bytes_to_copy);
+		FilePtr += bytes_to_copy;
+	}
+	return bytes_to_copy;
 }
 
 int ResourceFileClass::Seek(int pos, int dir)
 {
+	if (!Is_Open()) {
+		return 0;
+	}
+
+	unsigned char * new_ptr = NULL;
 	switch (dir) {
 		case SEEK_SET:
-			FilePtr = FileBytes + pos;
+			new_ptr = FileBytes + pos;
 			break;
-
 		case SEEK_CUR:
-			FilePtr = FilePtr + pos;
+			new_ptr = FilePtr + pos;
 			break;
-
 		case SEEK_END:
-			FilePtr = EndOfFile + pos;
+			new_ptr = EndOfFile + pos;
 			break;
 	}
-
-	if (FilePtr > EndOfFile) {
-		FilePtr = EndOfFile;
+	if (new_ptr < FileBytes || new_ptr > EndOfFile) {
+		return 0;
 	}
-	if (FilePtr < FileBytes) {
-		FilePtr = FileBytes;
-	}
-
-	return FilePtr - FileBytes;
+	FilePtr = new_ptr;
+	return (int)(FilePtr - FileBytes);
 }
 
 int ResourceFileClass::Size(void)
 {
-	return EndOfFile - FileBytes;
+	if (!Is_Open()) {
+		return 0;
+	}
+	return (int)(EndOfFile - FileBytes);
 }
 
-void ResourceFileClass::Error(int /*error*/, int /*canretry*/, char const * /*filename*/)
+int ResourceFileClass::Write(void const * buffer, int size)
 {
+	(void)buffer;
+	(void)size;
+	return 0;
 }
+
+void ResourceFileClass::Close(void)
+{
+	FileBytes = NULL;
+	FilePtr = NULL;
+	EndOfFile = NULL;
+}
+
+void ResourceFileClass::Error(int error, int canretry, char const * filename)
+{
+	(void)error;
+	(void)canretry;
+	(void)filename;
+}
+
+void ResourceFileClass::Bias(int start, int length)
+{
+	(void)start;
+	(void)length;
+}
+
+#endif // _WIN32

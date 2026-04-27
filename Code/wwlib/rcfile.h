@@ -117,7 +117,7 @@ class ResourceFileClass : public FileClass
 		virtual int Size(void) override { return 0; }
 		virtual int Write(void const * /*buffer*/, int /*size*/) override { return 0; }
 		virtual void Close(void) override {}
-		virtual void Error(int /*error*/, int /*canretry = false*/, char const * /*filename=*/NULL) override {}
+		virtual void Error(int /*error*/, int /*canretry*/, char const * /*filename*/) override {}
 		virtual void Bias(int /* start */, int /* length */=-1) override {}
 		virtual unsigned char *Peek_Data(void) const { return NULL; }
 

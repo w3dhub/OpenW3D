@@ -68,6 +68,7 @@
 #ifdef _UNIX
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <cassert>
 #endif
 
 
@@ -322,7 +323,7 @@ char const * RawFileClass::Set_Name(char const * filename)
 	** If this is a UNIX build, fix the filename from the DOS-like name passed in
 	*/
 	#ifdef _UNIX
-		for (int i=0; i<Filename.Length(); i++)
+		for (int i=0; i<Filename.Get_Length(); i++)
 		{
 			if (Filename[i]=='\\')
 				Filename[i]='/';
@@ -461,7 +462,7 @@ int RawFileClass::Open(int rights)
 		if (Handle == NULL_HANDLE) {
 			return(false);
 
-//			Error(GetLastError(), false, Filename);
+//			Error(errno, false, Filename);
 //			continue;
 		}
 		break;
@@ -538,7 +539,7 @@ bool RawFileClass::Is_Available(int forced)
 		closeok=CloseHandle(Handle);
 	#endif
 	if (! closeok) {
-		Error(GetLastError(), false, Filename);
+		Error(errno, false, Filename);
 	}
 	Handle = NULL_HANDLE;
 
@@ -580,7 +581,7 @@ void RawFileClass::Close(void)
 		#endif
 
 		if (!closeok) {
-			Error(GetLastError(), false, Filename);
+			Error(errno, false, Filename);
 		}
 
 		/*
@@ -661,7 +662,7 @@ int RawFileClass::Read(void * buffer, int size)
 		if (! readok) {
 			size -= bytesread;
 			total += bytesread;
-			Error(GetLastError(), true, Filename);
+			Error(errno, true, Filename);
 			continue;
 		}
 		size -= bytesread;
@@ -724,7 +725,7 @@ int RawFileClass::Write(void const * buffer, int size)
 	#endif
 
 	if (! writeok) {
-		Error(GetLastError(), false, Filename);
+		Error(errno, false, Filename);
 	}
 
 	/*
@@ -858,17 +859,13 @@ int RawFileClass::Size(void)
 	if (Is_Open()) {
 
       #ifdef _UNIX
-			fpos_t curpos,startpos,endpos;
-			fgetpos(Handle,&curpos);
-
+			long curpos = ftell(Handle);
 			fseek(Handle,0,SEEK_SET);
-			fgetpos(Handle,&startpos);
-
+			long startpos = ftell(Handle);
 			fseek(Handle,0,SEEK_END);
-			fgetpos(Handle,&endpos);
-
-			size=endpos-startpos;
-			fsetpos(Handle,&curpos);
+			long endpos = ftell(Handle);
+			fseek(Handle,curpos,SEEK_SET);
+			size = endpos - startpos;
 		#else
 			size = GetFileSize(Handle, NULL);
 		#endif
@@ -877,7 +874,7 @@ int RawFileClass::Size(void)
 		**	If there was in internal error, then call the error function.
 		*/
 		if (size == 0xFFFFFFFF) {
-			Error(GetLastError(), false, Filename);
+			Error(errno, false, Filename);
 		}
 
 	} else {
@@ -995,7 +992,7 @@ int RawFileClass::Delete(void)
 		#endif
 
 		if (! deleteok) {
-			Error(GetLastError(), false, Filename);
+			Error(errno, false, Filename);
 			return(false);
 		}
 		break;
@@ -1064,7 +1061,7 @@ bool RawFileClass::Set_Date_Time(unsigned int datetime)
 #ifdef _UNIX
 	assert(0);
 	return(false);
-#elif defined(_WIN32)
+#else
 	if (RawFileClass::Is_Open()) {
 		BY_HANDLE_FILE_INFORMATION info;
 
@@ -1075,8 +1072,6 @@ bool RawFileClass::Set_Date_Time(unsigned int datetime)
 			}
 		}
 	}
-	return(false);
-#else
 	return(false);
 #endif
 }
@@ -1157,7 +1152,7 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 
    #ifdef _UNIX
       pos=fseek(Handle, pos, dir);
-   #elif defined(_WIN32)
+   #else
 		switch (dir) {
 			case SEEK_SET:
 				dir = FILE_BEGIN;
@@ -1172,15 +1167,13 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 				break;
 		}
 		pos = SetFilePointer(Handle, pos, NULL, dir);
-   #else
-      pos = -1; // unsupported on this platform
-   #endif
+	#endif
 
 	/*
 	**	If there was an error in the seek, then bail with an error condition.
 	*/
 	if (pos == 0xFFFFFFFF) {
-		Error(GetLastError(), false, Filename);
+		Error(errno, false, Filename);
 	}
 
 	/*

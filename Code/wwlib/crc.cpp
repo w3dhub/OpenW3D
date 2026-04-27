@@ -36,6 +36,8 @@
  *   CRCEngine::operator() -- Submits an arbitrary data block to the CRC engine.               *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#ifndef _WIN32
+// _lrotl is a Windows-specific intrinsic; provide fallback for Linux
 inline unsigned long _lrotl(unsigned long val, int shift) {
 	return (val << shift) | (val >> (32 - shift));
 }
