@@ -16,34 +16,21 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : Westwood Library                                             *
- *                                                                                             *
- *                     $Archive:: /Commando/Code/wwlib/registry.cpp                           $*
- *                                                                                             *
- *                      $Author:: Steve_t                                                     $*
- *                                                                                             *
- *                     $Modtime:: 11/27/01 2:03p                                              $*
- *                                                                                             *
- *                    $Revision:: 14                                                          $*
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
 #include "registry.h"
 #include "rawfile.h"
 #include "ini.h"
 #include "inisup.h"
 #include <assert.h>
-#include <windows.h>
 #include <limits>
 
-//#include "wwdebug.h"
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 bool RegistryClass::IsLocked = false;
+
+
+#ifdef _WIN32
 
 
 bool RegistryClass::Exists(const char* sub_key)
@@ -745,3 +732,38 @@ void RegistryClass::Delete_Registry_Tree(char *path)
 
 
 
+
+#else // !_WIN32
+// Linux stubs
+
+bool RegistryClass::Exists(const char* sub_key) { (void)sub_key; return false; }
+bool RegistryClass::Is_Registry_In_Buildings(void) { return false; }
+bool RegistryClass::Get_Buildings_Registry_Values(void) { return false; }
+
+RegistryClass::RegistryClass(const char* sub_key) { (void)sub_key; Key = NULL; IsValid = false; }
+RegistryClass::~RegistryClass(void) {}
+
+int RegistryClass::Get_Int(const char* name, int default_value) { (void)name; return default_value; }
+bool RegistryClass::Get_Bool(const char* name, bool default_value) { (void)name; return default_value; }
+float RegistryClass::Get_Float(const char* name, float default_value) { (void)name; return default_value; }
+StringClass RegistryClass::Get_String(const char* name, const char* default_value) { (void)name; (void)default_value; return StringClass(); }
+void RegistryClass::Get_Binary(const char* name, void* buffer, int buffer_size) { (void)name; (void)buffer; (void)buffer_size; }
+int RegistryClass::Get_Binary_Size(const char* name) { (void)name; return 0; }
+
+bool RegistryClass::Set_Int(const char* name, int value) { (void)name; (void)value; return true; }
+bool RegistryClass::Set_Bool(const char* name, bool value) { (void)name; (void)value; return true; }
+bool RegistryClass::Set_Float(const char* name, float value) { (void)name; (void)value; return true; }
+bool RegistryClass::Set_String(const char* name, const char* value) { (void)name; (void)value; return true; }
+bool RegistryClass::Set_Binary(const char* name, const void* buffer, int buffer_size) { (void)name; (void)buffer; (void)buffer_size; return true; }
+
+void RegistryClass::Deleta_All_Values(void) {}
+void RegistryClass::Delete_Value(const char* name) { (void)name; }
+
+void RegistryClass::Delete_Registry_Values(HKEY key) { (void)key; }
+void RegistryClass::Save_Registry_Values(HKEY key, char *path, INIClass *ini) { (void)key; (void)path; (void)ini; }
+
+void RegistryClass::Delete_Registry_Tree(char *path) { (void)path; }
+void RegistryClass::Load_Registry(const char *filename, char *old_path, char *new_path) { (void)filename; (void)old_path; (void)new_path; }
+void RegistryClass::Save_Registry(const char *filename, char *path) { (void)filename; (void)path; }
+
+#endif // _WIN32
