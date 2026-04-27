@@ -116,7 +116,8 @@ MaterialPassClass::~MaterialPassClass(void)
 void MaterialPassClass::Install_Materials(void) const
 {
 	DX8Wrapper::Set_Material(Peek_Material());
-	DX8Wrapper::Set_Shader(Peek_Shader());
+	ShaderClass shader = Peek_Shader();
+	DX8Wrapper::Set_Shader(shader);
 	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) {
 		DX8Wrapper::Set_Texture(i,Peek_Texture(i));
 	}

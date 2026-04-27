@@ -41,6 +41,7 @@
 
 const char * RESOURCE_FILE_TYPE_NAME = "File";
 
+#ifdef _WIN32
 
 ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 	ResourceName(NULL),
@@ -63,6 +64,21 @@ ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 		}
 	}
 }
+
+#else // !_WIN32
+
+ResourceFileClass::ResourceFileClass(void * hmodule, char const *filename) :
+	ResourceName(NULL),
+	hModule(NULL),
+	FileBytes(NULL),
+	FilePtr(NULL),
+	EndOfFile(NULL)
+{
+	Set_Name(filename);
+	// No-op on Linux - resources are not supported
+}
+
+#endif // _WIN32
 
 ResourceFileClass::~ResourceFileClass(void)
 {

@@ -36,6 +36,11 @@
  *   CRCEngine::operator() -- Submits an arbitrary data block to the CRC engine.               *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+inline unsigned long _lrotl(unsigned long val, int shift) {
+	return (val << shift) | (val >> (32 - shift));
+}
+#endif
+
 #include	"always.h"
 #include	"crc.h"
 

@@ -59,6 +59,7 @@
 #include "systeminfolog.h"
 #include "wwprofile.h"
 #include <stdlib.h>
+#include <string.h>
 #include "specialbuilds.h"
 
 /*
@@ -159,9 +160,19 @@ void	SaveGameManager::Pre_Load_Game
 	//
 	//	Get the root name and extension from the filename
 	//
-	char root_name[_MAX_FNAME] = { 0 };
-	char extension[_MAX_EXT] = { 0 };
-	::_splitpath (filename, NULL, NULL, root_name, extension);
+	char root_name[256];
+	char extension[256];
+	{
+		const char* last_slash = strrchr(filename, '/');
+		const char* base = last_slash ? last_slash + 1 : filename;
+		const char* ext_dot = strrchr(base, '.');
+		size_t base_len = ext_dot ? (size_t)(ext_dot - base) : strlen(base);
+		if (base_len >= sizeof(root_name)) base_len = sizeof(root_name) - 1;
+		memcpy(root_name, base, base_len);
+		root_name[base_len] = '\0';
+		strncpy(extension, ext_dot ? ext_dot : "", sizeof(extension) - 1);
+		extension[sizeof(extension) - 1] = '\0';
+	}
 
 	SystemInfoLog::Set_Current_Level(root_name);
 	filename_to_load = filename;
@@ -177,7 +188,7 @@ void	SaveGameManager::Pre_Load_Game
 	//
 	//	Is this a mix file?
 	//
-	if (::strcmpi (extension, ".mix") == 0) {
+	if (strcasecmp(extension, ".mix") == 0) {
 
 		StringClass thumb_filename(root_name,true);
 		thumb_filename+=".thu";
@@ -192,13 +203,13 @@ void	SaveGameManager::Pre_Load_Game
 		//
 		//	HACK HACK - Put the level 9 mix file first...
 		//
-		if (	::stricmp (filename, "M09.mix") == 0 &&
+		if (	strcasecmp(filename, "M09.mix") == 0 &&
 				FileFactoryListClass::Get_Instance () != NULL)
 		{
 			FileFactoryListClass::Get_Instance ()->Set_Search_Start(filename);
 		}
 
-	} else if (::strcmpi (extension, ".lsd") == 0) {
+	} else if (strcasecmp(extension, ".lsd") == 0) {
 		lsd_filename = filename;
 		filename_to_load.Format ("%s.ldd", root_name);
 	} else {
@@ -209,8 +220,17 @@ void	SaveGameManager::Pre_Load_Game
 		StringClass map_name(0,true);
 		if (Peek_Map_Name (filename, map_name)) {
 
-			char mix_root_name[_MAX_FNAME] = { 0 };
-			::_splitpath ((const char *)map_name, NULL, NULL, mix_root_name, NULL);
+			char mix_root_name[256];
+			{
+			const char* ms = map_name;
+			const char* last_slash = strrchr(ms, '/');
+			const char* base = last_slash ? last_slash + 1 : ms;
+			const char* ext_dot = strrchr(base, '.');
+			size_t base_len = ext_dot ? (size_t)(ext_dot - base) : strlen(base);
+			if (base_len >= sizeof(mix_root_name)) base_len = sizeof(mix_root_name) - 1;
+			memcpy(mix_root_name, base, base_len);
+			mix_root_name[base_len] = '\0';
+			}
 
 			//
 			//	Build the mix filename from the map name...
@@ -317,9 +337,19 @@ bool	SaveGameManager::Smart_Peek_Description
 	//
 	//	Get the root name and extension from the filename
 	//
-	char root_name[_MAX_FNAME] = { 0 };
-	char extension[_MAX_EXT] = { 0 };
-	::_splitpath (filename, NULL, NULL, root_name, extension);
+	char root_name[256];
+	char extension[256];
+	{
+		const char* last_slash = strrchr(filename, '/');
+		const char* base = last_slash ? last_slash + 1 : filename;
+		const char* ext_dot = strrchr(base, '.');
+		size_t base_len = ext_dot ? (size_t)(ext_dot - base) : strlen(base);
+		if (base_len >= sizeof(root_name)) base_len = sizeof(root_name) - 1;
+		memcpy(root_name, base, base_len);
+		root_name[base_len] = '\0';
+		strncpy(extension, ext_dot ? ext_dot : "", sizeof(extension) - 1);
+		extension[sizeof(extension) - 1] = '\0';
+	}
 
 	StringClass filename_to_load(filename,true);
 
@@ -327,7 +357,7 @@ bool	SaveGameManager::Smart_Peek_Description
 	//	Is this a mix file?
 	//
 	FileFactoryClass * mix_factory = NULL;
-	if (::strcmpi (extension, ".mix") == 0) {
+	if (strcasecmp(extension, ".mix") == 0) {
 
 		//
 		// Configure a mix file factory for this mix file

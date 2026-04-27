@@ -43,6 +43,7 @@
 #include "assetmgr.h"
 #include "ww3d.h"
 #include <stdlib.h>
+#include "win.h"
 
 
 /******************************************************************************

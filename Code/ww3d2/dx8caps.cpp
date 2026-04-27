@@ -40,8 +40,17 @@
 #include "dx8caps.h"
 #include "dx8wrapper.h"
 #include "formconv.h"
+#ifdef _WIN32
 #include <windows.h>
 #include <mmsystem.h>
+#else
+// Linux stub - DX8 caps not supported
+#define DXLOG(n)
+#define COMPACTLOG(n)
+namespace { }
+#endif
+
+#ifdef _WIN32
 
 static StringClass CapsWorkString;
 
@@ -1059,3 +1068,4 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER9& /* adapter_id 
 	}
 }
 
+#endif // _WIN32

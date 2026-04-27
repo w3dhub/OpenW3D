@@ -23,6 +23,7 @@
 #include "framgrab.h"
 #include <stdio.h>
 #include <io.h>
+#include "wwdebug.h"
 //#include <errno.h>
 
 //////////////////////////////////////////////////////////////////////
@@ -59,7 +60,7 @@ FrameGrabClass::FrameGrabClass(const char *filename, MODE mode, int width, int h
     if (hr != 0) {
 		char buf[256];
 		sprintf(buf, "Unable to open %s\n", Filename);
-		OutputDebugStringA(buf);
+		WWDEBUG_SAY((buf));
 		CleanupAVI();
 		return;
 	}
@@ -138,7 +139,7 @@ void FrameGrabClass::GrabAVI(void *BitmapPointer)
 	if(hr != 0) {
 		char buf[256];
 		sprintf(buf, "avi write error %x/%d\n", hr, hr);
-		OutputDebugStringA(buf);
+		WWDEBUG_SAY((buf));
 	}
 }
 

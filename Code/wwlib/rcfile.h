@@ -45,6 +45,8 @@
 #include "wwfile.h"
 #include "win.h"
 
+#ifdef _WIN32
+
 /*
 ** ResourceFileClass
 ** This is a file class which allows you to read from a binary file that you have
@@ -91,6 +93,43 @@ class ResourceFileClass : public FileClass
 		unsigned char *	EndOfFile;
 
 };
+
+#else // !_WIN32
+
+// Linux stub: non-functional placeholder
+class ResourceFileClass : public FileClass
+{
+	public:
+		ResourceFileClass(void * /*hmodule*/, char const * /*filename*/) :
+			ResourceName(NULL), hModule(NULL), FileBytes(NULL), FilePtr(NULL), EndOfFile(NULL) {}
+		virtual ~ResourceFileClass(void) { if (ResourceName) free(ResourceName); }
+
+		virtual char const * File_Name(void) const override { return ResourceName ? ResourceName : ""; }
+		virtual char const * Set_Name(char const *filename) override;
+		virtual int Create(void) override { return false; }
+		virtual int Delete(void) override { return false; }
+		virtual bool Is_Available(int /*forced=false*/) override { return false; }
+		virtual bool Is_Open(void) const override { return false; }
+		virtual int Open(char const * /*fname*/, int /*rights=READ*/) override { return false; }
+		virtual int Open(int /*rights=READ*/) override { return false; }
+		virtual int Read(void * /*buffer*/, int /*size*/) override { return 0; }
+		virtual int Seek(int /*pos*/, int /*dir=SEEK_CUR*/) override { return 0; }
+		virtual int Size(void) override { return 0; }
+		virtual int Write(void const * /*buffer*/, int /*size*/) override { return 0; }
+		virtual void Close(void) override {}
+		virtual void Error(int /*error*/, int /*canretry = false*/, char const * /*filename=*/NULL) override {}
+		virtual void Bias(int /* start */, int /* length */=-1) override {}
+		virtual unsigned char *Peek_Data(void) const { return NULL; }
+
+	protected:
+		char * ResourceName;
+		void * hModule;
+		unsigned char * FileBytes;
+		unsigned char * FilePtr;
+		unsigned char * EndOfFile;
+};
+
+#endif // _WIN32
 
 
 #endif

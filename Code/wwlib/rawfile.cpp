@@ -54,8 +54,10 @@
 
 #include	"always.h"
 #include	"rawfile.h"
+#ifdef _WIN32
 #include	<direct.h>
 //#include	<share.h>
+#endif
 #include	<stddef.h>
 #include	<stdio.h>
 #include	<stdlib.h>
@@ -1062,7 +1064,7 @@ bool RawFileClass::Set_Date_Time(unsigned int datetime)
 #ifdef _UNIX
 	assert(0);
 	return(false);
-#else
+#elif defined(_WIN32)
 	if (RawFileClass::Is_Open()) {
 		BY_HANDLE_FILE_INFORMATION info;
 
@@ -1073,6 +1075,8 @@ bool RawFileClass::Set_Date_Time(unsigned int datetime)
 			}
 		}
 	}
+	return(false);
+#else
 	return(false);
 #endif
 }
@@ -1153,7 +1157,7 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 
    #ifdef _UNIX
       pos=fseek(Handle, pos, dir);
-   #else
+   #elif defined(_WIN32)
 		switch (dir) {
 			case SEEK_SET:
 				dir = FILE_BEGIN;
@@ -1168,7 +1172,9 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 				break;
 		}
 		pos = SetFilePointer(Handle, pos, NULL, dir);
-	#endif
+   #else
+      pos = -1; // unsupported on this platform
+   #endif
 
 	/*
 	**	If there was an error in the seek, then bail with an error condition.

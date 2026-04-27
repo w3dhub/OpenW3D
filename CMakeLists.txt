@@ -28,6 +28,10 @@ add_feature_info(OpenW3DClient W3D_CLIENT "Build OpenW3D game client")
 option(W3D_FDS "Build as headless server." ON)
 add_feature_info(OpenW3DHeadless W3D_FDS "Build OpenW3D headless server")
 
+# Enable DX9/DXVK renderer on Linux
+option(WANT_DX9 "Enable DX9 renderer via DXVK (Linux only, for cross-compile testing)." ON)
+add_feature_info(DX9Renderer WANT_DX9 "Enable DX9/DXVK renderer")
+
 # Do we want to build extra SDK stuff or just the game binary?
 option(W3D_TOOLS "Build additional tools." ON)
 add_feature_info(OpenW3DTools W3D_TOOLS "Build OpenW3D Mod Tools")
@@ -58,6 +62,7 @@ if(NOT WIN32)
     add_compile_definitions(strnicmp=strncasecmp)
     add_compile_definitions(wcsnicmp=wcsncasecmp)
     add_compile_definitions(wcsicmp=wcscasecmp)
+    add_compile_definitions(_UNIX)
 endif()
 
 include(FetchContent)
@@ -106,7 +111,9 @@ else()
     include(icu)
 endif()
 
-include(dx9)
+if(WANT_DX9)
+    include(dx9)
+endif()
 
 include(gamespy)
 

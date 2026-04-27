@@ -43,6 +43,7 @@
 
 #ifndef DX8_POLYGON_RENDERER_H
 #define DX8_POLYGON_RENDERER_H
+#ifdef _WIN32
 
 
 #include "always.h"
@@ -157,4 +158,5 @@ inline void DX8PolygonRendererClass::Render_Sorted(/*const Matrix3D & tm,*/int b
 
 }
 
+#endif // _WIN32
 #endif

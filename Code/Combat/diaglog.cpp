@@ -42,7 +42,11 @@
 #include <cassert>
 #include <limits>
 
+#ifdef _WIN32
 #include <wtypes.h>	// for SYSTEMTIME
+#endif
+
+#include <ctime>
 
 FileClass * _DiagLogFile = NULL;
 
@@ -69,21 +73,29 @@ void	DiagLogClass::Init( void )
 		_DiagLogFile = file;
 	}
 
-	SYSTEMTIME dt;
-	::GetSystemTime( &dt );
-	StringClass dt_string;
-	dt_string.Format( "%02d/%02d/%02d %02d:%02d:%02d", dt.wMonth, dt.wDay, dt.wYear, dt.wHour, dt.wMinute, dt.wSecond );
-	DIAG_LOG(( "OPEN", "%s", (const char *)dt_string ));
+	time_t now = time(nullptr);
+	struct tm local_tm;
+	localtime_r(&now, &local_tm);
+	char dt_string_buf[64];
+	snprintf(dt_string_buf, sizeof(dt_string_buf), "%02d/%02d/%04d %02d:%02d:%02d",
+		local_tm.tm_mon + 1, local_tm.tm_mday, local_tm.tm_year + 1900,
+		local_tm.tm_hour, local_tm.tm_min, local_tm.tm_sec);
+	StringClass dt_string(dt_string_buf);
+	DIAG_LOG(("OPEN", "%s", (const char *)dt_string));
 }
 
 void	DiagLogClass::Shutdown( void )
 {
 	if ( _DiagLogFile != NULL ) {
-		SYSTEMTIME dt;
-		::GetSystemTime( &dt );
-		StringClass dt_string;
-		dt_string.Format( "%02d/%02d/%02d %02d:%02d:%02d", dt.wMonth, dt.wDay, dt.wYear, dt.wHour, dt.wMinute, dt.wSecond );
-		DIAG_LOG(( "CLOS", "%s", (const char *)dt_string ));
+	time_t now = time(nullptr);
+	struct tm local_tm;
+	localtime_r(&now, &local_tm);
+	char dt_string_buf[64];
+	snprintf(dt_string_buf, sizeof(dt_string_buf), "%02d/%02d/%04d %02d:%02d:%02d",
+		local_tm.tm_mon + 1, local_tm.tm_mday, local_tm.tm_year + 1900,
+		local_tm.tm_hour, local_tm.tm_min, local_tm.tm_sec);
+	StringClass dt_string(dt_string_buf);
+	DIAG_LOG(("CLOS", "%s", (const char *)dt_string));
 
 		_DiagLogFile->Close();
 		_TheWritingFileFactory->Return_File( _DiagLogFile );

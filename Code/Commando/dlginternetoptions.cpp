@@ -47,7 +47,7 @@
 //
 ////////////////////////////////////////////////////////////////
 InternetOptionsMenuClass::InternetOptionsMenuClass (void)	:
-	MenuDialogClass (IDD_OPTIONS_INTERNET)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_OPTIONS_INTERNET))
 {
 	return ;
 }

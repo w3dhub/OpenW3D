@@ -1,3 +1,18 @@
+# Default: DX9 on Windows, Vulkan on non-Windows
+if(WIN32)
+    set(ENABLE_DX9_BACKEND_DEFAULT ON)
+    set(ENABLE_VULKAN_BACKEND_DEFAULT OFF)
+else()
+    set(ENABLE_DX9_BACKEND_DEFAULT OFF)
+    set(ENABLE_VULKAN_BACKEND_DEFAULT OFF)
+endif()
+
+option(ENABLE_DX9_BACKEND "Enable DX9 backend" ${ENABLE_DX9_BACKEND_DEFAULT})
+add_feature_info(DX9_Renderer ENABLE_DX9_BACKEND "DX9 Backend")
+
+option(ENABLE_VULKAN_BACKEND "Enable Vulkan backend" ${ENABLE_VULKAN_BACKEND_DEFAULT})
+add_feature_info(Vulkan_Renderer ENABLE_VULKAN_BACKEND "Vulkan Backend")
+
 # Set source files
 set(WW3D2_SRC
     aabtree.cpp
@@ -20,19 +35,8 @@ set(WW3D2_SRC
     decalmsh.cpp
     decalsys.cpp
     distlod.cpp
-    dx8caps.cpp
-    dx8fvf.cpp
-    dx8indexbuffer.cpp
-    dx8polygonrenderer.cpp
-    dx8renderer.cpp
-    dx8rendererdebugger.cpp
-    dx8texman.cpp
-    dx8vertexbuffer.cpp
-    dx8wrapper.cpp
     dynamesh.cpp
     font3d.cpp
-    formconv.cpp
-    framgrab.cpp
     hanim.cpp
     hanimmgr.cpp
     hcanim.cpp
@@ -48,11 +52,9 @@ set(WW3D2_SRC
     lightenvironment.cpp
     line3d.cpp
     linegrp.cpp
-    mapper.cpp
     matinfo.cpp
     matpass.cpp
     matrixmapper.cpp
-    mesh.cpp
     meshbuild.cpp
     meshdam.cpp
     meshgeometry.cpp
@@ -122,12 +124,11 @@ set(WW3D2_SRC
     dazzle.h
     ddsfile.h
     decalmsh.h
-    decalsys.h
+    decalmsh.h
     distlod.h
     dllist.h
     dx8caps.h
     dx8fvf.h
-    dx8indexbuffer.h
     dx8list.h
     dx8polygonrenderer.h
     dx8renderer.h
@@ -169,6 +170,7 @@ set(WW3D2_SRC
     metalmap.h
     missingtexture.h
     motchan.h
+    nullbackend.h
     nullrobj.h
     part_buf.h
     part_emt.h
@@ -177,7 +179,7 @@ set(WW3D2_SRC
     pointgr.h
     polyinfo.h
     predlod.h
-    prim_anim.h
+    prim_anim.cpp
     projector.h
     proto.h
     proxy.h
@@ -213,11 +215,57 @@ set(WW3D2_SRC
     w3d_obsolete.h
     w3d_util.h
     w3derr.h
+    ww3dbackend.h
     ww3d.h
     ww3dformat.h
     ww3dids.h
     ww3dtrig.h
 )
+
+# DX8-only source files that should be excluded when not using DX9 backend
+# These files depend on DX8 rendering types (DX8PolygonRenderer, DX8MeshRenderer, etc.)
+if(NOT ENABLE_DX9_BACKEND)
+    list(REMOVE_ITEM WW3D2_SRC
+        meshmdl.cpp
+        meshmdlio.cpp
+        meshmatdesc.cpp
+        mesh.cpp
+        statistics.cpp
+        backgroundmgr.cpp
+        missingtexture.cpp
+        pointgr.cpp
+        render2d.cpp
+        render2dsentence.cpp
+        scene.cpp
+        dx8wrapper.cpp
+        dx8polygonrenderer.cpp
+        dx8renderer.cpp
+        seglinerenderer.cpp
+        shader.cpp
+        boxrobj.cpp
+        dazzle.cpp
+        ddsfile.cpp
+        decalmsh.cpp
+        dynamesh.cpp
+        line3d.cpp
+        linegrp.cpp
+        matrixmapper.cpp
+        ringobj.cpp
+        shattersystem.cpp
+        sortingrenderer.cpp
+        texture.cpp
+        ww3dformat.cpp
+        assetmgr.cpp
+        sphereobj.cpp
+        surfaceclass.cpp
+        texproject.cpp
+        textureloader.cpp
+        texturethumbnail.cpp
+        vertmaterial.cpp
+        w3d_dep.cpp
+        camera.cpp
+    )
+endif()
 
 # Targets to build.
 add_library(ww3d2 STATIC)
@@ -230,6 +278,24 @@ target_link_libraries(ww3d2 PRIVATE
 )
 
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
+
+if (ENABLE_DX9_BACKEND)
+    target_sources(ww3d2 PRIVATE
+        dx8caps.cpp
+        dx8fvf.cpp
+        dx8indexbuffer.cpp
+        dx8polygonrenderer.cpp
+        dx8renderer.cpp
+        dx8rendererdebugger.cpp
+        dx8texman.cpp
+        dx8vertexbuffer.cpp
+        dx8wrapper.cpp
+    )
+    target_compile_definitions(ww3d2 PRIVATE WW3D_DX9_BACKEND)
+else()
+    target_sources(ww3d2 PRIVATE nullbackend.cpp)
+    target_compile_definitions(ww3d2 PRIVATE WW3D_RDDESC_NO_D3D)
+endif()
 
 # This module needs building differently for the level editor
 if (W3D_TOOLS)
@@ -245,4 +311,12 @@ if (W3D_TOOLS)
     target_compile_definitions(ww3d2e PRIVATE PARAM_EDITING_ON)
 
     target_sources(ww3d2e PRIVATE ${WW3D2_SRC})
+
+    if (ENABLE_DX9_BACKEND)
+        target_sources(ww3d2e PRIVATE dx8caps.cpp dx8fvf.cpp dx8indexbuffer.cpp dx8polygonrenderer.cpp dx8renderer.cpp dx8rendererdebugger.cpp dx8texman.cpp dx8vertexbuffer.cpp dx8wrapper.cpp)
+        target_compile_definitions(ww3d2e PRIVATE WW3D_DX9_BACKEND)
+    else()
+        target_sources(ww3d2e PRIVATE nullbackend.cpp)
+        target_compile_definitions(ww3d2e PRIVATE WW3D_RDDESC_NO_D3D)
+    endif()
 endif()

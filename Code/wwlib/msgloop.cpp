@@ -43,6 +43,7 @@
 #include	"vector.h"
 #include	"win.h"
 
+#ifdef _WIN32
 
 /*
 **	Tracks modeless dialog box messages by keeping a record of all active modeless dialog
@@ -79,10 +80,10 @@ bool (*Message_Intercept_Handler)(MSG &msg) = NULL;
  * Windows_Message_Handler -- Handles windows message.                                         *
  *                                                                                             *
  *    This routine will take all messages that have accumulated in the message queue and       *
- *    dispatch them to their respective recipients. When the message queue has been emptied,   *
+ *    dispatch them to their respective recipients. When the message queue has been emptied,     *
  *    then this routine will return. By using this routine, it is possible to have the main    *
  *    program run in the main thread and yet still have it behave like a normal program as     *
- *    far as message handling is concerned. To achieve this, this routine must be called on    *
+ *    far as message handling is concerned. To achieve this, this routine must be called on     *
  *    a semi-frequent basis (a few times a second is plenty).                                  *
  *                                                                                             *
  * INPUT:   none                                                                               *
@@ -159,7 +160,7 @@ void Windows_Message_Handler(void)
  * Add_Modeless_Dialog -- Adds a modeless dialog box to the message handler.                   *
  *                                                                                             *
  *    When a modeless dialog box becomes active, the messages processed by the main message    *
- *    handler must be handled different. This routine is used to inform the message handler    *
+ *    handler must be handled different. This routine is used to inform the message handler     *
  *    that a dialog box is active and messages must be fed to it as appropriate.               *
  *                                                                                             *
  * INPUT:   dialog   -- Handle to the modeless dialog box.                                     *
@@ -216,7 +217,7 @@ void Remove_Modeless_Dialog(HWND dialog)
  *                                                                                             *
  * OUTPUT:  none                                                                               *
  *                                                                                             *
- * WARNINGS:   When the accelerator is no longer valid (or the controlling window as been      *
+ * WARNINGS:   When the accelerator is no longer valid (or the controlling window as been     *
  *             destroyed), the Remove_Accelerator function must be called.                     *
  *                                                                                             *
  * HISTORY:                                                                                    *
@@ -252,3 +253,32 @@ void Remove_Accelerator(HACCEL accelerator)
 		}
 	}
 }
+
+#else // !_WIN32
+
+// Linux stubs - no-op implementations
+void Windows_Message_Handler(void) {}
+void Add_Modeless_Dialog(void * /*dialog*/) {}
+void Remove_Modeless_Dialog(void * /*dialog*/) {}
+void Add_Accelerator(void * /*window*/, void * /*accelerator*/) {}
+void Remove_Accelerator(void * /*accelerator*/) {}
+
+#endif // _WIN32
+
+/*
+**	Command & Conquer Renegade(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/

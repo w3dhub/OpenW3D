@@ -34,20 +34,24 @@
 #include "Threads.h"
 #include "refcount.h"
 #include "Utils.h"
+#ifdef _WIN32
 #include <process.h>
+#endif
 #include "wwdebug.h"
 #include "systimer.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-//	Static member initialization
+//	Static member initialization (Windows only)
 ///////////////////////////////////////////////////////////////////////////////////////////
+#ifdef _WIN32
 WWAudioThreadsClass::DELAYED_RELEASE_INFO *	WWAudioThreadsClass::m_ReleaseListHead	= NULL;
 CriticalSectionClass		WWAudioThreadsClass::m_ListMutex;
 HANDLE						WWAudioThreadsClass::m_hDelayedReleaseThread	= (HANDLE)-1;
 HANDLE						WWAudioThreadsClass::m_hDelayedReleaseEvent	= (HANDLE)-1;
 CriticalSectionClass		WWAudioThreadsClass::m_CriticalSection;
-bool							WWAudioThreadsClass::m_IsFlushing				= false;
+bool						WWAudioThreadsClass::m_IsFlushing			= false;
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -69,6 +73,13 @@ WWAudioThreadsClass::~WWAudioThreadsClass (void)
 {
 	return ;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//
+//	Windows-only threaded methods
+//
+///////////////////////////////////////////////////////////////////////////////////////////
+#ifdef _WIN32
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -122,7 +133,7 @@ void
 WWAudioThreadsClass::Add_Delayed_Release_Object
 (
 	RefCountClass *	object,
-	DWORD					delay
+	DWORD			delay
 )
 {
 	if (m_IsFlushing) {
@@ -268,44 +279,4 @@ WWAudioThreadsClass::Delayed_Release_Thread_Proc (LPVOID /*param*/)
 	return ;
 }
 
-/*
-///////////////////////////////////////////////////////////////////////////////////////////
-//
-//	Begin_Modify_List
-//
-///////////////////////////////////////////////////////////////////////////////////////////
-bool
-WWAudioThreadsClass::Begin_Modify_List (void)
-{
-	bool retval = false;
-
-	//
-	//	Wait for up to one second to modify the list object
-	//
-	if (m_ListMutex != NULL) {
-		retval = (::WaitForSingleObject (m_ListMutex, 1000) == WAIT_OBJECT_0);
-		WWASSERT (retval);
-	}
-
-	return retval;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-//
-//	End_Modify_List
-//
-///////////////////////////////////////////////////////////////////////////////////////////
-void
-WWAudioThreadsClass::End_Modify_List (void)
-{
-	//
-	//	Release this thread's hold on the mutex object.
-	//
-	if (m_ListMutex != NULL) {
-		::ReleaseMutex (m_ListMutex);
-	}
-
-	return ;
-}
-*/
+#endif // _WIN32

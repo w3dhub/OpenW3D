@@ -48,6 +48,10 @@
 #include "wwstring.h"
 #include "widestring.h"
 #include "radar.h"
+
+#ifndef _WIN32
+#include <time.h>
+#endif
 #include "DlgMPTeamSelect.h"
 #include <wwlib/Signaler.h>
 
@@ -234,7 +238,7 @@ class	cGameData :
 		float				Get_Maximum_World_Distance(void) {return MaximumWorldDistance;}
 		void				Set_Maximum_World_Distance(float distance);
 		unsigned int	Get_Frame_Count(void) const {return FrameCount;}
-		LPSYSTEMTIME	Get_Game_Start_Time(void) {return &GameStartTime;}
+		struct tm*	Get_Game_Start_Time(void) {return &GameStartTime;}
 		int				Get_Duration_Seconds(void);
 		void				Set_Min_Qualifying_Time_Minutes(int minutes);
 		int				Get_Min_Qualifying_Time_Minutes(void)			{return MinQualifyingTimeMinutes;}
@@ -379,7 +383,7 @@ class	cGameData :
 		int					mWinnerID;
 		WinTypeEnum			WinType;
 
-		SYSTEMTIME			GameStartTime;
+		struct tm		GameStartTime;
 		unsigned int					GameStartTimeMs;
 		unsigned int		FrameCount;
 		WideStringClass	MvpName;

@@ -41,10 +41,11 @@
 
 #ifndef FRAMEGRAB_H
 #define FRAMEGRAB_H
+#ifdef _WIN32
 
 #ifndef ALWAYS_H
 #include "always.h"
-#endif
+#endif // _WIN32
 
 #ifndef _WINDOWS_
 #include <windows.h>
@@ -56,6 +57,13 @@
 
 #ifndef _INC_VFW
 #include <vfw.h>
+#endif
+
+#else // !_WIN32
+// Stub for Linux - frame grabbing not supported
+#define _WINDOWS_
+#define _INC_WINDOWSX
+#define _INC_VFW
 #endif
 
 // FramGrab.h: interface for the FrameGrabClass class.

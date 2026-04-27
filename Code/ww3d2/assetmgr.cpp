@@ -105,9 +105,11 @@
 #include "dx8wrapper.h"
 #include "metalmap.h"
 #include <ini.h>
-#include <windows.h>
 #include <stdio.h>
+#ifdef _WIN32
+#include <windows.h>
 #include <d3d9types.h>
+#endif
 #include "texture.h"
 #include "wwprofile.h"
 #include "assetstatus.h"
@@ -294,8 +296,11 @@ void	WW3DAssetManager::Load_Procedural_Textures()
 	}
 }
 
-static void Log_Textures(bool inited,unsigned& total_count, unsigned& total_mem)
+static void Log_Textures(bool inited, unsigned& total_mem, unsigned& total_count)
 {
+#ifndef _WIN32
+	// DX8 texture logging not available on Linux
+#else
 	HashTemplateIterator<StringClass,TextureClass*> ite(WW3DAssetManager::Get_Instance()->Texture_Hash());
 	for (ite.First();!ite.Is_Done();ite.Next()) {
 		TextureClass * tex=ite.Peek_Value();
@@ -362,7 +367,7 @@ static void Log_Textures(bool inited,unsigned& total_count, unsigned& total_mem)
 		StringClass number;
 		Create_Number_String(number,texmem);
 
-		WWDEBUG_SAY(("%32s	%4d * %4d (%15s), init %d, size: %14s bytes, refs: %d\n",
+		WWDEBUG_SAY(("%32s %4d * %4d (%15s), init %d, size: %14s bytes, refs: %d\n",
 			tex->Get_Texture_Name(),
 			desc.Width,
 			desc.Height,
@@ -372,6 +377,7 @@ static void Log_Textures(bool inited,unsigned& total_count, unsigned& total_mem)
 			tex->Num_Refs()));
 
 	}
+#endif
 }
 
 void WW3DAssetManager::Log_Texture_Statistics()

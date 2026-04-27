@@ -42,6 +42,7 @@
 
 #ifndef FORMCONV_H
 #define FORMCONV_H
+#if defined(_WIN32) && !defined(WW3D_RDDESC_NO_D3D)
 
 #include "ww3dformat.h"
 #include <d3d9.h>
@@ -55,4 +56,14 @@ WW3DFormat D3DFormat_To_WW3DFormat(D3DFORMAT d3d_format);
 
 void Init_D3D_To_WW3_Conversion();
 
+#else
+
+// Linux stub declarations
+#include "ww3dformat.h"
+
+inline WW3DFormat D3DFormat_To_WW3DFormat(unsigned) { return WW3D_FORMAT_UNKNOWN; }
+inline unsigned WW3DFormat_To_D3DFormat(unsigned) { return 0; }
+inline void Init_D3D_To_WW3_Conversion() {}
+
+#endif // _WIN32
 #endif

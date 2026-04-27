@@ -1,7 +1,10 @@
 #pragma once
 
 #include "windows.h"
+
+#ifdef _WIN32
 #include <dxvk/ocidl.h>
+#endif
 
 struct IConnectionPoint : public IUnknown {
 	virtual HRESULT Advise(IUnknown *pUnkSink, DWORD *dwCookie) = 0;

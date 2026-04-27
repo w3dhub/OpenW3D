@@ -44,6 +44,20 @@
 #include "win.h"
 #include "bittype.h"
 
+#ifndef _WIN32
+#include <sys/types.h>
+#include <dirent.h>
+#include <sys/stat.h>
+
+// Windows path constants not available on Linux
+#ifndef _MAX_DRIVE
+#define _MAX_DRIVE 3
+#endif
+#ifndef _MAX_DIR
+#define _MAX_DIR 256
+#endif
+#endif
+
 /*
 **
 */
@@ -314,7 +328,20 @@ MixFileFactoryClass::Flush_Changes (void)
 	//
 	char drive[_MAX_DRIVE] = { 0 };
 	char dir[_MAX_DIR] = { 0 };
+#ifdef _WIN32
 	::_splitpath (MixFilename, drive, dir, NULL, NULL);
+#else
+	// Linux: simple path parsing - find last '/' to separate directory
+	const char* last_slash = strrchr(MixFilename, '/');
+	if (last_slash) {
+		size_t dirlen = last_slash - MixFilename + 1;
+		if (dirlen < _MAX_DIR) {
+			strncpy(dir, MixFilename, dirlen);
+			dir[dirlen] = '\0';
+		}
+	}
+	// drive is always empty on Linux (Unix paths don't have drives)
+#endif
 	StringClass path	= drive;
 	path					+= dir;
 
@@ -365,8 +392,13 @@ MixFileFactoryClass::Flush_Changes (void)
 	//
 	//	Delete the old mix file and rename the new one
 	//
+#ifdef _WIN32
 	::DeleteFileA (MixFilename);
 	::MoveFileA (full_path, MixFilename);
+#else
+	unlink(MixFilename);
+	rename(full_path, MixFilename);
+#endif
 
 	//
 	//	Reset the lists
@@ -597,6 +629,7 @@ void	MixFileCreator::Add_File( const char * filename, FileClass *file )
 */
 void	Add_Files( const char * dir, MixFileCreator & mix )
 {
+#ifdef _WIN32
 	BOOL bcontinue = true;
 	HANDLE hfile_find;
 	WIN32_FIND_DATAA find_info = {0};
@@ -622,6 +655,50 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 //			WWDEBUG_SAY(( "Adding file from %s %s\n", source, name ));
 		}
 	}
+#else
+	// Linux implementation using POSIX dirent
+	StringClass search_path;
+	search_path.Format( "data/makemix/%s*", dir );
+	WWDEBUG_SAY(( "Adding files from %s\n", search_path ));
+
+	// Extract base directory from search path
+	StringClass base_dir;
+	base_dir.Format( "data/makemix/%s", dir );
+
+	DIR* dp = opendir(base_dir);
+	if (!dp) {
+		return;
+	}
+
+	struct dirent* entry;
+	while ((entry = readdir(dp)) != NULL) {
+		if (entry->d_name[0] == '.') {
+			continue; // skip . and ..
+		}
+
+		StringClass full_path;
+		full_path.Format( "%s%s", base_dir, entry->d_name );
+
+		struct stat st;
+		if (stat(full_path, &st) == 0) {
+			if (S_ISDIR(st.st_mode)) {
+				// Recurse into subdirectory
+				StringClass subdir;
+				subdir.Format( "%s%s/", dir, entry->d_name );
+				Add_Files( subdir, mix );
+			} else if (S_ISREG(st.st_mode)) {
+				// Regular file - add to mix
+				StringClass name;
+				name.Format( "%s%s", dir, entry->d_name );
+				StringClass source;
+				source.Format( "makemix/%s", name );
+				mix.Add_File( source, name );
+			}
+		}
+	}
+
+	closedir(dp);
+#endif
 }
 
 void	Setup_Mix_File( void )

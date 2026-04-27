@@ -4,11 +4,25 @@
 
 #include <atlbase.h>
 
-#else
+#else // !_MSC_VER
 
+#ifdef _WIN32
 #include <windows.h>
 #include <ocidl.h>
 #include <unknwn.h>
+#else
+// Stub COM types for Linux
+#define IID void
+typedef void* IUnknown;
+typedef void* IConnectionPointContainer;
+typedef void* IConnectionPoint;
+typedef unsigned int DWORD;
+typedef void* LPVOID;
+typedef int HRESULT;
+#define E_INVALIDARG 0x80070057
+#define SUCCEEDED(hr) ((hr) >= 0)
+#define S_OK 0
+#endif
 
 template <typename T>
 class CComPtr final
@@ -105,9 +119,10 @@ public:
 inline HRESULT AtlAdvise(
         IUnknown* pUnkCP,
         IUnknown* pUnk,
-        const IID& iid,
-        LPDWORD pdw)
+        void* iid,
+        DWORD* pdw)
 {
+#ifdef _WIN32
     if(pUnkCP == NULL) {
         return E_INVALIDARG;
     }
@@ -122,13 +137,21 @@ inline HRESULT AtlAdvise(
         hRes = pCP->Advise(pUnk, pdw);
     }
     return hRes;
+#else
+    (void)pUnkCP;
+    (void)pUnk;
+    (void)iid;
+    (void)pdw;
+    return S_OK;
+#endif
 }
 
 inline HRESULT AtlUnadvise(
         IUnknown* pUnkCP,
-        const IID& iid,
+        void* iid,
         DWORD dw)
 {
+#ifdef _WIN32
     if (pUnkCP == NULL) {
         return E_INVALIDARG;
     }
@@ -143,6 +166,12 @@ inline HRESULT AtlUnadvise(
         hRes = pCP->Unadvise(dw);
     }
     return hRes;
+#else
+    (void)pUnkCP;
+    (void)iid;
+    (void)dw;
+    return S_OK;
+#endif
 }
 
 #endif

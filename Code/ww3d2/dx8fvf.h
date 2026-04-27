@@ -43,11 +43,46 @@
 
 #ifndef DX8_FVF_H
 #define DX8_FVF_H
+#ifdef _WIN32
 
 #include "always.h"
 #include <d3d9.h>
 #ifdef WWDEBUG
 #include "wwdebug.h"
+#endif // _WIN32
+
+#else
+// Linux stubs for D3DFVF constants (Direct3D 9 Flexible Vertex Format)
+#ifndef D3DFVF_XYZ
+#define D3DFVF_XYZ               0x0002
+#endif
+#ifndef D3DFVF_XYZRHW
+#define D3DFVF_XYZRHW           0x0004
+#endif
+#ifndef D3DFVF_NORMAL
+#define D3DFVF_NORMAL            0x0010
+#endif
+#ifndef D3DFVF_DIFFUSE
+#define D3DFVF_DIFFUSE           0x0040
+#endif
+#ifndef D3DFVF_SPECULAR
+#define D3DFVF_SPECULAR          0x0080
+#endif
+#ifndef D3DFVF_TEX1
+#define D3DFVF_TEX1              0x0100
+#endif
+#ifndef D3DFVF_TEX2
+#define D3DFVF_TEX2              0x0200
+#endif
+#ifndef D3DFVF_TEX3
+#define D3DFVF_TEX3              0x0300
+#endif
+#ifndef D3DFVF_TEX4
+#define D3DFVF_TEX4              0x0400
+#endif
+#ifndef D3DDP_MAXTEXCOORD
+#define D3DDP_MAXTEXCOORD        8
+#endif
 #endif
 
 class StringClass;
