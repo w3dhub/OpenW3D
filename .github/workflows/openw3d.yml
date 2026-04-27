@@ -62,7 +62,6 @@ jobs:
                --parallel
                --target
                scripts
-               bandtest
                wwsaveload
                wwmath
                wwutil

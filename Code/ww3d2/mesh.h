@@ -48,6 +48,7 @@
 #include "bittype.h"
 #include "w3derr.h"
 #include "dx8polygonrenderer.h"
+#include "dx8list.h"
 
 class MeshBuilderClass;
 class HModelClass;
@@ -205,7 +206,12 @@ protected:
 	unsigned int *					UserLighting;			// optional array of user lighting values
 
 	// DX8 Mesh rendering system data
+	// DX8 Mesh rendering system data
+#ifdef _WIN32
 	DX8PolygonRendererList		PolygonRendererList;
+#else
+	void *						PolygonRendererList; // stub: DX8 rendering unused on Linux server
+#endif
 
 	friend class MeshBuilderClass;
 	friend class DX8MeshRendererClass;

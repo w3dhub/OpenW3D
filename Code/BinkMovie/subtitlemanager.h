@@ -43,7 +43,9 @@
 
 #include "always.h"
 #include <wwlib/vector.h>
+#ifdef _WIN32
 #include <windows.h>
+#endif
 #include "render2dsentence.h"
 
 class SubTitleClass;

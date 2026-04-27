@@ -48,8 +48,11 @@ target_include_directories(wwcommon INTERFACE
 
 target_link_libraries(wwcommon INTERFACE
     gamespy
-    d3d9lib
 )
+
+if(WANT_DX9)
+    target_link_libraries(wwcommon INTERFACE d3d9lib)
+endif()
 
 if(TARGET ffmpeg)
     target_link_libraries(wwcommon INTERFACE ffmpeg)
@@ -70,23 +73,33 @@ endif()
 add_subdirectory(BinkMovie)
 add_subdirectory(Combat)
 add_subdirectory(SControl)
+if(WIN32 OR W3D_CLIENT)
 add_subdirectory(ww3d2)
+endif()
 add_subdirectory(WWAudio)
 add_subdirectory(wwbitpack)
 add_subdirectory(wwdebug)
 add_subdirectory(wwlib)
 add_subdirectory(WWMath)
 add_subdirectory(wwnet)
+if(WIN32 OR W3D_CLIENT)
 add_subdirectory(WWOnline)
+endif()
+if(WIN32 OR W3D_CLIENT)
 add_subdirectory(wwphys)
+endif()
 add_subdirectory(wwsaveload)
 add_subdirectory(wwtranslatedb)
+if(WIN32 OR W3D_CLIENT)
 add_subdirectory(wwui)
+endif()
 add_subdirectory(wwutil)
 
 # Final targets
-add_subdirectory(BandTest)
-add_subdirectory(Launcher)
+if(W3D_CLIENT AND WIN32)
+    add_subdirectory(BandTest)
+    add_subdirectory(Launcher)
+endif()
 add_subdirectory(Scripts)
 add_subdirectory(Commando)
 

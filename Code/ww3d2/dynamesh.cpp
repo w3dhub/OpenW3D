@@ -318,7 +318,8 @@ void DynamicMeshModel::Render(RenderInfoClass & /*rinfo*/)
 		if (shader_array) {
 			DX8Wrapper::Set_Shader(shader_array[0]);
 		} else {
-			DX8Wrapper::Set_Shader(MatDesc->Get_Single_Shader(pass));
+			ShaderClass shader = MatDesc->Get_Single_Shader(pass);
+			DX8Wrapper::Set_Shader(shader);
 		}
 
 		SphereClass sphere(Vector3(0.0f,0.0f,0.0f),0.0f);

@@ -49,6 +49,7 @@
 #include "simplevec.h"
 #include "refcount.h"
 #include "vector.h"
+#include "dx8polygonrenderer.h"
 #include "dx8list.h"
 #include "shader.h"
 #include "dx8wrapper.h"

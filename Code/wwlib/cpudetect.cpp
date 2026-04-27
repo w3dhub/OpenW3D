@@ -21,15 +21,34 @@
 #include "wwdebug.h"
 #include "thread.h"
 #include "mpu.h"
+#ifdef _WIN32
 #include <windows.h>
+#endif
 #include "systimer.h"
 
-#if CPU_X86 || CPU_X86_64
+#if defined(_WIN32) && (CPU_X86 || CPU_X86_64)
 #include <intrin.h>
 #endif
 
 #if CPU_X86 || CPU_X86_64
+#if defined(_WIN32)
 #define READ_TSC() __rdtsc()
+#else
+static inline unsigned long long Read_TSC()
+{
+#if CPU_X86_64
+	unsigned int low;
+	unsigned int high;
+	__asm__ __volatile__("rdtsc" : "=a"(low), "=d"(high));
+	return (static_cast<unsigned long long>(high) << 32) | low;
+#else
+	unsigned long long val;
+	__asm__ __volatile__("rdtsc" : "=A"(val));
+	return val;
+#endif
+}
+#define READ_TSC() Read_TSC()
+#endif
 #else
 #error "READ_TSC() unimplemented for current cpu"
 #endif
@@ -888,6 +907,7 @@ void CPUDetectClass::Init_Processor_Features()
 
 void CPUDetectClass::Init_Memory()
 {
+#ifdef _WIN32
 	MEMORYSTATUS mem;
 	GlobalMemoryStatus(&mem);
 	TotalPhysicalMemory=mem.dwTotalPhys;
@@ -896,10 +916,19 @@ void CPUDetectClass::Init_Memory()
 	AvailablePageMemory=mem.dwAvailPageFile;
 	TotalVirtualMemory=mem.dwTotalVirtual;
 	AvailableVirtualMemory=mem.dwAvailVirtual;
+#else
+	TotalPhysicalMemory=0;
+	AvailablePhysicalMemory=0;
+	TotalPageMemory=0;
+	AvailablePageMemory=0;
+	TotalVirtualMemory=0;
+	AvailableVirtualMemory=0;
+#endif
 }
 
 void CPUDetectClass::Init_OS()
 {
+#ifdef _WIN32
 	// GetVersionEx only returns the version of Windows it was manifested for since Windows 8.
 	// RtlGetVersion returns the correct information at least at the time of writing.
 	typedef LONG(WINAPI * RtlGetVersionFuncPtr)(PRTL_OSVERSIONINFOW);
@@ -925,6 +954,13 @@ void CPUDetectClass::Init_OS()
 	OSVersionBuildNumber = 0;
 	OSVersionPlatformId = 2;
     OSVersionExtraInfo = "";
+#else
+	OSVersionNumberMajor = 0;
+	OSVersionNumberMinor = 0;
+	OSVersionBuildNumber = 0;
+	OSVersionPlatformId = 0;
+    OSVersionExtraInfo = "";
+#endif
 }
 
 bool CPUDetectClass::CPUID(
@@ -939,7 +975,15 @@ bool CPUDetectClass::CPUID(
 		return false;	// Most processors since 486 have CPUID...
 	}
 	int cpuInfo[4];
+#ifdef _WIN32
 	__cpuid(cpuInfo, cpuid_type);
+#else
+	__asm__ __volatile__(
+		"cpuid"
+		: "=a"(cpuInfo[0]), "=b"(cpuInfo[1]), "=c"(cpuInfo[2]), "=d"(cpuInfo[3])
+		: "a"(cpuid_type), "c"(0)
+	);
+#endif
 
 	u_eax_=cpuInfo[0];
 	u_ebx_=cpuInfo[1];
@@ -959,11 +1003,15 @@ void CPUDetectClass::Init_Processor_Log()
 	StringClass work(0,true);
 
 	SYSLOG(("Operating System: "));
+#ifdef _WIN32
 	switch (OSVersionPlatformId) {
 	case VER_PLATFORM_WIN32s: SYSLOG(("Windows 3.1")); break;
 	case VER_PLATFORM_WIN32_WINDOWS: SYSLOG(("Windows 9x")); break;
 	case VER_PLATFORM_WIN32_NT: SYSLOG(("Windows NT")); break;
 	}
+#else
+	SYSLOG(("Non-Windows"));
+#endif
 	SYSLOG(("\r\n"));
 
 	SYSLOG(("Operating system version %d.%d\r\n",OSVersionNumberMajor,OSVersionNumberMinor));
@@ -1057,9 +1105,13 @@ void CPUDetectClass::Init_Compact_Log()
 {
 	StringClass work(0,true);
 
+#ifdef _WIN32
 	TIME_ZONE_INFORMATION time_zone;
 	GetTimeZoneInformation(&time_zone);
 	COMPACTLOG(("%d\t",time_zone.Bias));
+#else
+	COMPACTLOG(("%d\t",0));
+#endif
 
 	OSInfoStruct os_info;
 	Get_OS_Info(os_info,OSVersionPlatformId,OSVersionNumberMajor,OSVersionNumberMinor,OSVersionBuildNumber);
@@ -1225,6 +1277,7 @@ void Get_OS_Info(
 		os_info.SubCode="UNKNOWN";
 		os_info.VersionString="UNKNOWN";
 		break;
+#ifdef _WIN32
 	case VER_PLATFORM_WIN32_WINDOWS:
 		{
 			for(int i=0;i<sizeof(Windows9xVersionTable)/sizeof(os_info);++i) {
@@ -1315,5 +1368,6 @@ void Get_OS_Info(
 		}
 		os_info.Code="UNKNOWN";
 		return;
+#endif
 	}
 }

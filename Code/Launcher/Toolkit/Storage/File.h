@@ -41,7 +41,9 @@
 #include "Stream.h"
 #include "Rights.h"
 #include <Support/UString.h>
+#ifdef _WIN32
 #include <windows.h>
+#endif
 
 class File : public Stream
 	{
