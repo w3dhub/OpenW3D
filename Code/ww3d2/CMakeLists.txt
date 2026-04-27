@@ -4,7 +4,7 @@ if(WIN32)
     set(ENABLE_VULKAN_BACKEND_DEFAULT OFF)
 else()
     set(ENABLE_DX9_BACKEND_DEFAULT OFF)
-    set(ENABLE_VULKAN_BACKEND_DEFAULT OFF)
+    set(ENABLE_VULKAN_BACKEND_DEFAULT ON)
 endif()
 
 option(ENABLE_DX9_BACKEND "Enable DX9 backend" ${ENABLE_DX9_BACKEND_DEFAULT})
@@ -12,6 +12,14 @@ add_feature_info(DX9_Renderer ENABLE_DX9_BACKEND "DX9 Backend")
 
 option(ENABLE_VULKAN_BACKEND "Enable Vulkan backend" ${ENABLE_VULKAN_BACKEND_DEFAULT})
 add_feature_info(Vulkan_Renderer ENABLE_VULKAN_BACKEND "Vulkan Backend")
+
+if (ENABLE_VULKAN_BACKEND)
+    find_package(Vulkan)
+    if (NOT Vulkan_FOUND)
+        message(WARNING "Vulkan SDK not found. Vulkan backend will not be available.")
+        set(ENABLE_VULKAN_BACKEND OFF)
+    endif()
+endif()
 
 # Set source files
 set(WW3D2_SRC
@@ -136,6 +144,7 @@ set(WW3D2_SRC
     dx8texman.h
     dx8vertexbuffer.h
     dx8wrapper.h
+    dx8backend.h
     dynamesh.h
     font3d.h
     formconv.h
@@ -222,7 +231,7 @@ set(WW3D2_SRC
     ww3dtrig.h
 )
 
-# DX8-only source files that should be excluded when not using DX9 backend
+# DX8-only source files that should be excluded when using Vulkan/Null backends
 # These files depend on DX8 rendering types (DX8PolygonRenderer, DX8MeshRenderer, etc.)
 if(NOT ENABLE_DX9_BACKEND)
     list(REMOVE_ITEM WW3D2_SRC
@@ -292,6 +301,10 @@ if (ENABLE_DX9_BACKEND)
         dx8wrapper.cpp
     )
     target_compile_definitions(ww3d2 PRIVATE WW3D_DX9_BACKEND)
+elseif (ENABLE_VULKAN_BACKEND)
+    target_sources(ww3d2 PRIVATE backends/vulkan/vulkanbackend.cpp)
+    target_compile_definitions(ww3d2 PRIVATE WW3D_VULKAN_BACKEND WW3D_RDDESC_NO_D3D)
+    target_link_libraries(ww3d2 PRIVATE Vulkan::Vulkan)
 else()
     target_sources(ww3d2 PRIVATE nullbackend.cpp)
     target_compile_definitions(ww3d2 PRIVATE WW3D_RDDESC_NO_D3D)
@@ -313,8 +326,12 @@ if (W3D_TOOLS)
     target_sources(ww3d2e PRIVATE ${WW3D2_SRC})
 
     if (ENABLE_DX9_BACKEND)
-        target_sources(ww3d2e PRIVATE dx8caps.cpp dx8fvf.cpp dx8indexbuffer.cpp dx8polygonrenderer.cpp dx8renderer.cpp dx8rendererdebugger.cpp dx8texman.cpp dx8vertexbuffer.cpp dx8wrapper.cpp)
+        target_sources(ww3d2e PRIVATE dx8backend.cpp)
         target_compile_definitions(ww3d2e PRIVATE WW3D_DX9_BACKEND)
+    elseif (ENABLE_VULKAN_BACKEND)
+        target_sources(ww3d2e PRIVATE backends/vulkan/vulkanbackend.cpp)
+        target_compile_definitions(ww3d2e PRIVATE WW3D_VULKAN_BACKEND WW3D_RDDESC_NO_D3D)
+        target_link_libraries(ww3d2e PRIVATE Vulkan::Vulkan)
     else()
         target_sources(ww3d2e PRIVATE nullbackend.cpp)
         target_compile_definitions(ww3d2e PRIVATE WW3D_RDDESC_NO_D3D)

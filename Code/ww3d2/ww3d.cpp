@@ -127,6 +127,8 @@
 
 #if defined(WW3D_DX9_BACKEND)
 #include "dx8backend.h"
+#elif defined(WW3D_VULKAN_BACKEND)
+#include "backends/vulkan/vulkanbackend.h"
 #else
 #include "nullbackend.h"
 #endif
@@ -246,6 +248,8 @@ static WW3DBackend *Create_WW3D_Backend()
 {
 #if defined(WW3D_DX9_BACKEND)
 	return new DX8Backend();
+#elif defined(WW3D_VULKAN_BACKEND)
+	return new VulkanBackend();
 #else
 	return new NullBackend();
 #endif
