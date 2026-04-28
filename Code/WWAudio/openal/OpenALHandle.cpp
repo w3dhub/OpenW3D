@@ -28,6 +28,29 @@
 
 std::unordered_map<ALuint, AudibleSoundClass *> OpenALHandleClass::SampleUsers;
 
+namespace
+{
+	float Normalize_Pan(float pan)
+	{
+		// Pseudo-3D still passes Miles-style 0..127 pan values.
+		if (pan > 1.0F) {
+			pan /= 127.0F;
+		}
+
+		return std::max(0.0F, std::min(pan, 1.0F));
+	}
+
+	float Pan_To_OpenAL_X(float pan)
+	{
+		return (Normalize_Pan(pan) * 2.0F) - 1.0F;
+	}
+
+	float OpenAL_X_To_Pan(float x)
+	{
+		return std::max(0.0F, std::min((x + 1.0F) * 0.5F, 1.0F));
+	}
+}
+
 //////////////////////////////////////////////////////////////////////
 //
 //	OpenALHandleClass
@@ -144,7 +167,7 @@ void OpenALHandleClass::End_Sample()
 
 void OpenALHandleClass::Set_Sample_Pan(float pan)
 {
-	ALfloat location[3] = { pan, 0.0F, 0.0F };
+	ALfloat location[3] = { Pan_To_OpenAL_X(pan), 0.0F, 0.0F };
 	alSourcefv(SampleHandle, AL_POSITION, location);
 	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Couldn't set source pan.\n"));
@@ -159,7 +182,7 @@ float OpenALHandleClass::Get_Sample_Pan()
 		WWDEBUG_SAY(("Couldn't get source pan.\n"));
 	}
 
-	return location[0];
+	return OpenAL_X_To_Pan(location[0]);
 }
 
 void OpenALHandleClass::Set_Sample_Volume(float volume)
@@ -313,14 +336,32 @@ void OpenALHandleClass::Set_Velocity(const Vector3 &velocity)
 
 void OpenALHandleClass::Set_Dropoff(float max, float min)
 {
-	alSourcef(SampleHandle, AL_MAX_DISTANCE, max);
+	ALfloat max_distance = std::max(max, 1.0F);
+	ALfloat reference_distance = std::max(min, 1.0F);
+	if (reference_distance > max_distance) {
+		reference_distance = max_distance;
+	}
+
+	const ALfloat rolloff = reference_distance < max_distance ? 1.0F : 0.0F;
+
+	alSourcef(SampleHandle, AL_ROLLOFF_FACTOR, 0.0F);
+	if (alGetError() != AL_NO_ERROR) {
+		WWDEBUG_SAY(("Failed to prepare OpenAL source rolloff.\n"));
+	}
+
+	alSourcef(SampleHandle, AL_REFERENCE_DISTANCE, reference_distance);
+	if (alGetError() != AL_NO_ERROR) {
+		WWDEBUG_SAY(("Failed to set OpenAL source reference distance.\n"));
+	}
+
+	alSourcef(SampleHandle, AL_MAX_DISTANCE, max_distance);
 	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to set OpenAL source max distance.\n"));
 	}
 
-	alSourcef(SampleHandle, AL_REFERENCE_DISTANCE, (min > 1.0F) ? min : 1.0F);
+	alSourcef(SampleHandle, AL_ROLLOFF_FACTOR, rolloff);
 	if (alGetError() != AL_NO_ERROR) {
-		WWDEBUG_SAY(("Failed to set OpenAL source reference distance.\n"));
+		WWDEBUG_SAY(("Failed to set OpenAL source rolloff.\n"));
 	}
 }
 

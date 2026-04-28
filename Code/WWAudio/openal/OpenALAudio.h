@@ -50,7 +50,7 @@ public:
 	int Get_3D_Device_Count() const override { return 1; }
 	bool Get_3D_Device (int /* index */, const char **info) override   { (*info) = m_DriverName; return true; }
 	bool Select_3D_Device (const char * /* device_name */) override { return true; }
-	void Set_Speaker_Type (int speaker_type) override { m_SpeakerType = speaker_type; }
+	void Set_Speaker_Type (int speaker_type) override;
 	int Get_Speaker_Type() const override { return m_SpeakerType; }
 	float Get_Effects_Level() override { return 0.0F; }
 	void Flush_Cache() override;
