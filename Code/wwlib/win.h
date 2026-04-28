@@ -134,7 +134,7 @@ typedef void *LPSTR;
 #ifndef LPCSTR
 typedef const char *LPCSTR;
 #endif
-#ifndef GUID
+#ifndef GUID_DEFINED
 typedef void *GUID; // stub, incomplete
 #endif
 struct WIN32_FIND_DATAA {
