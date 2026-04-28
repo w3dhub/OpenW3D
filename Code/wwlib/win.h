@@ -128,14 +128,17 @@ typedef long LRESULT;
 #endif
 typedef void *LPLOGFONT;
 typedef void *HKL;
-#ifndef LPSTR
-typedef void *LPSTR;
-#endif
-#ifndef LPCSTR
-typedef const char *LPCSTR;
-#endif
+// Note: LPSTR, LPCSTR, and GUID are already defined by dxvk/windows_base.h
+// on Linux builds. Do not redefine them here.
+#ifndef _WIN32
+// Only define these if dxvk hasn't already (shouldn't happen, but be safe)
+#ifndef __WINE_WINDOWS_H
+#ifndef _WINE_WINDOWS_H_
 #ifndef GUID_DEFINED
-typedef void *GUID; // stub, incomplete
+typedef void *GUID;
+#endif
+#endif
+#endif
 #endif
 struct WIN32_FIND_DATAA {
     unsigned long dwFileAttributes;
