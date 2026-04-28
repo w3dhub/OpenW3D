@@ -40,6 +40,7 @@
 
 #include <bgfx/bgfx.h>
 
+#include <array>
 #include <vector>
 #include <map>
 #include <unordered_map>
@@ -243,6 +244,8 @@ public:
     bgfx::RendererType::Enum Get_Renderer_Type();
 
 private:
+    static constexpr int MAX_TEXTURE_STAGES = 4;
+
     void Update_ViewDimensions();
     void Apply_Render_State(int state, unsigned value);
     bgfx::RendererType::Enum AutoSelect_Renderer();
@@ -267,6 +270,7 @@ private:
 
     // Window/Surface
     void* m_hwnd;
+    void* m_nativeDisplay;
     int m_width;
     int m_height;
     int m_bitDepth;
@@ -310,6 +314,21 @@ private:
 
     // Active framebuffer (0 = default/backbuffer)
     bgfx::FrameBufferHandle m_activeFrameBuffer;
+
+    // Sampler + texture stage state
+    std::array<bgfx::UniformHandle, MAX_TEXTURE_STAGES> m_samplerUniforms;
+    std::array<bgfx::TextureHandle, MAX_TEXTURE_STAGES> m_boundTextures;
+    std::array<uint32_t, MAX_TEXTURE_STAGES> m_textureFlags;
+    std::array<uint8_t, MAX_TEXTURE_STAGES> m_textureMipLevels;
+    std::array<int, MAX_TEXTURE_STAGES> m_textureUvIndices;
+
+    // Material/light uniforms
+    bgfx::UniformHandle m_diffuseUniform;
+    bgfx::UniformHandle m_specularUniform;
+    bgfx::UniformHandle m_emissiveUniform;
+    bgfx::UniformHandle m_ambientUniform;
+    bgfx::UniformHandle m_opacityUniform;
+    bgfx::UniformHandle m_lightingEnableUniform;
 };
 
 #endif // BGFXBACKEND_H

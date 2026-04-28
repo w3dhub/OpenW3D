@@ -67,7 +67,7 @@ namespace
                 return BGFX_STATE_PT_POINTS;
             case DX8RenderState::SOLID:
             default:
-                return BGFX_STATE_PT_TRISTRIP;
+                return BGFX_STATE_NONE;
         }
     }
 
@@ -108,6 +108,7 @@ namespace
 
 BGFXBackend::BGFXBackend() :
     m_hwnd(nullptr),
+    m_nativeDisplay(nullptr),
     m_width(DEFAULT_WIDTH),
     m_height(DEFAULT_HEIGHT),
     m_bitDepth(DEFAULT_BIT_DEPTH),
@@ -131,8 +132,20 @@ BGFXBackend::BGFXBackend() :
     m_scissorY(0),
     m_scissorWidth(0),
     m_scissorHeight(0),
-    m_activeFrameBuffer(BGFX_INVALID_HANDLE)
+    m_activeFrameBuffer(BGFX_INVALID_HANDLE),
+    m_diffuseUniform(BGFX_INVALID_HANDLE),
+    m_specularUniform(BGFX_INVALID_HANDLE),
+    m_emissiveUniform(BGFX_INVALID_HANDLE),
+    m_ambientUniform(BGFX_INVALID_HANDLE),
+    m_opacityUniform(BGFX_INVALID_HANDLE),
+    m_lightingEnableUniform(BGFX_INVALID_HANDLE)
 {
+    m_samplerUniforms.fill(BGFX_INVALID_HANDLE);
+    m_boundTextures.fill(BGFX_INVALID_HANDLE);
+    m_textureFlags.fill(UINT32_MAX);
+    m_textureMipLevels.fill(0);
+    m_textureUvIndices.fill(0);
+
     // Note: Device enumeration simplified - using defaults like NullBackend
     // Device descriptions are populated lazily on first access
 }
@@ -162,7 +175,10 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
 #if BGFX_PLATFORM_WINDOWS
     pd.type = bgfx::NativeWindowHandleType::Default;
 #elif BGFX_PLATFORM_LINUX
-    pd.ndt = XOpenDisplay(nullptr);
+    if (!m_nativeDisplay) {
+        m_nativeDisplay = XOpenDisplay(nullptr);
+    }
+    pd.ndt = m_nativeDisplay;
     pd.type = bgfx::NativeWindowHandleType::Default;
 #elif BGFX_PLATFORM_OSX
     pd.type = bgfx::NativeWindowHandleType::Default;
@@ -193,6 +209,24 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     }
 
     m_initialized = true;
+
+    for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
+        char samplerName[16];
+        snprintf(samplerName, sizeof(samplerName), "s_tex%d", stage);
+        m_samplerUniforms[stage] = bgfx::createUniform(samplerName, bgfx::UniformType::Sampler);
+
+        if (stage == 0) {
+            bgfx::destroy(m_samplerUniforms[stage]);
+            m_samplerUniforms[stage] = bgfx::createUniform("s_diffuse", bgfx::UniformType::Sampler);
+        }
+    }
+
+    m_diffuseUniform = bgfx::createUniform(BGFXMaterialUniforms::DIFFUSE_COLOR, bgfx::UniformType::Vec4);
+    m_specularUniform = bgfx::createUniform(BGFXMaterialUniforms::SPECULAR_COLOR, bgfx::UniformType::Vec4);
+    m_emissiveUniform = bgfx::createUniform(BGFXMaterialUniforms::EMISSIVE_COLOR, bgfx::UniformType::Vec4);
+    m_ambientUniform = bgfx::createUniform(BGFXMaterialUniforms::AMBIENT_COLOR, bgfx::UniformType::Vec4);
+    m_opacityUniform = bgfx::createUniform(BGFXMaterialUniforms::OPACITY, bgfx::UniformType::Vec4);
+    m_lightingEnableUniform = bgfx::createUniform(BGFXMaterialUniforms::LIGHTING_ENABLE, bgfx::UniformType::Vec4);
 
     // Set initial view dimensions
     Update_ViewDimensions();
@@ -226,8 +260,44 @@ void BGFXBackend::Shutdown()
         m_systemTexture = BGFX_INVALID_HANDLE;
     }
 
+    for (bgfx::UniformHandle& sampler : m_samplerUniforms) {
+        if (bgfx::isValid(sampler)) {
+            bgfx::destroy(sampler);
+            sampler = BGFX_INVALID_HANDLE;
+        }
+    }
+
+    bgfx::UniformHandle uniforms[] = {
+        m_diffuseUniform,
+        m_specularUniform,
+        m_emissiveUniform,
+        m_ambientUniform,
+        m_opacityUniform,
+        m_lightingEnableUniform,
+    };
+
+    for (bgfx::UniformHandle uniform : uniforms) {
+        if (bgfx::isValid(uniform)) {
+            bgfx::destroy(uniform);
+        }
+    }
+
+    m_diffuseUniform = BGFX_INVALID_HANDLE;
+    m_specularUniform = BGFX_INVALID_HANDLE;
+    m_emissiveUniform = BGFX_INVALID_HANDLE;
+    m_ambientUniform = BGFX_INVALID_HANDLE;
+    m_opacityUniform = BGFX_INVALID_HANDLE;
+    m_lightingEnableUniform = BGFX_INVALID_HANDLE;
+
     bgfx::shutdown();
     m_initialized = false;
+
+#if BGFX_PLATFORM_LINUX
+    if (m_nativeDisplay) {
+        XCloseDisplay(static_cast<Display*>(m_nativeDisplay));
+        m_nativeDisplay = nullptr;
+    }
+#endif
 }
 
 bool BGFXBackend::Set_Any_Render_Device()
@@ -750,7 +820,10 @@ uint32_t BGFXBackend::Compare_Stencil_Op_Pass(unsigned dx8op)
 
 void BGFXBackend::Set_Light_Environment(const void* env)
 {
-    // Stub - light environment handled elsewhere in mesh rendering
+    float lightingEnable[4] = { env ? 1.0f : 0.0f, 0.0f, 0.0f, 0.0f };
+    if (bgfx::isValid(m_lightingEnableUniform)) {
+        bgfx::setUniform(m_lightingEnableUniform, lightingEnable);
+    }
 }
 
 void* BGFXBackend::_Get_DX8_Front_Buffer()
@@ -806,9 +879,23 @@ void BGFXBackend::Destroy_Texture(bgfx::TextureHandle handle)
 
 void BGFXBackend::Set_Texture(int stage, bgfx::TextureHandle handle, uint32_t flags, uint8_t mip)
 {
-    // Note: bgfx::setTexture requires a UniformHandle sampler, not TextureHandle directly
-    // This would require creating/managing sampler uniforms separately
-    // Stubbed out for now - proper implementation would need texture->sampler mapping
+    if (stage < 0 || stage >= MAX_TEXTURE_STAGES) {
+        return;
+    }
+
+    m_boundTextures[stage] = handle;
+    m_textureMipLevels[stage] = mip;
+
+    if (flags != UINT32_MAX) {
+        m_textureFlags[stage] = flags;
+    }
+
+    if (!bgfx::isValid(handle) || !bgfx::isValid(m_samplerUniforms[stage])) {
+        return;
+    }
+
+    const uint32_t samplerFlags = (m_textureFlags[stage] == UINT32_MAX) ? BGFX_TEXTURE_NONE : m_textureFlags[stage];
+    bgfx::setTexture(static_cast<uint8_t>(stage), m_samplerUniforms[stage], handle, samplerFlags);
 }
 
 // =============================================================================
@@ -1108,28 +1195,27 @@ void BGFXBackend::Set_Default_FrameBuffer()
 
 void BGFXBackend::Set_Material_Colors(const Vector3& diffuse, float alpha, const Vector3& specular, float shininess, const Vector3& emissive, const Vector3& ambient)
 {
-    // Pack material colors into a MaterialColors struct for shader uniforms
-    MaterialColors colors;
-    colors.Diffuse = diffuse;
-    colors.Alpha = alpha;
-    colors.Specular = specular;
-    colors.Shininess = shininess;
-    colors.Emissive = emissive;
-    colors.Ambient = ambient;
-
-    // Create uniforms if needed and set them
-    bgfx::UniformHandle diffuseHandle = bgfx::createUniform(BGFXMaterialUniforms::DIFFUSE_COLOR, bgfx::UniformType::Vec4);
-    bgfx::UniformHandle specularHandle = bgfx::createUniform(BGFXMaterialUniforms::SPECULAR_COLOR, bgfx::UniformType::Vec4);
-    bgfx::UniformHandle emissiveHandle = bgfx::createUniform(BGFXMaterialUniforms::EMISSIVE_COLOR, bgfx::UniformType::Vec4);
-
     float diffuseVec4[4] = { diffuse.X, diffuse.Y, diffuse.Z, alpha };
     float specularVec4[4] = { specular.X, specular.Y, specular.Z, shininess };
     float emissiveVec4[4] = { emissive.X, emissive.Y, emissive.Z, 1.0f };
+    float ambientVec4[4] = { ambient.X, ambient.Y, ambient.Z, 1.0f };
+    float opacityVec4[4] = { alpha, 0.0f, 0.0f, 0.0f };
 
-
-    bgfx::setUniform(diffuseHandle, diffuseVec4);
-    bgfx::setUniform(specularHandle, specularVec4);
-    bgfx::setUniform(emissiveHandle, emissiveVec4);
+    if (bgfx::isValid(m_diffuseUniform)) {
+        bgfx::setUniform(m_diffuseUniform, diffuseVec4);
+    }
+    if (bgfx::isValid(m_specularUniform)) {
+        bgfx::setUniform(m_specularUniform, specularVec4);
+    }
+    if (bgfx::isValid(m_emissiveUniform)) {
+        bgfx::setUniform(m_emissiveUniform, emissiveVec4);
+    }
+    if (bgfx::isValid(m_ambientUniform)) {
+        bgfx::setUniform(m_ambientUniform, ambientVec4);
+    }
+    if (bgfx::isValid(m_opacityUniform)) {
+        bgfx::setUniform(m_opacityUniform, opacityVec4);
+    }
 }
 
 void BGFXBackend::Set_Material_Uniforms(bgfx::UniformHandle diffuseHandle, bgfx::UniformHandle specularHandle, bgfx::UniformHandle emissiveHandle, const MaterialColors& colors)
@@ -1151,10 +1237,12 @@ void BGFXBackend::Set_Material_Uniforms(bgfx::UniformHandle diffuseHandle, bgfx:
 
 void BGFXBackend::Set_Texture_Stage(int stage, bgfx::TextureHandle handle, uint32_t flags, uint8_t mip, int uvIndex)
 {
-    // Note: bgfx::setTexture requires a UniformHandle sampler, not TextureHandle directly
-    // This would require creating/managing sampler uniforms separately
-    // Stubbed out for now
-    (void)stage; (void)handle; (void)flags; (void)mip; (void)uvIndex;
+    if (stage < 0 || stage >= MAX_TEXTURE_STAGES) {
+        return;
+    }
+
+    m_textureUvIndices[stage] = uvIndex;
+    Set_Texture(stage, handle, flags, mip);
 }
 
 
