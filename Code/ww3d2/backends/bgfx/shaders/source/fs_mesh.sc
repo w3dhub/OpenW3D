@@ -16,6 +16,7 @@ uniform vec4 u_lightPos[8];
 uniform vec4 u_lightDir[8];
 uniform vec4 u_lightColor[8];
 uniform vec4 u_lightAtten[8];  // x=range, y=falloff, z=spot angle, w=type
+uniform vec4 u_camPos;
 
 SAMPLER2D(s_diffuse, 0);
 

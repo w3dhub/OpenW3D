@@ -118,10 +118,6 @@ if(WANT_DX9)
     include(dx9)
 endif()
 
-if(ENABLE_BGFX_BACKEND)
-    include(bgfx)
-endif()
-
 # BGFX backend option
 option(ENABLE_BGFX_BACKEND "Enable BGFX cross-platform rendering backend." OFF)
 add_feature_info(BGFXBackend ENABLE_BGFX_BACKEND "Build with BGFX rendering backend")

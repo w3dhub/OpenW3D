@@ -242,6 +242,10 @@ endif()
 # Targets to build.
 add_library(ww3d2 STATIC)
 
+if(ENABLE_BGFX_BACKEND)
+    add_subdirectory(backends/bgfx)
+endif()
+
 target_link_libraries(ww3d2 PRIVATE
     wwcommon
     wwlib

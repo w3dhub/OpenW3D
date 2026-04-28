@@ -1,41 +1,20 @@
-/*
-**	Command & Conquer Renegade(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : ww3d                                                         *
- *                                                                                             *
- *                    $Revision:: 1                                                           $*
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * BGFX Shader Build Rules - CMake integration for shader compilation.                       *
- *                                                                                             *
- * This CMakeLists.txt handles:                                                                *
- *   - Build-time shader compilation using shaderc                                               *
- *   - Runtime fallback for loading pre-compiled shaders                                         *
- *   - Hot-reload support for development                                                        *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+# BGFX Shader Build Rules - CMake integration for shader compilation.
+#
+# This CMakeLists.txt handles:
+#   - Build-time shader compilation using shaderc
+#   - Runtime fallback for loading pre-compiled shaders
+#   - Hot-reload support for development
 
 # Shader compilation setup
 set(BGFX_SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/shaders")
 set(BGFX_SHADER_SOURCE_DIR "${BGFX_SHADER_DIR}/source")
 set(BGFX_SHADER_EMBED_DIR "${BGFX_SHADER_DIR}/embed")
+set(BGFX_SHADER_VARYING_DEF "${BGFX_SHADER_DIR}/varying.def.sc")
 set(BGFX_SHADER_OUTPUT_DIR "${CMAKE_BINARY_DIR}/shaders")
 
 # Find shaderc compiler
-find_program(SHADERC_EXECUTABLE shaderc
+find_program(SHADERC_EXECUTABLE
+    NAMES shaderc shadercRelease
     PATHS
         "${BGFX_DIR}/.build/linux64_gcc/bin"
         "${BGFX_DIR}/.build/win64_vs2022/bin"
@@ -51,7 +30,6 @@ endif()
 set(SHADER_PROFILES
     "120"       # OpenGL 2.1 / GLES 2.0
     " spirv"    # Vulkan (note leading space)
-    "metal"     # Metal
 )
 
 # Source shaders
@@ -76,6 +54,8 @@ function(compile_bgfx_shader input_file output_file type profile)
             --type ${type}
             --platform linux
             --profile ${profile}
+            --varyingdef ${BGFX_SHADER_VARYING_DEF}
+            -i "${BGFX_SHADER_SOURCE_DIR}"
             -i "${BGFX_DIR}/src"
             -i "${BGFX_DIR}/include"
             -i "${BGFX_DIR}/examples/common"
