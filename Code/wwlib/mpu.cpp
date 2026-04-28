@@ -59,12 +59,13 @@
  *=============================================================================================*/
 unsigned int Get_CPU_Rate(unsigned int & high)
 {
+#if defined(_WIN32)
 	LARGE_INTEGER LargeInt;
-
 	if (QueryPerformanceFrequency(&LargeInt)) {
 		high = LargeInt.HighPart;
 		return(LargeInt.LowPart);
 	}
+#endif
 	high = 0;
 	return(0);
 }
@@ -72,11 +73,13 @@ unsigned int Get_CPU_Rate(unsigned int & high)
 
 unsigned int Get_CPU_Clock(unsigned int & high)
 {
+#if defined(_WIN32)
 	LARGE_INTEGER LargeInt;
 	if (QueryPerformanceCounter(&LargeInt)) {
 		high = LargeInt.HighPart;
 		return(LargeInt.LowPart);
 	}
+#endif
 	high = 0;
 	return(0);
 }

@@ -50,6 +50,7 @@ ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 	EndOfFile(NULL)
 {
 	Set_Name(filename);
+#ifdef _WIN32
 	HRSRC hresource = FindResourceA(hmodule,ResourceName,RESOURCE_FILE_TYPE_NAME);
 
 	if (hresource) {
@@ -62,6 +63,7 @@ ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 			}
 		}
 	}
+#endif
 }
 
 ResourceFileClass::~ResourceFileClass(void)

@@ -186,17 +186,17 @@ int DX8Backend::Get_Texture_Bitdepth()
 
 void DX8Backend::Set_Viewport(const void* viewport)
 {
-    DX8Wrapper::Set_Viewport(viewport);
+    DX8Wrapper::Set_Viewport(static_cast<const D3DVIEWPORT9*>(viewport));
 }
 
 void DX8Backend::Set_DX8_Render_State(int state, unsigned value)
 {
-    DX8Wrapper::Set_DX8_Render_State(state, value);
+    DX8Wrapper::Set_DX8_Render_State(static_cast<D3DRENDERSTATETYPE>(state), value);
 }
 
 void DX8Backend::Set_Light_Environment(const void* env)
 {
-    DX8Wrapper::Set_Light_Environment(env);
+    DX8Wrapper::Set_Light_Environment(static_cast<LightEnvironmentClass*>(const_cast<void*>(env)));
 }
 
 void* DX8Backend::_Get_DX8_Front_Buffer()

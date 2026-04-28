@@ -569,6 +569,7 @@ protected:
 	friend class WW3D;
 	friend class DX8IndexBufferClass;
 	friend class DX8VertexBufferClass;
+	friend class DX8Backend;
 };
 
 

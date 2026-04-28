@@ -18,14 +18,12 @@ set(WWLIB_SRC
     ini.cpp
     int.cpp
     jshell.cpp
-    LaunchWeb.cpp
     lzo.cpp
     lzo1x_c.cpp
     lzo1x_d.cpp
     mixfile.cpp
     mpmath.cpp
     mpu.cpp
-    msgloop.cpp
     multilist.cpp
     mutex.cpp
     nstrdup.cpp
@@ -39,7 +37,6 @@ set(WWLIB_SRC
     readline.cpp
     realcrc.cpp
     refcount.cpp
-    registry.cpp
     rndstrng.cpp
     slnode.cpp
     straw.cpp
@@ -50,10 +47,8 @@ set(WWLIB_SRC
     thread.cpp
     trim.cpp
     vector.cpp
-    verchk.cpp
     widestring.cpp
     win.cpp
-    WWCOMUtil.cpp
     wwfile.cpp
     wwstring.cpp
     xpipe.cpp
@@ -150,8 +145,20 @@ set(WWLIB_SRC
     xstraw.h
 )
 
+
+if(WIN32)
+    list(APPEND WWLIB_SRC
+        LaunchWeb.cpp
+        LaunchWeb.h
+        msgloop.cpp
+        registry.cpp
+        verchk.cpp
+        WWCOMUtil.cpp
+    )
+endif()
+
 if(TARGET ffmpeg)
-    list(APPEND WWLIB_SRC FFMpegFile.cpp FFMpegFile.h)
+    list(APPEND WWLIB_SRC FFmpegFile.cpp FFmpegFile.h)
 endif()
 
 if(TARGET icu)

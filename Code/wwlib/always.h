@@ -152,6 +152,10 @@ __forceinline unsigned long _rotl(unsigned long value, int shift)
 }
 #endif
 
+#ifndef _lrotl
+#define _lrotl(value, shift) _rotl(value, shift)
+#endif
+
 #ifndef _byteswap_ulong
 __forceinline unsigned int _byteswap_ulong(unsigned int value)
 {

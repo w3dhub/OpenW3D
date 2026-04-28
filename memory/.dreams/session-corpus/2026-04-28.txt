@@ -1,0 +1,6 @@
+[main/sessions/4f66bac8-3d3c-43b7-a4e4-db1e36c69685.jsonl#L145] Assistant: [assistant turn failed before producing content]
+[main/sessions/4f66bac8-3d3c-43b7-a4e4-db1e36c69685.jsonl#L148] Assistant: Looks like my previous reply got echoed back somehow. Did that come through as expected, or were you testing something? Everything looks good on the config side regardless — compaction is at factory defaults and the gateway is happy.
+[main/sessions/4f66bac8-3d3c-43b7-a4e4-db1e36c69685.jsonl#L156] Assistant: [assistant turn failed before producing content]
+[main/sessions/4f66bac8-3d3c-43b7-a4e4-db1e36c69685.jsonl#L159] Assistant: Yeah, looked like the Control UI sent it twice — looks like an echo of your original request rather than anything new. No worries though, I saw it once and acted on it. Everything's confirmed good on my end — compaction config is at factory defaults and the gateway is 
+[main/sessions/4f66bac8-3d3c-43b7-a4e4-db1e36c69685.jsonl#L167] Assistant: [assistant turn failed before producing content]
+[main/sessions/4f66bac8-3d3c-43b7-a4e4-db1e36c69685.jsonl#L170] Assistant: Got it — glad it's working! Let me know if you need anything else.
