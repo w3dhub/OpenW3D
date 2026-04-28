@@ -1315,7 +1315,7 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
 	// Lock front buffer and copy
 
 	IDirect3DSurface9 *fb;
-	fb=Backend->_Get_DX8_Front_Buffer();
+	fb = static_cast<IDirect3DSurface9*>(Backend->_Get_DX8_Front_Buffer());
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
 
@@ -1597,7 +1597,7 @@ void WW3D::Update_Movie_Capture( void )
 		// Lock front buffer and copy
 
 	IDirect3DSurface9 *fb;
-	fb=Backend->_Get_DX8_Front_Buffer();
+	fb = static_cast<IDirect3DSurface9*>(Backend->_Get_DX8_Front_Buffer());
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
 

@@ -128,9 +128,15 @@ typedef long LRESULT;
 #endif
 typedef void *LPLOGFONT;
 typedef void *HKL;
+#ifndef LPSTR
 typedef void *LPSTR;
+#endif
+#ifndef LPCSTR
 typedef const char *LPCSTR;
+#endif
+#ifndef GUID
 typedef void *GUID; // stub, incomplete
+#endif
 struct WIN32_FIND_DATAA {
     unsigned long dwFileAttributes;
     unsigned long ftCreationTime_lo;
