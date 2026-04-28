@@ -119,7 +119,19 @@ BGFXBackend::BGFXBackend() :
     m_frameBuffer(BGFX_INVALID_HANDLE),
     m_initialized(false),
     m_currentState(BGFX_STATE_DEFAULT),
-    m_currentColor(0xFF000000)
+    m_currentColor(0xFF000000),
+    m_viewportX(0),
+    m_viewportY(0),
+    m_viewportWidth(DEFAULT_WIDTH),
+    m_viewportHeight(DEFAULT_HEIGHT),
+    m_viewportMinZ(0.0f),
+    m_viewportMaxZ(1.0f),
+    m_scissorEnabled(false),
+    m_scissorX(0),
+    m_scissorY(0),
+    m_scissorWidth(0),
+    m_scissorHeight(0),
+    m_activeFrameBuffer(BGFX_INVALID_HANDLE)
 {
     // Note: Device enumeration simplified - using defaults like NullBackend
     // Device descriptions are populated lazily on first access
@@ -305,6 +317,13 @@ bool BGFXBackend::Set_Device_Resolution(int width, int height, int bits, int win
         uint32_t resetFlags = m_windowed ? 0 : BGFX_RESET_FULLSCREEN;
         bgfx::reset(m_width, m_height, resetFlags);
         Update_ViewDimensions();
+
+        // If we have an active off-screen framebuffer, it needs to be recreated
+        // by the caller since bgfx framebuffers are tied to texture dimensions.
+        // We reset to default framebuffer on resize.
+        if (bgfx::isValid(m_activeFrameBuffer)) {
+            Set_Default_FrameBuffer();
+        }
     }
 
     return true;
@@ -412,7 +431,113 @@ int BGFXBackend::Get_Texture_Bitdepth()
 
 void BGFXBackend::Set_Viewport(const void* viewport)
 {
-    // Stub - would need to unpack DX8 viewport struct
+    if (!viewport) {
+        // Reset to full screen viewport
+        Set_Viewport(0, 0, m_width, m_height, 0.0f, 1.0f);
+        return;
+    }
+
+    // Unpack D3DVIEWPORT9 struct: { X, Y, Width, Height, MinZ, MaxZ }
+    // The struct layout is: DWORD X, Y, Width, Height; float MinZ, MaxZ;
+    const uint8_t* vp = static_cast<const uint8_t*>(viewport);
+    uint32_t x = *reinterpret_cast<const uint32_t*>(vp + 0);
+    uint32_t y = *reinterpret_cast<const uint32_t*>(vp + 4);
+    uint32_t width = *reinterpret_cast<const uint32_t*>(vp + 8);
+    uint32_t height = *reinterpret_cast<const uint32_t*>(vp + 12);
+    float minZ = *reinterpret_cast<const float*>(vp + 16);
+    float maxZ = *reinterpret_cast<const float*>(vp + 20);
+
+    Set_Viewport(static_cast<int>(x), static_cast<int>(y),
+                 static_cast<int>(width), static_cast<int>(height),
+                 minZ, maxZ);
+}
+
+void BGFXBackend::Set_Viewport(int x, int y, int width, int height, float minZ, float maxZ)
+{
+    m_viewportX = x;
+    m_viewportY = y;
+    m_viewportWidth = width;
+    m_viewportHeight = height;
+    m_viewportMinZ = minZ;
+    m_viewportMaxZ = maxZ;
+
+    // Clamp to device resolution
+    if (m_viewportWidth > m_width) m_viewportWidth = m_width;
+    if (m_viewportHeight > m_height) m_viewportHeight = m_height;
+    if (m_viewportX < 0) m_viewportX = 0;
+    if (m_viewportY < 0) m_viewportY = 0;
+
+    // Set bgfx view rect for position/size
+    bgfx::setViewRect(0,
+                      static_cast<uint16_t>(m_viewportX),
+                      static_cast<uint16_t>(m_viewportY),
+                      static_cast<uint16_t>(m_viewportWidth),
+                      static_cast<uint16_t>(m_viewportHeight));
+
+    // Set scissor if enabled, otherwise scissor matches viewport
+    if (m_scissorEnabled) {
+        bgfx::setViewScissor(0,
+                             static_cast<uint16_t>(m_scissorX),
+                             static_cast<uint16_t>(m_scissorY),
+                             static_cast<uint16_t>(m_scissorWidth),
+                             static_cast<uint16_t>(m_scissorHeight));
+    } else {
+        bgfx::setViewScissor(0,
+                             static_cast<uint16_t>(m_viewportX),
+                             static_cast<uint16_t>(m_viewportY),
+                             static_cast<uint16_t>(m_viewportWidth),
+                             static_cast<uint16_t>(m_viewportHeight));
+    }
+
+    // Note: minZ/maxZ are not directly mapped in bgfx (bgfx uses 0-1 depth range by default).
+    // If non-default depth range is needed, it would require shader-side handling or
+    // bgfx::setViewMode with custom projection matrices.
+}
+
+// =============================================================================
+// Scissor Rect Management
+// =============================================================================
+
+void BGFXBackend::Enable_Scissor(bool enable)
+{
+    m_scissorEnabled = enable;
+
+    // Update scissor to match current viewport state
+    if (m_scissorEnabled) {
+        bgfx::setViewScissor(0,
+                             static_cast<uint16_t>(m_scissorX),
+                             static_cast<uint16_t>(m_scissorY),
+                             static_cast<uint16_t>(m_scissorWidth),
+                             static_cast<uint16_t>(m_scissorHeight));
+    } else {
+        // Disable scissor by setting it to viewport bounds
+        bgfx::setViewScissor(0,
+                             static_cast<uint16_t>(m_viewportX),
+                             static_cast<uint16_t>(m_viewportY),
+                             static_cast<uint16_t>(m_viewportWidth),
+                             static_cast<uint16_t>(m_viewportHeight));
+    }
+}
+
+void BGFXBackend::Set_Scissor(int x, int y, int width, int height)
+{
+    m_scissorX = x;
+    m_scissorY = y;
+    m_scissorWidth = width;
+    m_scissorHeight = height;
+
+    if (m_scissorEnabled) {
+        bgfx::setViewScissor(0,
+                             static_cast<uint16_t>(m_scissorX),
+                             static_cast<uint16_t>(m_scissorY),
+                             static_cast<uint16_t>(m_scissorWidth),
+                             static_cast<uint16_t>(m_scissorHeight));
+    }
+}
+
+bool BGFXBackend::Is_Scissor_Enabled() const
+{
+    return m_scissorEnabled;
 }
 
 void BGFXBackend::Set_DX8_Render_State(int state, unsigned value)
@@ -635,8 +760,18 @@ void* BGFXBackend::_Get_DX8_Front_Buffer()
 
 void BGFXBackend::Update_ViewDimensions()
 {
-    bgfx::setViewRect(0, 0, 0, m_width, m_height);
+    m_viewportX = 0;
+    m_viewportY = 0;
+    m_viewportWidth = m_width;
+    m_viewportHeight = m_height;
+
+    bgfx::setViewRect(0, 0, 0, static_cast<uint16_t>(m_width), static_cast<uint16_t>(m_height));
     bgfx::setViewMode(0, bgfx::ViewMode::Sequential);
+
+    // Reset scissor to full viewport
+    if (!m_scissorEnabled) {
+        bgfx::setViewScissor(0, 0, 0, static_cast<uint16_t>(m_width), static_cast<uint16_t>(m_height));
+    }
 }
 
 bgfx::RendererType::Enum BGFXBackend::AutoSelect_Renderer()
@@ -894,6 +1029,33 @@ bgfx::FrameBufferHandle BGFXBackend::Create_FrameBuffer(int width, int height, b
     return fb;
 }
 
+bgfx::FrameBufferHandle BGFXBackend::Create_FrameBuffer(int width, int height, bgfx::TextureFormat::Enum colorFormat, bgfx::TextureFormat::Enum depthFormat, uint64_t textureFlags)
+{
+    bgfx::TextureHandle colorHandle = bgfx::createTexture2D(
+        static_cast<uint16_t>(width),
+        static_cast<uint16_t>(height),
+        false,
+        1,
+        colorFormat,
+        textureFlags | BGFX_TEXTURE_RT_WRITE_ONLY,
+        nullptr
+    );
+
+    bgfx::TextureHandle depthHandle = bgfx::createTexture2D(
+        static_cast<uint16_t>(width),
+        static_cast<uint16_t>(height),
+        false,
+        1,
+        depthFormat,
+        BGFX_TEXTURE_RT_WRITE_ONLY,
+        nullptr
+    );
+
+    bgfx::TextureHandle handles[2] = { colorHandle, depthHandle };
+    bgfx::FrameBufferHandle fb = bgfx::createFrameBuffer(2, handles, true);
+    return fb;
+}
+
 bgfx::FrameBufferHandle BGFXBackend::Create_FrameBuffer_Attachment(bgfx::TextureHandle color, bgfx::TextureHandle depth)
 {
     // Create MRT framebuffer with color and depth attachments
@@ -911,15 +1073,33 @@ void BGFXBackend::Destroy_FrameBuffer(bgfx::FrameBufferHandle handle)
 
 void BGFXBackend::Set_FrameBuffer(bgfx::FrameBufferHandle handle, int width, int height)
 {
+    m_activeFrameBuffer = handle;
     bgfx::setViewFrameBuffer(0, handle);
+
     if (bgfx::isValid(handle) && width > 0 && height > 0) {
         bgfx::setViewRect(0, 0, 0, static_cast<uint16_t>(width), static_cast<uint16_t>(height));
+        // Update internal viewport tracking for this framebuffer
+        m_viewportX = 0;
+        m_viewportY = 0;
+        m_viewportWidth = width;
+        m_viewportHeight = height;
+    } else if (!bgfx::isValid(handle)) {
+        // Reset to device resolution
+        Update_ViewDimensions();
     }
 }
 
 void BGFXBackend::Set_FrameBuffer(bgfx::FrameBufferHandle handle, bgfx::TextureHandle color, bgfx::TextureHandle depth)
 {
+    m_activeFrameBuffer = handle;
     bgfx::setViewFrameBuffer(0, handle);
+}
+
+void BGFXBackend::Set_Default_FrameBuffer()
+{
+    m_activeFrameBuffer = BGFX_INVALID_HANDLE;
+    bgfx::setViewFrameBuffer(0, BGFX_INVALID_HANDLE);
+    Update_ViewDimensions();
 }
 
 // =============================================================================

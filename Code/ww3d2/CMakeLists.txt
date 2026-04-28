@@ -229,6 +229,13 @@ if(ENABLE_BGFX_BACKEND)
         backends/bgfx/bgfxbackend.cpp
         backends/bgfx/bgfxbackend.h
         backends/bgfx/BGFXMaterialMapper.h
+        backends/bgfx/BGFXMaterialMapper.cpp
+        backends/bgfx/BGFXVertexBuffer.h
+        backends/bgfx/BGFXVertexBuffer.cpp
+        backends/bgfx/BGFXIndexBuffer.h
+        backends/bgfx/BGFXIndexBuffer.cpp
+        backends/bgfx/BGFXTexture.h
+        backends/bgfx/BGFXTexture.cpp
     )
 endif()
 

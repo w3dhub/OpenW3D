@@ -179,6 +179,7 @@ public:
     virtual int Get_Texture_Bitdepth() override;
 
     virtual void Set_Viewport(const void* viewport) override;
+    void Set_Viewport(int x, int y, int width, int height, float minZ = 0.0f, float maxZ = 1.0f);
     virtual void Set_DX8_Render_State(int state, unsigned value) override;
     virtual void Set_Light_Environment(const void* env) override;
     virtual void* _Get_DX8_Front_Buffer() override;
@@ -215,12 +216,19 @@ public:
     void Destroy_Uniform(bgfx::UniformHandle handle);
     void Set_Uniform(bgfx::UniformHandle handle, const void* value, uint16_t num = 1);
 
+    // Scissor rect management
+    void Enable_Scissor(bool enable);
+    void Set_Scissor(int x, int y, int width, int height);
+    bool Is_Scissor_Enabled() const;
+
     // Frame buffer (render target) management
     bgfx::FrameBufferHandle Create_FrameBuffer(int width, int height, bgfx::TextureFormat::Enum format, uint64_t textureFlags = BGFX_TEXTURE_RT_WRITE_ONLY);
+    bgfx::FrameBufferHandle Create_FrameBuffer(int width, int height, bgfx::TextureFormat::Enum colorFormat, bgfx::TextureFormat::Enum depthFormat, uint64_t textureFlags = BGFX_TEXTURE_RT_WRITE_ONLY);
     bgfx::FrameBufferHandle Create_FrameBuffer_Attachment(bgfx::TextureHandle color, bgfx::TextureHandle depth);
     void Destroy_FrameBuffer(bgfx::FrameBufferHandle handle);
     void Set_FrameBuffer(bgfx::FrameBufferHandle handle, int width = -1, int height = -1);
     void Set_FrameBuffer(bgfx::FrameBufferHandle handle, bgfx::TextureHandle color, bgfx::TextureHandle depth);
+    void Set_Default_FrameBuffer();
 
     // Material integration - map ww3d2 material properties to bgfx
     void Set_Material_Colors(const Vector3& diffuse, float alpha, const Vector3& specular, float shininess, const Vector3& emissive, const Vector3& ambient);
@@ -284,6 +292,24 @@ private:
     // Current bgfx state for tracking changes
     uint64_t m_currentState;
     uint32_t m_currentColor;
+
+    // Viewport state
+    int m_viewportX;
+    int m_viewportY;
+    int m_viewportWidth;
+    int m_viewportHeight;
+    float m_viewportMinZ;
+    float m_viewportMaxZ;
+
+    // Scissor state
+    bool m_scissorEnabled;
+    int m_scissorX;
+    int m_scissorY;
+    int m_scissorWidth;
+    int m_scissorHeight;
+
+    // Active framebuffer (0 = default/backbuffer)
+    bgfx::FrameBufferHandle m_activeFrameBuffer;
 };
 
 #endif // BGFXBACKEND_H
