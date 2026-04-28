@@ -224,6 +224,14 @@ set(WW3D2_SRC
     nullbackend.h
 )
 
+if(ENABLE_BGFX_BACKEND)
+    list(APPEND WW3D2_SRC
+        backends/bgfx/bgfxbackend.cpp
+        backends/bgfx/bgfxbackend.h
+        backends/bgfx/BGFXMaterialMapper.h
+    )
+endif()
+
 # Targets to build.
 add_library(ww3d2 STATIC)
 
@@ -233,6 +241,15 @@ target_link_libraries(ww3d2 PRIVATE
     vfw32
     winmm
 )
+
+# Backend selection defines
+if(ENABLE_BGFX_BACKEND)
+    target_compile_definitions(ww3d2 PRIVATE WW3D_BGFX_BACKEND=1)
+elseif(WIN32 AND WANT_DX9)
+    target_compile_definitions(ww3d2 PRIVATE WW3D_DX9_BACKEND=1)
+else()
+    target_compile_definitions(ww3d2 PRIVATE WW3D_NULL_BACKEND=1)
+endif()
 
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
 
