@@ -102,13 +102,14 @@ void OpenALAudioClass::Initialize(const char *registry_subkey_name)
 	bool is_stereo = true;
 	int bits = 16;
 	int hertz = 44100;
+	int speaker_type = m_SpeakerType;
 
 	if (WWAudioClass::Load_From_Registry (registry_subkey_name, device_name, is_stereo, bits, hertz,
 			m_AreSoundEffectsEnabled, m_IsMusicEnabled, m_IsDialogEnabled, m_IsCinematicSoundEnabled,
-			m_SoundVolume, m_MusicVolume, m_DialogVolume, m_CinematicVolume, m_SpeakerType))
+			m_SoundVolume, m_MusicVolume, m_DialogVolume, m_CinematicVolume, speaker_type))
 	{
+		Set_Speaker_Type(speaker_type);
 		Initialize(is_stereo, bits, hertz);
-		//Set_Speaker_Type(m_SpeakerType);
 	}
 }
 
@@ -163,7 +164,19 @@ WWAudioClass::DRIVER_TYPE_2D OpenALAudioClass::Open_2D_Device(bool stereo, int b
 		return DRIVER2D_ERROR;
 	}
 	
-	ALCint attributes[] = { ALC_FREQUENCY, m_PlaybackRate, 0 /* end-of-list */ };
+	ALCint attributes[6];
+	int attr_index = 0;
+	attributes[attr_index++] = ALC_FREQUENCY;
+	attributes[attr_index++] = m_PlaybackRate;
+
+#ifdef ALC_SOFT_HRTF
+	if (alcIsExtensionPresent(m_alcDevice, "ALC_SOFT_HRTF")) {
+		attributes[attr_index++] = ALC_HRTF_SOFT;
+		attributes[attr_index++] = (m_SpeakerType == W3D_3D_HEADPHONE) ? ALC_TRUE : ALC_FALSE;
+	}
+#endif
+
+	attributes[attr_index] = 0;
 	m_alcContext = alcCreateContext(m_alcDevice, attributes);
 
 	if (m_alcContext == nullptr) {
@@ -176,15 +189,20 @@ WWAudioClass::DRIVER_TYPE_2D OpenALAudioClass::Open_2D_Device(bool stereo, int b
 		type = DRIVER2D_ERROR;
 	}
 
-	if (alcIsExtensionPresent(m_alcDevice, "ALC_EXT_debug")) {
-		LPALDEBUGMESSAGECALLBACKEXT alDebugMessageCallbackEXT;
-		LOAD_ALC_PROC(alDebugMessageCallbackEXT);
-		alEnable(AL_DEBUG_OUTPUT_EXT);
-		alDebugMessageCallbackEXT(Debug_Callback, nullptr);
-	}
-
 	// Allocate all the available handles if we were successful
 	if (type != DRIVER2D_ERROR) {
+		if (alcIsExtensionPresent(m_alcDevice, "ALC_EXT_debug")) {
+			LPALDEBUGMESSAGECALLBACKEXT alDebugMessageCallbackEXT;
+			LOAD_ALC_PROC(alDebugMessageCallbackEXT);
+			alEnable(AL_DEBUG_OUTPUT_EXT);
+			alDebugMessageCallbackEXT(Debug_Callback, nullptr);
+		}
+
+		alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
+		if (alGetError() != AL_NO_ERROR) {
+			WWDEBUG_SAY(("Failed to set OpenAL distance model.\n"));
+		}
+
 		Allocate_Handles();
 		ReAssign_Handles();
 	} else {
@@ -226,9 +244,12 @@ void OpenALAudioClass::Allocate_Handles()
 
 		for (int i = 0; i < m_2DSampleHandles.Count(); ++i) {
 			alSourcei(m_2DSampleHandles[i], AL_SOURCE_RELATIVE, AL_TRUE);
+			alSourcef(m_2DSampleHandles[i], AL_ROLLOFF_FACTOR, 0.0F);
+			alSourcef(m_2DSampleHandles[i], AL_REFERENCE_DISTANCE, 1.0F);
+			alSourcef(m_2DSampleHandles[i], AL_MAX_DISTANCE, 1.0F);
 
 			if (alGetError() != AL_NO_ERROR) {
-				WWDEBUG_SAY(("Setting handles relative to listener failed for sample %d.", i));
+				WWDEBUG_SAY(("Configuring 2D OpenAL source failed for sample %d.", i));
 			}
 		}
 	} else {
@@ -243,13 +264,30 @@ void OpenALAudioClass::Allocate_Handles()
 		
 		for (int i = 0; i < m_3DSampleHandles.Count(); ++i) {
 			alSourcei(m_3DSampleHandles[i], AL_SOURCE_RELATIVE, AL_FALSE);
+			alSourcef(m_3DSampleHandles[i], AL_ROLLOFF_FACTOR, 1.0F);
 
 			if (alGetError() != AL_NO_ERROR) {
-				WWDEBUG_SAY(("Setting handles relative to listener failed for sample %d.", i));
+				WWDEBUG_SAY(("Configuring 3D OpenAL source failed for sample %d.", i));
 			}
 		}
 	} else {
 		WWDEBUG_SAY(("Allocate_2D_Handles failed."));
+	}
+}
+
+void OpenALAudioClass::Set_Speaker_Type(int speaker_type)
+{
+	switch (speaker_type) {
+		case W3D_3D_2_SPEAKER:
+		case W3D_3D_HEADPHONE:
+		case W3D_3D_SURROUND:
+		case W3D_3D_4_SPEAKER:
+			m_SpeakerType = speaker_type;
+			break;
+
+		default:
+			m_SpeakerType = W3D_3D_2_SPEAKER;
+			break;
 	}
 }
 
