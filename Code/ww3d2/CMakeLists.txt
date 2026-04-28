@@ -102,6 +102,8 @@ set(WW3D2_SRC
     w3d_util.cpp
     ww3d.cpp
     ww3dformat.cpp
+    dx8backend.cpp
+    nullbackend.cpp
     aabtree.h
     aabtreebuilder.h
     agg_def.h
@@ -217,6 +219,9 @@ set(WW3D2_SRC
     ww3dformat.h
     ww3dids.h
     ww3dtrig.h
+    ww3dbackend.h
+    dx8backend.h
+    nullbackend.h
 )
 
 # Targets to build.

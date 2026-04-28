@@ -62,6 +62,7 @@ class		RenderDeviceDescClass;
 class		StringClass;
 class		LightEnvironmentClass;
 class		MaterialPassClass;
+class		WW3DBackend;
 
 #define MESH_RENDER_SNAPSHOT_ENABLED
 #define SNAPSHOT_SAY(x) if (WW3D::Is_Snapshot_Activated()) { WWDEBUG_SAY(x); }
@@ -102,6 +103,7 @@ public:
 
 	static WW3DErrorType		Init(void * hwnd, char *defaultpal = NULL, bool lite = false);
 	static WW3DErrorType		Shutdown(void);
+        static void                    Set_Backend(WW3DBackend* backend);
 	static bool					Is_Initted(void)								{ return IsInitted; }
 
 	static const int			Get_Render_Device_Count(void);
@@ -350,6 +352,7 @@ private:
 	static bool							IsTexturingEnabled;
 
 	static bool							Lite;
+	static WW3DBackend *				Backend;
 
 	// This is the default native screen size which will be set for each
 	// RenderObject on construction. The native screen size is the screen size
