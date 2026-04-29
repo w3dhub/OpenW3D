@@ -23,6 +23,7 @@
 #include "wwdebug.h"
 
 #include <algorithm>
+#include <cmath>
 #include <cstdint>
 #include <cstring>
 
@@ -295,6 +296,10 @@ float OpenALHandleClass::Get_Sample_Pitch()
 
 void OpenALHandleClass::Set_Sample_Pitch(float pitch)
 {
+	if (!std::isfinite(pitch) || pitch <= 0.0F) {
+		pitch = 1.0F;
+	}
+
 	alSourcef(SampleHandle, AL_PITCH, pitch);
 	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to set OpenAL source pitch.\n"));

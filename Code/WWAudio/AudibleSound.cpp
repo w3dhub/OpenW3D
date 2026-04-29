@@ -752,11 +752,9 @@ AudibleSoundClass::Initialize_Miles_Handle (void)
 		m_SoundHandle->Set_Sample_Loop_Count (m_LoopCount);
 
 		//
-		//	Apply the pitch factor (if necessary)
+		//	Apply the pitch factor even when it is 1.0F because handles are pooled.
 		//
-		if (m_PitchFactor != 1.0F) {
-			Set_Pitch_Factor (m_PitchFactor);
-		}
+		Set_Pitch_Factor (m_PitchFactor);
 
 		// If this sound is already playing (and just now got a handle)
 		// then make sure we start it.

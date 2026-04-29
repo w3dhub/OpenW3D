@@ -541,11 +541,9 @@ Sound3DClass::Initialize_Miles_Handle (void)
 		Update_Miles_Transform ();
 
 		//
-		//	Apply the pitch factor (if necessary)
+		//	Apply the pitch factor even when it is 1.0F because handles are pooled.
 		//
-		if (m_PitchFactor != 1.0F) {
-			Set_Pitch_Factor (m_PitchFactor);
-		}
+		Set_Pitch_Factor (m_PitchFactor);
 
 		// If this sound is already playing (and just now got a handle)
 		// then make sure we start it.
@@ -732,4 +730,3 @@ Sound3DClass::Load (ChunkLoadClass &cload)
 
 	return true;
 }
-
