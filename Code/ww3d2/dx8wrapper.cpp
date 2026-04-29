@@ -1721,17 +1721,6 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 		}
 	}
 
-	DX8CALL(SetStreamSource(
-		0,
-		static_cast<DX8VertexBufferClass*>(dyn_vb_access.VertexBuffer)->Get_DX8_Vertex_Buffer(),
-		0,
-		dyn_vb_access.FVF_Info().Get_FVF_Size()));
-	// Release the programmable shader
-	// DX8CALL(SetVertexShader(NULL));
-	// Set the fixed-function vertex format
-	DX8CALL(SetFVF(dyn_vb_access.FVF_Info().Get_FVF()));
-	DX8_RECORD_VERTEX_BUFFER_CHANGE();
-
 	unsigned index_count=0;
 	switch (primitive_type) {
 	case D3DPT_TRIANGLELIST: index_count=polygon_count*3; break;
@@ -1756,6 +1745,28 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 			*dest++=index;
 		}
 	}
+
+	// Backend dispatch for non-DX8 rendering
+	if (WW3D::Backend && WW3D::Backend->Wants_Deferred_State_Apply()) {
+		// Set dynamic buffers on backend and draw
+		WW3D::Backend->Set_Vertex_Buffer(dyn_vb_access.VertexBuffer);
+		WW3D::Backend->Set_Index_Buffer(dyn_ib_access.IndexBuffer, 0);
+		if (primitive_type == D3DPT_TRIANGLELIST) {
+			WW3D::Backend->Draw_Indexed_Triangles(dyn_ib_access.IndexBufferOffset, polygon_count, 0, vertex_count);
+		} else if (primitive_type == D3DPT_TRIANGLESTRIP) {
+			WW3D::Backend->Draw_Indexed_Strip(dyn_ib_access.IndexBufferOffset, polygon_count + 2, 0, vertex_count);
+		}
+		return;
+	}
+
+	// Original DX8 path
+	DX8CALL(SetStreamSource(
+		0,
+		static_cast<DX8VertexBufferClass*>(dyn_vb_access.VertexBuffer)->Get_DX8_Vertex_Buffer(),
+		0,
+		dyn_vb_access.FVF_Info().Get_FVF_Size()));
+	DX8CALL(SetFVF(dyn_vb_access.FVF_Info().Get_FVF()));
+	DX8_RECORD_VERTEX_BUFFER_CHANGE();
 
 	DX8CALL(SetIndices(
 		static_cast<DX8IndexBufferClass*>(dyn_ib_access.IndexBuffer)->Get_DX8_Index_Buffer()));
