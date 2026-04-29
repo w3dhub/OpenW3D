@@ -350,6 +350,12 @@ WW3DErrorType WW3D::Init(void *hwnd, char * /*defaultpal*/, bool lite)
  *=============================================================================================*/
 void WW3D::Set_Backend(WW3DBackend* backend)
 {
+	if (Backend && Backend != backend) {
+		if (IsInitted) {
+			Backend->Shutdown();
+		}
+		delete Backend;
+	}
 	Backend = backend;
 }
 
@@ -1312,10 +1318,14 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
 
 	WWDEBUG_SAY(( "Creating Screen Shot %s\n", filename ));
 
-	// Lock front buffer and copy
+		// Lock front buffer and copy
 
 	IDirect3DSurface9 *fb;
-	fb=Backend->_Get_DX8_Front_Buffer();
+	fb = static_cast<IDirect3DSurface9*>(Backend->_Get_DX8_Front_Buffer());
+	if (!fb) {
+		WWDEBUG_SAY(("Make_Screen_Shot: backend does not support front buffer capture\n"));
+		return;
+	}
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
 
@@ -1594,10 +1604,14 @@ void WW3D::Update_Movie_Capture( void )
 	WWPROFILE("WW3D::Update_Movie_Capture");
 	WWDEBUG_SAY(( "Updating\n"));
 
-		// Lock front buffer and copy
+	// Lock front buffer and copy
 
 	IDirect3DSurface9 *fb;
-	fb=Backend->_Get_DX8_Front_Buffer();
+	fb = static_cast<IDirect3DSurface9*>(Backend->_Get_DX8_Front_Buffer());
+	if (!fb) {
+		WWDEBUG_SAY(("Update_Movie_Capture: backend does not support front buffer capture\n"));
+		return;
+	}
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
 

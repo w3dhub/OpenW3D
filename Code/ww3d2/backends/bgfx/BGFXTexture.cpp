@@ -1,27 +1,4 @@
-/*
-**	Command & Conquer Renegade(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : ww3d                                                         *
- *                                                                                             *
- *                    $Revision:: 1                                                           $*
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * BGFXTexture.cpp - implementation of bgfx texture wrapper.                                 *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+// BGFXTexture.cpp - OpenW3D render backend
 
 #include "backends/bgfx/BGFXTexture.h"
 
@@ -57,6 +34,7 @@ bool BGFXTexture::Create(int width, int height, BGFXTextureFormat format, void* 
         case BGFXTextureFormat::Depth16:    bgfxFormat = bgfx::TextureFormat::D16; break;
         case BGFXTextureFormat::Depth24:    bgfxFormat = bgfx::TextureFormat::D24; break;
         case BGFXTextureFormat::Depth32F:   bgfxFormat = bgfx::TextureFormat::D32F; break;
+        default:                            bgfxFormat = bgfx::TextureFormat::RGBA8; break;
     }
     return Create(width, height, bgfxFormat, data, mipCount, BGFX_TEXTURE_NONE);
 }
@@ -78,8 +56,7 @@ bool BGFXTexture::Create(int width, int height, bgfx::TextureFormat::Enum format
     const bgfx::Memory* mem = nullptr;
     if (data) {
         // Calculate size based on format
-        int bpp = Get_Bytes_Per_Pixel(format);
-        uint32_t size = width * height * bpp;
+        uint32_t size = Get_Texture_Data_Size(width, height, format);
         mem = bgfx::copy(data, size);
     }
 
@@ -123,8 +100,7 @@ void BGFXTexture::Update(int x, int y, int width, int height, void* data)
         return;
     }
 
-    int bpp = Get_Bytes_Per_Pixel(m_format);
-    uint32_t size = width * height * bpp;
+    uint32_t size = Get_Texture_Data_Size(width, height, m_format);
     const bgfx::Memory* mem = bgfx::copy(data, size);
 
     bgfx::updateTexture2D(
@@ -244,5 +220,18 @@ int BGFXTexture::Get_Bytes_Per_Pixel(bgfx::TextureFormat::Enum format)
         case bgfx::TextureFormat::BC2:      return 0;  // Compressed
         case bgfx::TextureFormat::BC3:      return 0;  // Compressed
         default:                            return 4;
+    }
+}
+
+uint32_t BGFXTexture::Get_Texture_Data_Size(int width, int height, bgfx::TextureFormat::Enum format)
+{
+    switch (format) {
+        case bgfx::TextureFormat::BC1:
+            return ((width + 3) / 4) * ((height + 3) / 4) * 8;
+        case bgfx::TextureFormat::BC2:
+        case bgfx::TextureFormat::BC3:
+            return ((width + 3) / 4) * ((height + 3) / 4) * 16;
+        default:
+            return width * height * Get_Bytes_Per_Pixel(format);
     }
 }

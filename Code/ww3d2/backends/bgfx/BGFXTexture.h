@@ -1,29 +1,4 @@
-/*
-**	Command & Conquer Renegade(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : ww3d                                                         *
- *                                                                                             *
- *                    $Revision:: 1                                                           $*
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * BGFXTexture - WW3D texture implementation using bgfx.                                    *
- *                                                                                             *
- * Handles texture upload, format conversion, and sampler state mapping.                     *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+// BGFXTexture.h - OpenW3D render backend
 
 #ifndef BGFXTEXTURE_H
 #define BGFXTEXTURE_H
@@ -146,6 +121,9 @@ public:
 
     // Static helper: Get bytes per pixel for a format
     static int Get_Bytes_Per_Pixel(bgfx::TextureFormat::Enum format);
+
+    // Static helper: Get total data size for a texture (handles compressed formats)
+    static uint32_t Get_Texture_Data_Size(int width, int height, bgfx::TextureFormat::Enum format);
 
 private:
     bgfx::TextureHandle m_handle;

@@ -35,7 +35,7 @@ if(WIN32)
 else()
     set(SHADER_PROFILES
         "120"       # OpenGL 2.1 / GLES 2.0
-        " spirv"    # Vulkan (note leading space)
+        "spirv"     # Vulkan
     )
     set(SHADER_PLATFORM "linux")
 endif()
@@ -67,7 +67,7 @@ function(compile_bgfx_shader input_file output_file type profile)
             -i "${BGFX_DIR}/src"
             -i "${BGFX_DIR}/include"
             -i "${BGFX_DIR}/examples/common"
-        DEPENDS ${input_file}
+        DEPENDS ${input_file} ${BGFX_SHADER_VARYING_DEF}
         COMMENT "Compiling bgfx shader: ${filename}"
         VERBATIM
     )
@@ -95,9 +95,8 @@ foreach(SHADER_SRC ${SHADER_SOURCES})
     
     # Compile for each profile
     foreach(PROFILE ${SHADER_PROFILES})
-        string(STRIP "${PROFILE}" PROFILE_STRIPPED)
-        set(OUTPUT_FILE "${BGFX_SHADER_OUTPUT_DIR}/${SHADER_NAME}_${PROFILE_STRIPPED}.bin")
-        compile_bgfx_shader(${SHADER_SRC} ${OUTPUT_FILE} ${SHADER_TYPE} ${PROFILE_STRIPPED})
+        set(OUTPUT_FILE "${BGFX_SHADER_OUTPUT_DIR}/${SHADER_NAME}_${PROFILE}.bin")
+        compile_bgfx_shader(${SHADER_SRC} ${OUTPUT_FILE} ${SHADER_TYPE} ${PROFILE})
         list(APPEND COMPILED_SHADERS ${OUTPUT_FILE})
     endforeach()
 endforeach()

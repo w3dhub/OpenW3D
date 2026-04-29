@@ -83,7 +83,7 @@ add_compile_definitions(-DWEBBROWSER_ENABLED=$<BOOL:${W3D_BUILD_OPTION_WEBBROWSE
 
 if(WIN32)
     # Do we want to build with bink for video decoding?
-option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
+    option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
     add_feature_info(BinkBuild W3D_BUILD_OPTION_BINK "Build OpenW3D with Bink")
 
     if(W3D_BUILD_OPTION_BINK)

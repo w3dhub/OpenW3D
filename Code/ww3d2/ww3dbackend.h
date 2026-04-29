@@ -1,35 +1,4 @@
-/*
-**	Command & Conquer Renegade(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : ww3d                                                         *
- *                                                                                             *
- *                    $Revision:: 1                                                           $*
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * WW3DBackend interface - minimal device-level abstraction for render backends.              *
- *                                                                                             *
- * Concrete backends (DX8, BGFX, null) implement this interface. DX8Wrapper stays          *
- * standalone and is NOT part of this interface chain.                                        *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+// ww3dbackend.h - OpenW3D render backend
 
 #ifndef WW3DBACKEND_H
 #define WW3DBACKEND_H

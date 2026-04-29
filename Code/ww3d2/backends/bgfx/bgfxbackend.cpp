@@ -1,27 +1,4 @@
-/*
-**	Command & Conquer Renegade(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : ww3d                                                         *
- *                                                                                             *
- *                    $Revision:: 1                                                           $*
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * BGFXBackend - concrete WW3DBackend implementation using bgfx rendering library.            *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+// bgfxbackend.cpp - OpenW3D render backend
 
 #include "backends/bgfx/bgfxbackend.h"
 #include "rddesc.h"
@@ -128,6 +105,8 @@ BGFXBackend::BGFXBackend() :
     m_textureBitDepth(DEFAULT_BIT_DEPTH),
     m_systemTexture(BGFX_INVALID_HANDLE),
     m_frameBuffer(BGFX_INVALID_HANDLE),
+    m_currentProgram(BGFX_INVALID_HANDLE),
+    m_whiteTexture(BGFX_INVALID_HANDLE),
     m_initialized(false),
     m_currentState(BGFX_STATE_DEFAULT),
     m_currentColor(0xFF000000),
@@ -258,15 +237,11 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
 
     m_initialized = true;
 
-    for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
+    m_samplerUniforms[0] = bgfx::createUniform("s_diffuse", bgfx::UniformType::Sampler);
+    for (int stage = 1; stage < MAX_TEXTURE_STAGES; ++stage) {
         char samplerName[16];
         snprintf(samplerName, sizeof(samplerName), "s_tex%d", stage);
         m_samplerUniforms[stage] = bgfx::createUniform(samplerName, bgfx::UniformType::Sampler);
-
-        if (stage == 0) {
-            bgfx::destroy(m_samplerUniforms[stage]);
-            m_samplerUniforms[stage] = bgfx::createUniform("s_diffuse", bgfx::UniformType::Sampler);
-        }
     }
 
     m_diffuseUniform = bgfx::createUniform(BGFXMaterialUniforms::DIFFUSE_COLOR, bgfx::UniformType::Vec4);
@@ -409,6 +384,12 @@ void BGFXBackend::Shutdown()
         m_defaultProgram = BGFX_INVALID_HANDLE;
     }
 
+    if (bgfx::isValid(m_whiteTexture)) {
+        bgfx::destroy(m_whiteTexture);
+        m_whiteTexture = BGFX_INVALID_HANDLE;
+    }
+
+    Clear_Resource_Caches();
     bgfx::shutdown();
     m_initialized = false;
 
@@ -424,6 +405,7 @@ bool BGFXBackend::Set_Any_Render_Device()
 {
     m_currentDevice = 0;
     if (m_initialized) {
+        Clear_Resource_Caches();
         Shutdown();
         return Init(m_hwnd, false);
     }
@@ -450,8 +432,13 @@ bool BGFXBackend::Set_Render_Device(int dev, int resx, int resy, int bits, int w
 
 bool BGFXBackend::Set_Next_Render_Device()
 {
-    m_currentDevice = (m_currentDevice + 1) % Get_Render_Device_Count();
+    int count = Get_Render_Device_Count();
+    if (count <= 0) {
+        return false;
+    }
+    m_currentDevice = (m_currentDevice + 1) % count;
     if (m_initialized) {
+        Clear_Resource_Caches();
         Shutdown();
         return Init(m_hwnd, false);
     }
@@ -547,22 +534,22 @@ int BGFXBackend::Get_Device_Resolution_Height()
 
 bool BGFXBackend::Registry_Save_Render_Device(const char * sub_key)
 {
-    return true; // Stub
+    return false;
 }
 
 bool BGFXBackend::Registry_Load_Render_Device(const char * sub_key, bool resize_window)
 {
-    return true; // Stub
+    return false;
 }
 
 bool BGFXBackend::Registry_Save_Render_Device(const char *sub_key, int device, int width, int height, int depth, bool windowed, int texture_depth)
 {
-    return true; // Stub
+    return false;
 }
 
 bool BGFXBackend::Registry_Load_Render_Device(const char * sub_key, char *device, int device_len, int &width, int &height, int &depth, int &windowed, int &texture_depth)
 {
-    return true; // Stub
+    return false;
 }
 
 void BGFXBackend::Begin_Scene()
@@ -594,7 +581,7 @@ void BGFXBackend::Clear(bool clear_color, bool clear_z_stencil, const Vector3 &c
         flags |= BGFX_CLEAR_DEPTH | BGFX_CLEAR_STENCIL;
     }
 
-    m_currentColor = Color_To_BGRA(color);
+    m_currentColor = Color_To_ABGR(color);
     bgfx::setViewClear(0, flags, z, stencil, m_currentColor);
 }
 
@@ -1027,10 +1014,7 @@ void BGFXBackend::Update_ViewDimensions()
     }
 }
 
-bgfx::RendererType::Enum BGFXBackend::AutoSelect_Renderer()
-{
-    return bgfx::RendererType::Count;  // Auto-detect
-}
+// AutoSelect_Renderer removed - bgfx::RendererType::Count is used directly for auto-detect
 
 // =============================================================================
 // Texture Management
@@ -1082,9 +1066,9 @@ void BGFXBackend::Set_Texture(int stage, bgfx::TextureHandle handle, uint32_t fl
 // Vertex Buffer Management
 // =============================================================================
 
-bgfx::VertexBufferHandle BGFXBackend::Create_Vertex_Buffer(void* data, const bgfx::VertexLayout& layout, uint64_t flags)
+bgfx::VertexBufferHandle BGFXBackend::Create_Vertex_Buffer(void* data, int vertexCount, const bgfx::VertexLayout& layout, uint64_t flags)
 {
-    const bgfx::Memory* mem = bgfx::makeRef(data, layout.getStride());
+    const bgfx::Memory* mem = bgfx::copy(data, vertexCount * layout.getStride());
     return bgfx::createVertexBuffer(mem, layout, flags);
 }
 
@@ -1106,7 +1090,7 @@ void BGFXBackend::Set_Vertex_Buffer(int stream, bgfx::VertexBufferHandle handle,
 
 bgfx::IndexBufferHandle BGFXBackend::Create_Index_Buffer(void* data, int indexCount, bool index32bit, uint64_t flags)
 {
-    const bgfx::Memory* mem = bgfx::makeRef(data, indexCount * (index32bit ? 4 : 2));
+    const bgfx::Memory* mem = bgfx::copy(data, indexCount * (index32bit ? 4 : 2));
     return bgfx::createIndexBuffer(mem, flags);
 }
 
@@ -1128,20 +1112,12 @@ void BGFXBackend::Set_Index_Buffer(bgfx::IndexBufferHandle handle, int startInde
 
 void BGFXBackend::Draw(int numVertices, int numInstances)
 {
-    if (numInstances > 1) {
-        bgfx::submit(0, BGFX_INVALID_HANDLE, 0, numInstances);
-    } else {
-        bgfx::submit(0, BGFX_INVALID_HANDLE, 0, numInstances);
-    }
+    bgfx::submit(0, m_currentProgram, 0, numInstances);
 }
 
 void BGFXBackend::Draw_Indexed(int numIndices, int numInstances, int startIndex, int startVertex)
 {
-    if (numInstances > 1) {
-        bgfx::submit(0, BGFX_INVALID_HANDLE, 0, numInstances);
-    } else {
-        bgfx::submit(0, BGFX_INVALID_HANDLE, 0, numInstances);
-    }
+    bgfx::submit(0, m_currentProgram, 0, numInstances);
 }
 
 // =============================================================================
@@ -1369,6 +1345,35 @@ void BGFXBackend::Set_Default_FrameBuffer()
     Update_ViewDimensions();
 }
 
+void BGFXBackend::Clear_Resource_Caches()
+{
+    for (auto& pair : m_vbCache) {
+        if (bgfx::isValid(pair.second)) {
+            bgfx::destroy(pair.second);
+        }
+    }
+    m_vbCache.clear();
+
+    for (auto& pair : m_ibCache) {
+        if (bgfx::isValid(pair.second)) {
+            bgfx::destroy(pair.second);
+        }
+    }
+    m_ibCache.clear();
+
+    for (auto& pair : m_textureCache) {
+        if (bgfx::isValid(pair.second) && pair.second != m_whiteTexture) {
+            bgfx::destroy(pair.second);
+        }
+    }
+    m_textureCache.clear();
+
+    m_boundTextures.fill(BGFX_INVALID_HANDLE);
+    m_textureFlags.fill(UINT32_MAX);
+    m_textureMipLevels.fill(0);
+    m_textureUvIndices.fill(0);
+}
+
 // =============================================================================
 // Material Integration
 // =============================================================================
@@ -1559,7 +1564,9 @@ void BGFXBackend::Apply_Texture_State(unsigned stage, TextureClass* texture)
         return;
     }
 
-    // Try to extract pixel data from the D3D texture
+    // NOTE: This path reads back from the D3D9 texture via Peek_DX8_Texture().
+    // For a fully cross-platform backend, textures should be created natively
+    // as BGFXTexture instead of read back from D3D9 on every bind.
     bgfx::TextureHandle bgfxTex = BGFX_INVALID_HANDLE;
 
     IDirect3DTexture9* d3dTex = texture->Peek_DX8_Texture();
@@ -1625,15 +1632,12 @@ void BGFXBackend::Apply_Texture_State(unsigned stage, TextureClass* texture)
 
     if (!bgfx::isValid(bgfxTex)) {
         // Fallback: 1x1 white placeholder
-        static bool s_whiteCreated = false;
-        static bgfx::TextureHandle s_whiteTexture = BGFX_INVALID_HANDLE;
-        if (!s_whiteCreated) {
+        if (!bgfx::isValid(m_whiteTexture)) {
             uint32_t white = 0xFFFFFFFF;
-            s_whiteTexture = bgfx::createTexture2D(1, 1, false, 1,
+            m_whiteTexture = bgfx::createTexture2D(1, 1, false, 1,
                 bgfx::TextureFormat::BGRA8, BGFX_TEXTURE_NONE, bgfx::copy(&white, sizeof(white)));
-            s_whiteCreated = true;
         }
-        bgfxTex = s_whiteTexture;
+        bgfxTex = m_whiteTexture;
     }
 
     m_textureCache[texture] = bgfxTex;
@@ -1775,31 +1779,64 @@ void BGFXBackend::Set_Transform_Projection(const Matrix4& m)
     m_projectionDirty = true;
 }
 
+static int GetTexCoordSize(unsigned fvf, int index)
+{
+    // D3DFVF texcoord sizes are encoded in 2-bit fields starting at bit 16.
+    // 0=1 component, 1=2, 2=3, 3=4.
+    static const int sizeTable[4] = { 1, 2, 3, 4 };
+    int shift = 16 + index * 2;
+    int bits = (fvf >> shift) & 0x3;
+    return sizeTable[bits];
+}
+
 static bool BuildVertexLayoutFromFVF(unsigned fvf, bgfx::VertexLayout& layout)
 {
     layout.begin();
 
-    if (fvf & D3DFVF_XYZ) {
+    unsigned posType = fvf & D3DFVF_POSITION_MASK;
+
+    if (posType == D3DFVF_XYZ) {
         layout.add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float);
+    } else if (posType == D3DFVF_XYZRHW) {
+        layout.add(bgfx::Attrib::Position, 4, bgfx::AttribType::Float);
+    } else if (posType >= D3DFVF_XYZB1 && posType <= D3DFVF_XYZB5) {
+        int blendCount = (posType - D3DFVF_XYZB1) / 2 + 1;
+        layout.add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float);
+        if (fvf & D3DFVF_LASTBETA_UBYTE4) {
+            // All but the last weight are floats; the last is UBYTE4 bone indices.
+            for (int i = 0; i < blendCount - 1; ++i) {
+                layout.add(bgfx::Attrib::BlendWeight, 1, bgfx::AttribType::Float);
+            }
+            layout.add(bgfx::Attrib::BlendIndices, 4, bgfx::AttribType::Uint8, true);
+        } else {
+            for (int i = 0; i < blendCount; ++i) {
+                layout.add(bgfx::Attrib::BlendWeight, 1, bgfx::AttribType::Float);
+            }
+        }
     }
+
     if (fvf & D3DFVF_NORMAL) {
         layout.add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float);
     }
+
+    if (fvf & D3DFVF_PSIZE) {
+        layout.add(bgfx::Attrib::PointSize, 1, bgfx::AttribType::Float);
+    }
+
     if (fvf & D3DFVF_DIFFUSE) {
         layout.add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true);
     }
+
     if (fvf & D3DFVF_SPECULAR) {
         layout.add(bgfx::Attrib::Color1, 4, bgfx::AttribType::Uint8, true);
     }
 
-    // Texture coordinates
+    // Texture coordinates — respect per-set component counts.
     int texCount = (fvf & D3DFVF_TEXCOUNT_MASK) >> D3DFVF_TEXCOUNT_SHIFT;
-    for (int i = 0; i < texCount; ++i) {
-        bgfx::Attrib::Enum attr = (i == 0) ? bgfx::Attrib::TexCoord0 :
-                                  (i == 1) ? bgfx::Attrib::TexCoord1 :
-                                  (i == 2) ? bgfx::Attrib::TexCoord2 :
-                                             bgfx::Attrib::TexCoord3;
-        layout.add(attr, 2, bgfx::AttribType::Float);
+    for (int i = 0; i < texCount && i < 8; ++i) {
+        int components = GetTexCoordSize(fvf, i);
+        bgfx::Attrib::Enum attr = (bgfx::Attrib::Enum)(bgfx::Attrib::TexCoord0 + i);
+        layout.add(attr, components, bgfx::AttribType::Float);
     }
 
     layout.end();

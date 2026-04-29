@@ -1755,6 +1755,8 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 			WW3D::Backend->Draw_Indexed_Triangles(dyn_ib_access.IndexBufferOffset, polygon_count, 0, vertex_count);
 		} else if (primitive_type == D3DPT_TRIANGLESTRIP) {
 			WW3D::Backend->Draw_Indexed_Strip(dyn_ib_access.IndexBufferOffset, polygon_count + 2, 0, vertex_count);
+		} else {
+			WWDEBUG_SAY(("Draw_Sorting_IB_VB: unsupported primitive type %d for BGFX backend\n", primitive_type));
 		}
 		return;
 	}
@@ -1822,6 +1824,8 @@ void DX8Wrapper::Draw(
 			WW3D::Backend->Draw_Indexed_Triangles(actual_start, polygon_count, min_vertex_index, actual_count);
 		} else if (primitive_type == D3DPT_TRIANGLESTRIP) {
 			WW3D::Backend->Draw_Indexed_Strip(actual_start, polygon_count + 2, min_vertex_index, actual_count);
+		} else {
+			WWDEBUG_SAY(("DX8Wrapper::Draw: unsupported primitive type %d for BGFX backend\n", primitive_type));
 		}
 		return;
 	}

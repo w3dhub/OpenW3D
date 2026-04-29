@@ -3,18 +3,7 @@ $output v_texcoord0, v_color0, v_normal, v_worldPos
 
 #include <bgfx_shader.sh>
 
-uniform vec4 u_diffuseColor;
-uniform vec4 u_specularColor;
-uniform vec4 u_emissiveColor;
-uniform vec4 u_ambientColor;
-uniform vec4 u_shininess;
 uniform vec4 u_lightingEnable;
-
-// Light structures - up to 8 lights
-uniform vec4 u_lightPos[8];
-uniform vec4 u_lightDir[8];
-uniform vec4 u_lightColor[8];
-uniform vec4 u_lightAtten[8];  // x=range, y=falloff, z=spot angle, w=type
 
 void main()
 {

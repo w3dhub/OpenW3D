@@ -46,8 +46,8 @@ target_include_directories(bgfx INTERFACE
     "${BX_DIR}/include"
 )
 
-# BGFX requires C++20
-target_compile_features(bgfx INTERFACE cxx_std_20)
+# BGFX requires C++17 minimum; consumers opt into higher standards as needed
+target_compile_features(bgfx INTERFACE cxx_std_17)
 
 # Platform defines
 if(WIN32)
@@ -62,9 +62,12 @@ endif()
 if(WIN32)
     target_link_libraries(bgfx INTERFACE winmm user32 gdi32 dxguid)
 elseif(UNIX AND NOT APPLE)
-    find_package(OpenGL REQUIRED)
+    find_package(OpenGL)
     find_package(X11 REQUIRED)
-    target_link_libraries(bgfx INTERFACE OpenGL::GL X11::X11 X11::Xrandr X11::Xcursor dl pthread rt)
+    target_link_libraries(bgfx INTERFACE X11::X11 X11::Xrandr X11::Xcursor dl pthread)
+    if(OpenGL_FOUND)
+        target_link_libraries(bgfx INTERFACE OpenGL::GL)
+    endif()
 elseif(APPLE)
     find_library(COCOA_LIBRARY Cocoa REQUIRED)
     find_library(FOUNDATION_LIBRARY Foundation REQUIRED)
@@ -140,11 +143,22 @@ else()
         "Without the library, only the null backend can be used.")
     
     add_library(bgfximpl STATIC IMPORTED GLOBAL)
-    set_target_properties(bgfximpl PROPERTIES 
-        IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/libbgfx_stub.${BGFX_STUB_EXT}"
-    )
-    if(NOT EXISTS "${CMAKE_BINARY_DIR}/libbgfx_stub.${BGFX_STUB_EXT}")
-        file(WRITE "${CMAKE_BINARY_DIR}/libbgfx_stub.${BGFX_STUB_EXT}" "")
+    # Create a minimal valid static library stub so the linker accepts it
+    set(BGFX_STUB_LIB "${CMAKE_BINARY_DIR}/libbgfx_stub.${BGFX_STUB_EXT}")
+    set_target_properties(bgfximpl PROPERTIES IMPORTED_LOCATION "${BGFX_STUB_LIB}")
+    if(NOT EXISTS "${BGFX_STUB_LIB}")
+        if(WIN32)
+            file(WRITE "${BGFX_STUB_LIB}" "\n")
+        else()
+            # Create a valid ar archive with an empty symbol table
+            find_program(AR_EXECUTABLE NAMES ar REQUIRED)
+            file(WRITE "${CMAKE_BINARY_DIR}/.bgfx_stub_empty.c" "")
+            execute_process(COMMAND ${AR_EXECUTABLE} rcs "${BGFX_STUB_LIB}" "${CMAKE_BINARY_DIR}/.bgfx_stub_empty.c"
+                RESULT_VARIABLE AR_RESULT)
+            if(NOT AR_RESULT EQUAL 0)
+                message(FATAL_ERROR "Failed to create stub static library for bgfx")
+            endif()
+        endif()
     endif()
 endif()
 

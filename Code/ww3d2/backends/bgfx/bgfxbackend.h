@@ -1,36 +1,4 @@
-/*
-**	Command & Conquer Renegade(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : ww3d                                                         *
- *                                                                                             *
- *                    $Revision:: 1                                                           $*
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * BGFXBackend - concrete WW3DBackend implementation using bgfx rendering library.              *
- *                                                                                             *
- * bgfx is a cross-platform, graphics API agnostic rendering library supporting:                *
- *   - Direct3D 11/12                                                                         *
- *   - Metal                                                                                  *
- *   - OpenGL 2.1+/GL ES 2.0+                                                                 *
- *   - Vulkan                                                                                *
- *   - WebGPU                                                                                 *
- *   - WebGL 1.0/2.0                                                                          *
- *                                                                                             *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+// bgfxbackend.h - OpenW3D render backend
 
 #ifndef BGFXBACKEND_H
 #define BGFXBACKEND_H
@@ -42,9 +10,7 @@
 
 #include <array>
 #include <vector>
-#include <map>
 #include <unordered_map>
-#include <cstring>
 
 // Include material mapper for integration
 #include "BGFXMaterialMapper.h"
@@ -215,7 +181,7 @@ public:
     void Set_Texture(int stage, bgfx::TextureHandle handle, uint32_t flags = UINT32_MAX, uint8_t mip = 0);
 
     // Vertex buffer management
-    bgfx::VertexBufferHandle Create_Vertex_Buffer(void* data, const bgfx::VertexLayout& layout, uint64_t flags = BGFX_BUFFER_NONE);
+    bgfx::VertexBufferHandle Create_Vertex_Buffer(void* data, int vertexCount, const bgfx::VertexLayout& layout, uint64_t flags = BGFX_BUFFER_NONE);
     void Destroy_Vertex_Buffer(bgfx::VertexBufferHandle handle);
     void Set_Vertex_Buffer(int stream, bgfx::VertexBufferHandle handle, uint32_t startVertex = 0, uint32_t numVertices = UINT32_MAX);
 
@@ -255,6 +221,9 @@ public:
     void Set_FrameBuffer(bgfx::FrameBufferHandle handle, bgfx::TextureHandle color, bgfx::TextureHandle depth);
     void Set_Default_FrameBuffer();
 
+    // Resource cache management
+    void Clear_Resource_Caches();
+
     // Material integration - map ww3d2 material properties to bgfx
     void Set_Material_Colors(const Vector3& diffuse, float alpha, const Vector3& specular, float shininess, const Vector3& emissive, const Vector3& ambient);
     void Set_Material_Uniforms(bgfx::UniformHandle diffuseHandle, bgfx::UniformHandle specularHandle, bgfx::UniformHandle emissiveHandle, const MaterialColors& colors);
@@ -272,7 +241,6 @@ private:
 
     void Update_ViewDimensions();
     void Apply_Render_State(int state, unsigned value);
-    bgfx::RendererType::Enum AutoSelect_Renderer();
 
     // Helper: Map DX8 stencil comparison function to bgfx stencil func
     static uint32_t Compare_Stencil_Func(unsigned dx8func);
@@ -283,8 +251,8 @@ private:
     // Helper: Map DX8 stencil operation to bgfx stencil op (depth pass)
     static uint32_t Compare_Stencil_Op_Pass(unsigned dx8op);
 
-    // Convert from W3D color format (0-1 float) to BGRA uint32
-    static uint32_t Color_To_BGRA(const Vector3& color)
+    // Convert from W3D color format (0-1 float) to 0xAABBGGRR in little-endian memory
+    static uint32_t Color_To_ABGR(const Vector3& color)
     {
         uint8_t r = static_cast<uint8_t>(color.X * 255.0f);
         uint8_t g = static_cast<uint8_t>(color.Y * 255.0f);
@@ -309,12 +277,13 @@ private:
     int m_textureBitDepth;
 
     // DX8 render state cache - maps state enum to value
-    std::map<int, unsigned> m_render_state;
+    std::unordered_map<int, unsigned> m_render_state;
 
     // Internal bgfx state
     bgfx::TextureHandle m_systemTexture;
     bgfx::FrameBufferHandle m_frameBuffer;
     bgfx::ProgramHandle m_currentProgram;
+    bgfx::TextureHandle m_whiteTexture;
     bool m_initialized;
 
     // Current bgfx state for tracking changes
@@ -388,7 +357,10 @@ private:
     // Default shader program for mesh rendering
     bgfx::ProgramHandle m_defaultProgram;
 
-    // Resource caches (W3D object -> bgfx handle)
+    // Resource caches (W3D object -> bgfx handle).
+    // NOTE: These caches do not evict entries when W3D objects are destroyed.
+    // If a destroyed object is reallocated at the same address, a stale handle
+    // may be reused. A proper fix requires invalidation on object destruction.
     std::unordered_map<const void*, bgfx::VertexBufferHandle> m_vbCache;
     std::unordered_map<const void*, bgfx::IndexBufferHandle> m_ibCache;
     std::unordered_map<const void*, bgfx::TextureHandle> m_textureCache;
