@@ -47,6 +47,7 @@
 #include "dx8indexbuffer.h"
 #include "dx8renderer.h"
 #include "ww3d.h"
+#include "ww3dbackend.h"
 #include "camera.h"
 #include "wwstring.h"
 #include "matrix4.h"
@@ -1790,6 +1791,30 @@ void DX8Wrapper::Draw(
 
 	Apply_Render_State_Changes();
 
+	// Backend dispatch for non-DX8 rendering
+	if (WW3D::Backend && WW3D::Backend->Wants_Deferred_State_Apply()) {
+		unsigned short actual_start = start_index + render_state.iba_offset;
+		unsigned short actual_count = vertex_count;
+		if (actual_count < 3) {
+			switch (render_state.vertex_buffer_type) {
+			case BUFFER_TYPE_DX8:
+			case BUFFER_TYPE_SORTING:
+				actual_count = render_state.vertex_buffer->Get_Vertex_Count() - render_state.index_base_offset - render_state.vba_offset - min_vertex_index;
+				break;
+			case BUFFER_TYPE_DYNAMIC_DX8:
+			case BUFFER_TYPE_DYNAMIC_SORTING:
+				actual_count = render_state.vba_count;
+				break;
+			}
+		}
+		if (primitive_type == D3DPT_TRIANGLELIST) {
+			WW3D::Backend->Draw_Indexed_Triangles(actual_start, polygon_count, min_vertex_index, actual_count);
+		} else if (primitive_type == D3DPT_TRIANGLESTRIP) {
+			WW3D::Backend->Draw_Indexed_Strip(actual_start, polygon_count + 2, min_vertex_index, actual_count);
+		}
+		return;
+	}
+
 	// Debug feature to disable triangle drawing...
 	if (!_Is_Triangle_Draw_Enabled()) return;
 
@@ -1968,6 +1993,48 @@ void DX8Wrapper::Draw_Strip(
 void DX8Wrapper::Apply_Render_State_Changes()
 {
 	if (!render_state_changed) return;
+
+	// Backend dispatch path for non-DX8 backends (e.g. BGFX)
+	if (WW3D::Backend && WW3D::Backend->Wants_Deferred_State_Apply()) {
+		if (render_state_changed&SHADER_CHANGED) {
+			WW3D::Backend->Apply_Shader_State(render_state.shader);
+		}
+
+		unsigned mask=TEXTURE0_CHANGED;
+		for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i,mask<<=1) {
+			if (render_state_changed&mask) {
+				WW3D::Backend->Apply_Texture_State(i, render_state.Textures[i]);
+			}
+		}
+
+		if (render_state_changed&MATERIAL_CHANGED) {
+			WW3D::Backend->Apply_Material_State(render_state.material);
+		}
+
+		if (render_state_changed&LIGHTS_CHANGED) {
+			// TODO: pass actual light data through backend interface
+			// For now, light environment is handled separately via Set_Light_Environment
+		}
+
+		if (render_state_changed&WORLD_CHANGED) {
+			WW3D::Backend->Set_Transform_World(render_state.world);
+		}
+		if (render_state_changed&VIEW_CHANGED) {
+			WW3D::Backend->Set_Transform_View(render_state.view);
+		}
+		if (render_state_changed&VERTEX_BUFFER_CHANGED) {
+			WW3D::Backend->Set_Vertex_Buffer(render_state.vertex_buffer);
+		}
+		if (render_state_changed&INDEX_BUFFER_CHANGED) {
+			WW3D::Backend->Set_Index_Buffer(render_state.index_buffer, render_state.index_base_offset);
+		}
+
+		WW3D::Backend->Commit_Render_State();
+		render_state_changed&=((unsigned)WORLD_IDENTITY|(unsigned)VIEW_IDENTITY);
+		return;
+	}
+
+	// Original DX8 path
 	if (render_state_changed&SHADER_CHANGED) {
 		SNAPSHOT_SAY(("DX8 - apply shader\n"));
 		render_state.shader.Apply();

@@ -39,6 +39,18 @@
 class SceneClass;
 class RenderDeviceDescClass;
 
+// Forward declarations for render state methods
+class ShaderClass;
+class TextureClass;
+class VertexMaterialClass;
+class LightEnvironmentClass;
+class VertexBufferClass;
+class IndexBufferClass;
+class DynamicVBAccessClass;
+class DynamicIBAccessClass;
+class Matrix3D;
+class Matrix4;
+
 class WW3DBackend
 {
 public:
@@ -93,6 +105,36 @@ public:
     virtual void Set_DX8_Render_State(int state, unsigned value) = 0;
     virtual void Set_Light_Environment(const void* env) = 0;
     virtual void* _Get_DX8_Front_Buffer() = 0;
+
+    // =========================================================================
+    // Extended render state — backends that support modern APIs implement these
+    // DX8Backend can leave these as no-ops since it uses the existing DX8 path
+    // =========================================================================
+
+    // Transform state
+    virtual void Set_Transform_World(const Matrix4& m) { (void)m; }
+    virtual void Set_Transform_View(const Matrix4& m) { (void)m; }
+    virtual void Set_Transform_Projection(const Matrix4& m) { (void)m; }
+
+    // Shader / material / texture state (deferred application)
+    virtual void Apply_Shader_State(const ShaderClass& shader) { (void)shader; }
+    virtual void Apply_Texture_State(unsigned stage, TextureClass* texture) { (void)stage; (void)texture; }
+    virtual void Apply_Material_State(const VertexMaterialClass* material) { (void)material; }
+    virtual void Apply_Light_Environment_State(LightEnvironmentClass* env) { (void)env; }
+
+    // Buffer binding
+    virtual void Set_Vertex_Buffer(const VertexBufferClass* vb) { (void)vb; }
+    virtual void Set_Index_Buffer(const IndexBufferClass* ib, unsigned short index_base_offset) { (void)ib; (void)index_base_offset; }
+
+    // Draw submission
+    virtual void Draw_Indexed_Triangles(unsigned short start_index, unsigned short polygon_count, unsigned short min_vertex_index, unsigned short vertex_count) { (void)start_index; (void)polygon_count; (void)min_vertex_index; (void)vertex_count; }
+    virtual void Draw_Indexed_Strip(unsigned short start_index, unsigned short index_count, unsigned short min_vertex_index, unsigned short vertex_count) { (void)start_index; (void)index_count; (void)min_vertex_index; (void)vertex_count; }
+
+    // Finalize state application (called after all individual state pieces are set)
+    virtual void Commit_Render_State() {}
+
+    // Returns true if this backend wants DX8Wrapper to delegate Apply_Render_State_Changes
+    virtual bool Wants_Deferred_State_Apply() const { return false; }
 };
 
 #endif // WW3DBACKEND_H
