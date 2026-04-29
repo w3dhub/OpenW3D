@@ -33,6 +33,8 @@
 #include "dx8indexbuffer.h"
 #include "matrix4.h"
 #include "matrix3d.h"
+#include "surfaceclass.h"
+#include "ww3dformat.h"
 
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
@@ -1357,6 +1359,59 @@ void BGFXBackend::Apply_Shader_State(const ShaderClass& shader)
     m_currentState = state;
 }
 
+static bgfx::TextureFormat::Enum WW3DFormat_To_BGFX(WW3DFormat fmt)
+{
+    switch (fmt) {
+        case WW3D_FORMAT_A8R8G8B8:
+        case WW3D_FORMAT_X8R8G8B8:
+            return bgfx::TextureFormat::BGRA8;
+        case WW3D_FORMAT_R8G8B8:
+            return bgfx::TextureFormat::RGB8;
+        case WW3D_FORMAT_R5G6B5:
+            return bgfx::TextureFormat::R5G6B5;
+        case WW3D_FORMAT_A1R5G5B5:
+        case WW3D_FORMAT_X1R5G5B5:
+            return bgfx::TextureFormat::RGBA5;
+        case WW3D_FORMAT_A4R4G4B4:
+        case WW3D_FORMAT_X4R4G4B4:
+            return bgfx::TextureFormat::RGBA4;
+        case WW3D_FORMAT_DXT1:
+            return bgfx::TextureFormat::BC1;
+        case WW3D_FORMAT_DXT3:
+            return bgfx::TextureFormat::BC2;
+        case WW3D_FORMAT_DXT5:
+            return bgfx::TextureFormat::BC3;
+        case WW3D_FORMAT_A8:
+            return bgfx::TextureFormat::A8;
+        case WW3D_FORMAT_L8:
+            return bgfx::TextureFormat::L8;
+        default:
+            return bgfx::TextureFormat::BGRA8; // safe fallback
+    }
+}
+
+static int WW3DFormat_BytesPerPixel(WW3DFormat fmt)
+{
+    switch (fmt) {
+        case WW3D_FORMAT_R8G8B8:     return 3;
+        case WW3D_FORMAT_A8R8G8B8:
+        case WW3D_FORMAT_X8R8G8B8:  return 4;
+        case WW3D_FORMAT_R5G6B5:
+        case WW3D_FORMAT_A1R5G5B5:
+        case WW3D_FORMAT_X1R5G5B5:
+        case WW3D_FORMAT_A4R4G4B4:
+        case WW3D_FORMAT_X4R4G4B4:
+        case WW3D_FORMAT_A8L8:      return 2;
+        case WW3D_FORMAT_R3G3B2:
+        case WW3D_FORMAT_A8:
+        case WW3D_FORMAT_A8R3G3B2:
+        case WW3D_FORMAT_P8:
+        case WW3D_FORMAT_L8:
+        case WW3D_FORMAT_A4L4:      return 1;
+        default:                     return 4; // compressed and unknown fallbacks
+    }
+}
+
 void BGFXBackend::Apply_Texture_State(unsigned stage, TextureClass* texture)
 {
     if (!texture) {
@@ -1371,18 +1426,70 @@ void BGFXBackend::Apply_Texture_State(unsigned stage, TextureClass* texture)
         return;
     }
 
-    // TODO: extract pixel data from TextureClass and create real bgfx texture.
-    // For now, create a 1x1 white placeholder so the pipeline doesn't break.
-    static bool s_whiteCreated = false;
-    static bgfx::TextureHandle s_whiteTexture = BGFX_INVALID_HANDLE;
-    if (!s_whiteCreated) {
-        uint32_t white = 0xFFFFFFFF;
-        s_whiteTexture = bgfx::createTexture2D(1, 1, false, 1,
-            bgfx::TextureFormat::RGBA8, BGFX_TEXTURE_NONE, bgfx::copy(&white, sizeof(white)));
-        s_whiteCreated = true;
+    // Try to extract pixel data from the D3D texture
+    bgfx::TextureHandle bgfxTex = BGFX_INVALID_HANDLE;
+
+    IDirect3DTexture9* d3dTex = texture->Peek_DX8_Texture();
+    if (d3dTex) {
+        SurfaceClass* surface = texture->Get_Surface_Level(0);
+        if (surface) {
+            int pitch = 0;
+            void* pixels = surface->Lock(&pitch);
+            if (pixels) {
+                SurfaceClass::SurfaceDescription desc;
+                surface->Get_Description(desc);
+
+                int width  = (int)desc.Width;
+                int height = (int)desc.Height;
+                WW3DFormat wwfmt = desc.Format;
+                bgfx::TextureFormat::Enum bgfxFmt = WW3DFormat_To_BGFX(wwfmt);
+
+                // For uncompressed formats, copy row-by-row to handle pitch
+                if (wwfmt >= WW3D_FORMAT_R8G8B8 && wwfmt <= WW3D_FORMAT_A4L4) {
+                    int bpp = WW3DFormat_BytesPerPixel(wwfmt);
+                    int dstPitch = width * bpp;
+                    uint8_t* dst = new uint8_t[dstPitch * height];
+                    const uint8_t* src = static_cast<const uint8_t*>(pixels);
+                    for (int y = 0; y < height; ++y) {
+                        memcpy(dst + y * dstPitch, src + y * pitch, dstPitch);
+                    }
+                    surface->Unlock();
+
+                    const bgfx::Memory* mem = bgfx::copy(dst, dstPitch * height);
+                    delete[] dst;
+
+                    bgfxTex = bgfx::createTexture2D(
+                        (uint16_t)width, (uint16_t)height, false, 1,
+                        bgfxFmt, BGFX_TEXTURE_NONE, mem);
+                } else {
+                    // Compressed or special format — use raw lock data
+                    int size = pitch * height; // approximate
+                    surface->Unlock();
+                    // TODO: proper compressed size calculation
+                    WWDEBUG_SAY(("BGFXBackend: compressed texture format not yet supported for upload\n"));
+                }
+            } else {
+                WWDEBUG_SAY(("BGFXBackend: failed to lock texture surface\n"));
+            }
+            surface->Release_Ref();
+        }
     }
-    m_textureCache[texture] = s_whiteTexture;
-    m_boundTextures[stage] = s_whiteTexture;
+
+    if (!bgfx::isValid(bgfxTex)) {
+        // Fallback: 1x1 white placeholder
+        static bool s_whiteCreated = false;
+        static bgfx::TextureHandle s_whiteTexture = BGFX_INVALID_HANDLE;
+        if (!s_whiteCreated) {
+            uint32_t white = 0xFFFFFFFF;
+            s_whiteTexture = bgfx::createTexture2D(1, 1, false, 1,
+                bgfx::TextureFormat::BGRA8, BGFX_TEXTURE_NONE, bgfx::copy(&white, sizeof(white)));
+            s_whiteCreated = true;
+        }
+        bgfxTex = s_whiteTexture;
+    }
+
+    m_textureCache[texture] = bgfxTex;
+    m_boundTextures[stage] = bgfxTex;
 }
 
 void BGFXBackend::Apply_Material_State(const VertexMaterialClass* material)
@@ -1478,10 +1585,14 @@ void BGFXBackend::Set_Vertex_Buffer(const VertexBufferClass* vb)
     }
     m_currentVB = vb;
 
-    auto it = m_vbCache.find(vb);
-    if (it != m_vbCache.end()) {
-        bgfx::setVertexBuffer(0, it->second);
-        return;
+    bool isDynamic = (vb->Type() == BUFFER_TYPE_DYNAMIC_DX8 || vb->Type() == BUFFER_TYPE_DYNAMIC_SORTING);
+
+    if (!isDynamic) {
+        auto it = m_vbCache.find(vb);
+        if (it != m_vbCache.end()) {
+            bgfx::setVertexBuffer(0, it->second);
+            return;
+        }
     }
 
     // Lock and copy data
@@ -1495,10 +1606,21 @@ void BGFXBackend::Set_Vertex_Buffer(const VertexBufferClass* vb)
         return;
     }
 
-    const bgfx::Memory* mem = bgfx::copy(data, count * layout.getStride());
-    bgfx::VertexBufferHandle handle = bgfx::createVertexBuffer(mem, layout);
-    m_vbCache[vb] = handle;
-    bgfx::setVertexBuffer(0, handle);
+    if (isDynamic) {
+        // Transient buffers for per-frame dynamic data
+        bgfx::TransientVertexBuffer tvb;
+        if (bgfx::allocTransientVertexBuffer(&tvb, count, layout)) {
+            memcpy(tvb.data, data, count * layout.getStride());
+            bgfx::setTransientVertexBuffer(0, &tvb);
+        } else {
+            WWDEBUG_SAY(("BGFXBackend: failed to allocate transient vertex buffer\n"));
+        }
+    } else {
+        const bgfx::Memory* mem = bgfx::copy(data, count * layout.getStride());
+        bgfx::VertexBufferHandle handle = bgfx::createVertexBuffer(mem, layout);
+        m_vbCache[vb] = handle;
+        bgfx::setVertexBuffer(0, handle);
+    }
 }
 
 void BGFXBackend::Set_Index_Buffer(const IndexBufferClass* ib, unsigned short index_base_offset)
@@ -1511,20 +1633,34 @@ void BGFXBackend::Set_Index_Buffer(const IndexBufferClass* ib, unsigned short in
     m_currentIB = ib;
     m_currentIBOffset = index_base_offset;
 
-    auto it = m_ibCache.find(ib);
-    if (it != m_ibCache.end()) {
-        bgfx::setIndexBuffer(it->second);
-        return;
+    bool isDynamic = (ib->Type() == BUFFER_TYPE_DYNAMIC_DX8 || ib->Type() == BUFFER_TYPE_DYNAMIC_SORTING);
+
+    if (!isDynamic) {
+        auto it = m_ibCache.find(ib);
+        if (it != m_ibCache.end()) {
+            bgfx::setIndexBuffer(it->second);
+            return;
+        }
     }
 
     IndexBufferClass::WriteLockClass lock(const_cast<IndexBufferClass*>(ib));
     unsigned short* data = lock.Get_Index_Array();
     int count = ib->Get_Index_Count();
 
-    const bgfx::Memory* mem = bgfx::copy(data, count * sizeof(unsigned short));
-    bgfx::IndexBufferHandle handle = bgfx::createIndexBuffer(mem);
-    m_ibCache[ib] = handle;
-    bgfx::setIndexBuffer(handle);
+    if (isDynamic) {
+        bgfx::TransientIndexBuffer tib;
+        if (bgfx::allocTransientIndexBuffer(&tib, count)) {
+            memcpy(tib.data, data, count * sizeof(unsigned short));
+            bgfx::setTransientIndexBuffer(&tib);
+        } else {
+            WWDEBUG_SAY(("BGFXBackend: failed to allocate transient index buffer\n"));
+        }
+    } else {
+        const bgfx::Memory* mem = bgfx::copy(data, count * sizeof(unsigned short));
+        bgfx::IndexBufferHandle handle = bgfx::createIndexBuffer(mem);
+        m_ibCache[ib] = handle;
+        bgfx::setIndexBuffer(handle);
+    }
 }
 
 void BGFXBackend::Draw_Indexed_Triangles(unsigned short start_index, unsigned short polygon_count,
