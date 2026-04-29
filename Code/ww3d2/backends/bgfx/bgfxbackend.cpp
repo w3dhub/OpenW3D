@@ -149,6 +149,7 @@ BGFXBackend::BGFXBackend() :
     m_ambientUniform(BGFX_INVALID_HANDLE),
     m_opacityUniform(BGFX_INVALID_HANDLE),
     m_lightingEnableUniform(BGFX_INVALID_HANDLE),
+    m_alphaTestUniform(BGFX_INVALID_HANDLE),
     m_ambientLightUniform(BGFX_INVALID_HANDLE),
     m_lightDirUniform(BGFX_INVALID_HANDLE),
     m_lightDiffuseUniform(BGFX_INVALID_HANDLE),
@@ -252,11 +253,13 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     m_ambientUniform = bgfx::createUniform(BGFXMaterialUniforms::AMBIENT_COLOR, bgfx::UniformType::Vec4);
     m_opacityUniform = bgfx::createUniform(BGFXMaterialUniforms::OPACITY, bgfx::UniformType::Vec4);
     m_lightingEnableUniform = bgfx::createUniform(BGFXMaterialUniforms::LIGHTING_ENABLE, bgfx::UniformType::Vec4);
+    m_alphaTestUniform = bgfx::createUniform("u_alphaTest", bgfx::UniformType::Vec4);
 
     // Light environment uniforms (arrays of 4)
     m_ambientLightUniform = bgfx::createUniform("u_ambientLight", bgfx::UniformType::Vec4);
     m_lightDirUniform = bgfx::createUniform("u_lightDir", bgfx::UniformType::Vec4, 4);
     m_lightDiffuseUniform = bgfx::createUniform("u_lightDiffuse", bgfx::UniformType::Vec4, 4);
+    m_lightPosUniform = bgfx::createUniform("u_lightPos", bgfx::UniformType::Vec4, 4);
 
     // Transform uniforms (mat4 arrays for bgfx)
     m_modelUniform = bgfx::createUniform("u_model", bgfx::UniformType::Mat4);
@@ -340,9 +343,11 @@ void BGFXBackend::Shutdown()
         m_ambientUniform,
         m_opacityUniform,
         m_lightingEnableUniform,
+        m_alphaTestUniform,
         m_ambientLightUniform,
         m_lightDirUniform,
         m_lightDiffuseUniform,
+        m_lightPosUniform,
         m_modelUniform,
         m_viewProjUniform,
         m_camPosUniform,
@@ -360,9 +365,11 @@ void BGFXBackend::Shutdown()
     m_ambientUniform = BGFX_INVALID_HANDLE;
     m_opacityUniform = BGFX_INVALID_HANDLE;
     m_lightingEnableUniform = BGFX_INVALID_HANDLE;
+    m_alphaTestUniform = BGFX_INVALID_HANDLE;
     m_ambientLightUniform = BGFX_INVALID_HANDLE;
     m_lightDirUniform = BGFX_INVALID_HANDLE;
     m_lightDiffuseUniform = BGFX_INVALID_HANDLE;
+    m_lightPosUniform = BGFX_INVALID_HANDLE;
     m_modelUniform = BGFX_INVALID_HANDLE;
     m_viewProjUniform = BGFX_INVALID_HANDLE;
     m_camPosUniform = BGFX_INVALID_HANDLE;
@@ -1380,6 +1387,14 @@ void BGFXBackend::Apply_Shader_State(const ShaderClass& shader)
         state |= FillMode_To_BGFX(fillIt->second);
     }
 
+    // Alpha test
+    float alphaTest[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+    if (shader.Get_Alpha_Test() != ShaderClass::ALPHATEST_DISABLE) {
+        alphaTest[0] = 1.0f; // enable
+        alphaTest[1] = 0.5f; // default threshold
+    }
+    bgfx::setUniform(m_alphaTestUniform, alphaTest);
+
     bgfx::setState(state);
     m_currentState = state;
 }
@@ -1583,25 +1598,32 @@ void BGFXBackend::Apply_Light_Environment_State(LightEnvironmentClass* env)
     int lightCount = env->Get_Light_Count();
     float dirs[4][4];
     float diffs[4][4];
+    float poss[4][4];
     for (int i = 0; i < 4; ++i) {
         if (i < lightCount) {
             const Vector3& dir = env->Get_Light_Direction(i);
             const Vector3& diff = env->Get_Light_Diffuse(i);
-            dirs[i][0] = dir.X;  dirs[i][1] = dir.Y;  dirs[i][2] = dir.Z;  dirs[i][3] = 1.0f;
+            dirs[i][0] = dir.X;  dirs[i][1] = dir.Y;  dirs[i][2] = dir.Z;  dirs[i][3] = 1.0f; // type=1 directional
             diffs[i][0] = diff.X; diffs[i][1] = diff.Y; diffs[i][2] = diff.Z; diffs[i][3] = 1.0f;
+            poss[i][0] = poss[i][1] = poss[i][2] = poss[i][3] = 0.0f;
         } else {
             dirs[i][0] = dirs[i][1] = dirs[i][2] = dirs[i][3] = 0.0f;
             diffs[i][0] = diffs[i][1] = diffs[i][2] = diffs[i][3] = 0.0f;
+            poss[i][0] = poss[i][1] = poss[i][2] = poss[i][3] = 0.0f;
         }
     }
     bgfx::setUniform(m_lightDirUniform, dirs, 4);
     bgfx::setUniform(m_lightDiffuseUniform, diffs, 4);
+    bgfx::setUniform(m_lightPosUniform, poss, 4);
 }
 
 // Store individual DX8 lights for sorting-renderer path
 static Vector3 s_dx8LightDirs[4];
 static Vector3 s_dx8LightDiffuses[4];
-static bool s_dx8LightEnabled[4] = { false, false, false, false };
+static Vector3 s_dx8LightPoss[4];
+static float   s_dx8LightRanges[4];
+static int     s_dx8LightTypes[4];
+static bool    s_dx8LightEnabled[4] = { false, false, false, false };
 
 void BGFXBackend::Set_DX8_Light(int index, const void* light)
 {
@@ -1614,6 +1636,9 @@ void BGFXBackend::Set_DX8_Light(int index, const void* light)
         s_dx8LightEnabled[index] = true;
         s_dx8LightDirs[index] = Vector3(d3dLight->Direction.x, d3dLight->Direction.y, d3dLight->Direction.z);
         s_dx8LightDiffuses[index] = Vector3(d3dLight->Diffuse.r, d3dLight->Diffuse.g, d3dLight->Diffuse.b);
+        s_dx8LightPoss[index] = Vector3(d3dLight->Position.x, d3dLight->Position.y, d3dLight->Position.z);
+        s_dx8LightRanges[index] = d3dLight->Range;
+        s_dx8LightTypes[index] = (int)d3dLight->Type; // 1=dir, 2=point, 3=spot
     }
 
     // Upload to shader immediately (bgfx uniforms are per-submit)
@@ -1622,17 +1647,21 @@ void BGFXBackend::Set_DX8_Light(int index, const void* light)
 
     float dirs[4][4];
     float diffs[4][4];
+    float poss[4][4];
     for (int i = 0; i < 4; ++i) {
         if (s_dx8LightEnabled[i]) {
-            dirs[i][0] = s_dx8LightDirs[i].X;  dirs[i][1] = s_dx8LightDirs[i].Y;  dirs[i][2] = s_dx8LightDirs[i].Z;  dirs[i][3] = 1.0f;
+            dirs[i][0] = s_dx8LightDirs[i].X;  dirs[i][1] = s_dx8LightDirs[i].Y;  dirs[i][2] = s_dx8LightDirs[i].Z;  dirs[i][3] = (float)s_dx8LightTypes[i];
             diffs[i][0] = s_dx8LightDiffuses[i].X; diffs[i][1] = s_dx8LightDiffuses[i].Y; diffs[i][2] = s_dx8LightDiffuses[i].Z; diffs[i][3] = 1.0f;
+            poss[i][0] = s_dx8LightPoss[i].X;  poss[i][1] = s_dx8LightPoss[i].Y;  poss[i][2] = s_dx8LightPoss[i].Z;  poss[i][3] = s_dx8LightRanges[i];
         } else {
             dirs[i][0] = dirs[i][1] = dirs[i][2] = dirs[i][3] = 0.0f;
             diffs[i][0] = diffs[i][1] = diffs[i][2] = diffs[i][3] = 0.0f;
+            poss[i][0] = poss[i][1] = poss[i][2] = poss[i][3] = 0.0f;
         }
     }
     bgfx::setUniform(m_lightDirUniform, dirs, 4);
     bgfx::setUniform(m_lightDiffuseUniform, diffs, 4);
+    bgfx::setUniform(m_lightPosUniform, poss, 4);
 }
 
 void BGFXBackend::Set_Transform_World(const Matrix4& m)

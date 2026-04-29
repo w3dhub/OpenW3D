@@ -345,11 +345,13 @@ private:
     bgfx::UniformHandle m_ambientUniform;
     bgfx::UniformHandle m_opacityUniform;
     bgfx::UniformHandle m_lightingEnableUniform;
+    bgfx::UniformHandle m_alphaTestUniform;
 
     // Light environment uniforms
     bgfx::UniformHandle m_ambientLightUniform;
     bgfx::UniformHandle m_lightDirUniform;
     bgfx::UniformHandle m_lightDiffuseUniform;
+    bgfx::UniformHandle m_lightPosUniform;
 
     // Transform uniforms
     bgfx::UniformHandle m_modelUniform;
