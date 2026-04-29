@@ -27,10 +27,18 @@ if(NOT SHADERC_EXECUTABLE)
 endif()
 
 # Shader profiles for different renderers
-set(SHADER_PROFILES
-    "120"       # OpenGL 2.1 / GLES 2.0
-    " spirv"    # Vulkan (note leading space)
-)
+if(WIN32)
+    set(SHADER_PROFILES
+        "s_5_0"     # Direct3D 11 / 12
+    )
+    set(SHADER_PLATFORM "windows")
+else()
+    set(SHADER_PROFILES
+        "120"       # OpenGL 2.1 / GLES 2.0
+        " spirv"    # Vulkan (note leading space)
+    )
+    set(SHADER_PLATFORM "linux")
+endif()
 
 # Source shaders
 set(SHADER_SOURCES
@@ -52,7 +60,7 @@ function(compile_bgfx_shader input_file output_file type profile)
             -f ${input_file}
             -o ${output_file}
             --type ${type}
-            --platform linux
+            --platform ${SHADER_PLATFORM}
             --profile ${profile}
             --varyingdef ${BGFX_SHADER_VARYING_DEF}
             -i "${BGFX_SHADER_SOURCE_DIR}"

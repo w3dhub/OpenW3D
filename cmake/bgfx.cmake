@@ -74,20 +74,46 @@ endif()
 # Look for bgfx library in common build output locations
 set(BGFX_LIB_FOUND FALSE)
 
-foreach(CONFIG release release64 debug debug64)
-    set(CANDIDATE "${BGFX_DIR}/.build/linux64_gcc/bin/libbgfx${CONFIG}.a")
-    if(EXISTS "${CANDIDATE}")
-        set(BGFX_LIB "${CANDIDATE}")
-        set(BGFX_LIB_FOUND TRUE)
-        break()
+if(WIN32)
+    # Windows: look for .lib files from VS2022 builds
+    foreach(CONFIG Release Debug)
+        foreach(ARCH win64)
+            set(CANDIDATE "${BGFX_DIR}/.build/${ARCH}_vs2022/bin/bgfx${CONFIG}.lib")
+            if(EXISTS "${CANDIDATE}")
+                set(BGFX_LIB "${CANDIDATE}")
+                set(BGFX_LIB_FOUND TRUE)
+                break()
+            endif()
+        endforeach()
+        if(BGFX_LIB_FOUND)
+            break()
+        endif()
+    endforeach()
+    
+    if(NOT BGFX_LIB_FOUND)
+        file(GLOB_RECURSE BGFX_LIB_CANDIDATES "${BGFX_DIR}/.build/**/*.lib")
+        if(BGFX_LIB_CANDIDATES)
+            list(GET BGFX_LIB_CANDIDATES 0 BGFX_LIB)
+            set(BGFX_LIB_FOUND TRUE)
+        endif()
     endif()
-endforeach()
-
-if(NOT BGFX_LIB_FOUND)
-    file(GLOB_RECURSE BGFX_LIB_CANDIDATES "${BGFX_DIR}/.build/**/libbgfx*.a")
-    if(BGFX_LIB_CANDIDATES)
-        list(GET BGFX_LIB_CANDIDATES 0 BGFX_LIB)
-        set(BGFX_LIB_FOUND TRUE)
+else()
+    # Linux/macOS: look for .a files
+    foreach(CONFIG release release64 debug debug64)
+        set(CANDIDATE "${BGFX_DIR}/.build/linux64_gcc/bin/libbgfx${CONFIG}.a")
+        if(EXISTS "${CANDIDATE}")
+            set(BGFX_LIB "${CANDIDATE}")
+            set(BGFX_LIB_FOUND TRUE)
+            break()
+        endif()
+    endforeach()
+    
+    if(NOT BGFX_LIB_FOUND)
+        file(GLOB_RECURSE BGFX_LIB_CANDIDATES "${BGFX_DIR}/.build/**/libbgfx*.a")
+        if(BGFX_LIB_CANDIDATES)
+            list(GET BGFX_LIB_CANDIDATES 0 BGFX_LIB)
+            set(BGFX_LIB_FOUND TRUE)
+        endif()
     endif()
 endif()
 
@@ -98,21 +124,27 @@ if(BGFX_LIB_FOUND)
     set_target_properties(bgfximpl PROPERTIES IMPORTED_LOCATION "${BGFX_LIB}")
     target_link_libraries(bgfx INTERFACE bgfximpl)
 else()
+    if(WIN32)
+        set(BGFX_BUILD_HELP "  1. cd ${BGFX_DIR}\n  2. ..\\..\\bx\\tools\\bin\\windows\\genie.exe vs2022\n  3. Open .build\\projects\\vs2022\\bgfx.sln in Visual Studio and build\n  4. Rebuild this project with -DENABLE_BGFX_BACKEND=ON")
+        set(BGFX_STUB_EXT "lib")
+    else()
+        set(BGFX_BUILD_HELP "  1. cd ${BGFX_DIR}\n  2. make linux-gcc-release64\n  3. Rebuild this project with -DENABLE_BGFX_BACKEND=ON")
+        set(BGFX_STUB_EXT "a")
+    endif()
+    
     message(WARNING "BGFX library not found. The bgfx backend will compile but won't link.\n"
         "\n"
         "To build bgfx:\n"
-        "  1. cd ${BGFX_DIR}\n"
-        "  2. make linux-gcc-release64\n"
-        "  3. Rebuild this project with -DENABLE_BGFX_BACKEND=ON\n"
+        "${BGFX_BUILD_HELP}\n"
         "\n"
         "Without the library, only the null backend can be used.")
     
     add_library(bgfximpl STATIC IMPORTED GLOBAL)
     set_target_properties(bgfximpl PROPERTIES 
-        IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/libbgfx_stub.a"
+        IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/libbgfx_stub.${BGFX_STUB_EXT}"
     )
-    if(NOT EXISTS "${CMAKE_BINARY_DIR}/libbgfx_stub.a")
-        file(WRITE "${CMAKE_BINARY_DIR}/libbgfx_stub.a" "!<arch>\n")
+    if(NOT EXISTS "${CMAKE_BINARY_DIR}/libbgfx_stub.${BGFX_STUB_EXT}")
+        file(WRITE "${CMAKE_BINARY_DIR}/libbgfx_stub.${BGFX_STUB_EXT}" "")
     endif()
 endif()
 

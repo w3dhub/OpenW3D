@@ -172,8 +172,24 @@ BGFXBackend::BGFXBackend() :
     m_textureMipLevels.fill(0);
     m_textureUvIndices.fill(0);
 
-    // Note: Device enumeration simplified - using defaults like NullBackend
-    // Device descriptions are populated lazily on first access
+    // Populate device enumeration
+    // Device 0: Auto-detect
+    // Device 1: Vulkan
+    // Device 2: OpenGL
+    // Device 3: Direct3D 11
+    // Device 4: Direct3D 12
+    m_devices.emplace_back();
+    m_devices.back().Set_Device_Name("Auto");
+    m_devices.emplace_back();
+    m_devices.back().Set_Device_Name("Vulkan");
+    m_devices.emplace_back();
+    m_devices.back().Set_Device_Name("OpenGL");
+#if defined(_WIN32) || defined(_WIN64)
+    m_devices.emplace_back();
+    m_devices.back().Set_Device_Name("Direct3D 11");
+    m_devices.emplace_back();
+    m_devices.back().Set_Device_Name("Direct3D 12");
+#endif
 }
 
 BGFXBackend::~BGFXBackend()
@@ -218,6 +234,10 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
         renderer = bgfx::RendererType::Vulkan;
     } else if (m_currentDevice == 2) {
         renderer = bgfx::RendererType::OpenGL;
+    } else if (m_currentDevice == 3) {
+        renderer = bgfx::RendererType::Direct3D11;
+    } else if (m_currentDevice == 4) {
+        renderer = bgfx::RendererType::Direct3D12;
     }
 
     // Initialize bgfx
@@ -274,9 +294,9 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
             case bgfx::RendererType::Vulkan:       suffix = "spirv"; break;
             case bgfx::RendererType::Metal:        suffix = "metal"; break;
             case bgfx::RendererType::OpenGLES:     suffix = "120";   break;
-            case bgfx::RendererType::Direct3D9:    suffix = "120";   break;
-            case bgfx::RendererType::Direct3D11:   suffix = "120";   break;
-            case bgfx::RendererType::Direct3D12:   suffix = "120";   break;
+            case bgfx::RendererType::Direct3D9:    suffix = "s_5_0"; break;
+            case bgfx::RendererType::Direct3D11:   suffix = "s_5_0"; break;
+            case bgfx::RendererType::Direct3D12:   suffix = "s_5_0"; break;
             default:                               suffix = "120";   break;
         }
         char vsPath[256];
@@ -463,6 +483,9 @@ const RenderDeviceDescClass & BGFXBackend::Get_Render_Device_Desc(int deviceidx)
 
 const char * BGFXBackend::Get_Render_Device_Name(int device_index)
 {
+    if (device_index >= 0 && device_index < Get_Render_Device_Count()) {
+        return m_devices[device_index].Get_Device_Name();
+    }
     return "BGFX Renderer";
 }
 

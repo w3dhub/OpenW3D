@@ -32,10 +32,6 @@ add_feature_info(OpenW3DHeadless W3D_FDS "Build OpenW3D headless server")
 option(WANT_DX9 "Enable DX9 renderer via DXVK (Linux only, for cross-compile testing)." ON)
 add_feature_info(DX9Renderer WANT_DX9 "Enable DX9/DXVK renderer")
 
-# Enable BGFX cross-platform renderer
-option(ENABLE_BGFX_BACKEND "Enable bgfx cross-platform backend" OFF)
-add_feature_info(BGFX_Renderer ENABLE_BGFX_BACKEND "Enable bgfx Backend")
-
 # Do we want to build extra SDK stuff or just the game binary?
 option(W3D_TOOLS "Build additional tools." ON)
 add_feature_info(OpenW3DTools W3D_TOOLS "Build OpenW3D Mod Tools")
