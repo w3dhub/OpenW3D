@@ -1475,12 +1475,27 @@ void BGFXBackend::Apply_Texture_State(unsigned stage, TextureClass* texture)
                     bgfxTex = bgfx::createTexture2D(
                         (uint16_t)width, (uint16_t)height, false, 1,
                         bgfxFmt, BGFX_TEXTURE_NONE, mem);
-                } else {
-                    // Compressed or special format — use raw lock data
-                    int size = pitch * height; // approximate
+                } else if (wwfmt == WW3D_FORMAT_DXT1 || wwfmt == WW3D_FORMAT_DXT3 || wwfmt == WW3D_FORMAT_DXT5) {
+                    // Compressed textures: pitch is row pitch in bytes for compressed blocks
+                    int blockSize = (wwfmt == WW3D_FORMAT_DXT1) ? 8 : 16;
+                    int blocksY = (height + 3) / 4;
+                    int dataSize = pitch * blocksY;
                     surface->Unlock();
-                    // TODO: proper compressed size calculation
-                    WWDEBUG_SAY(("BGFXBackend: compressed texture format not yet supported for upload\n"));
+
+                    const bgfx::Memory* mem = bgfx::copy(pixels, dataSize);
+                    bgfxTex = bgfx::createTexture2D(
+                        (uint16_t)width, (uint16_t)height, false, 1,
+                        bgfxFmt, BGFX_TEXTURE_NONE, mem);
+                } else {
+                    // Other formats: raw copy fallback
+                    int size = pitch * height;
+                    surface->Unlock();
+                    WWDEBUG_SAY(("BGFXBackend: unhandled texture format, using raw copy fallback\n"));
+
+                    const bgfx::Memory* mem = bgfx::copy(pixels, size);
+                    bgfxTex = bgfx::createTexture2D(
+                        (uint16_t)width, (uint16_t)height, false, 1,
+                        bgfxFmt, BGFX_TEXTURE_NONE, mem);
                 }
             } else {
                 WWDEBUG_SAY(("BGFXBackend: failed to lock texture surface\n"));
