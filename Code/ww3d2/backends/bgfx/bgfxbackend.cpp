@@ -25,6 +25,14 @@
 
 #include "backends/bgfx/bgfxbackend.h"
 #include "rddesc.h"
+#include "shader.h"
+#include "texture.h"
+#include "vertmaterial.h"
+#include "lightenvironment.h"
+#include "dx8vertexbuffer.h"
+#include "dx8indexbuffer.h"
+#include "matrix4.h"
+#include "matrix3d.h"
 
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
@@ -138,7 +146,18 @@ BGFXBackend::BGFXBackend() :
     m_emissiveUniform(BGFX_INVALID_HANDLE),
     m_ambientUniform(BGFX_INVALID_HANDLE),
     m_opacityUniform(BGFX_INVALID_HANDLE),
-    m_lightingEnableUniform(BGFX_INVALID_HANDLE)
+    m_lightingEnableUniform(BGFX_INVALID_HANDLE),
+    m_modelUniform(BGFX_INVALID_HANDLE),
+    m_viewProjUniform(BGFX_INVALID_HANDLE),
+    m_defaultProgram(BGFX_INVALID_HANDLE),
+    m_worldDirty(false),
+    m_viewDirty(false),
+    m_projectionDirty(false),
+    m_currentVB(nullptr),
+    m_currentIB(nullptr),
+    m_currentIBOffset(0),
+    m_currentMaterial(nullptr),
+    m_currentLightEnv(nullptr)
 {
     m_samplerUniforms.fill(BGFX_INVALID_HANDLE);
     m_boundTextures.fill(BGFX_INVALID_HANDLE);
@@ -228,6 +247,41 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     m_opacityUniform = bgfx::createUniform(BGFXMaterialUniforms::OPACITY, bgfx::UniformType::Vec4);
     m_lightingEnableUniform = bgfx::createUniform(BGFXMaterialUniforms::LIGHTING_ENABLE, bgfx::UniformType::Vec4);
 
+    // Transform uniforms (mat4 arrays for bgfx)
+    m_modelUniform = bgfx::createUniform("u_model", bgfx::UniformType::Mat4);
+    m_viewProjUniform = bgfx::createUniform("u_viewProj", bgfx::UniformType::Mat4);
+
+    // Load default mesh shader program
+    {
+        const char* suffix = "120"; // default to OpenGL/D3D11
+        bgfx::RendererType::Enum rt = bgfx::getRendererType();
+        switch (rt) {
+            case bgfx::RendererType::Vulkan:       suffix = "spirv"; break;
+            case bgfx::RendererType::Metal:        suffix = "metal"; break;
+            case bgfx::RendererType::OpenGLES:     suffix = "120";   break;
+            case bgfx::RendererType::Direct3D9:    suffix = "120";   break;
+            case bgfx::RendererType::Direct3D11:   suffix = "120";   break;
+            case bgfx::RendererType::Direct3D12:   suffix = "120";   break;
+            default:                               suffix = "120";   break;
+        }
+        char vsPath[256];
+        char fsPath[256];
+        const char* shaderDirs[] = { "./shaders/", "../shaders/", "shaders/", nullptr };
+        bgfx::ShaderHandle vs = BGFX_INVALID_HANDLE;
+        bgfx::ShaderHandle fs = BGFX_INVALID_HANDLE;
+        for (int i = 0; shaderDirs[i] && !bgfx::isValid(vs); ++i) {
+            snprintf(vsPath, sizeof(vsPath), "%svs_mesh_%s.bin", shaderDirs[i], suffix);
+            snprintf(fsPath, sizeof(fsPath), "%sfs_mesh_%s.bin", shaderDirs[i], suffix);
+            vs = Load_Shader(vsPath);
+            fs = Load_Shader(fsPath);
+        }
+        if (bgfx::isValid(vs) && bgfx::isValid(fs)) {
+            m_defaultProgram = bgfx::createProgram(vs, fs);
+        } else {
+            WWDEBUG_SAY(("BGFXBackend: Failed to load default mesh shaders\n"));
+        }
+    }
+
     // Set initial view dimensions
     Update_ViewDimensions();
 
@@ -274,6 +328,8 @@ void BGFXBackend::Shutdown()
         m_ambientUniform,
         m_opacityUniform,
         m_lightingEnableUniform,
+        m_modelUniform,
+        m_viewProjUniform,
     };
 
     for (bgfx::UniformHandle uniform : uniforms) {
@@ -288,6 +344,13 @@ void BGFXBackend::Shutdown()
     m_ambientUniform = BGFX_INVALID_HANDLE;
     m_opacityUniform = BGFX_INVALID_HANDLE;
     m_lightingEnableUniform = BGFX_INVALID_HANDLE;
+    m_modelUniform = BGFX_INVALID_HANDLE;
+    m_viewProjUniform = BGFX_INVALID_HANDLE;
+
+    if (bgfx::isValid(m_defaultProgram)) {
+        bgfx::destroy(m_defaultProgram);
+        m_defaultProgram = BGFX_INVALID_HANDLE;
+    }
 
     bgfx::shutdown();
     m_initialized = false;
@@ -1270,4 +1333,285 @@ void BGFXBackend::End_Material_Pass()
 {
     // Finalize material pass
     // Could perform any necessary cleanup or state validation
+}
+
+// ---------------------------------------------------------------------------
+// Backend dispatch overrides — bridge W3D state to bgfx
+// ---------------------------------------------------------------------------
+
+static void Matrix4ToFloat16Transpose(const Matrix4& src, float dst[16])
+{
+    // W3D Matrix4 is row-major; bgfx GLSL expects column-major.
+    for (int row = 0; row < 4; ++row) {
+        for (int col = 0; col < 4; ++col) {
+            dst[col * 4 + row] = src[row][col];
+        }
+    }
+}
+
+void BGFXBackend::Apply_Shader_State(const ShaderClass& shader)
+{
+    bool lighting = m_currentLightEnv != nullptr;
+    uint64_t state = BGFXMaterialMapper::Make_Render_State(shader, lighting);
+    bgfx::setState(state);
+    m_currentState = state;
+}
+
+void BGFXBackend::Apply_Texture_State(unsigned stage, TextureClass* texture)
+{
+    if (!texture) {
+        m_boundTextures[stage] = BGFX_INVALID_HANDLE;
+        return;
+    }
+
+    // Check cache
+    auto it = m_textureCache.find(texture);
+    if (it != m_textureCache.end()) {
+        m_boundTextures[stage] = it->second;
+        return;
+    }
+
+    // TODO: extract pixel data from TextureClass and create real bgfx texture.
+    // For now, create a 1x1 white placeholder so the pipeline doesn't break.
+    static bool s_whiteCreated = false;
+    static bgfx::TextureHandle s_whiteTexture = BGFX_INVALID_HANDLE;
+    if (!s_whiteCreated) {
+        uint32_t white = 0xFFFFFFFF;
+        s_whiteTexture = bgfx::createTexture2D(1, 1, false, 1,
+            bgfx::TextureFormat::RGBA8, BGFX_TEXTURE_NONE, bgfx::copy(&white, sizeof(white)));
+        s_whiteCreated = true;
+    }
+    m_textureCache[texture] = s_whiteTexture;
+    m_boundTextures[stage] = s_whiteTexture;
+}
+
+void BGFXBackend::Apply_Material_State(const VertexMaterialClass* material)
+{
+    m_currentMaterial = material;
+    if (!material) return;
+
+    Vector3 diffuse, specular, emissive, ambient;
+    material->Get_Diffuse(&diffuse);
+    material->Get_Specular(&specular);
+    material->Get_Emissive(&emissive);
+    material->Get_Ambient(&ambient);
+    float opacity  = material->Get_Opacity();
+    float shininess = material->Get_Shininess();
+
+    float diff[4]  = { diffuse.X,  diffuse.Y,  diffuse.Z,  opacity };
+    float spec[4]  = { specular.X, specular.Y, specular.Z, shininess };
+    float emis[4]  = { emissive.X, emissive.Y, emissive.Z, 0.0f };
+    float amb[4]   = { ambient.X,  ambient.Y,  ambient.Z,  0.0f };
+    float op[4]    = { opacity, 0.0f, 0.0f, 0.0f };
+
+    bgfx::setUniform(m_diffuseUniform,  diff);
+    bgfx::setUniform(m_specularUniform, spec);
+    bgfx::setUniform(m_emissiveUniform, emis);
+    bgfx::setUniform(m_ambientUniform,  amb);
+    bgfx::setUniform(m_opacityUniform,  op);
+}
+
+void BGFXBackend::Apply_Light_Environment_State(LightEnvironmentClass* env)
+{
+    m_currentLightEnv = env;
+    float enable[4] = { env ? 1.0f : 0.0f, 0.0f, 0.0f, 0.0f };
+    bgfx::setUniform(m_lightingEnableUniform, enable);
+
+    // TODO: upload actual light data (up to 4 directional/point lights + ambient)
+    // to additional uniforms once the shader supports them.
+}
+
+void BGFXBackend::Set_Transform_World(const Matrix4& m)
+{
+    m_worldMatrix = m;
+    m_worldDirty = true;
+}
+
+void BGFXBackend::Set_Transform_View(const Matrix4& m)
+{
+    m_viewMatrix = m;
+    m_viewDirty = true;
+}
+
+void BGFXBackend::Set_Transform_Projection(const Matrix4& m)
+{
+    m_projectionMatrix = m;
+    m_projectionDirty = true;
+}
+
+static bool BuildVertexLayoutFromFVF(unsigned fvf, bgfx::VertexLayout& layout)
+{
+    layout.begin();
+
+    if (fvf & D3DFVF_XYZ) {
+        layout.add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float);
+    }
+    if (fvf & D3DFVF_NORMAL) {
+        layout.add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float);
+    }
+    if (fvf & D3DFVF_DIFFUSE) {
+        layout.add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true);
+    }
+    if (fvf & D3DFVF_SPECULAR) {
+        layout.add(bgfx::Attrib::Color1, 4, bgfx::AttribType::Uint8, true);
+    }
+
+    // Texture coordinates
+    int texCount = (fvf & D3DFVF_TEXCOUNT_MASK) >> D3DFVF_TEXCOUNT_SHIFT;
+    for (int i = 0; i < texCount; ++i) {
+        bgfx::Attrib::Enum attr = (i == 0) ? bgfx::Attrib::TexCoord0 :
+                                  (i == 1) ? bgfx::Attrib::TexCoord1 :
+                                  (i == 2) ? bgfx::Attrib::TexCoord2 :
+                                             bgfx::Attrib::TexCoord3;
+        layout.add(attr, 2, bgfx::AttribType::Float);
+    }
+
+    layout.end();
+    return layout.getStride() > 0;
+}
+
+void BGFXBackend::Set_Vertex_Buffer(const VertexBufferClass* vb)
+{
+    if (!vb) {
+        m_currentVB = nullptr;
+        return;
+    }
+    m_currentVB = vb;
+
+    auto it = m_vbCache.find(vb);
+    if (it != m_vbCache.end()) {
+        bgfx::setVertexBuffer(0, it->second);
+        return;
+    }
+
+    // Lock and copy data
+    VertexBufferClass::WriteLockClass lock(const_cast<VertexBufferClass*>(vb));
+    void* data = lock.Get_Vertex_Array();
+    int count = vb->Get_Vertex_Count();
+
+    bgfx::VertexLayout layout;
+    if (!BuildVertexLayoutFromFVF(vb->FVF_Info().Get_FVF(), layout)) {
+        WWDEBUG_SAY(("BGFXBackend: unsupported FVF format for vertex buffer\n"));
+        return;
+    }
+
+    const bgfx::Memory* mem = bgfx::copy(data, count * layout.getStride());
+    bgfx::VertexBufferHandle handle = bgfx::createVertexBuffer(mem, layout);
+    m_vbCache[vb] = handle;
+    bgfx::setVertexBuffer(0, handle);
+}
+
+void BGFXBackend::Set_Index_Buffer(const IndexBufferClass* ib, unsigned short index_base_offset)
+{
+    if (!ib) {
+        m_currentIB = nullptr;
+        m_currentIBOffset = 0;
+        return;
+    }
+    m_currentIB = ib;
+    m_currentIBOffset = index_base_offset;
+
+    auto it = m_ibCache.find(ib);
+    if (it != m_ibCache.end()) {
+        bgfx::setIndexBuffer(it->second);
+        return;
+    }
+
+    IndexBufferClass::WriteLockClass lock(const_cast<IndexBufferClass*>(ib));
+    unsigned short* data = lock.Get_Index_Array();
+    int count = ib->Get_Index_Count();
+
+    const bgfx::Memory* mem = bgfx::copy(data, count * sizeof(unsigned short));
+    bgfx::IndexBufferHandle handle = bgfx::createIndexBuffer(mem);
+    m_ibCache[ib] = handle;
+    bgfx::setIndexBuffer(handle);
+}
+
+void BGFXBackend::Draw_Indexed_Triangles(unsigned short start_index, unsigned short polygon_count,
+                                         unsigned short min_vertex_index, unsigned short vertex_count)
+{
+    if (!bgfx::isValid(m_defaultProgram)) {
+        WWDEBUG_SAY(("BGFXBackend: no default program, skipping draw\n"));
+        return;
+    }
+
+    // Set buffer ranges for this draw call
+    if (m_currentIB) {
+        auto it = m_ibCache.find(m_currentIB);
+        if (it != m_ibCache.end()) {
+            bgfx::setIndexBuffer(it->second, start_index, polygon_count * 3);
+        }
+    }
+    if (m_currentVB) {
+        auto it = m_vbCache.find(m_currentVB);
+        if (it != m_vbCache.end()) {
+            bgfx::setVertexBuffer(0, it->second, min_vertex_index, vertex_count);
+        }
+    }
+
+    // Bind textures to samplers
+    for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
+        if (bgfx::isValid(m_boundTextures[stage])) {
+            bgfx::setTexture(stage, m_samplerUniforms[stage], m_boundTextures[stage]);
+        }
+    }
+
+    bgfx::setState(m_currentState);
+    bgfx::submit(0, m_defaultProgram);
+}
+
+void BGFXBackend::Draw_Indexed_Strip(unsigned short start_index, unsigned short index_count,
+                                      unsigned short min_vertex_index, unsigned short vertex_count)
+{
+    if (!bgfx::isValid(m_defaultProgram)) {
+        WWDEBUG_SAY(("BGFXBackend: no default program, skipping draw\n"));
+        return;
+    }
+
+    if (m_currentIB) {
+        auto it = m_ibCache.find(m_currentIB);
+        if (it != m_ibCache.end()) {
+            bgfx::setIndexBuffer(it->second, start_index, index_count);
+        }
+    }
+    if (m_currentVB) {
+        auto it = m_vbCache.find(m_currentVB);
+        if (it != m_vbCache.end()) {
+            bgfx::setVertexBuffer(0, it->second, min_vertex_index, vertex_count);
+        }
+    }
+
+    for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
+        if (bgfx::isValid(m_boundTextures[stage])) {
+            bgfx::setTexture(stage, m_samplerUniforms[stage], m_boundTextures[stage]);
+        }
+    }
+
+    bgfx::setState(m_currentState | BGFX_STATE_PT_TRISTRIP);
+    bgfx::submit(0, m_defaultProgram);
+}
+
+void BGFXBackend::Commit_Render_State()
+{
+    // Apply transforms
+    if (m_worldDirty || m_viewDirty || m_projectionDirty) {
+        float modelMtx[16];
+        Matrix4ToFloat16Transpose(m_worldMatrix, modelMtx);
+        bgfx::setUniform(m_modelUniform, modelMtx);
+
+        // Compute viewProj = view * proj (D3D row-vector convention), then transpose for GLSL
+        Matrix4 viewProj = m_viewMatrix * m_projectionMatrix;
+        float vpMtx[16];
+        Matrix4ToFloat16Transpose(viewProj, vpMtx);
+        bgfx::setUniform(m_viewProjUniform, vpMtx);
+
+        m_worldDirty = false;
+        m_viewDirty = false;
+        m_projectionDirty = false;
+    }
+
+    // Ensure default program is set
+    if (bgfx::isValid(m_defaultProgram)) {
+        // Program is bound per-draw via submit()
+    }
 }

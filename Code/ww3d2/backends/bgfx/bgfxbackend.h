@@ -185,6 +185,21 @@ public:
     virtual void Set_Light_Environment(const void* env) override;
     virtual void* _Get_DX8_Front_Buffer() override;
 
+    // Backend dispatch overrides from WW3DBackend
+    virtual bool Wants_Deferred_State_Apply() const override { return true; }
+    virtual void Apply_Shader_State(const ShaderClass& shader) override;
+    virtual void Apply_Texture_State(unsigned stage, TextureClass* texture) override;
+    virtual void Apply_Material_State(const VertexMaterialClass* material) override;
+    virtual void Apply_Light_Environment_State(LightEnvironmentClass* env) override;
+    virtual void Set_Transform_World(const Matrix4& m) override;
+    virtual void Set_Transform_View(const Matrix4& m) override;
+    virtual void Set_Transform_Projection(const Matrix4& m) override;
+    virtual void Set_Vertex_Buffer(const VertexBufferClass* vb) override;
+    virtual void Set_Index_Buffer(const IndexBufferClass* ib, unsigned short index_base_offset) override;
+    virtual void Draw_Indexed_Triangles(unsigned short start_index, unsigned short polygon_count, unsigned short min_vertex_index, unsigned short vertex_count) override;
+    virtual void Draw_Indexed_Strip(unsigned short start_index, unsigned short index_count, unsigned short min_vertex_index, unsigned short vertex_count) override;
+    virtual void Commit_Render_State() override;
+
     // Texture management
     bgfx::TextureHandle Create_System_Texture(int width, int height, bgfx::TextureFormat::Enum format, uint64_t flags = BGFX_TEXTURE_NONE);
     void Destroy_Texture(bgfx::TextureHandle handle);
@@ -329,6 +344,33 @@ private:
     bgfx::UniformHandle m_ambientUniform;
     bgfx::UniformHandle m_opacityUniform;
     bgfx::UniformHandle m_lightingEnableUniform;
+
+    // Transform uniforms
+    bgfx::UniformHandle m_modelUniform;
+    bgfx::UniformHandle m_viewProjUniform;
+
+    // Cached render state from DX8Wrapper dispatch
+    Matrix4 m_worldMatrix;
+    Matrix4 m_viewMatrix;
+    Matrix4 m_projectionMatrix;
+    bool m_worldDirty;
+    bool m_viewDirty;
+    bool m_projectionDirty;
+
+    // Cached W3D objects for bridging
+    const VertexBufferClass* m_currentVB;
+    const IndexBufferClass* m_currentIB;
+    unsigned short m_currentIBOffset;
+    const VertexMaterialClass* m_currentMaterial;
+    LightEnvironmentClass* m_currentLightEnv;
+
+    // Default shader program for mesh rendering
+    bgfx::ProgramHandle m_defaultProgram;
+
+    // Resource caches (W3D object -> bgfx handle)
+    std::unordered_map<const void*, bgfx::VertexBufferHandle> m_vbCache;
+    std::unordered_map<const void*, bgfx::IndexBufferHandle> m_ibCache;
+    std::unordered_map<const void*, bgfx::TextureHandle> m_textureCache;
 };
 
 #endif // BGFXBACKEND_H
