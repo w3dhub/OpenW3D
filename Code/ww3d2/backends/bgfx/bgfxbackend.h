@@ -354,6 +354,7 @@ private:
     // Transform uniforms
     bgfx::UniformHandle m_modelUniform;
     bgfx::UniformHandle m_viewProjUniform;
+    bgfx::UniformHandle m_camPosUniform;
 
     // Cached render state from DX8Wrapper dispatch
     Matrix4 m_worldMatrix;

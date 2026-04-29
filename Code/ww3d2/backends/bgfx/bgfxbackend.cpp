@@ -154,6 +154,7 @@ BGFXBackend::BGFXBackend() :
     m_lightDiffuseUniform(BGFX_INVALID_HANDLE),
     m_modelUniform(BGFX_INVALID_HANDLE),
     m_viewProjUniform(BGFX_INVALID_HANDLE),
+    m_camPosUniform(BGFX_INVALID_HANDLE),
     m_defaultProgram(BGFX_INVALID_HANDLE),
     m_worldDirty(false),
     m_viewDirty(false),
@@ -260,6 +261,7 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     // Transform uniforms (mat4 arrays for bgfx)
     m_modelUniform = bgfx::createUniform("u_model", bgfx::UniformType::Mat4);
     m_viewProjUniform = bgfx::createUniform("u_viewProj", bgfx::UniformType::Mat4);
+    m_camPosUniform = bgfx::createUniform("u_camPos", bgfx::UniformType::Vec4);
 
     // Load default mesh shader program
     {
@@ -343,6 +345,7 @@ void BGFXBackend::Shutdown()
         m_lightDiffuseUniform,
         m_modelUniform,
         m_viewProjUniform,
+        m_camPosUniform,
     };
 
     for (bgfx::UniformHandle uniform : uniforms) {
@@ -362,6 +365,7 @@ void BGFXBackend::Shutdown()
     m_lightDiffuseUniform = BGFX_INVALID_HANDLE;
     m_modelUniform = BGFX_INVALID_HANDLE;
     m_viewProjUniform = BGFX_INVALID_HANDLE;
+    m_camPosUniform = BGFX_INVALID_HANDLE;
 
     if (bgfx::isValid(m_defaultProgram)) {
         bgfx::destroy(m_defaultProgram);
@@ -1836,6 +1840,17 @@ void BGFXBackend::Commit_Render_State()
         float vpMtx[16];
         Matrix4ToFloat16Transpose(viewProj, vpMtx);
         bgfx::setUniform(m_viewProjUniform, vpMtx);
+
+        // Extract camera position from view matrix
+        // View matrix: t = -R * eye  =>  eye = -R^T * t
+        const Matrix4& V = m_viewMatrix;
+        float tx = V[0][3], ty = V[1][3], tz = V[2][3];
+        float camPos[4];
+        camPos[0] = -(tx * V[0][0] + ty * V[1][0] + tz * V[2][0]);
+        camPos[1] = -(tx * V[0][1] + ty * V[1][1] + tz * V[2][1]);
+        camPos[2] = -(tx * V[0][2] + ty * V[1][2] + tz * V[2][2]);
+        camPos[3] = 1.0f;
+        bgfx::setUniform(m_camPosUniform, camPos);
 
         m_worldDirty = false;
         m_viewDirty = false;
