@@ -1373,6 +1373,13 @@ void BGFXBackend::Apply_Shader_State(const ShaderClass& shader)
 {
     bool lighting = m_currentLightEnv != nullptr;
     uint64_t state = BGFXMaterialMapper::Make_Render_State(shader, lighting);
+
+    // Merge cached DX8 render state (fill mode, etc.)
+    auto fillIt = m_render_state.find(DX8RenderState::FILLMODE);
+    if (fillIt != m_render_state.end()) {
+        state |= FillMode_To_BGFX(fillIt->second);
+    }
+
     bgfx::setState(state);
     m_currentState = state;
 }
