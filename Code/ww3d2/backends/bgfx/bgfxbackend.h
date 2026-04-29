@@ -88,6 +88,14 @@ namespace DX8RenderState
         STENCILREF = 57,
         STENCILMASK = 58,
         STENCILWRITEMASK = 59,
+
+        // Alpha test reference and func (D3DRS_ALPHAREF=24, D3DRS_ALPHAFUNC=25)
+        // Note: ALPHATESTENABLE in this enum is misnamed (value 24 is actually ALPHAREF in D3D)
+        // Kept for compatibility with existing code
+
+        // Depth bias states
+        SLOPESCALEDEPTHBIAS = 175,
+        DEPTHBIAS = 195,
     };
 
     enum FillMode {
@@ -357,6 +365,10 @@ private:
     bgfx::UniformHandle m_modelUniform;
     bgfx::UniformHandle m_viewProjUniform;
     bgfx::UniformHandle m_camPosUniform;
+
+    // Fog uniforms
+    bgfx::UniformHandle m_fogColorUniform;
+    bgfx::UniformHandle m_fogParamsUniform;
 
     // Cached render state from DX8Wrapper dispatch
     Matrix4 m_worldMatrix;

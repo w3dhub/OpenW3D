@@ -151,6 +151,8 @@ BGFXBackend::BGFXBackend() :
     m_lightingEnableUniform(BGFX_INVALID_HANDLE),
     m_alphaTestUniform(BGFX_INVALID_HANDLE),
     m_ambientLightUniform(BGFX_INVALID_HANDLE),
+    m_fogColorUniform(BGFX_INVALID_HANDLE),
+    m_fogParamsUniform(BGFX_INVALID_HANDLE),
     m_lightDirUniform(BGFX_INVALID_HANDLE),
     m_lightDiffuseUniform(BGFX_INVALID_HANDLE),
     m_modelUniform(BGFX_INVALID_HANDLE),
@@ -275,6 +277,10 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     m_lightingEnableUniform = bgfx::createUniform(BGFXMaterialUniforms::LIGHTING_ENABLE, bgfx::UniformType::Vec4);
     m_alphaTestUniform = bgfx::createUniform("u_alphaTest", bgfx::UniformType::Vec4);
 
+    // Fog uniforms
+    m_fogColorUniform = bgfx::createUniform("u_fogColor", bgfx::UniformType::Vec4);
+    m_fogParamsUniform = bgfx::createUniform("u_fogParams", bgfx::UniformType::Vec4);
+
     // Light environment uniforms (arrays of 4)
     m_ambientLightUniform = bgfx::createUniform("u_ambientLight", bgfx::UniformType::Vec4);
     m_lightDirUniform = bgfx::createUniform("u_lightDir", bgfx::UniformType::Vec4, 4);
@@ -368,6 +374,8 @@ void BGFXBackend::Shutdown()
         m_lightDirUniform,
         m_lightDiffuseUniform,
         m_lightPosUniform,
+        m_fogColorUniform,
+        m_fogParamsUniform,
         m_modelUniform,
         m_viewProjUniform,
         m_camPosUniform,
@@ -390,6 +398,8 @@ void BGFXBackend::Shutdown()
     m_lightDirUniform = BGFX_INVALID_HANDLE;
     m_lightDiffuseUniform = BGFX_INVALID_HANDLE;
     m_lightPosUniform = BGFX_INVALID_HANDLE;
+    m_fogColorUniform = BGFX_INVALID_HANDLE;
+    m_fogParamsUniform = BGFX_INVALID_HANDLE;
     m_modelUniform = BGFX_INVALID_HANDLE;
     m_viewProjUniform = BGFX_INVALID_HANDLE;
     m_camPosUniform = BGFX_INVALID_HANDLE;
@@ -731,6 +741,9 @@ void BGFXBackend::Set_DX8_Render_State(int state, unsigned value)
 
 void BGFXBackend::Apply_Render_State(int state, unsigned value)
 {
+    // Update cached state
+    m_render_state[state] = value;
+
     // Build bgfx state from cached render state
     uint64_t newState = BGFX_STATE_DEFAULT;
 
@@ -758,26 +771,80 @@ void BGFXBackend::Apply_Render_State(int state, unsigned value)
         newState |= BGFX_STATE_WRITE_Z;
     }
 
-    // Blend enable
-    auto blendIt = m_render_state.find(DX8RenderState::BLENDENABLE);
-    if (blendIt != m_render_state.end() && blendIt->second) {
-        newState |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ONE, BGFX_STATE_BLEND_INV_SRC_ALPHA);
+    // Blend enable with proper src/dst factors
+    auto blendEnableIt = m_render_state.find(DX8RenderState::BLENDENABLE);
+    bool blendEnabled = (blendEnableIt != m_render_state.end() && blendEnableIt->second);
+    if (blendEnabled) {
+        auto srcBlendIt = m_render_state.find(DX8RenderState::SRCBLEND);
+        auto dstBlendIt = m_render_state.find(DX8RenderState::DESTBLEND);
+        auto blendOpIt  = m_render_state.find(DX8RenderState::BLENDOP);
+
+        uint64_t srcFactor = (srcBlendIt != m_render_state.end())
+            ? BlendFactor_To_BGFX(srcBlendIt->second) : BGFX_STATE_BLEND_ONE;
+        uint64_t dstFactor = (dstBlendIt != m_render_state.end())
+            ? BlendFactor_To_BGFX(dstBlendIt->second) : BGFX_STATE_BLEND_ZERO;
+
+        newState |= BGFX_STATE_BLEND_FUNC(srcFactor, dstFactor);
+
+        // Blend operation
+        if (blendOpIt != m_render_state.end()) {
+            switch (blendOpIt->second) {
+                case DX8RenderState::ADD:         newState |= BGFX_STATE_BLEND_EQUATION_ADD; break;
+                case DX8RenderState::SUBTRACT:    newState |= BGFX_STATE_BLEND_EQUATION_SUB; break;
+                case DX8RenderState::REVSUBTRACT: newState |= BGFX_STATE_BLEND_EQUATION_REVSUB; break;
+                case DX8RenderState::MIN:         newState |= BGFX_STATE_BLEND_EQUATION_MIN; break;
+                case DX8RenderState::MAX:         newState |= BGFX_STATE_BLEND_EQUATION_MAX; break;
+            }
+        }
     }
 
-    // Lighting enable - when disabled, vertex colors are used directly
-    // (tracked for shader uniform system)
-    auto lightIt = m_render_state.find(DX8RenderState::LIGHTING);
-    bool lightingEnabled = (lightIt != m_render_state.end() && lightIt->second);
+    // Alpha test (D3DRS_ALPHATESTENABLE) — handled in shader via uniform
+    // We just track it here; the shader does the discard
+    auto alphaTestIt = m_render_state.find(DX8RenderState::ALPHATESTENABLE);
+    bool alphaTestEnabled = (alphaTestIt != m_render_state.end() && alphaTestIt->second);
+    if (alphaTestEnabled) {
+        auto alphaRefIt = m_render_state.find(DX8RenderState::ALPHAREF);
+        float threshold = (alphaRefIt != m_render_state.end())
+            ? (alphaRefIt->second / 255.0f) : 0.5f;
+        float alphaTestVal[4] = { 1.0f, threshold, 0.0f, 0.0f };
+        bgfx::setUniform(m_alphaTestUniform, alphaTestVal);
+    }
 
-    // Color vertex - allows per-vertex coloring
-    auto colorVertIt = m_render_state.find(DX8RenderState::COLORVERTEX);
-    bool colorVertexEnabled = (colorVertIt != m_render_state.end() && colorVertIt->second);
-
-    // Fog enable
+    // Fog
     auto fogIt = m_render_state.find(DX8RenderState::FOGENABLE);
     bool fogEnabled = (fogIt != m_render_state.end() && fogIt->second);
     if (fogEnabled) {
-        newState |= BGFX_STATE_DEPTH_TEST_LESS;  // Fog needs depth test
+        auto fogStartIt = m_render_state.find(DX8RenderState::FOGSTART);
+        auto fogEndIt   = m_render_state.find(DX8RenderState::FOGEND);
+        auto fogColorIt = m_render_state.find(DX8RenderState::FOGCOLOR);
+        auto fogDensityIt = m_render_state.find(DX8RenderState::FOGDENSITY);
+
+        float fogVal[4];
+        fogVal[0] = (fogStartIt != m_render_state.end()) ? *reinterpret_cast<const float*>(&fogStartIt->second) : 0.0f;
+        fogVal[1] = (fogEndIt   != m_render_state.end()) ? *reinterpret_cast<const float*>(&fogEndIt->second)   : 100.0f;
+        fogVal[2] = (fogDensityIt != m_render_state.end()) ? *reinterpret_cast<const float*>(&fogDensityIt->second) : 1.0f;
+        fogVal[3] = 1.0f; // enable flag
+
+        uint32_t fogColorU32 = (fogColorIt != m_render_state.end()) ? fogColorIt->second : 0xFFFFFFFF;
+        float fogColor[4];
+        fogColor[0] = ((fogColorU32 >> 16) & 0xFF) / 255.0f; // R
+        fogColor[1] = ((fogColorU32 >> 8)  & 0xFF) / 255.0f; // G
+        fogColor[2] = ((fogColorU32 >> 0)  & 0xFF) / 255.0f; // B
+        fogColor[3] = ((fogColorU32 >> 24) & 0xFF) / 255.0f; // A
+        bgfx::setUniform(m_fogColorUniform, fogColor);
+        bgfx::setUniform(m_fogParamsUniform, fogVal);
+    }
+
+    // Depth bias (SLOPESCALEDEPTHBIAS, DEPTHBIAS)
+    auto slopeBiasIt = m_render_state.find(DX8RenderState::SLOPESCALEDEPTHBIAS);
+    auto constBiasIt = m_render_state.find(DX8RenderState::DEPTHBIAS);
+    if (slopeBiasIt != m_render_state.end() || constBiasIt != m_render_state.end()) {
+        float slopeBias = (slopeBiasIt != m_render_state.end()) ? *reinterpret_cast<const float*>(&slopeBiasIt->second) : 0.0f;
+        float constBias = (constBiasIt != m_render_state.end()) ? *reinterpret_cast<const float*>(&constBiasIt->second) : 0.0f;
+        // bgfx supports depth bias via BGFX_STATE_DEPTH_BIAS but it's renderer-dependent
+        // Most renderers handle this via rasterizer state; skip for now
+        (void)slopeBias;
+        (void)constBias;
     }
 
     // Stencil enable
@@ -1375,14 +1442,17 @@ uint64_t BGFXBackend::Apply_Shader(const ShaderClass& shader, bool lightingEnabl
 
 void BGFXBackend::Begin_Material_Pass()
 {
-    // Reset material tracking for a new pass
-    // This would typically reset texture stages, uniforms, etc.
+    // Reset bound textures to prevent cross-material leakage
+    m_boundTextures.fill(BGFX_INVALID_HANDLE);
+    m_textureFlags.fill(UINT32_MAX);
+    m_textureMipLevels.fill(0);
+    m_textureUvIndices.fill(0);
 }
 
 void BGFXBackend::End_Material_Pass()
 {
-    // Finalize material pass
-    // Could perform any necessary cleanup or state validation
+    // Material pass complete — state is submitted via bgfx::submit()
+    // No explicit cleanup needed since bgfx resets transient state per-submit
 }
 
 // ---------------------------------------------------------------------------

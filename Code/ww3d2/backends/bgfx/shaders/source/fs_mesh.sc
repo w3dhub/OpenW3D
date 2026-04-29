@@ -19,6 +19,10 @@ uniform vec4 u_lightDiffuse[4]; // xyz=color, w=enable
 uniform vec4 u_lightPos[4];   // xyz=position, w=range
 uniform vec4 u_camPos;
 
+// Fog
+uniform vec4 u_fogColor;
+uniform vec4 u_fogParams; // x=start, y=end, z=density, w=enable
+
 SAMPLER2D(s_diffuse, 0);
 
 vec3 CalculateLighting(vec3 worldPos, vec3 normal, vec3 diffuseColor, vec3 specularColor, float shininess)
@@ -93,6 +97,15 @@ void main()
 
     vec3 finalColor = litColor + u_emissiveColor.xyz;
     float alpha = diffuse.a * u_opacity.x;
+
+    // Fog
+    if (u_fogParams.w > 0.5)
+    {
+        float dist = length(u_camPos.xyz - v_worldPos);
+        float fogFactor = (u_fogParams.y - dist) / (u_fogParams.y - u_fogParams.x);
+        fogFactor = clamp(fogFactor, 0.0, 1.0);
+        finalColor = mix(u_fogColor.rgb, finalColor, fogFactor);
+    }
 
     gl_FragColor = vec4(finalColor, alpha);
 }
