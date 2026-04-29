@@ -191,6 +191,7 @@ public:
     virtual void Apply_Texture_State(unsigned stage, TextureClass* texture) override;
     virtual void Apply_Material_State(const VertexMaterialClass* material) override;
     virtual void Apply_Light_Environment_State(LightEnvironmentClass* env) override;
+    virtual void Set_DX8_Light(int index, const void* light) override;
     virtual void Set_Transform_World(const Matrix4& m) override;
     virtual void Set_Transform_View(const Matrix4& m) override;
     virtual void Set_Transform_Projection(const Matrix4& m) override;

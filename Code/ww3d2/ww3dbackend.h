@@ -121,6 +121,7 @@ public:
     virtual void Apply_Texture_State(unsigned stage, TextureClass* texture) { (void)stage; (void)texture; }
     virtual void Apply_Material_State(const VertexMaterialClass* material) { (void)material; }
     virtual void Apply_Light_Environment_State(LightEnvironmentClass* env) { (void)env; }
+    virtual void Set_DX8_Light(int index, const void* light) { (void)index; (void)light; }
 
     // Buffer binding
     virtual void Set_Vertex_Buffer(const VertexBufferClass* vb) { (void)vb; }

@@ -2023,8 +2023,17 @@ void DX8Wrapper::Apply_Render_State_Changes()
 		}
 
 		if (render_state_changed&LIGHTS_CHANGED) {
-			// TODO: pass actual light data through backend interface
-			// For now, light environment is handled separately via Set_Light_Environment
+			unsigned mask=LIGHT0_CHANGED;
+			for (unsigned index=0;index<4;++index,mask<<=1) {
+				if (render_state_changed&mask) {
+					if (render_state.LightEnable[index]) {
+						WW3D::Backend->Set_DX8_Light(index, &render_state.Lights[index]);
+					}
+					else {
+						WW3D::Backend->Set_DX8_Light(index, nullptr);
+					}
+				}
+			}
 		}
 
 		if (render_state_changed&WORLD_CHANGED) {

@@ -1572,6 +1572,43 @@ void BGFXBackend::Apply_Light_Environment_State(LightEnvironmentClass* env)
     bgfx::setUniform(m_lightDiffuseUniform, diffs, 4);
 }
 
+// Store individual DX8 lights for sorting-renderer path
+static Vector3 s_dx8LightDirs[4];
+static Vector3 s_dx8LightDiffuses[4];
+static bool s_dx8LightEnabled[4] = { false, false, false, false };
+
+void BGFXBackend::Set_DX8_Light(int index, const void* light)
+{
+    if (index < 0 || index >= 4) return;
+
+    if (!light) {
+        s_dx8LightEnabled[index] = false;
+    } else {
+        const D3DLIGHT9* d3dLight = static_cast<const D3DLIGHT9*>(light);
+        s_dx8LightEnabled[index] = true;
+        s_dx8LightDirs[index] = Vector3(d3dLight->Direction.x, d3dLight->Direction.y, d3dLight->Direction.z);
+        s_dx8LightDiffuses[index] = Vector3(d3dLight->Diffuse.r, d3dLight->Diffuse.g, d3dLight->Diffuse.b);
+    }
+
+    // Upload to shader immediately (bgfx uniforms are per-submit)
+    float enable[4] = { 1.0f, 0.0f, 0.0f, 0.0f };
+    bgfx::setUniform(m_lightingEnableUniform, enable);
+
+    float dirs[4][4];
+    float diffs[4][4];
+    for (int i = 0; i < 4; ++i) {
+        if (s_dx8LightEnabled[i]) {
+            dirs[i][0] = s_dx8LightDirs[i].X;  dirs[i][1] = s_dx8LightDirs[i].Y;  dirs[i][2] = s_dx8LightDirs[i].Z;  dirs[i][3] = 1.0f;
+            diffs[i][0] = s_dx8LightDiffuses[i].X; diffs[i][1] = s_dx8LightDiffuses[i].Y; diffs[i][2] = s_dx8LightDiffuses[i].Z; diffs[i][3] = 1.0f;
+        } else {
+            dirs[i][0] = dirs[i][1] = dirs[i][2] = dirs[i][3] = 0.0f;
+            diffs[i][0] = diffs[i][1] = diffs[i][2] = diffs[i][3] = 0.0f;
+        }
+    }
+    bgfx::setUniform(m_lightDirUniform, dirs, 4);
+    bgfx::setUniform(m_lightDiffuseUniform, diffs, 4);
+}
+
 void BGFXBackend::Set_Transform_World(const Matrix4& m)
 {
     m_worldMatrix = m;
