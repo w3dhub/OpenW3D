@@ -57,23 +57,25 @@
 //#include	<winnt.h>
 //#include	<winuser.h>
 
+#if defined(OPENW3D_SDL3)
+#include <SDL3/SDL.h>
+extern SDL_Window *MainWindow;
+#else
 #ifdef _WIN32
 extern HINSTANCE	ProgramInstance;
 extern HWND			MainWindow;
 extern bool GameInFocus;
+#endif
+#endif
 
 #ifdef _DEBUG
-
+#ifdef _WIN32
 void __cdecl Print_Win32Error(unsigned int win32Error);
-
-#else // _DEBUG
-
+#else
 #define Print_Win32Error
-
-#endif // _DEBUG
-
-#else // _WIN32
-//#include <unistd.h>
-#endif // _WIN32
+#endif
+#else // _DEBUG
+#define Print_Win32Error
+#endif
 
 #endif // WIN_H
