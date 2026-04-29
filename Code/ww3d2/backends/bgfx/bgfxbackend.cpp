@@ -149,6 +149,9 @@ BGFXBackend::BGFXBackend() :
     m_ambientUniform(BGFX_INVALID_HANDLE),
     m_opacityUniform(BGFX_INVALID_HANDLE),
     m_lightingEnableUniform(BGFX_INVALID_HANDLE),
+    m_ambientLightUniform(BGFX_INVALID_HANDLE),
+    m_lightDirUniform(BGFX_INVALID_HANDLE),
+    m_lightDiffuseUniform(BGFX_INVALID_HANDLE),
     m_modelUniform(BGFX_INVALID_HANDLE),
     m_viewProjUniform(BGFX_INVALID_HANDLE),
     m_defaultProgram(BGFX_INVALID_HANDLE),
@@ -249,6 +252,11 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     m_opacityUniform = bgfx::createUniform(BGFXMaterialUniforms::OPACITY, bgfx::UniformType::Vec4);
     m_lightingEnableUniform = bgfx::createUniform(BGFXMaterialUniforms::LIGHTING_ENABLE, bgfx::UniformType::Vec4);
 
+    // Light environment uniforms (arrays of 4)
+    m_ambientLightUniform = bgfx::createUniform("u_ambientLight", bgfx::UniformType::Vec4);
+    m_lightDirUniform = bgfx::createUniform("u_lightDir", bgfx::UniformType::Vec4, 4);
+    m_lightDiffuseUniform = bgfx::createUniform("u_lightDiffuse", bgfx::UniformType::Vec4, 4);
+
     // Transform uniforms (mat4 arrays for bgfx)
     m_modelUniform = bgfx::createUniform("u_model", bgfx::UniformType::Mat4);
     m_viewProjUniform = bgfx::createUniform("u_viewProj", bgfx::UniformType::Mat4);
@@ -330,6 +338,9 @@ void BGFXBackend::Shutdown()
         m_ambientUniform,
         m_opacityUniform,
         m_lightingEnableUniform,
+        m_ambientLightUniform,
+        m_lightDirUniform,
+        m_lightDiffuseUniform,
         m_modelUniform,
         m_viewProjUniform,
     };
@@ -346,6 +357,9 @@ void BGFXBackend::Shutdown()
     m_ambientUniform = BGFX_INVALID_HANDLE;
     m_opacityUniform = BGFX_INVALID_HANDLE;
     m_lightingEnableUniform = BGFX_INVALID_HANDLE;
+    m_ambientLightUniform = BGFX_INVALID_HANDLE;
+    m_lightDirUniform = BGFX_INVALID_HANDLE;
+    m_lightDiffuseUniform = BGFX_INVALID_HANDLE;
     m_modelUniform = BGFX_INVALID_HANDLE;
     m_viewProjUniform = BGFX_INVALID_HANDLE;
 
@@ -1524,8 +1538,38 @@ void BGFXBackend::Apply_Light_Environment_State(LightEnvironmentClass* env)
     float enable[4] = { env ? 1.0f : 0.0f, 0.0f, 0.0f, 0.0f };
     bgfx::setUniform(m_lightingEnableUniform, enable);
 
-    // TODO: upload actual light data (up to 4 directional/point lights + ambient)
-    // to additional uniforms once the shader supports them.
+    if (!env) {
+        // Zero out lights when disabled
+        float zero[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+        bgfx::setUniform(m_ambientLightUniform, zero);
+        float zeroLights[4][4] = {};
+        bgfx::setUniform(m_lightDirUniform, zeroLights, 4);
+        bgfx::setUniform(m_lightDiffuseUniform, zeroLights, 4);
+        return;
+    }
+
+    // Upload ambient light
+    const Vector3& ambient = env->Get_Equivalent_Ambient();
+    float amb[4] = { ambient.X, ambient.Y, ambient.Z, 1.0f };
+    bgfx::setUniform(m_ambientLightUniform, amb);
+
+    // Upload directional lights (up to 4)
+    int lightCount = env->Get_Light_Count();
+    float dirs[4][4];
+    float diffs[4][4];
+    for (int i = 0; i < 4; ++i) {
+        if (i < lightCount) {
+            const Vector3& dir = env->Get_Light_Direction(i);
+            const Vector3& diff = env->Get_Light_Diffuse(i);
+            dirs[i][0] = dir.X;  dirs[i][1] = dir.Y;  dirs[i][2] = dir.Z;  dirs[i][3] = 1.0f;
+            diffs[i][0] = diff.X; diffs[i][1] = diff.Y; diffs[i][2] = diff.Z; diffs[i][3] = 1.0f;
+        } else {
+            dirs[i][0] = dirs[i][1] = dirs[i][2] = dirs[i][3] = 0.0f;
+            diffs[i][0] = diffs[i][1] = diffs[i][2] = diffs[i][3] = 0.0f;
+        }
+    }
+    bgfx::setUniform(m_lightDirUniform, dirs, 4);
+    bgfx::setUniform(m_lightDiffuseUniform, diffs, 4);
 }
 
 void BGFXBackend::Set_Transform_World(const Matrix4& m)

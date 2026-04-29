@@ -345,6 +345,11 @@ private:
     bgfx::UniformHandle m_opacityUniform;
     bgfx::UniformHandle m_lightingEnableUniform;
 
+    // Light environment uniforms
+    bgfx::UniformHandle m_ambientLightUniform;
+    bgfx::UniformHandle m_lightDirUniform;
+    bgfx::UniformHandle m_lightDiffuseUniform;
+
     // Transform uniforms
     bgfx::UniformHandle m_modelUniform;
     bgfx::UniformHandle m_viewProjUniform;
