@@ -12,6 +12,8 @@ target_include_directories(render_compare PRIVATE
     ${CMAKE_SOURCE_DIR}/Code/wwmath
     ${CMAKE_SOURCE_DIR}/Code/wwdebug
     ${CMAKE_SOURCE_DIR}/Code/wwutil
+    ${CMAKE_SOURCE_DIR}/Code/wwsaveload
+    ${CMAKE_SOURCE_DIR}/Code/wwaudio
     ${CMAKE_SOURCE_DIR}/Code/wwlib/wchar
     ${CMAKE_SOURCE_DIR}/Code/DirectX/Include
 )
@@ -22,6 +24,8 @@ target_link_libraries(render_compare PRIVATE
     wwmath
     wwdebug
     wwutil
+    wwsaveload
+    wwaudio
 )
 
 if(WIN32)
