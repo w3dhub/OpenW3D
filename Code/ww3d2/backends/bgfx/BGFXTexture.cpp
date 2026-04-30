@@ -153,21 +153,21 @@ uint32_t BGFXSamplerState::To_BGFX_Flags() const
 
     // Address modes
     switch (AddressU) {
-        case Wrap:     flags |= BGFX_SAMPLER_U_WRAP; break;
+        case Wrap:     break;  // Wrap is default (no flag needed)
         case Clamp:    flags |= BGFX_SAMPLER_U_CLAMP; break;
         case Mirror:   flags |= BGFX_SAMPLER_U_MIRROR; break;
         case Border:   flags |= BGFX_SAMPLER_U_BORDER; break;
     }
 
     switch (AddressV) {
-        case Wrap:     flags |= BGFX_SAMPLER_V_WRAP; break;
+        case Wrap:     break;  // Wrap is default (no flag needed)
         case Clamp:    flags |= BGFX_SAMPLER_V_CLAMP; break;
         case Mirror:   flags |= BGFX_SAMPLER_V_MIRROR; break;
         case Border:   flags |= BGFX_SAMPLER_V_BORDER; break;
     }
 
     switch (AddressW) {
-        case Wrap:     flags |= BGFX_SAMPLER_W_WRAP; break;
+        case Wrap:     break;  // Wrap is default (no flag needed)
         case Clamp:    flags |= BGFX_SAMPLER_W_CLAMP; break;
         case Mirror:   flags |= BGFX_SAMPLER_W_MIRROR; break;
         case Border:   flags |= BGFX_SAMPLER_W_BORDER; break;

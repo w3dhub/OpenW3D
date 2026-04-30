@@ -23,7 +23,10 @@ find_program(SHADERC_EXECUTABLE
 )
 
 if(NOT SHADERC_EXECUTABLE)
-    message(WARNING "shaderc not found. Shaders will need to be compiled manually.")
+    message(WARNING "shaderc not found. Skipping shader compilation. Shaders must be provided pre-compiled in the output directory.")
+    # Create empty shader output directory so the build doesn't fail
+    file(MAKE_DIRECTORY ${BGFX_SHADER_OUTPUT_DIR})
+    return()
 endif()
 
 # Shader profiles for different renderers
@@ -104,8 +107,10 @@ endforeach()
 # Create shader output directory
 file(MAKE_DIRECTORY ${BGFX_SHADER_OUTPUT_DIR})
 
-# Add custom target for shader compilation
-add_custom_target(bgfx-shaders ALL DEPENDS ${COMPILED_SHADERS})
+# Add custom target for shader compilation (only if shaders were compiled)
+if(COMPILED_SHADERS)
+    add_custom_target(bgfx-shaders ALL DEPENDS ${COMPILED_SHADERS})
+endif()
 
 # Copy embedded shaders if they exist
 if(EXISTS ${BGFX_SHADER_EMBED_DIR})
@@ -129,3 +134,87 @@ endif()
 set(BGFX_SHADER_OUTPUT_DIR "${BGFX_SHADER_OUTPUT_DIR}" PARENT_SCOPE)
 
 message(STATUS "BGFX shader output: ${BGFX_SHADER_OUTPUT_DIR}")
+
+# ─────────────────────────────────────────────────────────────────────
+# Uber shader compilation pipeline (vs_uber.sc / fs_uber.sc → D3D11)
+# ─────────────────────────────────────────────────────────────────────
+
+set(UBER_SHADER_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/shaders/source")
+set(UBER_SHADER_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/shaders/d3d11")
+
+# Find shaderc executable (preferred: prebuilt binaries from bgfx)
+find_program(UBER_SHADERC_EXECUTABLE
+    NAMES shaderc shaderc.exe shadercRelease shadercRelease.exe
+    PATHS
+        "${BGFX_DIR}/tools/bin/windows"
+        "${BGFX_DIR}/.build/win64_vs2022/bin"
+        "${BGFX_DIR}/.build/win32_vs2022/bin"
+        "${BGFX_DIR}/.build/linux64_gcc/bin"
+    DOC "bgfx shader compiler for uber shaders"
+    NO_DEFAULT_PATH
+)
+
+# Fallback: search PATH
+if(NOT UBER_SHADERC_EXECUTABLE)
+    find_program(UBER_SHADERC_EXECUTABLE NAMES shaderc shaderc.exe shadercRelease shadercRelease.exe)
+endif()
+
+if(NOT UBER_SHADERC_EXECUTABLE)
+    message(WARNING "shaderc not found. Skipping uber shader compilation. Pre-compiled .bin files may be used.")
+else()
+    message(STATUS "Found shaderc: ${UBER_SHADERC_EXECUTABLE}")
+
+    # Ensure output directory exists
+    file(MAKE_DIRECTORY "${UBER_SHADER_OUTPUT_DIR}")
+
+    # Vertex shader: vs_uber.sc → vs_uber.bin
+    set(UBER_VS_SRC "${UBER_SHADER_SOURCE_DIR}/vs_uber.sc")
+    set(UBER_VS_OUT "${UBER_SHADER_OUTPUT_DIR}/vs_uber.bin")
+
+    add_custom_command(
+        OUTPUT "${UBER_VS_OUT}"
+        COMMAND "${UBER_SHADERC_EXECUTABLE}"
+            -f "${UBER_VS_SRC}"
+            -o "${UBER_VS_OUT}"
+            --type vertex
+            --platform windows
+            --profile s_5_0
+            --varyingdef "${CMAKE_CURRENT_SOURCE_DIR}/shaders/varying.def.sc"
+            -i "${UBER_SHADER_SOURCE_DIR}"
+            -i "${BGFX_DIR}/src"
+        DEPENDS "${UBER_VS_SRC}" "${CMAKE_CURRENT_SOURCE_DIR}/shaders/varying.def.sc"
+        COMMENT "Compiling uber vertex shader: vs_uber.sc → vs_uber.bin"
+        VERBATIM
+    )
+
+    # Fragment shader: fs_uber.sc → fs_uber.bin
+    set(UBER_FS_SRC "${UBER_SHADER_SOURCE_DIR}/fs_uber.sc")
+    set(UBER_FS_OUT "${UBER_SHADER_OUTPUT_DIR}/fs_uber.bin")
+
+    add_custom_command(
+        OUTPUT "${UBER_FS_OUT}"
+        COMMAND "${UBER_SHADERC_EXECUTABLE}"
+            -f "${UBER_FS_SRC}"
+            -o "${UBER_FS_OUT}"
+            --type fragment
+            --platform windows
+            --profile s_5_0
+            --varyingdef "${CMAKE_CURRENT_SOURCE_DIR}/shaders/varying.def.sc"
+            -i "${UBER_SHADER_SOURCE_DIR}"
+            -i "${BGFX_DIR}/src"
+        DEPENDS "${UBER_FS_SRC}" "${CMAKE_CURRENT_SOURCE_DIR}/shaders/varying.def.sc"
+        COMMENT "Compiling uber fragment shader: fs_uber.sc → fs_uber.bin"
+        VERBATIM
+    )
+
+    # Custom target that depends on all compiled uber shaders
+    add_custom_target(bgfx_shaders
+        DEPENDS
+            "${UBER_VS_OUT}"
+            "${UBER_FS_OUT}"
+        COMMENT "Building bgfx uber shaders"
+    )
+
+    # Ensure uber shaders are compiled before the ww3d2 library
+    add_dependencies(ww3d2 bgfx_shaders)
+endif()

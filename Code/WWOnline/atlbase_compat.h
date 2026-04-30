@@ -1,6 +1,7 @@
 #pragma once
 
-#ifdef _MSC_VER
+// Try ATL first, fall back to custom CComPtr if not available
+#if defined(_MSC_VER) && __has_include(<atlbase.h>)
 
 #include <atlbase.h>
 

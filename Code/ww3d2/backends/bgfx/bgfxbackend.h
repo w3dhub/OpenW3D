@@ -5,6 +5,7 @@
 
 #include "ww3dbackend.h"
 #include "rddesc.h"
+#include "matrix4.h"
 
 #include <bgfx/bgfx.h>
 
@@ -14,6 +15,10 @@
 
 // Include material mapper for integration
 #include "BGFXMaterialMapper.h"
+
+// Include shader key and variant cache
+#include "ShaderKey.h"
+#include "ShaderVariantCache.h"
 
 // Common DX8 render state values that we track
 namespace DX8RenderState
@@ -58,6 +63,7 @@ namespace DX8RenderState
         // Alpha test reference and func (D3DRS_ALPHAREF=24, D3DRS_ALPHAFUNC=25)
         // Note: ALPHATESTENABLE in this enum is misnamed (value 24 is actually ALPHAREF in D3D)
         // Kept for compatibility with existing code
+        ALPHAREF = 25,
 
         // Depth bias states
         SLOPESCALEDEPTHBIAS = 175,
@@ -269,7 +275,7 @@ private:
     bool m_windowed;
 
     // Device enumeration
-    std::vector<RenderDeviceDescClass> m_devices;
+    std::vector<std::string> m_deviceNames;
     int m_currentDevice;
 
     // Swap/VSync
@@ -314,6 +320,7 @@ private:
     std::array<uint32_t, MAX_TEXTURE_STAGES> m_textureFlags;
     std::array<uint8_t, MAX_TEXTURE_STAGES> m_textureMipLevels;
     std::array<int, MAX_TEXTURE_STAGES> m_textureUvIndices;
+    int m_activeTextureStages = 0;
 
     // Material/light uniforms
     bgfx::UniformHandle m_diffuseUniform;
@@ -338,6 +345,11 @@ private:
     // Fog uniforms
     bgfx::UniformHandle m_fogColorUniform;
     bgfx::UniformHandle m_fogParamsUniform;
+
+    // Ubershader uniforms
+    bgfx::UniformHandle m_shaderModeUniform;
+    bgfx::UniformHandle m_shaderFlagsUniform;
+    bgfx::UniformHandle m_detailFuncUniform;
 
     // Cached render state from DX8Wrapper dispatch
     Matrix4 m_worldMatrix;
@@ -364,6 +376,9 @@ private:
     std::unordered_map<const void*, bgfx::VertexBufferHandle> m_vbCache;
     std::unordered_map<const void*, bgfx::IndexBufferHandle> m_ibCache;
     std::unordered_map<const void*, bgfx::TextureHandle> m_textureCache;
+
+    // Shader variant cache
+    ShaderVariantCache m_shaderCache;
 };
 
 #endif // BGFXBACKEND_H

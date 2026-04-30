@@ -104,7 +104,8 @@ public:
 	static WW3DErrorType		Init(void * hwnd, char *defaultpal = NULL, bool lite = false);
 	static WW3DErrorType		Shutdown(void);
         static void                    Set_Backend(WW3DBackend* backend);
-	static bool					Is_Initted(void)								{ return IsInitted; }
+        static WW3DBackend*            Get_Backend() { return Backend; }
+	static bool							Is_Initted(void){ return IsInitted; }
 
 	static const int			Get_Render_Device_Count(void);
 	static const char *		Get_Render_Device_Name(int device_index);

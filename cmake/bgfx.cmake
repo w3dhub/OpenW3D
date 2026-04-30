@@ -18,6 +18,11 @@
 #   mkdir build && cd build
 #   cmake .. -DENABLE_BGFX_BACKEND=ON
 #   make
+
+# Guard against double inclusion
+if(TARGET bgfximpl)
+    return()
+endif()
 #
 
 set(BGFX_DIR "${CMAKE_SOURCE_DIR}/external/bgfx")
@@ -58,6 +63,12 @@ elseif(UNIX AND NOT APPLE)
 elseif(APPLE)
     target_compile_definitions(bgfx INTERFACE BGFX_PLATFORM_OSX=1)
 endif()
+
+# bx/bimg/bgfx config defines (required by bx headers)
+target_compile_definitions(bgfx INTERFACE
+    BX_CONFIG_DEBUG=0
+    BX_CONFIG_CACHELINE_SIZE=64
+)
 
 # Find system dependencies for bgfx
 if(WIN32)

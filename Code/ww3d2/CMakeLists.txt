@@ -236,6 +236,9 @@ if(ENABLE_BGFX_BACKEND)
         backends/bgfx/BGFXIndexBuffer.cpp
         backends/bgfx/BGFXTexture.h
         backends/bgfx/BGFXTexture.cpp
+        backends/bgfx/ShaderKey.h
+        backends/bgfx/ShaderVariantCache.h
+        backends/bgfx/ShaderVariantCache.cpp
     )
 endif()
 
@@ -252,6 +255,14 @@ target_link_libraries(ww3d2 PRIVATE
     vfw32
     winmm
 )
+
+if(ENABLE_BGFX_BACKEND)
+    target_link_libraries(ww3d2 PRIVATE bgfx)
+    # Required for bx headers (bgfx dependency)
+    if(MSVC)
+        target_compile_options(ww3d2 PRIVATE /Zc:preprocessor)
+    endif()
+endif()
 
 # Backend selection defines
 if(ENABLE_BGFX_BACKEND)
@@ -277,6 +288,19 @@ if (W3D_TOOLS)
         vfw32
         winmm
     )
+
+    if(ENABLE_BGFX_BACKEND)
+        target_link_libraries(ww3d2e PRIVATE bgfx)
+        target_include_directories(ww3d2e PRIVATE
+            "${BGFX_DIR}/include"
+            "${BX_DIR}/include"
+            "${BX_DIR}/include/compat/msvc"
+        )
+        # Required for bx headers (bgfx dependency)
+        if(MSVC)
+            target_compile_options(ww3d2e PRIVATE /Zc:preprocessor)
+        endif()
+    endif()
 
     target_compile_definitions(ww3d2e PRIVATE PARAM_EDITING_ON)
 

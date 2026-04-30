@@ -1747,14 +1747,14 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 	}
 
 	// Backend dispatch for non-DX8 rendering
-	if (WW3D::Backend && WW3D::Backend->Wants_Deferred_State_Apply()) {
+	if (WW3D::Get_Backend() && WW3D::Get_Backend()->Wants_Deferred_State_Apply()) {
 		// Set dynamic buffers on backend and draw
-		WW3D::Backend->Set_Vertex_Buffer(dyn_vb_access.VertexBuffer);
-		WW3D::Backend->Set_Index_Buffer(dyn_ib_access.IndexBuffer, 0);
+		WW3D::Get_Backend()->Set_Vertex_Buffer(dyn_vb_access.VertexBuffer);
+		WW3D::Get_Backend()->Set_Index_Buffer(dyn_ib_access.IndexBuffer, 0);
 		if (primitive_type == D3DPT_TRIANGLELIST) {
-			WW3D::Backend->Draw_Indexed_Triangles(dyn_ib_access.IndexBufferOffset, polygon_count, 0, vertex_count);
+			WW3D::Get_Backend()->Draw_Indexed_Triangles(dyn_ib_access.IndexBufferOffset, polygon_count, 0, vertex_count);
 		} else if (primitive_type == D3DPT_TRIANGLESTRIP) {
-			WW3D::Backend->Draw_Indexed_Strip(dyn_ib_access.IndexBufferOffset, polygon_count + 2, 0, vertex_count);
+			WW3D::Get_Backend()->Draw_Indexed_Strip(dyn_ib_access.IndexBufferOffset, polygon_count + 2, 0, vertex_count);
 		} else {
 			WWDEBUG_SAY(("Draw_Sorting_IB_VB: unsupported primitive type %d for BGFX backend\n", primitive_type));
 		}
@@ -1805,7 +1805,7 @@ void DX8Wrapper::Draw(
 	Apply_Render_State_Changes();
 
 	// Backend dispatch for non-DX8 rendering
-	if (WW3D::Backend && WW3D::Backend->Wants_Deferred_State_Apply()) {
+	if (WW3D::Get_Backend() && WW3D::Get_Backend()->Wants_Deferred_State_Apply()) {
 		unsigned short actual_start = start_index + render_state.iba_offset;
 		unsigned short actual_count = vertex_count;
 		if (actual_count < 3) {
@@ -1821,9 +1821,9 @@ void DX8Wrapper::Draw(
 			}
 		}
 		if (primitive_type == D3DPT_TRIANGLELIST) {
-			WW3D::Backend->Draw_Indexed_Triangles(actual_start, polygon_count, min_vertex_index, actual_count);
+			WW3D::Get_Backend()->Draw_Indexed_Triangles(actual_start, polygon_count, min_vertex_index, actual_count);
 		} else if (primitive_type == D3DPT_TRIANGLESTRIP) {
-			WW3D::Backend->Draw_Indexed_Strip(actual_start, polygon_count + 2, min_vertex_index, actual_count);
+			WW3D::Get_Backend()->Draw_Indexed_Strip(actual_start, polygon_count + 2, min_vertex_index, actual_count);
 		} else {
 			WWDEBUG_SAY(("DX8Wrapper::Draw: unsupported primitive type %d for BGFX backend\n", primitive_type));
 		}
@@ -2010,20 +2010,20 @@ void DX8Wrapper::Apply_Render_State_Changes()
 	if (!render_state_changed) return;
 
 	// Backend dispatch path for non-DX8 backends (e.g. BGFX)
-	if (WW3D::Backend && WW3D::Backend->Wants_Deferred_State_Apply()) {
+	if (WW3D::Get_Backend() && WW3D::Get_Backend()->Wants_Deferred_State_Apply()) {
 		if (render_state_changed&SHADER_CHANGED) {
-			WW3D::Backend->Apply_Shader_State(render_state.shader);
+			WW3D::Get_Backend()->Apply_Shader_State(render_state.shader);
 		}
 
 		unsigned mask=TEXTURE0_CHANGED;
 		for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i,mask<<=1) {
 			if (render_state_changed&mask) {
-				WW3D::Backend->Apply_Texture_State(i, render_state.Textures[i]);
+				WW3D::Get_Backend()->Apply_Texture_State(i, render_state.Textures[i]);
 			}
 		}
 
 		if (render_state_changed&MATERIAL_CHANGED) {
-			WW3D::Backend->Apply_Material_State(render_state.material);
+			WW3D::Get_Backend()->Apply_Material_State(render_state.material);
 		}
 
 		if (render_state_changed&LIGHTS_CHANGED) {
@@ -2031,29 +2031,29 @@ void DX8Wrapper::Apply_Render_State_Changes()
 			for (unsigned index=0;index<4;++index,mask<<=1) {
 				if (render_state_changed&mask) {
 					if (render_state.LightEnable[index]) {
-						WW3D::Backend->Set_DX8_Light(index, &render_state.Lights[index]);
+						WW3D::Get_Backend()->Set_DX8_Light(index, &render_state.Lights[index]);
 					}
 					else {
-						WW3D::Backend->Set_DX8_Light(index, nullptr);
+						WW3D::Get_Backend()->Set_DX8_Light(index, nullptr);
 					}
 				}
 			}
 		}
 
 		if (render_state_changed&WORLD_CHANGED) {
-			WW3D::Backend->Set_Transform_World(render_state.world);
+			WW3D::Get_Backend()->Set_Transform_World(render_state.world);
 		}
 		if (render_state_changed&VIEW_CHANGED) {
-			WW3D::Backend->Set_Transform_View(render_state.view);
+			WW3D::Get_Backend()->Set_Transform_View(render_state.view);
 		}
 		if (render_state_changed&VERTEX_BUFFER_CHANGED) {
-			WW3D::Backend->Set_Vertex_Buffer(render_state.vertex_buffer);
+			WW3D::Get_Backend()->Set_Vertex_Buffer(render_state.vertex_buffer);
 		}
 		if (render_state_changed&INDEX_BUFFER_CHANGED) {
-			WW3D::Backend->Set_Index_Buffer(render_state.index_buffer, render_state.index_base_offset);
+			WW3D::Get_Backend()->Set_Index_Buffer(render_state.index_buffer, render_state.index_base_offset);
 		}
 
-		WW3D::Backend->Commit_Render_State();
+		WW3D::Get_Backend()->Commit_Render_State();
 		render_state_changed&=((unsigned)WORLD_IDENTITY|(unsigned)VIEW_IDENTITY);
 		return;
 	}

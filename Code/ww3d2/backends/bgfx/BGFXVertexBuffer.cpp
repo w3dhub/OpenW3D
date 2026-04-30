@@ -1,7 +1,6 @@
 // BGFXVertexBuffer.cpp - OpenW3D render backend
 
 #include "backends/bgfx/BGFXVertexBuffer.h"
-#include "ww3dformat.h"
 
 BGFXVertexBuffer::BGFXVertexBuffer()
     : m_handle(BGFX_INVALID_HANDLE)
@@ -14,7 +13,7 @@ BGFXVertexBuffer::~BGFXVertexBuffer()
     Destroy();
 }
 
-bool BGFXVertexBuffer::Create(void* data, int vertexCount, WW3DFormat format, uint64_t flags)
+bool BGFXVertexBuffer::Create(void* data, int vertexCount, WW3DVertexFormat format, uint64_t flags)
 {
     bgfx::VertexLayout layout = Make_Layout(format);
     return Create(data, vertexCount, layout, flags);
@@ -49,7 +48,7 @@ void BGFXVertexBuffer::Destroy()
     m_vertexCount = 0;
 }
 
-bgfx::VertexLayout BGFXVertexBuffer::Make_Layout(WW3DFormat format)
+bgfx::VertexLayout BGFXVertexBuffer::Make_Layout(WW3DVertexFormat format)
 {
     bgfx::VertexLayout layout;
     layout.begin();
@@ -86,7 +85,7 @@ bgfx::VertexLayout BGFXVertexBuffer::Make_Layout(WW3DFormat format)
     return layout;
 }
 
-int BGFXVertexBuffer::Get_Stride(WW3DFormat format)
+int BGFXVertexBuffer::Get_Stride(WW3DVertexFormat format)
 {
     bgfx::VertexLayout layout = Make_Layout(format);
     return layout.getStride();

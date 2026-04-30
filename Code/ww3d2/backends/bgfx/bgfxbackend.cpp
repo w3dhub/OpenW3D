@@ -1,7 +1,10 @@
 // bgfxbackend.cpp - OpenW3D render backend
 
 #include "backends/bgfx/bgfxbackend.h"
+#include "backends/bgfx/ShaderKey.h"
+#include "backends/bgfx/ShaderVariantCache.h"
 #include "rddesc.h"
+#include "dx8wrapper.h"
 #include "shader.h"
 #include "texture.h"
 #include "vertmaterial.h"
@@ -30,7 +33,9 @@
 #endif
 
 #if BGFX_PLATFORM_WINDOWS
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif
 #include <windows.h>
 #elif BGFX_PLATFORM_LINUX
 #include <X11/Xlib.h>
@@ -145,7 +150,11 @@ BGFXBackend::BGFXBackend() :
     m_currentIB(nullptr),
     m_currentIBOffset(0),
     m_currentMaterial(nullptr),
-    m_currentLightEnv(nullptr)
+    m_currentLightEnv(nullptr),
+    m_shaderModeUniform(BGFX_INVALID_HANDLE),
+    m_shaderFlagsUniform(BGFX_INVALID_HANDLE),
+    m_detailFuncUniform(BGFX_INVALID_HANDLE),
+    m_activeTextureStages(0)
 {
     m_samplerUniforms.fill(BGFX_INVALID_HANDLE);
     m_boundTextures.fill(BGFX_INVALID_HANDLE);
@@ -159,17 +168,12 @@ BGFXBackend::BGFXBackend() :
     // Device 2: OpenGL
     // Device 3: Direct3D 11
     // Device 4: Direct3D 12
-    m_devices.emplace_back();
-    m_devices.back().Set_Device_Name("Auto");
-    m_devices.emplace_back();
-    m_devices.back().Set_Device_Name("Vulkan");
-    m_devices.emplace_back();
-    m_devices.back().Set_Device_Name("OpenGL");
+    m_deviceNames.emplace_back("Auto");
+    m_deviceNames.emplace_back("Vulkan");
+    m_deviceNames.emplace_back("OpenGL");
 #if defined(_WIN32) || defined(_WIN64)
-    m_devices.emplace_back();
-    m_devices.back().Set_Device_Name("Direct3D 11");
-    m_devices.emplace_back();
-    m_devices.back().Set_Device_Name("Direct3D 12");
+    m_deviceNames.emplace_back("Direct3D 11");
+    m_deviceNames.emplace_back("Direct3D 12");
 #endif
 }
 
@@ -233,7 +237,6 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     init.deviceId = 0;
     init.debug = false;
     init.profile = false;
-    init.capLimits.maxFrameLatency = 1;
     init.resolution.width = static_cast<uint32_t>(m_width);
     init.resolution.height = static_cast<uint32_t>(m_height);
     init.resolution.reset = BGFX_RESET_VSYNC;
@@ -272,9 +275,14 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     m_lightPosUniform = bgfx::createUniform("u_lightPos", bgfx::UniformType::Vec4, 4);
 
     // Transform uniforms (mat4 arrays for bgfx)
-    m_modelUniform = bgfx::createUniform("u_model", bgfx::UniformType::Mat4);
-    m_viewProjUniform = bgfx::createUniform("u_viewProj", bgfx::UniformType::Mat4);
-    m_camPosUniform = bgfx::createUniform("u_camPos", bgfx::UniformType::Vec4);
+    m_modelUniform = bgfx::createUniform("u_uberModel", bgfx::UniformType::Vec4, 4);
+    m_viewProjUniform = bgfx::createUniform("u_uberViewProj", bgfx::UniformType::Vec4, 4);
+    m_camPosUniform = bgfx::createUniform("u_uberCamPos", bgfx::UniformType::Vec4);
+
+    // Ubershader uniforms
+    m_shaderModeUniform = bgfx::createUniform("u_shaderMode", bgfx::UniformType::Vec4);
+    m_shaderFlagsUniform = bgfx::createUniform("u_shaderFlags", bgfx::UniformType::Vec4);
+    m_detailFuncUniform = bgfx::createUniform("u_detailFunc", bgfx::UniformType::Vec4);
 
     // Load default mesh shader program
     {
@@ -284,7 +292,6 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
             case bgfx::RendererType::Vulkan:       suffix = "spirv"; break;
             case bgfx::RendererType::Metal:        suffix = "metal"; break;
             case bgfx::RendererType::OpenGLES:     suffix = "120";   break;
-            case bgfx::RendererType::Direct3D9:    suffix = "s_5_0"; break;
             case bgfx::RendererType::Direct3D11:   suffix = "s_5_0"; break;
             case bgfx::RendererType::Direct3D12:   suffix = "s_5_0"; break;
             case bgfx::RendererType::OpenGL:       suffix = "120";   break;
@@ -379,6 +386,9 @@ void BGFXBackend::Shutdown()
         m_modelUniform,
         m_viewProjUniform,
         m_camPosUniform,
+        m_shaderModeUniform,
+        m_shaderFlagsUniform,
+        m_detailFuncUniform,
     };
 
     for (bgfx::UniformHandle uniform : uniforms) {
@@ -403,6 +413,9 @@ void BGFXBackend::Shutdown()
     m_modelUniform = BGFX_INVALID_HANDLE;
     m_viewProjUniform = BGFX_INVALID_HANDLE;
     m_camPosUniform = BGFX_INVALID_HANDLE;
+    m_shaderModeUniform = BGFX_INVALID_HANDLE;
+    m_shaderFlagsUniform = BGFX_INVALID_HANDLE;
+    m_detailFuncUniform = BGFX_INVALID_HANDLE;
 
     if (bgfx::isValid(m_defaultProgram)) {
         bgfx::destroy(m_defaultProgram);
@@ -415,6 +428,7 @@ void BGFXBackend::Shutdown()
     }
 
     Clear_Resource_Caches();
+    m_shaderCache.Clear();
     bgfx::shutdown();
     m_initialized = false;
 
@@ -488,7 +502,7 @@ bool BGFXBackend::Is_Windowed()
 
 int BGFXBackend::Get_Render_Device_Count()
 {
-    return static_cast<int>(m_devices.size());
+    return static_cast<int>(m_deviceNames.size());
 }
 
 int BGFXBackend::Get_Render_Device()
@@ -506,7 +520,7 @@ const RenderDeviceDescClass & BGFXBackend::Get_Render_Device_Desc(int deviceidx)
 const char * BGFXBackend::Get_Render_Device_Name(int device_index)
 {
     if (device_index >= 0 && device_index < Get_Render_Device_Count()) {
-        return m_devices[device_index].Get_Device_Name();
+        return m_deviceNames[device_index].c_str();
     }
     return "BGFX Renderer";
 }
@@ -585,10 +599,20 @@ void BGFXBackend::Begin_Scene()
     
     // Touch view to ensure it's rendered even if no draw calls
     bgfx::touch(0);
+
+    // Reset texture stage tracking for the new frame
+    m_activeTextureStages = 0;
 }
 
 void BGFXBackend::End_Scene(bool flip_frame)
 {
+    // Bind all active texture stages before frame submission
+    for (int i = 0; i < m_activeTextureStages; ++i) {
+        if (bgfx::isValid(m_boundTextures[i]) && bgfx::isValid(m_samplerUniforms[i])) {
+            bgfx::setTexture(static_cast<uint8_t>(i), m_samplerUniforms[i], m_boundTextures[i]);
+        }
+    }
+
     if (flip_frame) {
         bgfx::frame(true); // Block until rendering is complete
     }
@@ -1398,7 +1422,7 @@ void BGFXBackend::Clear_Resource_Caches()
     m_ibCache.clear();
 
     for (auto& pair : m_textureCache) {
-        if (bgfx::isValid(pair.second) && pair.second != m_whiteTexture) {
+        if (bgfx::isValid(pair.second) && pair.second.idx != m_whiteTexture.idx) {
             bgfx::destroy(pair.second);
         }
     }
@@ -1408,6 +1432,7 @@ void BGFXBackend::Clear_Resource_Caches()
     m_textureFlags.fill(UINT32_MAX);
     m_textureMipLevels.fill(0);
     m_textureUvIndices.fill(0);
+    m_activeTextureStages = 0;
 }
 
 // =============================================================================
@@ -1463,6 +1488,12 @@ void BGFXBackend::Set_Texture_Stage(int stage, bgfx::TextureHandle handle, uint3
     }
 
     m_textureUvIndices[stage] = uvIndex;
+
+    // Track active stage count
+    if (stage + 1 > m_activeTextureStages) {
+        m_activeTextureStages = stage + 1;
+    }
+
     Set_Texture(stage, handle, flags, mip);
 }
 
@@ -1488,6 +1519,7 @@ void BGFXBackend::Begin_Material_Pass()
     m_textureFlags.fill(UINT32_MAX);
     m_textureMipLevels.fill(0);
     m_textureUvIndices.fill(0);
+    m_activeTextureStages = 0;
 }
 
 void BGFXBackend::End_Material_Pass()
@@ -1512,25 +1544,124 @@ static void Matrix4ToFloat16Transpose(const Matrix4& src, float dst[16])
 
 void BGFXBackend::Apply_Shader_State(const ShaderClass& shader)
 {
-    bool lighting = m_currentLightEnv != nullptr;
-    uint64_t state = BGFXMaterialMapper::Make_Render_State(shader, lighting);
+    // Build ShaderKey from the W3D shader
+    ShaderKey key = ShaderKey_From_DX8(shader);
 
-    // Merge cached DX8 render state (fill mode, etc.)
+    // Update texture stage count from tracked active stages
+    if (m_activeTextureStages > key.texStageCount) {
+        key.texStageCount = static_cast<uint8_t>(m_activeTextureStages);
+    }
+
+    // Get or create the ubershader variant
+    const ShaderVariantCache::ShaderVariant* variant = m_shaderCache.GetOrCreate(key);
+    if (variant && bgfx::isValid(variant->program)) {
+        m_currentProgram = variant->program;
+    } else {
+        // Fallback to default program if ubershader not available
+        m_currentProgram = m_defaultProgram;
+    }
+
+    // ---- Set ubershader uniforms ----
+
+    // Shader mode: encodes gradient, texturing, lighting flags
+    float shaderMode[4] = {
+        static_cast<float>(key.priGradient),   // x: primary gradient mode
+        static_cast<float>(key.secGradient),   // y: secondary gradient on/off
+        static_cast<float>(key.texturing),     // z: texturing on/off
+        static_cast<float>(key.lighting),      // w: lighting on/off
+    };
+    if (bgfx::isValid(m_shaderModeUniform)) {
+        bgfx::setUniform(m_shaderModeUniform, shaderMode);
+    }
+
+    // Shader flags: packed bitfield for fog, alpha test, tex stages, detail funcs
+    float shaderFlags[4] = {
+        static_cast<float>((key.fogMode << 0) |
+                           (key.alphaTest << 4) |
+                           (key.texStageCount << 8)),  // x: packed flags
+        static_cast<float>(key.blendMode),              // y: blend mode enum
+        0.0f, 0.0f  // z, w: reserved
+    };
+    if (bgfx::isValid(m_shaderFlagsUniform)) {
+        bgfx::setUniform(m_shaderFlagsUniform, shaderFlags);
+    }
+
+    // Detail functions: post-detail color and alpha modes
+    float detailFunc[4] = {
+        static_cast<float>(key.detailColor),  // x: detail color func
+        static_cast<float>(key.detailAlpha),  // y: detail alpha func
+        0.0f, 0.0f  // z, w: reserved
+    };
+    if (bgfx::isValid(m_detailFuncUniform)) {
+        bgfx::setUniform(m_detailFuncUniform, detailFunc);
+    }
+
+    // ---- Build bgfx render state from ShaderKey ----
+    uint64_t state = BGFX_STATE_NONE;
+
+    // Depth comparison
+    switch (static_cast<ShaderClass::DepthCompareType>(key.depthCompare)) {
+        case ShaderClass::PASS_NEVER:    state |= BGFX_STATE_DEPTH_TEST_NEVER;    break;
+        case ShaderClass::PASS_LESS:     state |= BGFX_STATE_DEPTH_TEST_LESS;     break;
+        case ShaderClass::PASS_EQUAL:    state |= BGFX_STATE_DEPTH_TEST_EQUAL;    break;
+        case ShaderClass::PASS_LEQUAL:   state |= BGFX_STATE_DEPTH_TEST_LEQUAL;   break;
+        case ShaderClass::PASS_GREATER:  state |= BGFX_STATE_DEPTH_TEST_GREATER;  break;
+        case ShaderClass::PASS_NOTEQUAL: state |= BGFX_STATE_DEPTH_TEST_NOTEQUAL; break;
+        case ShaderClass::PASS_GEQUAL:   state |= BGFX_STATE_DEPTH_TEST_GEQUAL;   break;
+        case ShaderClass::PASS_ALWAYS:   state |= BGFX_STATE_DEPTH_TEST_ALWAYS;   break;
+        default:                         state |= BGFX_STATE_DEPTH_TEST_LEQUAL;   break;
+    }
+
+    // Depth write
+    if (key.depthWrite) {
+        state |= BGFX_STATE_WRITE_Z;
+    }
+
+    // Blend mode
+    switch (key.blendMode) {
+        case 0: // opaque
+            state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ONE, BGFX_STATE_BLEND_ZERO);
+            break;
+        case 1: // additive
+            state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_ONE, BGFX_STATE_BLEND_ONE);
+            break;
+        case 2: // alpha
+            state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
+            break;
+        case 3: // multiplicative
+            state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_DST_COLOR, BGFX_STATE_BLEND_ZERO);
+            break;
+        case 4: // screen
+            state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_INV_SRC_COLOR, BGFX_STATE_BLEND_ONE);
+            break;
+        default: // other/custom: default to alpha blend
+            state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
+            break;
+    }
+
+    // Cull mode — from cached DX8 render state
+    auto cullIt = m_render_state.find(DX8RenderState::CULLMODE);
+    if (cullIt != m_render_state.end()) {
+        state |= CullMode_To_BGFX(cullIt->second);
+    } else {
+        state |= BGFX_STATE_CULL_CCW; // default
+    }
+
+    // Fill mode — from cached DX8 render state
     auto fillIt = m_render_state.find(DX8RenderState::FILLMODE);
     if (fillIt != m_render_state.end()) {
         state |= FillMode_To_BGFX(fillIt->second);
     }
 
-    // Alpha test
-    float alphaTest[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    if (shader.Get_Alpha_Test() != ShaderClass::ALPHATEST_DISABLE) {
-        alphaTest[0] = 1.0f; // enable
-        alphaTest[1] = 0.5f; // default threshold
-    }
-    bgfx::setUniform(m_alphaTestUniform, alphaTest);
-
     bgfx::setState(state);
     m_currentState = state;
+
+    // ---- Bind active texture stages ----
+    for (int i = 0; i < m_activeTextureStages; ++i) {
+        if (bgfx::isValid(m_boundTextures[i]) && bgfx::isValid(m_samplerUniforms[i])) {
+            bgfx::setTexture(static_cast<uint8_t>(i), m_samplerUniforms[i], m_boundTextures[i]);
+        }
+    }
 }
 
 static bgfx::TextureFormat::Enum WW3DFormat_To_BGFX(WW3DFormat fmt)
@@ -1545,7 +1676,7 @@ static bgfx::TextureFormat::Enum WW3DFormat_To_BGFX(WW3DFormat fmt)
             return bgfx::TextureFormat::R5G6B5;
         case WW3D_FORMAT_A1R5G5B5:
         case WW3D_FORMAT_X1R5G5B5:
-            return bgfx::TextureFormat::RGBA5;
+            return bgfx::TextureFormat::RGB5A1;
         case WW3D_FORMAT_A4R4G4B4:
         case WW3D_FORMAT_X4R4G4B4:
             return bgfx::TextureFormat::RGBA4;
@@ -1558,7 +1689,7 @@ static bgfx::TextureFormat::Enum WW3DFormat_To_BGFX(WW3DFormat fmt)
         case WW3D_FORMAT_A8:
             return bgfx::TextureFormat::A8;
         case WW3D_FORMAT_L8:
-            return bgfx::TextureFormat::L8;
+            return bgfx::TextureFormat::R8;
         default:
             return bgfx::TextureFormat::BGRA8; // safe fallback
     }
@@ -1588,9 +1719,18 @@ static int WW3DFormat_BytesPerPixel(WW3DFormat fmt)
 
 void BGFXBackend::Apply_Texture_State(unsigned stage, TextureClass* texture)
 {
+    if (stage >= MAX_TEXTURE_STAGES) {
+        return;
+    }
+
     if (!texture) {
         m_boundTextures[stage] = BGFX_INVALID_HANDLE;
         return;
+    }
+
+    // Track active stage count
+    if (static_cast<int>(stage) + 1 > m_activeTextureStages) {
+        m_activeTextureStages = static_cast<int>(stage) + 1;
     }
 
     // Check cache
@@ -1841,12 +1981,12 @@ static bool BuildVertexLayoutFromFVF(unsigned fvf, bgfx::VertexLayout& layout)
         if (fvf & D3DFVF_LASTBETA_UBYTE4) {
             // All but the last weight are floats; the last is UBYTE4 bone indices.
             for (int i = 0; i < blendCount - 1; ++i) {
-                layout.add(bgfx::Attrib::BlendWeight, 1, bgfx::AttribType::Float);
+                layout.add(bgfx::Attrib::Weight, 1, bgfx::AttribType::Float);
             }
-            layout.add(bgfx::Attrib::BlendIndices, 4, bgfx::AttribType::Uint8, true);
+            layout.add(bgfx::Attrib::Indices, 4, bgfx::AttribType::Uint8, true);
         } else {
             for (int i = 0; i < blendCount; ++i) {
-                layout.add(bgfx::Attrib::BlendWeight, 1, bgfx::AttribType::Float);
+                layout.add(bgfx::Attrib::Weight, 1, bgfx::AttribType::Float);
             }
         }
     }
@@ -1855,9 +1995,10 @@ static bool BuildVertexLayoutFromFVF(unsigned fvf, bgfx::VertexLayout& layout)
         layout.add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float);
     }
 
-    if (fvf & D3DFVF_PSIZE) {
-        layout.add(bgfx::Attrib::PointSize, 1, bgfx::AttribType::Float);
-    }
+    // Point size not supported in modern bgfx — skipped
+    // if (fvf & D3DFVF_PSIZE) {
+    //     layout.add(bgfx::Attrib::PointSize, 1, bgfx::AttribType::Float);
+    // }
 
     if (fvf & D3DFVF_DIFFUSE) {
         layout.add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true);
@@ -1911,9 +2052,10 @@ void BGFXBackend::Set_Vertex_Buffer(const VertexBufferClass* vb)
     if (isDynamic) {
         // Transient buffers for per-frame dynamic data
         bgfx::TransientVertexBuffer tvb;
-        if (bgfx::allocTransientVertexBuffer(&tvb, count, layout)) {
+        bgfx::allocTransientVertexBuffer(&tvb, count, layout);
+        if (tvb.data) {
             memcpy(tvb.data, data, count * layout.getStride());
-            bgfx::setTransientVertexBuffer(0, &tvb);
+            bgfx::setVertexBuffer(0, &tvb);
         } else {
             WWDEBUG_SAY(("BGFXBackend: failed to allocate transient vertex buffer\n"));
         }
@@ -1951,9 +2093,10 @@ void BGFXBackend::Set_Index_Buffer(const IndexBufferClass* ib, unsigned short in
 
     if (isDynamic) {
         bgfx::TransientIndexBuffer tib;
-        if (bgfx::allocTransientIndexBuffer(&tib, count)) {
+        bgfx::allocTransientIndexBuffer(&tib, count);
+        if (tib.data) {
             memcpy(tib.data, data, count * sizeof(unsigned short));
-            bgfx::setTransientIndexBuffer(&tib);
+            bgfx::setIndexBuffer(&tib);
         } else {
             WWDEBUG_SAY(("BGFXBackend: failed to allocate transient index buffer\n"));
         }
@@ -1968,8 +2111,8 @@ void BGFXBackend::Set_Index_Buffer(const IndexBufferClass* ib, unsigned short in
 void BGFXBackend::Draw_Indexed_Triangles(unsigned short start_index, unsigned short polygon_count,
                                          unsigned short min_vertex_index, unsigned short vertex_count)
 {
-    if (!bgfx::isValid(m_defaultProgram)) {
-        WWDEBUG_SAY(("BGFXBackend: no default program, skipping draw\n"));
+    if (!bgfx::isValid(m_currentProgram)) {
+        WWDEBUG_SAY(("BGFXBackend: no program set, skipping draw\n"));
         return;
     }
 
@@ -1990,22 +2133,15 @@ void BGFXBackend::Draw_Indexed_Triangles(unsigned short start_index, unsigned sh
         // If not in cache, the buffer should have been set via Set_Vertex_Buffer already
     }
 
-    // Bind textures to samplers
-    for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
-        if (bgfx::isValid(m_boundTextures[stage])) {
-            bgfx::setTexture(static_cast<uint8_t>(stage), m_samplerUniforms[stage], m_boundTextures[stage]);
-        }
-    }
-
     bgfx::setState(m_currentState);
-    bgfx::submit(0, m_defaultProgram);
+    bgfx::submit(0, m_currentProgram);
 }
 
 void BGFXBackend::Draw_Indexed_Strip(unsigned short start_index, unsigned short index_count,
                                       unsigned short min_vertex_index, unsigned short vertex_count)
 {
-    if (!bgfx::isValid(m_defaultProgram)) {
-        WWDEBUG_SAY(("BGFXBackend: no default program, skipping draw\n"));
+    if (!bgfx::isValid(m_currentProgram)) {
+        WWDEBUG_SAY(("BGFXBackend: no program set, skipping draw\n"));
         return;
     }
 
@@ -2022,14 +2158,8 @@ void BGFXBackend::Draw_Indexed_Strip(unsigned short start_index, unsigned short 
         }
     }
 
-    for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
-        if (bgfx::isValid(m_boundTextures[stage])) {
-            bgfx::setTexture(static_cast<uint8_t>(stage), m_samplerUniforms[stage], m_boundTextures[stage]);
-        }
-    }
-
     bgfx::setState(m_currentState | BGFX_STATE_PT_TRISTRIP);
-    bgfx::submit(0, m_defaultProgram);
+    bgfx::submit(0, m_currentProgram);
 }
 
 void BGFXBackend::Commit_Render_State()

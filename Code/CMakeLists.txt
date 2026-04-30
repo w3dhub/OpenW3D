@@ -46,6 +46,15 @@ target_include_directories(wwcommon INTERFACE
     .
 )
 
+# DirectX SDK include path (required for D3DX9 headers)
+if(WIN32)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/DirectX/Include")
+        target_include_directories(wwcommon INTERFACE DirectX/Include)
+    elseif(DEFINED ENV{DXSDK_DIR})
+        target_include_directories(wwcommon INTERFACE "$ENV{DXSDK_DIR}/Include")
+    endif()
+endif()
+
 target_link_libraries(wwcommon INTERFACE
     gamespy
     d3d9lib

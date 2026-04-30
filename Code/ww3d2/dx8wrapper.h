@@ -158,6 +158,8 @@ struct RenderStateStruct
 	RenderStateStruct& operator= (const RenderStateStruct& src);
 };
 
+class DX8Backend;
+
 /**
 ** DX8Wrapper
 **
@@ -567,6 +569,7 @@ protected:
 
 	friend void DX8_Assert();
 	friend class WW3D;
+	friend class DX8Backend;
 	friend class DX8IndexBufferClass;
 	friend class DX8VertexBufferClass;
 };
