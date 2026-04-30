@@ -214,14 +214,29 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     printf("[BGFX] calling bgfx::renderFrame(-1) to prime context\n");
     bgfx::renderFrame(-1);
 
+    // Detect if we're in an interactive session - required for swapchain creation
+    bool interactive_session = false;
+#if BGFX_PLATFORM_WINDOWS
+    HWINSTA hWinSta = GetProcessWindowStation();
+    if (hWinSta) {
+        USEROBJECTFLAGS uof = {0};
+        DWORD dwSize = 0;
+        if (GetUserObjectInformation(hWinSta, UOI_FLAGS, &uof, sizeof(uof), &dwSize)) {
+            interactive_session = (uof.dwFlags & WSF_VISIBLE) != 0;
+        }
+    }
+    printf("[BGFX] Interactive session detected: %s\\n", interactive_session ? "YES" : "NO");
+#endif
+
     // Set platform-specific data for bgfx
     bgfx::PlatformData pd;
     memset(&pd, 0, sizeof(pd));
-    pd.nwh = hwnd;
 
 #if BGFX_PLATFORM_WINDOWS
     pd.ndt = nullptr;
-    pd.nwh = hwnd;
+    // In non-interactive sessions, set nwh to nullptr for headless rendering
+    // This avoids DXGI swapchain creation which fails in Session 0
+    pd.nwh = interactive_session ? hwnd : nullptr;
     pd.type = bgfx::NativeWindowHandleType::Default;
 #elif BGFX_PLATFORM_LINUX
     if (!m_nativeDisplay) {
