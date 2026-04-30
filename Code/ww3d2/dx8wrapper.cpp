@@ -701,6 +701,7 @@ bool DX8Wrapper::Set_Render_Device
 
 bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int windowed, bool resize_window)
 {
+	printf("[DX8] Set_Render_Device entry: dev=%d w=%d h=%d b=%d win=%d\n", dev, width, height, bits, windowed);
 	WWASSERT(IsInitted);
 	WWASSERT(dev >= -1);
 	WWASSERT(dev < _RenderDeviceNameTable.Count());
@@ -713,6 +714,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	} else if (dev != -1) {
 		CurRenderDevice = dev;
 	}
+	printf("[DX8] CurRenderDevice=%d, device count=%d\n", CurRenderDevice, _RenderDeviceNameTable.Count());
 
 	/*
 	** If user doesn't want to change res, set the res variables to match the
@@ -1024,13 +1026,16 @@ bool DX8Wrapper::Set_Device_Resolution(int width,int height,int bits,int windowe
 {
 	// If device hasn't been created yet, do full device setup
 	if (D3DDevice == NULL) {
-		WWDEBUG_SAY(("Device not yet created, calling Set_Render_Device\n"));
+		printf("[DX8] Device not yet created, calling Set_Render_Device (w=%d h=%d b=%d win=%d)\n", 
+			width, height, bits, windowed);
 		// Use provided resolution (or defaults), force windowed for safety
 		int w = (width != -1) ? width : ResolutionWidth;
 		int h = (height != -1) ? height : ResolutionHeight;
 		int b = (bits != -1) ? bits : BitDepth;
 		int win = (windowed != -1) ? windowed : 1; // default to windowed
-		return Set_Render_Device(-1, w, h, b, win, resize_window);
+		bool result = Set_Render_Device(-1, w, h, b, win, resize_window);
+		printf("[DX8] Set_Render_Device returned %d\n", result ? 1 : 0);
+		return result;
 	}
 
 	if (width != -1) {
