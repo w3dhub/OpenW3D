@@ -22,6 +22,7 @@
 
 set(BGFX_DIR "${CMAKE_SOURCE_DIR}/external/bgfx")
 set(BX_DIR "${CMAKE_SOURCE_DIR}/external/bx")
+set(BIMG_DIR "${CMAKE_SOURCE_DIR}/external/bimg")
 
 if(NOT ENABLE_BGFX_BACKEND)
     return()
@@ -79,8 +80,8 @@ set(BGFX_LIB_FOUND FALSE)
 
 if(WIN32)
     # Windows: look for .lib files from VS2022 builds
-    foreach(CONFIG Release Debug)
-        foreach(ARCH win64)
+    foreach(CONFIG Release Debug RelWithDebInfo MinSizeRel)
+        foreach(ARCH win64 win32 x64 x86)
             set(CANDIDATE "${BGFX_DIR}/.build/${ARCH}_vs2022/bin/bgfx${CONFIG}.lib")
             if(EXISTS "${CANDIDATE}")
                 set(BGFX_LIB "${CANDIDATE}")
@@ -93,6 +94,7 @@ if(WIN32)
         endif()
     endforeach()
     
+    # Fallback: search recursively
     if(NOT BGFX_LIB_FOUND)
         file(GLOB_RECURSE BGFX_LIB_CANDIDATES "${BGFX_DIR}/.build/**/*.lib")
         if(BGFX_LIB_CANDIDATES)
@@ -100,6 +102,21 @@ if(WIN32)
             set(BGFX_LIB_FOUND TRUE)
         endif()
     endif()
+    
+    # Also look for bx and bimg libs
+    foreach(LIBNAME bx bimg)
+        foreach(CONFIG Release Debug RelWithDebInfo MinSizeRel)
+            foreach(ARCH win64 win32 x64 x86)
+                set(CANDIDATE "${BGFX_DIR}/.build/${ARCH}_vs2022/bin/${LIBNAME}${CONFIG}.lib")
+                if(EXISTS "${CANDIDATE}")
+                    add_library(${LIBNAME}impl STATIC IMPORTED GLOBAL)
+                    set_target_properties(${LIBNAME}impl PROPERTIES IMPORTED_LOCATION "${CANDIDATE}")
+                    target_link_libraries(bgfx INTERFACE ${LIBNAME}impl)
+                    break()
+                endif()
+            endforeach()
+        endforeach()
+    endforeach()
 else()
     # Linux/macOS: look for .a files
     foreach(CONFIG release release64 debug debug64)

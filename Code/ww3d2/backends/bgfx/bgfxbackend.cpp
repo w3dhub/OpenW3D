@@ -196,14 +196,19 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     pd.backBufferDS = nullptr;
 
 #if BGFX_PLATFORM_WINDOWS
+    pd.ndt = nullptr; // Windows doesn't need native display
+    pd.nwh = hwnd;    // Window handle is the HWND
     pd.type = bgfx::NativeWindowHandleType::Default;
 #elif BGFX_PLATFORM_LINUX
     if (!m_nativeDisplay) {
         m_nativeDisplay = XOpenDisplay(nullptr);
     }
     pd.ndt = m_nativeDisplay;
+    pd.nwh = (void*)nullptr; // Will be set from hwnd
     pd.type = bgfx::NativeWindowHandleType::Default;
 #elif BGFX_PLATFORM_OSX
+    pd.ndt = nullptr;
+    pd.nwh = hwnd;
     pd.type = bgfx::NativeWindowHandleType::Default;
 #endif
 
@@ -224,14 +229,18 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     // Initialize bgfx
     bgfx::Init init;
     init.type = renderer;
+    init.vendorId = BGFX_PCI_ID_NONE; // Auto-select GPU
     init.deviceId = 0;
     init.debug = false;
     init.profile = false;
-    init.resolution.width = m_width;
-    init.resolution.height = m_height;
+    init.capLimits.maxFrameLatency = 1;
+    init.resolution.width = static_cast<uint32_t>(m_width);
+    init.resolution.height = static_cast<uint32_t>(m_height);
     init.resolution.reset = BGFX_RESET_VSYNC;
+    init.resolution.maxFrameLatency = 1;
 
     if (!bgfx::init(init)) {
+        WWDEBUG_SAY(("BGFXBackend: bgfx::init failed\n"));
         return false;
     }
 
@@ -278,23 +287,39 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
             case bgfx::RendererType::Direct3D9:    suffix = "s_5_0"; break;
             case bgfx::RendererType::Direct3D11:   suffix = "s_5_0"; break;
             case bgfx::RendererType::Direct3D12:   suffix = "s_5_0"; break;
+            case bgfx::RendererType::OpenGL:       suffix = "120";   break;
             default:                               suffix = "120";   break;
         }
-        char vsPath[256];
-        char fsPath[256];
-        const char* shaderDirs[] = { "./shaders/", "../shaders/", "shaders/", nullptr };
+        char vsPath[512];
+        char fsPath[512];
+        const char* shaderDirs[] = {
+            "./shaders/",
+            "../shaders/",
+            "shaders/",
+            "../../shaders/",
+            nullptr
+        };
         bgfx::ShaderHandle vs = BGFX_INVALID_HANDLE;
         bgfx::ShaderHandle fs = BGFX_INVALID_HANDLE;
         for (int i = 0; shaderDirs[i] && !bgfx::isValid(vs); ++i) {
             snprintf(vsPath, sizeof(vsPath), "%svs_mesh_%s.bin", shaderDirs[i], suffix);
             snprintf(fsPath, sizeof(fsPath), "%sfs_mesh_%s.bin", shaderDirs[i], suffix);
             vs = Load_Shader(vsPath);
-            fs = Load_Shader(fsPath);
+            if (bgfx::isValid(vs)) {
+                fs = Load_Shader(fsPath);
+            }
+            if (bgfx::isValid(vs) && bgfx::isValid(fs)) {
+                WWDEBUG_SAY(("BGFXBackend: Loaded shaders from %s\n", shaderDirs[i]));
+                break;
+            }
+            vs = BGFX_INVALID_HANDLE;
+            fs = BGFX_INVALID_HANDLE;
         }
         if (bgfx::isValid(vs) && bgfx::isValid(fs)) {
-            m_defaultProgram = bgfx::createProgram(vs, fs);
+            m_defaultProgram = bgfx::createProgram(vs, fs, true); // destroy shaders when program is destroyed
         } else {
-            WWDEBUG_SAY(("BGFXBackend: Failed to load default mesh shaders\n"));
+            WWDEBUG_SAY(("BGFXBackend: Failed to load default mesh shaders (suffix: %s)\n", suffix));
+            WWDEBUG_SAY(("BGFXBackend: Tried paths: ./shaders/, ../shaders/, shaders/, ../../shaders/\n"));
         }
     }
 
@@ -554,24 +579,29 @@ bool BGFXBackend::Registry_Load_Render_Device(const char * sub_key, char *device
 
 void BGFXBackend::Begin_Scene()
 {
+    // Reset view to full viewport at start of each scene
+    bgfx::setViewRect(0, 0, 0, static_cast<uint16_t>(m_width), static_cast<uint16_t>(m_height));
+    bgfx::setViewMode(0, bgfx::ViewMode::Sequential);
+    
+    // Touch view to ensure it's rendered even if no draw calls
     bgfx::touch(0);
 }
 
 void BGFXBackend::End_Scene(bool flip_frame)
 {
     if (flip_frame) {
-        bgfx::frame();
+        bgfx::frame(true); // Block until rendering is complete
     }
 }
 
 void BGFXBackend::Flip_To_Primary()
 {
-    bgfx::frame();
+    bgfx::frame(true);
 }
 
 void BGFXBackend::Clear(bool clear_color, bool clear_z_stencil, const Vector3 &color, float z, unsigned int stencil)
 {
-    uint64_t flags = BGFX_CLEAR_NONE;
+    uint16_t flags = 0;
 
     if (clear_color) {
         flags |= BGFX_CLEAR_COLOR;
@@ -582,7 +612,12 @@ void BGFXBackend::Clear(bool clear_color, bool clear_z_stencil, const Vector3 &c
     }
 
     m_currentColor = Color_To_ABGR(color);
-    bgfx::setViewClear(0, flags, z, stencil, m_currentColor);
+    
+    // Set view clear - this will be applied when the view is submitted
+    bgfx::setViewClear(0, flags, m_currentColor, 1.0f, 0);
+    
+    // Ensure the view rect is set for the clear to apply
+    bgfx::setViewRect(0, 0, 0, static_cast<uint16_t>(m_width), static_cast<uint16_t>(m_height));
 }
 
 void BGFXBackend::Set_Swap_Interval(int swap)
@@ -746,10 +781,12 @@ void BGFXBackend::Apply_Render_State(int state, unsigned value)
         newState |= CullMode_To_BGFX(cullIt->second);
     }
 
-    // Z enable
+    // Z enable - use proper depth test
     auto zIt = m_render_state.find(DX8RenderState::ZENABLE);
     if (zIt != m_render_state.end() && zIt->second) {
-        newState |= BGFX_STATE_DEPTH_TEST_LESS;
+        newState |= BGFX_STATE_DEPTH_TEST_LEQUAL;
+    } else {
+        newState |= BGFX_STATE_DEPTH_TEST_ALWAYS;
     }
 
     // Z write enable
@@ -786,13 +823,12 @@ void BGFXBackend::Apply_Render_State(int state, unsigned value)
     }
 
     // Alpha test (D3DRS_ALPHATESTENABLE) — handled in shader via uniform
-    // We just track it here; the shader does the discard
     auto alphaTestIt = m_render_state.find(DX8RenderState::ALPHATESTENABLE);
     bool alphaTestEnabled = (alphaTestIt != m_render_state.end() && alphaTestIt->second);
     if (alphaTestEnabled) {
         auto alphaRefIt = m_render_state.find(DX8RenderState::ALPHAREF);
         float threshold = (alphaRefIt != m_render_state.end())
-            ? (alphaRefIt->second / 255.0f) : 0.5f;
+            ? ((alphaRefIt->second & 0x000000FF) / 255.0f) : 0.5f;
         float alphaTestVal[4] = { 1.0f, threshold, 0.0f, 0.0f };
         bgfx::setUniform(m_alphaTestUniform, alphaTestVal);
     }
@@ -839,7 +875,7 @@ void BGFXBackend::Apply_Render_State(int state, unsigned value)
     bool stencilEnabled = (stencilIt != m_render_state.end() && stencilIt->second);
     if (stencilEnabled) {
         // Build stencil state - start with read mask 0xFF
-        uint32_t stencilState = BGFX_STENCIL_FUNC_RMASK(0xFF);
+        uint32_t stencilState = BGFX_STENCIL_TEST_ALWAYS;
         
         // Stencil func
         auto stencilFuncIt = m_render_state.find(DX8RenderState::STENCILFUNC);
@@ -856,7 +892,7 @@ void BGFXBackend::Apply_Render_State(int state, unsigned value)
         // Stencil mask (read mask)
         auto stencilMaskIt = m_render_state.find(DX8RenderState::STENCILMASK);
         if (stencilMaskIt != m_render_state.end()) {
-            stencilState |= BGFX_STENCIL_FUNC_RMASK(stencilMaskIt->second);
+            stencilState |= BGFX_STENCIL_FUNC_RMASK(static_cast<uint32_t>(stencilMaskIt->second));
         }
         
         // Stencil fail operation
@@ -1938,23 +1974,26 @@ void BGFXBackend::Draw_Indexed_Triangles(unsigned short start_index, unsigned sh
     }
 
     // Set buffer ranges for this draw call
+    // Try cache first, then fall back to current buffer pointers
     if (m_currentIB) {
         auto it = m_ibCache.find(m_currentIB);
         if (it != m_ibCache.end()) {
             bgfx::setIndexBuffer(it->second, start_index, polygon_count * 3);
         }
+        // If not in cache, the buffer should have been set via Set_Index_Buffer already
     }
     if (m_currentVB) {
         auto it = m_vbCache.find(m_currentVB);
         if (it != m_vbCache.end()) {
             bgfx::setVertexBuffer(0, it->second, min_vertex_index, vertex_count);
         }
+        // If not in cache, the buffer should have been set via Set_Vertex_Buffer already
     }
 
     // Bind textures to samplers
     for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
         if (bgfx::isValid(m_boundTextures[stage])) {
-            bgfx::setTexture(stage, m_samplerUniforms[stage], m_boundTextures[stage]);
+            bgfx::setTexture(static_cast<uint8_t>(stage), m_samplerUniforms[stage], m_boundTextures[stage]);
         }
     }
 
@@ -1985,7 +2024,7 @@ void BGFXBackend::Draw_Indexed_Strip(unsigned short start_index, unsigned short 
 
     for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
         if (bgfx::isValid(m_boundTextures[stage])) {
-            bgfx::setTexture(stage, m_samplerUniforms[stage], m_boundTextures[stage]);
+            bgfx::setTexture(static_cast<uint8_t>(stage), m_samplerUniforms[stage], m_boundTextures[stage]);
         }
     }
 
