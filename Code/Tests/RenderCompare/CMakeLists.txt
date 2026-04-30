@@ -12,17 +12,6 @@ target_include_directories(render_compare PRIVATE
     ${CMAKE_SOURCE_DIR}/Code/wwmath
     ${CMAKE_SOURCE_DIR}/Code/wwdebug
     ${CMAKE_SOURCE_DIR}/Code/wwutil
-    ${CMAKE_SOURCE_DIR}/Code/wwsaveload
-    ${CMAKE_SOURCE_DIR}/Code/wwphys
-    ${CMAKE_SOURCE_DIR}/Code/Combat
-    ${CMAKE_SOURCE_DIR}/Code/wwui
-    ${CMAKE_SOURCE_DIR}/Code/wwonline
-    ${CMAKE_SOURCE_DIR}/Code/wwnet
-    ${CMAKE_SOURCE_DIR}/Code/wwtranslatedb
-    ${CMAKE_SOURCE_DIR}/Code/wwbitpack
-    ${CMAKE_SOURCE_DIR}/Code/SControl
-    ${CMAKE_SOURCE_DIR}/Code/BinkMovie
-    ${CMAKE_SOURCE_DIR}/Code/wwaudio
     ${CMAKE_SOURCE_DIR}/Code/wwlib/wchar
     ${CMAKE_SOURCE_DIR}/Code/DirectX/Include
 )
@@ -33,18 +22,6 @@ target_link_libraries(render_compare PRIVATE
     wwmath
     wwdebug
     wwutil
-    wwsaveload
-    wwaudio
-    wwphys
-    combat
-    binkmovie
-    scontrol
-    wwbitpack
-    wwnet
-    wwonline
-    wwtranslatedb
-    wwui
-    gamespy
 )
 
 if(WIN32)
@@ -52,21 +29,12 @@ if(WIN32)
         user32
         gdi32
         d3d9
-        d3dx9
-        dinput8
         dxguid
-        DxErr
-        ws2_32
-        winmm
-        version
-        vfw32
     )
 endif()
 
 if(MSVC)
     target_link_options(render_compare PRIVATE
         "/NODEFAULTLIB:libci.lib"
-        "/NODEFAULTLIB:libcpmt.lib"
-        "/NODEFAULTLIB:LIBCMT"
     )
 endif()
