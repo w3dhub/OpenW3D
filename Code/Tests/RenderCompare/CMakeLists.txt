@@ -45,9 +45,6 @@ target_link_libraries(render_compare PRIVATE
     wwtranslatedb
     wwui
     gamespy
-    bgfxRelease
-    bimgRelease
-    bxRelease
 )
 
 if(WIN32)
