@@ -40,6 +40,7 @@
 //#define CREATE_DX8_MULTI_THREADED
 //#define CREATE_DX8_FPU_PRESERVE
 #define WW3D_DEVTYPE D3DDEVTYPE_HAL
+//#define WW3D_DEVTYPE D3DDEVTYPE_REF  // Software fallback
 
 #include "dx8wrapper.h"
 #include "dx8fvf.h"
