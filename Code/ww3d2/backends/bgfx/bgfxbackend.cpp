@@ -189,6 +189,20 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     }
 
     m_hwnd = hwnd;
+    printf("[BGFX] Init entry: hwnd=%p\n", hwnd);
+
+    // Validate HWND
+#if BGFX_PLATFORM_WINDOWS
+    {
+        RECT rc;
+        BOOL ok = GetWindowRect((HWND)hwnd, &rc);
+        printf("[BGFX] GetWindowRect returned %d, rect=(%d,%d)-(%d,%d)\n",
+               ok, rc.left, rc.top, rc.right, rc.bottom);
+        char cls[256];
+        GetClassNameA((HWND)hwnd, cls, sizeof(cls));
+        printf("[BGFX] Window class: %s\n", cls);
+    }
+#endif
 
     // Set platform-specific data for bgfx
     bgfx::PlatformData pd;
@@ -246,14 +260,18 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
         init.resolution.reset = BGFX_RESET_VSYNC;
         init.resolution.maxFrameLatency = 1;
 
-        WWDEBUG_SAY(("BGFXBackend: trying bgfx::init with renderer type %d\n", renderer));
-        bgfx_ok = bgfx::init(init);
+    printf("[BGFX] calling bgfx::init with renderer type %d (auto=%d)\n", renderer, bgfx::RendererType::Count);
+    bgfx_ok = bgfx::init(init);
+    printf("[BGFX] bgfx::init result: %d\n", bgfx_ok);
+    if (!bgfx_ok) {
+        printf("[BGFX] init failed - trying D3D11 fallback\n");
+    }
     }
 
     // Fallback: if auto-detect failed, try D3D11 explicitly on Windows
     if (!bgfx_ok && renderer == bgfx::RendererType::Count) {
 #if defined(_WIN32) || defined(_WIN64)
-        WWDEBUG_SAY(("BGFXBackend: auto-detect failed, trying Direct3D11\n"));
+        printf("[BGFX] auto-detect failed, trying Direct3D11\n");
         bgfx::Init init;
         init.type = bgfx::RendererType::Direct3D11;
         init.vendorId = BGFX_PCI_ID_NONE;
@@ -265,15 +283,16 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
         init.resolution.reset = BGFX_RESET_VSYNC;
         init.resolution.maxFrameLatency = 1;
         bgfx_ok = bgfx::init(init);
+        printf("[BGFX] D3D11 init result: %d\n", bgfx_ok);
         if (bgfx_ok) {
-            WWDEBUG_SAY(("BGFXBackend: Direct3D11 succeeded\n"));
+            printf("[BGFX] Direct3D11 succeeded\n");
         }
 #endif
     }
 
     // Fallback: try OpenGL
     if (!bgfx_ok) {
-        WWDEBUG_SAY(("BGFXBackend: trying OpenGL\n"));
+        printf("[BGFX] trying OpenGL fallback\n");
         bgfx::Init init;
         init.type = bgfx::RendererType::OpenGL;
         init.vendorId = BGFX_PCI_ID_NONE;
@@ -285,6 +304,7 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
         init.resolution.reset = BGFX_RESET_VSYNC;
         init.resolution.maxFrameLatency = 1;
         bgfx_ok = bgfx::init(init);
+        printf("[BGFX] OpenGL init result: %d\n", bgfx_ok);
     }
 
     if (!bgfx_ok) {
