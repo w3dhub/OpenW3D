@@ -95,6 +95,7 @@ add_subdirectory(wwutil)
 
 # Final targets
 add_subdirectory(BandTest)
+add_subdirectory(Tests/RenderCompare)
 add_subdirectory(Launcher)
 add_subdirectory(Scripts)
 add_subdirectory(Commando)
