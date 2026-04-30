@@ -1,17 +1,12 @@
 // Minimal bgfx init test - standalone
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 #include <windows.h>
+#include <objbase.h>  // CoInitializeEx, CoUninitialize
 #include <cstdio>
+#include <cstring>
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
-#include <bx/bx.h>
-#include <bx/debug.h>
-
-static void trace(bx::LogLevel::Enum _level, const char* _format, va_list _argList) {
-    char buff[1024];
-    vsnprintf(buff, sizeof(buff), _format, _argList);
-    printf("[BGFX_LIB] %s", buff);
-}
 
 int main() {
     printf("BGFX Init Test starting...\n");
@@ -38,16 +33,15 @@ int main() {
     bgfx::RenderFrame::Enum rf = bgfx::renderFrame(0);
     printf("renderFrame returned: %d\n", rf);
     
-    // Set platform data
     bgfx::PlatformData pd;
-    bx::memSet(&pd, 0, sizeof(pd));
+    memset(&pd, 0, sizeof(pd));
     pd.nwh = hwnd;
     bgfx::setPlatformData(pd);
     
     // Try D3D11 directly
     printf("\n=== Trying D3D11 ===\n");
     bgfx::Init init;
-    bx::memSet(&init, 0, sizeof(init));
+    memset(&init, 0, sizeof(init));
     init.type = bgfx::RendererType::Direct3D11;
     init.vendorId = BGFX_PCI_ID_NONE;
     init.resolution.width = 640;
