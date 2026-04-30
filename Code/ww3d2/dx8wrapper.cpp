@@ -433,6 +433,17 @@ bool DX8Wrapper::Create_Device(void)
 {
 	WWASSERT(D3DDevice == NULL);	// for now, once you've created a device, you're stuck with it!
 
+	// Check available adapters
+	int adapter_count = D3DInterface->GetAdapterCount();
+	printf("[DX8] Create_Device: adapter_count=%d, CurRenderDevice=%d\n", adapter_count, CurRenderDevice);
+	for (int i = 0; i < adapter_count; i++) {
+		D3DADAPTER_IDENTIFIER9 aid;
+		HRESULT hr = D3DInterface->GetAdapterIdentifier(i, 0, &aid);
+		D3DCAPS9 tcaps;
+		HRESULT caps_hr = D3DInterface->GetDeviceCaps(i, D3DDEVTYPE_HAL, &tcaps);
+		printf("[DX8]   adapter %d: caps_hr=0x%08x, desc=%s\n", i, caps_hr, SUCCEEDED(hr) ? aid.Description : "N/A");
+	}
+
 	printf("[DX8] Create_Device: getting device caps\n");
 	D3DCAPS9 caps;
 	if (FAILED( D3DInterface->GetDeviceCaps(
