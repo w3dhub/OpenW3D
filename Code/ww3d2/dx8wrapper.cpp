@@ -1020,21 +1020,27 @@ const char * DX8Wrapper::Get_Render_Device_Name(int device_index)
 	return _RenderDeviceShortNameTable[device_index];
 }
 
-bool DX8Wrapper::Set_Device_Resolution(int width,int height,int /*bits*/,int /*windowed*/, bool /*resize_window*/)
+bool DX8Wrapper::Set_Device_Resolution(int width,int height,int bits,int windowed, bool resize_window)
 {
-	if (D3DDevice != NULL) {
-
-		if (width != -1) {
-			_PresentParameters.BackBufferWidth = ResolutionWidth = width;
-		}
-		if (height != -1) {
-			_PresentParameters.BackBufferHeight = ResolutionHeight = height;
-		}
-// FIXME TODO: support changing windowed status and changing the bit depth
-		return Reset_Device();
-	} else {
-		return false;
+	// If device hasn't been created yet, do full device setup
+	if (D3DDevice == NULL) {
+		WWDEBUG_SAY(("Device not yet created, calling Set_Render_Device\n"));
+		// Use provided resolution (or defaults), force windowed for safety
+		int w = (width != -1) ? width : ResolutionWidth;
+		int h = (height != -1) ? height : ResolutionHeight;
+		int b = (bits != -1) ? bits : BitDepth;
+		int win = (windowed != -1) ? windowed : 1; // default to windowed
+		return Set_Render_Device(-1, w, h, b, win, resize_window);
 	}
+
+	if (width != -1) {
+		_PresentParameters.BackBufferWidth = ResolutionWidth = width;
+	}
+	if (height != -1) {
+		_PresentParameters.BackBufferHeight = ResolutionHeight = height;
+	}
+// FIXME TODO: support changing windowed status and changing the bit depth
+	return Reset_Device();
 }
 
 void DX8Wrapper::Get_Device_Resolution(int & set_w,int & set_h,int & set_bits,bool & set_windowed)
