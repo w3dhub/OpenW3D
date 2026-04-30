@@ -1,6 +1,7 @@
 // BGFXTexture.cpp - OpenW3D render backend
 
 #include "backends/bgfx/BGFXTexture.h"
+#include "ww3dformat.h"
 
 BGFXTexture::BGFXTexture()
     : m_handle(BGFX_INVALID_HANDLE)
@@ -178,22 +179,34 @@ uint32_t BGFXSamplerState::To_BGFX_Flags() const
 
 bgfx::TextureFormat::Enum BGFXTexture::WW3D_To_BGFX_Format(int ww3dFormat)
 {
-    // Map common WW3D surface formats to bgfx
-    // These are placeholder mappings - adjust based on actual WW3D format values
-    switch (ww3dFormat) {
-        case 0:  // WW3D_FORMAT_RGBA8
-            return bgfx::TextureFormat::RGBA8;
-        case 1:  // WW3D_FORMAT_RGB8
-            return bgfx::TextureFormat::RGB8;
-        case 2:  // WW3D_FORMAT_BGRA8
-            return bgfx::TextureFormat::BGRA8;
-        case 3:  // WW3D_FORMAT_DXT1
-            return bgfx::TextureFormat::BC1;
-        case 4:  // WW3D_FORMAT_DXT3
-            return bgfx::TextureFormat::BC2;
-        case 5:  // WW3D_FORMAT_DXT5
-            return bgfx::TextureFormat::BC3;
+    switch (static_cast<WW3DFormat>(ww3dFormat)) {
+        case WW3D_FORMAT_R8G8B8:        return bgfx::TextureFormat::RGB8;
+        case WW3D_FORMAT_A8R8G8B8:      return bgfx::TextureFormat::BGRA8;   // Same memory layout on LE
+        case WW3D_FORMAT_X8R8G8B8:      return bgfx::TextureFormat::BGRA8;   // Alpha ignored
+        case WW3D_FORMAT_R5G6B5:        return bgfx::TextureFormat::R5G6B5;
+        case WW3D_FORMAT_X1R5G5B5:      return bgfx::TextureFormat::R5G6B5;  // Closest available
+        case WW3D_FORMAT_A1R5G5B5:      return bgfx::TextureFormat::R5G6B5;  // Closest available
+        case WW3D_FORMAT_A4R4G4B4:      return bgfx::TextureFormat::RGBA4;   // 4444 → 4444
+        case WW3D_FORMAT_R3G3B2:        return bgfx::TextureFormat::RGB8;    // Upcast
+        case WW3D_FORMAT_A8:            return bgfx::TextureFormat::R8;      // Single channel
+        case WW3D_FORMAT_A8R3G3B2:      return bgfx::TextureFormat::BGRA8;   // Upcast
+        case WW3D_FORMAT_X4R4G4B4:      return bgfx::TextureFormat::RGBA4;   // 4444 → 4444
+        case WW3D_FORMAT_A8P8:          return bgfx::TextureFormat::RG8;     // 2 channels
+        case WW3D_FORMAT_P8:            return bgfx::TextureFormat::R8;      // Paletted → grayscale
+        case WW3D_FORMAT_L8:            return bgfx::TextureFormat::R8;      // Luminance
+        case WW3D_FORMAT_A8L8:          return bgfx::TextureFormat::RG8;     // LA → RG
+        case WW3D_FORMAT_A4L4:          return bgfx::TextureFormat::RG8;     // Upcast
+        case WW3D_FORMAT_U8V8:          return bgfx::TextureFormat::RG8;     // Bumpmap UV
+        case WW3D_FORMAT_L6V5U5:        return bgfx::TextureFormat::RGB8;    // Bumpmap, upcast
+        case WW3D_FORMAT_X8L8V8U8:      return bgfx::TextureFormat::BGRA8;   // Bumpmap, upcast
+        case WW3D_FORMAT_DXT1:          return bgfx::TextureFormat::BC1;
+        case WW3D_FORMAT_DXT2:          return bgfx::TextureFormat::BC2;     // Premultiplied alpha
+        case WW3D_FORMAT_DXT3:          return bgfx::TextureFormat::BC2;
+        case WW3D_FORMAT_DXT4:          return bgfx::TextureFormat::BC3;     // Premultiplied alpha
+        case WW3D_FORMAT_DXT5:          return bgfx::TextureFormat::BC3;
+        case WW3D_FORMAT_UNKNOWN:
         default:
+            WWDEBUG_SAY(("BGFXTexture: Unmapped WW3D format %d, falling back to RGBA8\n", ww3dFormat));
             return bgfx::TextureFormat::RGBA8;
     }
 }
@@ -206,6 +219,8 @@ int BGFXTexture::Get_Bytes_Per_Pixel(bgfx::TextureFormat::Enum format)
         case bgfx::TextureFormat::RGB8:     return 3;
         case bgfx::TextureFormat::RGBA8:    return 4;
         case bgfx::TextureFormat::BGRA8:    return 4;
+        case bgfx::TextureFormat::R5G6B5:   return 2;
+        case bgfx::TextureFormat::RGBA4:    return 2;
         case bgfx::TextureFormat::R16F:     return 2;
         case bgfx::TextureFormat::RG16F:    return 4;
         case bgfx::TextureFormat::RGBA16F:  return 8;
