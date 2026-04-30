@@ -3,25 +3,43 @@
 add_executable(render_compare main.cpp)
 
 target_link_libraries(render_compare PRIVATE
-    wwcommon
-    bandtest
-    wwdebug
-    wwlib
-    wwbitpack
-    scontrol
-    wwutil
-    wwmath
-    wwnet
-    wwonline
-    wwsaveload
-    wwtranslatedb
-    wwui
-    wwaudio
     ww3d2
-    binkmovie
+    wwlib
+    wwmath
+    wwdebug
+    wwutil
+    wwsaveload
+    wwaudio
     wwphys
     combat
+    binkmovie
+    scontrol
+    wwbitpack
+    wwnet
+    wwonline
+    wwtranslatedb
+    wwui
+    gamespy
+    bgfxRelease
+    bimgRelease
+    bxRelease
 )
+
+if(WIN32)
+    target_link_libraries(render_compare PRIVATE
+        user32
+        gdi32
+        d3d9
+        d3dx9
+        dinput8
+        dxguid
+        DxErr
+        ws2_32
+        winmm
+        version
+        vfw32
+    )
+endif()
 
 if(MSVC)
     target_link_options(render_compare PRIVATE
