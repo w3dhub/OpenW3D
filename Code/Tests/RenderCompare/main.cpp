@@ -136,6 +136,8 @@ int main(int argc, char** argv)
     int width = 640;
     int height = 480;
 
+    printf("RenderCompare starting...\n");
+
     // Create window
     WNDCLASS wc = {};
     wc.lpfnWndProc = WndProc;
@@ -153,35 +155,70 @@ int main(int argc, char** argv)
         fprintf(stderr, "Failed to create window\n");
         return 1;
     }
+    printf("Window created\n");
 
     ShowWindow(hwnd, SW_SHOW);
     UpdateWindow(hwnd);
 
+    // Force window to process messages
+    MSG msg;
+    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+
     // Init WW3D
+    printf("Calling WW3D::Init...\n");
     WW3DErrorType err = WW3D::Init(hwnd, NULL, false);
     if (err != WW3D_ERROR_OK) {
         fprintf(stderr, "WW3D::Init failed: %d\n", err);
         DestroyWindow(hwnd);
         return 1;
     }
+    printf("WW3D::Init succeeded\n");
 
     // Set resolution
-    WW3D::Set_Device_Resolution(width, height, 32, true); // windowed
+    printf("Setting resolution...\n");
+    err = WW3D::Set_Device_Resolution(width, height, 32, true);
+    if (err != WW3D_ERROR_OK) {
+        fprintf(stderr, "WW3D::Set_Device_Resolution failed: %d\n", err);
+        WW3D::Shutdown();
+        DestroyWindow(hwnd);
+        return 1;
+    }
+    printf("Resolution set\n");
 
     // Create vertex buffer
+    printf("Creating vertex buffer...\n");
     DX8VertexBufferClass* vb = new DX8VertexBufferClass(
         DX8_FVF_XYZDUV1,
         3,
         DX8VertexBufferClass::USAGE_DEFAULT);
+
+    if (!vb) {
+        fprintf(stderr, "Failed to create vertex buffer\n");
+        WW3D::Shutdown();
+        DestroyWindow(hwnd);
+        return 1;
+    }
 
     {
         VertexBufferClass::WriteLockClass lock(vb);
         SimpleVertex* verts = (SimpleVertex*)lock.Get_Vertex_Array();
         memcpy(verts, g_triangle, sizeof(g_triangle));
     }
+    printf("Vertex buffer created\n");
 
     // Create index buffer (simple triangle)
+    printf("Creating index buffer...\n");
     IndexBufferClass* ib = new IndexBufferClass(BUFFER_TYPE_DX8, 3);
+    if (!ib) {
+        fprintf(stderr, "Failed to create index buffer\n");
+        vb->Release_Ref();
+        WW3D::Shutdown();
+        DestroyWindow(hwnd);
+        return 1;
+    }
     {
         IndexBufferClass::WriteLockClass lock(ib);
         unsigned short* indices = lock.Get_Index_Array();
@@ -189,19 +226,24 @@ int main(int argc, char** argv)
         indices[1] = 1;
         indices[2] = 2;
     }
+    printf("Index buffer created\n");
 
-    // Setup projection matrix (simple ortho for clip-space triangle)
+    // Setup projection matrix (identity = ortho for clip-space triangle)
+    printf("Setting transforms...\n");
     Matrix4 proj(true);
     DX8Wrapper::Set_Transform(D3DTS_PROJECTION, proj);
     DX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix3D(true));
     DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix3D(true));
+    printf("Transforms set\n");
 
     // Setup simple material/shader
     ShaderClass shader;
     shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
     shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
+    printf("Shader configured\n");
 
     // Render one frame
+    printf("Rendering...\n");
     WW3D::Begin_Render(true, true, Vector3(0.2f, 0.2f, 0.2f));
 
     DX8Wrapper::Set_Shader(shader);
@@ -211,8 +253,13 @@ int main(int argc, char** argv)
     DX8Wrapper::Draw_Triangles(0, 1, 0, 3);
 
     WW3D::End_Render();
+    printf("Rendering done\n");
+
+    // Small delay to ensure frame is presented
+    Sleep(100);
 
     // Capture screenshot
+    printf("Capturing screenshot...\n");
     if (CaptureWindow(hwnd, outputFile)) {
         printf("Screenshot saved to %s\n", outputFile);
     } else {
@@ -225,5 +272,6 @@ int main(int argc, char** argv)
     WW3D::Shutdown();
     DestroyWindow(hwnd);
 
+    printf("Done\n");
     return 0;
 }
