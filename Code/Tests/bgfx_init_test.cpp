@@ -19,10 +19,10 @@ int main() {
     WNDCLASS wc = {};
     wc.lpfnWndProc = DefWindowProc;
     wc.hInstance = GetModuleHandle(NULL);
-    wc.lpszClassName = "BGFXTest";
+    wc.lpszClassName = L"BGFXTest";
     RegisterClass(&wc);
     
-    HWND hwnd = CreateWindow("BGFXTest", "BGFXTest", WS_OVERLAPPEDWINDOW,
+    HWND hwnd = CreateWindowW(L"BGFXTest", L"BGFXTest", WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL, NULL, wc.hInstance, NULL);
     printf("HWND: %p\n", hwnd);
     ShowWindow(hwnd, SW_SHOW);
