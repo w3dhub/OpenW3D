@@ -12,6 +12,11 @@ endif()
 
 project(commando LANGUAGES C CXX)
 
+# Match BGFX external libs which are built with static CRT (/MT)
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STRING "Use static CRT to match BGFX libs" FORCE)
+endif()
+
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # This file handles extra settings wanted/needed for different compilers.
