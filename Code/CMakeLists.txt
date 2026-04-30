@@ -57,8 +57,13 @@ endif()
 
 target_link_libraries(wwcommon INTERFACE
     gamespy
-    d3d9lib
 )
+
+if(WANT_DX9)
+    target_link_libraries(wwcommon INTERFACE
+        d3d9lib
+    )
+endif()
 
 if(TARGET ffmpeg)
     target_link_libraries(wwcommon INTERFACE ffmpeg)
