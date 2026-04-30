@@ -19,11 +19,11 @@
 #include "dx8vertexbuffer.h"
 #include "dx8indexbuffer.h"
 #include "shader.h"
-#include "vertmaterial.h"
-#include "texture.h"
 #include "vector3.h"
+#include "matrix3d.h"
+#include "matrix4.h"
 
-// Simple colored triangle vertex data
+// Simple colored triangle vertex data (DX8_FVF_XYZDUV1)
 struct SimpleVertex
 {
     float x, y, z;
@@ -158,7 +158,7 @@ int main(int argc, char** argv)
     UpdateWindow(hwnd);
 
     // Init WW3D
-    WW3DErrorType err = WW3D::Init(hwnd, false);
+    WW3DErrorType err = WW3D::Init(hwnd, NULL, false);
     if (err != WW3D_ERROR_OK) {
         fprintf(stderr, "WW3D::Init failed: %d\n", err);
         DestroyWindow(hwnd);
@@ -166,13 +166,13 @@ int main(int argc, char** argv)
     }
 
     // Set resolution
-    WW3D::Set_Device_Resolution(width, height, 32, false);
+    WW3D::Set_Device_Resolution(width, height, 32, true); // windowed
 
     // Create vertex buffer
-    VertexBufferClass* vb = new VertexBufferClass(
+    DX8VertexBufferClass* vb = new DX8VertexBufferClass(
         DX8_FVF_XYZDUV1,
         3,
-        BufferEnum::BUFFER_TYPE_DYNAMIC_DX8);
+        DX8VertexBufferClass::USAGE_DEFAULT);
 
     {
         VertexBufferClass::WriteLockClass lock(vb);
@@ -181,7 +181,7 @@ int main(int argc, char** argv)
     }
 
     // Create index buffer (simple triangle)
-    IndexBufferClass* ib = new IndexBufferClass(3);
+    IndexBufferClass* ib = new IndexBufferClass(BUFFER_TYPE_DX8, 3);
     {
         IndexBufferClass::WriteLockClass lock(ib);
         unsigned short* indices = lock.Get_Index_Array();
@@ -190,21 +190,22 @@ int main(int argc, char** argv)
         indices[2] = 2;
     }
 
-    // Setup camera
-    Matrix3D camera(true);
-    camera.Translate(Vector3(0, 0, -2));
-    WW3D::Set_Camera(&camera);
+    // Setup projection matrix (simple ortho for clip-space triangle)
+    Matrix4 proj(true);
+    DX8Wrapper::Set_Transform(D3DTS_PROJECTION, proj);
+    DX8Wrapper::Set_Transform(D3DTS_VIEW, Matrix3D(true));
+    DX8Wrapper::Set_Transform(D3DTS_WORLD, Matrix3D(true));
 
-    // Setup simple material
+    // Setup simple material/shader
     ShaderClass shader;
     shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
-    shader.Set_Depth_Write(false);
+    shader.Set_Depth_Mask(ShaderClass::DEPTH_WRITE_DISABLE);
 
     // Render one frame
     WW3D::Begin_Render(true, true, Vector3(0.2f, 0.2f, 0.2f));
-    WW3D::Set_Shader(shader);
-    WW3D::Set_Texture(0, NULL);
 
+    DX8Wrapper::Set_Shader(shader);
+    DX8Wrapper::Set_Texture(0, NULL);
     DX8Wrapper::Set_Vertex_Buffer(vb);
     DX8Wrapper::Set_Index_Buffer(ib, 0);
     DX8Wrapper::Draw_Triangles(0, 1, 0, 3);
@@ -219,8 +220,8 @@ int main(int argc, char** argv)
     }
 
     // Cleanup
-    delete vb;
-    delete ib;
+    ib->Release_Ref();
+    vb->Release_Ref();
     WW3D::Shutdown();
     DestroyWindow(hwnd);
 
