@@ -2,6 +2,9 @@
 
 add_executable(render_compare main.cpp)
 
+target_compile_features(render_compare PRIVATE cxx_std_20)
+target_compile_definitions(render_compare PRIVATE NOMINMAX)
+
 target_include_directories(render_compare PRIVATE
     ${CMAKE_SOURCE_DIR}/Code
     ${CMAKE_SOURCE_DIR}/Code/ww3d2
