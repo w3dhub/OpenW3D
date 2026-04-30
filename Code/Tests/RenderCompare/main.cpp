@@ -16,10 +16,10 @@
 
 #include "ww3d.h"
 #include "dx8wrapper.h"
-#include "vertexbuffer.h"
-#include "indexbuffer.h"
-#include "shaderclass.h"
-#include "materialpass.h"
+#include "dx8vertexbuffer.h"
+#include "dx8indexbuffer.h"
+#include "shader.h"
+#include "vertmaterial.h"
 #include "texture.h"
 #include "vector3.h"
 
