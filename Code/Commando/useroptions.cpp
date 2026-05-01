@@ -291,6 +291,24 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 			break;
 		}
 
+		// --map=X: immediate-load a specific map (bypasses main menu)
+		if (strncmp(cmd, "--map=", 6) == 0) {
+			ImmediateMap.Set(cmd + 6);
+			continue;
+		}
+
+		// --renderer=N: override BGFX renderer (0=auto, 1=Vulkan, 2=OpenGL, 3=D3D11, 4=D3D12)
+		if (strncmp(cmd, "--renderer=", 10) == 0) {
+			ImmediateRenderer.Set(atoi(cmd + 10));
+			continue;
+		}
+
+		// --windowed: force windowed mode
+		if (strcmp(cmd, "--windowed") == 0) {
+			ImmediateWindowed.Set(true);
+			continue;
+		}
+
 		retcode = ParseResult::FAILURE;
 		break;
 	}
@@ -493,48 +511,5 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		char nickname2[300] = "";
 		::sscanf(nickname, "%s", nickname2);
 		*/
-
-		/*
-		char seps[]   = "\"";
-		char * start_token = ::strtok(nickname_param, seps);
-		if (start_token != NULL) {
-			start_token++;
-		}
-		char * end_token = ::strtok(NULL, seps);
-		char nickname2[300] = "";
-		if (end_token != NULL && end_token > start_token) {
-			char nickname2[300] = "";
-			::strncpy(nickname2, start_token, end_token - start_token);
-			nickname2[end_token - start_token] = 0;
-		}
-		*/
-
-		/*
-		WideStringClass wide_nickname;
-		wide_nickname.Convert_From(nickname2);
-		cGameSpyAdmin::Set_Player_Nickname(wide_nickname);
-		*/
-
-		// --map=X: immediate-load a specific map (bypasses main menu)
-		if (strncmp(cmd, "--map=", 6) == 0) {
-			ImmediateMap.Set_Str(cmd + 6);
-			continue;
-		}
-
-		// --renderer=N: override BGFX renderer (0=auto, 1=Vulkan, 2=OpenGL, 3=D3D11, 4=D3D12)
-		if (strncmp(cmd, "--renderer=", 10) == 0) {
-			ImmediateRenderer.Set_Int(atoi(cmd + 10));
-			continue;
-		}
-
-		// --windowed: force windowed mode
-		if (strcmp(cmd, "--windowed") == 0) {
-			ImmediateWindowed.Set_Bool(true);
-			continue;
-		}
-
-		// Return true if command line options scanned OK.
-		return retcode;
-	}
 
 void cUserOptions::Print_Command_Line_Help(bool error)
