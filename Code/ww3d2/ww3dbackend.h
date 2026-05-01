@@ -89,6 +89,8 @@ public:
     virtual void Apply_Shader_State(const ShaderClass& shader) { (void)shader; }
     virtual void Apply_Texture_State(unsigned stage, TextureClass* texture) { (void)stage; (void)texture; }
     virtual void Invalidate_Texture_Cache_Entry(TextureClass* texture) { (void)texture; }
+    virtual void Invalidate_Vertex_Buffer_Cache_Entry(const VertexBufferClass* vb) { (void)vb; }
+    virtual void Invalidate_Index_Buffer_Cache_Entry(const IndexBufferClass* ib) { (void)ib; }
     virtual void Apply_Material_State(const VertexMaterialClass* material) { (void)material; }
     virtual void Apply_Light_Environment_State(LightEnvironmentClass* env) { (void)env; }
     virtual void Set_DX8_Light(int index, const void* light) { (void)index; (void)light; }

@@ -1454,6 +1454,49 @@ void BGFXBackend::Invalidate_Texture_Cache_Entry(TextureClass* texture)
     }
 }
 
+void BGFXBackend::Invalidate_Vertex_Buffer_Cache_Entry(const VertexBufferClass* vb)
+{
+    if (!vb) {
+        return;
+    }
+
+    auto it = m_vbCache.find(vb);
+    if (it == m_vbCache.end()) {
+        return;
+    }
+
+    if (bgfx::isValid(it->second)) {
+        bgfx::destroy(it->second);
+    }
+    m_vbCache.erase(it);
+
+    if (m_currentVB == vb) {
+        m_currentVB = nullptr;
+    }
+}
+
+void BGFXBackend::Invalidate_Index_Buffer_Cache_Entry(const IndexBufferClass* ib)
+{
+    if (!ib) {
+        return;
+    }
+
+    auto it = m_ibCache.find(ib);
+    if (it == m_ibCache.end()) {
+        return;
+    }
+
+    if (bgfx::isValid(it->second)) {
+        bgfx::destroy(it->second);
+    }
+    m_ibCache.erase(it);
+
+    if (m_currentIB == ib) {
+        m_currentIB = nullptr;
+        m_currentIBOffset = 0;
+    }
+}
+
 // =============================================================================
 // Material Integration
 // =============================================================================

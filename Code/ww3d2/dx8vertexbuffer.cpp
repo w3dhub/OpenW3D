@@ -45,6 +45,8 @@
 #include "thread.h"
 #include "wwmemlog.h"
 #include <d3dx9core.h>
+#include "ww3d.h"
+#include "ww3dbackend.h"
 
 #define DEFAULT_VB_SIZE 5000
 
@@ -100,6 +102,10 @@ VertexBufferClass::VertexBufferClass(unsigned type_, unsigned FVF, unsigned shor
 
 VertexBufferClass::~VertexBufferClass()
 {
+	if (WW3D::Get_Backend()) {
+		WW3D::Get_Backend()->Invalidate_Vertex_Buffer_Cache_Entry(this);
+	}
+
 	_VertexBufferCount--;
 	_VertexBufferTotalVertices-=VertexCount;
 	_VertexBufferTotalSize-=VertexCount*fvf_info->Get_FVF_Size();

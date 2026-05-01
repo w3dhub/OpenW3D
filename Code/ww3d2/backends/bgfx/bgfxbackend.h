@@ -170,6 +170,8 @@ public:
     virtual void Apply_Shader_State(const ShaderClass& shader) override;
     virtual void Apply_Texture_State(unsigned stage, TextureClass* texture) override;
     virtual void Invalidate_Texture_Cache_Entry(TextureClass* texture) override;
+    virtual void Invalidate_Vertex_Buffer_Cache_Entry(const VertexBufferClass* vb) override;
+    virtual void Invalidate_Index_Buffer_Cache_Entry(const IndexBufferClass* ib) override;
     virtual void Apply_Material_State(const VertexMaterialClass* material) override;
     virtual void Apply_Light_Environment_State(LightEnvironmentClass* env) override;
     virtual void Set_DX8_Light(int index, const void* light) override;
