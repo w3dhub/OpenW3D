@@ -12,7 +12,6 @@
 #include <array>
 #include <vector>
 #include <unordered_map>
-#include <objbase.h>  // CoInitializeEx, CoUninitialize
 
 // Include material mapper for integration
 #include "BGFXMaterialMapper.h"
@@ -274,7 +273,6 @@ private:
     int m_height;
     int m_bitDepth;
     bool m_windowed;
-    bool m_comInitialized;
 
     // Device enumeration
     std::vector<std::string> m_deviceNames;

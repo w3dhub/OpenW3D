@@ -161,7 +161,6 @@ BGFXBackend::BGFXBackend() :
     m_textureFlags.fill(UINT32_MAX);
     m_textureMipLevels.fill(0);
     m_textureUvIndices.fill(0);
-    m_comInitialized = false;
 
     // Populate device enumeration
     // Device 0: Auto-detect
@@ -189,44 +188,6 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
     }
 
     m_hwnd = hwnd;
-    printf("[BGFX] Init entry: hwnd=%p\n", hwnd);
-
-    // Initialize COM apartment - required for D3D11/DXGI
-    HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-    printf("[BGFX] CoInitializeEx returned 0x%08x\n", hr);
-    bool com_initialized = SUCCEEDED(hr) || hr == RPC_E_CHANGED_MODE;
-
-    // Validate HWND
-#if BGFX_PLATFORM_WINDOWS
-    {
-        RECT rc;
-        BOOL ok = GetWindowRect((HWND)hwnd, &rc);
-        printf("[BGFX] GetWindowRect returned %d, rect=(%d,%d)-(%d,%d)\n",
-               ok, rc.left, rc.top, rc.right, rc.bottom);
-        char cls[256];
-        GetClassNameA((HWND)hwnd, cls, sizeof(cls));
-        printf("[BGFX] Window class: %s\n", cls);
-    }
-#endif
-
-    // Call renderFrame once in main thread to initialize renderer context
-    // before bgfx::init() tries to spawn its own render thread
-    printf("[BGFX] calling bgfx::renderFrame(-1) to prime context\n");
-    bgfx::renderFrame(-1);
-
-    // Detect if we're in an interactive session - required for swapchain creation
-    bool interactive_session = false;
-#if BGFX_PLATFORM_WINDOWS
-    HWINSTA hWinSta = GetProcessWindowStation();
-    if (hWinSta) {
-        USEROBJECTFLAGS uof = {0};
-        DWORD dwSize = 0;
-        if (GetUserObjectInformation(hWinSta, UOI_FLAGS, &uof, sizeof(uof), &dwSize)) {
-            interactive_session = (uof.dwFlags & WSF_VISIBLE) != 0;
-        }
-    }
-    printf("[BGFX] Interactive session detected: %s\\n", interactive_session ? "YES" : "NO");
-#endif
 
     // Set platform-specific data for bgfx
     bgfx::PlatformData pd;
@@ -234,9 +195,7 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
 
 #if BGFX_PLATFORM_WINDOWS
     pd.ndt = nullptr;
-    // In non-interactive sessions, set nwh to nullptr for headless rendering
-    // This avoids DXGI swapchain creation which fails in Session 0
-    pd.nwh = interactive_session ? hwnd : nullptr;
+    pd.nwh = hwnd;
     pd.type = bgfx::NativeWindowHandleType::Default;
 #elif BGFX_PLATFORM_LINUX
     if (!m_nativeDisplay) {
@@ -265,98 +224,22 @@ bool BGFXBackend::Init(void * hwnd, bool lite)
         renderer = bgfx::RendererType::Direct3D12;
     }
 
-    // Initialize bgfx with fallback strategy
-    bool bgfx_ok = false;
+    bgfx::Init init;
+    init.type = renderer;
+    init.vendorId = BGFX_PCI_ID_NONE;
+    init.deviceId = 0;
+    init.debug = false;
+    init.profile = false;
+    init.resolution.width = static_cast<uint32_t>(m_width);
+    init.resolution.height = static_cast<uint32_t>(m_height);
+    init.resolution.reset = BGFX_RESET_VSYNC;
+    init.resolution.maxFrameLatency = 1;
 
-    // First try: requested renderer (or auto-detect)
-    {
-        bgfx::Init init;
-        init.type = renderer;
-        init.vendorId = BGFX_PCI_ID_NONE;
-        init.deviceId = 0;
-        init.debug = false;
-        init.profile = false;
-        init.resolution.width = static_cast<uint32_t>(m_width);
-        init.resolution.height = static_cast<uint32_t>(m_height);
-        init.resolution.reset = BGFX_RESET_VSYNC;
-        init.resolution.maxFrameLatency = 1;
-
-        printf("[BGFX] calling bgfx::init with renderer type %d (auto=%d)\n", renderer, bgfx::RendererType::Count);
-        bgfx_ok = bgfx::init(init);
-        printf("[BGFX] bgfx::init result: %d\n", bgfx_ok);
-        if (!bgfx_ok) {
-            printf("[BGFX] init failed - trying D3D11 fallback\n");
-        }
-    }
-
-    // Fallback: if auto-detect failed, try D3D11 explicitly on Windows
-    if (!bgfx_ok && renderer == bgfx::RendererType::Count) {
-#if defined(_WIN32) || defined(_WIN64)
-        printf("[BGFX] auto-detect failed, trying Direct3D11\n");
-        bgfx::Init init;
-        init.type = bgfx::RendererType::Direct3D11;
-        init.vendorId = BGFX_PCI_ID_NONE;
-        init.deviceId = 0;
-        init.debug = false;
-        init.profile = false;
-        init.resolution.width = static_cast<uint32_t>(m_width);
-        init.resolution.height = static_cast<uint32_t>(m_height);
-        init.resolution.reset = BGFX_RESET_VSYNC;
-        init.resolution.maxFrameLatency = 1;
-        bgfx_ok = bgfx::init(init);
-        printf("[BGFX] D3D11 init result: %d\n", bgfx_ok);
-        if (bgfx_ok) {
-            printf("[BGFX] Direct3D11 succeeded\n");
-        }
-#endif
-    }
-
-    // Fallback: try OpenGL
-    if (!bgfx_ok) {
-        printf("[BGFX] trying OpenGL fallback\n");
-        bgfx::Init init;
-        init.type = bgfx::RendererType::OpenGL;
-        init.vendorId = BGFX_PCI_ID_NONE;
-        init.deviceId = 0;
-        init.debug = false;
-        init.profile = false;
-        init.resolution.width = static_cast<uint32_t>(m_width);
-        init.resolution.height = static_cast<uint32_t>(m_height);
-        init.resolution.reset = BGFX_RESET_VSYNC;
-        init.resolution.maxFrameLatency = 1;
-        bgfx_ok = bgfx::init(init);
-        printf("[BGFX] OpenGL init result: %d\n", bgfx_ok);
-    }
-
-    // Fallback: try D3D12 on Windows
-    if (!bgfx_ok) {
-#if defined(_WIN32) || defined(_WIN64)
-        printf("[BGFX] trying Direct3D12 fallback\n");
-        bgfx::Init init;
-        init.type = bgfx::RendererType::Direct3D12;
-        init.vendorId = BGFX_PCI_ID_NONE;
-        init.deviceId = 0;
-        init.debug = false;
-        init.profile = false;
-        init.resolution.width = static_cast<uint32_t>(m_width);
-        init.resolution.height = static_cast<uint32_t>(m_height);
-        init.resolution.reset = BGFX_RESET_VSYNC;
-        init.resolution.maxFrameLatency = 1;
-        bgfx_ok = bgfx::init(init);
-        printf("[BGFX] D3D12 init result: %d\n", bgfx_ok);
-#endif
-    }
-
-    if (!bgfx_ok) {
-        printf("[BGFX] all renderer attempts failed\n");
-        if (com_initialized) {
-            CoUninitialize();
-        }
+    if (!bgfx::init(init)) {
         return false;
     }
 
     m_initialized = true;
-    m_comInitialized = com_initialized;
 
     m_samplerUniforms[0] = bgfx::createUniform("s_diffuse", bgfx::UniformType::Sampler);
     for (int stage = 1; stage < MAX_TEXTURE_STAGES; ++stage) {
@@ -540,11 +423,6 @@ void BGFXBackend::Shutdown()
     m_shaderCache.Clear();
     bgfx::shutdown();
     m_initialized = false;
-
-    if (m_comInitialized) {
-        CoUninitialize();
-        m_comInitialized = false;
-    }
 
 #if BGFX_PLATFORM_LINUX
     if (m_nativeDisplay) {

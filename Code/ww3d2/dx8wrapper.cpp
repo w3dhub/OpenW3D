@@ -39,8 +39,7 @@
 
 //#define CREATE_DX8_MULTI_THREADED
 //#define CREATE_DX8_FPU_PRESERVE
-//#define WW3D_DEVTYPE D3DDEVTYPE_HAL
-#define WW3D_DEVTYPE D3DDEVTYPE_REF  // Software fallback for testing
+#define WW3D_DEVTYPE D3DDEVTYPE_HAL
 
 #include "dx8wrapper.h"
 #include "dx8fvf.h"
@@ -434,24 +433,11 @@ bool DX8Wrapper::Create_Device(void)
 {
 	WWASSERT(D3DDevice == NULL);	// for now, once you've created a device, you're stuck with it!
 
-	// Check available adapters
-	int adapter_count = D3DInterface->GetAdapterCount();
-	printf("[DX8] Create_Device: adapter_count=%d, CurRenderDevice=%d\n", adapter_count, CurRenderDevice);
-	for (int i = 0; i < adapter_count; i++) {
-		D3DADAPTER_IDENTIFIER9 aid;
-		HRESULT hr = D3DInterface->GetAdapterIdentifier(i, 0, &aid);
-		D3DCAPS9 tcaps;
-		HRESULT caps_hr = D3DInterface->GetDeviceCaps(i, D3DDEVTYPE_HAL, &tcaps);
-		printf("[DX8]   adapter %d: caps_hr=0x%08x, desc=%s\n", i, caps_hr, SUCCEEDED(hr) ? aid.Description : "N/A");
-	}
-
-	printf("[DX8] Create_Device: getting device caps\n");
 	D3DCAPS9 caps;
 	if (FAILED( D3DInterface->GetDeviceCaps(
 		CurRenderDevice,
 		WW3D_DEVTYPE,
 		&caps))) {
-		printf("[DX8] GetDeviceCaps FAILED\n");
 		return false;
 	}
 
@@ -496,7 +482,6 @@ bool DX8Wrapper::Create_Device(void)
 		&D3DDevice );
 
 	if (FAILED(hr)) {
-		printf("[DX8] CreateDevice FAILED: hr=0x%08x\n", hr);
 		// The device selection may fail because the device lied that it supports 32 bit zbuffer with 16 bit
 		// display. This happens at least on Voodoo2.
 
@@ -716,7 +701,6 @@ bool DX8Wrapper::Set_Render_Device
 
 bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int windowed, bool resize_window)
 {
-	printf("[DX8] Set_Render_Device entry: dev=%d w=%d h=%d b=%d win=%d\n", dev, width, height, bits, windowed);
 	WWASSERT(IsInitted);
 	WWASSERT(dev >= -1);
 	WWASSERT(dev < _RenderDeviceNameTable.Count());
@@ -729,7 +713,6 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	} else if (dev != -1) {
 		CurRenderDevice = dev;
 	}
-	printf("[DX8] CurRenderDevice=%d, device count=%d\n", CurRenderDevice, _RenderDeviceNameTable.Count());
 
 	/*
 	** If user doesn't want to change res, set the res variables to match the
@@ -816,27 +799,20 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	/*
 	** Find an appropriate Z buffer
 	*/
-	printf("[DX8] Calling Find_Z_Mode with backbuffer format %d\n", _PresentParameters.BackBufferFormat);
 	if (!Find_Z_Mode(_PresentParameters.BackBufferFormat,_PresentParameters.BackBufferFormat,&_PresentParameters.AutoDepthStencilFormat))
 	{
-		printf("[DX8] Find_Z_Mode failed (32-bit)\n");
 		// If opening 32 bit mode failed, try 16 bit, even if the desktop happens to be 32 bit
 		if (BitDepth==32) {
 			WWDEBUG_SAY(("Failed to find a 32 bit mode, trying 16 bit\r\n"));
 			BitDepth=16;
 			_PresentParameters.BackBufferFormat=D3DFMT_R5G6B5;
 			if (!Find_Z_Mode(_PresentParameters.BackBufferFormat,_PresentParameters.BackBufferFormat,&_PresentParameters.AutoDepthStencilFormat)) {
-				printf("[DX8] Find_Z_Mode failed (16-bit) too\n");
 				_PresentParameters.AutoDepthStencilFormat=D3DFMT_UNKNOWN;
-			} else {
-				printf("[DX8] Find_Z_Mode succeeded (16-bit fallback)\n");
 			}
 		}
 		else {
 			_PresentParameters.AutoDepthStencilFormat=D3DFMT_UNKNOWN;
 		}
-	} else {
-		printf("[DX8] Find_Z_Mode succeeded\n");
 	}
 
 	} else {
@@ -931,8 +907,6 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 			_PresentParameters.AutoDepthStencilFormat=D3DFMT_D16;
 		}
 	}
-	printf("[DX8] Calling Create_Device (hwnd=%p, windowed=%d, format=%d, zformat=%d)\n",
-		_Hwnd, IsWindowed, _PresentParameters.BackBufferFormat, _PresentParameters.AutoDepthStencilFormat);
 	return Create_Device();
 }
 
@@ -1050,16 +1024,12 @@ bool DX8Wrapper::Set_Device_Resolution(int width,int height,int bits,int windowe
 {
 	// If device hasn't been created yet, do full device setup
 	if (D3DDevice == NULL) {
-		printf("[DX8] Device not yet created, calling Set_Render_Device (w=%d h=%d b=%d win=%d)\n", 
-			width, height, bits, windowed);
 		// Use provided resolution (or defaults), force windowed for safety
 		int w = (width != -1) ? width : ResolutionWidth;
 		int h = (height != -1) ? height : ResolutionHeight;
 		int b = (bits != -1) ? bits : BitDepth;
 		int win = (windowed != -1) ? windowed : 1; // default to windowed
-		bool result = Set_Render_Device(-1, w, h, b, win, resize_window);
-		printf("[DX8] Set_Render_Device returned %d\n", result ? 1 : 0);
-		return result;
+		return Set_Render_Device(-1, w, h, b, win, resize_window);
 	}
 
 	if (width != -1) {
