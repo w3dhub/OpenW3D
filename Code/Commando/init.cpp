@@ -829,12 +829,23 @@ bool Game_Init(void)
 		return false;
 	}
 
+	// Override renderer from --renderer=N if specified on command line
+	if (cUserOptions::ImmediateRenderer.Get_Int() >= 0) {
+		int renderer = cUserOptions::ImmediateRenderer.Get_Int();
+		WW3D::Set_Render_Device(renderer);
+	}
+
 	if (ConsoleBox.Is_Exclusive()) {
 		WW3D::Enable_Decals(false);
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
 		scene->Set_Max_Simultaneous_Shadows(0);
 		DazzleRenderObjClass::Enable_Dazzle_Rendering(false);
 	} else {
+		// Override windowed mode from --windowed if specified on command line
+		if (cUserOptions::ImmediateWindowed.Get_Bool()) {
+			WW3D::Set_Device_Resolution(-1, -1, -1, 1, false);
+		}
+
 		if ( WW3D::Registry_Load_Render_Device( APPLICATION_SUB_KEY_NAME_RENDER, true ) != WW3D_ERROR_OK ) {
 			WWDEBUG_SAY(("WW3D::Registry_Load_Render_Device Failed!\r\n"));
 			return false;
@@ -1004,8 +1015,14 @@ bool Game_Init(void)
 
 #if (IMMEDIATE_LOAD)
 	// Immediately load up the specified level
-	GameInitMgrClass::Initialize_SP ();
-	GameInitMgrClass::Start_Game (IMMEDIATE_LOAD_LEVELNAME);
+	GameInitMgrClass::Initialize_SP();
+	GameInitMgrClass::Start_Game(IMMEDIATE_LOAD_LEVELNAME);
+#else
+	// Command-line driven immediate load: --map=X (runtime check)
+	if (cUserOptions::ImmediateMap.Get_Str()[0] != '\0') {
+		GameInitMgrClass::Initialize_Skirmish();
+		GameInitMgrClass::Start_Game(cUserOptions::ImmediateMap.Get_Str());
+	}
 #endif
 
 	cDiagnostics::Init();
