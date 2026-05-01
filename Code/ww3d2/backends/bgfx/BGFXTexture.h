@@ -75,6 +75,11 @@ public:
     BGFXTexture();
     ~BGFXTexture();
 
+    BGFXTexture(const BGFXTexture&) = delete;
+    BGFXTexture& operator=(const BGFXTexture&) = delete;
+    BGFXTexture(BGFXTexture&&) = delete;
+    BGFXTexture& operator=(BGFXTexture&&) = delete;
+
     // Create from raw pixel data
     bool Create(int width, int height, BGFXTextureFormat format, void* data, int mipCount = 1);
 
