@@ -55,9 +55,13 @@ extern char DefaultRegistryModifier[1024];
 //
 // Class statics
 //
-cRegistryString cUserOptions::GameDir(					APPLICATION_SUB_KEY_NAME_OPTIONS, "GameDir",           "");
+cRegistryString cUserOptions::GameDir(							APPLICATION_SUB_KEY_NAME_OPTIONS, "GameDir",           "");
 
-cRegistryBool cUserOptions::ShowNamesOnSoldier(					APPLICATION_SUB_KEY_NAME_NETOPTIONS, "ShowNamesOnSoldier",           true);
+cRegistryString cUserOptions::ImmediateMap(					APPLICATION_SUB_KEY_NAME_OPTIONS, "ImmediateMap",      "");
+cRegistryInt cUserOptions::ImmediateRenderer(					APPLICATION_SUB_KEY_NAME_OPTIONS, "ImmediateRenderer", -1);
+cRegistryBool cUserOptions::ImmediateWindowed(					APPLICATION_SUB_KEY_NAME_OPTIONS, "ImmediateWindowed", false);
+
+cRegistryBool cUserOptions::ShowNamesOnSoldier(				APPLICATION_SUB_KEY_NAME_NETOPTIONS, "ShowNamesOnSoldier",           true);
 cRegistryBool cUserOptions::SkipQuitConfirmDialog(				APPLICATION_SUB_KEY_NAME_OPTIONS,	"SkipQuitConfirmDialog",			false);
 cRegistryBool cUserOptions::SkipIngameQuitConfirmDialog(		APPLICATION_SUB_KEY_NAME_OPTIONS,	"SkipIngameQuitConfirmDialog",	false);
 cRegistryBool cUserOptions::CameraLockedToTurret(				APPLICATION_SUB_KEY_NAME_OPTIONS,	"CameraLockedToTurret",				false);
@@ -315,6 +319,9 @@ void cUserOptions::Print_Command_Line_Help(bool error)
 	fprintf(file, "    [--gamespy-netplayername NAME]\n");
 	fprintf(file, "    [--gamespy-password PASSWORD]\n");
 #endif
+	fprintf(file, "    [--map=MAPNAME]    Load map directly (skips menu)\n");
+	fprintf(file, "    [--renderer=N]     BGFX renderer: 0=auto,1=Vulkan,2=OpenGL,3=D3D11,4=D3D12\n");
+	fprintf(file, "    [--windowed]       Force windowed mode\n");
 	fprintf(file, "    [--help]\n");
 }
 
@@ -507,3 +514,27 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		wide_nickname.Convert_From(nickname2);
 		cGameSpyAdmin::Set_Player_Nickname(wide_nickname);
 		*/
+
+		// --map=X: immediate-load a specific map (bypasses main menu)
+		if (strncmp(cmd, "--map=", 6) == 0) {
+			ImmediateMap.Set_Str(cmd + 6);
+			continue;
+		}
+
+		// --renderer=N: override BGFX renderer (0=auto, 1=Vulkan, 2=OpenGL, 3=D3D11, 4=D3D12)
+		if (strncmp(cmd, "--renderer=", 10) == 0) {
+			ImmediateRenderer.Set_Int(atoi(cmd + 10));
+			continue;
+		}
+
+		// --windowed: force windowed mode
+		if (strcmp(cmd, "--windowed") == 0) {
+			ImmediateWindowed.Set_Bool(true);
+			continue;
+		}
+
+		// Return true if command line options scanned OK.
+		return retcode;
+	}
+
+void cUserOptions::Print_Command_Line_Help(bool error)

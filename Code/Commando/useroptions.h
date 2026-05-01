@@ -66,6 +66,11 @@ class cUserOptions
 
 		static cRegistryString GameDir;
 
+		// Immediate-load command-line overrides
+		static cRegistryString ImmediateMap;
+		static cRegistryInt ImmediateRenderer;
+		static cRegistryBool ImmediateWindowed;
+
 		static cRegistryBool ShowNamesOnSoldier;
 		static cRegistryBool SkipQuitConfirmDialog;
 		static cRegistryBool SkipIngameQuitConfirmDialog;
