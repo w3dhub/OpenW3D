@@ -53,6 +53,8 @@
 #include "dx8texman.h"
 #include "meshmatdesc.h"
 #include "texturethumbnail.h"
+#include "ww3d.h"
+#include "ww3dbackend.h"
 
 const unsigned DEFAULT_INACTIVATION_TIME=20000;
 
@@ -422,6 +424,9 @@ TextureClass::~TextureClass(void)
 	ThumbnailLoadTask=NULL;
 
 	if (D3DTexture) {
+		if (WW3D::Get_Backend()) {
+			WW3D::Get_Backend()->Invalidate_Texture_Cache_Entry(this);
+		}
 		D3DTexture->Release();
 		D3DTexture = NULL;
 	}
@@ -511,6 +516,9 @@ void TextureClass::Invalidate()
 	}
 
 	if (D3DTexture) {
+		if (WW3D::Get_Backend()) {
+			WW3D::Get_Backend()->Invalidate_Texture_Cache_Entry(this);
+		}
 		D3DTexture->Release();
 		D3DTexture = NULL;
 	}
@@ -524,7 +532,12 @@ void TextureClass::Invalidate()
 
 void TextureClass::Load_Locked_Surface()
 {
-	if (D3DTexture) D3DTexture->Release();
+	if (D3DTexture) {
+		if (WW3D::Get_Backend()) {
+			WW3D::Get_Backend()->Invalidate_Texture_Cache_Entry(this);
+		}
+		D3DTexture->Release();
+	}
 	D3DTexture=0;
 	TextureLoader::Request_Thumbnail(this);
 	Initialized=false;

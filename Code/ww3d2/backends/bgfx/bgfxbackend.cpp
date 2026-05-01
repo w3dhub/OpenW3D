@@ -1427,6 +1427,33 @@ void BGFXBackend::Clear_Resource_Caches()
     m_activeTextureStages = 0;
 }
 
+void BGFXBackend::Invalidate_Texture_Cache_Entry(TextureClass* texture)
+{
+    if (!texture) {
+        return;
+    }
+
+    auto it = m_textureCache.find(texture);
+    if (it == m_textureCache.end()) {
+        return;
+    }
+
+    const bgfx::TextureHandle handle = it->second;
+    if (bgfx::isValid(handle) && handle.idx != m_whiteTexture.idx) {
+        bgfx::destroy(handle);
+    }
+
+    m_textureCache.erase(it);
+
+    for (int stage = 0; stage < MAX_TEXTURE_STAGES; ++stage) {
+        if (m_boundTextures[stage].idx == handle.idx) {
+            m_boundTextures[stage] = BGFX_INVALID_HANDLE;
+            m_textureFlags[stage] = UINT32_MAX;
+            m_textureMipLevels[stage] = 0;
+        }
+    }
+}
+
 // =============================================================================
 // Material Integration
 // =============================================================================

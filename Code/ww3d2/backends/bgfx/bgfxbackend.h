@@ -169,6 +169,7 @@ public:
     virtual bool Wants_Deferred_State_Apply() const override { return true; }
     virtual void Apply_Shader_State(const ShaderClass& shader) override;
     virtual void Apply_Texture_State(unsigned stage, TextureClass* texture) override;
+    virtual void Invalidate_Texture_Cache_Entry(TextureClass* texture) override;
     virtual void Apply_Material_State(const VertexMaterialClass* material) override;
     virtual void Apply_Light_Environment_State(LightEnvironmentClass* env) override;
     virtual void Set_DX8_Light(int index, const void* light) override;
