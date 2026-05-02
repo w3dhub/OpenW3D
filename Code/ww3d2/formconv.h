@@ -44,10 +44,12 @@
 #define FORMCONV_H
 
 #include "ww3dformat.h"
-#include <d3d9.h>
+#include "ww3d_platform.h"
 
 /*
 ** This file is used for conversions between D3DFORMAT and WW3DFormat.
+** On Windows, the real D3D format is used; on other platforms, the
+** stubs from ww3d_platform.h provide D3DFORMAT.
 */
 
 D3DFORMAT WW3DFormat_To_D3DFormat(WW3DFormat ww3d_format);

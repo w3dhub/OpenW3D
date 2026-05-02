@@ -45,6 +45,7 @@
 
 #include "ww3dformat.h"
 #include "refcount.h"
+#include "ww3d_platform.h"
 
 struct IDirect3DSurface9;
 class Vector2i;

@@ -45,7 +45,7 @@
 
 #include "always.h"
 #include "dllist.h"
-#include <d3d9.h>
+#include "ww3d_platform.h"
 #include "matrix4.h"
 #include "statistics.h"
 #include "wwstring.h"
@@ -122,16 +122,24 @@ WWINLINE void DX8_ErrorCode(HRESULT res)
 	Log_DX8_ErrorCode(res);
 }
 
-#ifdef WWDEBUG
-#define DX8CALL_HRES(x,res) DX8_Assert(); res = DX8Wrapper::_Get_D3D_Device8()->x; DX8_ErrorCode(res); number_of_DX8_calls++;
-#define DX8CALL(x) DX8_Assert(); DX8_ErrorCode(DX8Wrapper::_Get_D3D_Device8()->x); number_of_DX8_calls++;
-#define DX8CALL_D3D(x) DX8_Assert(); DX8_ErrorCode(DX8Wrapper::_Get_D3D8()->x); number_of_DX8_calls++;
-#define DX8_THREAD_ASSERT() if (_DX8SingleThreaded) { WWASSERT_PRINT(DX8Wrapper::_Get_Main_Thread_ID()==ThreadClass::Get_Current_Thread_ID(),"DX8Wrapper::DX8 calls must be called from the main thread!"); }
+#ifdef _WIN32
+  #ifdef WWDEBUG
+  #define DX8CALL_HRES(x,res) DX8_Assert(); res = DX8Wrapper::_Get_D3D_Device8()->x; DX8_ErrorCode(res); number_of_DX8_calls++;
+  #define DX8CALL(x) DX8_Assert(); DX8_ErrorCode(DX8Wrapper::_Get_D3D_Device8()->x); number_of_DX8_calls++;
+  #define DX8CALL_D3D(x) DX8_Assert(); DX8_ErrorCode(DX8Wrapper::_Get_D3D8()->x); number_of_DX8_calls++;
+  #define DX8_THREAD_ASSERT() if (_DX8SingleThreaded) { WWASSERT_PRINT(DX8Wrapper::_Get_Main_Thread_ID()==ThreadClass::Get_Current_Thread_ID(),"DX8Wrapper::DX8 calls must be called from the main thread!"); }
+  #else
+  #define DX8CALL_HRES(x,res) res = DX8Wrapper::_Get_D3D_Device8()->x; number_of_DX8_calls++;
+  #define DX8CALL(x) DX8Wrapper::_Get_D3D_Device8()->x; number_of_DX8_calls++;
+  #define DX8CALL_D3D(x) DX8Wrapper::_Get_D3D8()->x; number_of_DX8_calls++;
+  #define DX8_THREAD_ASSERT() ;
+  #endif
 #else
-#define DX8CALL_HRES(x,res) res = DX8Wrapper::_Get_D3D_Device8()->x; number_of_DX8_calls++;
-#define DX8CALL(x) DX8Wrapper::_Get_D3D_Device8()->x; number_of_DX8_calls++;
-#define DX8CALL_D3D(x) DX8Wrapper::_Get_D3D8()->x; number_of_DX8_calls++;
-#define DX8_THREAD_ASSERT() ;
+  // Non-Windows: DX8 calls are no-ops (rendering goes through WW3DBackend)
+  #define DX8CALL_HRES(x,res) (void)(res)
+  #define DX8CALL(x) ((void)0)
+  #define DX8CALL_D3D(x) ((void)0)
+  #define DX8_THREAD_ASSERT()
 #endif
 
 struct RenderStateStruct
@@ -157,6 +165,8 @@ struct RenderStateStruct
 
 	RenderStateStruct& operator= (const RenderStateStruct& src);
 };
+
+class DX8Backend;
 
 /**
 ** DX8Wrapper
@@ -408,8 +418,20 @@ public:
 	static void					Set_Render_Target (IDirect3DSwapChain9 *swap_chain);
 	static bool					Is_Render_To_Texture(void) { return IsRenderToTexture; }
 
-	static IDirect3DDevice9* _Get_D3D_Device8() { return D3DDevice; }
-	static IDirect3D9* _Get_D3D8() { return D3DInterface; }
+	static IDirect3DDevice9* _Get_D3D_Device8() {
+#ifdef _WIN32
+		return D3DDevice;
+#else
+		return nullptr;
+#endif
+	}
+	static IDirect3D9* _Get_D3D8() {
+#ifdef _WIN32
+		return D3DInterface;
+#else
+		return nullptr;
+#endif
+	}
 
 	static const DX8Caps*	Get_Current_Caps() { WWASSERT(CurrentCaps); return CurrentCaps; }
 
@@ -550,12 +572,14 @@ protected:
 
 	static D3DADAPTER_IDENTIFIER9		CurrentAdapterIdentifier;
 
-	static IDirect3D9 *					D3DInterface;			//d3d8;
-	static IDirect3DDevice9 *			D3DDevice;				//d3ddevice8;
+#ifdef _WIN32
+	static IDirect3D9 *						D3DInterface;			//d3d8;
+	static IDirect3DDevice9 *				D3DDevice;				//d3ddevice8;
 
-	static IDirect3DSurface9 *			CurrentRenderTarget;
-	static IDirect3DSurface9 *			DefaultRenderTarget;
-	static IDirect3DSurface9 *			DefaultDepthBuffer;
+	static IDirect3DSurface9 *				CurrentRenderTarget;
+	static IDirect3DSurface9 *				DefaultRenderTarget;
+	static IDirect3DSurface9 *				DefaultDepthBuffer;
+#endif
 
 	static bool								IsRenderToTexture;
 
@@ -567,6 +591,7 @@ protected:
 
 	friend void DX8_Assert();
 	friend class WW3D;
+	friend class DX8Backend;
 	friend class DX8IndexBufferClass;
 	friend class DX8VertexBufferClass;
 };
@@ -713,9 +738,13 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTextu
 
 	SNAPSHOT_SAY(("DX8 - SetTexture(%x) \n",texture));
 
+#ifdef _WIN32
 	if (Textures[stage]) Textures[stage]->Release();
+#endif
 	Textures[stage] = texture;
+#ifdef _WIN32
 	if (Textures[stage]) Textures[stage]->AddRef();
+#endif
 	DX8CALL(SetTexture(stage, texture));
 	DX8_RECORD_TEXTURE_CHANGE();
 }

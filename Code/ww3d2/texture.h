@@ -48,6 +48,7 @@
 #include "surfaceclass.h"
 #include "ww3dformat.h"
 #include "wwstring.h"
+#include "ww3d_platform.h"
 
 class DX8Wrapper;
 struct IDirect3DTexture9;
