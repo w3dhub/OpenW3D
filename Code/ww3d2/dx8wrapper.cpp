@@ -47,6 +47,7 @@
 #include "dx8indexbuffer.h"
 #include "dx8renderer.h"
 #include "ww3d.h"
+#include "ww3dbackend.h"
 #include "camera.h"
 #include "wwstring.h"
 #include "matrix4.h"
@@ -795,24 +796,24 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 
 		WWDEBUG_SAY(("Using buffer format: %d\r\n",_PresentParameters.BackBufferFormat));
 
-		/*
-		** Find an appropriate Z buffer
-		*/
-		if (!Find_Z_Mode(_PresentParameters.BackBufferFormat,_PresentParameters.BackBufferFormat,&_PresentParameters.AutoDepthStencilFormat))
-		{
-			// If opening 32 bit mode failed, try 16 bit, even if the desktop happens to be 32 bit
-			if (BitDepth==32) {
-				WWDEBUG_SAY(("Failed to find a 32 bit mode, trying 16 bit\r\n"));
-				BitDepth=16;
-				_PresentParameters.BackBufferFormat=D3DFMT_R5G6B5;
-				if (!Find_Z_Mode(_PresentParameters.BackBufferFormat,_PresentParameters.BackBufferFormat,&_PresentParameters.AutoDepthStencilFormat)) {
-					_PresentParameters.AutoDepthStencilFormat=D3DFMT_UNKNOWN;
-				}
-			}
-			else {
+	/*
+	** Find an appropriate Z buffer
+	*/
+	if (!Find_Z_Mode(_PresentParameters.BackBufferFormat,_PresentParameters.BackBufferFormat,&_PresentParameters.AutoDepthStencilFormat))
+	{
+		// If opening 32 bit mode failed, try 16 bit, even if the desktop happens to be 32 bit
+		if (BitDepth==32) {
+			WWDEBUG_SAY(("Failed to find a 32 bit mode, trying 16 bit\r\n"));
+			BitDepth=16;
+			_PresentParameters.BackBufferFormat=D3DFMT_R5G6B5;
+			if (!Find_Z_Mode(_PresentParameters.BackBufferFormat,_PresentParameters.BackBufferFormat,&_PresentParameters.AutoDepthStencilFormat)) {
 				_PresentParameters.AutoDepthStencilFormat=D3DFMT_UNKNOWN;
 			}
 		}
+		else {
+			_PresentParameters.AutoDepthStencilFormat=D3DFMT_UNKNOWN;
+		}
+	}
 
 	} else {
 
@@ -1019,21 +1020,26 @@ const char * DX8Wrapper::Get_Render_Device_Name(int device_index)
 	return _RenderDeviceShortNameTable[device_index];
 }
 
-bool DX8Wrapper::Set_Device_Resolution(int width,int height,int /*bits*/,int /*windowed*/, bool /*resize_window*/)
+bool DX8Wrapper::Set_Device_Resolution(int width,int height,int bits,int windowed, bool resize_window)
 {
-	if (D3DDevice != NULL) {
-
-		if (width != -1) {
-			_PresentParameters.BackBufferWidth = ResolutionWidth = width;
-		}
-		if (height != -1) {
-			_PresentParameters.BackBufferHeight = ResolutionHeight = height;
-		}
-// FIXME TODO: support changing windowed status and changing the bit depth
-		return Reset_Device();
-	} else {
-		return false;
+	// If device hasn't been created yet, do full device setup
+	if (D3DDevice == NULL) {
+		// Use provided resolution (or defaults), force windowed for safety
+		int w = (width != -1) ? width : ResolutionWidth;
+		int h = (height != -1) ? height : ResolutionHeight;
+		int b = (bits != -1) ? bits : BitDepth;
+		int win = (windowed != -1) ? windowed : 1; // default to windowed
+		return Set_Render_Device(-1, w, h, b, win, resize_window);
 	}
+
+	if (width != -1) {
+		_PresentParameters.BackBufferWidth = ResolutionWidth = width;
+	}
+	if (height != -1) {
+		_PresentParameters.BackBufferHeight = ResolutionHeight = height;
+	}
+// FIXME TODO: support changing windowed status and changing the bit depth
+	return Reset_Device();
 }
 
 void DX8Wrapper::Get_Device_Resolution(int & set_w,int & set_h,int & set_bits,bool & set_windowed)
@@ -1720,17 +1726,6 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 		}
 	}
 
-	DX8CALL(SetStreamSource(
-		0,
-		static_cast<DX8VertexBufferClass*>(dyn_vb_access.VertexBuffer)->Get_DX8_Vertex_Buffer(),
-		0,
-		dyn_vb_access.FVF_Info().Get_FVF_Size()));
-	// Release the programmable shader
-	// DX8CALL(SetVertexShader(NULL));
-	// Set the fixed-function vertex format
-	DX8CALL(SetFVF(dyn_vb_access.FVF_Info().Get_FVF()));
-	DX8_RECORD_VERTEX_BUFFER_CHANGE();
-
 	unsigned index_count=0;
 	switch (primitive_type) {
 	case D3DPT_TRIANGLELIST: index_count=polygon_count*3; break;
@@ -1755,6 +1750,30 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 			*dest++=index;
 		}
 	}
+
+	// Backend dispatch for non-DX8 rendering
+	if (WW3D::Get_Backend() && WW3D::Get_Backend()->Wants_Deferred_State_Apply()) {
+		// Set dynamic buffers on backend and draw
+		WW3D::Get_Backend()->Set_Vertex_Buffer(dyn_vb_access.VertexBuffer);
+		WW3D::Get_Backend()->Set_Index_Buffer(dyn_ib_access.IndexBuffer, 0);
+		if (primitive_type == D3DPT_TRIANGLELIST) {
+			WW3D::Get_Backend()->Draw_Indexed_Triangles(dyn_ib_access.IndexBufferOffset, polygon_count, 0, vertex_count);
+		} else if (primitive_type == D3DPT_TRIANGLESTRIP) {
+			WW3D::Get_Backend()->Draw_Indexed_Strip(dyn_ib_access.IndexBufferOffset, polygon_count + 2, 0, vertex_count);
+		} else {
+			WWDEBUG_SAY(("Draw_Sorting_IB_VB: unsupported primitive type %d for BGFX backend\n", primitive_type));
+		}
+		return;
+	}
+
+	// Original DX8 path
+	DX8CALL(SetStreamSource(
+		0,
+		static_cast<DX8VertexBufferClass*>(dyn_vb_access.VertexBuffer)->Get_DX8_Vertex_Buffer(),
+		0,
+		dyn_vb_access.FVF_Info().Get_FVF_Size()));
+	DX8CALL(SetFVF(dyn_vb_access.FVF_Info().Get_FVF()));
+	DX8_RECORD_VERTEX_BUFFER_CHANGE();
 
 	DX8CALL(SetIndices(
 		static_cast<DX8IndexBufferClass*>(dyn_ib_access.IndexBuffer)->Get_DX8_Index_Buffer()));
@@ -1789,6 +1808,32 @@ void DX8Wrapper::Draw(
 	SNAPSHOT_SAY(("DX8 - draw\n"));
 
 	Apply_Render_State_Changes();
+
+	// Backend dispatch for non-DX8 rendering
+	if (WW3D::Get_Backend() && WW3D::Get_Backend()->Wants_Deferred_State_Apply()) {
+		unsigned short actual_start = start_index + render_state.iba_offset;
+		unsigned short actual_count = vertex_count;
+		if (actual_count < 3) {
+			switch (render_state.vertex_buffer_type) {
+			case BUFFER_TYPE_DX8:
+			case BUFFER_TYPE_SORTING:
+				actual_count = render_state.vertex_buffer->Get_Vertex_Count() - render_state.index_base_offset - render_state.vba_offset - min_vertex_index;
+				break;
+			case BUFFER_TYPE_DYNAMIC_DX8:
+			case BUFFER_TYPE_DYNAMIC_SORTING:
+				actual_count = render_state.vba_count;
+				break;
+			}
+		}
+		if (primitive_type == D3DPT_TRIANGLELIST) {
+			WW3D::Get_Backend()->Draw_Indexed_Triangles(actual_start, polygon_count, min_vertex_index, actual_count);
+		} else if (primitive_type == D3DPT_TRIANGLESTRIP) {
+			WW3D::Get_Backend()->Draw_Indexed_Strip(actual_start, polygon_count + 2, min_vertex_index, actual_count);
+		} else {
+			WWDEBUG_SAY(("DX8Wrapper::Draw: unsupported primitive type %d for BGFX backend\n", primitive_type));
+		}
+		return;
+	}
 
 	// Debug feature to disable triangle drawing...
 	if (!_Is_Triangle_Draw_Enabled()) return;
@@ -1968,6 +2013,57 @@ void DX8Wrapper::Draw_Strip(
 void DX8Wrapper::Apply_Render_State_Changes()
 {
 	if (!render_state_changed) return;
+
+	// Backend dispatch path for non-DX8 backends (e.g. BGFX)
+	if (WW3D::Get_Backend() && WW3D::Get_Backend()->Wants_Deferred_State_Apply()) {
+		if (render_state_changed&SHADER_CHANGED) {
+			WW3D::Get_Backend()->Apply_Shader_State(render_state.shader);
+		}
+
+		unsigned mask=TEXTURE0_CHANGED;
+		for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i,mask<<=1) {
+			if (render_state_changed&mask) {
+				WW3D::Get_Backend()->Apply_Texture_State(i, render_state.Textures[i]);
+			}
+		}
+
+		if (render_state_changed&MATERIAL_CHANGED) {
+			WW3D::Get_Backend()->Apply_Material_State(render_state.material);
+		}
+
+		if (render_state_changed&LIGHTS_CHANGED) {
+			unsigned mask=LIGHT0_CHANGED;
+			for (unsigned index=0;index<4;++index,mask<<=1) {
+				if (render_state_changed&mask) {
+					if (render_state.LightEnable[index]) {
+						WW3D::Get_Backend()->Set_DX8_Light(index, &render_state.Lights[index]);
+					}
+					else {
+						WW3D::Get_Backend()->Set_DX8_Light(index, nullptr);
+					}
+				}
+			}
+		}
+
+		if (render_state_changed&WORLD_CHANGED) {
+			WW3D::Get_Backend()->Set_Transform_World(render_state.world);
+		}
+		if (render_state_changed&VIEW_CHANGED) {
+			WW3D::Get_Backend()->Set_Transform_View(render_state.view);
+		}
+		if (render_state_changed&VERTEX_BUFFER_CHANGED) {
+			WW3D::Get_Backend()->Set_Vertex_Buffer(render_state.vertex_buffer);
+		}
+		if (render_state_changed&INDEX_BUFFER_CHANGED) {
+			WW3D::Get_Backend()->Set_Index_Buffer(render_state.index_buffer, render_state.index_base_offset);
+		}
+
+		WW3D::Get_Backend()->Commit_Render_State();
+		render_state_changed&=((unsigned)WORLD_IDENTITY|(unsigned)VIEW_IDENTITY);
+		return;
+	}
+
+	// Original DX8 path
 	if (render_state_changed&SHADER_CHANGED) {
 		SNAPSHOT_SAY(("DX8 - apply shader\n"));
 		render_state.shader.Apply();

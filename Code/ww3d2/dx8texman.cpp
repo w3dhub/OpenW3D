@@ -50,6 +50,8 @@
 // destructor
 
 #include "dx8texman.h"
+#include "ww3d.h"
+#include "ww3dbackend.h"
 
 DX8TextureTrackerList DX8TextureManagerClass::Managed_Textures;
 
@@ -158,12 +160,15 @@ void DX8TextureManagerClass::Release_Textures()
 	{
 		DX8TextureTrackerClass *track=it.Peek_Obj();
 		WWASSERT(track->Texture->D3DTexture);
+		if (WW3D::Get_Backend()) {
+			WW3D::Get_Backend()->Invalidate_Texture_Cache_Entry(track->Texture);
+		}
 		track->Texture->D3DTexture->Release();
 		track->Texture->D3DTexture=NULL;
+		track->Texture->Initialized=false;
 		it.Next();
 	}
 }
-
 
 /***********************************************************************************************
  * DX8TextureManagerClass::Recreate_Textures -- Reallocates lost textures                      *

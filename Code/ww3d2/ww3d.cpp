@@ -79,8 +79,14 @@
 
 #include "ww3d.h"
 #include "ww3dbackend.h"
+
+#if defined(WW3D_DX9_BACKEND)
 #include "dx8backend.h"
+#elif defined(WW3D_BGFX_BACKEND)
+#include "backends/bgfx/bgfxbackend.h"
+#else
 #include "nullbackend.h"
+#endif
 #include "rinfo.h"
 #include "assetmgr.h"
 #include "boxrobj.h"
@@ -271,12 +277,15 @@ WW3DErrorType WW3D::Init(void *hwnd, char * /*defaultpal*/, bool lite)
 	** Backend selection
 	*/
 	if (!Backend) {
-		// Default to DX8 backend on Windows, null backend elsewhere
-		#if defined(_WIN32) || defined(WIN32)
-			Backend = new DX8Backend();
-		#else
-			Backend = new NullBackend();
-		#endif
+		// Create default backend based on compile-time selection
+		// Can be overridden by calling Set_Backend() before Init()
+#if defined(WW3D_DX9_BACKEND)
+		Backend = new DX8Backend();
+#elif defined(WW3D_BGFX_BACKEND)
+		Backend = new BGFXBackend();
+#else
+		Backend = new NullBackend();
+#endif
 	}
 
 	/*
@@ -341,6 +350,12 @@ WW3DErrorType WW3D::Init(void *hwnd, char * /*defaultpal*/, bool lite)
  *=============================================================================================*/
 void WW3D::Set_Backend(WW3DBackend* backend)
 {
+	if (Backend && Backend != backend) {
+		if (IsInitted) {
+			Backend->Shutdown();
+		}
+		delete Backend;
+	}
 	Backend = backend;
 }
 
@@ -1303,10 +1318,14 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
 
 	WWDEBUG_SAY(( "Creating Screen Shot %s\n", filename ));
 
-	// Lock front buffer and copy
+		// Lock front buffer and copy
 
 	IDirect3DSurface9 *fb;
-	fb=Backend->_Get_DX8_Front_Buffer();
+	fb = static_cast<IDirect3DSurface9*>(Backend->_Get_DX8_Front_Buffer());
+	if (!fb) {
+		WWDEBUG_SAY(("Make_Screen_Shot: backend does not support front buffer capture\n"));
+		return;
+	}
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
 
@@ -1585,10 +1604,14 @@ void WW3D::Update_Movie_Capture( void )
 	WWPROFILE("WW3D::Update_Movie_Capture");
 	WWDEBUG_SAY(( "Updating\n"));
 
-		// Lock front buffer and copy
+	// Lock front buffer and copy
 
 	IDirect3DSurface9 *fb;
-	fb=Backend->_Get_DX8_Front_Buffer();
+	fb = static_cast<IDirect3DSurface9*>(Backend->_Get_DX8_Front_Buffer());
+	if (!fb) {
+		WWDEBUG_SAY(("Update_Movie_Capture: backend does not support front buffer capture\n"));
+		return;
+	}
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
 
