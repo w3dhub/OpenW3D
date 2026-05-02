@@ -12,7 +12,7 @@
 #   # First build bgfx itself:
 #   cd external/bgfx
 #   make linux-gcc-release64
-#   
+#
 #   # Then build OpenW3D with bgfx backend:
 #   cd ../..
 #   mkdir build && cd build
@@ -93,7 +93,7 @@ endif()
 
 if(BGFX_LIB_FOUND)
     message(STATUS "Found bgfx library: ${BGFX_LIB}")
-    
+
     add_library(bgfximpl STATIC IMPORTED GLOBAL)
     set_target_properties(bgfximpl PROPERTIES IMPORTED_LOCATION "${BGFX_LIB}")
     target_link_libraries(bgfx INTERFACE bgfximpl)
@@ -106,9 +106,9 @@ else()
         "  3. Rebuild this project with -DENABLE_BGFX_BACKEND=ON\n"
         "\n"
         "Without the library, only the null backend can be used.")
-    
+
     add_library(bgfximpl STATIC IMPORTED GLOBAL)
-    set_target_properties(bgfximpl PROPERTIES 
+    set_target_properties(bgfximpl PROPERTIES
         IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/libbgfx_stub.a"
     )
     if(NOT EXISTS "${CMAKE_BINARY_DIR}/libbgfx_stub.a")

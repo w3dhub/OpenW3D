@@ -478,43 +478,43 @@ void BGFXBackend::Apply_Render_State(int state, unsigned value)
     if (stencilEnabled) {
         // Build stencil state - start with read mask 0xFF
         uint32_t stencilState = BGFX_STENCIL_FUNC_RMASK(0xFF);
-        
+
         // Stencil func
         auto stencilFuncIt = m_render_state.find(DX8RenderState::STENCILFUNC);
         if (stencilFuncIt != m_render_state.end()) {
             stencilState |= Compare_Stencil_Func(stencilFuncIt->second);
         }
-        
+
         // Stencil ref
         auto stencilRefIt = m_render_state.find(DX8RenderState::STENCILREF);
         if (stencilRefIt != m_render_state.end()) {
             stencilState |= BGFX_STENCIL_FUNC_REF(static_cast<uint32_t>(stencilRefIt->second));
         }
-        
+
         // Stencil mask (read mask)
         auto stencilMaskIt = m_render_state.find(DX8RenderState::STENCILMASK);
         if (stencilMaskIt != m_render_state.end()) {
             stencilState |= BGFX_STENCIL_FUNC_RMASK(stencilMaskIt->second);
         }
-        
+
         // Stencil fail operation
         auto stencilFailIt = m_render_state.find(DX8RenderState::STENCILFAIL);
         if (stencilFailIt != m_render_state.end()) {
             stencilState |= Compare_Stencil_Op(stencilFailIt->second);
         }
-        
+
         // Stencil Z fail operation (depth fail)
         auto stencilZFailIt = m_render_state.find(DX8RenderState::STENCILZFAIL);
         if (stencilZFailIt != m_render_state.end()) {
             stencilState |= Compare_Stencil_Op_Z(stencilZFailIt->second);
         }
-        
+
         // Stencil pass operation (depth pass)
         auto stencilPassIt = m_render_state.find(DX8RenderState::STENCILPASS);
         if (stencilPassIt != m_render_state.end()) {
             stencilState |= Compare_Stencil_Op_Pass(stencilPassIt->second);
         }
-        
+
         bgfx::setStencil(stencilState);
     } else {
         bgfx::setStencil(0);
@@ -803,11 +803,11 @@ bgfx::ProgramHandle BGFXBackend::Create_Program(const char* vsPath, const char* 
 {
     bgfx::ShaderHandle vs = Load_Shader(vsPath);
     bgfx::ShaderHandle fs = Load_Shader(fsPath);
-    
+
     if (!bgfx::isValid(vs) || !bgfx::isValid(fs)) {
         return BGFX_INVALID_HANDLE;
     }
-    
+
     return Create_Program(vs, fs);
 }
 
@@ -816,7 +816,7 @@ bgfx::ProgramHandle BGFXBackend::Create_Program(bgfx::ShaderHandle vs, bgfx::Sha
     if (!bgfx::isValid(vs) || !bgfx::isValid(fs)) {
         return BGFX_INVALID_HANDLE;
     }
-    
+
     return bgfx::createProgram(vs, fs, true);
 }
 
