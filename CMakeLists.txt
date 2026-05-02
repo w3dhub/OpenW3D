@@ -33,8 +33,15 @@ add_feature_info(OpenW3DClient W3D_CLIENT "Build OpenW3D game client")
 option(W3D_FDS "Build as headless server." ON)
 add_feature_info(OpenW3DHeadless W3D_FDS "Build OpenW3D headless server")
 
-# Enable DX9/DXVK renderer on Linux
-option(WANT_DX9 "Enable DX9 renderer via DXVK (Linux only, for cross-compile testing)." ON)
+# Enable the legacy Direct3D 9 renderer path.
+# Keep it on by default for Windows, but off by default elsewhere so a native
+# Linux configure does not require DXVK development headers unless explicitly
+# requested.
+set(WANT_DX9_DEFAULT ON)
+if(NOT WIN32)
+    set(WANT_DX9_DEFAULT OFF)
+endif()
+option(WANT_DX9 "Enable DX9 renderer/DXVK compatibility path." ${WANT_DX9_DEFAULT})
 add_feature_info(DX9Renderer WANT_DX9 "Enable DX9/DXVK renderer")
 
 # Do we want to build extra SDK stuff or just the game binary?
@@ -48,7 +55,7 @@ if(SYNTAX_CHECK_ONLY)
 endif(SYNTAX_CHECK_ONLY)
 
 # Do we want to build with SDL3 for windows and inputs?
-cmake_dependent_option(W3D_BUILD_OPTION_SDL3 "Build OpenW3D with SDL3." OFF WIN32 ON)
+cmake_dependent_option(W3D_BUILD_OPTION_SDL3 "Build OpenW3D with SDL3." OFF WIN32 OFF)
 add_feature_info(SDL3Build W3D_BUILD_OPTION_SDL3 "Build OpenW3D with SDL3")
 
 # Do we want to build with webbrowser?
@@ -81,7 +88,11 @@ if(W3D_BUILD_OPTION_SDL3)
 elseif(WIN32)
     add_compile_definitions(-DOPENW3D_WIN32=1)
 else()
-    message(FATAL_ERROR "Invalid backend")
+    # Allow native non-Windows configure/build experiments. The source tree is
+    # still Windows-first, so some targets may require additional portability
+    # work, but configuring the project should not fail just because SDL3 or a
+    # Win32 backend is unavailable.
+    add_compile_definitions(-DOPENW3D_LINUX=1)
 endif()
 
 add_compile_definitions(-DWEBBROWSER_ENABLED=$<BOOL:${W3D_BUILD_OPTION_WEBBROWSER}>)
@@ -111,7 +122,7 @@ if(WIN32)
         include(icu)
     endif()
 else()
-    set(W3D_BUILD_OPTION_ICU ON)
+    set(W3D_BUILD_OPTION_ICU OFF)
     include(icu)
 endif()
 

@@ -26,6 +26,54 @@
             "cacheVariables": {
                 "W3D_COMPILER_FLAGS": "/W3"
             }
+        },
+        {
+            "name": "linux-base",
+            "displayName": "Linux base config",
+            "generator": "Ninja",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "WANT_DX9": "OFF",
+                "W3D_BUILD_OPTION_SDL3": "OFF",
+                "W3D_BUILD_OPTION_WEBBROWSER": "OFF",
+                "W3D_BUILD_OPTION_FFMPEG": "OFF"
+            }
+        },
+        {
+            "name": "linux-minimal",
+            "inherits": "linux-base",
+            "displayName": "Linux configure smoke test",
+            "description": "Smallest native Linux configure/build surface. Useful for CMake and portability audits.",
+            "cacheVariables": {
+                "W3D_CLIENT": "OFF",
+                "W3D_FDS": "OFF",
+                "W3D_TOOLS": "OFF",
+                "ENABLE_BGFX_BACKEND": "OFF"
+            }
+        },
+        {
+            "name": "linux-bgfx",
+            "inherits": "linux-base",
+            "displayName": "Linux BGFX configure smoke test",
+            "description": "Native Linux BGFX configure pass with legacy DX9 disabled. Full compilation still needs source portability work.",
+            "cacheVariables": {
+                "W3D_CLIENT": "OFF",
+                "W3D_FDS": "OFF",
+                "W3D_TOOLS": "OFF",
+                "ENABLE_BGFX_BACKEND": "ON"
+            }
+        },
+        {
+            "name": "linux-syntax",
+            "inherits": "linux-minimal",
+            "displayName": "Linux syntax-only smoke test",
+            "description": "Syntax-only native Linux build probe.",
+            "cacheVariables": {
+                "SYNTAX_CHECK_ONLY": "ON"
+            }
         }
     ],
     "buildPresets": [
@@ -35,6 +83,24 @@
             "displayName": "Build Windows build",
             "description": "Build Windows build",
             "configuration": "Release"
+        },
+        {
+            "name": "linux-minimal-ww3d2",
+            "configurePreset": "linux-minimal",
+            "displayName": "Build Linux minimal ww3d2",
+            "description": "Build ww3d2 from the Linux minimal configure preset.",
+            "targets": [
+                "ww3d2"
+            ]
+        },
+        {
+            "name": "linux-bgfx-ww3d2",
+            "configurePreset": "linux-bgfx",
+            "displayName": "Build Linux BGFX ww3d2",
+            "description": "Build ww3d2 from the Linux BGFX configure preset.",
+            "targets": [
+                "ww3d2"
+            ]
         }
     ],
     "workflowPresets": [
@@ -48,6 +114,15 @@
                 {
                     "type": "build",
                     "name": "win"
+                }
+            ]
+        },
+        {
+            "name": "linux-bgfx-configure",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "linux-bgfx"
                 }
             ]
         }

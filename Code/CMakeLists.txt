@@ -81,7 +81,9 @@ else()
 endif()
 
 # Module static libraries
-add_subdirectory(BinkMovie)
+if(WIN32)
+    add_subdirectory(BinkMovie)
+endif()
 add_subdirectory(Combat)
 add_subdirectory(SControl)
 add_subdirectory(ww3d2)
