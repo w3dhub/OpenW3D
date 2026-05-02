@@ -56,7 +56,7 @@ function(compile_bgfx_shader input_file output_file type profile)
     endif()
 
     get_filename_component(filename ${input_file} NAME)
-    
+
     add_custom_command(
         OUTPUT ${output_file}
         COMMAND ${SHADERC_EXECUTABLE}
@@ -82,7 +82,7 @@ set(COMPILED_SHADERS)
 foreach(SHADER_SRC ${SHADER_SOURCES})
     get_filename_component(SHADER_NAME ${SHADER_SRC} NAME_WE)
     get_filename_component(SHADER_EXT ${SHADER_SRC} EXT)
-    
+
     # Determine shader type from extension
     if(SHADER_EXT STREQUAL ".sc")
         if(SHADER_NAME MATCHES "^vs_")
@@ -95,7 +95,7 @@ foreach(SHADER_SRC ${SHADER_SOURCES})
             set(SHADER_TYPE "vertex")
         endif()
     endif()
-    
+
     # Compile for each profile
     foreach(PROFILE ${SHADER_PROFILES})
         set(OUTPUT_FILE "${BGFX_SHADER_OUTPUT_DIR}/${SHADER_NAME}_${PROFILE}.bin")

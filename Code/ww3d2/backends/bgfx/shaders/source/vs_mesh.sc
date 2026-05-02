@@ -9,12 +9,12 @@ void main()
 {
     vec3 worldPos = mul(u_model[0], vec4(a_position, 1.0)).xyz;
     v_worldPos = worldPos;
-    
+
     vec3 worldNormal = normalize(mul(u_model[0], vec4(a_normal, 0.0)).xyz);
     v_normal = worldNormal;
-    
+
     v_texcoord0 = a_texcoord0;
     v_color0 = a_color0;
-    
+
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 }

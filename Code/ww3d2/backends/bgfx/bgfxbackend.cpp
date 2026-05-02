@@ -588,7 +588,7 @@ void BGFXBackend::Begin_Scene()
     // Reset view to full viewport at start of each scene
     bgfx::setViewRect(0, 0, 0, static_cast<uint16_t>(m_width), static_cast<uint16_t>(m_height));
     bgfx::setViewMode(0, bgfx::ViewMode::Sequential);
-    
+
     // Touch view to ensure it's rendered even if no draw calls
     bgfx::touch(0);
 
@@ -628,10 +628,10 @@ void BGFXBackend::Clear(bool clear_color, bool clear_z_stencil, const Vector3 &c
     }
 
     m_currentColor = Color_To_ABGR(color);
-    
+
     // Set view clear - this will be applied when the view is submitted
     bgfx::setViewClear(0, flags, m_currentColor, 1.0f, 0);
-    
+
     // Ensure the view rect is set for the clear to apply
     bgfx::setViewRect(0, 0, 0, static_cast<uint16_t>(m_width), static_cast<uint16_t>(m_height));
 }
@@ -892,43 +892,43 @@ void BGFXBackend::Apply_Render_State(int state, unsigned value)
     if (stencilEnabled) {
         // Build stencil state - start with read mask 0xFF
         uint32_t stencilState = BGFX_STENCIL_TEST_ALWAYS;
-        
+
         // Stencil func
         auto stencilFuncIt = m_render_state.find(DX8RenderState::STENCILFUNC);
         if (stencilFuncIt != m_render_state.end()) {
             stencilState |= Compare_Stencil_Func(stencilFuncIt->second);
         }
-        
+
         // Stencil ref
         auto stencilRefIt = m_render_state.find(DX8RenderState::STENCILREF);
         if (stencilRefIt != m_render_state.end()) {
             stencilState |= BGFX_STENCIL_FUNC_REF(static_cast<uint32_t>(stencilRefIt->second));
         }
-        
+
         // Stencil mask (read mask)
         auto stencilMaskIt = m_render_state.find(DX8RenderState::STENCILMASK);
         if (stencilMaskIt != m_render_state.end()) {
             stencilState |= BGFX_STENCIL_FUNC_RMASK(static_cast<uint32_t>(stencilMaskIt->second));
         }
-        
+
         // Stencil fail operation
         auto stencilFailIt = m_render_state.find(DX8RenderState::STENCILFAIL);
         if (stencilFailIt != m_render_state.end()) {
             stencilState |= Compare_Stencil_Op(stencilFailIt->second);
         }
-        
+
         // Stencil Z fail operation (depth fail)
         auto stencilZFailIt = m_render_state.find(DX8RenderState::STENCILZFAIL);
         if (stencilZFailIt != m_render_state.end()) {
             stencilState |= Compare_Stencil_Op_Z(stencilZFailIt->second);
         }
-        
+
         // Stencil pass operation (depth pass)
         auto stencilPassIt = m_render_state.find(DX8RenderState::STENCILPASS);
         if (stencilPassIt != m_render_state.end()) {
             stencilState |= Compare_Stencil_Op_Pass(stencilPassIt->second);
         }
-        
+
         bgfx::setStencil(stencilState);
     } else {
         bgfx::setStencil(0);
@@ -1233,11 +1233,11 @@ bgfx::ProgramHandle BGFXBackend::Create_Program(const char* vsPath, const char* 
 {
     bgfx::ShaderHandle vs = Load_Shader(vsPath);
     bgfx::ShaderHandle fs = Load_Shader(fsPath);
-    
+
     if (!bgfx::isValid(vs) || !bgfx::isValid(fs)) {
         return BGFX_INVALID_HANDLE;
     }
-    
+
     return Create_Program(vs, fs);
 }
 
@@ -1246,7 +1246,7 @@ bgfx::ProgramHandle BGFXBackend::Create_Program(bgfx::ShaderHandle vs, bgfx::Sha
     if (!bgfx::isValid(vs) || !bgfx::isValid(fs)) {
         return BGFX_INVALID_HANDLE;
     }
-    
+
     return bgfx::createProgram(vs, fs, true);
 }
 

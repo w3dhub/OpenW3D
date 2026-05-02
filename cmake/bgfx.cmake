@@ -12,7 +12,7 @@
 #   # First build bgfx itself:
 #   cd external/bgfx
 #   make linux-gcc-release64
-#   
+#
 #   # Then build OpenW3D with bgfx backend:
 #   cd ../..
 #   mkdir build && cd build
@@ -104,7 +104,7 @@ if(WIN32)
             break()
         endif()
     endforeach()
-    
+
     # Fallback: search recursively
     if(NOT BGFX_LIB_FOUND)
         file(GLOB_RECURSE BGFX_LIB_CANDIDATES "${BGFX_DIR}/.build/**/*.lib")
@@ -113,7 +113,7 @@ if(WIN32)
             set(BGFX_LIB_FOUND TRUE)
         endif()
     endif()
-    
+
     # Also look for bx and bimg libs
     foreach(LIBNAME bx bimg)
         foreach(CONFIG Release Debug RelWithDebInfo MinSizeRel)
@@ -138,7 +138,7 @@ else()
             break()
         endif()
     endforeach()
-    
+
     if(NOT BGFX_LIB_FOUND)
         file(GLOB_RECURSE BGFX_LIB_CANDIDATES "${BGFX_DIR}/.build/**/libbgfx*.a")
         if(BGFX_LIB_CANDIDATES)
@@ -150,7 +150,7 @@ endif()
 
 if(BGFX_LIB_FOUND)
     message(STATUS "Found bgfx library: ${BGFX_LIB}")
-    
+
     add_library(bgfximpl STATIC IMPORTED GLOBAL)
     set_target_properties(bgfximpl PROPERTIES IMPORTED_LOCATION "${BGFX_LIB}")
     target_link_libraries(bgfx INTERFACE bgfximpl)
@@ -162,14 +162,14 @@ else()
         set(BGFX_BUILD_HELP "  1. cd ${BGFX_DIR}\n  2. make linux-gcc-release64\n  3. Rebuild this project with -DENABLE_BGFX_BACKEND=ON")
         set(BGFX_STUB_EXT "a")
     endif()
-    
+
     message(WARNING "BGFX library not found. The bgfx backend will compile but won't link.\n"
         "\n"
         "To build bgfx:\n"
         "${BGFX_BUILD_HELP}\n"
         "\n"
         "Without the library, only the null backend can be used.")
-    
+
     add_library(bgfximpl STATIC IMPORTED GLOBAL)
     # Create a minimal valid static library stub so the linker accepts it
     set(BGFX_STUB_LIB "${CMAKE_BINARY_DIR}/libbgfx_stub.${BGFX_STUB_EXT}")

@@ -53,13 +53,13 @@ public:
     static uint64_t Shader_Blend_To_BGFX(ShaderClass::SrcBlendFuncType src, ShaderClass::DstBlendFuncType dst)
     {
         uint64_t state = BGFX_STATE_DEFAULT;
-        
+
         // Source blend
         uint64_t srcBlend = Src_Blend_To_BGFX(src);
-        
+
         // Destination blend
         uint64_t dstBlend = Dst_Blend_To_BGFX(dst);
-        
+
         state |= BGFX_STATE_BLEND_FUNC(srcBlend, dstBlend);
         return state;
     }
@@ -172,7 +172,7 @@ public:
         ShaderClass::DstBlendFuncType dst = shader.Get_Dst_Blend_Func();
         ShaderClass::SrcBlendFuncType src = shader.Get_Src_Blend_Func();
 
-        return (dst == ShaderClass::DSTBLEND_SRC_ALPHA || 
+        return (dst == ShaderClass::DSTBLEND_SRC_ALPHA ||
                 dst == ShaderClass::DSTBLEND_ONE_MINUS_SRC_ALPHA ||
                 src == ShaderClass::SRCBLEND_SRC_ALPHA ||
                 src == ShaderClass::SRCBLEND_ONE_MINUS_SRC_ALPHA);
