@@ -12,6 +12,11 @@ endif()
 
 project(commando LANGUAGES C CXX)
 
+# Match BGFX external libs which are built with static CRT (/MT)
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STRING "Use static CRT to match BGFX libs" FORCE)
+endif()
+
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # This file handles extra settings wanted/needed for different compilers.
@@ -27,6 +32,10 @@ add_feature_info(OpenW3DClient W3D_CLIENT "Build OpenW3D game client")
 
 option(W3D_FDS "Build as headless server." ON)
 add_feature_info(OpenW3DHeadless W3D_FDS "Build OpenW3D headless server")
+
+# Enable DX9/DXVK renderer on Linux
+option(WANT_DX9 "Enable DX9 renderer via DXVK (Linux only, for cross-compile testing)." ON)
+add_feature_info(DX9Renderer WANT_DX9 "Enable DX9/DXVK renderer")
 
 # Do we want to build extra SDK stuff or just the game binary?
 option(W3D_TOOLS "Build additional tools." ON)
@@ -106,7 +115,17 @@ else()
     include(icu)
 endif()
 
-include(dx9)
+if(WANT_DX9)
+    include(dx9)
+endif()
+
+# BGFX backend option
+option(ENABLE_BGFX_BACKEND "Enable BGFX cross-platform rendering backend." OFF)
+add_feature_info(BGFXBackend ENABLE_BGFX_BACKEND "Build with BGFX rendering backend")
+
+if(ENABLE_BGFX_BACKEND)
+    include(bgfx)
+endif()
 
 include(gamespy)
 

@@ -224,8 +224,30 @@ set(WW3D2_SRC
     nullbackend.h
 )
 
+if(ENABLE_BGFX_BACKEND)
+    list(APPEND WW3D2_SRC
+        backends/bgfx/bgfxbackend.cpp
+        backends/bgfx/bgfxbackend.h
+        backends/bgfx/BGFXMaterialMapper.h
+        backends/bgfx/BGFXMaterialMapper.cpp
+        backends/bgfx/BGFXVertexBuffer.h
+        backends/bgfx/BGFXVertexBuffer.cpp
+        backends/bgfx/BGFXIndexBuffer.h
+        backends/bgfx/BGFXIndexBuffer.cpp
+        backends/bgfx/BGFXTexture.h
+        backends/bgfx/BGFXTexture.cpp
+        backends/bgfx/ShaderKey.h
+        backends/bgfx/ShaderVariantCache.h
+        backends/bgfx/ShaderVariantCache.cpp
+    )
+endif()
+
 # Targets to build.
 add_library(ww3d2 STATIC)
+
+if(ENABLE_BGFX_BACKEND)
+    add_subdirectory(backends/bgfx)
+endif()
 
 target_link_libraries(ww3d2 PRIVATE
     wwcommon
@@ -233,6 +255,26 @@ target_link_libraries(ww3d2 PRIVATE
     vfw32
     winmm
 )
+
+if(ENABLE_BGFX_BACKEND)
+    target_link_libraries(ww3d2 PRIVATE bgfx)
+    # Required for bx headers (bgfx dependency)
+    if(MSVC)
+        target_compile_options(ww3d2 PRIVATE /Zc:preprocessor)
+    endif()
+endif()
+
+# Backend selection defines
+if(ENABLE_BGFX_BACKEND)
+    target_compile_definitions(ww3d2 PRIVATE WW3D_BGFX_BACKEND=1)
+elseif(WIN32 AND WANT_DX9)
+    target_compile_definitions(ww3d2 PRIVATE WW3D_DX9_BACKEND=1)
+else()
+    if(WIN32)
+        message(WARNING "WW3D: No backend enabled on Windows; falling back to NullBackend. Set WANT_DX9=ON or ENABLE_BGFX_BACKEND=ON.")
+    endif()
+    target_compile_definitions(ww3d2 PRIVATE WW3D_NULL_BACKEND=1)
+endif()
 
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
 
@@ -246,6 +288,19 @@ if (W3D_TOOLS)
         vfw32
         winmm
     )
+
+    if(ENABLE_BGFX_BACKEND)
+        target_link_libraries(ww3d2e PRIVATE bgfx)
+        target_include_directories(ww3d2e PRIVATE
+            "${BGFX_DIR}/include"
+            "${BX_DIR}/include"
+            "${BX_DIR}/include/compat/msvc"
+        )
+        # Required for bx headers (bgfx dependency)
+        if(MSVC)
+            target_compile_options(ww3d2e PRIVATE /Zc:preprocessor)
+        endif()
+    endif()
 
     target_compile_definitions(ww3d2e PRIVATE PARAM_EDITING_ON)
 
