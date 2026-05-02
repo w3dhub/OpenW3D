@@ -44,7 +44,8 @@
 #define DX8VERTEXBUFFER_H
 
 #include "always.h"
-#include "wwdebug.h"
+#include "ww3d_platform.h"
+#include "vector3.h"
 #include "refcount.h"
 #include "dx8fvf.h"
 

@@ -45,7 +45,7 @@
 #define DX8_FVF_H
 
 #include "always.h"
-#include <d3d9.h>
+#include "ww3d_platform.h"
 #ifdef WWDEBUG
 #include "wwdebug.h"
 #endif

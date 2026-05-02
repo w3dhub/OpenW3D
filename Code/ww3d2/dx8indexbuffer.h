@@ -44,6 +44,7 @@
 #define DX8INDEXBUFFER_H
 
 #include "always.h"
+#include "ww3d_platform.h"
 #include "wwdebug.h"
 #include "refcount.h"
 #include "sphere.h"

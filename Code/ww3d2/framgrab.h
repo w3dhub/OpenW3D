@@ -46,6 +46,7 @@
 #include "always.h"
 #endif
 
+#ifdef _WIN32
 #ifndef _WINDOWS_
 #include <windows.h>
 #endif
@@ -57,6 +58,7 @@
 #ifndef _INC_VFW
 #include <vfw.h>
 #endif
+#endif // _WIN32
 
 // FramGrab.h: interface for the FrameGrabClass class.
 //

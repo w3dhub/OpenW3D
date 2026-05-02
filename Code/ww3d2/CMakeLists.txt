@@ -1,11 +1,10 @@
-# Set source files
+# Set source files — portable files always included
 set(WW3D2_SRC
     aabtree.cpp
     aabtreebuilder.cpp
     agg_def.cpp
     animatedsoundmgr.cpp
     animobj.cpp
-    assetmgr.cpp
     assetstatus.cpp
     bitmaphandler.cpp
     bmp2d.cpp
@@ -16,23 +15,12 @@ set(WW3D2_SRC
     coltest.cpp
     composite.cpp
     dazzle.cpp
-    ddsfile.cpp
     decalmsh.cpp
     decalsys.cpp
     distlod.cpp
-    dx8caps.cpp
-    dx8fvf.cpp
-    dx8indexbuffer.cpp
-    dx8polygonrenderer.cpp
-    dx8renderer.cpp
-    dx8rendererdebugger.cpp
-    dx8texman.cpp
-    dx8vertexbuffer.cpp
-    dx8wrapper.cpp
     dynamesh.cpp
     font3d.cpp
     formconv.cpp
-    framgrab.cpp
     hanim.cpp
     hanimmgr.cpp
     hcanim.cpp
@@ -60,7 +48,6 @@ set(WW3D2_SRC
     meshmdl.cpp
     meshmdlio.cpp
     metalmap.cpp
-    missingtexture.cpp
     motchan.cpp
     nullrobj.cpp
     part_buf.cpp
@@ -74,7 +61,6 @@ set(WW3D2_SRC
     projector.cpp
     proto.cpp
     render2d.cpp
-    render2dsentence.cpp
     renderobjectrecycler.cpp
     rendobj.cpp
     rinfo.cpp
@@ -85,7 +71,6 @@ set(WW3D2_SRC
     shader.cpp
     shattersystem.cpp
     snappts.cpp
-    sortingrenderer.cpp
     soundrobj.cpp
     sphereobj.cpp
     statistics.cpp
@@ -93,17 +78,64 @@ set(WW3D2_SRC
     surfaceclass.cpp
     texfcach.cpp
     texproject.cpp
-    texture.cpp
     textureloader.cpp
-    texturethumbnail.cpp
     vertmaterial.cpp
     visrasterizer.cpp
     w3d_dep.cpp
     w3d_util.cpp
-    ww3d.cpp
     ww3dformat.cpp
-    dx8backend.cpp
     nullbackend.cpp
+    dx8stubs.cpp
+)
+
+# DX8/DX9 backend — Windows-only, requires D3D9 headers
+set(WW3D2_DX8_SRC
+    dx8caps.cpp
+    dx8fvf.cpp
+    dx8indexbuffer.cpp
+    dx8polygonrenderer.cpp
+    dx8renderer.cpp
+    dx8rendererdebugger.cpp
+    dx8texman.cpp
+    dx8vertexbuffer.cpp
+    dx8wrapper.cpp
+    dx8backend.cpp
+    sortingrenderer.cpp
+    texture.cpp
+    texturethumbnail.cpp
+    assetmgr.cpp
+    ddsfile.cpp
+    render2dsentence.cpp
+)
+
+# Win32-only modules
+set(WW3D2_WIN32_SRC
+    framgrab.cpp
+)
+
+# DX8 backend headers (need to be in include path even when not building)
+set(WW3D2_DX8_HDR
+    dx8caps.h
+    dx8fvf.h
+    dx8indexbuffer.h
+    dx8list.h
+    dx8polygonrenderer.h
+    dx8renderer.h
+    dx8rendererdebugger.h
+    dx8texman.h
+    dx8vertexbuffer.h
+    dx8wrapper.h
+    dx8backend.h
+    dx8err_compat.h
+)
+
+# Win32-only headers
+set(WW3D2_WIN32_HDR
+    framgrab.h
+)
+
+# Portable headers always included
+set(WW3D2_HDR
     aabtree.h
     aabtreebuilder.h
     agg_def.h
@@ -116,7 +148,6 @@ set(WW3D2_SRC
     boxrobj.h
     bwrender.h
     camera.h
-    collect.h
     colorspace.h
     coltest.h
     coltype.h
@@ -127,20 +158,9 @@ set(WW3D2_SRC
     decalsys.h
     distlod.h
     dllist.h
-    dx8caps.h
-    dx8fvf.h
-    dx8indexbuffer.h
-    dx8list.h
-    dx8polygonrenderer.h
-    dx8renderer.h
-    dx8rendererdebugger.h
-    dx8texman.h
-    dx8vertexbuffer.h
-    dx8wrapper.h
     dynamesh.h
     font3d.h
     formconv.h
-    framgrab.h
     hanim.h
     hanimmgr.h
     hcanim.h
@@ -220,9 +240,21 @@ set(WW3D2_SRC
     ww3dids.h
     ww3dtrig.h
     ww3dbackend.h
-    dx8backend.h
+    ww3d_platform.h
     nullbackend.h
 )
+
+# Conditionally include DX8 sources
+if(WIN32 AND WANT_DX9)
+    list(APPEND WW3D2_SRC ${WW3D2_DX8_SRC})
+    list(APPEND WW3D2_HDR ${WW3D2_DX8_HDR})
+endif()
+
+# Conditionally include Win32-only sources
+if(WIN32)
+    list(APPEND WW3D2_SRC ${WW3D2_WIN32_SRC})
+    list(APPEND WW3D2_HDR ${WW3D2_WIN32_HDR})
+endif()
 
 if(ENABLE_BGFX_BACKEND)
     list(APPEND WW3D2_SRC
@@ -249,12 +281,13 @@ if(ENABLE_BGFX_BACKEND)
     add_subdirectory(backends/bgfx)
 endif()
 
-target_link_libraries(ww3d2 PRIVATE
-    wwcommon
-    wwlib
-    vfw32
-    winmm
-)
+# Platform-specific link libraries
+set(PLATFORM_LINK_LIBS wwcommon wwlib)
+if(WIN32)
+    list(APPEND PLATFORM_LINK_LIBS vfw32 winmm)
+endif()
+
+target_link_libraries(ww3d2 PRIVATE ${PLATFORM_LINK_LIBS})
 
 if(ENABLE_BGFX_BACKEND)
     target_link_libraries(ww3d2 PRIVATE bgfx)
@@ -276,18 +309,18 @@ else()
     target_compile_definitions(ww3d2 PRIVATE WW3D_NULL_BACKEND=1)
 endif()
 
-target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
+target_sources(ww3d2 PRIVATE ${WW3D2_SRC} ${WW3D2_HDR})
 
 # This module needs building differently for the level editor
 if (W3D_TOOLS)
     # Targets to build.
     add_library(ww3d2e STATIC)
 
-    target_link_libraries(ww3d2e PRIVATE
-        wwcommon
-        vfw32
-        winmm
-    )
+    set(EDITOR_LINK_LIBS wwcommon)
+    if(WIN32)
+        list(APPEND EDITOR_LINK_LIBS vfw32 winmm)
+    endif()
+    target_link_libraries(ww3d2e PRIVATE ${EDITOR_LINK_LIBS})
 
     if(ENABLE_BGFX_BACKEND)
         target_link_libraries(ww3d2e PRIVATE bgfx)
@@ -304,5 +337,5 @@ if (W3D_TOOLS)
 
     target_compile_definitions(ww3d2e PRIVATE PARAM_EDITING_ON)
 
-    target_sources(ww3d2e PRIVATE ${WW3D2_SRC})
+    target_sources(ww3d2e PRIVATE ${WW3D2_SRC} ${WW3D2_HDR})
 endif()
