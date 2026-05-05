@@ -198,6 +198,7 @@ set(LEVELEDIT_SRC
     WaypointNode.cpp
     WeatherPropPage.cpp
     WelcomeDialog.cpp
+    wrcfile.cpp
     ZoneEditDialog.cpp
     ZoneInfoPage.cpp
     ZoneNode.cpp
@@ -416,6 +417,7 @@ set(LEVELEDIT_SRC
     WaypointNode.h
     WeatherPropPage.h
     WelcomeDialog.h
+    wrcfile.h
     ZoneEditDialog.h
     ZoneInfoPage.h
     ZoneNode.h

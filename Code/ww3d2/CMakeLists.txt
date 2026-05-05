@@ -238,6 +238,7 @@ if (W3D_TOOLS)
 
     target_link_libraries(ww3d2e PRIVATE
         wwcommon
+        wwlib
         vfw32
         winmm
     )

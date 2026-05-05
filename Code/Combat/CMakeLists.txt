@@ -286,6 +286,7 @@ if (W3D_TOOLS)
 
     target_link_libraries(combate PRIVATE
         wwcommon
+        wwlib
     )
 
     target_compile_definitions(combate PRIVATE PARAM_EDITING_ON)

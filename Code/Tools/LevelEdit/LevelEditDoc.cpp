@@ -39,7 +39,7 @@
 #include "regkeys.h"
 #include "editorassetmgr.h"
 #include "_assetmgr.h"
-#include "rcfile.h"
+#include "wrcfile.h"
 #include "editorini.h"
 #include "updateassetsdialog.h"
 #include "filelocations.h"
@@ -648,23 +648,23 @@ CLevelEditDoc::Preload_Tool_Assets (void)
 	//
 	// Load the tool-art models into the asset manager
 	//
-	ResourceFileClass way_start (NULL, "WayStart.w3d");
-	ResourceFileClass way_mid (NULL, "WayMid.w3d");
-	ResourceFileClass way_end (NULL, "WayStop.w3d");
-	ResourceFileClass way_r (NULL, "Way_R.w3d");
-	ResourceFileClass way_g (NULL, "Way_G.w3d");
-	ResourceFileClass way_b (NULL, "Way_B.w3d");
-	ResourceFileClass point_light (NULL, "PointLight.w3d");
-	ResourceFileClass speaker1 (NULL, "Speaker.w3d");
-	ResourceFileClass speaker2 (NULL, "Speaker2.w3d");
-	ResourceFileClass body_box (NULL, "BODYBOX.W3D");
-	ResourceFileClass camera_model (NULL, "CAMERA.W3D");
-	ResourceFileClass grid_model (NULL, "GRID.W3D");
-	ResourceFileClass trans_box_model (NULL, "TRANSBOX.W3D");
-	ResourceFileClass dummy_model (NULL, "DUMMY.W3D");
-	ResourceFileClass cover_spot_model (NULL, "COVERSPOT.W3D");
-	ResourceFileClass building_model (NULL, "BUILDINGICON.W3D");
-	ResourceFileClass carmarker_model (NULL, "CARMARKER.W3D");
+	WinResourceFileClass way_start ("WayStart.w3d");
+	WinResourceFileClass way_mid ("WayMid.w3d");
+	WinResourceFileClass way_end ("WayStop.w3d");
+	WinResourceFileClass way_r ("Way_R.w3d");
+	WinResourceFileClass way_g ("Way_G.w3d");
+	WinResourceFileClass way_b ("Way_B.w3d");
+	WinResourceFileClass point_light ("PointLight.w3d");
+	WinResourceFileClass speaker1 ("Speaker.w3d");
+	WinResourceFileClass speaker2 ("Speaker2.w3d");
+	WinResourceFileClass body_box ("BODYBOX.W3D");
+	WinResourceFileClass camera_model ("CAMERA.W3D");
+	WinResourceFileClass grid_model ("GRID.W3D");
+	WinResourceFileClass trans_box_model ("TRANSBOX.W3D");
+	WinResourceFileClass dummy_model ("DUMMY.W3D");
+	WinResourceFileClass cover_spot_model ("COVERSPOT.W3D");
+	WinResourceFileClass building_model ("BUILDINGICON.W3D");
+	WinResourceFileClass carmarker_model ("CARMARKER.W3D");
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets (way_start);
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets (way_mid);
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets (way_end);
