@@ -47,7 +47,7 @@
 #include "filemgr.h"
 #include "pathutil.h"
 #include "rawfile.h"
-#include "rcfile.h"
+#include "wrcfile.h"
 #include "filelocations.h"
 #include "editorbuild.h"
 #include "assetdatabase.h"
@@ -487,7 +487,7 @@ EditorAssetMgrClass::Load_Resource_Texture (const char *filename)
 	//	Open the resource texture and create the
 	// real file.
 	//
-	ResourceFileClass res_texture (NULL, filename);
+	WinResourceFileClass res_texture (filename);
 	RawFileClass texture_file (texture_filename);
 	if (texture_file.Create () == 1) {
 		texture_file.Open (FileClass::WRITE);
