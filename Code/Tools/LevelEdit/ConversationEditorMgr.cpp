@@ -100,14 +100,11 @@ ConversationEditorMgrClass::Save_Global_Database (void)
 	//
 	//	Create the file
 	//
-	HANDLE file = ::CreateFile (filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
-							0L, NULL);
+	RawFileClass file_obj(filename);
+	file_obj.Open(FileClass::WRITE);
 
-	ASSERT (file != INVALID_HANDLE_VALUE);
-	if (file != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (file);
+	ASSERT (file_obj.Is_Open());
+	if (file_obj.Is_Open()) {
 		ChunkSaveClass chunk_save (&file_obj);
 
 		//
@@ -130,18 +127,15 @@ void
 ConversationEditorMgrClass::Load_Global_Database (void)
 {
 	CString filename = ::Get_File_Mgr ()->Make_Full_Path (CONV_DB_PATH);
-
 	//
 	//	Open the file
 	//
-	HANDLE file = ::CreateFile (filename, GENERIC_READ, FILE_SHARE_READ, NULL,
-							OPEN_EXISTING, 0L, NULL);
+	RawFileClass file_obj(filename);
+	
+	ASSERT (file_obj.Is_Available());
+	if (file_obj.Is_Available()) {
 
-	ASSERT (file != INVALID_HANDLE_VALUE);
-	if (file != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (file);
+		file_obj.Open(FileClass::READ);
 		ChunkLoadClass chunk_load (&file_obj);
 
 		//

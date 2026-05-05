@@ -42,6 +42,7 @@ class DefinitionFactoryClass;
 class DefinitionClass;
 class PresetClass;
 class ParameterClass;
+class FileClass;
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -178,7 +179,7 @@ protected:
 	void								Fill_In_Preset_Children (HTREEITEM root_item, uint32 parent_id);
 
 	bool								Save_Presets (uint32 class_id, bool temps_only = false);
-	void								Save_Presets (HANDLE file, uint32 class_id, bool temps_only = false, bool class_id_matters = true);
+	void								Save_Presets (FileClass &file_obj, uint32 class_id, bool temps_only = false, bool class_id_matters = true);
 	static bool						Load_Presets (uint32 class_id);
 
 	HTREEITEM						Find_Preset (HTREEITEM root_item, uint32 id);

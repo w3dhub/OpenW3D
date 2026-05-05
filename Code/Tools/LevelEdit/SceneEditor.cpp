@@ -1939,19 +1939,12 @@ SceneEditorClass::Export_VIS (LPCTSTR filename)
 	//
 	//	Create the file
 	//
-	HANDLE hfile = ::CreateFile (filename,
-										  GENERIC_WRITE,
-										  0,
-										  NULL,
-										  CREATE_ALWAYS,
-										  0L,
-										  NULL);
+	
+	RawFileClass file_obj(filename);
+	file_obj.Open(FileClass::WRITE);
 
-	ASSERT (hfile != INVALID_HANDLE_VALUE);
-	if (hfile != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (hfile);
+	ASSERT (file_obj.Is_Open());
+	if (file_obj.Is_Open()) {
 		ChunkSaveClass chunk_save (&file_obj);
 
 		//

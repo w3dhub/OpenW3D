@@ -383,19 +383,11 @@ EditorSaveLoadClass::Save_Level (LPCTSTR filename)
 	//
 	//	Create the file
 	//
-	HANDLE hfile = ::CreateFile (filename,
-										  GENERIC_WRITE,
-										  0,
-										  NULL,
-										  CREATE_ALWAYS,
-										  0L,
-										  NULL);
+	RawFileClass file_obj(filename);
+	file_obj.Open(FileClass::WRITE);
 
-	ASSERT (hfile != INVALID_HANDLE_VALUE);
-	if (hfile != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (hfile);
+	ASSERT (file_obj.Is_Open());
+	if (file_obj.Is_Open()) {
 		ChunkSaveClass chunk_save (&file_obj);
 
 		//
@@ -479,19 +471,12 @@ EditorSaveLoadClass::Load_Level (LPCTSTR filename)
 	//
 	//	Create the file
 	//
-	HANDLE hfile = ::CreateFile (filename,
-										  GENERIC_READ,
-										  FILE_SHARE_READ,
-										  NULL,
-										  OPEN_EXISTING,
-										  0L,
-										  NULL);
+	RawFileClass file_obj(filename);
+	
+	ASSERT (file_obj.Is_Available());
+	if (file_obj.Is_Available()) {
 
-	ASSERT (hfile != INVALID_HANDLE_VALUE);
-	if (hfile != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (hfile);
+		file_obj.Open(FileClass::READ);
 		ChunkLoadClass chunk_load (&file_obj);
 
 		SoundSceneClass *sound_scene = WWAudioClass::Get_Instance ()->Get_Sound_Scene ();
@@ -584,19 +569,11 @@ EditorSaveLoadClass::Export_Dynamic_Objects (LPCTSTR filename)
 	//
 	//	Create the file
 	//
-	HANDLE hfile = ::CreateFile (filename,
-										  GENERIC_WRITE,
-										  0,
-										  NULL,
-										  CREATE_ALWAYS,
-										  0L,
-										  NULL);
+	RawFileClass file_obj(filename);
+	file_obj.Open(FileClass::WRITE);
 
-	ASSERT (hfile != INVALID_HANDLE_VALUE);
-	if (hfile != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (hfile);
+	ASSERT (file_obj.Is_Open());
+	if (file_obj.Is_Open()) {
 		ChunkSaveClass chunk_save (&file_obj);
 
 		//
@@ -624,19 +601,12 @@ EditorSaveLoadClass::Import_Dynamic_Objects (LPCTSTR filename)
 	//
 	//	Create the file
 	//
-	HANDLE hfile = ::CreateFile (filename,
-										  GENERIC_READ,
-										  FILE_SHARE_READ,
-										  NULL,
-										  OPEN_EXISTING,
-										  0L,
-										  NULL);
+	RawFileClass file_obj(filename);
+	
+	ASSERT (file_obj.Is_Available());
+	if (file_obj.Is_Available()) {
 
-	ASSERT (hfile != INVALID_HANDLE_VALUE);
-	if (hfile != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (hfile);
+		file_obj.Open(FileClass::READ);
 		ChunkLoadClass chunk_load (&file_obj);
 
 		//
@@ -748,19 +718,11 @@ PathfindImportExportSaveLoadClass::Export_Pathfind (LPCTSTR filename)
 	//
 	//	Create the file
 	//
-	HANDLE hfile = ::CreateFile (filename,
-										  GENERIC_WRITE,
-										  0,
-										  NULL,
-										  CREATE_ALWAYS,
-										  0L,
-										  NULL);
+	RawFileClass file_obj(filename);
+	file_obj.Open(FileClass::WRITE);
 
-	ASSERT (hfile != INVALID_HANDLE_VALUE);
-	if (hfile != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (hfile);
+	ASSERT (file_obj.Is_Open());
+	if (file_obj.Is_Open()) {
 		ChunkSaveClass chunk_save (&file_obj);
 
 		//
@@ -786,19 +748,12 @@ PathfindImportExportSaveLoadClass::Import_Pathfind (LPCTSTR filename)
 	//
 	//	Create the file
 	//
-	HANDLE hfile = ::CreateFile (filename,
-										  GENERIC_READ,
-										  FILE_SHARE_READ,
-										  NULL,
-										  OPEN_EXISTING,
-										  0L,
-										  NULL);
+	RawFileClass file_obj(filename);
+	
+	ASSERT (file_obj.Is_Available());
+	if (file_obj.Is_Available()) {
 
-	ASSERT (hfile != INVALID_HANDLE_VALUE);
-	if (hfile != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (hfile);
+		file_obj.Open(FileClass::READ);
 		ChunkLoadClass chunk_load (&file_obj);
 
 		//

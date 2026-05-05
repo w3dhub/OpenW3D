@@ -3259,22 +3259,12 @@ CMainFrame::OnImportVis (void)
 
 			// Is the filename OK?
 			CString filename = dialog.GetNextPathName (pos);
-			HANDLE hfile = ::CreateFile (filename,
-												  GENERIC_READ,
-												  FILE_SHARE_READ,
-												  NULL,
-												  OPEN_EXISTING,
-												  0L,
-												  NULL);
+			RawFileClass file_obj(filename);
+	
+			ASSERT (file_obj.Is_Available());
+			if (file_obj.Is_Available()) {
 
-			ASSERT (hfile != INVALID_HANDLE_VALUE);
-			if (hfile != INVALID_HANDLE_VALUE) {
-
-				//
-				//	Create a chunk-loader for use with the vis data file
-				//
-				RawFileClass file_obj;
-				file_obj.Attach (hfile);
+				file_obj.Open(FileClass::READ);
 				ChunkLoadClass chunk_load (&file_obj);
 
 				//
@@ -3317,22 +3307,11 @@ CMainFrame::OnExportVis (void)
 		CString filename = dialog.GetPathName ();
 
 		// Is the filename OK?
-		HANDLE hfile = ::CreateFile (filename,
-											  GENERIC_WRITE,
-											  0,
-											  NULL,
-											  CREATE_ALWAYS,
-											  0L,
-											  NULL);
+		RawFileClass file_obj(filename);
+		file_obj.Open(FileClass::WRITE);
 
-		ASSERT (hfile != INVALID_HANDLE_VALUE);
-		if (hfile != INVALID_HANDLE_VALUE) {
-
-			//
-			//	Create a chunk-saver
-			//
-			RawFileClass file_obj;
-			file_obj.Attach (hfile);
+		ASSERT (file_obj.Is_Open());
+		if (file_obj.Is_Open()) {
 			ChunkSaveClass chunk_save (&file_obj);
 
 			//
@@ -3687,22 +3666,12 @@ CMainFrame::OnImportStatic (void)
 		CString filename = dialog.GetPathName ();
 
 		// Is the filename OK?
-		HANDLE hfile = ::CreateFile (filename,
-											  GENERIC_READ,
-											  0,
-											  NULL,
-											  OPEN_EXISTING,
-											  0L,
-											  NULL);
+		RawFileClass file_obj(filename);
+	
+		ASSERT (file_obj.Is_Available());
+		if (file_obj.Is_Available()) {
 
-		ASSERT (hfile != INVALID_HANDLE_VALUE);
-		if (hfile != INVALID_HANDLE_VALUE) {
-
-			//
-			//	Create a chunk-loader for use with the pathfind database
-			//
-			RawFileClass file_obj;
-			file_obj.Attach (hfile);
+			file_obj.Open(FileClass::READ);
 			ChunkLoadClass cload (&file_obj);
 
 			//
@@ -3779,22 +3748,11 @@ CMainFrame::OnExportStatic (void)
 		CString filename = dialog.GetPathName ();
 
 		// Is the filename OK?
-		HANDLE hfile = ::CreateFile (filename,
-											  GENERIC_WRITE,
-											  0,
-											  NULL,
-											  CREATE_ALWAYS,
-											  0L,
-											  NULL);
+		RawFileClass file_obj(filename);
+		file_obj.Open(FileClass::WRITE);
 
-		ASSERT (hfile != INVALID_HANDLE_VALUE);
-		if (hfile != INVALID_HANDLE_VALUE) {
-
-			//
-			//	Create a chunk-saver for use with the pathfind database
-			//
-			RawFileClass file_obj;
-			file_obj.Attach (hfile);
+		ASSERT (file_obj.Is_Open());
+		if (file_obj.Is_Open()) {
 			ChunkSaveClass csave (&file_obj);
 
 			//
@@ -4492,22 +4450,12 @@ CMainFrame::OnImportVisRemapData (void)
 		//
 		// Is the filename OK?
 		//
-		HANDLE hfile = ::CreateFile (filename,
-											  GENERIC_READ,
-											  0,
-											  NULL,
-											  OPEN_EXISTING,
-											  0L,
-											  NULL);
+		RawFileClass file_obj(filename);
+	
+		ASSERT (file_obj.Is_Available());
+		if (file_obj.Is_Available()) {
 
-		ASSERT (hfile != INVALID_HANDLE_VALUE);
-		if (hfile != INVALID_HANDLE_VALUE) {
-
-			//
-			//	Create a chunk-loader for use with the vis-importer
-			//
-			RawFileClass file_obj;
-			file_obj.Attach (hfile);
+			file_obj.Open(FileClass::READ);
 			ChunkLoadClass chunk_load (&file_obj);
 
 			//
@@ -4555,22 +4503,11 @@ CMainFrame::OnExportVisRemapData (void)
 		//
 		// Is the filename OK?
 		//
-		HANDLE hfile = ::CreateFile (filename,
-											  GENERIC_WRITE,
-											  0,
-											  NULL,
-											  CREATE_ALWAYS,
-											  0L,
-											  NULL);
+		RawFileClass file_obj(filename);
+		file_obj.Open(FileClass::WRITE);
 
-		ASSERT (hfile != INVALID_HANDLE_VALUE);
-		if (hfile != INVALID_HANDLE_VALUE) {
-
-			//
-			//	Create a chunk-saver for use with the pathfind database
-			//
-			RawFileClass file_obj;
-			file_obj.Attach (hfile);
+		ASSERT (file_obj.Is_Open());
+		if (file_obj.Is_Open()) {
 			ChunkSaveClass chunk_save (&file_obj);
 
 			//

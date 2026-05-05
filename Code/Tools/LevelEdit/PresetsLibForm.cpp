@@ -1063,53 +1063,17 @@ PresetsFormClass::Load_Presets (uint32 class_id)
 	//
 	//	Open the file
 	//
-	HANDLE file = ::CreateFile (	path,
-											GENERIC_READ,
-											FILE_SHARE_READ,
-											NULL,
-											OPEN_EXISTING,
-											0L,
-											NULL);
+	RawFileClass file_obj(path);
 
-	if (file != INVALID_HANDLE_VALUE) {
+	if (file_obj.Is_Available()) {
+		
+		file_obj.Open (FileClass::READ);
+		ChunkLoadClass chunk_load (&file_obj);
 
 		//
-		//	Determine how large the file is
+		//	Load the file
 		//
-		int file_size = ::GetFileSize (file, NULL);
-		if (file_size > 0 && file_size < 99999999)
-		{
-			//
-			//	Read the file into memory
-			//
-			unsigned char *buffer = new unsigned char[file_size];
-			DWORD bytes_read = 0;
-			::ReadFile (file, buffer, file_size, &bytes_read, NULL);
-
-			//
-			//	Close the file
-			//
-			::CloseHandle (file);
-			file = INVALID_HANDLE_VALUE;
-
-			//
-			//	Use a RAM file for the loading
-			//
-			RAMFileClass file_obj (buffer, file_size);
-			file_obj.Open (FileClass::READ);
-			ChunkLoadClass chunk_load (&file_obj);
-
-			//
-			//	Load the file
-			//
-			SaveLoadSystemClass::Load (chunk_load);
-
-			//
-			//	Free the buffer
-			//
-			delete [] buffer;
-			buffer = NULL;
-		}
+		SaveLoadSystemClass::Load (chunk_load);
 	}
 
 	return true;
@@ -1129,53 +1093,17 @@ PresetsFormClass::Old_Load_Presets (void)
 	//
 	//	Open the file
 	//
-	HANDLE file = ::CreateFile (path,
-										  GENERIC_READ,
-										  FILE_SHARE_READ,
-										  NULL,
-										  OPEN_EXISTING,
-										  0L,
-										  NULL);
+	RawFileClass file_obj(path);
 
-	if (file != INVALID_HANDLE_VALUE) {
+	if (file_obj.Is_Available()) {
+		
+		file_obj.Open (FileClass::READ);
+		ChunkLoadClass chunk_load (&file_obj);
 
 		//
-		//	Determine how large the file is
+		//	Load the file
 		//
-		int file_size = ::GetFileSize (file, NULL);
-		if (file_size > 0 && file_size < 99999999)
-		{
-			//
-			//	Read the file into memory
-			//
-			unsigned char *buffer = new unsigned char[file_size];
-			DWORD bytes_read = 0;
-			::ReadFile (file, buffer, file_size, &bytes_read, NULL);
-
-			//
-			//	Close the file
-			//
-			::CloseHandle (file);
-			file = INVALID_HANDLE_VALUE;
-
-			//
-			//	Use a RAM file for the loading
-			//
-			RAMFileClass file_obj (buffer, file_size);
-			file_obj.Open (FileClass::READ);
-			ChunkLoadClass chunk_load (&file_obj);
-
-			//
-			//	Load the file
-			//
-			SaveLoadSystemClass::Load (chunk_load);
-
-			//
-			//	Free the buffer
-			//
-			delete [] buffer;
-			buffer = NULL;
-		}
+		SaveLoadSystemClass::Load (chunk_load);
 	}
 
 	return true;
@@ -1195,18 +1123,9 @@ PresetsFormClass::Load_Temp_Presets (void)
 	//
 	//	Open the file
 	//
-	HANDLE hfile = ::CreateFile (path,
-										  GENERIC_READ,
-										  FILE_SHARE_READ,
-										  NULL,
-										  OPEN_EXISTING,
-										  0L,
-										  NULL);
+	RawFileClass file_obj(path);
 
-	if (hfile != INVALID_HANDLE_VALUE) {
-
-		RawFileClass file_obj;
-		file_obj.Attach (hfile);
+	if (file_obj.Is_Available()) {
 		ChunkLoadClass chunk_load (&file_obj);
 
 		//
@@ -1363,33 +1282,25 @@ PresetsFormClass::Save_Presets
 	bool		temps_only
 )
 {
+	RawFileClass file_obj(path);
+
 	///
 	// Delete the file if it already exists
 	//
-	if (::GetFileAttributes (path) != 0xFFFFFFFF) {
-			DWORD attributes = ::GetFileAttributes (path);
-		::SetFileAttributes (path, attributes & (~FILE_ATTRIBUTE_READONLY));
-		::DeleteFile (path);
-	}
+	file_obj.Delete();
 
 	//
 	//	Create the file at the specified location
 	//
-	HANDLE file		= ::CreateFile (	path,
-												GENERIC_WRITE,
-												0,
-												NULL,
-												CREATE_ALWAYS,
-												0L,
-												NULL);
+	file_obj.Open(FileClass::WRITE);
 
-	ASSERT (file != INVALID_HANDLE_VALUE);
-	if (file != INVALID_HANDLE_VALUE) {
+	ASSERT (file_obj.Is_Open());
+	if (file_obj.Is_Open()) {
 
 		//
 		//	Now write the presets and definitions out to this file
 		//
-		Save_Presets (file, class_id, class_id_matters, temps_only);
+		Save_Presets (file_obj, class_id, class_id_matters, temps_only);
 
 	} else {
 
@@ -1433,13 +1344,11 @@ PresetsFormClass::Save_Presets (uint32 class_id, bool temps_only)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-PresetsFormClass::Save_Presets (HANDLE file, uint32 class_id, bool class_id_matters, bool temps_only)
+PresetsFormClass::Save_Presets (FileClass &file_obj, uint32 class_id, bool class_id_matters, bool temps_only)
 {
 	//
 	//	Create a chunk IO object that we can use to save our subsystems
 	//
-	RawFileClass file_obj;
-	file_obj.Attach (file);
 	ChunkSaveClass chunk_save (&file_obj);
 
 	//
