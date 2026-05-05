@@ -36,6 +36,13 @@ class FileFactoryClass;
 
 typedef void(*FFmpegFrameCallback)(AVFrame *, int, int, void *);
 
+bool FFmpeg_Convert_Audio_Frame_To_PCM16(
+	const AVFrame *frame,
+	std::vector<uint8_t> &pcm,
+	unsigned int &rate,
+	unsigned int &channels,
+	unsigned int &bits);
+
 class FFmpegFile
 {
 public:
@@ -83,6 +90,7 @@ private:
 	static int Read_Packet(void *opaque, uint8_t *buf, int buf_size);
 	static int64_t Seek_Packet(void* opaque, int64_t offset, int whence);
 	const FFmpegStream *Find_Match(int type) const;
+	bool Flush_Decoders();
 
 	FFmpegFrameCallback 		FrameCallback = nullptr; ///< Callback for frame processing
 	AVFormatContext 			*FmtCtx = nullptr; ///< Format context for AVFormat
@@ -92,4 +100,5 @@ private:
 	FileClass 					*File = nullptr;	///< File handle for the file
 	FileFactoryClass			*Factory = nullptr;
 	void 						*UserData = nullptr; ///< User data for the callback
+	bool						Flushed = false;
 };

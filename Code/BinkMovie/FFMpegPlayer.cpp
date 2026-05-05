@@ -21,15 +21,22 @@
 #include "dx8wrapper.h"
 #include "subtitlemanager.h"
 #include "wwdebug.h"
+#ifdef W3D_HAS_OPENAL
+#include "WWAudio.h"
+#endif
 #include <chrono>
+#include <cstring>
 #include <d3d9types.h>
 
 extern "C" {
 	#include <libavcodec/avcodec.h>
 	#include <libswscale/swscale.h>
 }
+#ifdef W3D_HAS_OPENAL
 #include <AL/alext.h>
+#endif
 
+#ifdef W3D_HAS_OPENAL
 static ALenum Get_AL_Format(unsigned channels, unsigned bits)
 {
 	if (channels == 1 && bits == 8) {
@@ -59,6 +66,7 @@ static ALenum Get_AL_Format(unsigned channels, unsigned bits)
 	WWDEBUG_SAY(("Unknown OpenAL format: %u channels, %u bits per sample", channels, bits));
 	return AL_FORMAT_MONO8;
 }
+#endif
 
 void FFMpegMovieClass::On_Frame(AVFrame *frame, int /* stream_idx */, int stream_type)
 {
@@ -66,58 +74,64 @@ void FFMpegMovieClass::On_Frame(AVFrame *frame, int /* stream_idx */, int stream
 		av_frame_free(&CurrentFrame);
 		CurrentFrame = av_frame_clone(frame);
 		GotFrame = true;
-	} else if (stream_type == AVMEDIA_TYPE_AUDIO) {
-		std::vector<uint8_t> data;
-		uint8_t* frame_data = frame->data[0];
-		AVSampleFormat format = static_cast<AVSampleFormat>(frame->format);
-		const int frame_size = av_samples_get_buffer_size(NULL, frame->ch_layout.nb_channels, frame->nb_samples, format, 1);
-		int bytes_per_sample = av_get_bytes_per_sample(format);
+	}
+#ifdef W3D_HAS_OPENAL
+	else if (stream_type == AVMEDIA_TYPE_AUDIO && ALSource != ALuint(-1)) {
+		bool cinematic_sound_on = true;
+		float cinematic_volume = 1.0F;
+		WWAudioClass *audio = WWAudioClass::Get_Instance();
+		if (audio != nullptr) {
+			cinematic_sound_on = audio->Is_Cinematic_Sound_On();
+			cinematic_volume = cinematic_sound_on ? audio->Get_Cinematic_Volume() : 0.0F;
+		}
+		alSourcef(ALSource, AL_GAIN, cinematic_volume);
 
-		if (av_sample_fmt_is_planar(format)) {
-			// Convert planar audio to interleaved
-			data.reserve(data.size() + frame_size);
-
-			for (int sample = 0; sample < frame->nb_samples; ++sample) {
-				for (int channel = 0; channel < frame->ch_layout.nb_channels; ++channel) {
-					const uint8_t* src = frame->data[channel] + sample * bytes_per_sample;
-					data.insert(data.end(), src, src + bytes_per_sample);
-				}
-			}
-
-			frame_data = data.data();
+		ALint processed = 0;
+		alGetSourcei(ALSource, AL_BUFFERS_PROCESSED, &processed);
+		while (processed > 0) {
+			ALuint buffer = 0;
+			alSourceUnqueueBuffers(ALSource, 1, &buffer);
+			--processed;
 		}
 
-		ALint num_queued;
+		if (!cinematic_sound_on) {
+			return;
+		}
+
+		ALint num_queued = 0;
 		alGetSourcei(ALSource, AL_BUFFERS_QUEUED, &num_queued);
 		if (num_queued >= BINK_AL_BUFFER_COUNT) {
 			WWDEBUG_SAY(("Having too many buffers already queued: %i", num_queued));
 			return;
 		}
 
-		alBufferData(
-			ALBuffers[ALBufferIndex],
-			Get_AL_Format(frame->ch_layout.nb_channels, bytes_per_sample * 8),
-			frame_data,
-			frame_size,
-			frame->sample_rate);
+		std::vector<uint8_t> data;
+		unsigned int rate = 0;
+		unsigned int channels = 0;
+		unsigned int bits = 0;
+		if (!FFmpeg_Convert_Audio_Frame_To_PCM16(frame, data, rate, channels, bits)) {
+			return;
+		}
+
+		alBufferData(ALBuffers[ALBufferIndex], Get_AL_Format(channels, bits), data.data(), static_cast<ALsizei>(data.size()), rate);
+		if (alGetError() != AL_NO_ERROR) {
+			return;
+		}
 
 		alSourceQueueBuffers(ALSource, 1, &ALBuffers[ALBufferIndex]);
-
-		++ALBufferIndex;
-
-		if (ALBufferIndex >= BINK_AL_BUFFER_COUNT) {
-			ALBufferIndex = 0;
+		if (alGetError() != AL_NO_ERROR) {
+			return;
 		}
 
-		// Unqueue any finished buffers.
-		ALint processed;
-		alGetSourcei(ALSource, AL_BUFFERS_PROCESSED, &processed);
-		while (processed > 0) {
-			ALuint buffer;
-			alSourceUnqueueBuffers(ALSource, 1, &buffer);
-			processed--;
+		ALBufferIndex = (ALBufferIndex + 1) % BINK_AL_BUFFER_COUNT;
+
+		ALint state = AL_STOPPED;
+		alGetSourcei(ALSource, AL_SOURCE_STATE, &state);
+		if (state != AL_PLAYING) {
+			alSourcePlay(ALSource);
 		}
 	}
+#endif
 }
 
 FFMpegMovieClass::FFMpegMovieClass(const char *filename, const char *subtitlename, FontCharsClass *font) :
@@ -126,8 +140,11 @@ FFMpegMovieClass::FFMpegMovieClass(const char *filename, const char *subtitlenam
 	Bink(new FFmpegFile(filename)),
 	CurrentFrame(nullptr),
 	ScalingContext(nullptr),
+#ifdef W3D_HAS_OPENAL
 	ALSource(ALuint(-1)),
+	ALBuffers{ 0 },
 	ALBufferIndex(0),
+#endif
 	StartTime(0),
 	GotFrame(false),
 	FrameChanged(true),
@@ -147,8 +164,24 @@ FFMpegMovieClass::FFMpegMovieClass(const char *filename, const char *subtitlenam
 	Bink->Set_Frame_Callback(On_Frame);
 	Bink->Set_User_Data(this);
 
-	alGenBuffers(BINK_AL_BUFFER_COUNT, ALBuffers);
-	alGenSources(1, &ALSource);
+#ifdef W3D_HAS_OPENAL
+	if (Bink->Has_Audio()) {
+		alGenBuffers(BINK_AL_BUFFER_COUNT, ALBuffers);
+		if (alGetError() != AL_NO_ERROR) {
+			std::memset(ALBuffers, 0, sizeof(ALBuffers));
+			ALSource = ALuint(-1);
+		} else {
+			alGenSources(1, &ALSource);
+			if (alGetError() != AL_NO_ERROR) {
+				alDeleteBuffers(BINK_AL_BUFFER_COUNT, ALBuffers);
+				std::memset(ALBuffers, 0, sizeof(ALBuffers));
+				ALSource = ALuint(-1);
+			} else if (WWAudioClass::Get_Instance() != nullptr) {
+				alSourcef(ALSource, AL_GAIN, WWAudioClass::Get_Instance()->Get_Cinematic_Volume());
+			}
+		}
+	}
+#endif
 
 	bool good = true;
 	// Decode until we have our first video frame
@@ -232,7 +265,11 @@ FFMpegMovieClass::FFMpegMovieClass(const char *filename, const char *subtitlenam
 	unsigned rate = Bink->Get_Frame_Time();
 	TicksPerFrame = (60 / rate);
 
-	alSourcePlay(ALSource);
+#ifdef W3D_HAS_OPENAL
+	if (ALSource != ALuint(-1)) {
+		alSourcePlay(ALSource);
+	}
+#endif
 
 	StartTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 
@@ -253,12 +290,21 @@ FFMpegMovieClass::~FFMpegMovieClass()
 		}
 	}
 	
-	// Unbind the buffers first
-	alSourceStop(ALSource);
-	alSourcei(ALSource, AL_BUFFER, AL_NONE);
-	alDeleteSources(1, &ALSource);
-	// Now delete the buffers
-	alDeleteBuffers(BINK_AL_BUFFER_COUNT, ALBuffers);
+#ifdef W3D_HAS_OPENAL
+	if (ALSource != ALuint(-1)) {
+		alSourceStop(ALSource);
+		ALint queued = 0;
+		alGetSourcei(ALSource, AL_BUFFERS_QUEUED, &queued);
+		while (queued > 0) {
+			ALuint buffer = 0;
+			alSourceUnqueueBuffers(ALSource, 1, &buffer);
+			--queued;
+		}
+		alSourcei(ALSource, AL_BUFFER, AL_NONE);
+		alDeleteSources(1, &ALSource);
+		alDeleteBuffers(BINK_AL_BUFFER_COUNT, ALBuffers);
+	}
+#endif
 }
 
 void FFMpegMovieClass::Update()

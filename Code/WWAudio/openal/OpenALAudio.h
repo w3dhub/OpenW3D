@@ -27,9 +27,15 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <AL/alext.h>
-#include <unordered_map>
+#include <string.h>
 
 class FFMpegBufferClass;
+
+enum
+{
+	MAX_CACHE_HASH = 256,
+	CACHE_HASH_MASK = 0x000000FF
+};
 
 class OpenALAudioClass final : public WWAudioClass
 {
@@ -94,14 +100,36 @@ private:
 	void Release_Handles();
 	void ReAssign_Handles();
 	void Remove_Handles();
+	SoundBufferClass *Find_Cached_Buffer(const char *string_id);
+	bool Cache_Buffer(SoundBufferClass *buffer, const char *string_id);
 
 private:
+	typedef struct _CACHE_ENTRY_STRUCT
+	{
+		char *string_id;
+		SoundBufferClass *buffer;
+
+		_CACHE_ENTRY_STRUCT(void)
+			: string_id(nullptr), buffer(nullptr) {}
+
+		_CACHE_ENTRY_STRUCT &operator=(const _CACHE_ENTRY_STRUCT &src)
+		{
+			string_id = ::strdup(src.string_id);
+			REF_PTR_SET(buffer, src.buffer);
+			return *this;
+		}
+		bool operator==(const _CACHE_ENTRY_STRUCT &/* src */) { return false; }
+		bool operator!=(const _CACHE_ENTRY_STRUCT &/* src */) { return true; }
+	} CACHE_ENTRY_STRUCT;
+
 	DynamicVectorClass<ALuint> m_2DSampleHandles;
 	DynamicVectorClass<ALuint> m_3DSampleHandles;
+	DynamicVectorClass<CACHE_ENTRY_STRUCT> m_CachedBuffers[MAX_CACHE_HASH];
 	StringClass m_DriverName;
 	ALCdevice *m_alcDevice;
 	ALCcontext *m_alcContext;
 	int m_SpeakerType;
+	int m_CurrentCacheSize;
 };
 
 #endif /* __OPENALAUDIO_H */

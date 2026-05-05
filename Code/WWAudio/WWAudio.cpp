@@ -1833,7 +1833,8 @@ WWAudioClass::Temp_Disable_Audio (bool onoff)
 		Allow_Sound_Effects (false);
 		Allow_Music (false);
 		Allow_Dialog (false);
-		Allow_Cinematic_Sound (false);
+		// Movie playback uses the cinematic category for its own audio.
+		// Keep the user's cinematic setting active while muting gameplay audio.
 	} else {
 		Allow_Sound_Effects (m_CachedAreSoundEffectsEnabled);
 		Allow_Music (m_CachedIsMusicEnabled);

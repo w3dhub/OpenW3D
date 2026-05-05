@@ -17,9 +17,14 @@
 */
 
 #include "OpenALHandle.h"
+
 #include "AudibleSound.h"
 #include "OpenALAudio.h"
-#include "FFMpegBuffer.h"
+#include "wwdebug.h"
+
+#include <algorithm>
+#include <cstdint>
+#include <cstring>
 
 std::unordered_map<ALuint, AudibleSoundClass *> OpenALHandleClass::SampleUsers;
 
@@ -30,516 +35,485 @@ std::unordered_map<ALuint, AudibleSoundClass *> OpenALHandleClass::SampleUsers;
 //////////////////////////////////////////////////////////////////////
 OpenALHandleClass::OpenALHandleClass()
 	: SampleHandle(INVALID_OAL_HANDLE),
-	SampleBufferIndex(0),
-	SampleLoopCount(0),
-	SampleUnqueuedTime(0.0f),
-	SampleEnded(true)
+	  SampleBuffers{ 0 },
+	  SampleBufferIndex(0),
+	  SampleLoopCount(1),
+	  SamplePositionMs(0),
+	  StreamBufferLength{ 0 },
+	  SampleEnded(true),
+	  StreamEOF(false)
 {
 	alGenBuffers(OAL_BUFFER_COUNT, SampleBuffers);
-
-	if(alGetError() != AL_NO_ERROR) {
-		WWDEBUG_SAY(("Failed to generate OpenAL buffer.\n"));
+	if (alGetError() != AL_NO_ERROR) {
+		WWDEBUG_SAY(("Failed to generate OpenAL buffers.\n"));
 	}
+
+	StreamScratch.resize(32768);
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	~OpenALHandleClass
-//
-//////////////////////////////////////////////////////////////////////
 OpenALHandleClass::~OpenALHandleClass()
 {
-	// Unbind any buffers before deleting the object.
-	alSourcei(SampleHandle, AL_BUFFER, AL_NONE);
+	Reset_Source();
+	if (SampleHandle != INVALID_OAL_HANDLE) {
+		Set_Sample_User(SampleHandle, nullptr);
+	}
 	alDeleteBuffers(OAL_BUFFER_COUNT, SampleBuffers);
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Initialize
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Initialize(SoundBufferClass *buffer)
+void OpenALHandleClass::Set_Miles_Handle(void *handle)
 {
-	SoundHandleClass::Initialize(buffer);
-	SampleLoopCount = 0;
-	// Stop source and unbind any existing buffers from this source.
-	alSourceStop(SampleHandle);
-	alSourcei(SampleHandle, AL_BUFFER, AL_NONE);
+	SampleHandle = ALuint(reinterpret_cast<uintptr_t>(handle));
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Start_Sample
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Start_Sample()
+void OpenALHandleClass::Initialize(SoundBufferClass *buffer)
 {
-	SampleEnded = false;
-	reinterpret_cast<FFMpegBufferClass *>(Buffer)->Reset_Buffer();
-	OpenALHandleClass::Queue_Audio();
-	alSourcePlay(SampleHandle);
+	Reset_Source();
+	SoundHandleClass::Initialize(buffer);
+	SampleLoopCount = 1;
+	SampleEnded = true;
+	StreamEOF = false;
+	SamplePositionMs = 0;
+	SampleBufferIndex = 0;
+	std::fill(StreamBufferLength, StreamBufferLength + OAL_BUFFER_COUNT, 0u);
+	Clear_Static_Buffer();
 
-	if(alGetError() != AL_NO_ERROR) {
+	if (Buffer != nullptr && !Buffer->Is_Streaming()) {
+		Upload_Static_Buffer();
+	}
+}
+
+void OpenALHandleClass::Start_Sample()
+{
+	if (Buffer == nullptr) {
+		return;
+	}
+
+	Reset_Source();
+	SampleEnded = false;
+
+	if (Buffer->Is_Streaming()) {
+		if (!Stream.Open(Buffer->Get_Filename())) {
+			SampleEnded = true;
+			return;
+		}
+
+		ALint queued = 0;
+		while (queued < OAL_BUFFER_COUNT && Queue_Stream_Buffer(SampleBuffers[SampleBufferIndex])) {
+			SampleBufferIndex = (SampleBufferIndex + 1) % OAL_BUFFER_COUNT;
+			++queued;
+		}
+
+		if (queued == 0) {
+			SampleEnded = true;
+			Stream.Close();
+			return;
+		}
+	} else {
+		Upload_Static_Buffer();
+	}
+
+	alSourcePlay(SampleHandle);
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Couldn't play source.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Stop_Sample
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Stop_Sample()
+void OpenALHandleClass::Stop_Sample()
 {
 	alSourcePause(SampleHandle);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Couldn't pause source.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Resume_Sample
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Resume_Sample()
+void OpenALHandleClass::Resume_Sample()
 {
-	alSourcePlay(SampleHandle);
-
-	if(alGetError() != AL_NO_ERROR) {
-		WWDEBUG_SAY(("Couldn't resume source.\n"));
+	if (!SampleEnded) {
+		alSourcePlay(SampleHandle);
+		if (alGetError() != AL_NO_ERROR) {
+			WWDEBUG_SAY(("Couldn't resume source.\n"));
+		}
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	End_Sample
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::End_Sample()
+void OpenALHandleClass::End_Sample()
 {
-	//
-	//	Stop the sample and then release our hold on the stream handle
-	//
 	SampleEnded = true;
-	alSourceStop(SampleHandle);
-
-	if(alGetError() != AL_NO_ERROR) {
-		WWDEBUG_SAY(("Couldn't stop source.\n"));
-	}
-
-	// Unbind any buffers.
-	alSourcei(SampleHandle, AL_BUFFER, AL_NONE);
+	Reset_Source();
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Sample_Pan
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Set_Sample_Pan(float pan)
+void OpenALHandleClass::Set_Sample_Pan(float pan)
 {
-	ALfloat location[3] = {pan, 0.0F, 0.0F };
+	ALfloat location[3] = { pan, 0.0F, 0.0F };
 	alSourcefv(SampleHandle, AL_POSITION, location);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Couldn't set source pan.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Get_Sample_Pan
-//
-//////////////////////////////////////////////////////////////////////
-float
-OpenALHandleClass::Get_Sample_Pan()
+float OpenALHandleClass::Get_Sample_Pan()
 {
-	ALfloat location[3] = { 0 };
+	ALfloat location[3] = { 0.0F, 0.0F, 0.0F };
 	alGetSourcefv(SampleHandle, AL_POSITION, location);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Couldn't get source pan.\n"));
 	}
 
 	return location[0];
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Sample_Volume
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Set_Sample_Volume(float volume)
+void OpenALHandleClass::Set_Sample_Volume(float volume)
 {
 	alSourcef(SampleHandle, AL_GAIN, volume);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("OpenALHandleClass::Set_Sample_Volume couldn't set source gain.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Get_Sample_Volume
-//
-//////////////////////////////////////////////////////////////////////
-float
-OpenALHandleClass::Get_Sample_Volume()
+float OpenALHandleClass::Get_Sample_Volume()
 {
 	ALfloat state = 0.0F;
 	alGetSourcef(SampleHandle, AL_GAIN, &state);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		return 0.0F;
 	}
 
 	return state;
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Sample_Loop_Count
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Set_Sample_Loop_Count(unsigned count)
+void OpenALHandleClass::Set_Sample_Loop_Count(unsigned count)
 {
-	WWDEBUG_SAY(("Stream %s requested to loop %u times.\n", Buffer->Get_Filename(), count));
-	// count 0 is special and is supposed to mean infinite... best we can do is UINT_MAX or "lots".
+	WWDEBUG_SAY(("Sample %s requested to loop %u times.\n", Buffer != nullptr ? Buffer->Get_Filename() : "<null>", count));
 	SampleLoopCount = count == 0 ? UINT_MAX : count;
+	if (Buffer != nullptr && !Buffer->Is_Streaming()) {
+		alSourcei(SampleHandle, AL_LOOPING, count == 0 ? AL_TRUE : AL_FALSE);
+	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Get_Sample_Loop_Count
-//
-//////////////////////////////////////////////////////////////////////
-unsigned
-OpenALHandleClass::Get_Sample_Loop_Count()
+unsigned OpenALHandleClass::Get_Sample_Loop_Count()
 {
 	return SampleLoopCount;
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Sample_MS_Position
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Set_Sample_MS_Position(unsigned /* ms */)
+void OpenALHandleClass::Set_Sample_MS_Position(unsigned ms)
 {
-	// TODO
-}
+	if (Buffer == nullptr) {
+		return;
+	}
 
-void
-OpenALHandleClass::Update_Position()
-{
-	// Corrects the Samples that have been unqueued in the case the audio has looped.
-	while (SampleUnqueuedTime > Buffer->Get_Duration()) {
-		SampleUnqueuedTime -= Buffer->Get_Duration() / 1000.0f;
+	if (Buffer->Is_Streaming()) {
+		ALint state = AL_STOPPED;
+		alGetSourcei(SampleHandle, AL_SOURCE_STATE, &state);
+		Reset_Source();
+		if (!Stream.Open(Buffer->Get_Filename()) || !Stream.Seek_MS(ms)) {
+			SampleEnded = true;
+			return;
+		}
+
+		SampleEnded = false;
+		SamplePositionMs = std::min(ms, Buffer->Get_Duration());
+		ALint queued = 0;
+		while (queued < OAL_BUFFER_COUNT && Queue_Stream_Buffer(SampleBuffers[SampleBufferIndex])) {
+			SampleBufferIndex = (SampleBufferIndex + 1) % OAL_BUFFER_COUNT;
+			++queued;
+		}
+		if (queued == 0) {
+			SampleEnded = true;
+			return;
+		}
+		if (state == AL_PLAYING) {
+			alSourcePlay(SampleHandle);
+		}
+	} else {
+		alSourcef(SampleHandle, AL_SEC_OFFSET, static_cast<ALfloat>(ms) / 1000.0F);
 	}
 }
 
-//////////////////////////////////////////////////////////////////////
-//
-//	Get_Sample_MS_Position
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Get_Sample_MS_Position(int *len, int *pos)
+void OpenALHandleClass::Get_Sample_MS_Position(int *len, int *pos)
 {
 	if (len != nullptr) {
-		*len = static_cast<int>(Buffer->Get_Duration());
+		*len = Buffer != nullptr ? static_cast<int>(Buffer->Get_Duration()) : 0;
 	}
 
 	if (pos != nullptr) {
-		Update_Position();
-		ALfloat current_position;
+		ALfloat current_position = 0.0F;
 		alGetSourcef(SampleHandle, AL_SEC_OFFSET, &current_position);
-		*pos = static_cast<int>((SampleUnqueuedTime + current_position) * 1000.0f);
+		unsigned int current_ms = static_cast<unsigned int>(current_position * 1000.0F);
+		if (Buffer != nullptr && Buffer->Is_Streaming()) {
+			current_ms += SamplePositionMs;
+			if (Buffer->Get_Duration() > 0) {
+				current_ms %= Buffer->Get_Duration();
+			}
+		}
+		*pos = static_cast<int>(current_ms);
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Sample_User_Data
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Set_Sample_User_Data(int /* i */, void *val)
+void OpenALHandleClass::Set_Sample_User_Data(int /* i */, void *val)
 {
-	ALint state;
-	alGetSourcei(SampleHandle, AL_SOURCE_STATE, &state);
-
-	if(alGetError() == AL_NO_ERROR) {
-		Set_Sample_User(SampleHandle, static_cast<AudibleSoundClass *>(val));
-	}
+	Set_Sample_User(SampleHandle, static_cast<AudibleSoundClass *>(val));
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Get_Sample_User_Data
-//
-//////////////////////////////////////////////////////////////////////
-void *
-OpenALHandleClass::Get_Sample_User_Data(int /* i */)
+void *OpenALHandleClass::Get_Sample_User_Data(int /* i */)
 {
-	void *retval = nullptr;
-	ALint state;
-	alGetSourcei(SampleHandle, AL_SOURCE_STATE, &state);
-
-	if(alGetError() == AL_NO_ERROR) {
-		retval = Get_Sample_User(SampleHandle);
-	}
-
-	return retval;
+	return Get_Sample_User(SampleHandle);
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Get_Sample_Pitch
-//
-//////////////////////////////////////////////////////////////////////
-float
-OpenALHandleClass::Get_Sample_Pitch()
-{	
-	ALfloat pitch;
+float OpenALHandleClass::Get_Sample_Pitch()
+{
+	ALfloat pitch = 1.0F;
 	alGetSourcef(SampleHandle, AL_PITCH, &pitch);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to retrieve OpenAL source pitch.\n"));
 	}
 
 	return pitch;
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Sample_Pitch_Factor
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Set_Sample_Pitch(float pitch)
+void OpenALHandleClass::Set_Sample_Pitch(float pitch)
 {
 	alSourcef(SampleHandle, AL_PITCH, pitch);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to set OpenAL source pitch.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Miles_Handle
-//
-//////////////////////////////////////////////////////////////////////
-void
-OpenALHandleClass::Set_Miles_Handle(void *handle)
-{
-	SampleHandle = ALuint(reinterpret_cast<uintptr_t>(handle));
-}
-
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Position
-//
-//////////////////////////////////////////////////////////////////////
 void OpenALHandleClass::Set_Position(const Vector3 &position)
 {
-	// TODO, Confirm that OpenAL has Z negated in comparison to Miles .
-	alSource3f(SampleHandle, AL_POSITION, -position.Y, position.Z, -position.X);
-	
-	if(alGetError() != AL_NO_ERROR) {
+	alSource3f(SampleHandle, AL_POSITION, -position.Y, position.Z, position.X);
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to set OpenAL source position.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Orientation
-//
-//////////////////////////////////////////////////////////////////////
 void OpenALHandleClass::Set_Orientation(const Vector3 &facing, const Vector3 &up)
 {
 	ALfloat orientation[6] = {
 		-facing.Y,
 		facing.Z,
-		-facing.X,
+		facing.X,
 		-up.Y,
 		up.Z,
-		-up.X,
+		up.X,
 	};
 
 	alSourcefv(SampleHandle, AL_ORIENTATION, orientation);
-	
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to set OpenAL source orientation.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Velocity
-//
-//////////////////////////////////////////////////////////////////////
 void OpenALHandleClass::Set_Velocity(const Vector3 &velocity)
 {
-	// TODO, Confirm that OpenAL has Z negated in comparison to Miles .
-	alSource3f(SampleHandle, AL_VELOCITY, -velocity.Y, velocity.Z, -velocity.X);
-	
-	if(alGetError() != AL_NO_ERROR) {
+	alSource3f(SampleHandle, AL_VELOCITY, -velocity.Y, velocity.Z, velocity.X);
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to set OpenAL source velocity.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Dropoff
-//
-//////////////////////////////////////////////////////////////////////
 void OpenALHandleClass::Set_Dropoff(float max, float min)
 {
 	alSourcef(SampleHandle, AL_MAX_DISTANCE, max);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to set OpenAL source max distance.\n"));
 	}
 
 	alSourcef(SampleHandle, AL_REFERENCE_DISTANCE, (min > 1.0F) ? min : 1.0F);
-
-	if(alGetError() != AL_NO_ERROR) {
+	if (alGetError() != AL_NO_ERROR) {
 		WWDEBUG_SAY(("Failed to set OpenAL source reference distance.\n"));
 	}
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Set_Dropoff
-//
-//////////////////////////////////////////////////////////////////////
 void OpenALHandleClass::Set_Effect_Level(float /* level */)
 {
-	// TODO, figure out appropriate code for OpenAL.
 }
 
-
-//////////////////////////////////////////////////////////////////////
-//
-//	Initialize_Reverb
-//
-//////////////////////////////////////////////////////////////////////
 void OpenALHandleClass::Initialize_Reverb()
 {
-	// TODO, figure out appropriate code for OpenAL.
 }
 
 void OpenALHandleClass::Queue_Audio()
 {
-	if (SampleEnded) {
+	if (SampleEnded || Buffer == nullptr || !Buffer->Is_Streaming()) {
 		return;
 	}
 
-	// Get current position before unqueuing.
-	ALfloat current_position;
-	alGetSourcef(SampleHandle, AL_SEC_OFFSET, &current_position);
-
-	// Unqueue any finished buffers.
-	ALint processed;
+	ALint processed = 0;
 	alGetSourcei(SampleHandle, AL_BUFFERS_PROCESSED, &processed);
-	while(processed > 0) {
-			ALuint buffer;
-			alSourceUnqueueBuffers(SampleHandle, 1, &buffer);
+	while (processed > 0) {
+		ALuint buffer = 0;
+		alSourceUnqueueBuffers(SampleHandle, 1, &buffer);
+		if (alGetError() != AL_NO_ERROR) {
+			break;
+		}
 
-			// Track how many bytes we have processed.
-			ALfloat new_position;
-			alGetSourcef(SampleHandle, AL_SEC_OFFSET, &new_position);
-			SampleUnqueuedTime += new_position - current_position;
-			processed--;
+		for (ALsizei index = 0; index < OAL_BUFFER_COUNT; ++index) {
+			if (SampleBuffers[index] == buffer) {
+				SamplePositionMs += Buffer_Duration_MS(StreamBufferLength[index]);
+				StreamBufferLength[index] = 0;
+				break;
+			}
+		}
+
+		if (Queue_Stream_Buffer(buffer)) {
+			// Buffer was reused immediately.
+		}
+		--processed;
 	}
 
-	// Check if we can buffer any more data at this time.
-	ALint num_queued;
-	alGetSourcei(SampleHandle, AL_BUFFERS_QUEUED, &num_queued);
-	if(num_queued >= OAL_BUFFER_COUNT) {
-			return;
+	ALint queued = 0;
+	alGetSourcei(SampleHandle, AL_BUFFERS_QUEUED, &queued);
+	if (queued == 0 && StreamEOF) {
+		SampleEnded = true;
+		Stream.Close();
+		return;
 	}
 
-	// We have a valid buffer and need to loop at least once, attempt to read and buffer some audio.
-	if(Buffer != NULL && SampleLoopCount != 0)
-	{
-		bool more_data = reinterpret_cast<FFMpegBufferClass *>(Buffer)->Refresh_Buffer();
+	ALint state = AL_STOPPED;
+	alGetSourcei(SampleHandle, AL_SOURCE_STATE, &state);
+	if (queued > 0 && state == AL_STOPPED) {
+		alSourcePlay(SampleHandle);
+	}
+}
 
-		alGetError();
-		alBufferData(
-			SampleBuffers[SampleBufferIndex],
-			OpenALAudioClass::Get_AL_Format(Buffer->Get_Channels(),
-			Buffer->Get_Bits()),
-			Buffer->Get_Raw_Buffer(),
-			Buffer->Get_Raw_Length(),
-			Buffer->Get_Rate());
-		
-		if(alGetError() != AL_NO_ERROR) {
-			WWDEBUG_SAY(("Failed to buffer data for streaming sample\n"));
-			return;
-		}
+bool OpenALHandleClass::Queue_Stream_Buffer(ALuint buffer)
+{
+	if (Buffer == nullptr || !Buffer->Is_Streaming() || StreamEOF) {
+		return false;
+	}
 
-		alSourceQueueBuffers(SampleHandle, 1, &SampleBuffers[SampleBufferIndex]);
-		
-		if(alGetError() != AL_NO_ERROR) {
-			WWDEBUG_SAY(("Failed to bind buffer for streaming sample\n"));
-			return;
-		}
-		
-		// Check if we are intentionally paused rather than stopped.
-		ALint state;
-		alGetSourcei(SampleHandle, AL_SOURCE_STATE, &state);
-
-		if (state != AL_PAUSED) {
-			// Incase sample is so short it finished before Queue_Audio was called again. No op if already playing.
-			alSourcePlay(SampleHandle);
-		}
-
-		++SampleBufferIndex;
-		if(SampleBufferIndex >= OAL_BUFFER_COUNT) {
-			SampleBufferIndex = 0;
-		}
-
-		if(!more_data) {
+	unsigned int read = Stream.Read(StreamScratch.data(), static_cast<unsigned int>(StreamScratch.size()));
+	while (read == 0 && Stream.Is_EOF()) {
+		if (Is_Infinite_Loop()) {
+			Stream.Rewind();
+		} else if (SampleLoopCount > 1) {
 			--SampleLoopCount;
-			reinterpret_cast<FFMpegBufferClass *>(Buffer)->Reset_Buffer();
+			Stream.Rewind();
+		} else {
+			StreamEOF = true;
+			return false;
+		}
+
+		read = Stream.Read(StreamScratch.data(), static_cast<unsigned int>(StreamScratch.size()));
+	}
+
+	if (read == 0) {
+		return false;
+	}
+
+	alBufferData(
+		buffer,
+		OpenALAudioClass::Get_AL_Format(Buffer->Get_Channels(), Buffer->Get_Bits()),
+		StreamScratch.data(),
+		read,
+		Buffer->Get_Rate());
+	if (alGetError() != AL_NO_ERROR) {
+		WWDEBUG_SAY(("Failed to buffer data for streaming sample.\n"));
+		StreamEOF = true;
+		return false;
+	}
+
+	alSourceQueueBuffers(SampleHandle, 1, &buffer);
+	if (alGetError() != AL_NO_ERROR) {
+		WWDEBUG_SAY(("Failed to queue streaming sample buffer.\n"));
+		StreamEOF = true;
+		return false;
+	}
+
+	for (ALsizei index = 0; index < OAL_BUFFER_COUNT; ++index) {
+		if (SampleBuffers[index] == buffer) {
+			StreamBufferLength[index] = read;
+			break;
 		}
 	}
+
+	return true;
+}
+
+void OpenALHandleClass::Reset_Source()
+{
+	if (SampleHandle == INVALID_OAL_HANDLE) {
+		return;
+	}
+
+	alSourceStop(SampleHandle);
+
+	ALint queued = 0;
+	alGetSourcei(SampleHandle, AL_BUFFERS_QUEUED, &queued);
+	while (queued > 0) {
+		ALuint buffer = 0;
+		alSourceUnqueueBuffers(SampleHandle, 1, &buffer);
+		if (alGetError() != AL_NO_ERROR) {
+			break;
+		}
+		--queued;
+	}
+
+	Clear_Static_Buffer();
+	Reset_Stream_State();
+}
+
+void OpenALHandleClass::Upload_Static_Buffer()
+{
+	if (Buffer == nullptr || Buffer->Is_Streaming() || Buffer->Get_Raw_Length() == 0) {
+		return;
+	}
+
+	alBufferData(
+		SampleBuffers[0],
+		OpenALAudioClass::Get_AL_Format(Buffer->Get_Channels(), Buffer->Get_Bits()),
+		Buffer->Get_Raw_Buffer(),
+		Buffer->Get_Raw_Length(),
+		Buffer->Get_Rate());
+	if (alGetError() != AL_NO_ERROR) {
+		WWDEBUG_SAY(("Failed to buffer static sample.\n"));
+		return;
+	}
+
+	alSourcei(SampleHandle, AL_BUFFER, SampleBuffers[0]);
+	alSourcei(SampleHandle, AL_LOOPING, Is_Infinite_Loop() ? AL_TRUE : AL_FALSE);
+}
+
+void OpenALHandleClass::Clear_Static_Buffer()
+{
+	alSourcei(SampleHandle, AL_BUFFER, AL_NONE);
+	alSourcei(SampleHandle, AL_LOOPING, AL_FALSE);
+}
+
+void OpenALHandleClass::Reset_Stream_State()
+{
+	Stream.Close();
+	SampleBufferIndex = 0;
+	SamplePositionMs = 0;
+	StreamEOF = false;
+	std::fill(StreamBufferLength, StreamBufferLength + OAL_BUFFER_COUNT, 0u);
+}
+
+unsigned int OpenALHandleClass::Buffer_Duration_MS(unsigned int bytes) const
+{
+	if (Buffer == nullptr || Buffer->Get_Rate() == 0 || Buffer->Get_Channels() == 0 || Buffer->Get_Bits() == 0) {
+		return 0;
+	}
+
+	const unsigned int bytes_per_second = Buffer->Get_Rate() * Buffer->Get_Channels() * (Buffer->Get_Bits() / 8);
+	return bytes_per_second == 0 ? 0 : static_cast<unsigned int>((static_cast<uint64_t>(bytes) * 1000ULL) / bytes_per_second);
+}
+
+void OpenALHandleClass::Set_Sample_User(ALuint handle, AudibleSoundClass *user)
+{
+	if (handle == INVALID_OAL_HANDLE) {
+		return;
+	}
+
+	if (user == nullptr) {
+		SampleUsers.erase(handle);
+	} else {
+		SampleUsers[handle] = user;
+	}
+}
+
+AudibleSoundClass *OpenALHandleClass::Get_Sample_User(ALuint handle)
+{
+	const auto iter = SampleUsers.find(handle);
+	return iter == SampleUsers.end() ? nullptr : iter->second;
 }

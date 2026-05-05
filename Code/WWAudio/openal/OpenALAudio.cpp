@@ -21,6 +21,12 @@
 #include "OpenALHandle.h"
 #include "SoundScene.h"
 #include "Threads.h"
+#include "Utils.h"
+#include "ffactory.h"
+#include "realcrc.h"
+#include "wwfile.h"
+
+#include <cstring>
 
 #define LOAD_ALC_PROC(N) N = reinterpret_cast<decltype(N)>(alcGetProcAddress(m_alcDevice, #N))
 
@@ -56,7 +62,8 @@ OpenALAudioClass::OpenALAudioClass(bool lite)
 		m_DriverName("OpenAL 3D Audio"),
 		m_alcDevice(nullptr),
 		m_alcContext(nullptr),
-		m_SpeakerType(W3D_3D_2_SPEAKER)
+		m_SpeakerType(W3D_3D_2_SPEAKER),
+		m_CurrentCacheSize(0)
 {
 	_theInstance = this;
 }
@@ -135,7 +142,7 @@ void OpenALAudioClass::Shutdown()
 	Close_2D_Device();
 }
 
-WWAudioClass::DRIVER_TYPE_2D OpenALAudioClass::Open_2D_Device(bool /* stereo */, int /* bits */, int /* hertz */)
+WWAudioClass::DRIVER_TYPE_2D OpenALAudioClass::Open_2D_Device(bool stereo, int bits, int hertz)
 {
 	//
 	// Only OpenAL driver can be used by this backend though this return is never checked by the engine.
@@ -146,7 +153,15 @@ WWAudioClass::DRIVER_TYPE_2D OpenALAudioClass::Open_2D_Device(bool /* stereo */,
 	// all the sound handles away from the sound objects.
 	Close_2D_Device();
 
+	m_PlaybackStereo = stereo;
+	m_PlaybackBits = bits;
+	m_PlaybackRate = hertz;
+
 	m_alcDevice = alcOpenDevice(nullptr);
+	if (m_alcDevice == nullptr) {
+		WWDEBUG_SAY(("Failed to open ALC device"));
+		return DRIVER2D_ERROR;
+	}
 	
 	ALCint attributes[] = { ALC_FREQUENCY, m_PlaybackRate, 0 /* end-of-list */ };
 	m_alcContext = alcCreateContext(m_alcDevice, attributes);
@@ -227,7 +242,7 @@ void OpenALAudioClass::Allocate_Handles()
 		m_3DSampleHandles.Set_Active(DEF_3D_SAMPLE_COUNT);
 		
 		for (int i = 0; i < m_3DSampleHandles.Count(); ++i) {
-			alSourcei(m_3DSampleHandles[i], AL_SOURCE_RELATIVE, AL_TRUE);
+			alSourcei(m_3DSampleHandles[i], AL_SOURCE_RELATIVE, AL_FALSE);
 
 			if (alGetError() != AL_NO_ERROR) {
 				WWDEBUG_SAY(("Setting handles relative to listener failed for sample %d.", i));
@@ -241,6 +256,9 @@ void OpenALAudioClass::Allocate_Handles()
 void OpenALAudioClass::Release_Handles()
 {
 	if (m_2DSampleHandles.Count() != 0) {
+		for (int index = 0; index < m_2DSampleHandles.Count(); ++index) {
+			OpenALHandleClass::Set_Sample_User(m_2DSampleHandles[index], nullptr);
+		}
 		alDeleteSources(m_2DSampleHandles.Count(), &m_2DSampleHandles[0]);
 
 		if(alGetError() != AL_NO_ERROR) {
@@ -251,6 +269,9 @@ void OpenALAudioClass::Release_Handles()
 	}
 
 	if (m_3DSampleHandles.Count() != 0) {
+		for (int index = 0; index < m_3DSampleHandles.Count(); ++index) {
+			OpenALHandleClass::Set_Sample_User(m_3DSampleHandles[index], nullptr);
+		}
 		alDeleteSources(m_3DSampleHandles.Count(), &m_3DSampleHandles[0]);
 
 		if(alGetError() != AL_NO_ERROR) {
@@ -296,11 +317,33 @@ void OpenALAudioClass::Remove_Handles()
 			}
 		}
 	}
+
+	for (int index = 0; index < m_3DSampleHandles.Count (); index ++) {
+		ALint state;
+		ALuint sample = m_3DSampleHandles[index];
+		alGetSourcei(sample, AL_SOURCE_STATE, &state);
+
+		if (alGetError() == AL_NO_ERROR) {
+			AudibleSoundClass *sound_obj = OpenALHandleClass::Get_Sample_User(sample);
+			if (sound_obj != NULL) {
+				sound_obj->Free_Miles_Handle ();
+			}
+		}
+	}
 }
 
 void OpenALAudioClass::Flush_Cache()
 {
-	
+	for (int hash_index = 0; hash_index < MAX_CACHE_HASH; hash_index ++) {
+		for (int index = 0; index < m_CachedBuffers[hash_index].Count (); index ++) {
+			CACHE_ENTRY_STRUCT &info = m_CachedBuffers[hash_index][index];
+			SAFE_FREE(info.string_id);
+			REF_PTR_RELEASE(info.buffer);
+		}
+		m_CachedBuffers[hash_index].Delete_All ();
+	}
+
+	m_CurrentCacheSize = 0;
 }
 
 AudibleSoundClass *OpenALAudioClass::Peek_2D_Sample (int index)
@@ -473,10 +516,35 @@ SoundHandleClass *OpenALAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj
 	return retval;
 }
 
-SoundBufferClass *OpenALAudioClass::Get_Sound_Buffer (const char *filename, bool /* is_3d */)
+SoundBufferClass *OpenALAudioClass::Get_Sound_Buffer (const char *filename, bool is_3d)
 {
 	if (filename == nullptr || *filename == '\0') {
 		return nullptr;
+	}
+
+	FileClass *file = _TheFileFactory != nullptr ? _TheFileFactory->Get_File(filename) : nullptr;
+	if (file == nullptr || !file->Is_Available()) {
+		static int count = 0;
+		if (++count < 10) {
+			WWDEBUG_SAY(("Sound \"%s\" not found\r\n", filename));
+		}
+		if (file != nullptr) {
+			_TheFileFactory->Return_File(file);
+		}
+		return nullptr;
+	}
+
+	const int file_size = file->Size();
+	_TheFileFactory->Return_File(file);
+
+	const int max_size = is_3d ? DEF_MAX_3D_BUFFER_SIZE * 2 : DEF_MAX_2D_BUFFER_SIZE;
+	const bool streaming = file_size > max_size;
+
+	if (!streaming) {
+		SoundBufferClass *cached_buffer = Find_Cached_Buffer(filename);
+		if (cached_buffer != nullptr) {
+			return cached_buffer;
+		}
 	}
 
 	FFMpegBufferClass *sound_buffer = new FFMpegBufferClass;
@@ -485,15 +553,60 @@ SoundBufferClass *OpenALAudioClass::Get_Sound_Buffer (const char *filename, bool
 	//
 	// Create a new sound buffer from the provided file
 	//
-	bool success = sound_buffer->Load_From_File (filename);
+	bool success = sound_buffer->Load_From_File (filename, streaming);
 	WWASSERT (success);
 
 	// If we were successful in creating the sound buffer, then
 	// return it, otherwise free the buffer and return NULL.
-	if (!success) {
+	if (success && !streaming) {
+		Cache_Buffer(sound_buffer, filename);
+	} else if (!success) {
 		REF_PTR_RELEASE (sound_buffer);
 	}
 
 	// Return a pointer to the new sound buffer
 	return sound_buffer;
+}
+
+SoundBufferClass *OpenALAudioClass::Find_Cached_Buffer(const char *string_id)
+{
+	SoundBufferClass *sound_buffer = nullptr;
+	WWASSERT(string_id != nullptr);
+
+	if (string_id != nullptr) {
+		const int hash_index = ::CRC_Stringi(string_id) & CACHE_HASH_MASK;
+		for (int index = 0; index < m_CachedBuffers[hash_index].Count(); index++) {
+			CACHE_ENTRY_STRUCT &info = m_CachedBuffers[hash_index][index];
+			if (::stricmp(info.string_id, string_id) == 0) {
+				sound_buffer = info.buffer;
+				sound_buffer->Add_Ref();
+				break;
+			}
+		}
+	}
+
+	return sound_buffer;
+}
+
+bool OpenALAudioClass::Cache_Buffer(SoundBufferClass *buffer, const char *string_id)
+{
+	bool retval = false;
+	WWASSERT(buffer != nullptr);
+	WWASSERT(string_id != nullptr);
+
+	if (buffer != nullptr && string_id != nullptr && !buffer->Is_Streaming()) {
+		const int hash_index = ::CRC_Stringi(string_id) & CACHE_HASH_MASK;
+		CACHE_ENTRY_STRUCT info;
+		info.string_id = const_cast<char *>(string_id);
+		info.buffer = buffer;
+		m_CachedBuffers[hash_index].Add(info);
+		m_CurrentCacheSize += buffer->Get_Raw_Length();
+		retval = true;
+	}
+
+	if (!retval) {
+		WWDEBUG_SAY(("Unable to cache sound: %s.\r\n", string_id != nullptr ? string_id : "<null>"));
+	}
+
+	return retval;
 }
