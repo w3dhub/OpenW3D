@@ -16,6 +16,13 @@ if(W3D_BUILD_OPTION_FFMPEG)
         FFMpegPlayer.cpp
         FFMpegPlayer.h
     )
+    if(W3D_BUILD_OPTION_OPENAL AND TARGET OpenAL::OpenAL)
+        target_compile_definitions(binkmovie PRIVATE W3D_HAS_OPENAL)
+        target_link_libraries(binkmovie PRIVATE
+            OpenAL::OpenAL
+            wwaudio
+        )
+    endif()
 elseif(W3D_BUILD_OPTION_BINK)
     target_sources(binkmovie PRIVATE
         BinkPlayer.cpp

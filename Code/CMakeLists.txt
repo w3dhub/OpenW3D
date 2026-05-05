@@ -67,11 +67,11 @@ else()
 endif()
 
 # Module static libraries
+add_subdirectory(WWAudio)
 add_subdirectory(BinkMovie)
 add_subdirectory(Combat)
 add_subdirectory(SControl)
 add_subdirectory(ww3d2)
-add_subdirectory(WWAudio)
 add_subdirectory(wwbitpack)
 add_subdirectory(wwdebug)
 add_subdirectory(wwlib)

@@ -24,11 +24,119 @@
 #include "wwdebug.h"
 #include "wwfile.h"
 
+#include <algorithm>
+
 extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
+#include <libavutil/avutil.h>
+#include <libavutil/channel_layout.h>
+#include <libavutil/samplefmt.h>
+#include <libswresample/swresample.h>
 }
 
+bool FFmpeg_Convert_Audio_Frame_To_PCM16(
+	const AVFrame *frame,
+	std::vector<uint8_t> &pcm,
+	unsigned int &rate,
+	unsigned int &channels,
+	unsigned int &bits)
+{
+	pcm.clear();
+
+	if (frame == nullptr || frame->nb_samples <= 0 || frame->sample_rate <= 0) {
+		return false;
+	}
+
+	AVChannelLayout input_layout = {};
+	if (!(frame->ch_layout.nb_channels > 0 && av_channel_layout_copy(&input_layout, &frame->ch_layout) == 0)) {
+		av_channel_layout_default(&input_layout, 1);
+	}
+
+	const int input_channels = std::max(input_layout.nb_channels, 1);
+	const int output_channels = input_channels == 1 ? 1 : 2;
+
+	AVChannelLayout output_layout = {};
+	av_channel_layout_default(&output_layout, output_channels);
+
+	SwrContext *swr = nullptr;
+	int result = swr_alloc_set_opts2(
+		&swr,
+		&output_layout,
+		AV_SAMPLE_FMT_S16,
+		frame->sample_rate,
+		&input_layout,
+		static_cast<AVSampleFormat>(frame->format),
+		frame->sample_rate,
+		0,
+		nullptr);
+
+	if (result < 0 || swr == nullptr) {
+		av_channel_layout_uninit(&input_layout);
+		av_channel_layout_uninit(&output_layout);
+		return false;
+	}
+
+	result = swr_init(swr);
+	if (result < 0) {
+		swr_free(&swr);
+		av_channel_layout_uninit(&input_layout);
+		av_channel_layout_uninit(&output_layout);
+		return false;
+	}
+
+	const int output_samples = static_cast<int>(
+		av_rescale_rnd(
+			swr_get_delay(swr, frame->sample_rate) + frame->nb_samples,
+			frame->sample_rate,
+			frame->sample_rate,
+			AV_ROUND_UP));
+
+	uint8_t *output_data = nullptr;
+	int output_line_size = 0;
+	result = av_samples_alloc(
+		&output_data,
+		&output_line_size,
+		output_channels,
+		output_samples,
+		AV_SAMPLE_FMT_S16,
+		0);
+
+	if (result < 0 || output_data == nullptr) {
+		swr_free(&swr);
+		av_channel_layout_uninit(&input_layout);
+		av_channel_layout_uninit(&output_layout);
+		return false;
+	}
+
+	const uint8_t **input_data = const_cast<const uint8_t **>(frame->extended_data);
+	const int converted_samples = swr_convert(swr, &output_data, output_samples, input_data, frame->nb_samples);
+	if (converted_samples > 0) {
+		const int output_size = av_samples_get_buffer_size(
+			nullptr,
+			output_channels,
+			converted_samples,
+			AV_SAMPLE_FMT_S16,
+			1);
+		if (output_size > 0) {
+			pcm.assign(output_data, output_data + output_size);
+		}
+	}
+
+	av_freep(&output_data);
+	swr_free(&swr);
+	av_channel_layout_uninit(&input_layout);
+	av_channel_layout_uninit(&output_layout);
+
+	if (converted_samples <= 0 || pcm.empty()) {
+		return false;
+	}
+
+	rate = static_cast<unsigned int>(frame->sample_rate);
+	channels = static_cast<unsigned int>(output_channels);
+	bits = 16;
+	return true;
+}
 
 FFmpegFile::FFmpegFile() {}
 
@@ -44,8 +152,8 @@ FFmpegFile::~FFmpegFile()
 
 bool FFmpegFile::Open(const char *file, FileFactoryClass *fact)
 {
-	WWASSERT_PRINT(File == nullptr, ("already open\n"));
-	WWASSERT_PRINT(file != nullptr, ("null file pointer\n"));
+	WWASSERT_PRINT(file != nullptr, ("null file pointer"));
+	Close();
 #ifdef WWDEBUG
 	av_log_set_level(AV_LOG_INFO);
 #endif
@@ -55,8 +163,15 @@ bool FFmpegFile::Open(const char *file, FileFactoryClass *fact)
 	av_register_all();
 #endif
 	Factory = fact == nullptr ? _TheFileFactory : fact;
+	if (Factory == nullptr) {
+		return false;
+	}
+
 	File = Factory->Get_File(file);
-	File->Open(FileClass::READ);
+	if (File == nullptr || File->Open(FileClass::READ) == 0) {
+		Close();
+		return false;
+	}
 
 	// FFmpeg setup
 	FmtCtx = avformat_alloc_context();
@@ -74,15 +189,17 @@ bool FFmpegFile::Open(const char *file, FileFactoryClass *fact)
 		return false;
 	}
 
-	AvioCtx = avio_alloc_context(buffer, avio_ctx_buffer_size, 0, File, &Read_Packet, nullptr, nullptr);
+	AvioCtx = avio_alloc_context(buffer, avio_ctx_buffer_size, 0, File, &Read_Packet, nullptr, &Seek_Packet);
 	if (AvioCtx == nullptr) {
 		WWDEBUG_SAY(("Failed to alloc AVIOContext\n"));
+		av_freep(&buffer);
 		Close();
 		return false;
 	}
 
 	FmtCtx->pb = AvioCtx;
 	FmtCtx->flags |= AVFMT_FLAG_CUSTOM_IO;
+	AvioCtx->seekable = AVIO_SEEKABLE_NORMAL;
 
 	int result = avformat_open_input(&FmtCtx, nullptr, nullptr, nullptr);
 	if (result < 0) {
@@ -146,6 +263,7 @@ bool FFmpegFile::Open(const char *file, FileFactoryClass *fact)
 	}
 
 	Packet = av_packet_alloc();
+	Flushed = false;
 
 	return true;
 }
@@ -221,6 +339,10 @@ void FFmpegFile::Close()
 	if (Factory != nullptr) {
 		Factory = nullptr;
 	}
+
+	FrameCallback = nullptr;
+	UserData = nullptr;
+	Flushed = false;
 }
 
 bool FFmpegFile::Decode_Packet()
@@ -228,17 +350,33 @@ bool FFmpegFile::Decode_Packet()
 	WWASSERT_PRINT(FmtCtx != nullptr, ("null format context"));
 	WWASSERT_PRINT(Packet != nullptr, ("null packet pointer"));
 
+	if (Flushed) {
+		return false;
+	}
+
 	int result = av_read_frame(FmtCtx, Packet);
 	if (result == AVERROR_EOF) {
+		return Flush_Decoders();
+	}
+	if (result < 0) {
+		char error_buffer[1024];
+		av_strerror(result, error_buffer, sizeof(error_buffer));
+		WWDEBUG_SAY(("Failed 'av_read_frame': %s", error_buffer));
 		return false;
 	}
 
 	const int stream_idx = Packet->stream_index;
 	WWASSERT_PRINT(Streams.size() > unsigned(stream_idx), ("stream index out of bounds"));
+	if (stream_idx < 0 || Streams.size() <= unsigned(stream_idx)) {
+		av_packet_unref(Packet);
+		return true;
+	}
 
 	auto &stream = Streams[stream_idx];
 	AVCodecContext *codec_ctx = stream.codec_ctx;
 	result = avcodec_send_packet(codec_ctx, Packet);
+	av_packet_unref(Packet);
+
 	// Check if we need more data
 	if (result == AVERROR(EAGAIN)) {
 		return true;
@@ -251,14 +389,13 @@ bool FFmpegFile::Decode_Packet()
 		WWDEBUG_SAY(("Failed 'avcodec_send_packet': %s\n", error_buffer));
 		return false;
 	}
-	av_packet_unref(Packet);
 
 	// Get all frames in this packet
 	while (result >= 0) {
 		result = avcodec_receive_frame(codec_ctx, stream.frame);
 
 		// Check if we need more data
-		if (result == AVERROR(EAGAIN)) {
+		if (result == AVERROR(EAGAIN) || result == AVERROR_EOF) {
 			return true;
 		}
 
@@ -278,6 +415,45 @@ bool FFmpegFile::Decode_Packet()
 	return true;
 }
 
+bool FFmpegFile::Flush_Decoders()
+{
+	bool emitted_frame = false;
+
+	for (auto &stream : Streams) {
+		if (stream.codec_ctx == nullptr) {
+			continue;
+		}
+
+		int result = avcodec_send_packet(stream.codec_ctx, nullptr);
+		if (result < 0 && result != AVERROR_EOF) {
+			continue;
+		}
+
+		for (;;) {
+			result = avcodec_receive_frame(stream.codec_ctx, stream.frame);
+			if (result == AVERROR(EAGAIN) || result == AVERROR_EOF) {
+				break;
+			}
+
+			if (result < 0) {
+				char error_buffer[1024];
+				av_strerror(result, error_buffer, sizeof(error_buffer));
+				WWDEBUG_SAY(("Failed 'avcodec_receive_frame' while flushing: %s", error_buffer));
+				Flushed = true;
+				return emitted_frame;
+			}
+
+			if (FrameCallback != nullptr) {
+				FrameCallback(stream.frame, stream.stream_idx, stream.stream_type, UserData);
+			}
+			emitted_frame = true;
+		}
+	}
+
+	Flushed = true;
+	return emitted_frame;
+}
+
 void FFmpegFile::Seek_Frame(int frame_idx)
 {
 	// Note: not tested, since not used ingame
@@ -295,6 +471,9 @@ void FFmpegFile::Seek_Frame(int frame_idx)
 
 void FFmpegFile::Rewind()
 {
+	if (Packet != nullptr) {
+		av_packet_unref(Packet);
+	}
 	for (const auto& stream : Streams) {
 		int result = avformat_seek_file(FmtCtx, stream.stream_idx, 0, 0, 0, AVSEEK_FLAG_ANY);
 		if (result < 0) {
@@ -302,7 +481,11 @@ void FFmpegFile::Rewind()
 			av_strerror(result, error_buffer, sizeof(error_buffer));
 			WWDEBUG_SAY(("Failed 'avformat_seek_file': %s\n", error_buffer));
 		}
+		if (stream.codec_ctx != nullptr) {
+			avcodec_flush_buffers(stream.codec_ctx);
+		}
 	}
+	Flushed = false;
 }
 
 bool FFmpegFile::Has_Audio() const
