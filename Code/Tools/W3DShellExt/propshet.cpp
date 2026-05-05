@@ -82,7 +82,6 @@ void GetItemName(ChunkItem *pItem, int id_of_interest, void* pInfo, int sizeof_s
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 INT_PTR CALLBACK AnimPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lParam){
 	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLongPtr(hDlg, DWLP_USER);
-	UINT iIndex=0;
 	LPCSHELLEXT lpcs;
 	char buf[MAX_PATH];
     switch (uMessage){
@@ -205,7 +204,6 @@ void SetDlgMeshParams(HWND hDlg, W3dMeshHeader3Struct*pInfo){
 //==========================================================================================================
 INT_PTR CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lParam){
 	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLongPtr(hDlg, DWLP_USER);
-	UINT iIndex=0;
 	LPCSHELLEXT lpcs;
 
     switch (uMessage){
@@ -302,7 +300,6 @@ INT_PTR CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM 
 INT_PTR CALLBACK PreviewPageDlgProc(HWND hDlg, UINT uMessage, WPARAM wParam, LPARAM lParam){
 
 	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLongPtr(hDlg, DWLP_USER);
-    UINT iIndex(0);
     LPCSHELLEXT lpcs;
     switch (uMessage){
 		case WM_INITDIALOG:{
@@ -360,6 +357,7 @@ STDMETHODIMP CShellExt::AddPages(LPFNADDPROPSHEETPAGE lpfnAddPage,	//Pointer to 
     FORMATETC fmte = {CF_HDROP,(DVTARGETDEVICE FAR *)NULL,DVASPECT_CONTENT,-1, TYMED_HGLOBAL };
     STGMEDIUM medium;
 	HRESULT hres = 0;
+	memset(&medium, 0, sizeof(medium));
 //	char buf[MAX_PATH];
 	if (m_pDataObj){  //Paranoid check, m_pDataObj should have something by now...
        hres = m_pDataObj->GetData(&fmte, &medium);

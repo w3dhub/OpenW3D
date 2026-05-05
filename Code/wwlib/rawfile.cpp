@@ -1298,7 +1298,7 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 			Error(GetLastError(), false, Filename);
 		}
 	#elif defined(OPENW3D_SDL3)
-		SDL_IOWhence whence;
+		SDL_IOWhence whence = SDL_IO_SEEK_SET;
 		switch (dir) {
 			case SEEK_SET:
 				whence = SDL_IO_SEEK_SET;
