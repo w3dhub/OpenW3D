@@ -159,7 +159,7 @@ BOOL CWdumpApp::InitInstance()
 			}
 */
 
-			CWdumpDoc *doc = (CWdumpDoc *) pDocTemplate->OpenDocumentFile(cmdInfo.m_strFileName, false);
+			// CWdumpDoc *doc = (CWdumpDoc *) pDocTemplate->OpenDocumentFile(cmdInfo.m_strFileName, false);
 
 /*			if(info.hStdOutput == NULL) {
 				printf("Press return to close this window..");
