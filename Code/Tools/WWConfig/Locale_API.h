@@ -37,24 +37,25 @@
 #ifndef  LOCALE_API_H
 #define  LOCALE_API_H
 
-#include <STDLIB.H>
+#include <stdlib.h>
+#include <wchar.h>
 
 /****************************************************************************/
 /* GLOBAL VARIABLES                                                         */
 /****************************************************************************/
-extern	int		CodePage;
-extern	void *	LocaleFile;
-extern	int		LanguageID;
-extern	CHAR	LanguageFile[];
+extern int   CodePage;
+extern void *LocaleFile;
+extern int   LanguageID;
+extern char  LanguageFile[];
 
 /****************************************************************************/
 /* LOCALE API                                                               */
 /****************************************************************************/
-int				Locale_Init	( int language, const CHAR *file );
+int             Locale_Init(int language, const char *file);
 void			Locale_Restore ( void );
-const CHAR	*	Locale_GetString( int StringID, CHAR *String );
-const wchar_t	*	Locale_GetString( int StringID, wchar_t *String );
-const wchar_t	*	Locale_GetString( int StringID );
+const char     *Locale_GetString(int StringID, char *String);
+const wchar_t  *Locale_GetString(int StringID, wchar_t *String);
+const wchar_t  *Locale_GetString(int StringID);
 bool			Locale_Use_Multi_Language_Files	( void );
 
 #endif

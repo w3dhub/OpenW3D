@@ -8,3 +8,7 @@ add_subdirectory(LevelEdit)
 add_subdirectory(WWConfig)
 add_subdirectory(wdump)
 add_subdirectory(W3DShellExt)
+
+if(W3D_BUILD_QT_TOOLS)
+    add_subdirectory(WWConfigQt)
+endif()

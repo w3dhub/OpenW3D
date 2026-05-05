@@ -4,6 +4,10 @@
   "dependencies": [
     "ffmpeg",
     "icu",
-    "sdl3"
+    "sdl3",
+    "qtbase",
+    "qttools",
+    "qtimageformats",
+    "qtsvg"
   ]
 }

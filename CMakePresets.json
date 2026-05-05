@@ -26,6 +26,53 @@
             "cacheVariables": {
                 "W3D_COMPILER_FLAGS": "/W3"
             }
+        },
+        {
+            "name": "windows-qt",
+            "inherits": "win",
+            "displayName": "Windows + Qt (x64)",
+            "binaryDir": "C:/build/openw3d/${presetName}",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_TARGET_TRIPLET": "x64-windows",
+                "VCPKG_INSTALLED_DIR": "C:/vcpkg.installed",
+                "W3D_BUILD_QT_TOOLS": "ON"
+            }
+        },
+        {
+            "name": "windows-qt-tools",
+            "inherits": "windows-qt",
+            "displayName": "Windows + Qt (Tools only)",
+            "cacheVariables": {
+                "W3D_CLIENT": "OFF",
+                "W3D_FDS": "OFF",
+                "W3D_TOOLS": "ON"
+            }
+        },
+        {
+            "name": "linux",
+            "inherits": "default",
+            "displayName": "Linux builds",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+        },
+        {
+            "name": "linux-qt",
+            "inherits": "linux",
+            "displayName": "Linux + Qt (x64)",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_TARGET_TRIPLET": "x64-linux",
+                "W3D_BUILD_QT_TOOLS": "ON"
+            }
         }
     ],
     "buildPresets": [
@@ -34,6 +81,27 @@
             "configurePreset": "win",
             "displayName": "Build Windows build",
             "description": "Build Windows build",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows-qt",
+            "configurePreset": "windows-qt",
+            "displayName": "Build Windows + Qt",
+            "description": "Build Qt-enabled Windows binaries",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows-qt-tools",
+            "configurePreset": "windows-qt-tools",
+            "displayName": "Build Windows + Qt (Tools only)",
+            "description": "Build Qt-enabled tools only",
+            "configuration": "Release"
+        },
+        {
+            "name": "linux-qt",
+            "configurePreset": "linux-qt",
+            "displayName": "Build Linux + Qt",
+            "description": "Build Qt-enabled Linux binaries",
             "configuration": "Release"
         }
     ],
@@ -48,6 +116,45 @@
                 {
                     "type": "build",
                     "name": "win"
+                }
+            ]
+        },
+        {
+            "name": "windows-qt",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "windows-qt"
+                },
+                {
+                    "type": "build",
+                    "name": "windows-qt"
+                }
+            ]
+        },
+        {
+            "name": "windows-qt-tools",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "windows-qt-tools"
+                },
+                {
+                    "type": "build",
+                    "name": "windows-qt-tools"
+                }
+            ]
+        },
+        {
+            "name": "linux-qt",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "linux-qt"
+                },
+                {
+                    "type": "build",
+                    "name": "linux-qt"
                 }
             ]
         }

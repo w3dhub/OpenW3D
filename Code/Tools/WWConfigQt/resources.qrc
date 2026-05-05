@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/wwconfig">
+        <file alias="logo.bmp">../WWConfig/res/logo.bmp</file>
+        <file alias="wwconfig.ico">../WWConfig/res/WWConfig.ico</file>
+    </qresource>
+</RCC>

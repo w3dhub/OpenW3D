@@ -53,6 +53,9 @@ add_feature_info(BrowserBuild W3D_BUILD_OPTION_WEBBROWSER "Build OpenW3D with we
 option(W3D_BUILD_OPTION_FFMPEG "Build with ffmpeg." OFF)
 add_feature_info(FFMpegBuild W3D_BUILD_OPTION_FFMPEG "Build OpenW3D with FFMpeg")
 
+option(W3D_BUILD_QT_TOOLS "Build Qt-based GUI tools." OFF)
+add_feature_info(QtTools W3D_BUILD_QT_TOOLS "Build Qt front-end tools")
+
 if(NOT WIN32)
     add_compile_definitions(__cdecl=)
     add_compile_definitions(__stdcall=)
@@ -79,6 +82,16 @@ else()
 endif()
 
 add_compile_definitions(-DWEBBROWSER_ENABLED=$<BOOL:${W3D_BUILD_OPTION_WEBBROWSER}>)
+
+if(W3D_BUILD_QT_TOOLS)
+    if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+        message(FATAL_ERROR "Qt tooling is only supported for 64-bit builds. Configure with a 64-bit generator or set W3D_BUILD_QT_TOOLS=OFF.")
+    endif()
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTOUIC ON)
+    set(CMAKE_AUTORCC ON)
+    include(qt_tools)
+endif()
 
 if(WIN32)
     # Do we want to build with bink for video decoding?
