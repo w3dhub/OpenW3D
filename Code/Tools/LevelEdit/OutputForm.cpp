@@ -60,20 +60,7 @@ OutputFormClass::OutputFormClass()
 	//
 	//	Try to open the log file
 	//
-	HANDLE file = ::CreateFile (	full_path,
-											GENERIC_WRITE,
-											FILE_SHARE_READ,
-											NULL,
-											OPEN_ALWAYS,
-											0L,
-											NULL);
-
-	//
-	//	If we succeeded then pass the handle onto our file object
-	//
-	if (file != INVALID_HANDLE_VALUE) {
-		LogFile.Attach (file);
-	}
+	LogFile.Open(full_path, FileClass::WRITE);
 
 	return ;
 }

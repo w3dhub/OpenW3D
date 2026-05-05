@@ -41,6 +41,7 @@
 #include "preset.h"
 #include "definitionfactorymgr.h"
 #include "definitionfactory.h"
+#include "editorbuild.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -263,16 +264,16 @@ PresetLoggerClass::Log_File_Reference_Changed
 //
 //////////////////////////////////////////////////////////////////////////
 bool
-PresetLoggerClass::Open_Log_File (TextFileClass &file_obj)
+PresetLoggerClass::Open_Log_File ([[maybe_unused]] TextFileClass &file_obj)
 {
 	bool retval = false;
 
+#ifndef PUBLIC_EDITOR_VER
 	HANDLE file = INVALID_HANDLE_VALUE;
 
 	//
 	//	Try 10 times to open the file
 	//
-#ifndef PUBLIC_EDITOR_VER
 	for (int index = 0; index < 10; index ++) {
 
 		//
@@ -298,12 +299,12 @@ PresetLoggerClass::Open_Log_File (TextFileClass &file_obj)
 		//
 		::Sleep (250);
 	}
-#endif //PUBLIC_EDITOR_VER
 
 	if (file != INVALID_HANDLE_VALUE) {
 		file_obj.Attach (file);
 		retval = true;
 	}
+#endif //PUBLIC_EDITOR_VER
 
 	return retval;
 }

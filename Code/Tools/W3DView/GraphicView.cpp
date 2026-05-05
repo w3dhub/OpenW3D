@@ -239,7 +239,7 @@ CGraphicView::InitializeGraphicView (void)
 
 	 if (m_pLightMesh == NULL)
 	 {
-		ResourceFileClass light_mesh_file (NULL, "Light.w3d");
+		ResourceFileClass light_mesh_file ("Light.w3d");
 		WW3DAssetManager::Get_Instance()->Load_3D_Assets (light_mesh_file);
 
 		m_pLightMesh = WW3DAssetManager::Get_Instance()->Create_Render_Obj ("LIGHT");
