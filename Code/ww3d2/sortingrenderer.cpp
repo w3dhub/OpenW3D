@@ -419,6 +419,9 @@ void SortingRendererClass::Insert_To_Sorting_Pool(SortingNodeStruct* state)
 
 static void Apply_Render_State(RenderStateStruct& render_state)
 {
+	if (!DX8Wrapper::_Get_D3D_Device8()) {
+		return;
+	}
 /*	state->sorting_state.shader.Apply();
 */
 	DX8Wrapper::Set_Shader(render_state.shader);

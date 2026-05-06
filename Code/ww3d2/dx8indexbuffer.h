@@ -47,6 +47,7 @@
 #include "wwdebug.h"
 #include "refcount.h"
 #include "sphere.h"
+#include <cstdint>
 
 class DX8Wrapper;
 class SortingRendererClass;
@@ -173,9 +174,11 @@ public:
 	void Copy(unsigned short* indices,unsigned start_index,unsigned index_count);
 
 	inline IDirect3DIndexBuffer9* Get_DX8_Index_Buffer()	{ return index_buffer; }
+	void* Get_CPU_Buffer() { return cpu_buffer; }
 
 private:
 	IDirect3DIndexBuffer9*	index_buffer;		// actual dx8 index buffer
+	void*					cpu_buffer;
 };
 
 

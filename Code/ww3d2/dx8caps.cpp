@@ -455,6 +455,42 @@ DX8Caps::DeviceTypeIntel DX8Caps::Get_Intel_Device(unsigned device_id)
 	}
 }
 
+DX8Caps::DX8Caps()
+	:
+	Direct3D(NULL),
+	MaxDisplayWidth(0),
+	MaxDisplayHeight(0)
+{
+	memset(&Caps, 0, sizeof(Caps));
+	SupportTnL = true;
+	SupportDXTC = true;
+	supportGamma = true;
+	SupportNPatches = false;
+	SupportBumpEnvmap = true;
+	SupportBumpEnvmapLuminance = true;
+	memset(SupportTextureFormat, 0, sizeof(SupportTextureFormat));
+	memset(SupportRenderToTextureFormat, 0, sizeof(SupportRenderToTextureFormat));
+	SupportZBias = true;
+	SupportAnisotropicFiltering = true;
+	CanDoMultiPass = true;
+	IsFogAllowed = true;
+	MaxTexturesPerPass = 4;
+	VertexShaderVersion = 0x300;
+	PixelShaderVersion = 0x300;
+	DeviceId = 0;
+	DriverBuildVersion = 0;
+	DriverVersionStatus = DRIVER_STATUS_GOOD;
+	VendorId = VENDOR_NVIDIA;
+	DriverDLL = "stub.dll";
+	CapsLog = "";
+	CompactLog = "";
+}
+
+DX8Caps* DX8Caps::Create_Stub_Caps()
+{
+	return new DX8Caps();
+}
+
 DX8Caps::DX8Caps(
 	IDirect3D9* direct3d,
 	IDirect3DDevice9* D3DDevice,

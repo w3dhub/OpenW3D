@@ -1593,6 +1593,9 @@ void DX8Wrapper::Clear(bool clear_color, bool clear_z_stencil, const Vector3 &co
 void DX8Wrapper::Set_Viewport(CONST D3DVIEWPORT9* pViewport)
 {
 	DX8_THREAD_ASSERT();
+	if (!D3DDevice) {
+		return;
+	}
 	DX8CALL(SetViewport(pViewport));
 }
 
@@ -3395,6 +3398,9 @@ const char* DX8Wrapper::Get_DX8_Blend_Op_Name(unsigned value)
 
 void DX8Wrapper::Set_DX8_ZBias(int zbias)
 {
+	if (!D3DDevice) {
+		return;
+	}
 	if (zbias==ZBias) return;
 	if (zbias>15) zbias=15;
 	if (zbias<0) zbias=0;
@@ -3417,6 +3423,9 @@ void DX8Wrapper::Set_DX8_ZBias(int zbias)
 
 void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value)
 {
+	if (!D3DDevice) {
+		return;
+	}
 	// Can't monitor state changes because setShader call to GERD may change the states!
 	if (RenderStates[state]==value) return;
 

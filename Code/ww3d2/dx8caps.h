@@ -204,8 +204,12 @@ public:
 	};
 
 
+	DX8Caps();
+
 	DX8Caps(IDirect3D9* direct3d, const D3DCAPS9& caps,WW3DFormat display_format, const D3DADAPTER_IDENTIFIER9& adapter_id);
 	DX8Caps(IDirect3D9* direct3d, IDirect3DDevice9* D3DDevice,WW3DFormat display_format, const D3DADAPTER_IDENTIFIER9& adapter_id);
+
+	static DX8Caps* Create_Stub_Caps();
 
 	void Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIER9& adapter_id);
 	bool Support_TnL() const { return SupportTnL; };

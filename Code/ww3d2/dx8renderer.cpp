@@ -2011,7 +2011,9 @@ void DX8MeshRendererClass::Flush(void)
 		Render_FVF_Category_Container_List(*texture_category_container_lists_rigid[i]);
 	}
 
-	Render_FVF_Category_Container_List(*texture_category_container_list_skin);
+	if (texture_category_container_list_skin) {
+		Render_FVF_Category_Container_List(*texture_category_container_list_skin);
+	}
 
 	Render_Decal_Meshes();
 
