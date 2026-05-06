@@ -119,11 +119,16 @@ extern "C"
 //	Local functions
 //----------------------------------------------------------------------------
 static BOOL Create_Main_Window(void);
+#if !defined(OPENW3D_SDL3)
 LRESULT CALLBACK Main_Window_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+#endif
 void On_Focus_Loss(void);
 void On_Focus_Restore(void);
 int Start_Application( void );
 bool Set_Working_Directory(void);
+#if defined(OPENW3D_SDL3)
+void SDL3_Pump_Events(void);
+#endif
 
 //#include "packet.h"
 
@@ -495,6 +500,7 @@ int Start_Application(void)
 	return exitCode;
 }
 
+#if !defined(OPENW3D_SDL3)
 /***********************************************************************************************
  * Main_Window_Proc -- Windows Proc for the main game window                                   *
  *                                                                                             *
@@ -669,6 +675,7 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
 
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
+#endif // !OPENW3D_SDL3
 
 
 /***********************************************************************************************
@@ -688,6 +695,34 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
  *=============================================================================================*/
 static BOOL Create_Main_Window(void)
 {
+#if defined(OPENW3D_SDL3)
+	if (ConsoleBox.Is_Exclusive()) {
+		return TRUE;
+	}
+
+	if (!SDL_Init(SDL_INIT_VIDEO)) {
+		return FALSE;
+	}
+
+	SDL_Window* sdlWindow = SDL_CreateWindow(
+		"Renegade",
+		800, 600,
+		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
+
+	if (!sdlWindow) {
+		return FALSE;
+	}
+
+	// Get the native Win32 HWND from SDL3 window
+	MainWindow = (HWND)SDL_GetPointerProperty(SDL_GetWindowProperties(sdlWindow), SDL_PROP_WINDOW_WIN32_HWND_POINTER, NULL);
+	if (!MainWindow) {
+		SDL_DestroyWindow(sdlWindow);
+		return FALSE;
+	}
+
+	hWndMain = MainWindow;
+	return TRUE;
+#elif defined(OPENW3D_WIN32)
 	WNDCLASSA    wc;
 	BOOL        rc;
 
@@ -721,7 +756,41 @@ static BOOL Create_Main_Window(void)
 	}
 
 	return TRUE;
+#else
+	return FALSE;
+#endif
 }
+
+#if defined(OPENW3D_SDL3)
+/***********************************************************************************************
+ * SDL3_Pump_Events -- Pumps SDL events and handles focus for SDL3 window                        *
+ *=============================================================================================*/
+void SDL3_Pump_Events(void)
+{
+	SDL_Event event;
+
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_EVENT_WINDOW_FOCUS_GAINED:
+			if (!GameInFocus) {
+				GameInFocus = true;
+				On_Focus_Restore();
+			}
+			break;
+		case SDL_EVENT_WINDOW_FOCUS_LOST:
+			if (GameInFocus) {
+				GameInFocus = false;
+				On_Focus_Loss();
+			}
+			break;
+		case SDL_EVENT_QUIT:
+			break;
+		default:
+			break;
+		}
+	}
+}
+#endif
 
 
 /***********************************************************************************************

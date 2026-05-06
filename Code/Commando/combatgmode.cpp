@@ -38,6 +38,10 @@
 #include "level.h"
 #include "input.h"
 #include "cnetwork.h"
+
+#if defined(OPENW3D_SDL3)
+extern void SDL3_Pump_Events(void);
+#endif
 #include "AudibleSound.h"
 #include "debug.h"
 #include "registry.h"

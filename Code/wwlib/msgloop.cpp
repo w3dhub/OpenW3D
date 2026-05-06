@@ -43,6 +43,10 @@
 #include	"vector.h"
 #include	"win.h"
 
+#if defined(OPENW3D_SDL3)
+extern void SDL3_Pump_Events(void);
+#endif
+
 
 /*
 **	Tracks modeless dialog box messages by keeping a record of all active modeless dialog
@@ -152,6 +156,10 @@ void Windows_Message_Handler(void)
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+
+#if defined(OPENW3D_SDL3)
+	SDL3_Pump_Events();
+#endif
 }
 
 
