@@ -28,9 +28,9 @@ set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
-# MinGW-specific flags
-set(CMAKE_C_FLAGS_INIT "-static-libgcc")
-set(CMAKE_CXX_FLAGS_INIT "-static-libgcc -static-libstdc++")
+# MinGW-specific linker flags
+set(CMAKE_EXE_LINKER_FLAGS_INIT "-static-libgcc -static-libstdc++")
+set(CMAKE_SHARED_LINKER_FLAGS_INIT "-static-libgcc")
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
 
 # Windows version target (Windows 7+)
