@@ -60,3 +60,9 @@ IDL_*.loc
 /.vscode
 /.vs
 /build*
+
+# Bundled third-party binaries (use find_package / system packages instead)
+/external/sdl3/
+/external/bgfx/
+/external/bimg/
+/external/bx/
