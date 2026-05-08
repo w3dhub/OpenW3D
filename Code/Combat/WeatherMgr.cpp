@@ -81,7 +81,7 @@ WeatherSystemClass							*WeatherMgrClass::_Precipitation [PRECIPITATION_COUNT];
 bool												 WeatherMgrClass::_FogEnabled;
 bool												 WeatherMgrClass::_Dirty;
 
-static const float WEATHER_SURFACE_OFFSET_DISTANCE = 0.01f;
+static constexpr float WEATHER_SURFACE_OFFSET_DISTANCE = 0.01f;
 
 
 /***********************************************************************************************

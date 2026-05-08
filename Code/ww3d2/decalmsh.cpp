@@ -65,7 +65,7 @@
 
 #define DISABLE_CLIPPING	0
 
-static const float DECAL_ZBIAS_DISTANCE = 0.01f;
+static constexpr float DECAL_ZBIAS_DISTANCE = 0.01f;
 
 /**
 ** DecalPolyClass - This class is used to clip polygons as they are
