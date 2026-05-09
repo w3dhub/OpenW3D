@@ -47,7 +47,6 @@
 #include "thread.h"
 #include "wwmemlog.h"
 #include "ww3d.h"
-#include "ww3dbackend.h"
 
 #define DEFAULT_IB_SIZE 5000
 
@@ -94,10 +93,6 @@ IndexBufferClass::IndexBufferClass(unsigned type_, unsigned short index_count_)
 
 IndexBufferClass::~IndexBufferClass()
 {
-	if (WW3D::Get_Backend()) {
-		WW3D::Get_Backend()->Invalidate_Index_Buffer_Cache_Entry(this);
-	}
-
 	_IndexBufferCount--;
 	_IndexBufferTotalIndices-=index_count;
 	_IndexBufferTotalSize-=index_count*sizeof(unsigned short);
@@ -367,8 +362,9 @@ DX8IndexBufferClass::DX8IndexBufferClass(unsigned short index_count_,UsageType u
 // ----------------------------------------------------------------------------
 
 DX8IndexBufferClass::~DX8IndexBufferClass()
-{	if (cpu_buffer) {
-		free(cpu_buffer);
+{
+	if (cpu_buffer) {
+		delete[] static_cast<uint8_t*>(cpu_buffer);
 		cpu_buffer = NULL;
 	}
 	if (index_buffer) {

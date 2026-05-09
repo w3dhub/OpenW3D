@@ -46,7 +46,6 @@
 #include "wwmemlog.h"
 #include <d3dx9core.h>
 #include "ww3d.h"
-#include "ww3dbackend.h"
 
 #define DEFAULT_VB_SIZE 5000
 
@@ -102,10 +101,6 @@ VertexBufferClass::VertexBufferClass(unsigned type_, unsigned FVF, unsigned shor
 
 VertexBufferClass::~VertexBufferClass()
 {
-	if (WW3D::Get_Backend()) {
-		WW3D::Get_Backend()->Invalidate_Vertex_Buffer_Cache_Entry(this);
-	}
-
 	_VertexBufferCount--;
 	_VertexBufferTotalVertices-=VertexCount;
 	_VertexBufferTotalSize-=VertexCount*fvf_info->Get_FVF_Size();
@@ -429,7 +424,7 @@ DX8VertexBufferClass::~DX8VertexBufferClass()
 		VertexBuffer->Release();
 	}
 	if (cpu_buffer) {
-		free(cpu_buffer);
+		delete[] static_cast<uint8_t*>(cpu_buffer);
 		cpu_buffer = NULL;
 	}
 }
@@ -459,6 +454,12 @@ void DX8VertexBufferClass::Create_Vertex_Buffer(UsageType usage)
 	WWDEBUG_SAY(("Current vertex buffer count: %d\n",_DX8VertexBufferCount));
 #endif
 
+	if (!DX8Wrapper::_Get_D3D_Device8()) {
+		cpu_buffer = new uint8_t[FVF_Info().Get_FVF_Size() * VertexCount];
+		memset(cpu_buffer, 0, FVF_Info().Get_FVF_Size() * VertexCount);
+		return;
+	}
+
 	unsigned usage_flags=
 		D3DUSAGE_WRITEONLY|
 		((usage&USAGE_DYNAMIC) ? D3DUSAGE_DYNAMIC : 0)|
@@ -466,12 +467,6 @@ void DX8VertexBufferClass::Create_Vertex_Buffer(UsageType usage)
 		((usage&USAGE_SOFTWAREPROCESSING) ? D3DUSAGE_SOFTWAREPROCESSING : 0);
 	if (!DX8Wrapper::Get_Current_Caps()->Support_TnL()) {
 		usage_flags|=D3DUSAGE_SOFTWAREPROCESSING;
-	}
-
-	if (!DX8Wrapper::_Get_D3D_Device8()) {
-		cpu_buffer = new uint8_t[FVF_Info().Get_FVF_Size() * VertexCount];
-		memset(cpu_buffer, 0, FVF_Info().Get_FVF_Size() * VertexCount);
-		return;
 	}
 
 	HRESULT ret=DX8Wrapper::_Get_D3D_Device8()->CreateVertexBuffer(
