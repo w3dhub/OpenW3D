@@ -32,6 +32,7 @@
 *
 ******************************************************************************/
 
+#include <windows.h>
 #include "atlbase_compat.h"
 #include "WOLNetUtilObserver.h"
 #include "WOLSession.h"
