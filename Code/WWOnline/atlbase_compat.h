@@ -19,8 +19,14 @@
 #if defined(_WIN32)
 
 // Windows: include the real SDK headers.
-#include <objbase.h>
-#include <comdef.h>
+// MSVC gets ATL directly; MinGW/non-MSVC gets the SDK headers.
+#ifdef _MSC_VER
+#include <atlbase.h>
+#else
+#include <windows.h>
+#include <ocidl.h>
+#include <unknwn.h>
+#endif
 
 #else // !_WIN32
 
