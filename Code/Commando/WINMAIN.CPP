@@ -128,6 +128,7 @@ LRESULT CALLBACK Main_Window_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM
 #endif
 void On_Focus_Loss(void);
 void On_Focus_Restore(void);
+void Prog_End(void);
 int Start_Application( void );
 bool Set_Working_Directory(void);
 #if defined(OPENW3D_SDL3)
