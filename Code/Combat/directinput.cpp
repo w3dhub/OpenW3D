@@ -39,7 +39,80 @@
 #include "debug.h"
 #include "timemgr.h"
 
-#include <dinput.h>
+#include "openw3d_dinput_compat.h"
+
+#if !defined(_WIN32)
+
+char						DirectInput::DIKeyboardButtons[NUM_KEYBOARD_BUTTONS] = { 0 };
+char						DirectInput::DIMouseButtons[NUM_MOUSE_BUTTONS] = { 0 };
+int						DirectInput::DIMouseAxis[NUM_MOUSE_AXIS] = { 0 };
+char						DirectInput::DIJoystickButtons[NUM_MOUSE_BUTTONS] = { 0 };
+float					DirectInput::ButtonLastHitTime[NUM_KEYBOARD_BUTTONS] = { 0 };
+Vector3					DirectInput::CursorPos (0, 0, 0);
+bool						DirectInput::EatMouseHeld = false;
+bool						DirectInput::Captured = false;
+void *					DirectInput::DirectInputLibrary = NULL;
+int						DirectInput::LastKeyPressed = 0;
+
+void DirectInput::Init(void)
+{
+}
+
+void DirectInput::Shutdown(void)
+{
+}
+
+void DirectInput::Read(void)
+{
+	::memset(DIKeyboardButtons, 0, sizeof(DIKeyboardButtons));
+	::memset(DIMouseButtons, 0, sizeof(DIMouseButtons));
+	::memset(DIMouseAxis, 0, sizeof(DIMouseAxis));
+	::memset(DIJoystickButtons, 0, sizeof(DIJoystickButtons));
+	LastKeyPressed = 0;
+}
+
+void DirectInput::Flush(void)
+{
+	Read();
+}
+
+void DirectInput::Acquire(void)
+{
+	Captured = true;
+}
+
+void DirectInput::Unacquire(void)
+{
+	Captured = false;
+}
+
+void DirectInput::Eat_Mouse_Held_States(void)
+{
+	EatMouseHeld = true;
+}
+
+int DirectInput::Get_Joystick_Axis_State(JoystickAxis)
+{
+	return 0;
+}
+
+void DirectInput::Update_Double_Clicks(void)
+{
+}
+
+void DirectInput::ReadKeyboard(void)
+{
+}
+
+void DirectInput::ReadMouse(void)
+{
+}
+
+void DirectInput::ReadJoystick(void)
+{
+}
+
+#else
 
 /*
 **
@@ -754,3 +827,5 @@ void	DirectInput::Update_Double_Clicks (void)
 
 	return ;
 }
+
+#endif

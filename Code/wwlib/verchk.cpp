@@ -63,6 +63,13 @@
 *
 ******************************************************************************/
 bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo) {
+	#if !defined(_WIN32)
+	(void)filename;
+	if (fileInfo != NULL) {
+		memset(fileInfo, 0, sizeof(*fileInfo));
+	}
+	return false;
+	#else
 	//
 	// Get the version information for this file
 	//
@@ -90,6 +97,7 @@ bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo) {
 		pblock = NULL;
 	}
 	return verok;
+	#endif
 }
 
 
@@ -124,6 +132,7 @@ bool GetFileCreationTime(const char* filename, FileCreationTime* createTime)
 //	Get_Image_File_Header
 //
 ////////////////////////////////////////////////////////////////////////
+#if defined(_WIN32)
 bool
 Get_Image_File_Header (const char *filename, IMAGE_FILE_HEADER *file_header)
 {
@@ -198,6 +207,7 @@ Get_Image_File_Header (HINSTANCE app_instance, IMAGE_FILE_HEADER *file_header)
 
 	return retval;
 }
+#endif
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -215,6 +225,11 @@ Get_Image_File_Header (HINSTANCE app_instance, IMAGE_FILE_HEADER *file_header)
 int
 Compare_EXE_Version (HINSTANCE app_instance, const char *filename)
 {
+	#if !defined(_WIN32)
+	(void)app_instance;
+	(void)filename;
+	return 0;
+	#else
 	int retval = 0;
 
 	//
@@ -229,4 +244,5 @@ Compare_EXE_Version (HINSTANCE app_instance, const char *filename)
 	}
 
 	return retval;
+	#endif
 }

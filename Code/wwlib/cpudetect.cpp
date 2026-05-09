@@ -24,8 +24,48 @@
 #include <windows.h>
 #include "systimer.h"
 
-#if CPU_X86 || CPU_X86_64
+#if !defined(_WIN32)
+#include <sys/sysinfo.h>
+#include <sys/utsname.h>
+
+#ifndef VER_PLATFORM_WIN32s
+#define VER_PLATFORM_WIN32s 0
+#endif
+
+#ifndef VER_PLATFORM_WIN32_WINDOWS
+#define VER_PLATFORM_WIN32_WINDOWS 1
+#endif
+
+#ifndef VER_PLATFORM_WIN32_NT
+#define VER_PLATFORM_WIN32_NT 2
+#endif
+
+typedef struct _TIME_ZONE_INFORMATION {
+	long Bias;
+} TIME_ZONE_INFORMATION;
+
+inline unsigned long GetTimeZoneInformation(TIME_ZONE_INFORMATION *time_zone)
+{
+	if (time_zone == NULL) {
+		return 0;
+	}
+
+	time_t now = std::time(NULL);
+	tm local_time = {};
+	localtime_r(&now, &local_time);
+	time_zone->Bias = 0;
+	#if defined(__USE_BSD) || defined(__USE_GNU) || defined(__APPLE__)
+	time_zone->Bias = static_cast<long>(-(local_time.tm_gmtoff / 60));
+	#endif
+	return 0;
+}
+#endif
+
+#if (CPU_X86 || CPU_X86_64) && defined(_MSC_VER)
 #include <intrin.h>
+#elif CPU_X86 || CPU_X86_64
+#include <cpuid.h>
+#include <x86intrin.h>
 #endif
 
 #if CPU_X86 || CPU_X86_64
@@ -888,6 +928,7 @@ void CPUDetectClass::Init_Processor_Features()
 
 void CPUDetectClass::Init_Memory()
 {
+	#if defined(_WIN32)
 	MEMORYSTATUS mem;
 	GlobalMemoryStatus(&mem);
 	TotalPhysicalMemory=mem.dwTotalPhys;
@@ -896,10 +937,30 @@ void CPUDetectClass::Init_Memory()
 	AvailablePageMemory=mem.dwAvailPageFile;
 	TotalVirtualMemory=mem.dwTotalVirtual;
 	AvailableVirtualMemory=mem.dwAvailVirtual;
+	#else
+	struct sysinfo info = {};
+	if (sysinfo(&info) == 0) {
+		const unsigned long long unit = (info.mem_unit == 0) ? 1ULL : static_cast<unsigned long long>(info.mem_unit);
+		TotalPhysicalMemory = static_cast<unsigned>(info.totalram * unit);
+		AvailablePhysicalMemory = static_cast<unsigned>(info.freeram * unit);
+		TotalPageMemory = static_cast<unsigned>((info.totalram + info.totalswap) * unit);
+		AvailablePageMemory = static_cast<unsigned>((info.freeram + info.freeswap) * unit);
+		TotalVirtualMemory = TotalPageMemory;
+		AvailableVirtualMemory = AvailablePageMemory;
+	} else {
+		TotalPhysicalMemory = 0;
+		AvailablePhysicalMemory = 0;
+		TotalPageMemory = 0;
+		AvailablePageMemory = 0;
+		TotalVirtualMemory = 0;
+		AvailableVirtualMemory = 0;
+	}
+	#endif
 }
 
 void CPUDetectClass::Init_OS()
 {
+	#if defined(_WIN32)
 	// GetVersionEx only returns the version of Windows it was manifested for since Windows 8.
 	// RtlGetVersion returns the correct information at least at the time of writing.
 	typedef LONG(WINAPI * RtlGetVersionFuncPtr)(PRTL_OSVERSIONINFOW);
@@ -925,6 +986,18 @@ void CPUDetectClass::Init_OS()
 	OSVersionBuildNumber = 0;
 	OSVersionPlatformId = 2;
     OSVersionExtraInfo = "";
+	#else
+	struct utsname os = {};
+	if (uname(&os) == 0) {
+		OSVersionExtraInfo.Format("%s %s", os.sysname, os.release);
+	} else {
+		OSVersionExtraInfo = "Linux";
+	}
+	OSVersionNumberMajor = 0;
+	OSVersionNumberMinor = 0;
+	OSVersionBuildNumber = 0;
+	OSVersionPlatformId = 0;
+	#endif
 }
 
 bool CPUDetectClass::CPUID(
@@ -939,7 +1012,15 @@ bool CPUDetectClass::CPUID(
 		return false;	// Most processors since 486 have CPUID...
 	}
 	int cpuInfo[4];
+	#if defined(_MSC_VER)
 	__cpuid(cpuInfo, cpuid_type);
+	#else
+	__get_cpuid(cpuid_type,
+		reinterpret_cast<unsigned int *>(&cpuInfo[0]),
+		reinterpret_cast<unsigned int *>(&cpuInfo[1]),
+		reinterpret_cast<unsigned int *>(&cpuInfo[2]),
+		reinterpret_cast<unsigned int *>(&cpuInfo[3]));
+	#endif
 
 	u_eax_=cpuInfo[0];
 	u_ebx_=cpuInfo[1];
@@ -948,7 +1029,7 @@ bool CPUDetectClass::CPUID(
 
 	return true;
 #else
-	return false
+	return false;
 #endif
 }
 

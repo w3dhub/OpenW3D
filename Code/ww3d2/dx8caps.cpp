@@ -41,7 +41,9 @@
 #include "dx8wrapper.h"
 #include "formconv.h"
 #include <windows.h>
+#ifdef _WIN32
 #include <mmsystem.h>
+#endif
 
 static StringClass CapsWorkString;
 
@@ -1058,4 +1060,3 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER9& /* adapter_id 
 
 	}
 }
-

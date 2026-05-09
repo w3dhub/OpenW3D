@@ -113,10 +113,14 @@ void ScriptManager::Shutdown(void)
 		ActiveScriptList.Delete(0);
 	}
 
+	#if defined(_WIN32)
 	if (hDLL != NULL) {
 		FreeLibrary(hDLL);
 		hDLL = NULL;
 	}
+	#else
+	hDLL = NULL;
+	#endif
 }
 
 
@@ -148,6 +152,13 @@ void ScriptManager::Destroy_Pending(void)
 */
 void ScriptManager::Load_Scripts(const char* dll_filename)
 {
+	#if !defined(_WIN32)
+	Debug_Say(("Script loading is disabled on non-Windows builds (%s)\n", dll_filename));
+	ScriptCreateFunct = NULL;
+	ScriptDestroyFunct = NULL;
+	hDLL = NULL;
+	return;
+	#else
 	char dll_fullpath[MAX_PATH];
 	{
 		char path_to_exe[MAX_PATH];
@@ -273,6 +284,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 			Debug_Say(("Cound not find Set_Script_Commands\n"));
 		}
 	}
+	#endif
 }
 
 
@@ -475,6 +487,5 @@ bool	ScriptManager::Load( ChunkLoadClass & cload )
 	}
 	return true;
 }
-
 
 

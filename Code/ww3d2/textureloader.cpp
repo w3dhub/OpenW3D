@@ -25,6 +25,7 @@
 #include "wwstring.h"
 #include "bufffile.h"
 #include "ww3d.h"
+#include "systimer.h"
 #include "texfcach.h"
 #include "assetmgr.h"
 #include "dx8wrapper.h"
@@ -774,7 +775,9 @@ void TextureLoader::Flush_Pending_Load_Tasks(void)
 
 
 // Nework update macro for texture loader.
+#ifdef _WIN32
 #include <mmsystem.h>
+#endif
 #define UPDATE_NETWORK 											\
 	if (network_callback) {                            \
 		unsigned int time2 = timeGetTime();            \

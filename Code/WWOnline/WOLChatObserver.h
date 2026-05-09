@@ -35,7 +35,7 @@
 #ifndef __WOLCHATOBSERVER_H__
 #define __WOLCHATOBSERVER_H__
 
-#include <objbase.h>
+#include "atlbase_compat.h"
 #include "RefPtr.h"
 #include "WOLUser.h"
 

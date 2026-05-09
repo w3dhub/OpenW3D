@@ -50,7 +50,7 @@
 #include "combat.h"
 #include "ccamera.h"
 
-#include <dinput.h>
+#include "openw3d_dinput_compat.h"
 
 #include <stdio.h>
 #include <algorithm>

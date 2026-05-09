@@ -229,6 +229,11 @@ target_link_libraries(ww3d2 PRIVATE
     winmm
 )
 
+if (W3D_BUILD_OPTION_SDL3)
+    find_package(SDL3_ttf REQUIRED)
+    target_link_libraries(ww3d2 PUBLIC SDL3_ttf::SDL3_ttf)
+endif()
+
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
 
 # This module needs building differently for the level editor

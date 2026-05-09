@@ -22,6 +22,8 @@
 
 #include "framgrab.h"
 #include <stdio.h>
+
+#if defined(_WIN32)
 #include <io.h>
 //#include <errno.h>
 
@@ -189,3 +191,79 @@ void FrameGrabClass::ConvertFrame(void *BitmapPointer)
 		}
 	}
 }
+
+#else
+
+FrameGrabClass::FrameGrabClass(const char *filename, MODE mode, int width, int height, int bitcount, float framerate)
+{
+	Filename = filename;
+	FrameRate = framerate;
+	Mode = mode;
+	Counter = 0;
+	AVIFile = 0;
+	Stream = 0;
+	Bitmap = NULL;
+	BitmapInfoHeader.biWidth = width;
+	BitmapInfoHeader.biHeight = height;
+	BitmapInfoHeader.biBitCount = (unsigned short)bitcount;
+	BitmapInfoHeader.biSizeImage = (unsigned int)(width * height * sizeof(int));
+	BitmapInfoHeader.biSize = sizeof(BITMAPINFOHEADER);
+	BitmapInfoHeader.biPlanes = 1;
+	BitmapInfoHeader.biCompression = 0;
+	BitmapInfoHeader.biXPelsPerMeter = 0;
+	BitmapInfoHeader.biYPelsPerMeter = 0;
+	BitmapInfoHeader.biClrUsed = 0;
+	BitmapInfoHeader.biClrImportant = 0;
+	if (Mode == AVI) {
+		Bitmap = new int[width * height];
+	}
+}
+
+FrameGrabClass::~FrameGrabClass()
+{
+	CleanupAVI();
+}
+
+void FrameGrabClass::CleanupAVI()
+{
+	if (Bitmap != NULL) {
+		delete [] Bitmap;
+		Bitmap = NULL;
+	}
+	AVIFile = 0;
+	Stream = 0;
+	Mode = RAW;
+}
+
+void FrameGrabClass::GrabAVI(void * /*BitmapPointer*/)
+{
+}
+
+void FrameGrabClass::GrabRawFrame(void * /*BitmapPointer*/)
+{
+}
+
+void FrameGrabClass::ConvertGrab(void *BitmapPointer)
+{
+	ConvertFrame(BitmapPointer);
+	Grab(Bitmap);
+}
+
+void FrameGrabClass::Grab(void *BitmapPointer)
+{
+	if (Mode == AVI) {
+		GrabAVI(BitmapPointer);
+	} else {
+		GrabRawFrame(BitmapPointer);
+	}
+}
+
+void FrameGrabClass::ConvertFrame(void *BitmapPointer)
+{
+	if (Bitmap == NULL || BitmapPointer == NULL) {
+		return;
+	}
+	::memcpy(Bitmap, BitmapPointer, BitmapInfoHeader.biSizeImage);
+}
+
+#endif

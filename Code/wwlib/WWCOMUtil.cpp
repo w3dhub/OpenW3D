@@ -36,6 +36,50 @@
 
 #include "WWCOMUtil.h"
 
+#if !defined(_WIN32)
+
+HRESULT STDMETHODCALLTYPE Dispatch_GetProperty(IDispatch* object, const OLECHAR* propName,
+		VARIANT* result)
+{
+	(void)object;
+	(void)propName;
+	(void)result;
+	return -1;
+}
+
+HRESULT STDMETHODCALLTYPE Dispatch_PutProperty(IDispatch* object, const OLECHAR* propName,
+		VARIANT* propValue)
+{
+	(void)object;
+	(void)propName;
+	(void)propValue;
+	return -1;
+}
+
+HRESULT STDMETHODCALLTYPE Dispatch_InvokeMethod(IDispatch* object, const OLECHAR* methodName,
+		DISPPARAMS* params, VARIANT* result)
+{
+	(void)object;
+	(void)methodName;
+	(void)params;
+	(void)result;
+	return -1;
+}
+
+bool RegisterCOMServer(const char* dllName)
+{
+	(void)dllName;
+	return false;
+}
+
+bool UnregisterCOMServer(const char* dllName)
+{
+	(void)dllName;
+	return false;
+}
+
+#else
+
 /******************************************************************************
 *
 * NAME
@@ -240,3 +284,5 @@ bool UnregisterCOMServer(const char* dllName)
 
 	return success;
 	}
+
+#endif

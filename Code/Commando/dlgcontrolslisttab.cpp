@@ -42,7 +42,7 @@
 #include "string_ids.h"
 #include "translatedb.h"
 
-#include <dinput.h>
+#include "openw3d_dinput_compat.h"
 #include "directinput.h"
 
 
@@ -559,4 +559,3 @@ ControlsListTabClass::Get_Function_Name (int function_id)
 
 	return retval;
 }
-

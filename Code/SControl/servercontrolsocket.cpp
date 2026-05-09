@@ -315,7 +315,11 @@ void ServerControlSocketClass::Discard_Out_Buffers(void)
 void ServerControlSocketClass::Clear_Socket_Error(void)
 {
 	unsigned int error_code;
+	#ifdef _WIN32
 	int length = 4;
+	#else
+	socklen_t length = sizeof(error_code);
+	#endif
 
 	if (Socket != INVALID_SOCKET) {
 		getsockopt (Socket, SOL_SOCKET, SO_ERROR, (char*)&error_code, &length);
@@ -733,7 +737,11 @@ void ServerControlSocketClass::Service(void)
 {
 	u_long bytes;
 	struct sockaddr_in addr;
+	#ifdef _WIN32
 	int addr_len;
+	#else
+	socklen_t addr_len;
+	#endif
 	WinsockBufferType *packet;
 	int result;
 	unsigned int timeout_check = TIMEGETTIME();
@@ -1058,4 +1066,3 @@ void ServerControlSocketClass::Decrypt(unsigned char *packet, int size)
 		key[i & 7] ^= b;
 	}
 }
-

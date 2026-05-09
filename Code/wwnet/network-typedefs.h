@@ -14,10 +14,12 @@
 #include <sys/types.h>
 #include <unistd.h> // for close()
 typedef int SOCKET;
+typedef struct sockaddr *LPSOCKADDR;
 #define INVALID_SOCKET       (-1)
 #define SOCKET_ERROR         (-1)
 #define closesocket(x)       close(x)
 #define ioctlsocket(x, y, z) ioctl(x, y, z)
+#define Sleep(x)             usleep((x) * 1000)
 #define LastSocketError      (errno)
 typedef struct in_addr IN_ADDR;
 

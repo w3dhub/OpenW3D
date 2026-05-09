@@ -44,6 +44,24 @@
 
 #include <windows.h>
 
+#if !defined(_WIN32)
+typedef struct tagVS_FIXEDFILEINFO {
+	unsigned int dwSignature;
+	unsigned int dwStrucVersion;
+	unsigned int dwFileVersionMS;
+	unsigned int dwFileVersionLS;
+	unsigned int dwProductVersionMS;
+	unsigned int dwProductVersionLS;
+	unsigned int dwFileFlagsMask;
+	unsigned int dwFileFlags;
+	unsigned int dwFileOS;
+	unsigned int dwFileType;
+	unsigned int dwFileSubtype;
+	unsigned int dwFileDateMS;
+	unsigned int dwFileDateLS;
+} VS_FIXEDFILEINFO;
+#endif
+
 struct FileCreationTime {
     int year;
     int month;
@@ -75,4 +93,3 @@ int Compare_EXE_Version (HINSTANCE app_instance, const char *filename);
 
 
 #endif //__VERCHK_H
-

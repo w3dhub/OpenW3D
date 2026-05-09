@@ -46,7 +46,12 @@
 #include "vector.h"
 #include "vector2i.h"
 #include "wwstring.h"
+
+#ifdef _WIN32
 #include "win.h"
+#else
+#include <SDL3_ttf/SDL_ttf.h>
+#endif
 
 /*
 ** FontCharsClass
@@ -102,12 +107,19 @@ private:
 	int									CharHeight;
 	int									PointSize;
 	StringClass							GDIFontName;
+#ifdef _WIN32
 	HFONT									OldGDIFont;
 	HBITMAP								OldGDIBitmap;
 	HBITMAP								GDIBitmap;
 	HFONT									GDIFont;
 	uint8 *								GDIBitmapBits;
 	HDC									MemDC;
+#else
+	TTF_Font *							SDLFont;
+	uint8 *								SDLPixelBuffer;
+	int									SDLBufferWidth;
+	int									SDLBufferHeight;
+#endif
 	CharDataStruct *					ASCIICharArray[256];
 	CharDataStruct **					UnicodeCharArray;
 	unichar_t								FirstUnicodeChar;

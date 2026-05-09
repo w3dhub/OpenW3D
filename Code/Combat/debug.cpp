@@ -213,7 +213,11 @@ void	DebugManager::Display( char const *buffer )
 	}
 
 	if ( EnabledDevices & DEBUG_DEVICE_WINDOWS ) {
+		#if defined(_WIN32)
 		OutputDebugStringA( buffer );		// puts it in the MSVC debug window
+		#else
+		fputs(buffer, stderr);
+		#endif
 	}
 }
 
@@ -516,6 +520,7 @@ void operator delete(void *p, size_t /* size */) noexcept
 
 
 
+#if defined(_WIN32)
 #include <imagehlp.h>
 
 
@@ -1013,4 +1018,5 @@ here:
 	return(pointer_index);
 }
 
-#endif	//(0)
+#endif // _WIN32
+#endif // _WIN32 imagehlp wrapper

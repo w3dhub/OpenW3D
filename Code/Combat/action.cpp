@@ -73,7 +73,7 @@
 #include "gameobjmanager.h"
 
 #include "colmathaabox.h"
-#include "dinput.h"
+#include "openw3d_dinput_compat.h"
 #include <algorithm>
 
 int _ActionActCalls = 0;

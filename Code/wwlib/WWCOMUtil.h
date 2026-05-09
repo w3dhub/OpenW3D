@@ -37,7 +37,20 @@
 #ifndef __WWCOMUTIL_H__
 #define __WWCOMUTIL_H__
 
+#if defined(_WIN32)
 #include <oaidl.h>
+#else
+typedef long HRESULT;
+typedef wchar_t OLECHAR;
+struct IDispatch;
+struct tagVARIANT;
+typedef tagVARIANT VARIANT;
+struct tagDISPPARAMS;
+typedef tagDISPPARAMS DISPPARAMS;
+	#ifndef STDMETHODCALLTYPE
+	#define STDMETHODCALLTYPE
+	#endif
+#endif
 
 //! Invoke PropertyGet on IDispatch interface.
 HRESULT STDMETHODCALLTYPE Dispatch_GetProperty(IDispatch* object,

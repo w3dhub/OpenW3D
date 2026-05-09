@@ -64,7 +64,7 @@
 #include "weaponbag.h"
 #include "powerup.h"
 #include "input.h"
-#include "dinput.h"
+#include "openw3d_dinput_compat.h"
 #include "hud.h"
 #include "gamedata.h"
 #include "specialbuilds.h"

@@ -38,6 +38,7 @@
 #include "network-typedefs.h"
 #include <algorithm>
 #include <limits>
+#include <cstddef>
 
 namespace WWOnline {
 

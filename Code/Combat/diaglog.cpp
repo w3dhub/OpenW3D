@@ -38,11 +38,10 @@
 #include "ffactory.h"
 #include "wwfile.h"
 #include "timemgr.h"
+#include "always.h"
 
 #include <cassert>
 #include <limits>
-
-#include <wtypes.h>	// for SYSTEMTIME
 
 FileClass * _DiagLogFile = NULL;
 

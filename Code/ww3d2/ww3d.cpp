@@ -274,8 +274,10 @@ WW3DErrorType WW3D::Init(void *hwnd, char * /*defaultpal*/, bool lite)
 	WWDEBUG_SAY(("Allocate Debug Resources\n"));
 	Allocate_Debug_Resources();
 
- 	[[maybe_unused]] MMRESULT r=timeBeginPeriod(1);
+	#ifdef _WIN32
+	[[maybe_unused]] MMRESULT r=timeBeginPeriod(1);
 	WWASSERT(r==TIMERR_NOERROR);
+	#endif
 
 	/*
 	** Initialize the dazzle system
@@ -1283,7 +1285,14 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
 	fb->GetDesc(&desc);
 
 	RECT bounds;
+	#ifdef _WIN32
 	GetWindowRect(_Hwnd,&bounds);
+	#else
+	bounds.left = 0;
+	bounds.top = 0;
+	bounds.right = desc.Width;
+	bounds.bottom = desc.Height;
+	#endif
 
 	D3DLOCKED_RECT lrect;
 
@@ -1565,7 +1574,14 @@ void WW3D::Update_Movie_Capture( void )
 	fb->GetDesc(&desc);
 
 	RECT bounds;
+	#ifdef _WIN32
 	GetWindowRect(_Hwnd,&bounds);
+	#else
+	bounds.left = 0;
+	bounds.top = 0;
+	bounds.right = desc.Width;
+	bounds.bottom = desc.Height;
+	#endif
 
 	D3DLOCKED_RECT lrect;
 

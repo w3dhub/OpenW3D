@@ -44,6 +44,10 @@
 #include "win.h"
 #include "bittype.h"
 
+#if !defined(_WIN32)
+#include <filesystem>
+#endif
+
 /*
 **
 */
@@ -597,6 +601,37 @@ void	MixFileCreator::Add_File( const char * filename, FileClass *file )
 */
 void	Add_Files( const char * dir, MixFileCreator & mix )
 {
+	#if !defined(_WIN32)
+	std::filesystem::path base_path = std::filesystem::path("data/makemix") / dir;
+	std::error_code error;
+	if (!std::filesystem::exists(base_path, error) || error) {
+		return;
+	}
+
+	WWDEBUG_SAY(( "Adding files from %s\n", base_path.generic_string().c_str() ));
+
+	for (const auto &entry : std::filesystem::directory_iterator(base_path, error)) {
+		if (error) {
+			break;
+		}
+
+		auto filename = entry.path().filename().generic_string();
+		if (entry.is_directory()) {
+			if (!filename.empty() && filename[0] != '.') {
+				StringClass path;
+				path.Format("%s%s/", dir, filename.c_str());
+				Add_Files(path, mix);
+			}
+		} else {
+			StringClass name;
+			name.Format("%s%s", dir, filename.c_str());
+			StringClass source;
+			source.Format("makemix/%s", (const char *)name);
+			mix.Add_File(source, name);
+		}
+	}
+	return;
+	#else
 	BOOL bcontinue = true;
 	HANDLE hfile_find;
 	WIN32_FIND_DATAA find_info = {0};
@@ -622,6 +657,7 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 //			WWDEBUG_SAY(( "Adding file from %s %s\n", source, name ));
 		}
 	}
+	#endif
 }
 
 void	Setup_Mix_File( void )

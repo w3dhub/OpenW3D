@@ -38,8 +38,7 @@
 #include <string.h>
 #include <assert.h>
 #include <wwdebug/wwdebug.h>
-
-#include <winsock2.h>
+#include <wwnet/network-typedefs.h>
 
 namespace WWOnline {
 

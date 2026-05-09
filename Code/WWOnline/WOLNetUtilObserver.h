@@ -35,7 +35,7 @@
 #ifndef __WOLNETUTILOBSERVER_H__
 #define __WOLNETUTILOBSERVER_H__
 
-#include <windows.h>
+#include "atlbase_compat.h"
 #include "WOLUser.h"
 
 namespace WOL

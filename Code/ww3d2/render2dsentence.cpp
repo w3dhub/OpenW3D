@@ -1028,12 +1028,19 @@ void	Render2DSentenceClass::Force_Alpha( float alpha )
 //
 ////////////////////////////////////////////////////////////////////////////////////
 FontCharsClass::FontCharsClass (void) :
+#ifdef _WIN32
 	OldGDIFont(	NULL ),
 	OldGDIBitmap( NULL ),
 	GDIFont( NULL ),
 	GDIBitmap( NULL ),
 	GDIBitmapBits ( NULL ),
 	MemDC( NULL ),
+#else
+	SDLFont( NULL ),
+	SDLPixelBuffer( NULL ),
+	SDLBufferWidth( 0 ),
+	SDLBufferHeight( 0 ),
+#endif
 	CurrPixelOffset( 0 ),
 	PointSize( 0 ),
 	CharHeight( 0 ),
@@ -1172,6 +1179,7 @@ FontCharsClass::Blit_Char (unichar_t ch, uint16 *dest_ptr, int dest_stride, int 
 const FontCharsClass::CharDataStruct *
 FontCharsClass::Store_GDI_Char (unichar_t ch)
 {
+	#ifdef _WIN32
 	int width	= PointSize * 2;
 	int height	= PointSize * 2;
 
@@ -1266,6 +1274,69 @@ FontCharsClass::Store_GDI_Char (unichar_t ch)
 	//	Return the index of the entry we just added
 	//
 	return char_data;
+	#else
+	int char_width = PointSize;
+	int char_height = TTF_GetFontHeight(SDLFont);
+	if (SDLFont != NULL && TTF_GetGlyphMetrics(SDLFont, ch, NULL, NULL, NULL, NULL, &char_width)) {
+		if (char_width <= 0) {
+			char_width = PointSize;
+		}
+	}
+	if (char_height <= 0) {
+		char_height = PointSize;
+	}
+
+	SDL_Surface *glyph_surface = NULL;
+	if (SDLFont != NULL) {
+		glyph_surface = TTF_RenderGlyph_Blended(SDLFont, ch, SDL_Color{255, 255, 255, 255});
+	}
+
+	if (glyph_surface == NULL) {
+		CharDataStruct *char_data = new CharDataStruct;
+		char_data->Value = ch;
+		char_data->Width = char_width;
+		char_data->Buffer = NULL;
+		if ( ch < 256 ) {
+			ASCIICharArray[ch] = char_data;
+		} else {
+			UnicodeCharArray[ch - FirstUnicodeChar] = char_data;
+		}
+		return char_data;
+	}
+
+	Update_Current_Buffer(glyph_surface->w);
+	uint16 *curr_buffer = BufferList[BufferList.Count () - 1] + CurrPixelOffset;
+	const SDL_PixelFormatDetails *format_details = SDL_GetPixelFormatDetails(glyph_surface->format);
+	for (int row = 0; row < glyph_surface->h && row < CharHeight; ++row) {
+		const uint8 *src_row = static_cast<const uint8 *>(glyph_surface->pixels) + (row * glyph_surface->pitch);
+		for (int col = 0; col < glyph_surface->w; ++col) {
+			uint32 pixel = 0;
+			if (format_details != NULL && format_details->bytes_per_pixel == 4) {
+				pixel = reinterpret_cast<const uint32 *>(src_row)[col];
+			} else if (format_details != NULL && format_details->bytes_per_pixel == 1) {
+				pixel = src_row[col];
+			}
+
+			uint8 alpha_value = (format_details != NULL && format_details->bytes_per_pixel == 1) ? uint8(pixel) : uint8((pixel >> 24) & 0xFF);
+			uint16 pixel_color = (alpha_value != 0) ? 0x0FFF : 0;
+			*curr_buffer ++ = pixel_color | (((alpha_value >> 4) & 0xF) << 12);
+		}
+	}
+
+	CharDataStruct *char_data = new CharDataStruct;
+	char_data->Value = ch;
+	char_data->Width = glyph_surface->w;
+	char_data->Buffer = BufferList[BufferList.Count () - 1] + CurrPixelOffset;
+	if ( ch < 256 ) {
+		ASCIICharArray[ch] = char_data;
+	} else {
+		UnicodeCharArray[ch - FirstUnicodeChar] = char_data;
+	}
+
+	CurrPixelOffset += (glyph_surface->w * CharHeight);
+	SDL_DestroySurface(glyph_surface);
+	return char_data;
+	#endif
 }
 
 
@@ -1312,6 +1383,7 @@ FontCharsClass::Update_Current_Buffer (int char_width)
 void
 FontCharsClass::Create_GDI_Font (const char *font_name)
 {
+	#ifdef _WIN32
 	HDC screen_dc = ::GetDC (NULL);
 
 	//
@@ -1407,6 +1479,48 @@ FontCharsClass::Create_GDI_Font (const char *font_name)
 	// Release our temporary screen DC
 	//
 	::ReleaseDC (NULL, screen_dc);
+	#else
+	if (!TTF_WasInit()) {
+		TTF_Init();
+	}
+
+	StringClass font_path;
+	font_path.Format("/usr/share/fonts/truetype/%s.ttf", font_name);
+	SDLFont = TTF_OpenFont(font_path, float(PointSize));
+	if (SDLFont == NULL) {
+		font_path.Format("/usr/share/fonts/TTF/%s.ttf", font_name);
+		SDLFont = TTF_OpenFont(font_path, float(PointSize));
+	}
+	if (SDLFont == NULL) {
+		font_path.Format("/usr/share/fonts/%s.ttf", font_name);
+		SDLFont = TTF_OpenFont(font_path, float(PointSize));
+	}
+	if (SDLFont == NULL) {
+		if (strcmp(font_name, "Arial") == 0 || strcmp(font_name, "Arial MT") == 0) {
+			SDLFont = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", float(PointSize));
+			if (SDLFont == NULL) {
+				SDLFont = TTF_OpenFont("/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf", float(PointSize));
+			}
+		} else if (strcmp(font_name, "Times New Roman") == 0) {
+			SDLFont = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf", float(PointSize));
+			if (SDLFont == NULL) {
+				SDLFont = TTF_OpenFont("/usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf", float(PointSize));
+			}
+		} else if (strcmp(font_name, "Courier New") == 0) {
+			SDLFont = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", float(PointSize));
+			if (SDLFont == NULL) {
+				SDLFont = TTF_OpenFont("/usr/share/fonts/truetype/liberation2/LiberationMono-Regular.ttf", float(PointSize));
+			}
+		}
+	}
+
+	if (SDLFont != NULL) {
+		TTF_SetFontStyle(SDLFont, IsBold ? TTF_STYLE_BOLD : TTF_STYLE_NORMAL);
+		CharHeight = TTF_GetFontHeight(SDLFont);
+	} else {
+		CharHeight = PointSize;
+	}
+	#endif
 	return ;
 }
 
@@ -1419,6 +1533,7 @@ FontCharsClass::Create_GDI_Font (const char *font_name)
 void
 FontCharsClass::Free_GDI_Font (void)
 {
+	#ifdef _WIN32
 	//
 	//	Select the old font back into the DC and delete
 	// our font object
@@ -1446,6 +1561,16 @@ FontCharsClass::Free_GDI_Font (void)
 		::DeleteDC( MemDC );
 		MemDC = NULL;
 	}
+	#else
+	if ( SDLFont != NULL ) {
+		TTF_CloseFont( SDLFont );
+		SDLFont = NULL;
+	}
+	if ( SDLPixelBuffer != NULL ) {
+		delete [] SDLPixelBuffer;
+		SDLPixelBuffer = NULL;
+	}
+	#endif
 
 	return ;
 }
@@ -1598,4 +1723,3 @@ FontCharsClass::Free_Character_Arrays (void)
 
 	return ;
 }
-

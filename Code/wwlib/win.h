@@ -49,7 +49,7 @@
 **	4069, 4200, 4237, 4103, 4001, 4035, 4164. Makes you wonder, eh?
 */
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(OPENW3D_SDL3)
 #include	<windows.h>
 #endif
 //#include <mmsystem.h>
@@ -61,7 +61,7 @@
 #include <SDL3/SDL.h>
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(OPENW3D_SDL3)
 extern HINSTANCE	ProgramInstance;
 extern HWND			MainWindow;
 extern bool GameInFocus;

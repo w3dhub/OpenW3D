@@ -40,7 +40,21 @@
 #ifndef MSGLOOP_H
 #define MSGLOOP_H
 
+#if defined(_WIN32)
 #include <windows.h>
+#else
+typedef void *HWND;
+typedef void *HACCEL;
+typedef struct tagMSG {
+	void *hwnd;
+	unsigned int message;
+	unsigned long wParam;
+	long lParam;
+	unsigned int time;
+	long pt_x;
+	long pt_y;
+} MSG;
+#endif
 
 // Main message handler.
 void Windows_Message_Handler(void);

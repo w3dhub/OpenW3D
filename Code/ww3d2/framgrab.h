@@ -46,6 +46,7 @@
 #include "always.h"
 #endif
 
+#if defined(_WIN32)
 #ifndef _WINDOWS_
 #include <windows.h>
 #endif
@@ -56,6 +57,44 @@
 
 #ifndef _INC_VFW
 #include <vfw.h>
+#endif
+#else
+
+typedef void *PAVIFILE;
+typedef void *PAVISTREAM;
+
+typedef struct tagAVISTREAMINFOA {
+	unsigned int fccType;
+	unsigned int fccHandler;
+	unsigned int dwFlags;
+	unsigned int dwCaps;
+	unsigned short wPriority;
+	unsigned short wLanguage;
+	unsigned int dwScale;
+	unsigned int dwRate;
+	unsigned int dwStart;
+	unsigned int dwLength;
+	unsigned int dwInitialFrames;
+	unsigned int dwSuggestedBufferSize;
+	unsigned int dwQuality;
+	unsigned int dwSampleSize;
+	char szName[64];
+} AVISTREAMINFOA;
+
+typedef struct tagBITMAPINFOHEADER {
+	unsigned int biSize;
+	int biWidth;
+	int biHeight;
+	unsigned short biPlanes;
+	unsigned short biBitCount;
+	unsigned int biCompression;
+	unsigned int biSizeImage;
+	int biXPelsPerMeter;
+	int biYPelsPerMeter;
+	unsigned int biClrUsed;
+	unsigned int biClrImportant;
+} BITMAPINFOHEADER;
+
 #endif
 
 // FramGrab.h: interface for the FrameGrabClass class.

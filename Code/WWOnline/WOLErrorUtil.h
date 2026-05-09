@@ -35,7 +35,7 @@
 #ifndef __WOLERROR_H__
 #define __WOLERROR_H__
 
-#include <objbase.h>
+#include "atlbase_compat.h"
 
 namespace WWOnline {
 

@@ -50,6 +50,10 @@
 
 class INIClass;
 
+#if !defined(_WIN32)
+typedef void *HKEY;
+#endif
+
 /*
 **
 */

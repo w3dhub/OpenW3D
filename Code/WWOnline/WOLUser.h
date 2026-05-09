@@ -35,7 +35,6 @@
 #ifndef __WOLUSER_H__
 #define __WOLUSER_H__
 
-#include <windows.h>
 #include "atlbase_compat.h"
 #include "RefCounted.h"
 #include "RefPtr.h"

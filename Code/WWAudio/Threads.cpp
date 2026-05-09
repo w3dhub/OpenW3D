@@ -34,7 +34,9 @@
 #include "Threads.h"
 #include "refcount.h"
 #include "Utils.h"
+#ifdef _WIN32
 #include <process.h>
+#endif
 #include "wwdebug.h"
 #include "systimer.h"
 
@@ -78,6 +80,7 @@ WWAudioThreadsClass::~WWAudioThreadsClass (void)
 HANDLE
 WWAudioThreadsClass::Create_Delayed_Release_Thread (LPVOID param)
 {
+	#ifdef _WIN32
 	//
 	//	If the thread isn't already running, then
 	//
@@ -87,6 +90,10 @@ WWAudioThreadsClass::Create_Delayed_Release_Thread (LPVOID param)
 	}
 
 	return m_hDelayedReleaseThread;
+	#else
+	(void)param;
+	return (HANDLE)-1;
+	#endif
 }
 
 
@@ -98,6 +105,7 @@ WWAudioThreadsClass::Create_Delayed_Release_Thread (LPVOID param)
 void
 WWAudioThreadsClass::End_Delayed_Release_Thread (DWORD timeout)
 {
+	#ifdef _WIN32
 	//
 	//	If the thread is running, then wait for it to finish
 	//
@@ -110,6 +118,11 @@ WWAudioThreadsClass::End_Delayed_Release_Thread (DWORD timeout)
 	}
 
 	return ;
+	#else
+	(void)timeout;
+	Flush_Delayed_Release_Objects();
+	return ;
+	#endif
 }
 
 
@@ -125,6 +138,12 @@ WWAudioThreadsClass::Add_Delayed_Release_Object
 	DWORD					delay
 )
 {
+	#ifndef _WIN32
+	(void)delay;
+	REF_PTR_RELEASE(object);
+	return;
+	#endif
+
 	if (m_IsFlushing) {
 		REF_PTR_RELEASE (object);
 	} else {
@@ -206,6 +225,9 @@ WWAudioThreadsClass::Flush_Delayed_Release_Objects (void)
 void __cdecl
 WWAudioThreadsClass::Delayed_Release_Thread_Proc (LPVOID /*param*/)
 {
+	#ifndef _WIN32
+	return ;
+	#else
 	const DWORD base_timeout = 2000;
 	DWORD timeout = base_timeout + rand () % 1000;
 
@@ -266,6 +288,7 @@ WWAudioThreadsClass::Delayed_Release_Thread_Proc (LPVOID /*param*/)
 
 	Flush_Delayed_Release_Objects ();
 	return ;
+	#endif
 }
 
 /*

@@ -769,12 +769,16 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 		** Enforce a required set of window styles and size if the main window
 		** IS NOT A CHILD WINDOW.  :)
 		*/
+		#ifdef _WIN32
 		if ((::GetWindowLong(_Hwnd, GWL_STYLE) & WS_CHILD) == 0) {
 			::SetWindowLong(_Hwnd, GWL_STYLE, WS_SYSMENU|WS_CAPTION|WS_MINIMIZEBOX|WS_CLIPCHILDREN);
 
 			// Always resize the window to the desired resolution in windowed mode.
 			resize_window = true;
 		}
+		#else
+		resize_window = true;
+		#endif
 // End Denzil - DX window initialzaion
 
 		// In windowed mode, define the bitdepth from desktop mode (as it can't be changed)
@@ -817,6 +821,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	} else {
 
 // 10/23/01 - Denzil - DX Window initialization
+		#ifdef _WIN32
 		// For fullscreen set the window style to WS_POPUP (Recommended in DX docs)
 		SetWindowLong(_Hwnd, GWL_STYLE, WS_POPUP);
 
@@ -827,6 +832,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 		SetWindowPos(_Hwnd, HWND_TOPMOST, 0, 0,
 			GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
 			SWP_SHOWWINDOW|SWP_NOCOPYBITS);
+		#endif
 
 		// We already resized the window
 		resize_window = false;
@@ -2766,7 +2772,9 @@ void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrat
 
 	if (Get_Current_Caps()->Support_Gamma())	{
 		DX8Wrapper::_Get_D3D_Device8()->SetGammaRamp(0,flag,&ramp);
-	} else {
+	}
+	#ifdef _WIN32
+	else {
 		HWND hwnd = GetDesktopWindow();
 		HDC hdc = GetDC(hwnd);
 		if (hdc)
@@ -2775,6 +2783,7 @@ void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrat
 			ReleaseDC (hwnd, hdc);
 		}
 	}
+	#endif
 }
 
 const char* DX8Wrapper::Get_DX8_Render_State_Name(D3DRENDERSTATETYPE state)

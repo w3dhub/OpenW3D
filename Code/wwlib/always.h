@@ -134,7 +134,11 @@ void operator delete(void *p, size_t size) noexcept;
 
 #if !defined(_WIN32)
 #include <bit>
+#include <cstdint>
+#include <cstdio>
+#include <ctime>
 #include <cstring>
+#include <strings.h>
 #include <alloca.h>
 
 #ifndef ZeroMemory
@@ -162,6 +166,236 @@ __forceinline unsigned int _byteswap_ulong(unsigned int value)
 #ifndef _alloca
 #define _alloca(size) alloca(size)
 #endif
+
+#ifndef _MAX_FNAME
+#define _MAX_FNAME 256
+#endif
+
+#ifndef _MAX_EXT
+#define _MAX_EXT 256
+#endif
+
+#ifndef _MAX_DRIVE
+#define _MAX_DRIVE 4
+#endif
+
+#ifndef _MAX_DIR
+#define _MAX_DIR 1024
+#endif
+
+#ifndef _MAX_PATH
+#define _MAX_PATH 1024
+#endif
+
+#ifndef _splitpath
+inline void _splitpath(const char *path, char *drive, char *dir, char *fname, char *ext)
+{
+	if (drive != NULL) {
+		drive[0] = '\0';
+	}
+	if (dir != NULL) {
+		dir[0] = '\0';
+	}
+	if (fname != NULL) {
+		fname[0] = '\0';
+	}
+	if (ext != NULL) {
+		ext[0] = '\0';
+	}
+
+	if (path == NULL || path[0] == '\0') {
+		return;
+	}
+
+	const char *last_forward_slash = std::strrchr(path, '/');
+	const char *last_back_slash = std::strrchr(path, '\\');
+	const char *last_separator = last_forward_slash;
+	if (last_separator == NULL || (last_back_slash != NULL && last_back_slash > last_separator)) {
+		last_separator = last_back_slash;
+	}
+
+	const char *basename = (last_separator != NULL) ? (last_separator + 1) : path;
+	const char *dot = std::strrchr(basename, '.');
+	if (dot == basename) {
+		dot = NULL;
+	}
+
+	if (dir != NULL && last_separator != NULL) {
+		size_t dir_len = static_cast<size_t>((last_separator - path) + 1);
+		std::memcpy(dir, path, dir_len);
+		dir[dir_len] = '\0';
+	}
+
+	if (fname != NULL) {
+		size_t fname_len = (dot != NULL) ? static_cast<size_t>(dot - basename) : std::strlen(basename);
+		std::memcpy(fname, basename, fname_len);
+		fname[fname_len] = '\0';
+	}
+
+	if (ext != NULL && dot != NULL) {
+		std::strcpy(ext, dot);
+	}
+}
+#endif
+
+#ifndef strcmpi
+#define strcmpi strcasecmp
+#endif
+
+#ifndef _strcmpi
+#define _strcmpi strcasecmp
+#endif
+
+#ifndef lstrcmpi
+#define lstrcmpi strcasecmp
+#endif
+
+#ifndef SYSTEMTIME
+typedef struct _SYSTEMTIME {
+	unsigned short wYear;
+	unsigned short wMonth;
+	unsigned short wDayOfWeek;
+	unsigned short wDay;
+	unsigned short wHour;
+	unsigned short wMinute;
+	unsigned short wSecond;
+	unsigned short wMilliseconds;
+} SYSTEMTIME;
+#endif
+
+#ifndef GetSystemTime
+inline void GetSystemTime(SYSTEMTIME *system_time)
+{
+	if (system_time == NULL) {
+		return;
+	}
+
+	timespec current_time = { 0, 0 };
+	clock_gettime(CLOCK_REALTIME, &current_time);
+	tm utc_time = { 0 };
+	gmtime_r(&current_time.tv_sec, &utc_time);
+
+	system_time->wYear = static_cast<unsigned short>(utc_time.tm_year + 1900);
+	system_time->wMonth = static_cast<unsigned short>(utc_time.tm_mon + 1);
+	system_time->wDayOfWeek = static_cast<unsigned short>(utc_time.tm_wday);
+	system_time->wDay = static_cast<unsigned short>(utc_time.tm_mday);
+	system_time->wHour = static_cast<unsigned short>(utc_time.tm_hour);
+	system_time->wMinute = static_cast<unsigned short>(utc_time.tm_min);
+	system_time->wSecond = static_cast<unsigned short>(utc_time.tm_sec);
+	system_time->wMilliseconds = static_cast<unsigned short>(current_time.tv_nsec / 1000000);
+}
+#endif
+
+#ifndef OutputDebugStringA
+inline void OutputDebugStringA(const char *message)
+{
+	if (message != NULL) {
+		std::fputs(message, stderr);
+	}
+}
+#endif
+
+#ifndef DeleteFileA
+inline int DeleteFileA(const char *filename)
+{
+	return (filename != NULL && std::remove(filename) == 0) ? 1 : 0;
+}
+#endif
+
+#ifndef MoveFileA
+inline int MoveFileA(const char *existing_filename, const char *new_filename)
+{
+	return (existing_filename != NULL && new_filename != NULL && std::rename(existing_filename, new_filename) == 0) ? 1 : 0;
+}
+#endif
+
+//---------------------------------------------------------------------------
+// Registry API stubs (needed by WWOnline/WOLProduct.cpp)
+//---------------------------------------------------------------------------
+#ifndef HKEY_CURRENT_USER
+#define HKEY_CURRENT_USER reinterpret_cast<void*>(static_cast<uintptr_t>(0x80000001))
+#endif
+
+#ifndef KEY_READ
+#define KEY_READ 0x20019
+#endif
+
+#ifndef KEY_WRITE
+#define KEY_WRITE 0x20006
+#endif
+
+#ifndef ERROR_SUCCESS
+#define ERROR_SUCCESS 0
+#endif
+
+#ifndef ERROR_FILE_NOT_FOUND
+#define ERROR_FILE_NOT_FOUND 2
+#endif
+
+#ifndef RegOpenKeyExA
+inline int RegOpenKeyExA(
+        void* /*hKey*/,
+        const char* /*lpSubKey*/,
+        uint32_t /*ulOptions*/,
+        uint32_t /*samDesired*/,
+        void** /*phkResult*/)
+{
+	return ERROR_FILE_NOT_FOUND; // Registry not available on non-Windows
+}
+#endif
+
+#ifndef RegCloseKey
+inline int RegCloseKey(void* /*hKey*/)
+{
+	return ERROR_SUCCESS;
+}
+#endif
+
+#ifndef RegQueryValueExA
+inline int RegQueryValueExA(
+        void* /*hKey*/,
+        const char* /*lpValueName*/,
+        uint32_t* /*lpReserved*/,
+        uint32_t* /*lpType*/,
+        uint8_t* /*lpData*/,
+        uint32_t* /*lpcbData*/)
+{
+	return ERROR_FILE_NOT_FOUND;
+}
+#endif
+
+#ifndef RegSetValueExA
+inline int RegSetValueExA(
+        void* /*hKey*/,
+        const char* /*lpValueName*/,
+        uint32_t /*Reserved*/,
+        uint32_t /*dwType*/,
+        const uint8_t* /*lpData*/,
+        uint32_t /*cbData*/)
+{
+	return ERROR_SUCCESS;
+}
+#endif
+
+#ifndef ERROR_NO_MORE_ITEMS
+#define ERROR_NO_MORE_ITEMS 259
+#endif
+
+#ifndef RegEnumValueA
+inline int RegEnumValueA(
+        void* /*hKey*/,
+        uint32_t /*dwIndex*/,
+        char* /*lpValueName*/,
+        uint32_t* /*lpcchValueName*/,
+        uint32_t* /*lpReserved*/,
+        uint32_t* /*lpType*/,
+        uint8_t* /*lpData*/,
+        uint32_t* /*lpcbData*/)
+{
+	return ERROR_NO_MORE_ITEMS;
+}
+#endif
+
 #endif // !_WIN32
 
 #endif

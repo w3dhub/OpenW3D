@@ -38,13 +38,168 @@
 #include "ini.h"
 #include "inisup.h"
 #include <assert.h>
+#if defined(_WIN32)
 #include <windows.h>
+#endif
 #include <limits>
 
 //#include "wwdebug.h"
 
 bool RegistryClass::IsLocked = false;
 
+#if !defined(_WIN32)
+
+bool RegistryClass::Exists(const char*)
+{
+	return false;
+}
+
+RegistryClass::RegistryClass( const char * sub_key, bool create ) :
+	Key( NULL ),
+	IsValid( true )
+{
+	(void)sub_key;
+	(void)create;
+}
+
+RegistryClass::~RegistryClass( void )
+{
+	IsValid = false;
+}
+
+int	RegistryClass::Get_Int( const char * name, int def_value )
+{
+	(void)name;
+	return def_value;
+}
+
+void	RegistryClass::Set_Int( const char * name, int value )
+{
+	(void)name;
+	(void)value;
+}
+
+bool	RegistryClass::Get_Bool( const char * name, bool def_value )
+{
+	(void)name;
+	return def_value;
+}
+
+void	RegistryClass::Set_Bool( const char * name, bool value )
+{
+	(void)name;
+	(void)value;
+}
+
+float	RegistryClass::Get_Float( const char * name, float def_value )
+{
+	(void)name;
+	return def_value;
+}
+
+void	RegistryClass::Set_Float( const char * name, float value )
+{
+	(void)name;
+	(void)value;
+}
+
+int RegistryClass::Get_Bin_Size( const char * name )
+{
+	(void)name;
+	return 0;
+}
+
+void RegistryClass::Get_Bin( const char * name, void *buffer, int buffer_size )
+{
+	(void)name;
+	if (buffer != NULL && buffer_size > 0) {
+		::memset(buffer, 0, buffer_size);
+	}
+}
+
+void	RegistryClass::Set_Bin( const char * name, const void *buffer, int buffer_size )
+{
+	(void)name;
+	(void)buffer;
+	(void)buffer_size;
+}
+
+void	RegistryClass::Get_String( const char * name, StringClass &string, const char *default_string )
+{
+	(void)name;
+	string = (default_string != NULL) ? default_string : "";
+}
+
+char *RegistryClass::Get_String( const char * name, char *value, int value_size, const char * default_string )
+{
+	(void)name;
+	if (value != NULL && value_size > 0) {
+		value[0] = '\0';
+		if (default_string != NULL) {
+			strncpy(value, default_string, value_size - 1);
+			value[value_size - 1] = '\0';
+		}
+	}
+	return value;
+}
+
+void	RegistryClass::Set_String( const char * name, const char *value )
+{
+	(void)name;
+	(void)value;
+}
+
+void	RegistryClass::Get_Value_List( DynamicVectorClass<StringClass> &list )
+{
+	list.Delete_All();
+}
+
+void	RegistryClass::Delete_Value( const char * name)
+{
+	(void)name;
+}
+
+void	RegistryClass::Deleta_All_Values( void )
+{
+}
+
+void RegistryClass::Delete_Registry_Values(HKEY key)
+{
+	(void)key;
+}
+
+void RegistryClass::Save_Registry_Tree(char *path, INIClass *ini)
+{
+	(void)path;
+	(void)ini;
+}
+
+void RegistryClass::Save_Registry_Values(HKEY key, char *path, INIClass *ini)
+{
+	(void)key;
+	(void)path;
+	(void)ini;
+}
+
+void RegistryClass::Delete_Registry_Tree(char *path)
+{
+	(void)path;
+}
+
+void RegistryClass::Load_Registry(const char *filename, char *old_path, char *new_path)
+{
+	(void)filename;
+	(void)old_path;
+	(void)new_path;
+}
+
+void RegistryClass::Save_Registry(const char *filename, char *path)
+{
+	(void)filename;
+	(void)path;
+}
+
+#else
 
 bool RegistryClass::Exists(const char* sub_key)
 {
@@ -733,15 +888,4 @@ void RegistryClass::Delete_Registry_Tree(char *path)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+#endif

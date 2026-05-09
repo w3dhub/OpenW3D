@@ -664,6 +664,7 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 	// Collect all mix file names
 	DynamicVectorClass<StringClass> mix_names;
 
+	#ifdef _WIN32
 	StringClass cur_dir = cPathUtil::GetWorkingDirectory(true);
 	StringClass new_dir = cur_dir + "Data";
 	SetCurrentDirectoryA(new_dir);
@@ -682,6 +683,7 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 		}
 	}
 	SetCurrentDirectoryA(cur_dir);
+	#endif
 
 	// First generate thumbnails for always.dat
 	Update_Thumbnail_File("always.dat",display_message_box);
