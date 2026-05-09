@@ -114,6 +114,10 @@ extern "C"
 	bool		WIN_fullscreen = true;
 }
 
+#if defined(OPENW3D_SDL3)
+static SDL_Window* MainSDLWindow = NULL;
+#endif
+
 
 //----------------------------------------------------------------------------
 //	Local functions
@@ -495,6 +499,8 @@ int Start_Application(void)
 
 	Unregister_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Main Thread");
 
+	Prog_End();
+
    //Debug_Say(("Finished logging at time %s", cMiscUtil::Get_Text_Time()));
 
 	return exitCode;
@@ -704,19 +710,22 @@ static BOOL Create_Main_Window(void)
 		return FALSE;
 	}
 
-	SDL_Window* sdlWindow = SDL_CreateWindow(
+	MainSDLWindow = SDL_CreateWindow(
 		"Renegade",
 		800, 600,
 		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
 
-	if (!sdlWindow) {
+	if (!MainSDLWindow) {
+		SDL_Quit();
 		return FALSE;
 	}
 
 	// Get the native Win32 HWND from SDL3 window
-	MainWindow = (HWND)SDL_GetPointerProperty(SDL_GetWindowProperties(sdlWindow), SDL_PROP_WINDOW_WIN32_HWND_POINTER, NULL);
+	MainWindow = (HWND)SDL_GetPointerProperty(SDL_GetWindowProperties(MainSDLWindow), SDL_PROP_WINDOW_WIN32_HWND_POINTER, NULL);
 	if (!MainWindow) {
-		SDL_DestroyWindow(sdlWindow);
+		SDL_DestroyWindow(MainSDLWindow);
+		MainSDLWindow = NULL;
+		SDL_Quit();
 		return FALSE;
 	}
 
@@ -787,7 +796,12 @@ void SDL3_Pump_Events(void)
 			}
 			break;
 		case SDL_EVENT_QUIT:
-			break;
+			if (GameInFocus) {
+				GameInFocus = false;
+				On_Focus_Loss();
+			}
+			PostQuitMessage(0);
+			return;
 		default:
 			break;
 		}
@@ -842,6 +856,15 @@ void On_Focus_Restore(void)
 
 void Prog_End(void)
 {
+#if defined(OPENW3D_SDL3)
+	if (MainSDLWindow) {
+		SDL_DestroyWindow(MainSDLWindow);
+		MainSDLWindow = NULL;
+	}
+	MainWindow = NULL;
+	hWndMain = NULL;
+	SDL_Quit();
+#endif
 }
 
 
