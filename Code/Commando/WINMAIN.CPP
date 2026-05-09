@@ -720,6 +720,9 @@ static BOOL Create_Main_Window(void)
 		return FALSE;
 	}
 
+	// Initialize ProgramInstance for SDL3 (needed by DirectInput, miscutil, etc.)
+	ProgramInstance = (HINSTANCE)GetModuleHandleA(NULL);
+
 	hWndMain = MainWindow;
 	return TRUE;
 #elif defined(OPENW3D_WIN32)
