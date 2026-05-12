@@ -65,6 +65,7 @@
 #include "textureloader.h"
 #include "missingtexture.h"
 #include "thread.h"
+#include <bit>
 #include <stdio.h>
 #include <d3dx9core.h>
 #include "dxerr_compat.h"
@@ -356,7 +357,8 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Inits(void)
 	Set_Default_Global_Render_States();
 }
 
-inline DWORD F2DW(float f) { return *((unsigned*)&f); }
+inline DWORD F2DW(float f) { return std::bit_cast<DWORD>(f); }
+static constexpr float DX8_ZBIAS_DEPTH_UNIT = 1.0f / 16777216.0f;
 void DX8Wrapper::Set_Default_Global_Render_States(void)
 {
 	DX8_THREAD_ASSERT();
@@ -3009,10 +3011,11 @@ void DX8Wrapper::Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTA
 	case D3DRS_POINTSCALE_C:
 	case D3DRS_POINTSIZE_MAX:
 	case D3DRS_TWEENFACTOR:
+	case D3DRS_DEPTHBIAS:
+	case D3DRS_SLOPESCALEDEPTHBIAS:
 		name.Format("%f",*(float*)&value);
 		break;
 
-	case D3DRS_DEPTHBIAS:
 	case D3DRS_STENCILREF:
 		name.Format("%d",value);
 		break;
@@ -3409,9 +3412,9 @@ void DX8Wrapper::Set_DX8_ZBias(int zbias)
 		DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&tmp));
 	}
 	else {
-		//float ZBias_float = zbias / 8.0f;
-		Set_DX8_Render_State (D3DRS_DEPTHBIAS, ZBias);
-		Set_DX8_Render_State (D3DRS_SLOPESCALEDEPTHBIAS, ZBias);
+		const float depth_bias = (ZBias == 0) ? 0.0f : -static_cast<float>(ZBias) * DX8_ZBIAS_DEPTH_UNIT;
+		Set_DX8_Render_State (D3DRS_DEPTHBIAS, F2DW(depth_bias));
+		Set_DX8_Render_State (D3DRS_SLOPESCALEDEPTHBIAS, F2DW(0.0f));
 	}
 }
 

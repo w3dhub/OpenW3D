@@ -62,9 +62,10 @@
 #include "simplevec.h"
 #include "texture.h"
 #include "dx8wrapper.h"
-#include "dx8caps.h"
 
 #define DISABLE_CLIPPING	0
+
+static constexpr float DECAL_ZBIAS_DISTANCE = 0.01f;
 
 /**
 ** DecalPolyClass - This class is used to clip polygons as they are
@@ -418,19 +419,13 @@ bool RigidDecalMeshClass::Create_Decal
 	[[maybe_unused]] const DynamicVectorClass<Vector3> * world_vertex_locs
 )
 {
-	// Since we can't rely on the hardware polygon offset function, I'm physically offsetting
-	// the decal polygons along the normal of the decal generator.  If we could instead rely
-	// on hardware "polygon offset" we could remove this code and we could make decals non-sorting
+	// Keep the decal lift in geometry so the bias stays stable with camera distance.
 	Vector3 zbias_offset(0.0f,0.0f,0.0f);
-
-	if (!DX8Wrapper::Get_Current_Caps()->Support_ZBias()) {
-		const float ZBIAS_DISTANCE = 0.01f;
-		generator->Get_Transform().Get_Z_Vector(&zbias_offset);
-		Matrix3D invtm;
-		Parent->Get_Transform().Get_Orthogonal_Inverse(invtm);
-		Matrix3D::Rotate_Vector(invtm,zbias_offset,&zbias_offset);
-		zbias_offset *= ZBIAS_DISTANCE;
-	}
+	generator->Get_Transform().Get_Z_Vector(&zbias_offset);
+	Matrix3D invtm;
+	Parent->Get_Transform().Get_Orthogonal_Inverse(invtm);
+	Matrix3D::Rotate_Vector(invtm,zbias_offset,&zbias_offset);
+	zbias_offset *= DECAL_ZBIAS_DISTANCE;
 
 	// NOTE: world_vertex_locs/norms should not be set for this class
 	WWASSERT(world_vertex_locs == 0);
@@ -807,13 +802,17 @@ void SkinDecalMeshClass::Render(void)
 
 		for (int i=0; i<ParentVertexIndices.Count(); i++) {
 			int src_i = ParentVertexIndices[i];
-			vertex->x = _TempVertexBuffer[src_i].X;
-			vertex->y = _TempVertexBuffer[src_i].Y;
-			vertex->z = _TempVertexBuffer[src_i].Z;
+			Vector3 normal = _TempNormalBuffer[src_i];
+			normal.Normalize();
+			Vector3 position = _TempVertexBuffer[src_i] + normal * DECAL_ZBIAS_DISTANCE;
 
-			vertex->nx = _TempNormalBuffer[src_i].X;
-			vertex->ny = _TempNormalBuffer[src_i].Y;
-			vertex->nz = _TempNormalBuffer[src_i].Z;
+			vertex->x = position.X;
+			vertex->y = position.Y;
+			vertex->z = position.Z;
+
+			vertex->nx = normal.X;
+			vertex->ny = normal.Y;
+			vertex->nz = normal.Z;
 
 			vertex->diffuse = 0xFFFFFFFF;
 

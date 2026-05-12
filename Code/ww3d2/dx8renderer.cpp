@@ -2041,8 +2041,9 @@ static inline DWORD Float2Unsigned(float f) {
 }
 void DX8MeshRendererClass::Render_Decal_Meshes()
 {
+	static constexpr float DEPTH_BIAS_UNIT = 1.0f / 16777216.0f;
 	const float slope_scale = 0.0f;
-	const float const_bias = -0.001f;
+	const float const_bias = -DEPTH_BIAS_UNIT;
 
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS, Float2Unsigned(slope_scale));
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS, Float2Unsigned(const_bias));
@@ -2103,7 +2104,6 @@ void DX8MeshRendererClass::Invalidate()
 
 	texture_category_container_lists_rigid.Delete_All();
 }
-
 
 
 

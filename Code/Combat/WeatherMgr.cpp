@@ -81,6 +81,8 @@ WeatherSystemClass							*WeatherMgrClass::_Precipitation [PRECIPITATION_COUNT];
 bool												 WeatherMgrClass::_FogEnabled;
 bool												 WeatherMgrClass::_Dirty;
 
+static constexpr float WEATHER_SURFACE_OFFSET_DISTANCE = 0.01f;
+
 
 /***********************************************************************************************
  * WindClass::WindClass --																							  *
@@ -1049,12 +1051,6 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 
 		DX8Wrapper::Set_Index_Buffer (IndexBuffer, 0);
 
-		#if WEATHER_PARTICLE_SORT
-		#else
-		float depthbias = -0.02f;
-		DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS,*reinterpret_cast<unsigned*>(&depthbias));
-		#endif
-
  		camerafocus = rinfo.Camera.Get_Transform().Get_Z_Vector();
 		particleptr = ParticleHead;
 		processedparticlecount = 0;
@@ -1113,6 +1109,7 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 								// Particle has an orientation so back-face cull it.
 								if (Vector3::Dot_Product (camerafocus, particleptr->SurfaceNormal) > 0.0f) {
 
+									position += particleptr->SurfaceNormal * WEATHER_SURFACE_OFFSET_DISTANCE;
 									x = Vector3::Cross_Product (camerafocus, particleptr->SurfaceNormal);
 									x /= x.Quick_Length();
 									y = Vector3::Cross_Product (x, particleptr->SurfaceNormal);
@@ -1216,10 +1213,6 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 
 		WWASSERT (particleptr == NULL);
 
-		#if WEATHER_PARTICLE_SORT
-		#else
-		DX8Wrapper::Set_DX8_Render_State (D3DRS_DEPTHBIAS, 0);
-		#endif
 	}
 }
 
