@@ -165,7 +165,7 @@ uint32 TimeCodedMorphKeysClass::binary_search_index(float req_frame)
 		if (dx == 1) {
 			WWASSERT(req_frame >= Keys[leftIdx].MorphFrame);
 			WWASSERT(req_frame < Keys[rightIdx].MorphFrame);
-			return leftIdx;
+			break;
 		}
 
 		// otherwise, split our interval in half and descend into one of them
@@ -179,8 +179,7 @@ uint32 TimeCodedMorphKeysClass::binary_search_index(float req_frame)
 		}
 	}
 
-	assert(0);
-	return(0);
+	return(leftIdx);
 }
 
 

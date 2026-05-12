@@ -222,12 +222,11 @@ PrototypeClass *HLodLoaderClass::Load_W3D( ChunkLoadClass &cload )
 		// load failed, delete the model and return an error
 		delete def;
 		return NULL;
-	} else {
-		// ok, accept this model!
-		HLodPrototypeClass *proto = new HLodPrototypeClass(def);
-		return proto;
 	}
-	return NULL;
+
+	// ok, accept this model!
+	HLodPrototypeClass *proto = new HLodPrototypeClass(def);
+	return proto;
 }
 
 

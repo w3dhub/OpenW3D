@@ -116,9 +116,9 @@ void Windows_Message_Handler(void)
 			if (_Accelerators[aindex].Window) {
 				if (TranslateAccelerator(_Accelerators[aindex].Window, _Accelerators[aindex].Accelerator, &msg)) {
 					processed = true;
+					break;
 				}
 			}
-			break;
 		}
 		if (processed) continue;
 

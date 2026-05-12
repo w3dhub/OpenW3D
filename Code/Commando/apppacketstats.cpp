@@ -255,11 +255,11 @@ cAppPacketStats::Interpret_Type
 		ADD_CASE(APPPACKETTYPE_ALL);
 
 		default:
-         break;
-   }
+    	break;
+  }
 
-	return "ERROR";
 	DIE;
+	return "ERROR";
 }
 
 //-----------------------------------------------------------------------------

@@ -589,7 +589,7 @@ uint32 TimeCodedMotionChannelClass::binary_search_index(uint32 timecode)
 
 		time = Data[idx + PacketSize] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG;
 
-		if (timecode < time) return(idx);
+		if (timecode < time) break;
 
 		if (leftIdx ^ dx) {
 			leftIdx = dx;
@@ -604,8 +604,7 @@ uint32 TimeCodedMotionChannelClass::binary_search_index(uint32 timecode)
 
 	}
 
-	assert(0);
-	return(0);
+	return(idx);
 
 }	// binary_search_index
 
@@ -1274,47 +1273,9 @@ Quaternion AdaptiveDeltaMotionChannelClass::Get_QuatVector(float32 frame)
 
 //==========================================================================================
 void MotionChannelClass::
-Do_Data_Compression(int datasize)
+Do_Data_Compression(int /* datasize */)
 {
-return;
-	//Find Min_Max
-	float value_min=FLT_MAX;
-	float value_max=-FLT_MAX;
-	int count=datasize/sizeof(float);
-	int i;
-	for (i=0;i<count;i++) {
-		float value=Data[i];
-        if (std::isnan(value)) value=0.0f;
-		if (value>100000.0f) value=0.0f;
-		if (value<-100000.0f) value=0.0f;
-		Data[i]=value;
-
-		if (value_min > value) value_min = value;
-		if (value_max < value) value_max = value;
-	}
-	ValueOffset=value_min;
-	ValueScale=value_max-value_min;
-	// Can't compress if the range is too high
-	if (ValueScale>2000.0f) return;
-	if (Type==ANIM_CHANNEL_Q/* && ValueScale>3.0f*/) return;
-
-	WWASSERT(!CompressedData);
-	CompressedData=new unsigned short[count];
-	float inv_scale=0.0f;
-	if (ValueScale!=0.0f) {
-		inv_scale=1.0f/ValueScale;
-	}
-	inv_scale*=65535.0f;
-	for (i=0;i<count;++i) {
-		float value=Data[i];
-		value-=ValueOffset;
-		value*=inv_scale;
-		int ivalue=WWMath::Float_To_Int_Floor(value);
-		CompressedData[i]=static_cast<unsigned short>(ivalue);
-	}
-
-	delete[] Data;
-	Data=NULL;
+	// Early return in original code made this function a no op.
 }
 
 //==========================================================================================
