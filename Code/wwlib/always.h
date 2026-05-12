@@ -107,14 +107,6 @@ void operator delete(void *p, size_t size) noexcept;
 #define MIN(a,b)            (((a) < (b)) ? (a) : (b))
 #endif
 
-#if defined(_MSC_VER)
-/*
-**	Turn off some unneeded warnings.
-*/
-// "conversion from 'double' to 'float', possible loss of data" Yea, so what?
-#pragma warning(disable : 4244)
-#endif
-
 #ifndef	NULL
 	#define	NULL		0
 #endif
