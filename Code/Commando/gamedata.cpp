@@ -1367,9 +1367,6 @@ int cGameData::Choose_Player_Type(cPlayer* player, int team_choice, bool is_grun
 
 			return team;
 		}
-
-		WWDEBUG_SAY(("CLANS: ERROR - Player not assigned to team\n"));
-		WWASSERT("ERROR: Player not assigned to team");
 	} else {
 		if (PLAYERTYPE_RENEGADE == team_choice || IsTeamChangingAllowed.Is_False()) {
 			return Choose_Smallest_Team();

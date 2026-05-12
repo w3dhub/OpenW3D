@@ -718,114 +718,12 @@ The following keys are included for each player:
 \ping_N\
 \team_N\
 ***************/
-void CGameSpyQnR::players_callback(char *outbuf, int maxlen)
+void CGameSpyQnR::players_callback(char *outbuf, int /* maxlen */)
 {
 
 	// Send the minimum for now to reduce Bandwidth usage.
 	outbuf[0] = 0;
-	return;
-
-
-
-	int pindex = 0;
-
-	WWDEBUG_SAY(("-->GS_QnR -- Players callback\n"));
-	WWASSERT(!CombatManager::Is_Loading_Level());
-
-	if (!maxlen || !outbuf) return;
-
-	outbuf[0] = 0;
-
-	for (SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ();
-			player_node != NULL;
-			player_node = player_node->Next ()) {
-
-		cPlayer *player = player_node->Data ();
-		WWASSERT (player != NULL);
-
-		if (player->Get_Is_Active().Is_False()) {
-//		if (player->Get_Is_Active().Is_False() || !player->Is_Human()) {
-			continue;
-		}
-
-		StringClass keyval(true);
-		StringClass value(true);
-
-		// Set the Player's Name [Team]
-		value = player->Get_Name();
-		if (player->Get_Player_Type() == PLAYERTYPE_NOD) {
-			value += " [NOD]";
-		} else if (player->Get_Player_Type() == PLAYERTYPE_GDI) {
-			value += " [GDI]";
-		}
-
-		keyval.Format("player_%d", pindex);
-		if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), value)) break;
-
-		// Set the Player's Score
-		keyval.Format("frags_%d", pindex);
-		value.Format("%.0f", player->Get_Score());
-		if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), value)) break;
-
-		// Set the Player's Credits
-//		keyval.Format("credits_%d", pindex);
-//		value.Format("%.0f", player->Get_Money());
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), value)) break;
-
-		// Set the Player's Ping to Server
-		keyval.Format("ping_%d", pindex);
-		value.Format("%d", player->Get_Ping());
-		if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), value)) break;
-
-		// Set the Player's Kills
-//		keyval.Format("kills_%d", pindex);
-//		value.Format("%d", player->Get_Kills());
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), value)) break;
-
-		// Set the Player's Deaths
-//		keyval.Format("deaths_%d", pindex);
-//		value.Format("%d", player->Get_Deaths());
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), value)) break;
-
-/*		SmartGameObj *game_obj = player->Get_GameObj ();
-		if (game_obj != NULL && game_obj->As_SoldierGameObj () != NULL) {
-
-			// Set the Player's Class (ie: Technician,Sakura,Havok)
-			keyval.Format("class_%d", pindex);
-			if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(),
-				WideStringClass(TRANSLATE(game_obj->Get_Translated_Name_ID())) )) break;
-
-			SoldierGameObj *soldier = game_obj->As_SoldierGameObj();
-			VehicleGameObj *vehicle = soldier->Get_Vehicle ();
-
-			// If they're in a vehicle set the vehicle name
-			keyval.Format("vehicle_%d", pindex);
-			if (vehicle != NULL) {
-				if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(),
-					WideStringClass(TRANSLATE(vehicle->Get_Translated_Name_ID())) )) break;
-			} else {
-				if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), "None")) break;
-			}
-		} else {
-			// If there's no gameobj then set vehicle/class to unknown
-			keyval.Format("class_%d", pindex);
-			if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), "Unknown")) break;
-			keyval.Format("vehicle_%d", pindex);
-			if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), "Unknown")) break;
-		} */
-
-		pindex++;
-
-	}
-
-#ifdef WWDEBUG
-	StringClass tstr(true);
-	tstr.Format("GS_QnR -- Players callback, sent: %s\n",outbuf);
-	OutputDebugStringA(tstr.Peek_Buffer());
-#endif
-
-	WWDEBUG_SAY(("<--GS_QnR -- Players callback\n"));
-	return;
+	// Early return in original code made rest of this function a no op.
 }
 /************
 We'll actually start up two completely seperate "game servers"
