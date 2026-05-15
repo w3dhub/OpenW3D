@@ -322,7 +322,7 @@ void ConsoleModeClass::Print(char const * string, ...)
 		va_list va;
 
 		va_start(va, string);
-		vsprintf(&buffer[0], string, va);
+		u_vsnprintf_n(buffer, sizeof(buffer), string, va);
 		va_end(va);
 
 		/*
@@ -358,7 +358,7 @@ void ConsoleModeClass::Print_Maybe(char const * string, ...)
 		char buffer[8192];
 		va_list va;
 		va_start(va, string);
-		vsprintf(&buffer[0], string, va);
+		u_vsnprintf_n(buffer, sizeof(buffer), string, va);
 		va_end(va);
 		Log_To_Disk(buffer);
 
@@ -420,7 +420,7 @@ void ConsoleModeClass::cprintf(char const * string, ...)
 
 		buffer[sizeof(buffer)-1] = 0;
 		va_start(va, string);
-		vsnprintf(&buffer[0], sizeof(buffer)-1, string, va);
+		u_vsnprintf_n(buffer, sizeof(buffer)-1, string, va);
 		va_end(va);
 
 		/*

@@ -44,6 +44,7 @@
 
 #include "wwdebug.h"
 #include "wwdialog.h"
+#include "unichar.h"
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -211,7 +212,7 @@ void WWDebug_Printf(const char * format,...)
 		char buffer[4096];
 
 		va_start(va, format);
-		vsprintf(buffer, format, va);
+		u_vsnprintf_n(buffer, sizeof(buffer), format, va);
 		WWASSERT((strlen(buffer) < sizeof(buffer)));
 
 		_CurMessageHandler(WWDEBUG_TYPE_INFORMATION, buffer);
@@ -241,7 +242,7 @@ void WWDebug_Printf_Warning(const char * format,...)
 		char buffer[4096];
 
 		va_start(va, format);
-		vsprintf(buffer, format, va);
+		u_vsnprintf_n(buffer, sizeof(buffer), format, va);
 		WWASSERT((strlen(buffer) < sizeof(buffer)));
 
 		_CurMessageHandler(WWDEBUG_TYPE_WARNING, buffer);
@@ -271,7 +272,7 @@ void WWDebug_Printf_Error(const char * format,...)
 		char buffer[4096];
 
 		va_start(va, format);
-		vsprintf(buffer, format, va);
+		u_vsnprintf_n(buffer, sizeof(buffer), format, va);
 		WWASSERT((strlen(buffer) < sizeof(buffer)));
 
 		_CurMessageHandler(WWDEBUG_TYPE_ERROR, buffer);

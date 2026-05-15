@@ -37,11 +37,11 @@ inline size_t u_mbtows(unichar_t* dst, const char* src, size_t len)
 	UErrorCode error = U_ZERO_ERROR;
 	u_strFromUTF8(dst, int32_t(len), &length, src, -1, &error);
 
-	if (U_FAILURE(error) || size_t(length) > len) {
+	if (size_t(length) > len) {
 		return size_t(-1);
 	}
 
-	return size_t(length);
+	return size_t(length) + 1;
 }
 
 inline size_t u_wstomb(char* dst, const unichar_t* src, size_t len)
@@ -50,11 +50,21 @@ inline size_t u_wstomb(char* dst, const unichar_t* src, size_t len)
 	UErrorCode error = U_ZERO_ERROR;
 	u_strToUTF8(dst, int32_t(len), &length, src, -1, &error);
 
-	if (U_FAILURE(error) || size_t(length) > len) {
+	if (size_t(length) > len) {
 		return size_t(-1);
 	}
 
-	return size_t(length);
+	return size_t(length) + 1;
+}
+
+inline int u_vsnprintf_n(char *buffer, const size_t buffer_count, const char *format, va_list args)
+{
+	// No char buffer that vsprintf is used for is larger than this in game.
+	unichar_t fmt_buffer[8192];
+	
+	// Maybe it truncated, maybe it didn't. If it did, it would have in the orignal code too or worse overflowed.
+	u_vsnprintf(fmt_buffer, sizeof(fmt_buffer) / sizeof(*fmt_buffer), format, args);
+	return int(u_wstomb(buffer, fmt_buffer, buffer_count));
 }
 
 #endif // UNICHAR_H
