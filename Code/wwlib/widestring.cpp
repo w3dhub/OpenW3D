@@ -286,6 +286,34 @@ WideStringClass::Format (const unichar_t *format, ...)
 		return 0;
 	}
 
+#if W3D_USING_ICU
+	// If format exceeds this result will anyhow. 
+	unichar_t conv_buffer[512] = { 0 };
+	u_strncpy(conv_buffer, format, sizeof(conv_buffer) / sizeof(unichar_t));
+	conv_buffer[511] = U_CHAR('\0');
+
+	// Wide stdio classes on windows flip meaning of %s and %S relative to ICU so need to fix it here.
+	for (size_t i = 0; i < sizeof(conv_buffer) / sizeof(unichar_t) && conv_buffer[i] != U_CHAR('\0'); ++i)
+	{
+		if (conv_buffer[i] == U_CHAR('%')) {
+			++i;
+			if (conv_buffer[i] == U_CHAR('\0')) {
+				break;
+			}
+
+			if (conv_buffer[i] == U_CHAR('s')) {
+				conv_buffer[i] = U_CHAR('S');
+			}
+
+			if (conv_buffer[i] == U_CHAR('S')) {
+				conv_buffer[i] = U_CHAR('s');
+			}
+		}
+	}
+
+	format = conv_buffer;
+#endif
+
 	va_list arg_list;
 	va_start (arg_list, format);
 
@@ -333,41 +361,19 @@ WideStringClass::Release_Resources (void)
 bool WideStringClass::Convert_From (const char *text)
 {
 	if (text != NULL) {
-#ifdef W3D_USING_ICU
-		int32_t length;
-		UErrorCode error = U_ZERO_ERROR;
-		u_strFromUTF8(nullptr, 0, &length, text, -1, &error);
-		++length; // Add space for null termination as ICU does not include that in calculated length.
+		size_t length = u_mbtows(nullptr, text, 0);
 
-		if (length > 0) {
-			error = U_ZERO_ERROR;
-			u_strFromUTF8(Get_Buffer(length), length, nullptr, text, -1, &error);
+		if (length > 0 && length != size_t(-1)) {
+			length = u_mbtows(Get_Buffer(length), text, length);
 
-			if (U_SUCCESS(error)) {
+			if (length > 0 && length != size_t(-1)) {
 				Store_Length(length - 1);
-				return true;
+				return (true);
 			}
 		}
 
 		WWDEBUG_SAY(("Conversion from utf-8 to utf-16 failed\n"));
-#else
-		int length;
-
-		length = MultiByteToWideChar (CP_UTF8, 0, text, -1, NULL, 0);
-		if (length > 0) {
-
-			size_t wide_length = static_cast<size_t>(length);
-			Uninitialised_Grow(wide_length);
-			Store_Length(wide_length - 1);
-
-			// Convert.
-			MultiByteToWideChar (CP_UTF8, 0, text, -1, m_Buffer, length);
-
-			// Success.
-			return (true);
-		}
-#endif
-   }
+	}
 
 	// Failure.
 	return (false);

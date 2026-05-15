@@ -249,7 +249,7 @@ StringClass::Format_Args (const char *format, va_list arg_list )
 	//	Format the string
 	//
 
-	retval = vsnprintf (temp_buffer, 512, format, arg_list);
+	retval = u_vsnprintf_n (temp_buffer, sizeof(temp_buffer), format, arg_list);
 
 	//
 	//	Copy the string into our buffer
@@ -280,7 +280,7 @@ StringClass::Format (const char *format, ...)
 	//
 	//	Format the string
 	//
-	retval = vsnprintf (temp_buffer, 512, format, arg_list);
+	retval = u_vsnprintf_n (temp_buffer, sizeof(temp_buffer), format, arg_list);
 
 	//
 	//	Copy the string into our buffer
@@ -310,44 +310,18 @@ StringClass::Release_Resources (void)
 bool StringClass::Copy_Wide (const unichar_t *source)
 {
 	if (source != NULL) {
-#ifdef W3D_USING_ICU
-		int32_t length;
-		UErrorCode error = U_ZERO_ERROR;
-		u_strToUTF8(nullptr, 0, &length, source, -1, &error);
-		++length; // Add space for null termination as ICU does not include that in calculated length.
+		size_t length = u_wstomb(nullptr, source, 0);
 
-		if (length > 0) {
-			error = U_ZERO_ERROR;
-			u_strToUTF8(Get_Buffer(length), length, nullptr, source, -1, &error);
+		if (length > 0 && length != size_t(-1)) {
+			length = u_wstomb(Get_Buffer(length), source, length);
 
-			if (U_SUCCESS(error)) {
+			if (length > 0 && length != size_t(-1)) {
 				Store_Length(length - 1);
 				return (true);
 			}
 		}
 
 		WWDEBUG_SAY(("Conversion from utf-16 to utf-8 failed\n"));
-#else
-		int  length;
-
-		length = WideCharToMultiByte (CP_UTF8, 0 , source, -1, nullptr, 0, nullptr, nullptr);
-		if (length > 0) {
-
-			size_t buffer_length = static_cast<size_t>(length);
-
-			// Convert.
-			length = WideCharToMultiByte(CP_UTF8, 0, source, -1, Get_Buffer(buffer_length), length, nullptr, nullptr);
-
-			// Update length.
-			Store_Length(buffer_length - 1);
-		}
-
-		if(length <= 0) {
-			WWDEBUG_SAY(("Conversion from utf-16 to utf-8 failed"));
-		}
-
-		return (length > 0);
-#endif
 	}
 
 	// Failure.

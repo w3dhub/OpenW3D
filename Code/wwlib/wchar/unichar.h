@@ -41,6 +41,7 @@ typedef wchar_t unichar_t;
 #define u_strstr(x, y) wcsstr(x, y)
 #define u_snprintf_u(x, y, z, ...) swprintf(x, y, z, ##__VA_ARGS__)
 #define u_sscanf_u(x, y, ...) swscanf(x, y, ##__VA_ARGS__)
+#define u_vsnprintf_n(w, x, y, z) vsnprintf(w, x, y, z)
 
 #define U_COMPARE_CODE_POINT_ORDER 0x8000
 #define U_CHAR(str) (L##str)
