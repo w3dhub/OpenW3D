@@ -10,5 +10,8 @@ add_subdirectory(wdump)
 add_subdirectory(W3DShellExt)
 
 if(W3D_BUILD_QT_TOOLS)
+    add_subdirectory(QtCommon)
+    add_subdirectory(WDumpCore)
     add_subdirectory(WWConfigQt)
+    add_subdirectory(WDumpQt)
 endif()
