@@ -59,12 +59,14 @@ enum {
 };
 
 
+#if 0
 /*
 ** CLASSIDs
 */
 enum {
 //	CLASSID_GAME_OBJECT_DEF_SOLDIER			= 	CLASSID_GAME_OBJECTS + 1,
 };
+#endif
 
 
 #endif	//	COMMANDOCHUNKID_H
