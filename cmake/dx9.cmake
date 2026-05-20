@@ -1,5 +1,5 @@
 if(WIN32)
-    if(MSVC)
+    if(NOT MINGW)
         FetchContent_Declare(
             dx9
             GIT_REPOSITORY https://github.com/madebr/min-dx9-sdk.git
