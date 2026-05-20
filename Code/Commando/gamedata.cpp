@@ -639,7 +639,7 @@ bool cGameData::Is_Map_Valid(char **out_filename)
 }
 
 
-#define PRINT_CONFIG_ERROR	ConsoleBox.Print("File %s - Error:\r\n\t ", Get_Ini_Filename());
+#define PRINT_CONFIG_ERROR	ConsoleBox.Print("File %s - Error:\r\n\t ", Get_Ini_Filename().Peek_Buffer());
 
 //-----------------------------------------------------------------------------
 bool cGameData::Is_Valid_Settings(WideStringClass& outMsg, bool check_as_server)
@@ -1534,7 +1534,7 @@ unsigned int cGameData::Get_Config_File_Mod_Time(void)
 	RawFileClass file(full_filename);
 
 	if (!file.Is_Available()) {
-      full_filename.Format("data/%s", IniFilename);
+      full_filename.Format("data/%s", IniFilename.Peek_Buffer());
 		file.Set_Name(full_filename);
    }
 
@@ -1962,7 +1962,7 @@ void cGameData::Get_Time_Limit_Text(WideStringClass& text)
       WideStringClass time_string(0, true);
       time_string.Format(U_CHAR("%02d:%02d:%02d"), hours, mins, seconds);
 
-		text.Format(U_CHAR("%s: %s"), TRANSLATION(IDS_MP_TIME_REMAINING), time_string);
+		text.Format(U_CHAR("%s: %s"), TRANSLATION(IDS_MP_TIME_REMAINING), time_string.Peek_Buffer());
    }
 
 }

@@ -1461,7 +1461,7 @@ bool AnimCollisionManagerClass::Load(ChunkLoadClass &cload)
 	if (!prev_anim_name.Is_Empty()) {
 		HAnimClass * anim = WW3DAssetManager::Get_Instance()->Get_HAnim(prev_anim_name);
 		if ( anim == NULL ) {
-			WWDEBUG_SAY(( "FAILED TO FIND PREV ANIM IN AnimCollisionManagerClass::Internal_Set_Animation(\"%s\")\n", prev_anim_name ));
+			WWDEBUG_SAY(( "FAILED TO FIND PREV ANIM IN AnimCollisionManagerClass::Internal_Set_Animation(\"%s\")\n", prev_anim_name.Peek_Buffer() ));
 		}
 		REF_PTR_SET(PrevAnimation,anim);
 	}

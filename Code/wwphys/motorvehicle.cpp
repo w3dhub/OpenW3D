@@ -468,7 +468,7 @@ bool MotorVehicleDefClass::Load(ChunkLoadClass &cload)
 		}
 	}
 	if (EngineTorqueCurve == NULL) {
-		WWDEBUG_SAY(("Missing EngineTorqueCurve Table file: %s\r\n",EngineTorqueCurveFilename));
+		WWDEBUG_SAY(("Missing EngineTorqueCurve Table file: %s\r\n",EngineTorqueCurveFilename.Peek_Buffer()));
 		EngineTorqueCurve = LookupTableMgrClass::Get_Table("DefaultTable");
 	}
 

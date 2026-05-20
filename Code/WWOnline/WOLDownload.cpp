@@ -862,7 +862,7 @@ DownloadWait::DownloadWait(const DownloadList& files) :
 
 DownloadWait::~DownloadWait()
 	{
-	WWDEBUG_SAY(("WOL: DownloadWait End '%S'\n", mEndText));
+	WWDEBUG_SAY(("WOL: DownloadWait End '%S'\n", mEndText.Peek_Buffer()));
 	}
 
 

@@ -142,12 +142,12 @@ void SystemInfoLog::Get_Final_String(StringClass& string)
 	avgfps.Format("%d.%1.1d",AvgFPS/10,AvgFPS%10);
 	string.Format(
 		"%5s %16s %6s %6d %6d %6s %8d ",
-		vnum,
-		CurrentLevel,
-		ptime,
+		vnum.Peek_Buffer(),
+		CurrentLevel.Peek_Buffer(),
+		ptime.Peek_Buffer(),
 		MinFPS!=1000 ? MinFPS : 0,
 		MaxFPS,
-		avgfps,
+		avgfps.Peek_Buffer(),
 		CurrentLoadingTime);
 }
 
@@ -274,7 +274,7 @@ void PlayerInfoLog::Append_To_Log(PlayerDataClass* data)
 #ifdef WWDEBUG
 	StringClass tmp;
 	StringClass work(0,true);
-	ADD_HISTORY(("Map name: %s\r\n",CurrentMapName));
+	ADD_HISTORY(("Map name: %s\r\n",CurrentMapName.Peek_Buffer()));
 	ADD_HISTORY(("Game time: %2.2f\r\n",data->Get_Game_Time()));
 	ADD_HISTORY(("Session time: %2.2f\r\n",data->Get_Session_Time()));
 	ADD_HISTORY(("Enemies killed: %d\r\n",data->Get_Enemies_Killed()));
@@ -316,7 +316,7 @@ void PlayerInfoLog::Get_Compact_Log(StringClass& string)
 		team1size=10*Team1TotalSizes/Team1SizeReported;
 	}
 
-	string.Format("%s\t%d.%d\t%d.%d\t",CurrentMapName,team0size/10,team0size%10,team1size/10,team1size%10);
+	string.Format("%s\t%d.%d\t%d.%d\t",CurrentMapName.Peek_Buffer(),team0size/10,team0size%10,team1size/10,team1size%10);
 
 	Team0SizeReported=0;
 	Team1SizeReported=0;

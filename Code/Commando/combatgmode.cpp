@@ -624,7 +624,7 @@ void CombatGameModeClass::Load_Level( void )
 	WWMEMLOG(MEM_GAMEDATA);
 	Debug_Say(("CombatGameModeClass::Load_Level\n"));
 
-	ConsoleBox.Print("Loading level %s\n", The_Game()->Get_Map_Name());
+	ConsoleBox.Print("Loading level %s\n", The_Game()->Get_Map_Name().Peek_Buffer());
 
 	CombatManager::Set_Load_Progress(0);
 	LoadingScreenClass loading_screen;	// Try moving this to very start of loading
@@ -684,7 +684,7 @@ void CombatGameModeClass::Load_Level( void )
 	preload_assets = cDevOptions::PreloadAssets.Get();
 #endif
 
-	DIAG_LOG(( "LOAD", "%s", map_name ));
+	DIAG_LOG(( "LOAD", "%s", map_name.Peek_Buffer() ));
 
 	NetworkObjectMgrClass::Set_Is_Level_Loading (true);
 

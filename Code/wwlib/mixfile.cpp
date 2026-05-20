@@ -126,7 +126,7 @@ MixFileFactoryClass::MixFileFactoryClass( const char * mix_filename, FileFactory
 		if ( IsValid ) {
 			BaseOffset	= 0;
 			NamesOffset	= header.names_offset;
-			WWDEBUG_SAY(( "MixFileFactory( %s ) loaded successfully  %d files\n", MixFilename, FileInfo.Length() ));
+			WWDEBUG_SAY(( "MixFileFactory( %s ) loaded successfully  %d files\n", MixFilename.Peek_Buffer(), FileInfo.Length() ));
 		} else {
 			FileInfo.Resize(0);
 		}
@@ -602,7 +602,7 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 	WIN32_FIND_DATAA find_info = {0};
 	StringClass path;
 	path.Format( "data/makemix/%s*.*", dir );
-	WWDEBUG_SAY(( "Adding files from %s\n", path ));
+	WWDEBUG_SAY(( "Adding files from %s\n", path.Peek_Buffer() ));
 
 	for (hfile_find = ::FindFirstFileA( path, &find_info);
 		 (hfile_find != INVALID_HANDLE_VALUE) && bcontinue;
@@ -617,7 +617,7 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 			StringClass name;
 			name.Format( "%s%s", dir, find_info.cFileName );
 			StringClass	source;
-			source.Format( "makemix/%s", name );
+			source.Format( "makemix/%s", name.Peek_Buffer() );
 			mix.Add_File( source, name );
 //			WWDEBUG_SAY(( "Adding file from %s %s\n", source, name ));
 		}

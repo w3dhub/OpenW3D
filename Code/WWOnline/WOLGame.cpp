@@ -158,7 +158,7 @@ GameStartWait::GameStartWait(const UserList& players, void(*timeout_callback)(vo
 
 GameStartWait::~GameStartWait()
 	{
-	WWDEBUG_SAY(("WOL: GameStartWait End %S\n", mEndText));
+	WWDEBUG_SAY(("WOL: GameStartWait End %S\n", mEndText.Peek_Buffer()));
 	}
 
 

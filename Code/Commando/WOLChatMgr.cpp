@@ -396,7 +396,7 @@ void WOLChatMgr::JoinLobby(const RefPtr<ChannelData>& channel)
 			GetLobbyDisplayName(channel, displayName);
 
 			WideStringClass message(0, true);
-			message.Format(TRANSLATE(IDS_CHAT_LOBBYJOIN), displayName);
+			message.Format(TRANSLATE(IDS_CHAT_LOBBYJOIN), displayName.Peek_Buffer());
 			DlgWOLWait::DoDialog((const unichar_t*)message, wait);
 			}
 		}
@@ -430,7 +430,7 @@ void WOLChatMgr::LeaveLobby(void)
 		GetLobbyDisplayName(channel, lobbyName);
 
 		WideStringClass title(0, true);
-		title.Format(TRANSLATE(IDS_CHAT_LOBBYLEAVE), lobbyName);
+		title.Format(TRANSLATE(IDS_CHAT_LOBBYLEAVE), lobbyName.Peek_Buffer());
 		DlgWOLWait::DoDialog(title, wait);
 		}
 	}
@@ -639,7 +639,7 @@ bool WOLChatMgr::SquelchUser(const RefPtr<UserData>& user, bool onoff)
 		const unichar_t* text = TRANSLATE(stringID);
 
 		WideStringClass message(0, true);
-		message.Format(text, user->GetName());
+		message.Format(text, user->GetName().Peek_Buffer());
 		AddMessage(NULL, message, true, true);
 		}
 
@@ -1082,11 +1082,11 @@ void WOLChatMgr::HandleNotification(ChannelEvent& event)
 
 			if (status == ChannelJoined)
 				{
-				message.Format(TRANSLATE(IDS_CHAT_LOBBYJOINED), displayName);
+				message.Format(TRANSLATE(IDS_CHAT_LOBBYJOINED), displayName.Peek_Buffer());
 				}
 			else
 				{
-				message.Format(TRANSLATE(IDS_CHAT_LOBBYLEFT), displayName);
+				message.Format(TRANSLATE(IDS_CHAT_LOBBYLEFT), displayName.Peek_Buffer());
 				}
 
 			AddMessage(NULL, message, true, true);
@@ -1164,7 +1164,7 @@ void WOLChatMgr::HandleNotification(UserEvent& userEvent)
 			mUserOutList.push_back(user);
 
 			WideStringClass kickMsg(0, true);
-			kickMsg.Format(TRANSLATE(IDS_CHAT_USERKICKED), user->GetName());
+			kickMsg.Format(TRANSLATE(IDS_CHAT_USERKICKED), user->GetName().Peek_Buffer());
 			AddMessage(NULL, kickMsg, true, true);
 
 			Add_Ref();
@@ -1188,7 +1188,7 @@ void WOLChatMgr::HandleNotification(UserEvent& userEvent)
 		case UserEvent::Banned:
 			{
 			WideStringClass banMsg(0, true);
-			banMsg.Format(TRANSLATE(IDS_CHAT_USERBANNED), userEvent.Subject()->GetName());
+			banMsg.Format(TRANSLATE(IDS_CHAT_USERBANNED), userEvent.Subject()->GetName().Peek_Buffer());
 			AddMessage(NULL, banMsg, true, true);
 			}
 			break;
@@ -1203,7 +1203,7 @@ void WOLChatMgr::HandleNotification(UserEvent& userEvent)
 				{
 				// Build a string containing the user's name
 				WideStringClass message(0, true);
-				message.Format(TRANSLATE(IDS_CHAT_LOCATEDUSER), user->GetName());
+				message.Format(TRANSLATE(IDS_CHAT_LOCATEDUSER), user->GetName().Peek_Buffer());
 
 				// Append the description of the user's location
 				WideStringClass location(64, true);

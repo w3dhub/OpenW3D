@@ -169,7 +169,7 @@ ThumbnailClass::ThumbnailClass(ThumbnailManagerClass* manager, const StringClass
 		unsigned src_bpp=0;
 		Get_WW3D_Format(src_format,src_bpp,targa);
 		if (src_format==WW3D_FORMAT_UNKNOWN) {
-			WWDEBUG_SAY(("Unknown texture format for %s\n",filename));
+			WWDEBUG_SAY(("Unknown texture format for %s\n",filename.Peek_Buffer()));
 			return;
 		}
 

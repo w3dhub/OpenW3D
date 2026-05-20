@@ -605,7 +605,7 @@ void WOLQuickMatch::HandleNotification(ChatMessage& message)
 
 	if (sender.Compare_No_Case(QUICKMATCH_BOTNAME) == 0)
 		{
-		WWDEBUG_SAY(("WOLQuickMatch: BotMsg - '%S'\n", message.GetMessage()));
+		WWDEBUG_SAY(("WOLQuickMatch: BotMsg - '%S'\n", message.GetMessage().Peek_Buffer()));
 		ParseResponse(message.GetMessage());
 		}
 	}

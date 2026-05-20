@@ -516,7 +516,7 @@ void WOLBuddyMgr::GetLocationDescription(const RefPtr<UserData>& user, WideStrin
 						channelName = channel->GetName();
 						}
 
-					description.Format(format, channelName);
+					description.Format(format, channelName.Peek_Buffer());
 					}
 				}
 				break;

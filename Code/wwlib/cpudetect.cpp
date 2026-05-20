@@ -971,7 +971,7 @@ void CPUDetectClass::Init_Processor_Log()
 		(OSVersionBuildNumber&0xff000000)>>24,
 		(OSVersionBuildNumber&0xff0000)>>16,
 		(OSVersionBuildNumber&0xffff)));
-	SYSLOG(("OS-Info: %s\r\n",OSVersionExtraInfo));
+	SYSLOG(("OS-Info: %s\r\n",OSVersionExtraInfo.Peek_Buffer()));
 
 	SYSLOG(("Processor: %s\r\n",CPUDetectClass::Get_Processor_String()));
 	SYSLOG(("Clock speed: ~%dMHz\r\n",CPUDetectClass::Get_Processor_Speed()));
@@ -982,7 +982,7 @@ void CPUDetectClass::Init_Processor_Log()
 	case 2: cpu_type="Dual"; break;
 	case 3: cpu_type="*Intel Reserved*"; break;
 	}
-	SYSLOG(("Processor type: %s\r\n",cpu_type));
+	SYSLOG(("Processor type: %s\r\n",cpu_type.Peek_Buffer()));
 
 	SYSLOG(("\r\n"));
 

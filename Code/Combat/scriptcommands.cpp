@@ -2284,7 +2284,7 @@ void	Change_Objective_Type( int id, int type )
 
 void	Set_Objective_Radar_Blip( int id, const Vector3 & position )
 {
-	SCRIPT_TRACE((	"ST>Set_Objective_Radar_Blip( %d, %f %f %f )\n", id, position ));
+	SCRIPT_TRACE((	"ST>Set_Objective_Radar_Blip( %d, %f %f %f )\n", id, position.X, position.Y, position.Z ));
 	ObjectiveManager::Set_Objective_Radar_Blip( id, position );
 }
 

@@ -135,9 +135,9 @@ void Create_Animation_Name( StringClass& anim_name, const char * anim_filename, 
 		anim_name.Erase( anim_name.Get_Length() - 4, 4 );	// Strip off ".w3d"
 	}
 
-	if ( ::strchr( anim_name, '.' ) == 0 ) {	// Add model name
+	if ( ::strchr( anim_name.Peek_Buffer(), '.' ) == 0 ) {	// Add model name
 		StringClass temp(true);
-		temp.Format( "%s.%s", model_name, anim_name );
+		temp.Format( "%s.%s", model_name, anim_name.Peek_Buffer() );
 		anim_name = temp;
 	}
 }

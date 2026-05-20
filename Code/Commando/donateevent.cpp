@@ -114,7 +114,7 @@ cDonateEvent::Act(void)
 			TRANSLATE(IDS_MP_DONATION_RECEIVED),
 			Amount,
 			TRANSLATE(IDS_MP_MONEY),
-			p_donor->Get_Name());
+			p_donor->Get_Name().Peek_Buffer());
 
 		cScTextObj * p_message = new cScTextObj;
 		p_message->Init(text, TEXT_MESSAGE_PRIVATE, false, HOST_TEXT_SENDER,

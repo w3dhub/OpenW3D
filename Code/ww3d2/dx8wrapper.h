@@ -672,7 +672,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURE
 		SNAPSHOT_SAY(("DX8 - SetTextureStageState(stage: %d, state: %s, value: %s)\n",
 			stage,
 			Get_DX8_Texture_Stage_State_Name(state),
-			value_name));
+			value_name.Peek_Buffer()));
 	}
 #endif
 
@@ -698,7 +698,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture_Sampler_State(unsigned sampler, D3DSAM
 		SNAPSHOT_SAY(("DX8 - SetTextureSamplerState(sampler: %d, state: %s, value: %s)\n",
 			sampler,
 			Get_DX8_Texture_Sampler_State_Name(state),
-			value_name));
+			value_name.Peek_Buffer()));
 	}
 #endif
 

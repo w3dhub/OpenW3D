@@ -163,7 +163,7 @@ void PhysClass::Init(const PhysDefClass & def)
 		}
 
 		if ( model == NULL ) {
-			WWDEBUG_SAY(( "***  FATAL ERROR : Failed to create model %s\n", def.ModelName ));
+			WWDEBUG_SAY(( "***  FATAL ERROR : Failed to create model %s\n", def.ModelName.Peek_Buffer() ));
 		}
 
 		Set_Model(model);

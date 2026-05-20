@@ -1547,7 +1547,7 @@ void	ConsoleGameModeClass::End_Profile_Log()
 	WWDEBUG_SAY(("\n\n"));
 	node=profile_log_head;
 	while (node) {
-		WWDEBUG_SAY(("%s\n",node->Get_String()));
+		WWDEBUG_SAY(("%s\n",node->Get_String().Peek_Buffer()));
 		node=node->Succ();
 	}
 

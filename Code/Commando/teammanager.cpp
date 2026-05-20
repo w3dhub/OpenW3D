@@ -456,9 +456,9 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
 	//GAMESPY
 	//substring.Format(U_CHAR("%-11s"), The_Game()->Get_Team_Word());
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
-		substring.Format(U_CHAR("%-36s"), The_Game()->Get_Team_Word());
+		substring.Format(U_CHAR("%-36s"), The_Game()->Get_Team_Word().Peek_Buffer());
 	} else {
-		substring.Format(U_CHAR("%-11s"), The_Game()->Get_Team_Word());
+		substring.Format(U_CHAR("%-11s"), The_Game()->Get_Team_Word().Peek_Buffer());
 	}
 	string += substring;
 

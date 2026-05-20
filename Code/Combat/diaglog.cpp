@@ -103,7 +103,7 @@ void	DiagLogClass::Log_Timed( const char * type, const char * format, ... )
 
 		StringClass line;
 		float time = TimeManager::Get_Total_Seconds();
-		line.Format("%s; %1.2f; %s%c%c", type, time, data, 0x0D, 0x0A);
+		line.Format("%s; %1.2f; %s%c%c", type, time, data.Peek_Buffer(), 0x0D, 0x0A);
 		const size_t length = ::strlen(line);
 		assert(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
 		_DiagLogFile->Write(line, static_cast<int>(length));

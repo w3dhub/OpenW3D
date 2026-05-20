@@ -4414,7 +4414,7 @@ void SoldierGameObj::Get_Description(StringClass & description)
 	line += "\n";
 	description += line;
 
-	line.Format("ANIM:  %s\n", AnimationName);
+	line.Format("ANIM:  %s\n", AnimationName.Peek_Buffer());
 	description += line;
 
    if (Vehicle != NULL) {
