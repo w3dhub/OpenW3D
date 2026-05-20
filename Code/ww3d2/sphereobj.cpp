@@ -1022,13 +1022,13 @@ PrototypeClass * SphereLoaderClass::Load_W3D(ChunkLoadClass & cload)
 */
 SpherePrototypeClass::SpherePrototypeClass (void)
 {
-	::memset (&Definition, 0, sizeof (Definition));
+	::memset (static_cast<void *>(&Definition), 0, sizeof (Definition));
 	return ;
 }
 
 SpherePrototypeClass::SpherePrototypeClass(SphereRenderObjClass *sphere)
 {
-	::memset (&Definition, 0, sizeof (Definition));
+	::memset (static_cast<void *>(&Definition), 0, sizeof (Definition));
 	::strcpy (Definition.Name, sphere->Get_Name ());
 
 	Definition.DefaultAlpha = sphere->Get_Default_Alpha ();

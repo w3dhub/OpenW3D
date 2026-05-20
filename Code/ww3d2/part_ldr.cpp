@@ -95,7 +95,7 @@ ParticleEmitterDefClass::ParticleEmitterDefClass (void)
 	::memset (&m_Info, 0, sizeof (m_Info));
 	::memset (&m_InfoV2, 0, sizeof (m_InfoV2));
 
-	::memset (&m_ColorKeyframes, 0, sizeof (m_ColorKeyframes));
+	::memset (static_cast<void *>(&m_ColorKeyframes), 0, sizeof (m_ColorKeyframes));
 	::memset (&m_OpacityKeyframes, 0, sizeof (m_OpacityKeyframes));
 	::memset (&m_SizeKeyframes, 0, sizeof (m_SizeKeyframes));
 	::memset (&m_RotationKeyframes, 0, sizeof (m_RotationKeyframes));
@@ -122,7 +122,7 @@ ParticleEmitterDefClass::ParticleEmitterDefClass (const ParticleEmitterDefClass 
 	::memset (&m_Info, 0, sizeof (m_Info));
 	::memset (&m_InfoV2, 0, sizeof (m_InfoV2));
 
-	::memset (&m_ColorKeyframes, 0, sizeof (m_ColorKeyframes));
+	::memset (static_cast<void *>(&m_ColorKeyframes), 0, sizeof (m_ColorKeyframes));
 	::memset (&m_OpacityKeyframes, 0, sizeof (m_OpacityKeyframes));
 	::memset (&m_SizeKeyframes, 0, sizeof (m_SizeKeyframes));
 	::memset (&m_RotationKeyframes, 0, sizeof (m_RotationKeyframes));

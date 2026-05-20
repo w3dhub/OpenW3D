@@ -733,7 +733,7 @@ void GapFillerClass::Shrink_Buffers()
 		if (ShaderArray[pass]) {
 			// Shrink the shader array
 			ShaderClass* new_shader_array=new ShaderClass[PolygonCount];
-			memcpy(new_shader_array,ShaderArray[pass],PolygonCount*sizeof(ShaderClass));
+			memcpy(static_cast<void *>(new_shader_array),ShaderArray[pass],PolygonCount*sizeof(ShaderClass));
 			delete[] ShaderArray[pass];
 			ShaderArray[pass]=new_shader_array;
 		}

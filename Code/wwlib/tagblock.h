@@ -147,18 +147,18 @@ class TagBlockFile : protected RawFileClass
 		// Each block in the file has a header before it.
 		struct BlockHeader
 		{
-			BlockHeader()  {memset(this, 0, sizeof(*this));}
-			BlockHeader(int index, int tagsize, int datasize):Index(index),TagSize(tagsize),DataSize(datasize) {}
-			BlockHeader(BlockHeader& bh)  {memcpy(this, &bh, sizeof(BlockHeader));}
+			BlockHeader()  { }
+			BlockHeader(int index, int tagsize, int datasize):Index(index), TagSize(tagsize), DataSize(datasize) {}
+			BlockHeader(BlockHeader& bh) : Index(bh.Index), TagSize(bh.TagSize), DataSize(bh.DataSize) {}
 
 			// Used to verify file integrity.
-			int				Index;
+			int				Index = 0;
 
 			// Size of tagname (including NULL) that follows this block.
-			int				TagSize;
+			int				TagSize = 0;
 
 			// Size of block not including header.
-			int				DataSize;
+			int				DataSize = 0;
 
 			// A variable length name (NULL terminated) follows this structure.
 			// The name is then followed by the Data.

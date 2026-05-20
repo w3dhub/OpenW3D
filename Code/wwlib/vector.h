@@ -784,7 +784,7 @@ bool DynamicVectorClass<T>::Insert(int index,T const & object)
 	**	There is room for the new object now. Add it at the desired position.
 	*/
 	if (index < ActiveCount) {
-		memmove(&(*this)[index+1], &(*this)[index], (ActiveCount-index) * sizeof(T));
+		memmove(static_cast<void *>(&(*this)[index+1]), &(*this)[index], (ActiveCount-index) * sizeof(T));
 	}
 	(*this)[index] = object;
 	ActiveCount++;

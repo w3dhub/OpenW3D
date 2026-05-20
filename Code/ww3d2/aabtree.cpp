@@ -182,7 +182,7 @@ AABTreeClass & AABTreeClass::operator = (const AABTreeClass & that)
 	NodeCount = that.NodeCount;
 	if (NodeCount > 0) {
 		Nodes = new CullNodeStruct[NodeCount];
-		memcpy(Nodes,that.Nodes,NodeCount * sizeof(CullNodeStruct));
+		memcpy(static_cast<void *>(Nodes),that.Nodes,NodeCount * sizeof(CullNodeStruct));
 	}
 
 	PolyCount = that.PolyCount;

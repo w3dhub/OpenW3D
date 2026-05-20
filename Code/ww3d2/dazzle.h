@@ -96,9 +96,9 @@ public:
 			flare_sizes=new float[flare_count];
 			memcpy(flare_sizes,lic.flare_sizes,sizeof(float)*flare_count);
 			flare_colors=new Vector3[flare_count];
-			memcpy(flare_colors,lic.flare_colors,sizeof(Vector3)*flare_count);
+			memcpy(static_cast<void*>(flare_colors),lic.flare_colors,sizeof(Vector3)*flare_count);
 			flare_uv=new Vector4[flare_count];
-			memcpy(flare_uv,lic.flare_uv,sizeof(Vector4)*flare_count);
+			memcpy(static_cast<void*>(flare_uv),lic.flare_uv,sizeof(Vector4)*flare_count);
 		}
 	}
 

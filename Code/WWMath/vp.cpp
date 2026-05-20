@@ -72,7 +72,7 @@ void VectorProcessorClass::Transform(Vector4* dst,const Vector3 *src, const Matr
 void VectorProcessorClass::Copy(Vector2 *dst, const Vector2 *src, int count)
 {
 	if (count<=0) return;
-	memcpy(dst,src,sizeof(Vector2)*count);
+	memcpy(static_cast<void *>(dst),src,sizeof(Vector2)*count);
 }
 
 void VectorProcessorClass::Copy(unsigned *dst, const unsigned *src, int count)
@@ -84,13 +84,13 @@ void VectorProcessorClass::Copy(unsigned *dst, const unsigned *src, int count)
 void VectorProcessorClass::Copy(Vector3 *dst, const Vector3 *src, int count)
 {
 	if (count<=0) return;
-	memcpy(dst,src,sizeof(Vector3)*count);
+	memcpy(static_cast<void *>(dst),src,sizeof(Vector3)*count);
 }
 
 void VectorProcessorClass::Copy(Vector4 *dst, const Vector4 *src, int count)
 {
 	if (count<=0) return;
-	memcpy(dst,src,sizeof(Vector4)*count);
+	memcpy(static_cast<void *>(dst),src,sizeof(Vector4)*count);
 }
 
 void VectorProcessorClass::Copy(Vector4 *dst,const Vector3 *src, const float * srca, const int count)
@@ -225,7 +225,7 @@ void VectorProcessorClass::Clamp(Vector4 *dst,const Vector4 *src, const float mi
 void VectorProcessorClass::Clear(Vector3*dst, const int count)
 {
 	if (count<=0) return;
-	memset(dst,0,sizeof(Vector3)*count);
+	memset(static_cast<void *>(dst),0,sizeof(Vector3)*count);
 }
 
 
