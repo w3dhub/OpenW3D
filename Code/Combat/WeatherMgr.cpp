@@ -916,7 +916,7 @@ bool WeatherSystemClass::Spawn (RayStruct *suppliedrayptr)
 				particleptr->ElapsedTime	  = 0.0f;
 				particleptr->Velocity		  = rayptr->ParticleVelocity;
 				particleptr->CurrentPosition = Vector3 (rayptr->StartPosition.X, rayptr->StartPosition.Y, EmitterPosition.Z);
-				particleptr->Page				  = _RandomNumber (0, PageCount - (StaticPageExists) ? 2 : 1);
+				particleptr->Page				  = _RandomNumber (0, PageCount - (StaticPageExists ? 2 : 1));
 				particleptr->RenderMode		  = RenderMode;
 
 			} else {
@@ -940,7 +940,7 @@ bool WeatherSystemClass::Spawn (RayStruct *suppliedrayptr)
 				} else {
 					particleptr->Velocity		  = rayptr->ParticleVelocity;
 					particleptr->CurrentPosition = Vector3 (rayptr->StartPosition.X, rayptr->StartPosition.Y, EmitterPosition.Z) + (particleptr->Velocity * particleptr->ElapsedTime);
-					particleptr->Page				  = _RandomNumber (0, PageCount - (StaticPageExists) ? 2 : 1);
+					particleptr->Page				  = _RandomNumber (0, PageCount - (StaticPageExists ? 2 : 1));
 					particleptr->RenderMode		  = RenderMode;
 				}
 			}
