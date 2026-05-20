@@ -47,10 +47,6 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
-
 #include "movephys.h"
 #include "colmathaabox.h"
 #include "pscene.h"
