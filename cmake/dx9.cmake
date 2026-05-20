@@ -3,7 +3,7 @@ if(WIN32)
         FetchContent_Declare(
             dx9
             GIT_REPOSITORY https://github.com/madebr/min-dx9-sdk.git
-            GIT_TAG        55973049eaaab204bb35a2b4e33a129a75a16244
+            GIT_TAG        30fb10184bec74721e0510641f381fa5d05fd931
         )
 
         FetchContent_MakeAvailable(dx9)

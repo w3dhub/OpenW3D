@@ -436,4 +436,4 @@ void	ExplosionManager::Explode( int explosion_def_id, const Vector3 & pos, int o
 		is_enabled = false;
 	}
 #endif // WWDEBUG
-/**/
+*/

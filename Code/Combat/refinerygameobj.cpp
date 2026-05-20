@@ -660,7 +660,7 @@ RefineryGameObj::Manage_Money_Trickle_Sound (void)
 	if (MoneyTrickleSound != NULL && MoneyTrickleSound->Is_Playing()) {
 		Debug_Say(("MoneyTrickleSound Playing\n"));
 	}
-	/**/
+	*/
 }
 
 

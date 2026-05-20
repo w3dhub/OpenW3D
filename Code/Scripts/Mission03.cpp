@@ -4425,7 +4425,8 @@ DECLARE_SCRIPT(M03_Reinforce_Area, "")
 		forced = false;
 	}
 
-	/*void Reinforce(void)
+#if 0
+	void Reinforce(void)
 	{
 		GameObject * officer1 = Commands->Find_Object (300009);
 		GameObject * officer2 = Commands->Find_Object (300010);
@@ -4471,8 +4472,9 @@ DECLARE_SCRIPT(M03_Reinforce_Area, "")
 					Commands->Send_Custom_Event(Owner(), Owner(), 7000, 0, 0.0f);
 				}
 			}
-		}
-	}*/
+		}*/
+	}
+#endif
 
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{

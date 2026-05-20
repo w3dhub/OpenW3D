@@ -1369,7 +1369,7 @@ int cConnection::Low_Level_Receive_Wrapper(cPacket & packet)
 			WWDEBUG_SAY(("cConnection::Low_Level_Receive_Wrapper: %s\n",
 				cNetUtil::Address_To_String(ip)));
 		}
-		/**/
+		*/
 	}
 
 	return ret_code;

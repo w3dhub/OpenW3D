@@ -1096,7 +1096,7 @@ cNetwork::Send_Object_Update(NetworkObjectClass *object, int client_id)
 		{
 			WWDEBUG_SAY(("WTF is this?\n"));
 		}
-		/**/
+		*/
 
 		//
 		// Record stats

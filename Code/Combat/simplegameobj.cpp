@@ -183,7 +183,7 @@ SimpleGameObj::SimpleGameObj()
 	if (Get_Definition().Get_Name() != NULL) {
 		WWDEBUG_SAY(("  for %s\n", Get_Definition().Get_Name()));
 	}
-	/**/
+	*/
 }
 
 SimpleGameObj::~SimpleGameObj()
@@ -201,7 +201,7 @@ void SimpleGameObj::Init( void )
 	if (Get_Definition().Get_Name() != NULL) {
 		WWDEBUG_SAY(("SimpleGameObj::Init for %s\n", Get_Definition().Get_Name()));
 	}
-	/**/
+	*/
 }
 
 void	SimpleGameObj::Init( const SimpleGameObjDef & definition )
