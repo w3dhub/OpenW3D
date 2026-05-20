@@ -156,7 +156,7 @@ NetworkObjectMgrClass::Get_New_Dynamic_ID (void)
 		int iii;
 		iii = 111;
 	}
-	/**/
+	*/
 
 	//TSS091201
 	NetworkObjectClass * p_object = Find_Object(_NewDynamicID);

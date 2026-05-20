@@ -95,7 +95,7 @@ void cTeam::Init(int team_number)//, WideStringClass & name)
 		//
 		Set_Object_Dirty_Bit(cNetwork::Get_My_Id(), NetworkObjectClass::BIT_CREATION, false);
 	}
-	/**/
+	*/
 
    TeamNumber = team_number;
 	Init_Team_Name();

@@ -6574,7 +6574,7 @@ DECLARE_SCRIPT(M04_Hunter_JDG, "")
 				Vector3 playerPosition = Commands->Get_Position ( STAR );
 				float distanceFromStar = Commands->Get_Distance ( myPosition, playerPosition );
 
-				if (distanceFromStar <= 40)//******play eva warning conversation here*****
+				if (distanceFromStar <= 40)// ******play eva warning conversation here*****
 				{
 					int conv = Commands->Create_Conversation( "M04_Eva_WarnsAboutHunters_Conversation", 100, 50, false);
 					Commands->Join_Conversation( NULL, conv, false, false, false );

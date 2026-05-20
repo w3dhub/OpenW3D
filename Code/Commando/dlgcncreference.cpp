@@ -511,5 +511,5 @@ CnCReferenceMenuClass::Exit_Game (void)
 				extern void Stop_Main_Loop (int);
 				Stop_Main_Loop(EXIT_SUCCESS);
 			}
-			/**/
+			*/
 
