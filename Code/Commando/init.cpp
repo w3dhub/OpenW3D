@@ -237,7 +237,7 @@ void Append_To_Assert_History(const char * message)
 	{
 		DWORD file_size = ::GetFileSize(hfile, NULL);
 		::CloseHandle(hfile);
-		::sprintf(line, "Filesize:   %d\n", file_size);
+		::sprintf(line, "Filesize:   %ld\n", file_size);
 		::fwrite(line, 1, ::strlen(line), file);
 	}
 

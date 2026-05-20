@@ -1615,7 +1615,7 @@ void WOLNATInterfaceClass::Get_Compact_Log(StringClass &log_string)
 	** Server negotiated IP
 	** Server negotiated port.
 	*/
-	sprintf(temp, "%d\t%d\t%d\t%08X\t%08X\t%02X\t%d\t%d\t%08X\t%d\t",
+	sprintf(temp, "%d\t%d\t%d\t%08lX\t%08X\t%02X\t%d\t%d\t%08X\t%d\t",
 			PortBase,
 			ForcePort,
 			FirewallHelper.Get_Send_Delay(),

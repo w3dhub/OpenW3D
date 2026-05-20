@@ -544,7 +544,7 @@ bool IntersectionClass::Intersect_Screen_Object(	IntersectionResultClass *Final_
 	return false;
 }
 
-
+#if 0
 /*
 **	Determines the point of intersection, if any between the line segments AB and CD. 
 **	If an intersection occurs, then the UV values are interpolated along AB.
@@ -769,6 +769,7 @@ void IntersectionClass::_Intersect_Lines_Z(
 	ClippedUV[DestIndex++] = Vector3
     return; //( DO_INTERSECT );  // lines_intersect
 */
+#endif
 
 inline bool IntersectionClass::In_Front_Of_Line
 (
@@ -897,6 +898,7 @@ inline int IntersectionClass::_Intersect_Triangles_Z(
 	return count;
 }
 
+#if 0
 /*
 **	This function will fill the passed array with the set of points & uv values that represent
 **	the boolean operation of the anding of the ClipPoints with the TrianglePoints. The UV values	
@@ -1076,6 +1078,7 @@ int IntersectionClass::_Intersect_Triangles_Z(
 
 }
 */
+#endif
 
 
 #endif 

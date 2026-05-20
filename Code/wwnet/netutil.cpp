@@ -299,7 +299,7 @@ LPCSTR cNetUtil::Address_To_String(ULONG ip)
 	in_addr.s_addr = ip;
 	char * p = ::inet_ntoa(in_addr);
 	if (p == NULL) {
-		::sprintf(WorkingAddressBuffer, "Invalid ip (%u)", ip);
+		::sprintf(WorkingAddressBuffer, "Invalid ip (%lu)", ip);
 	} else {
 		::strcpy(WorkingAddressBuffer, p);
 	}

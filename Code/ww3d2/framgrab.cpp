@@ -137,7 +137,7 @@ void FrameGrabClass::GrabAVI(void *BitmapPointer)
     HRESULT hr = AVIStreamWrite(Stream, Counter++, 1, BitmapPointer, BitmapInfoHeader.biSizeImage, AVIIF_KEYFRAME, NULL, NULL);
 	if(hr != 0) {
 		char buf[256];
-		sprintf(buf, "avi write error %x/%d\n", hr, hr);
+		sprintf(buf, "avi write error %lx/%ld\n", hr, hr);
 		OutputDebugStringA(buf);
 	}
 }
