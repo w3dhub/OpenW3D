@@ -36,7 +36,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#ifndef DYANMICANIMPHYS_H
+#ifndef DYNAMICANIMPHYS_H
 #define DYNAMICANIMPHYS_H
 
 #include "always.h"
