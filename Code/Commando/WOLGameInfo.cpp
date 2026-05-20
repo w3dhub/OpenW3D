@@ -515,8 +515,8 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 
 		// WARNING: The channels ExInfo field has a maximum size of 40 bytes.
 		char exInfo[41];
-		sprintf(exInfo, "%08lX%08lX%08lX%08lX%c%c%c%c", mVersion, fileCRC,
-				mClanID1, mClanID2, (0x30 + mGameType), gameFlags1, gameFlags2, modMapIndex);
+		sprintf(exInfo, "%08" PRIX32 "%08X%08X%08X%c%c%c%c", mVersion, fileCRC,
+				mClanID1, mClanID2, ('0' + mGameType), gameFlags1, gameFlags2, modMapIndex);
 
 		channel->SetExtraInfo(exInfo);
 

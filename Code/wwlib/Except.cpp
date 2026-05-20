@@ -463,7 +463,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	** For access violations, print out the violation address and if it was read or write.
 	*/
 	if (e_info->ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION) {
-		sprintf(scrap, "Access address:%08lX ", access_address);
+		sprintf(scrap, "Access address:%08X ", access_address);
 		Add_Txt(scrap);
 		if (access_read_write) {
 			Add_Txt("was written to.\r\n");
@@ -621,7 +621,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	Add_Txt(scrap);
 	sprintf(scrap, "R14:%016llX\tR15:%016llX\r\n", static_cast<unsigned long long>(context->R14), static_cast<unsigned long long>(context->R15));
 	Add_Txt(scrap);
-	sprintf(scrap, "EFlags:%08X \r\n", context->EFlags);
+	sprintf(scrap, "EFlags:%08lX \r\n", context->EFlags);
 	Add_Txt(scrap);
 	sprintf(scrap, "CS:%04x  SS:%04x  DS:%04x  ES:%04x  FS:%04x  GS:%04x\r\n", context->SegCs, context->SegSs, context->SegDs, context->SegEs, context->SegFs, context->SegGs);
 	Add_Txt(scrap);
@@ -695,11 +695,11 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	Add_Txt(scrap);
 	sprintf(scrap, "         Tag word: %08x\r\n", context->FltSave.TagWord);
 	Add_Txt(scrap);
-	sprintf(scrap, "     Error Offset: %08x\r\n", context->FltSave.ErrorOffset);
+	sprintf(scrap, "     Error Offset: %08lx\r\n", context->FltSave.ErrorOffset);
 	Add_Txt(scrap);
 	sprintf(scrap, "   Error Selector: %08x\r\n", context->FltSave.ErrorSelector);
 	Add_Txt(scrap);
-	sprintf(scrap, "      Data Offset: %08x\r\n", context->FltSave.DataOffset);
+	sprintf(scrap, "      Data Offset: %08lx\r\n", context->FltSave.DataOffset);
 	Add_Txt(scrap);
 	sprintf(scrap, "    Data Selector: %08x\r\n", context->FltSave.DataSelector);
 	Add_Txt(scrap);
@@ -773,17 +773,17 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 			/*
 			** The stack contents cannot be read so just print up question marks.
 			*/
-			sprintf(scrap, "%08p: ", stackptr);
+			sprintf(scrap, "%8p: ", stackptr);
 			strcat(scrap, "????????\r\n");
 		} else {
 			/*
 			** If this stack address is in our memory space then try to match it with a code symbol.
 			*/
 			if (IsBadCodePtr(*(FARPROC*)stackptr)) {
-				sprintf(scrap, "%08p: %08X ", stackptr, *stackptr);
+				sprintf(scrap, "%8p: %08X ", stackptr, *stackptr);
 				strcat(scrap, "DATA_PTR\r\n");
 			} else {
-				sprintf(scrap, "%08p: %08X", stackptr, *stackptr);
+				sprintf(scrap, "%8p: %08X", stackptr, *stackptr);
 
 				if (symbols_available) {
 					symptr->SizeOfStruct = sizeof(symbol);

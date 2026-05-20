@@ -947,7 +947,7 @@ void WolGameModeClass::Update_Channel_Settings(cGameData* theGame, const RefPtr<
 			const char* topic = channel->GetTopic();
 
 			char newTopic[81];
-			sprintf(newTopic, "%s|%02lx%02x%04x%04x%c", topic, fps, avgPing, avgPoints,
+			sprintf(newTopic, "%s|%02x%02x%04x%04x%c", topic, fps, avgPing, avgPoints,
 				avgPlayed, (32 + numPlayers));
 
 			channel->SetTopic(newTopic);
