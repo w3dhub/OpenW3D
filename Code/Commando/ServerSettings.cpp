@@ -253,6 +253,8 @@ bool ServerSettingsClass::Parse(bool apply)
 				case MODE_GAMESPY:
 					restart_reg.Set_Int(AutoRestartClass::REG_VALUE_AUTO_RESTART_TYPE, 0);
 					break;
+				case MODE_NONE:
+					break;
 			}
 		}
 

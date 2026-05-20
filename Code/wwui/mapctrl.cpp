@@ -534,7 +534,6 @@ MapCtrlClass::Update_Client_Rect (void)
 	//
 	//	Build the zoom button rectangles
 	//
-	ZoomOutButtonRect;
 	ZoomOutButtonRect.Left		= int(Rect.Right	- (ZoomInUVRect.Width () + 2));
 	ZoomOutButtonRect.Top		= int(Rect.Bottom	- (ZoomInUVRect.Height () + 2));
 	ZoomOutButtonRect.Right		= int(Rect.Right);

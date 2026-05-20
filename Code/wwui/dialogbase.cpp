@@ -250,6 +250,9 @@ DialogBaseClass::Start_Dialog (void)
 			case CONTROL_HEALTH_BAR:
 				control = new HealthBarCtrlClass;
 				break;
+
+			case CONTROL_INVALID:
+				break;
 		}
 
 		//

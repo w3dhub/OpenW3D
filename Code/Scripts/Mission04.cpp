@@ -362,6 +362,8 @@ The following are the custom parameter number values used to control objectives 
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 
@@ -2953,6 +2955,8 @@ DECLARE_SCRIPT(M04_EngineRoom_Prison_Guard_01_JDG, "")//M04_ENGINEROOM_PRISONGUA
 						}
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}
@@ -6349,6 +6353,8 @@ DECLARE_SCRIPT(M04_Doorway_Enterer_JDG, "first_location:vector3")
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 };
@@ -9136,6 +9142,8 @@ DECLARE_SCRIPT(M04_Firefight_Controller_JDG, "")//this guys ID number is M04_END
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 
@@ -10128,6 +10136,8 @@ DECLARE_SCRIPT(M04_Start_TorpedoObjective_Zone_JDG, "")//105238 105239
 						}
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}

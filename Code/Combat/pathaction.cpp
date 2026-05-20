@@ -265,6 +265,9 @@ PathActionClass::Handle_Ladder (void)
 			}
 
 			break;
+
+		default:
+			break;
 	}
 
 	return ;
@@ -428,6 +431,10 @@ PathActionClass::Handle_Elevator (void)
 				Set_Finished ();
 			}
 			break;
+
+		default:
+
+			break;
 	}
 
 	return ;
@@ -493,6 +500,10 @@ PathActionClass::Handle_Door (void)
 				DoorState = DOOR_STATE_NONE;
 				Set_Finished ();
 			}
+			break;
+
+		default:
+
 			break;
 	}
 

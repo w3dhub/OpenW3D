@@ -973,6 +973,8 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 					}
 				case STATE_AT_VILLAGE: params.Set_Movement(cannon_start, 0.5f, 3);
 					break;
+				default:
+					break;
 				}
 				Commands->Action_Goto(obj, params);
 				break;
@@ -6440,6 +6442,8 @@ DECLARE_SCRIPT(M03_KaneHead_JDG, "") //2017221
 						Commands->Send_Custom_Event ( obj, obj, 0, 8000, 2 );
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}

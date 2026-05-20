@@ -313,6 +313,9 @@ WW3DFormat Get_Valid_Texture_Format(WW3DFormat format, bool is_compression_allow
 		case WW3D_FORMAT_DXT5:
 			if (!DX8Wrapper::Get_Current_Caps()->Support_Texture_Format(format)) format=WW3D_FORMAT_A8R8G8B8;
 			break;
+		default:
+			WWASSERT(0 && "Unexpected format");
+			break;
 		}
 	}
 

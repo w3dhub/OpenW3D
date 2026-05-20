@@ -743,6 +743,8 @@ void CPUDetectClass::Init_Processor_Family()
 	case MANUFACTURER_RISE:
 		Init_Rise_Processor_Type();
 		break;
+	default:
+		break;
 	}
 }
 

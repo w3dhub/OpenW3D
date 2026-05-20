@@ -251,6 +251,9 @@ SoundSceneObjClass::On_Event
 			case AudioCallbackClass::EVENT_LOGICAL_HEARD:
 				m_pCallback->On_Logical_Heard ((LogicalListenerClass *)param1, (LogicalSoundClass *)param2);
 				break;
+
+			case AudioCallbackClass::EVENT_NONE:
+				break;
 		}
 	}
 

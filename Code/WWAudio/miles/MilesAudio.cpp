@@ -970,6 +970,13 @@ MilesAudioClass::Find_3D_Device (DRIVER_TYPE_3D type)
 		case DRIVER3D_DOLBY:
 			sub_string = "Dolby";
 			break;
+
+		case DRIVER3D_RSX:
+			sub_string = "RSX";
+			break;
+
+		default:
+			break;
 	}
 
 	// Loop through all the driver entries and free them all

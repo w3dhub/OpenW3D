@@ -1085,7 +1085,7 @@ void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata,
 			float filter = filtertable[filter_index] * Scale;	// decompression filter
 
 			// data is grouped in sets of 16 nybbles
-			for (fi; fi < 16; fi++) {
+			for (; fi < 16; fi++) {
 
 				int pi = fi>>1;	// create packet index
 
