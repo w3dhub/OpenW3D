@@ -159,7 +159,7 @@ void cEncoderTypeEntry::Calc_Bit_Precision(double resolution)
 	WWASSERT(resolution > MISCUTIL_EPSILON);
 
 	double f_units = (double) ceil((Max - Min) / resolution - MISCUTIL_EPSILON) + 1;
-    WWASSERT(f_units <= UINT_MAX + MISCUTIL_EPSILON);
+	WWASSERT(f_units <= static_cast<double>(UINT_MAX) + MISCUTIL_EPSILON);
 	uint32_t units = (uint32_t) f_units;
 
 	BitPrecision = 0;
