@@ -753,7 +753,7 @@ class DataSafeClass : public GenericDataSafeClass
 			if (ptr) {
 				void *temp = (void*)ptr;
 				if (temp >= &ReturnList[0][0] && temp < &ReturnList[MAX_OBJECT_COPIES][0]) {
-					if (((unsigned int) temp - (unsigned int)(&ReturnList[0][0])) % sizeof(T) == 0) {
+					if (((uintptr_t) temp - (uintptr_t)(&ReturnList[0][0])) % sizeof(T) == 0) {
 						return(true);
 					}
 				}
