@@ -286,7 +286,8 @@ void MainWindow::showAbout()
                        tr("About Westwood 3D File Viewer"),
                        tr("Westwood 3D File Viewer v3.0\n"
                           "Copyright (C) 1997 Westwood Studios\n"
-                          "Written by Eric Cosky, Greg Hjelstrom"));
+                          "Written by Eric Cosky, Greg Hjelstrom\n"
+                          "Qt port by the OpenW3D team"));
 }
 
 void MainWindow::splitViews()
