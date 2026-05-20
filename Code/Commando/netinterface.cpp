@@ -67,11 +67,13 @@ WideStringClass cNetInterface::Get_Nickname(void)
 				strcpy(hostname, "Unnamed");
 			}
 
+#if MAX_COMPUTER_NAME_LENGTH + 1 >= 30
 			// GameSpy nicknames are limited to 30 characters elsewhere.
 			const size_t max_gamespy_length = 30;
 			if (strlen(hostname) > max_gamespy_length) {
 				hostname[max_gamespy_length] = '\0';
 			}
+#endif
 
 			cUserOptions::GameSpyNickname.Set(hostname);
 		}
@@ -114,10 +116,12 @@ void cNetInterface::Set_Random_Nickname(void)
 	DWORD size = sizeof(name);
 	::GetComputerNameA(name, &size);
 
+#if MAX_COMPUTER_NAME_LENGTH + 1 >= MAX_NICKNAME_LENGTH
 	int length_test = MAX_COMPUTERNAME_LENGTH + 1 - MAX_NICKNAME_LENGTH;
 	if (length_test > 0) {
 		name[MAX_NICKNAME_LENGTH - 1] = 0;
 	}
+#endif
 
 	WideStringClass widename;
 	widename.Convert_From(name);

@@ -671,7 +671,7 @@ AggregateDefClass::Add_Subobject (const W3dAggregateSubobjectStruct &subobj_info
 	::strncpy (pnew_entry->SubobjectName, subobj_info.SubobjectName, sizeof (pnew_entry->SubobjectName));
 	pnew_entry->SubobjectName[sizeof (pnew_entry->SubobjectName) - 1] = '\0';
 	::strncpy (pnew_entry->BoneName, subobj_info.BoneName, sizeof (pnew_entry->BoneName));
-	pnew_entry->BoneName[sizeof (pnew_entry->BoneName)] = '\0';
+	pnew_entry->BoneName[sizeof (pnew_entry->BoneName) - 1] = '\0';
 
 	// Add this new entry to the list
 	m_SubobjectList.Add (pnew_entry);
