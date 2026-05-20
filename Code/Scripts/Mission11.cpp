@@ -3647,7 +3647,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
-		if ( sound.Type == M11_MUTANT_IS_NEARBY_JDG )
+		if ( static_cast<int>(sound.Type) == M11_MUTANT_IS_NEARBY_JDG )
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_HUNT_THE_PLAYER_JDG, 1 );
 		}
@@ -3834,7 +3834,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner05_Guy_JDG, "")
 
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
-		if ( sound.Type == M11_MUTANT_IS_NEARBY_JDG )
+		if ( static_cast<int>(sound.Type) == M11_MUTANT_IS_NEARBY_JDG )
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_HUNT_THE_PLAYER_JDG, 1 );
 		}
@@ -4032,7 +4032,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner04_Guy_JDG, "")
 
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
-		if ( sound.Type == M11_MUTANT_IS_NEARBY_JDG )
+		if ( static_cast<int>(sound.Type) == M11_MUTANT_IS_NEARBY_JDG )
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_HUNT_THE_PLAYER_JDG, 1 );
 		}
@@ -4170,7 +4170,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
-		if ( sound.Type == M11_MUTANT_IS_NEARBY_JDG )
+		if ( static_cast<int>(sound.Type) == M11_MUTANT_IS_NEARBY_JDG )
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_HUNT_THE_PLAYER_JDG, 1 );
 		}
@@ -4372,7 +4372,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner02_Guy_JDG, "")//this script goes on mutan
 
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
-		if ( sound.Type == M11_MUTANT_IS_NEARBY_JDG )
+		if ( static_cast<int>(sound.Type) == M11_MUTANT_IS_NEARBY_JDG )
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_HUNT_THE_PLAYER_JDG, 1 );
 		}

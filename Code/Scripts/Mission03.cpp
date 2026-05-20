@@ -721,7 +721,7 @@ DECLARE_SCRIPT(RMV_Test_Big_Gun_Turning, "")
 
 	void Sound_Heard(GameObject * /*obj*/, const CombatSound & sound) override
 	{
-		if (sound.Type == SOUND_TYPE_DESIGNER04)
+		if (static_cast<int>(sound.Type) == SOUND_TYPE_DESIGNER04)
 		{
 			Commands->Shake_Camera(sound.Position, 40, 0.3f, 1.0f);
 			//Commands->Apply_Damage ( Commands->Find_Object(1100003), 20.0f, "EXPLOSIVE", Commands->Find_Object(1100002));
@@ -5604,7 +5604,7 @@ DECLARE_SCRIPT(DLS_Volcano_Stumble, "Debug_Mode=0:int")
 
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
-		if((sound.Type == M03_SOUND_VOLCANO) && (!animating))
+		if((static_cast<int>(sound.Type) == M03_SOUND_VOLCANO) && (!animating))
 		{
 			animating = true;
 
@@ -6757,7 +6757,7 @@ DECLARE_SCRIPT(M03_Engineer_Repair, "Repair_Priority=96:int")
 
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
-		if (sound.Type == HEAL_ME && !repairing)
+		if (static_cast<int>(sound.Type) == HEAL_ME && !repairing)
 		{
 			if (Commands->Get_Player_Type (sound.Creator) == Commands->Get_Player_Type (obj))
 			{
@@ -6776,7 +6776,7 @@ DECLARE_SCRIPT(M03_Engineer_Repair, "Repair_Priority=96:int")
 			}
 		}
 
-		if (sound.Type == STOP_REPAIR)
+		if (static_cast<int>(sound.Type) == STOP_REPAIR)
 		{
 			if (Commands->Get_ID (sound.Creator) == target_id)
 			{
