@@ -180,7 +180,7 @@ void ProjectorManagerClass::Init(const ProjectorManagerDefClass & def,RenderObjC
 
 void ProjectorManagerClass::Update_From_Model(RenderObjClass * model)
 {
-	if ((Projector != NULL) && (ProjectorBoneIndex != -1)) {
+	if ((Projector != NULL) && (ProjectorBoneIndex != 0xFFFF)) {
 		const Matrix3D & tm = model->Get_Bone_Transform(ProjectorBoneIndex);
 		Projector->Set_Transform(tm);
 	}

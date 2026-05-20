@@ -539,7 +539,7 @@ void ConsoleModeClass::Log_To_Disk(const char *string)
 void ConsoleModeClass::Think(void)
 {
 	static char string[256] = ">";
-	char key = 0;
+	int key = 0;
 	static char suggestion[256] = "";
 	static char last_suggestion[256] = "";
 	static char help[256] = "";

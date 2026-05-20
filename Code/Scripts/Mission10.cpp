@@ -4193,12 +4193,12 @@ DECLARE_SCRIPT(M10_Occupied, "")
 
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
-		if (sound.Type == CLEAR1)
+		if (static_cast<int>(sound.Type) == CLEAR1)
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object (1100166), OCCUPIED, 1, 0.0f);
 		}
 
-		if (sound.Type == CLEAR2)
+		if (static_cast<int>(sound.Type) == CLEAR2)
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object (1100166), OCCUPIED, 2, 0.0f);
 		}

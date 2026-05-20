@@ -3071,7 +3071,7 @@ DECLARE_SCRIPT(M05_Park_Apache, "")
 	{
 
 		ActionParamsStruct params;
-		if ( sound.Type == M05_PARK_ALERT )
+		if ( static_cast<int>(sound.Type) == M05_PARK_ALERT )
 		{
 			if(!alerted)
 			{
@@ -3118,7 +3118,7 @@ DECLARE_SCRIPT(M05_ParkSniper, "")
 	{
 
 		ActionParamsStruct params;
-		if ( sound.Type == M05_PARK_ALERT )
+		if ( static_cast<int>(sound.Type) == M05_PARK_ALERT )
 		{
 			if(!alerted)
 			{
@@ -3189,7 +3189,7 @@ DECLARE_SCRIPT(M05_Park_Buggy, "")
 	{
 
 		ActionParamsStruct params;
-		if ( sound.Type == M05_PARK_ALERT )
+		if ( static_cast<int>(sound.Type) == M05_PARK_ALERT )
 		{
 			if(!alerted)
 			{
@@ -3336,7 +3336,7 @@ DECLARE_SCRIPT(M05_ParkEngineer, "")
 	{
 
 		ActionParamsStruct params;
-		if ( sound.Type == M05_PARK_ALERT )
+		if ( static_cast<int>(sound.Type) == M05_PARK_ALERT )
 		{
 			if(!alerted)
 			{
@@ -6171,7 +6171,7 @@ DECLARE_SCRIPT(M05_Cathedral_Apache, "Apache_ID=0:int")  // 100287
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M05_CATHEDRAL_FREE )
+		if ( static_cast<int>(sound.Type) == M05_CATHEDRAL_FREE )
 		{
 			Commands->Apply_Damage( obj, 100000, "DEATH", obj );
 		}
@@ -6279,7 +6279,7 @@ DECLARE_SCRIPT(M05_Cathedral_Para_Unit, "Soldier_ID=0:int")
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M05_CATHEDRAL_FREE )
+		if ( static_cast<int>(sound.Type) == M05_CATHEDRAL_FREE )
 		{
 			cathedral_free = true;
 			Commands->Apply_Damage( obj, 100000, "DEATH", obj );

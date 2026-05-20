@@ -790,7 +790,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 
 		// If a zone shouts to return to home points, do so.
 
-		else if ((sound.Type > 1049) && (sound.Type < 1100) && (!no_return_home))
+		else if ((static_cast<int>(sound.Type) > 1049) && (static_cast<int>(sound.Type) < 1100) && (!no_return_home))
 		{
 			int area_id = (sound.Type - 1050);
 			int area_num = Get_Int_Parameter("Area_Number");
@@ -1275,7 +1275,7 @@ DECLARE_SCRIPT (MDD_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 
 	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
-		if ((sound.Type > 1099) && (sound.Type < 1199))
+		if ((static_cast<int>(sound.Type) > 1099) && (static_cast<int>(sound.Type) < 1199))
 		{
 			// Make sure this is the sound this unit is supposed to react to.
 
@@ -1828,7 +1828,7 @@ DECLARE_SCRIPT (MDD_Havoc_Unit, "")
 
 	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
-		if (sound.Type == 1999)
+		if (static_cast<int>(sound.Type) == 1999)
 		{
 			if (sound.Creator)
 			{
