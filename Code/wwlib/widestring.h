@@ -127,7 +127,7 @@ public:
 	bool Is_ANSI(void);
 
 	unichar_t *		Get_Buffer (int new_length);
-	unichar_t *		Peek_Buffer (void);
+	unichar_t *		Peek_Buffer (void) const;
 
 	////////////////////////////////////////////////////////////
 	//	Static methods
@@ -558,7 +558,7 @@ WideStringClass::Get_Buffer (int new_length)
 //	Peek_Buffer
 ///////////////////////////////////////////////////////////////////
 inline unichar_t *
-WideStringClass::Peek_Buffer (void)
+WideStringClass::Peek_Buffer (void) const
 {
 	return m_Buffer;
 }
