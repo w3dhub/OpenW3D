@@ -729,7 +729,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	if (windowed != -1)	IsWindowed = (windowed != 0);
 
 	WWDEBUG_SAY(("Attempting Set_Render_Device: name: %s, width: %d, height: %d, windowed: %d\r\n",
-		_RenderDeviceNameTable[CurRenderDevice],ResolutionWidth,ResolutionHeight,(IsWindowed ? 1 : 0)));
+		_RenderDeviceNameTable[CurRenderDevice].Peek_Buffer(),ResolutionWidth,ResolutionHeight,(IsWindowed ? 1 : 0)));
 
 	WWASSERT(D3DDevice == NULL);
 
@@ -2184,7 +2184,7 @@ IDirect3DTexture9 * DX8Wrapper::_Create_DX8_Texture(
 		else {
 			StringClass format_name(0,true);
 			Get_WW3D_Format_Name(format, format_name);
-			WWDEBUG_SAY(("...Texture creation failed. (%d x %d, format: %s, mips: %d\n",width,height,format_name,mip_level_count));
+			WWDEBUG_SAY(("...Texture creation failed. (%d x %d, format: %s, mips: %d\n",width,height,format_name.Peek_Buffer(),mip_level_count));
 		}
 
 	}
@@ -3429,7 +3429,7 @@ void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value)
 		Get_DX8_Render_State_Value_Name(value_name,state,value);
 		SNAPSHOT_SAY(("DX8 - SetRenderState(state: %s, value: %s)\n",
 			Get_DX8_Render_State_Name(state),
-			value_name));
+			value_name.Peek_Buffer()));
 	}
 #endif
 

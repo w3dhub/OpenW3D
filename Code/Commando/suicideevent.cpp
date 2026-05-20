@@ -106,7 +106,7 @@ cSuicideEvent::Act(void)
 	//
 	WideStringClass text;
 	//text.Format(U_CHAR("_%s_committed_suicide_"), p_player->Get_Name());
-	text.Format(U_CHAR("%s %s"), p_player->Get_Name(), TRANSLATE(IDS_MP_COMMITTED_SUICIDE));
+	text.Format(U_CHAR("%s %s"), p_player->Get_Name().Peek_Buffer(), TRANSLATE(IDS_MP_COMMITTED_SUICIDE));
 	cScTextObj * p_message = new cScTextObj;
 	p_message->Init(text, TEXT_MESSAGE_PUBLIC, false, HOST_TEXT_SENDER, -1);
 

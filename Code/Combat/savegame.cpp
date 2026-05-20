@@ -481,7 +481,7 @@ bool SaveGameManager::Peek_Map_Name( const char * filename, StringClass &map_nam
 */
 void	SaveGameManager::Save_Level( void )
 {
-	Debug_Say(( "Save Level %s\n", MapFilename ));
+	Debug_Say(( "Save Level %s\n", MapFilename.Peek_Buffer() ));
 	Save_Save_Load_System(	MapFilename,
 									&_PhysStaticDataSaveSystem,
 									&_PhysStaticObjectsSaveSystem,
@@ -494,7 +494,7 @@ void	SaveGameManager::Save_Level( void )
 
 void	SaveGameManager::Load_Level( void )
 {
-	Debug_Say(( "Load Level %s\n", MapFilename ));
+	Debug_Say(( "Load Level %s\n", MapFilename.Peek_Buffer() ));
 	Load_Save_Load_System( MapFilename, false );	// false = no automatic post load processing (needs to be called explicitly)
 }
 

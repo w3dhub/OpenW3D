@@ -243,7 +243,7 @@ void cPlayer::On_Create(void)
 					widestring.Format(
 						U_CHAR("%s, %s.\n"),
 						TRANSLATION(IDS_MP_WELCOME_RENEGADE),
-						Name);
+						Name.Peek_Buffer());
 					//
 					//	Display the message...
 					//
@@ -259,15 +259,15 @@ void cPlayer::On_Create(void)
 						widestring.Format(
 							U_CHAR("%s, %s.\n"),
 							TRANSLATION(IDS_MP_WELCOME_RENEGADE),
-							Name);
+							Name.Peek_Buffer());
 					} else {
 						widestring.Format(
 							U_CHAR("%s, %s, %s %s %s.\n"),
 							TRANSLATION(IDS_MP_WELCOME_RENEGADE),
-							Name,
+							Name.Peek_Buffer(),
 							TRANSLATION(IDS_MP_TO),
-							The_Game()->Get_Team_Word(),
-							cTeamManager::Get_Team_Name(PlayerType));
+							The_Game()->Get_Team_Word().Peek_Buffer(),
+							cTeamManager::Get_Team_Name(PlayerType).Peek_Buffer());
 					}
 
 					//
@@ -290,7 +290,7 @@ void cPlayer::On_Create(void)
 					WideStringClass widestring;
 					widestring.Format(
 						U_CHAR("%s %s\n"),
-						Name,
+						Name.Peek_Buffer(),
 						TRANSLATION(IDS_MP_RENEGADE_JOINS));
 
 					//
@@ -307,15 +307,15 @@ void cPlayer::On_Create(void)
 					if (The_Game()->IsTeamChangingAllowed.Is_True()) {
 						widestring.Format(
 							U_CHAR("%s %s\n"),
-							Name,
+							Name.Peek_Buffer(),
 							TRANSLATION(IDS_MP_RENEGADE_JOINS));
 					} else {
 						widestring.Format(
 							U_CHAR("%s %s %s %s\n"),
-							Name,
+							Name.Peek_Buffer(),
 							TRANSLATION(IDS_MP_TEAMPLAYER_JOINS),
-							The_Game()->Get_Team_Word(),
-							cTeamManager::Get_Team_Name(PlayerType));
+							The_Game()->Get_Team_Word().Peek_Buffer(),
+							cTeamManager::Get_Team_Name(PlayerType).Peek_Buffer());
 					}
 
 					//
@@ -344,7 +344,7 @@ void cPlayer::On_Destroy(void)
 		WideStringClass message;
 		message.Format(
 			U_CHAR("%s %s\n"),
-			Name, TRANSLATION(IDS_MP_PLAYER_LEFT_GAME));
+			Name.Peek_Buffer(), TRANSLATION(IDS_MP_PLAYER_LEFT_GAME));
 
 		//
 		//	Display the message...
@@ -480,9 +480,9 @@ void cPlayer::Get_Player_String(int /* rank */, WideStringClass & string, bool f
 	}
 	*/
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
-		substring.Format(U_CHAR("%-34s"), Name);
+		substring.Format(U_CHAR("%-34s"), Name.Peek_Buffer());
 	} else {
-		substring.Format(U_CHAR("%-9s"), Name);
+		substring.Format(U_CHAR("%-9s"), Name.Peek_Buffer());
 	}
 	if (IsActive.Is_True()) {
 		substring += U_CHAR("  ");
@@ -625,7 +625,7 @@ void cPlayer::Get_Player_String(int /* rank */, WideStringClass & string, bool f
 		cDevOptions::ShowGameSpyAuthState.Is_True()) {
 		WideStringClass wide_string;
 		wide_string.Convert_From(cGameSpyAuthMgr::Describe_Auth_State(GameSpyAuthState));
-      substring.Format(U_CHAR("%-12s"), wide_string);
+      substring.Format(U_CHAR("%-12s"), wide_string.Peek_Buffer());
       string += substring;
    }
 
@@ -635,7 +635,7 @@ void cPlayer::Get_Player_String(int /* rank */, WideStringClass & string, bool f
 	if (cNetwork::I_Am_Server() && cDevOptions::ShowIpAddresses.Is_True()) {
 		WideStringClass wide_ip;
 		wide_ip.Convert_From(cNetUtil::Address_To_String(IpAddress));
-		substring.Format(U_CHAR("%-30s"), wide_ip);
+		substring.Format(U_CHAR("%-30s"), wide_ip.Peek_Buffer());
       string += substring;
 	}
 #endif // WWDEBUG

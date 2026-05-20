@@ -439,7 +439,7 @@ void	ObjectiveManager::Add_Objective( int id, int type, int status, int short_de
 	if ( status != ObjectiveManager::STATUS_HIDDEN ) {
 		WideStringClass message;
 		WideStringClass description = TranslateDBClass::Get_String( short_description_id );
-		message.Format( TRANSLATE (IDS_OBJ_NEW_OBJ), objective->Type_To_Name(), description );
+		message.Format( TRANSLATE (IDS_OBJ_NEW_OBJ), objective->Type_To_Name(), description.Peek_Buffer() );
 		CombatManager::Get_Message_Window ()->Add_Message (message, objective->Type_To_Base_Color());
 
 		HUDClass::Add_Objective( type );
@@ -517,7 +517,7 @@ void	ObjectiveManager::Set_Objective_Status( int id, int status )
 		WideStringClass message;
 		if (is_unhiding && (status != ObjectiveManager::STATUS_ACCOMPLISHED)) {
 			WideStringClass description = TranslateDBClass::Get_String( objective->ShortDescriptionID );
-			message.Format( TRANSLATE (IDS_OBJ_NEW_OBJ), objective->Type_To_Name(), description );
+			message.Format( TRANSLATE (IDS_OBJ_NEW_OBJ), objective->Type_To_Name(), description.Peek_Buffer() );
 
 			HUDClass::Add_Objective( objective->Type );
 		} else {

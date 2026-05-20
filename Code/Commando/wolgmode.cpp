@@ -1453,7 +1453,7 @@ void WolGameModeClass::HandleNotification(UserEvent& event)
 		// A user has been kicked from the game.
 		case UserEvent::Kicked: {
 			WideStringClass message(0, true);
-			message.Format(TRANSLATE(IDS_MENU_PLAYER_KICKED_MESSAGE), event.Subject()->GetName());
+			message.Format(TRANSLATE(IDS_MENU_PLAYER_KICKED_MESSAGE), event.Subject()->GetName().Peek_Buffer());
 			CombatManager::Get_Message_Window()->Add_Message(message, COLOR_PUBLIC_TEXT);
 			WWAudioClass::Get_Instance()->Create_Instant_Sound("Public_Message", Matrix3D(1));
 		}
@@ -1468,7 +1468,7 @@ void WolGameModeClass::HandleNotification(UserEvent& event)
 
 			// Build a string containing the user's name
 			WideStringClass message(0, true);
-			message.Format(TRANSLATE(IDS_CHAT_LOCATEDUSER), user->GetName());
+			message.Format(TRANSLATE(IDS_CHAT_LOCATEDUSER), user->GetName().Peek_Buffer());
 			message += U_CHAR(" - ");
 			message += location;
 			CombatManager::Get_Message_Window()->Add_Message(message, COLOR_PRIVATE_TEXT);
@@ -1661,7 +1661,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 			StringClass info(0, true);
 			info.Format("GINFO:%08lx %.4f", mapCRC, seconds);
 
-			WWDEBUG_SAY(("%S\n", info));
+			WWDEBUG_SAY(("%S\n", info.Peek_Buffer()));
 			mWOLSession->SendPrivateGameOptions(requestor, info);
 
 			//-----------------------------------------------------------------------
@@ -1681,7 +1681,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 
 				info.Format("TINFO:%d %d", teamID, teamScore);
 
-				WWDEBUG_SAY(("%S\n", info));
+				WWDEBUG_SAY(("%S\n", info.Peek_Buffer()));
 				mWOLSession->SendPrivateGameOptions(requestor, info);
 
 				teamNode = teamNode->Next();
@@ -2069,7 +2069,7 @@ void WolGameModeClass::HandleNotification(WOLPagedEvent& event)
 	switch (event.GetAction()) {
 		case PAGE_RECEIVED: {
 			WideStringClass message(255, true);
-			message.Format(U_CHAR("%s: %s"), page->GetPagersName(), page->GetPageMessage());
+			message.Format(U_CHAR("%s: %s"), page->GetPagersName().Peek_Buffer(), page->GetPageMessage().Peek_Buffer());
 			CombatManager::Get_Message_Window()->Add_Message(message, COLOR_PAGED_TEXT);
 			WWAudioClass::Get_Instance()->Create_Instant_Sound("Private_Message", Matrix3D(1));
 			break;
@@ -2085,7 +2085,7 @@ void WolGameModeClass::HandleNotification(WOLPagedEvent& event)
 		case PAGE_NOT_THERE:
 		case PAGE_TURNED_OFF: {
 			WideStringClass message(255, true);
-			message.Format(U_CHAR("%s %s"), TRANSLATE(IDS_WOL_PAGEUSERERROR), page->GetPageMessage());
+			message.Format(U_CHAR("%s %s"), TRANSLATE(IDS_WOL_PAGEUSERERROR), page->GetPageMessage().Peek_Buffer());
 			CombatManager::Get_Message_Window()->Add_Message(page->GetPageMessage(), COLOR_CONSOLE_TEXT);
 			break;
 		}

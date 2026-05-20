@@ -699,7 +699,7 @@ void DX8Caps::Check_Texture_Format_Support(WW3DFormat display_format,const D3DCA
 			if (SupportTextureFormat[i]) {
 				StringClass name(0,true);
 				Get_WW3D_Format_Name(format,name);
-				DXLOG(("Supports texture format: %s\r\n",name));
+				DXLOG(("Supports texture format: %s\r\n",name.Peek_Buffer()));
 			}
 		}
 	}
@@ -731,7 +731,7 @@ void DX8Caps::Check_Render_To_Texture_Support(WW3DFormat display_format,const D3
 			if (SupportRenderToTextureFormat[i]) {
 				StringClass name(0,true);
 				Get_WW3D_Format_Name(format,name);
-				DXLOG(("Supports render-to-texture format: %s\r\n",name));
+				DXLOG(("Supports render-to-texture format: %s\r\n",name.Peek_Buffer()));
 			}
 		}
 	}

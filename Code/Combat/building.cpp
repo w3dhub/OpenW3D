@@ -708,7 +708,7 @@ BuildingGameObj::Set_Normalized_Health (float health)
 
 	WWDEBUG_SAY(("Building State Set:\r\n"));
 	WWDEBUG_SAY(("  prefix = %s mesh count = %d aggregate count = %d light count = %d\r\n",
-		Get_Definition().MeshPrefix,
+		Get_Definition().MeshPrefix.Peek_Buffer(),
 		InteriorMeshes.Count() + ExteriorMeshes.Count(),
 		Aggregates.Count(),
 		PowerOnLights.Count() + PowerOffLights.Count()));

@@ -123,7 +123,7 @@ cBioEvent::Act(void)
 			WideStringClass new_nickname;
 			int count = 1;
 			do {
-				new_nickname.Format(U_CHAR("%s(%d)"), Nickname, count++);
+				new_nickname.Format(U_CHAR("%s(%d)"), Nickname.Peek_Buffer(), count++);
 			} while (cGameSpyAdmin::Is_Nickname_Collision(new_nickname));
 
 			Nickname = new_nickname;

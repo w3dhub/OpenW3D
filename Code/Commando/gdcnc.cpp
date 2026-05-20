@@ -435,7 +435,7 @@ void cGameDataCnc::Get_Description(WideStringClass & description)
 
 
 
-#define PRINT_CONFIG_ERROR	ConsoleBox.Print("File %s - Error:\r\n\t ", Get_Ini_Filename());
+#define PRINT_CONFIG_ERROR	ConsoleBox.Print("File %s - Error:\r\n\t ", Get_Ini_Filename().Peek_Buffer());
 
 //-----------------------------------------------------------------------------
 bool cGameDataCnc::Is_Valid_Settings(WideStringClass& outMsg, bool check_as_server)

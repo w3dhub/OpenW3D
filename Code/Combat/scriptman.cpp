@@ -412,7 +412,7 @@ bool	ScriptManager::Load( ChunkLoadClass & cload )
 					WWASSERT( script == NULL );
 					script = Create_Script( name );
 					if ( script == NULL ) {
-						Debug_Say(( "Script %s not found \n", name ));
+						Debug_Say(( "Script %s not found \n", name.Peek_Buffer() ));
 					}
 
 					// A Missing script is not fatal

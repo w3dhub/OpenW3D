@@ -151,7 +151,7 @@ bool MPWolMainMenuClass::CheckWOLVersion(void)
 
 	if (BandwidthCheckerClass::Get_Reported_Upstream_Bandwidth()) {
 		WideStringClass conn(BandwidthCheckerClass::Get_Bandwidth_As_String(), true);
-		wolText.Format(TRANSLATE(IDS_MENU_CONNECTION_SPEED_FORMAT), conn);
+		wolText.Format(TRANSLATE(IDS_MENU_CONNECTION_SPEED_FORMAT), conn.Peek_Buffer());
 	}
 
 	WideStringClass string(0, true);

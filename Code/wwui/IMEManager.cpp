@@ -920,7 +920,7 @@ void IMEManager::InputLanguageChanged(HKL hkl)
 	#endif
 
 	WWDEBUG_SAY(("IMEManager: Language Changed - LangID = %04X, CodePage = %d, Description: '%S'\n",
-			mLangID, mCodePage, mIMEDescription));
+			mLangID, mCodePage, mIMEDescription.Peek_Buffer()));
 
 	WWDEBUG_SAY(("IMEManager: Properties - %s%s%s%s%s\n",
 			mIMEProperties & IME_PROP_AT_CARET ? "At Caret" : "",

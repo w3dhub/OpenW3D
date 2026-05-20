@@ -188,7 +188,7 @@ RadioCommandDisplayClass::Update (DISPLAY_TYPE type)
 		}
 
 		WideStringClass command_key (0, true);
-		command_key.Format (U_CHAR("%s + %d"), access_key, key_id);
+		command_key.Format (U_CHAR("%s + %d"), access_key.Peek_Buffer(), key_id);
 
 		//
 		//	Insert an item for this radio command

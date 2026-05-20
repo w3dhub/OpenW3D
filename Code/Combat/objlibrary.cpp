@@ -55,7 +55,7 @@ PhysicalGameObj	*ObjectLibraryManager::Create_Object( int def_id )
 		if (def->Is_Valid_Config(error_message)) {
 			return (PhysicalGameObj *)def->Create();
 		} else {
-			WWDEBUG_SAY(("Could not create object %s!\n%s\n",def->Get_Name(),error_message));
+			WWDEBUG_SAY(("Could not create object %s!\n%s\n",def->Get_Name(),error_message.Peek_Buffer()));
 			return NULL;
 		}
 	}
@@ -73,7 +73,7 @@ PhysicalGameObj	*ObjectLibraryManager::Create_Object( const char *name )
 		if (def->Is_Valid_Config(error_message)) {
 			return (PhysicalGameObj *)def->Create();
 		} else {
-			WWDEBUG_SAY(("Could not create object %s!\n%s\n",def->Get_Name(),error_message));
+			WWDEBUG_SAY(("Could not create object %s!\n%s\n",def->Get_Name(),error_message.Peek_Buffer()));
 			return NULL;
 		}
 	} else if ( def ) {
