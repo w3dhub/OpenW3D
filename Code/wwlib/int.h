@@ -190,6 +190,18 @@ class Int {
 		friend struct RemainderTable< Int<PRECISION> >;
 };
 
+template <int PRECISION>
+int Int<PRECISION>::Error;
+
+template <int PRECISION>
+bool Int<PRECISION>::Carry;
+
+template <int PRECISION>
+bool Int<PRECISION>::Borrow;
+
+template <int PRECISION>
+Int<PRECISION> Int<PRECISION>::Remainder;
+
 template<class T>
 struct RemainderTable
 {
