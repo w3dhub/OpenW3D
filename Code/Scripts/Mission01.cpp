@@ -4647,7 +4647,7 @@ DECLARE_SCRIPT(M01_Flamethrower_Point_Guard_JDG, "")
 
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
-		if ((sound.Type == SOUND_TYPE_BULLET_HIT) || (sound.Type == SOUND_TYPE_GUNSHOT))
+		if ((static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT) || (static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT))
 		{
 			Commands->Set_Innate_Is_Stationary (  obj, false );
 		}
@@ -4785,14 +4785,14 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_01_JDG, "")
 		{
 			Vector3 playersPosition = Commands->Get_Position ( STAR );
 
-			if (sound.Type == SOUND_TYPE_GUNSHOT)
+			if (static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT)
 			{
 				fighting = true;
 				Commands->Action_Reset ( obj, 100 );
 				Commands->Innate_Force_State_Gunshots_Heard ( obj, playersPosition );
 			}
 
-			else if (sound.Type == SOUND_TYPE_BULLET_HIT)
+			else if (static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)
 			{
 				fighting = true;
 				Commands->Action_Reset ( obj, 100 );
@@ -4901,14 +4901,14 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_02_JDG, "")
 		{
 			Vector3 playersPosition = Commands->Get_Position ( STAR );
 
-			if (sound.Type == SOUND_TYPE_GUNSHOT)
+			if (static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT)
 			{
 				fighting = true;
 				Commands->Action_Reset ( obj, 100 );
 				Commands->Innate_Force_State_Gunshots_Heard ( obj, playersPosition );
 			}
 
-			else if (sound.Type == SOUND_TYPE_BULLET_HIT)
+			else if (static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)
 			{
 				fighting = true;
 				Commands->Action_Reset ( obj, 100 );
@@ -5016,14 +5016,14 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_03_JDG, "")
 		{
 			Vector3 playersPosition = Commands->Get_Position ( STAR );
 
-			if (sound.Type == SOUND_TYPE_GUNSHOT)
+			if (static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT)
 			{
 				fighting = true;
 				Commands->Action_Reset ( obj, 100 );
 				Commands->Innate_Force_State_Gunshots_Heard ( obj, playersPosition );
 			}
 
-			else if (sound.Type == SOUND_TYPE_BULLET_HIT)
+			else if (static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)
 			{
 				fighting = true;
 				Commands->Action_Reset ( obj, 100 );
@@ -7048,7 +7048,7 @@ DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGU
 	{
 		if (sound.Creator == STAR)
 		{
-			if (/*sound.Type == SOUND_TYPE_GUNSHOT ||*/ sound.Type == SOUND_TYPE_BULLET_HIT)
+			if (/*static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT ||*/ static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)
 			{
 				if (obj)
 				{
@@ -7208,7 +7208,7 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 	{
 		if (sound.Creator == STAR)
 		{
-			if (/*sound.Type == SOUND_TYPE_GUNSHOT ||*/ sound.Type == SOUND_TYPE_BULLET_HIT)
+			if (/*static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT ||*/ static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)
 			{
 				if (obj)
 				{
@@ -14210,7 +14210,7 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if (sound.Type == M01_DETENTION_GATE_IS_DOWN_JDG && gateIsDown == false)
+		if (static_cast<int>(sound.Type) == M01_DETENTION_GATE_IS_DOWN_JDG && gateIsDown == false)
 		{
 			gateIsDown = true;
 			Commands->Set_Innate_Is_Stationary ( obj, false );
@@ -14244,7 +14244,7 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 			}
 		}
 
-		else if (sound.Type == M01_DETENTION_GATE_DOWN_SAM_DEAD_JDG)
+		else if (static_cast<int>(sound.Type) == M01_DETENTION_GATE_DOWN_SAM_DEAD_JDG)
 		{
 			sam_is_destroyed = true;
 			Commands->Set_Innate_Is_Stationary ( obj, false );
@@ -14277,13 +14277,13 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 
 		else if (sound.Creator == STAR && okayToReact == true && heardHavocAlert == false)
 		{
-			if (sound.Type == SOUND_TYPE_GUNSHOT)
+			if (static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT)
 			{
 				heardHavocAlert = true;
 				Commands->Send_Custom_Event( obj, obj, 0, M01_FACING_SPECIFIED_DIRECTION_01_JDG, 0 );
 			}
 
-			else if (sound.Type == SOUND_TYPE_BULLET_HIT)
+			else if (static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)
 			{
 				heardHavocAlert = true;
 				Commands->Send_Custom_Event( obj, obj, 0, M01_FACING_SPECIFIED_DIRECTION_01_JDG, 0 );
@@ -14516,7 +14516,7 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if (sound.Type == M01_DETENTION_GATE_IS_DOWN_JDG && gateIsDown == false)
+		if (static_cast<int>(sound.Type) == M01_DETENTION_GATE_IS_DOWN_JDG && gateIsDown == false)
 		{
 			gateIsDown = true;
 			Commands->Action_Reset ( obj, 100 );
@@ -14549,7 +14549,7 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 			}
 		}
 
-		else if (sound.Type == M01_DETENTION_GATE_DOWN_SAM_DEAD_JDG )
+		else if (static_cast<int>(sound.Type) == M01_DETENTION_GATE_DOWN_SAM_DEAD_JDG )
 		{
 			sam_is_destroyed = true;
 			Commands->Set_Innate_Is_Stationary ( obj, false );
@@ -14581,13 +14581,13 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 
 		else if (sound.Creator == STAR && okayToReact == true && heardHavocAlert == false)
 		{
-			if (sound.Type == SOUND_TYPE_GUNSHOT)
+			if (static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT)
 			{
 				Commands->Send_Custom_Event( obj, obj, 0, M01_FACING_SPECIFIED_DIRECTION_01_JDG, 0 );
 				heardHavocAlert = true;
 			}
 
-			else if (sound.Type == SOUND_TYPE_BULLET_HIT)
+			else if (static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)
 			{
 				Commands->Send_Custom_Event( obj, obj, 0, M01_FACING_SPECIFIED_DIRECTION_01_JDG, 0 );
 				heardHavocAlert = true;
@@ -14761,7 +14761,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 	{
 		if (sound.Creator == STAR)
 		{
-			if (/*sound.Type == SOUND_TYPE_GUNSHOT ||*/ sound.Type == SOUND_TYPE_BULLET_HIT)
+			if (/*static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT ||*/ static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)
 			{
 				if (obj)
 				{
