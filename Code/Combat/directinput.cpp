@@ -519,6 +519,14 @@ retry_keyboard:
 #endif
 }
 
+enum {
+    eDIMOFS_Z = DIMOFS_Z,
+    eDIMOFS_Y = DIMOFS_Y,
+    eDIMOFS_X = DIMOFS_X,
+    eDIMOFS_BUTTON2 = DIMOFS_BUTTON2,
+    eDIMOFS_BUTTON1 = DIMOFS_BUTTON1,
+    eDIMOFS_BUTTON0 = DIMOFS_BUTTON0,
+};
 
 /*
 **
@@ -579,16 +587,16 @@ void DirectInput::ReadMouse( void )
 
 			switch( input_buffer.dwOfs ) {
 
-				case	DIMOFS_Z:	index++;
-				case	DIMOFS_Y:	index++;
-				case	DIMOFS_X:
+				case	eDIMOFS_Z:	index++;
+				case	eDIMOFS_Y:	index++;
+				case	eDIMOFS_X:
 							DIMouseAxis[index]	+= input_buffer.dwData;
 							CursorPos[index]		+= ((int)input_buffer.dwData) * 2;
 			   			break;
 
-				case	DIMOFS_BUTTON2:	index++;
-				case	DIMOFS_BUTTON1:	index++;
-				case	DIMOFS_BUTTON0:
+				case	eDIMOFS_BUTTON2:	index++;
+				case	eDIMOFS_BUTTON1:	index++;
+				case	eDIMOFS_BUTTON0:
 							if ( input_buffer.dwData & 0x80 ) {
 								DIMouseButtons[ index ] |= DI_BUTTON_HIT;
 								DIMouseButtons[ index ] |= DI_BUTTON_HELD;
