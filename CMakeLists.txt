@@ -35,6 +35,10 @@ add_feature_info(OpenW3DHeadless W3D_FDS "Build OpenW3D headless server")
 option(W3D_TOOLS "Build additional tools." ON)
 add_feature_info(OpenW3DTools W3D_TOOLS "Build OpenW3D Mod Tools")
 
+# Do we want to embed git information into the binary?
+option(W3D_EMBED_GIT_INFO "Embed information from git." OFF)
+add_feature_info(W3DEmbedGit W3D_EMBED_GIT_INFO "Embed information from git")
+
 option(SYNTAX_CHECK_ONLY "Syntax check the files only?" OFF)
 add_feature_info(SyntaxCheck SYNTAX_CHECK_ONLY "Syntax check files only")
 if(SYNTAX_CHECK_ONLY)

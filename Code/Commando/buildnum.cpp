@@ -33,21 +33,11 @@
  *---------------------------------------------------------------------------------------------*
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-#include "always.h"
 #include "buildnum.h"
 #include "wwdebug.h"
+#include "gitinfo.h"
 #include <stdio.h>
-#include "win.h"
-
-/*
-**
-** This is just a placeholder for the build number.
-** A post build step will stamp the build number into here.
-**
-*/
-char BuildInfoClass::BuildNumber [64] = {"Insert1Build2Number3Here4   xxxx                               "};
-char BuildInfoClass::BuildDate   [64] = {"Insert1Build2Date3Here4     xxxx                               "};
+#include <string.h>
 
 /***********************************************************************************************
  * BuildInfoClass::Get_Build_Number -- Gets the 32 bit build number.                           *
@@ -65,11 +55,8 @@ char BuildInfoClass::BuildDate   [64] = {"Insert1Build2Date3Here4     xxxx      
  *=============================================================================================*/
 unsigned int BuildInfoClass::Get_Build_Number(void)
 {
-	return (*(unsigned int*)(&BuildNumber[28]));
+	return (GitRevision);
 }
-
-
-
 
 /***********************************************************************************************
  * BuildInfoClass::Get_Build_Number_String -- Gets the build number as a human readable string.*
@@ -88,12 +75,9 @@ unsigned int BuildInfoClass::Get_Build_Number(void)
 const char *BuildInfoClass::Get_Build_Number_String(void)
 {
 	static char _buffer[16];
-	sprintf (_buffer, "%d", *(unsigned int*)(&BuildNumber[28]));
+	sprintf (_buffer, "%u", GitRevision);
 	return (_buffer);
 }
-
-
-
 
 /***********************************************************************************************
  * BuildInfoClass::Get_Builder_Name -- Gets the name of the person who built this executable.  *
@@ -111,10 +95,8 @@ const char *BuildInfoClass::Get_Build_Number_String(void)
  *=============================================================================================*/
 const char *BuildInfoClass::Get_Builder_Name(void)
 {
-	return(&BuildNumber[32]);
+	return BuildAuthorName;
 }
-
-
 
 /***********************************************************************************************
  * BuildInfoClass::Get_Build_Date_String -- Gets the date this executable was built on.        *
@@ -132,47 +114,7 @@ const char *BuildInfoClass::Get_Builder_Name(void)
  *=============================================================================================*/
 const char *BuildInfoClass::Get_Build_Date_String(void)
 {
-	static char _buffer[64];
-	SYSTEMTIME systime;
-
-	if (FileTimeToSystemTime ((LPFILETIME)(&BuildDate[28]), &systime) ) {
-		sprintf(_buffer, "%02d/%02d/%04d - %02d:%02d:%02d", systime.wMonth, systime.wDay, systime.wYear, systime.wHour, systime.wMinute, systime.wSecond);
-	} else {
-		_buffer[0] = 0;
-	}
-
-	return(_buffer);
-}
-
-
-
-/***********************************************************************************************
- * BuildInfoClass::Get_Builder_Initials -- Gets the initials of the builder                    *
- *                                                                                             *
- *                                                                                             *
- *                                                                                             *
- * INPUT:    Nothing                                                                           *
- *                                                                                             *
- * OUTPUT:   Ptr to string containing initials                                                 *
- *                                                                                             *
- * WARNINGS: None                                                                              *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   10/29/2001 5:12PM ST : Created                                                            *
- *=============================================================================================*/
-const char *BuildInfoClass::Get_Builder_Initials(void)
-{
-	static char _buffer[4];
-
-	_buffer[0] = BuildNumber[32];
-	_buffer[1] = 0;
-	_buffer[2] = 0;
-
-	char *lastname = strchr(&BuildNumber[32], '_');
-	if (lastname) {
-		_buffer[1] = lastname[1];
-	}
-	return (_buffer);
+	return(GitCommitDate);
 }
 
 /***********************************************************************************************
@@ -192,12 +134,22 @@ const char *BuildInfoClass::Get_Builder_Initials(void)
 const char *BuildInfoClass::Get_Build_Version_String(void)
 {
 	static char _buffer[128];
-	sprintf(_buffer, "%s-%s", Get_Builder_Initials(), Get_Build_Number_String());
+	sprintf(_buffer, "%u.%u.%u.%u", GitMajor, GitMinor, GitPatch, GitRevision);
 	return(_buffer);
 }
 
+const char *BuildInfoClass::Get_Build_Commit_String(bool short_str)
+{
+	if (short_str)
+		return(GitShortSHA1);
+	else
+		return(GitSHA1);
+}
 
-
+bool BuildInfoClass::Is_Build_Dirty(void)
+{
+	return(GitUncommittedChanges);
+}
 
 /***********************************************************************************************
  * BuildInfoClass::Get_Build_Type -- Get the type of build this is                             *
@@ -225,8 +177,6 @@ BuildInfoClass::BuildType BuildInfoClass::Get_Build_Type(void)
 		return(BUILD_DEBUG);
 	#endif //_DEBUG
 }
-
-
 
 /***********************************************************************************************
  * BuildInfoClass::Get_Build_Type_String -- Get the build type as a string.                    *
@@ -260,10 +210,6 @@ const char *BuildInfoClass::Get_Build_Type_String(void)
 	}
 }
 
-
-
-
-
 /***********************************************************************************************
  * BuildInfoClass::Composite_Build_Info -- Get lots of build info                              *
  *                                                                                             *
@@ -281,11 +227,15 @@ const char *BuildInfoClass::Get_Build_Type_String(void)
 const char *BuildInfoClass::Composite_Build_Info(void)
 {
 	static char _buffer[256];
-	sprintf(_buffer, "%s Build %d by %s - Build time %s", Get_Build_Type_String(), Get_Build_Number(), Get_Builder_Name(), Get_Build_Date_String());
+	[[maybe_unused]] int written = snprintf(_buffer, sizeof(_buffer), "%s %s Commit %s%s at %s",
+			BuildAuthorName,
+			Get_Build_Type_String(),
+			Is_Build_Dirty() ? "~" : "",
+			GitShortSHA1,
+			GitCommitDate);
+	WWASSERT(unsigned(written) < sizeof(_buffer));
 	return(_buffer);
 }
-
-
 
 /***********************************************************************************************
  * BuildInfoClass::Log_Build_Info -- Dump build info to the logfile.                           *
@@ -306,7 +256,3 @@ void BuildInfoClass::Log_Build_Info(void)
 	WWDEBUG_SAY((Composite_Build_Info()));
 	WWDEBUG_SAY(("\n"));
 }
-
-
-
-

@@ -66,6 +66,7 @@
 #include "translatedb.h"
 #include "string_ids.h"
 #include "gamespyadmin.h"
+#include "gitinfo.h"
 
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
@@ -503,11 +504,19 @@ MainMenuDialogClass::Update_Version_Number (void)
 	// Put the version string into the dialog
 	//
 	WideStringClass version_string;
-	// Add build number temporarily. Will probably be removed for shipping.
-	WideStringClass build_number(BuildInfoClass::Get_Build_Number_String(), true);
-	WideStringClass build_initials(BuildInfoClass::Get_Builder_Initials(), true);
+	WideStringClass build_ver(BuildInfoClass::Get_Build_Version_String(), true);
+
+	WideStringClass build_hash(BuildInfoClass::Get_Build_Commit_String(), true);
+	if(BuildInfoClass::Is_Build_Dirty())
+		build_hash += L"~";
+
 	WideStringClass build_date(BuildInfoClass::Get_Build_Date_String(), true);
-	version_string.Format (U_CHAR("v%d.%.3d %s-%s %s"), (version_major >> 16), (version_major & 0xFFFF), build_initials, build_number, build_date);
+	WideStringClass build_author(BuildInfoClass::Get_Builder_Name(), true);
+	version_string.Format (U_CHAR("%s %s %s %s"),
+		static_cast<const unichar_t*>(build_ver),
+		static_cast<const unichar_t*>(build_hash),
+		static_cast<const unichar_t*>(build_author),
+		static_cast<const unichar_t*>(build_date));
 	Set_Dlg_Item_Text (IDC_VERSION_STATIC, version_string);
 }
 
