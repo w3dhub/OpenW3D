@@ -361,7 +361,7 @@ DECLARE_SCRIPT(M07_Havoc_DLS, "")
 
 	void Sound_Heard(GameObject * obj, const CombatSound &sound) override
 	{
-		if (sound.Type == M07_NUKE_IMPACT)
+		if (static_cast<int>(sound.Type) == M07_NUKE_IMPACT)
 		{
 			if(nuke_blast)
 			{
@@ -489,7 +489,7 @@ DECLARE_SCRIPT(M07_Dead6_Minigunner, "")  // Deadeye
 
 	void Sound_Heard(GameObject * obj, const CombatSound &sound) override
 	{
-		if (sound.Type == M07_NUKE_IMPACT)
+		if (static_cast<int>(sound.Type) == M07_NUKE_IMPACT)
 		{
 			if(nuke_blast)
 			{
@@ -610,7 +610,7 @@ DECLARE_SCRIPT(M07_Dead6_Rocket_Soldier, "")  // Gunner
 
 	void Sound_Heard(GameObject * obj, const CombatSound &sound) override
 	{
-		if (sound.Type == M07_NUKE_IMPACT)
+		if (static_cast<int>(sound.Type) == M07_NUKE_IMPACT)
 		{
 			if(nuke_blast)
 			{
@@ -739,7 +739,7 @@ DECLARE_SCRIPT(M07_Dead6_Grenadier, "")  // Patch
 
 	void Sound_Heard(GameObject * obj, const CombatSound &sound) override
 	{
-		if (sound.Type == M07_NUKE_IMPACT)
+		if (static_cast<int>(sound.Type) == M07_NUKE_IMPACT)
 		{
 			if(nuke_blast)
 			{
@@ -1216,7 +1216,7 @@ DECLARE_SCRIPT(M07_Dead6_Engineer, "")  // Hotwire
 
 	void Sound_Heard(GameObject * obj, const CombatSound &sound) override
 	{
-		if (sound.Type == M07_NUKE_IMPACT)
+		if (static_cast<int>(sound.Type) == M07_NUKE_IMPACT)
 		{
 			if(nuke_blast)
 			{
@@ -1327,7 +1327,7 @@ DECLARE_SCRIPT(M07_Sydney, "")
 
 	void Sound_Heard(GameObject * obj, const CombatSound &sound) override
 	{
-		if (sound.Type == M07_NUKE_IMPACT)
+		if (static_cast<int>(sound.Type) == M07_NUKE_IMPACT)
 		{
 			if(nuke_blast)
 			{
@@ -2618,14 +2618,14 @@ DECLARE_SCRIPT(M07_Radar_Engineer, "Radar_ID=0:int")
 	{
 		ActionParamsStruct params;
 
-		if (sound.Type == M07_RADAR_DAMAGED)
+		if (static_cast<int>(sound.Type) == M07_RADAR_DAMAGED)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 100 );
 			params.Set_Attack (sound.Creator, 250.0f, 0.0f, 0);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
 		}
-		if (sound.Type == M07_RADAR_FIXED)
+		if (static_cast<int>(sound.Type) == M07_RADAR_FIXED)
 		{
 			Commands->Action_Reset(obj, INNATE_PRIORITY_ENEMY_SEEN + 5);
 		}
@@ -2871,7 +2871,7 @@ DECLARE_SCRIPT(M07_Captured_Civ_Resist, "")
 
 	void Sound_Heard(GameObject * obj, const CombatSound &sound) override
 	{
-		if (sound.Type == M07_FREE_CIV_RESIST)
+		if (static_cast<int>(sound.Type) == M07_FREE_CIV_RESIST)
 		{
 			freed = true;
 			Commands->Enable_HUD_Pokable_Indicator( obj, false );
@@ -3172,7 +3172,7 @@ DECLARE_SCRIPT(M07_Stockpile_Object, "")
 
 	void Sound_Heard(GameObject * obj, const CombatSound &sound) override
 	{
-		if (sound.Type == M07_EXPLODE_BARRELS)
+		if (static_cast<int>(sound.Type) == M07_EXPLODE_BARRELS)
 		{
 			Commands->Apply_Damage( obj, 100000.0f, "STEEL", NULL);
 		}
@@ -3267,14 +3267,14 @@ DECLARE_SCRIPT(M07_Stockpile_Engineer, "")
 	{
 		ActionParamsStruct params;
 
-		if (sound.Type == M07_ENGINEER_DAMAGED)
+		if (static_cast<int>(sound.Type) == M07_ENGINEER_DAMAGED)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 100 );
 			params.Set_Attack (sound.Creator, 250.0f, 0.0f, 0);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
 		}
-		if (sound.Type == M07_ENGINEER_FIXED)
+		if (static_cast<int>(sound.Type) == M07_ENGINEER_FIXED)
 		{
 			Commands->Action_Reset(obj, INNATE_PRIORITY_ENEMY_SEEN + 5);
 		}
@@ -4576,7 +4576,7 @@ DECLARE_SCRIPT(M07_Triangle_Apache, "")
 	{
 		ActionParamsStruct params;
 
-		if (sound.Type == M07_RELOCATE_TRIANGLE_APACHE)
+		if (static_cast<int>(sound.Type) == M07_RELOCATE_TRIANGLE_APACHE)
 		{
 			curr_waypath = 101033;
 
@@ -6370,7 +6370,7 @@ DECLARE_SCRIPT(M07_SSM_Unit, "")
 
 		const char * preset_name = Commands->Get_Preset_Name( obj );
 
-		if (sound.Type == M07_SSM_DAMAGED && ( ::strncmp( "Nod_Engineer_0", preset_name, ::strlen( "Nod_Engineer_0" ) ) == 0 ))
+		if (static_cast<int>(sound.Type) == M07_SSM_DAMAGED && ( ::strncmp( "Nod_Engineer_0", preset_name, ::strlen( "Nod_Engineer_0" ) ) == 0 ))
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 100 );
 			params.Set_Movement( Vector3(0,0,0), RUN, 5.5f );
@@ -6378,7 +6378,7 @@ DECLARE_SCRIPT(M07_SSM_Unit, "")
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
 		}
-		if (sound.Type == M07_SSM_FIXED && ( ::strncmp( "Nod_Engineer_0", preset_name, ::strlen( "Nod_Engineer_0" ) ) == 0 ))
+		if (static_cast<int>(sound.Type) == M07_SSM_FIXED && ( ::strncmp( "Nod_Engineer_0", preset_name, ::strlen( "Nod_Engineer_0" ) ) == 0 ))
 		{
 			Commands->Action_Reset(obj, INNATE_PRIORITY_ENEMY_SEEN + 5);
 		}

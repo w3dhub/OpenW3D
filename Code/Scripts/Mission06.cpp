@@ -1205,7 +1205,7 @@ DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 	void Sound_Heard(GameObject* /*obj*/, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M06_DISABLE_TOWER_SPAWN )
+		if ( static_cast<int>(sound.Type) == M06_DISABLE_TOWER_SPAWN )
 		{
 			disable_tower_spawn = true;
 		}
@@ -1653,7 +1653,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 	{
 
 
-		if ( sound.Type == M06_SOUND_ALARM_ON )
+		if ( static_cast<int>(sound.Type) == M06_SOUND_ALARM_ON )
 		{
 			alarmed = true;
 			sound_alarm = false;
@@ -1663,13 +1663,13 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 
 
 		}
-		if ( sound.Type == M06_SOUND_ALARM_OFF )
+		if ( static_cast<int>(sound.Type) == M06_SOUND_ALARM_OFF )
 		{
 			alarmed = false;
 			attacking_havoc = false;
 			Commands->Action_Reset ( obj, 100 );
 		}
-		if ( sound.Type == M06_ATTACK_HAVOC_SOUND )
+		if ( static_cast<int>(sound.Type) == M06_ATTACK_HAVOC_SOUND )
 		{
 
 			havoc_id = Commands->Get_ID(sound.Creator);
@@ -1678,7 +1678,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 
 		}
 
-		if (((sound.Type == SOUND_TYPE_GUNSHOT) || (sound.Type == SOUND_TYPE_BULLET_HIT)) && (!hear_footsteps))
+		if (((static_cast<int>(sound.Type) == SOUND_TYPE_GUNSHOT) || (static_cast<int>(sound.Type) == SOUND_TYPE_BULLET_HIT)) && (!hear_footsteps))
 		{
 			hear_footsteps = true;
 			Commands->Innate_Soldier_Enable_Footsteps_Heard(obj, true);
@@ -1934,11 +1934,11 @@ DECLARE_SCRIPT(M06_Tower_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	void Sound_Heard(GameObject* /*obj*/, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M06_DISABLE_TOWER_SPAWN )
+		if ( static_cast<int>(sound.Type) == M06_DISABLE_TOWER_SPAWN )
 		{
 			disable_tower_spawn = true;
 		}
-		if ( sound.Type == M06_CHATEAU_DESTRUCTION )
+		if ( static_cast<int>(sound.Type) == M06_CHATEAU_DESTRUCTION )
 		{
 			chateau_destruction = true;
 		}
@@ -2041,11 +2041,11 @@ DECLARE_SCRIPT(M06_Courtyard_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	void Sound_Heard(GameObject* /*obj*/, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M06_DISABLE_COURTYARD_SPAWN )
+		if ( static_cast<int>(sound.Type) == M06_DISABLE_COURTYARD_SPAWN )
 		{
 			disable_courtyard_spawn = true;
 		}
-		if ( sound.Type == M06_CHATEAU_DESTRUCTION )
+		if ( static_cast<int>(sound.Type) == M06_CHATEAU_DESTRUCTION )
 		{
 			chateau_destruction = true;
 		}
@@ -2146,11 +2146,11 @@ DECLARE_SCRIPT(M06_Hedgemaze_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	void Sound_Heard(GameObject* /*obj*/, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M06_DISABLE_HEDGEMAZE_SPAWN )
+		if ( static_cast<int>(sound.Type) == M06_DISABLE_HEDGEMAZE_SPAWN )
 		{
 			disable_hedgemaze_spawn = true;
 		}
-		if ( sound.Type == M06_CHATEAU_DESTRUCTION )
+		if ( static_cast<int>(sound.Type) == M06_CHATEAU_DESTRUCTION )
 		{
 			chateau_destruction = true;
 		}
@@ -2360,11 +2360,11 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 	void Sound_Heard(GameObject* /*obj*/, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M06_DISABLE_BARRACKS_SPAWN )
+		if ( static_cast<int>(sound.Type) == M06_DISABLE_BARRACKS_SPAWN )
 		{
 			disable_barracks_spawn = true;
 		}
-		if ( sound.Type == M06_CHATEAU_DESTRUCTION )
+		if ( static_cast<int>(sound.Type) == M06_CHATEAU_DESTRUCTION )
 		{
 			chateau_destruction = true;
 		}
@@ -3192,7 +3192,7 @@ DECLARE_SCRIPT(M06_Alarm_Engineer, "")
 	{
 		ActionParamsStruct params;
 
-		if (( sound.Type == M06_FIX_ALARM ) && (!fixing_alarm))
+		if (( static_cast<int>(sound.Type) == M06_FIX_ALARM ) && (!fixing_alarm))
 		{
 			fixing_alarm = true;
 			broken_alarm_id = Commands->Get_ID(sound.Creator);
@@ -3359,7 +3359,7 @@ DECLARE_SCRIPT(M06_Havoc_DLS, "")
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M06_SOUND_ALARM_ON )
+		if ( static_cast<int>(sound.Type) == M06_SOUND_ALARM_ON )
 		{
 			if(!alarmed)
 			{
@@ -3372,7 +3372,7 @@ DECLARE_SCRIPT(M06_Havoc_DLS, "")
 
 
 		}
-		if ( sound.Type == M06_SOUND_ALARM_OFF )
+		if ( static_cast<int>(sound.Type) == M06_SOUND_ALARM_OFF )
 		{
 			alarmed = false;
 			attacking_havoc = 0;
@@ -5596,7 +5596,7 @@ DECLARE_SCRIPT (M06_Clear_For_Mendoza, "")
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
 
-		if ( sound.Type == M06_CLEAR_FOR_MENDOZA )
+		if ( static_cast<int>(sound.Type) == M06_CLEAR_FOR_MENDOZA )
 		{
 			Commands->Destroy_Object(obj);
 		}
