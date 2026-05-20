@@ -1037,7 +1037,7 @@ void DlgMPTeamSelect::HandleNotification(PlayerMgrEvent& event)
 	{
 	PLAYERMGR_ACTION action = event.GetAction();
 
-	if ((action == PLAYER_ACTIVATED))// || (action == PLAYER_ADDED))
+	if (action == PLAYER_ACTIVATED)// || (action == PLAYER_ADDED))
 		{
 		AddLANPlayerInfo(event.Subject());
 		}
