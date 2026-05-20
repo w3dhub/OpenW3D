@@ -114,16 +114,6 @@
 **		SafeDataClass<SomeNamedClass> ASafeClass;
 **		SafeDataClass<SomeOtherType> ASafeType;
 **
-**		For types without existing macros, you will have to declare a new DataSafeClass<T> once for
-**		each type in DataSafe.cpp using the DECLARE_DATA_SAFE macro. So in the above example, you
-**		would have to add the following lines in DataSafe.cpp to allow storage of the new types
-**
-**		DECLARE_DATA_SAFE(SomeNamedClass);
-**		DECLARE_DATA_SAFE(SomeOtherType);
-**
-**
-**
-**
 **	Known external dependencies.
 **		DynamicVectorClass
 **		TICKS_PER_SECOND = 1000
@@ -594,7 +584,7 @@ class GenericDataSafeClass
 		/*
 		** Type identification.
 		*/
-		static inline int Get_Type_Size(int type);
+		static int Get_Type_Size(int type);
 
 #ifdef THREAD_SAFE_DATA_SAFE
 		/*
@@ -808,25 +798,17 @@ class DataSafeClass : public GenericDataSafeClass
 };
 
 
+template <typename T>
+int DataSafeClass<T>::Type;
 
+template <typename T>
+int DataSafeClass<T>::MinSlop;
 
-/*
-**
-**  Macros to help in declaring data safe types.
-**
-**
-**
-*/
-#define DECLARE_DATA_SAFE(type) 																\
-	DataSafeClass<type> DataSafe##type = {};														\
-	template<> int DataSafeClass<type>::Type = 0;															\
-	template<> char DataSafeClass<type>::ReturnList[MAX_OBJECT_COPIES][sizeof(type)] = {};		\
-	template<> int DataSafeClass<type>::ReturnIndex = 0;													\
-	template<> int DataSafeClass<type>::MinSlop = 0;
+template <typename T>
+char DataSafeClass<T>::ReturnList[MAX_OBJECT_COPIES][sizeof(T)];
 
-
-
-
+template <typename T>
+int DataSafeClass<T>::ReturnIndex;
 
 /*
 **
