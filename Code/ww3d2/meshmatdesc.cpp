@@ -632,7 +632,7 @@ void MeshMatDescClass::Install_UV_Array(int pass,int stage,Vector2 * uvs,int cou
 
 			WWASSERT(UV[new_index] == NULL);
 			UV[new_index] = NEW_REF(UVBufferClass,(count));
-			memcpy(UV[new_index]->Get_Array(),uvs,count * sizeof(Vector2));
+			memcpy(static_cast<void *>(UV[new_index]->Get_Array()),uvs,count * sizeof(Vector2));
 			UV[new_index]->Update_CRC();  // update the crc for future comparision
 			Set_UV_Source(pass,stage,new_index);
 		}

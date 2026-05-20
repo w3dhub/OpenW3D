@@ -1070,13 +1070,13 @@ PrototypeClass * RingLoaderClass::Load_W3D(ChunkLoadClass & cload)
 */
 RingPrototypeClass::RingPrototypeClass (void)
 {
-	::memset (&Definition, 0, sizeof (Definition));
+	::memset (static_cast<void *>(&Definition), 0, sizeof (Definition));
 	return ;
 }
 
 RingPrototypeClass::RingPrototypeClass(RingRenderObjClass *ring)
 {
-	::memset (&Definition, 0, sizeof (Definition));
+	::memset (static_cast<void *>(&Definition), 0, sizeof (Definition));
 	::strcpy (Definition.Name, ring->Get_Name ());
 
 	Definition.AnimDuration			= ring->AnimDuration;

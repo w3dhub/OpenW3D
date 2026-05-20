@@ -168,7 +168,7 @@ inline bool SimpleVecClass<T>::Resize(int newsize)
 			**	Mem copy as much of the old vector into the new vector as possible.
 			*/
 			int copycount = (newsize < VectorMax) ? newsize : VectorMax;
-			memcpy(newptr,Vector,copycount * sizeof(T));
+			memcpy(static_cast<void *>(newptr),Vector,copycount * sizeof(T));
 
 			/*
 			**	Delete the old vector.
@@ -439,7 +439,7 @@ inline bool SimpleDynVecClass<T>::Delete(int index,bool allow_shrink)
 	** cannot be used for classes that cannot be memcopied!!
 	*/
 	if (index < ActiveCount-1) {
-        memmove(&(this->Vector[index]),&(this->Vector[index+1]),(ActiveCount - index - 1) * sizeof(T));
+        memmove(static_cast<void *>(&this->Vector[index]),&this->Vector[index+1],(ActiveCount - index - 1) * sizeof(T));
 	}
 	ActiveCount--;
 
@@ -508,7 +508,7 @@ inline bool SimpleDynVecClass<T>::Delete_Range(int start,int count,bool allow_sh
 	** cannot be used for classes that cannot be memcopied!!
 	*/
 	if (start < ActiveCount - count) {
-        memmove(&(this->Vector[start]),&(this->Vector[start + count]),(ActiveCount - start - count) * sizeof(T));
+        memmove(static_cast<void *>(&this->Vector[start]),&this->Vector[start + count],(ActiveCount - start - count) * sizeof(T));
 	}
 
 	ActiveCount -= count;

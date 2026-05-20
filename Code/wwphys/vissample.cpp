@@ -238,7 +238,7 @@ bool VisSampleClass::Save(ChunkSaveClass &chunk_save) const
 	bool retval = false;
 
 	PERSISTENT_VIS_SAMPLE_INFO info;
-	::memset (&info, 0, sizeof (info));
+	::memset (static_cast<void *>(&info), 0, sizeof (info));
 
 	//
 	//	Copy the sample information into the object

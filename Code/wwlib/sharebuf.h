@@ -41,6 +41,8 @@
 #define SHAREBUF_H
 #include "refcount.h"
 
+#include <cstring>
+
 
 /*
 ** SharedBufferClass - a templatized class for buffers which are shared
@@ -134,7 +136,7 @@ T& ShareBufferClass<T>::Get_Element(int index)
 template<class T>
 void ShareBufferClass<T>::Clear(void)
 {
-	memset(Array,0,Count * sizeof(T));
+	std::memset(static_cast<void*>(Array),0,Count * sizeof(T));
 }
 
 

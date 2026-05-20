@@ -119,7 +119,7 @@ GameResPacket::GameResPacket(unsigned char* curbuf)
 		GameResField* field = new GameResField;
 
 		// Copy the adjusted header into the buffer and then advance the buffer
-		memcpy(field, curbuf, GAMERESFIELD_HEADER_SIZE);
+		memcpy(static_cast<void *>(field), curbuf, GAMERESFIELD_HEADER_SIZE);
 		curbuf += GAMERESFIELD_HEADER_SIZE;
 		remaining_size -= GAMERESFIELD_HEADER_SIZE;
 
