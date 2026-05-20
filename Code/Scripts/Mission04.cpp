@@ -3677,7 +3677,7 @@ DECLARE_SCRIPT(M04_AftDeck_02_Controller_JDG, "")//this guys number is M04_AFT_D
 		{
 			number_of_guys_killed++;
 
-			if ((number_of_guys_killed == 2) )
+			if (number_of_guys_killed == 2)
 			{
 				//Commands->Create_Sound ( "ThereHeIs", Vector3(8.51f, -108.05f, 6.00f), obj );
 				Commands->Send_Custom_Event( obj, obj, 0, 2000, 2 );//play second dialog line "call reinforcements"

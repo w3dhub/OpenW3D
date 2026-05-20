@@ -1053,7 +1053,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 
 						else
 						{
-							if ((clergy_are_boarding == false))
+							if (clergy_are_boarding == false)
 							{
 								clergy_are_boarding = true;
 
@@ -2729,12 +2729,12 @@ DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 			outside_ambients_playing = false;
 		}
 
-		else if ((param == M01_HON_HAS_BEEN_DESTROYED_JDG))//Hand of Nod has been destroyed
+		else if (param == M01_HON_HAS_BEEN_DESTROYED_JDG)//Hand of Nod has been destroyed
 		{
 			hand_of_nod_state = DESTROYED;
 		}
 
-		else if ((param == M01_COMM_CENTER_HAS_BEEN_DESTROYED_JDG))//Comm Center has been destroyed
+		else if (param == M01_COMM_CENTER_HAS_BEEN_DESTROYED_JDG)//Comm Center has been destroyed
 		{
 			comm_center_state = DESTROYED;
 		}
@@ -3418,7 +3418,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_Crapper_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering Grunt level--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering Grunt level--cue actors
 		{
 			if (obj)
 			{
@@ -3429,7 +3429,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_Crapper_JDG, "")
 			}
 		}
 
-		else if ((param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG))//Your building has been destroyed--evacuate
+		else if (param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG)//Your building has been destroyed--evacuate
 		{
 			if (obj)
 			{
@@ -3521,7 +3521,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_FlameGuy_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering Grunt level--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering Grunt level--cue actors
 		{
 			if (obj)
 			{
@@ -3532,7 +3532,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_FlameGuy_JDG, "")
 			}
 		}
 
-		else if ((param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG))//Your building has been destroyed--evacuate
+		else if (param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG)//Your building has been destroyed--evacuate
 		{
 			if (obj)
 			{
@@ -3610,7 +3610,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_ChemGuy_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering Grunt level--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering Grunt level--cue actors
 		{
 			if (obj)
 			{
@@ -3621,7 +3621,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_ChemGuy_JDG, "")
 			}
 		}
 
-		else if ((param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG))//Your building has been destroyed--evacuate
+		else if (param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG)//Your building has been destroyed--evacuate
 		{
 			if (obj)
 			{
@@ -3699,7 +3699,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_RocketGuy_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering Grunt level--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering Grunt level--cue actors
 		{
 			if (obj)
 			{
@@ -3710,7 +3710,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_RocketGuy_JDG, "")
 			}
 		}
 
-		else if ((param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG))//Your building has been destroyed--evacuate
+		else if (param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG)//Your building has been destroyed--evacuate
 		{
 			if (obj)
 			{
@@ -3786,7 +3786,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_MiniGunner_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering Grunt level--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering Grunt level--cue actors
 		{
 			if (obj)
 			{
@@ -3797,7 +3797,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_MiniGunner_JDG, "")
 			}
 		}
 
-		else if ((param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG))//Your building has been destroyed--evacuate
+		else if (param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG)//Your building has been destroyed--evacuate
 		{
 			if (obj)
 			{
@@ -3882,7 +3882,7 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Eating_Guy_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering Grunt level--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering Grunt level--cue actors
 		{
 			if (obj)
 			{
@@ -3893,7 +3893,7 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Eating_Guy_JDG, "")
 			}
 		}
 
-		else if ((param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG))//Your building has been destroyed--evacuate
+		else if (param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG)//Your building has been destroyed--evacuate
 		{
 			if (obj)
 			{
@@ -3968,7 +3968,7 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Walking_Guy_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering Grunt level--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering Grunt level--cue actors
 		{
 			if (obj)
 			{
@@ -3982,7 +3982,7 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Walking_Guy_JDG, "")
 			}
 		}
 
-		else if ((param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG))//Your building has been destroyed--evacuate
+		else if (param == M01_YOUR_BUILDING_HAS_BEEN_DESTROYED_JDG)//Your building has been destroyed--evacuate
 		{
 			if (obj)
 			{
@@ -4140,7 +4140,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_MiniGunner_JDG, "")//M01_CHURCH_LOVESHACK_MI
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering church area--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering church area--cue actors
 		{
 			Commands->Innate_Enable( obj );
 			params.Set_Basic(this, 85, M01_WALKING_WAYPATH_01_JDG);
@@ -4164,7 +4164,7 @@ DECLARE_SCRIPT(M01_Church_Exterior_MiniGunner_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering church area--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering church area--cue actors
 		{
 			if (obj)
 			{
@@ -4289,7 +4289,7 @@ DECLARE_SCRIPT(M01_Church_Balcony_MiniGunner_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering church area--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering church area--cue actors
 		{
 			if (obj)
 			{
@@ -5501,13 +5501,13 @@ DECLARE_SCRIPT(M01_Billys_Conversation_Zone_JDG, "")//this guys ID is 101661
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//billy is in position--give okay for conversation
+		if (param == M01_START_ACTING_JDG)//billy is in position--give okay for conversation
 		{
 			okay_to_play_conversation = true;
 			Commands->Send_Custom_Event( obj, obj, 0, M01_CUE_BILLYS_CONVERSATION_JDG, 0 );
 		}
 
-		else if ((param == M01_CUE_BILLYS_CONVERSATION_JDG))//see if billy and havoc are present
+		else if (param == M01_CUE_BILLYS_CONVERSATION_JDG)//see if billy and havoc are present
 		{
 			if (playerEntered == true && okay_to_play_conversation == true)
 			{
@@ -7801,7 +7801,7 @@ DECLARE_SCRIPT(M01_Barn_Babushkas_Conversation_Zone_JDG, "")//this guys ID is 10
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//babushka is in position--give okay for conversation
+		if (param == M01_START_ACTING_JDG)//babushka is in position--give okay for conversation
 		{
 			okay_to_play_conversation = true;
 			Commands->Send_Custom_Event( obj, obj, 0, M01_CUE_BABUSHKA_CONVERSATION_JDG, 0 );
@@ -9112,7 +9112,7 @@ DECLARE_SCRIPT(M01_Priest_Conversation_Zone_JDG, "")//this guys ID is 103395  M0
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//priest is in position--give okay for conversation
+		if (param == M01_START_ACTING_JDG)//priest is in position--give okay for conversation
 		{
 			okay_to_play_conversation = true;
 		}
@@ -9149,7 +9149,7 @@ DECLARE_SCRIPT(M01_Loveshack_Nun_Conversation_Zone_JDG, "")//this guys ID is 101
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//nun is in position--give okay for conversation
+		if (param == M01_START_ACTING_JDG)//nun is in position--give okay for conversation
 		{
 			okay_to_play_conversation = true;
 		}
@@ -9184,7 +9184,7 @@ DECLARE_SCRIPT(M01_Interior_Nun_Conversation_Zone_JDG, "")//this guys ID is #101
 
 	void Custom( GameObject * /* obj */, int /* type */, intptr_t param, GameObject * /* sender */ ) override
 	{
-		if ((param == M01_START_ACTING_JDG))//nun is in position--give okay for conversation
+		if (param == M01_START_ACTING_JDG)//nun is in position--give okay for conversation
 		{
 			okay_to_play_conversation = true;
 		}
@@ -11824,7 +11824,7 @@ DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * sender ) override
 	{
-		if ((param == M01_START_ACTING_JDG))//civs have been freed--play protect civs conversation
+		if (param == M01_START_ACTING_JDG)//civs have been freed--play protect civs conversation
 		{
 			protectCivsConv = Commands->Create_Conversation( "M01_Protect_Clergy_Conversation", 100, 1000, false);
 			Commands->Join_Conversation( NULL, protectCivsConv, false, false, true );
@@ -12141,7 +12141,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering church area--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering church area--cue actors
 		{
 			params.Set_Basic( this, 90, M01_DOING_ANIMATION_01_JDG );
 			params.Set_Animation ("H_A_Host_L2b", true);
@@ -12150,7 +12150,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 			Commands->Start_Sound ( prayerSound );
 		}
 
-		else if ((param == M01_CHURCH_GUARD_IS_DEAD_JDG))//Your guard is dead--do something
+		else if (param == M01_CHURCH_GUARD_IS_DEAD_JDG)//Your guard is dead--do something
 		{
 			Commands->Stop_Sound ( prayerSound, true );
 			Commands->Enable_Hibernation( obj, false );
@@ -12159,7 +12159,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 			Commands->Action_Play_Animation (obj, params);
 		}
 
-		else if ((param == M01_GOING_TO_EVAC_SPOT_JDG))//your ride is here--go get in
+		else if (param == M01_GOING_TO_EVAC_SPOT_JDG)//your ride is here--go get in
 		{
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Vector3 starPosition = Commands->Get_Position ( STAR );
@@ -12338,7 +12338,7 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering church area--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering church area--cue actors
 		{
 			params.Set_Basic( this, 90, 0 );
 			params.Set_Animation ("S_A_Human.H_A_Host_L2b", true);
@@ -12347,7 +12347,7 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 			Commands->Start_Sound ( prayerSound );
 		}
 
-		else if ((param == M01_CHURCH_GUARD_IS_DEAD_JDG))//Your guard is dead--do something
+		else if (param == M01_CHURCH_GUARD_IS_DEAD_JDG)//Your guard is dead--do something
 		{
 			Commands->Stop_Sound ( prayerSound, true );
 			Commands->Enable_Hibernation( obj, false );
@@ -12356,7 +12356,7 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 			Commands->Action_Play_Animation (obj, params);
 		}
 
-		else if ((param == M01_GOING_TO_EVAC_SPOT_JDG))//your ride is here--go get in
+		else if (param == M01_GOING_TO_EVAC_SPOT_JDG)//your ride is here--go get in
 		{
 			Vector3 evacSpot = Commands->Get_Position ( Commands->Find_Object ( 103394 ) );
 			ActionParamsStruct params;
@@ -12478,7 +12478,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 	{
 		ActionParamsStruct params;
 
-		if ((param == M01_START_ACTING_JDG))//Player is entering church area--cue actors
+		if (param == M01_START_ACTING_JDG)//Player is entering church area--cue actors
 		{
 			params.Set_Basic(this, 90, M01_WALKING_WAYPATH_01_JDG);
 			params.Set_Movement( Vector3(0,0,0), WALK, .25f );
@@ -12488,7 +12488,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 			Commands->Action_Goto( obj, params );
 		}
 
-		else if ((param == M01_LOVESHACK_GUARD_IS_DEAD_JDG))//Your guard is dead--follow havoc
+		else if (param == M01_LOVESHACK_GUARD_IS_DEAD_JDG)//Your guard is dead--follow havoc
 		{
 			Commands->Enable_Hibernation( obj, false );
 			params.Set_Basic( this, 100, M01_WALKING_WAYPATH_02_JDG );
@@ -12500,7 +12500,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 
 		}
 
-		else if ((param == M01_GOING_TO_EVAC_SPOT_JDG))//your ride is here--go get in
+		else if (param == M01_GOING_TO_EVAC_SPOT_JDG)//your ride is here--go get in
 		{
 			Vector3 evacSpot = Commands->Get_Position ( Commands->Find_Object ( 103394 ) );
 			ActionParamsStruct params;

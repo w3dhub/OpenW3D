@@ -1411,12 +1411,12 @@ DECLARE_SCRIPT(M06_Alarm_Controller, "")
 		{
 			Commands->Send_Custom_Event (obj, sender, M06_ALARMED, alarm_sounded, 0.0f);
 		}
-		if((type == M06_STAND_DOWN)) // && (alarm_sounded) && !stand_down)
+		if(type == M06_STAND_DOWN) // && (alarm_sounded) && !stand_down)
 		{
 			stand_down = true;
 			Commands->Start_Timer (obj, this, 0.0f, STAND_DOWN);
 		}
-		if((type == M06_SOUND_ALARM) && (!alarm_sounded))
+		if(type == M06_SOUND_ALARM && (!alarm_sounded))
 		{
 			alarm_sounded = true;
 			Commands->Create_Sound ( "M06_Alarm", Vector3 (0,0,0), obj);
@@ -1445,7 +1445,7 @@ DECLARE_SCRIPT(M06_Alarm_Controller, "")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 
-		if((timer_id == STAND_DOWN)) // && (alarm_sounded) && (alarmed))
+		if(timer_id == STAND_DOWN) // && (alarm_sounded) && (alarmed))
 		{
 			if(alarm_sounded)
 			{
