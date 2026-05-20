@@ -892,6 +892,8 @@ void DX8Caps::Check_Driver_Version_Status()
 			}
 		}
 		break;
+	default:
+		break;
 	}
 
 	switch (DriverVersionStatus) {

@@ -1067,7 +1067,7 @@ void PhysicsSceneClass::Unregister(RenderObjClass * obj,RegType for_what)
 			VertexProcList.Remove(obj);
 			break;
 		case RELEASE:
-			WWASSERT_PRINT(0,("Error! Object %s tried to un-register from the release list\r\n",obj->Get_Name()));
+			WWASSERT_PRINT(0,("Error! Object tried to un-register from the release list\r\n"));
 			break;
 	}
 }

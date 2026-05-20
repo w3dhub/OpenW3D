@@ -2517,6 +2517,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					}
 				}
 				break;
+            default:
+				break;
 		}
 	}
 };
@@ -6392,6 +6394,8 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 };
@@ -7590,6 +7594,8 @@ DECLARE_SCRIPT(M01_GuardTower_Sniper_Target_JDG, "wave_location:vector3,  delete
 							break;
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}
@@ -11141,6 +11147,8 @@ DECLARE_SCRIPT(M01_HON_Dojo_Trainer_JDG, "")//this guys ID is M01_HON_DOJO_SENSE
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 };
@@ -11431,6 +11439,8 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 };
@@ -11589,6 +11599,8 @@ DECLARE_SCRIPT(M01_Objective_Pog_Controller_JDG, "")//M01_MISSION_POG_CONTROLLER
 						Commands->Set_HUD_Help_Text ( IDS_M01DSGN_DSGN0516I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}

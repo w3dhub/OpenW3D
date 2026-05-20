@@ -323,6 +323,9 @@ void ShaderClass::Enable_Fog (const char *source)
 				Report_Unable_To_Fog (source);
 			}
 			break;
+
+		case SRCBLEND_MAX:
+			break;
 	}
 }
 
@@ -512,6 +515,8 @@ void ShaderClass::Apply()
 				break;
 			case ShaderClass::FOG_DISABLE:
 				fm = false;
+				break;
+			case ShaderClass::FOG_MAX:
 				break;
 			}
 

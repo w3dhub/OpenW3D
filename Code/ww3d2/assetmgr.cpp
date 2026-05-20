@@ -967,7 +967,7 @@ TextureClass * WW3DAssetManager::Get_Texture(
 	*/
 	TextureClass* tex = TextureHash.Get(lower_case_name);
 	if (tex && (tex->Is_Initialized() == true) && (texture_format!=WW3D_FORMAT_UNKNOWN)) {
-		WWASSERT_PRINT(tex->Get_Texture_Format()==texture_format,("Texture %s has already been loaded with different format",filename));
+		WWASSERT_PRINT(tex->Get_Texture_Format()==texture_format,("Texture has already been loaded with different format"));
 	}
 
 	/*

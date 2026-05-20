@@ -1240,6 +1240,9 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 				/*case PathClass::STATE_PATH_COMPLETE:
 					act_result = Arrived();
 					break;					*/
+
+				default:
+					break;
 			}
 
 		} else {
@@ -1329,6 +1332,9 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 				PathAction.Initialize( PathActionClass::TYPE_JUMPING, Path, obj, NULL );
 			}
 			break;
+
+			default:
+				break;
 		}
 
 		return ACTION_IN_PROGRESS;

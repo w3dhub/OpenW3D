@@ -621,6 +621,7 @@ void DX8Wrapper::Enumerate_Devices()
 
 						case D3DFMT_R5G6B5:
 						case D3DFMT_X1R5G5B5:		bits = 16; break;
+						default:					break;
 					}
 
 					// Some cards fail in certain modes, DX8Caps keeps list of those.

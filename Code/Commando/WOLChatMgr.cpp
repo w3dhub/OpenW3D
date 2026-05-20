@@ -1217,6 +1217,9 @@ void WOLChatMgr::HandleNotification(UserEvent& userEvent)
 				}
 			}
 			break;
+
+		default:
+			break;
 		}
 	}
 

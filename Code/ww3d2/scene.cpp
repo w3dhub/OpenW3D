@@ -235,6 +235,8 @@ void SceneClass::Render(RenderInfoClass & rinfo)
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS,*reinterpret_cast<unsigned*>(&depthbias));
 			Customized_Render(rinfo);
 			break;
+		case EXTRA_PASS_DISABLE:
+			break;
 		}
 
 		WW3D::Enable_Texturing(old_enable);

@@ -260,6 +260,8 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 
@@ -2029,6 +2031,8 @@ DECLARE_SCRIPT(M11_WetBar_NeighborRoom_SpawnedDude_JDG, "")
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 };
@@ -2485,6 +2489,8 @@ DECLARE_SCRIPT(M11_Barracks_SpawnedDude_JDG, "")//
 						Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, 0 );
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}
@@ -4855,6 +4861,8 @@ DECLARE_SCRIPT(M11_Start_Third_Objective_Zone_JDG, "")//player's third objective
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 };
@@ -5544,6 +5552,8 @@ DECLARE_SCRIPT(M11_SecurityCamera_JDG, "")//
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 };
@@ -5779,6 +5789,8 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 					}
 				}
 				break;
+			default:
+				break;
 		}
 	}
 };
@@ -5980,6 +5992,8 @@ DECLARE_SCRIPT(M11_KaneRoom_KaneEncounter_Kane_JDG, "")//M11_KanesRoom_Kane_Conv
 						Commands->Send_Custom_Event ( obj, obj, 0, M01_START_ACTING_JDG, 2 );
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}
@@ -6758,6 +6772,8 @@ DECLARE_SCRIPT(M11_Barracks_MutantUprising_BlackhandGuy_JDG, "")//M11_BARRACKS_M
 						}
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}
@@ -10031,6 +10047,8 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 						Commands->Send_Custom_Event( obj, Commands->Find_Object (M11_MISSION_CONTROLLER_JDG), 0, M11_END_MISSION_PASS_JDG, 0 );
 					}
 				}
+				break;
+			default:
 				break;
 		}
 	}

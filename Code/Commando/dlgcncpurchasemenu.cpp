@@ -431,6 +431,16 @@ CNCPurchaseMenuClass::Purchase (void)
 		allow_purchase = Verify_Vehicle_Purchase();
 		vendor_purchase_type = VendorClass::TYPE_SECRET_VEHICLE;
 		break;
+
+	case PurchaseSettingsDefClass::TYPE_EQUIPMENT:
+		allow_purchase = false;
+		WWASSERT_PRINT(false, "Purchasing TYPE_EQUIPMENT not implemented");
+		break;
+
+	case PurchaseSettingsDefClass::TYPE_COUNT:
+		allow_purchase = false;
+		WWASSERT(false);
+		break;
 	};
 
 	//

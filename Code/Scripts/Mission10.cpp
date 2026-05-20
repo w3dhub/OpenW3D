@@ -4765,6 +4765,9 @@ DECLARE_SCRIPT(M10_KaneHead2_DME, "") //2017221
 					}
 				}
 				break;
+
+			default:
+				break;
 		}
 	}
 

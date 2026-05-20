@@ -103,6 +103,9 @@ unsigned int SurfaceClass::PixelSize(const SurfaceClass::SurfaceDescription &sd)
 	case WW3D_FORMAT_A4L4:
 		size=1;
 		break;
+	default:
+		WWASSERT(0 && "Unexpected format");
+		break;
 	}
 
 	return size;
@@ -942,7 +945,8 @@ bool SurfaceClass::Is_Monochrome(void)
 		case WW3D_FORMAT_L8:
 		case WW3D_FORMAT_A4L4:
 			return true;
-		break;
+		default:
+			break;
 	}
 
 	int pitch,size;

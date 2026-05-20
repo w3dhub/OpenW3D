@@ -2075,6 +2075,9 @@ void WolGameModeClass::HandleNotification(WOLPagedEvent& event)
 			break;
 		}
 
+		case PAGE_SENT:
+			break;
+
 		case INVITATION_RECEIVED:
 		case INVITATION_DECLINED:
 			CombatManager::Get_Message_Window()->Add_Message(page->GetPageMessage(), COLOR_INVITE_TEXT);

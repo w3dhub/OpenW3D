@@ -179,6 +179,8 @@ bool TransitionDataClass::Load( ChunkLoadClass & cload )
 		case LEGACY_VEHICLE_EXIT_1:
 			Type = VEHICLE_EXIT;
 			break;
+		default:
+			break;
 	}
 
 	return true;
@@ -489,6 +491,8 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 
 		break;
 
+		default:
+			break;
 	}
 
 	if ( !condition ) {
@@ -569,6 +573,9 @@ void	TransitionInstanceClass::Start( SoldierGameObj *obj )
 
 			break;
 		}
+
+		default:
+			break;
 	}
 
 #if 0

@@ -176,6 +176,11 @@ ParameterClass::Construct (Type type, void *data, const char *name)
 			new_param = new SeparatorParameterClass;
 			new_param->Set_Name (name);
 			break;
+
+		case TYPE_TRANSITION:
+		case TYPE_SCRIPT:
+		case TYPE_SCRIPTLIST:
+			break;
 	}
 
 	return new_param;

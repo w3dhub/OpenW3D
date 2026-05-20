@@ -296,6 +296,9 @@ void AnimChannelClass::Update( float dtime )
 					Frame = NumFrames-1;
 				}
 				break;
+
+			default:
+				break;
 		}
 
 #if 0

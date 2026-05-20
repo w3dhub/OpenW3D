@@ -811,6 +811,9 @@ void TextureLoader::Update(void (*network_callback)(void))
 			case TextureLoadTaskClass::TASK_LOAD:
 				Process_Foreground_Load(task);
 				break;
+
+			default:
+				break;
 		}
 	}
 
@@ -839,6 +842,9 @@ void TextureLoader::Process_Foreground_Thumbnail(TextureLoadTaskClass *task)
 		case TextureLoadTaskClass::STATE_COMPLETE:
 			task->Destroy();
 			break;
+
+		default:
+			break;
 	}
 }
 
@@ -862,6 +868,9 @@ void TextureLoader::Process_Foreground_Load(TextureLoadTaskClass *task)
 		case TextureLoadTaskClass::STATE_LOAD_MIPMAP:
 			task->End_Load();
 			task->Destroy();
+			break;
+
+		default:
 			break;
 	}
 }
@@ -1046,6 +1055,9 @@ void TextureLoadTaskClass::Init(TextureClass* tc, TaskType type, PriorityType pr
 			WWASSERT(Texture->TextureLoadTask == NULL);
 			Texture->TextureLoadTask = this;
 			break;
+
+		default:
+			break;
 	}
 }
 
@@ -1072,6 +1084,9 @@ void TextureLoadTaskClass::Deinit()
 			case TASK_LOAD:
 				WWASSERT(Texture->TextureLoadTask == this);
 				Texture->TextureLoadTask = NULL;
+				break;
+
+			default:
 				break;
 		}
 
