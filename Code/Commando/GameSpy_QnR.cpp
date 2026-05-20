@@ -80,7 +80,7 @@
 #include <memory>
 #include <thread>
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #ifdef snprintf
 #undef snprintf
 #endif
