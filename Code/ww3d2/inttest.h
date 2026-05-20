@@ -121,6 +121,7 @@ inline bool AABoxIntersectionTestClass::Cull(const Vector3 & cull_min,const Vect
 	if ((box_min.X > cull_max.X) || (box_max.X < cull_min.X)) return true;
 	if ((box_min.Y > cull_max.Y) || (box_max.Y < cull_min.Y)) return true;
 	if ((box_min.Z > cull_max.Z) || (box_max.Z < cull_min.Z)) return true;
+	return false;
 }
 
 inline bool AABoxIntersectionTestClass::Cull(const AABoxClass & cull_box)
@@ -133,6 +134,7 @@ inline bool AABoxIntersectionTestClass::Cull(const AABoxClass & cull_box)
 	if (WWMath::Fabs(dc.X) > r.X) return true;
 	if (WWMath::Fabs(dc.Y) > r.Y) return true;
 	if (WWMath::Fabs(dc.Z) > r.Z) return true;
+	return false;
 }
 
 inline bool AABoxIntersectionTestClass::Intersect_Triangle(const TriClass & tri)
