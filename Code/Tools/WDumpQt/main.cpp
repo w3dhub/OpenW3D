@@ -21,6 +21,7 @@
 #include <QApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QIcon>
 #include <QStringList>
 #include <functional>
 #include <iostream>
@@ -33,6 +34,7 @@ int main(int argc, char **argv)
     QCoreApplication::setOrganizationName(QStringLiteral("OpenW3D"));
     QCoreApplication::setApplicationName(QStringLiteral("wdump_qt"));
     QCoreApplication::setApplicationVersion(QStringLiteral("0.1"));
+    app.setWindowIcon(QIcon(QStringLiteral(":/wdump/wdump.ico")));
 
     QCommandLineParser parser;
     parser.setApplicationDescription(QStringLiteral("Qt-based WDump viewer"));

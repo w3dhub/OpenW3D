@@ -2,7 +2,14 @@ set(WDUMP_QT_SRC
     main.cpp
     MainWindow.cpp
     MainWindow.h
+    resources.qrc
 )
+
+if(WIN32)
+    list(APPEND WDUMP_QT_SRC
+        wdump_qt.rc
+    )
+endif()
 
 add_executable(wdump_qt WIN32)
 

@@ -26,6 +26,7 @@
 #include <QFileInfo>
 #include <QFontDatabase>
 #include <QHeaderView>
+#include <QIcon>
 #include <QInputDialog>
 #include <QKeySequence>
 #include <QLineEdit>
@@ -53,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
     buildUi();
     buildMenus();
     setAcceptDrops(true);
+    setWindowIcon(QIcon(QStringLiteral(":/wdump/wdump.ico")));
     setWindowTitle(windowTitleForPath(QString()));
     resize(1024, 768);
 }
@@ -431,9 +433,11 @@ void MainWindow::showChunk(const wdump::Chunk *chunk)
 
     auto addRow = [&](const QString &name, const QString &type, const QString &value) {
         QList<QStandardItem *> row;
-        row << new QStandardItem(name);
-        row << new QStandardItem(type);
-        row << new QStandardItem(value);
+        for (const QString &text : {name, type, value}) {
+            auto *item = new QStandardItem(text);
+            item->setEditable(false);
+            row << item;
+        }
         _tableModel->appendRow(row);
     };
 

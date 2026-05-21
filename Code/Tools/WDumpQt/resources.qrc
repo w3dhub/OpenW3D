@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/wdump">
+        <file alias="wdump.ico">../wdump/res/wdump.ico</file>
+    </qresource>
+</RCC>
