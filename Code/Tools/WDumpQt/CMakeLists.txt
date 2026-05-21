@@ -20,6 +20,7 @@ target_link_libraries(wdump_qt
         qtcommon
         w3d_qt_toolkit
         wdump_core
+        wwdebug
         wwlib
         wwcommon
 )

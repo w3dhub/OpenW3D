@@ -116,7 +116,7 @@ void MainWindow::buildMenus()
     auto *viewMenu = menuBar()->addMenu(tr("&View"));
     auto *toolbarAction = viewMenu->addAction(tr("&Toolbar"));
     toolbarAction->setCheckable(true);
-    toolbarAction->setChecked(true);
+    toolbarAction->setChecked(false);
     auto *statusAction = viewMenu->addAction(tr("&Status Bar"));
     statusAction->setCheckable(true);
     statusAction->setChecked(true);
@@ -133,6 +133,7 @@ void MainWindow::buildMenus()
     _toolbar = addToolBar(tr("Main"));
     _toolbar->addAction(openAction);
     _toolbar->addAction(aboutAction);
+    _toolbar->setVisible(false);
 
     connect(toolbarAction, &QAction::toggled, this, [this](bool visible) {
         if (_toolbar) {
@@ -393,6 +394,7 @@ QStandardItem *MainWindow::addChunkItem(QStandardItem *parent, const wdump::Chun
         label = QStringLiteral("Unknown: id=0x%1").arg(idText);
     }
     auto *item = new QStandardItem(label);
+    item->setEditable(false);
     item->setData(QVariant::fromValue<quintptr>(reinterpret_cast<quintptr>(&chunk)), Qt::UserRole + 1);
 
     if (parent)
