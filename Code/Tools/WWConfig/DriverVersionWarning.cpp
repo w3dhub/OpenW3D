@@ -111,7 +111,7 @@ static void Get_Driver_Version_Warning_String(StringClass& str, DX8Caps& caps)
 	format_string += "\n";
 
 	str.Format( format_string,
-		driver_name,
+		driver_name.Peek_Buffer(),
 		caps.Get_Driver_Build_Version()/100,
 		caps.Get_Driver_Build_Version()%100 );
 

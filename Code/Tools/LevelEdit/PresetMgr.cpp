@@ -884,7 +884,7 @@ PresetMgrClass::Check_In_Database (LPCTSTR path)
 		retval = asset_db.Retry_Check_In (full_path, 10, 250);
 		if (retval == false) {
 			CString message;
-			message.Format ("Unable to check in preset library: %s.", full_path);
+			message.Format ("Unable to check in preset library: %s.", static_cast<const TCHAR*>(full_path));
 			::MessageBox (::AfxGetMainWnd ()->m_hWnd, message, "Database Error", MB_ICONERROR | MB_OK);
 		}
 

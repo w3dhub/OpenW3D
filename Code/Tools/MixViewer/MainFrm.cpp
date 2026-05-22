@@ -319,7 +319,7 @@ CMainFrame::OnExportFiles (void)
 						int error = ::GetLastError();
 						if ( result == 0 && error != ERROR_ALREADY_EXISTS ) {
 							StringClass message;
-							message.Format ("Failed to create folder %s.", dest_folder );
+							message.Format ("Failed to create folder %s.", dest_folder.Peek_Buffer() );
 							MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
 							return;
 						}
@@ -331,7 +331,7 @@ CMainFrame::OnExportFiles (void)
 					if ( dest_file ) {
 						if ( dest_file->Open( FileClass::WRITE ) == 0 ) {
 							StringClass message;
-							message.Format ("Failed to open %s for writing.", dest_name );
+							message.Format ("Failed to open %s for writing.", dest_name.Peek_Buffer() );
 							MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
 							return;
 						}
@@ -339,7 +339,7 @@ CMainFrame::OnExportFiles (void)
 					if ( source_file ) {
 						if ( source_file->Open() == 0 ) {
 							StringClass message;
-							message.Format ("Failed to open %s for reading.", source_name );
+							message.Format ("Failed to open %s for reading.", source_name.Peek_Buffer() );
 							MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
 							return;
 						}
@@ -376,13 +376,13 @@ CMainFrame::OnExportFiles (void)
 
 					if ( read_error ) {
 						StringClass message;
-						message.Format ("Read Error on %s.", source_name );
+						message.Format ("Read Error on %s.", source_name.Peek_Buffer() );
 						MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
 						return;
 					}
 					if ( write_error ) {
 						StringClass message;
-						message.Format ("Write Error on %s.", dest_name );
+						message.Format ("Write Error on %s.", dest_name.Peek_Buffer() );
 						MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
 						return;
 					}
@@ -392,13 +392,13 @@ CMainFrame::OnExportFiles (void)
 
 			} else {
 				StringClass message;
-				message.Format ("Failed to create folder %s.", export_path);
+				message.Format ("Failed to create folder %s.", export_path.Peek_Buffer());
 				MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
 			}
 
 		} else {
 			StringClass message;
-			message.Format ("Error reading the filename list from %s.", current_filename);
+			message.Format ("Error reading the filename list from %s.", current_filename.Peek_Buffer());
 			MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
 		}
 	} else {
