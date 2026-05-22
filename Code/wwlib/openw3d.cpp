@@ -157,9 +157,11 @@ namespace
 			return config_path;
 		}
 		SDL_free(pref_path);
-#endif
 
 		return std::filesystem::path();
+#else
+	#error OpenW3D does not have an implementation of Get_User_Config_Directory() for this platform
+#endif
 	}
 
 	std::filesystem::path Get_Default_Config_File_Path()
