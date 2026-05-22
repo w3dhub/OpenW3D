@@ -4420,7 +4420,7 @@ DECLARE_SCRIPT (M10_SoldierPoke, "")
 		}
 
 		int random = Commands->Get_Random_Int (0, 6);
-		while (!already_picked)
+		while (!already_picked[random])
 		{
 			random = Commands->Get_Random_Int (0, 6);
 		}
