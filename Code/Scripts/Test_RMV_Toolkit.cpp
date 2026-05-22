@@ -185,7 +185,7 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * sender)
+	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * sender) override
 	{
 		if (type == c_type)
 		{
