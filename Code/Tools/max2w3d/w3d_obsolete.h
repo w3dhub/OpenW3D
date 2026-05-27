@@ -81,6 +81,40 @@ enum
 		W3D_CHUNK_PER_TRI_MATERIALS			=0x00000021,	// Multi-Mtl meshes - An array of uint16 material id's
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Catalog-only identifiers observed in later W3D derivatives.
+// These definitions publish known identifiers for future implementation; OpenW3D does not
+// currently read or write these chunks.
+/////////////////////////////////////////////////////////////////////////////////////////////
+enum
+{
+		W3D_CHUNK_PIVOT_UNKNOWN1								=0x00000104,	// observed hierarchy extension
+		W3D_CHUNK_COMPRESSED_ANIMATION_MOTION_CHANNEL	=0x00000284,	// observed compressed motion data
+
+		W3D_CHUNK_SHDMESH										=0x00000B00,	// observed shader mesh wrapper
+			W3D_CHUNK_SHDMESH_NAME,
+			W3D_CHUNK_SHDMESH_HEADER,
+			W3D_CHUNK_SHDMESH_USER_TEXT,
+
+		W3D_CHUNK_SHDSUBMESH									=0x00000B20,	// observed shader sub-mesh wrapper
+			W3D_CHUNK_SHDSUBMESH_HEADER,
+
+		W3D_CHUNK_SHDSUBMESH_SHADER						=0x00000B40,	// observed shader sub-mesh data
+			W3D_CHUNK_SHDSUBMESH_SHADER_TYPE,
+			W3D_CHUNK_SHDSUBMESH_SHADER_DATA,
+			W3D_CHUNK_SHDSUBMESH_VERTICES,
+			W3D_CHUNK_SHDSUBMESH_VERTEX_NORMALS,
+			W3D_CHUNK_SHDSUBMESH_TRIANGLES,
+			W3D_CHUNK_SHDSUBMESH_VERTEX_SHADE_INDICES,
+			W3D_CHUNK_SHDSUBMESH_UV0,
+			W3D_CHUNK_SHDSUBMESH_UV1,
+			W3D_CHUNK_SHDSUBMESH_TANGENT_BASIS_S,
+			W3D_CHUNK_SHDSUBMESH_TANGENT_BASIS_T,
+			W3D_CHUNK_SHDSUBMESH_TANGENT_BASIS_SXT,
+			W3D_CHUNK_SHDSUBMESH_B4C,
+			W3D_CHUNK_SHDSUBMESH_VERTEX_INFLUENCES,
+};
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Version 1.0 Material, array of these are found inside the W3D_CHUNK_MATERIALS chunk.
