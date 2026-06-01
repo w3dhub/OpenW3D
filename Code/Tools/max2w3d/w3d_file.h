@@ -866,7 +866,7 @@ struct W3dShaderStruct
 	uint8						pad[1];
 };
 
-// On-disk FX shader declaration from later W3D tools; no loader uses this structure here.
+// On-disk FX shader declaration from BFME II; no loader uses this structure here.
 struct W3dFXShaderStruct
 {
 	char						ShaderName[2 * W3D_NAME_LEN];
@@ -1062,7 +1062,7 @@ typedef enum
 } W3D_SURFACE_TYPES;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-// Later scripts-based tools catalog additional surface values without OpenW3D support:
+// Later TT-Scripts tools catalog additional surface values without OpenW3D support:
 //   32 BLUE_TIBERIUM, 33 RED_TIBERIUM, 34 TIBERIUM_VEINS, 35 LASER,
 //   36 SNOW_PERMIABLE (reference spelling), 37 ELECTRICAL_GLASS,
 //   38 ELECTRICAL_GLASS_PERMEABLE, 39 SLUSH, and 40-47 EXTRA_1 through EXTRA_8.
@@ -1122,8 +1122,8 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_MESH_FLAG_COLLISION_TYPE_VIS					0x00000040		// vis rays collide with this mesh
 #define W3D_MESH_FLAG_COLLISION_TYPE_CAMERA				0x00000080		// camera rays/boxes collide with this mesh
 #define W3D_MESH_FLAG_COLLISION_TYPE_VEHICLE				0x00000100		// vehicles collide with this mesh (and with physical collision meshes)
-#define W3D_MESH_FLAG_COLLISION_TYPE_USER1				0x00000200		// later-format application-defined collision type
-#define W3D_MESH_FLAG_COLLISION_TYPE_USER2				0x00000400		// later-format application-defined collision type
+#define W3D_MESH_FLAG_COLLISION_TYPE_USER1				0x00000200		// TT-Scripts application-defined collision type
+#define W3D_MESH_FLAG_COLLISION_TYPE_USER2				0x00000400		// TT-Scriptst application-defined collision type
 
 #define W3D_MESH_FLAG_HIDDEN									0x00001000		// this mesh is hidden by default
 #define W3D_MESH_FLAG_TWO_SIDED								0x00002000		// render both sides of this mesh
@@ -1139,7 +1139,7 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_AABOX					0x00040000		// (4.1+) aabox OBSOLETE!
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_OBBOX					0x00050000		// (4.1+) obbox OBSOLETE!
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_ORIENTED	0x00060000		// (4.1+) camera oriented mesh (points _towards_ camera)
-#define W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_Z_ORIENTED	0x00070000		// later-format camera Z-oriented mesh
+#define W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_Z_ORIENTED	0x00070000		// TT-Scripts camera Z-oriented mesh
 
 #define W3D_MESH_FLAG_PRELIT_MASK							0x0F000000		// (4.2+)
 #define W3D_MESH_FLAG_PRELIT_UNLIT							0x01000000		// mesh contains an unlit material chunk wrapper
@@ -1149,8 +1149,8 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 
 #define W3D_MESH_FLAG_SHATTERABLE							0x10000000		// this mesh is shatterable.
 #define W3D_MESH_FLAG_NPATCHABLE								0x20000000		// it is ok to NPatch this mesh
-#define W3D_MESH_FLAG_PRELIT									0x40000000		// later-format prelit mesh flag
-#define W3D_MESH_FLAG_ALWAYSDYNLIGHT						0x80000000		// later-format always dynamically lit flag
+#define W3D_MESH_FLAG_PRELIT									0x40000000		// TT-Scripts prelit mesh flag
+#define W3D_MESH_FLAG_ALWAYSDYNLIGHT						0x80000000		// TT-Scripts always dynamically lit flag
 
 /********************************************************************************
 
@@ -1168,10 +1168,10 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_VERTEX_CHANNEL_TEXCOORD		0x00000004	// texture coordinate
 #define W3D_VERTEX_CHANNEL_COLOR			0x00000008	// vertex color
 #define W3D_VERTEX_CHANNEL_BONEID		0x00000010	// per-vertex bone id for skins
-#define W3D_VERTEX_CHANNEL_TANGENT		0x00000020	// per-vertex tangent (later-format declaration only)
-#define W3D_VERTEX_CHANNEL_BINORMAL		0x00000040	// per-vertex binormal (later-format declaration only)
-#define W3D_VERTEX_CHANNEL_SMOOTHSKIN	0x00000080	// W3D_CHUNK_VERTEX_INFLUENCES stores two-bone weighted data
-#define W3D_VERTEX_CHANNEL_SUPERSMOOTHSKIN	0x00000100	// W3D_CHUNK_VERTEX_INFLUENCES_EXTENDED stores four-bone weighted data
+#define W3D_VERTEX_CHANNEL_TANGENT		0x00000020	// per-vertex tangent (BFME II declaration only)
+#define W3D_VERTEX_CHANNEL_BINORMAL		0x00000040	// per-vertex binormal (BFME II declaration only)
+#define W3D_VERTEX_CHANNEL_SMOOTHSKIN	0x00000080	// W3D_CHUNK_VERTEX_INFLUENCES stores two-bone weighted data from BFME Games
+#define W3D_VERTEX_CHANNEL_SUPERSMOOTHSKIN	0x00000100	// W3D_CHUNK_VERTEX_INFLUENCES_EXTENDED stores four-bone weighted data created by ChAoS for TT-Scripts
 
 #define W3D_FACE_CHANNEL_FACE				0x00000001	// basic face info, W3dTriStruct...
 
@@ -1224,7 +1224,7 @@ struct W3dVertInfStruct
 	uint8						Pad[6];
 };
 
-// Later smooth-skin files use an alternate eight-byte W3D_CHUNK_VERTEX_INFLUENCES
+// BFME and TT-Scripts files use an alternate eight-byte W3D_CHUNK_VERTEX_INFLUENCES
 // element when W3D_VERTEX_CHANNEL_SMOOTHSKIN is set:
 //     uint16 BoneIdx[2];
 //     uint16 Weight[2];
@@ -1510,7 +1510,7 @@ struct W3dAdaptiveDeltaAnimChannelStruct
 };
 // End AdaptiveDelta Structures
 
-// Payload header for W3D_CHUNK_COMPRESSED_ANIMATION_MOTION_CHANNEL in later formats.
+// Payload header for W3D_CHUNK_COMPRESSED_ANIMATION_MOTION_CHANNEL in BFME.
 struct W3dCompressedMotionChannelStruct
 {
 	uint8						Zero;
@@ -1728,7 +1728,7 @@ struct W3dSpotLightStruct
 	float32				SpotExponent;
 };
 
-struct W3dSpotLightStruct_v5_0
+struct W3dSpotLightStruct_v5_0 //  This is a TT-Scripts format
 {
 	float32				SpotOuterAngle;
 	float32				SpotInnerAngle;
@@ -1740,7 +1740,7 @@ struct W3dLightAttenuationStruct
 	float32				End;
 };
 
-struct W3dLightPulseStruct
+struct W3dLightPulseStruct //  This is a TT-Scripts format
 {
 	float32				MinIntensity;
 	float32				MaxIntensity;
@@ -1829,7 +1829,7 @@ struct W3dVolumeRandomizerStruct
 	uint32				reserved[4];
 };
 
-struct W3dEmitterExtraInfoStruct
+struct W3dEmitterExtraInfoStruct ..// Seen in the Generals w3d_file.h
 {
 	float32				FutureStartTime;
 	uint8					Unknown;

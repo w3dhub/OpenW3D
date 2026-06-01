@@ -88,18 +88,18 @@ enum
 /////////////////////////////////////////////////////////////////////////////////////////////
 enum
 {
-		W3D_CHUNK_PIVOT_UNKNOWN1								=0x00000104,	// observed hierarchy extension
-		W3D_CHUNK_COMPRESSED_ANIMATION_MOTION_CHANNEL	=0x00000284,	// observed compressed motion data
+	W3D_CHUNK_PIVOT_UNKNOWN1 = 0x00000104,	// Unknown some refrences from Earth & Beyond. But I was unable to prove any use
+	W3D_CHUNK_COMPRESSED_ANIMATION_MOTION_CHANNEL = 0x00000284,	// I believe this comes from one of the Battle For Middle Earth games
 
-		W3D_CHUNK_SHDMESH										=0x00000B00,	// observed shader mesh wrapper
+	W3D_CHUNK_SHDMESH = 0x00000B00,	// These chunks were used in some of the Renegade 2 Assets, w3d_file.h in generals code contains them but they aren't used.
 			W3D_CHUNK_SHDMESH_NAME,
 			W3D_CHUNK_SHDMESH_HEADER,
 			W3D_CHUNK_SHDMESH_USER_TEXT,
 
-		W3D_CHUNK_SHDSUBMESH									=0x00000B20,	// observed shader sub-mesh wrapper
+		W3D_CHUNK_SHDSUBMESH									=0x00000B20,
 			W3D_CHUNK_SHDSUBMESH_HEADER,
 
-		W3D_CHUNK_SHDSUBMESH_SHADER						=0x00000B40,	// observed shader sub-mesh data
+		W3D_CHUNK_SHDSUBMESH_SHADER						=0x00000B40,
 			W3D_CHUNK_SHDSUBMESH_SHADER_TYPE,
 			W3D_CHUNK_SHDSUBMESH_SHADER_DATA,
 			W3D_CHUNK_SHDSUBMESH_VERTICES,
