@@ -1829,7 +1829,7 @@ struct W3dVolumeRandomizerStruct
 	uint32				reserved[4];
 };
 
-struct W3dEmitterExtraInfoStruct ..// Seen in the Generals w3d_file.h
+struct W3dEmitterExtraInfoStruct // Seen in the Generals w3d_file.h
 {
 	float32				FutureStartTime;
 	uint8					Unknown;
