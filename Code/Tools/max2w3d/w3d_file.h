@@ -342,7 +342,8 @@ enum {
 		W3D_CHUNK_VERTICES								=0x00000002,	// array of vertices (array of W3dVectorStruct's)
 		W3D_CHUNK_VERTEX_NORMALS						=0x00000003,	// array of normals (array of W3dVectorStruct's)
 		W3D_CHUNK_MESH_USER_TEXT						=0x0000000C,	// Text from the MAX comment field (Null terminated string)
-		W3D_CHUNK_VERTEX_INFLUENCES					=0x0000000E,	// Mesh Deformation vertex connections (array of W3dVertInfStruct's)
+		W3D_CHUNK_VERTEX_INFLUENCES					=0x0000000E,	// skin influences (W3dVertInfStruct or two-bone smooth-skin wire layout)
+		W3D_CHUNK_VERTEX_INFLUENCES_EXTENDED		=0x00000C03,	// four-bone supersmooth skin influences (W3dVertInf3WStruct; declaration only)
 		W3D_CHUNK_MESH_HEADER3							=0x0000001F,	//	mesh header contains general info about the mesh. (W3dMeshHeader3Struct)
 		W3D_CHUNK_TRIANGLES								=0x00000020,	// New improved triangles chunk (array of W3dTriangleStruct's)
 		W3D_CHUNK_VERTEX_SHADE_INDICES				=0x00000022,	// shade indexes for each vertex (array of uint32's)
@@ -374,17 +375,25 @@ enum {
 				W3D_CHUNK_DCG								=0x0000003B,	// per-vertex diffuse color values (array of W3dRGBAStruct's)
 				W3D_CHUNK_DIG								=0x0000003C,	// per-vertex diffuse illumination values (array of W3dRGBStruct's)
 				W3D_CHUNK_SCG								=0x0000003E,	// per-vertex specular color values (array of W3dRGBStruct's)
+				W3D_CHUNK_FXSHADER_IDS					=0x0000003F,	// per-triangle FX shader indices (later-format declaration only)
 
 				W3D_CHUNK_TEXTURE_STAGE					=0x00000048,	// wrapper around a texture stage.
 					W3D_CHUNK_TEXTURE_IDS				=0x00000049,	// single or per-tri array of uint32 texture indices (check chunk size)
 					W3D_CHUNK_STAGE_TEXCOORDS			=0x0000004A,	// per-vertex texture coordinates (array of W3dTexCoordStruct's)
 					W3D_CHUNK_PER_FACE_TEXCOORD_IDS	=0x0000004B,	// indices to W3D_CHUNK_STAGE_TEXCOORDS, (array of Vector3i)
 
+		W3D_CHUNK_FX_SHADERS							=0x00000050,	// later-format FX shader declarations; loading is not implemented
+			W3D_CHUNK_FX_SHADER,
+			W3D_CHUNK_FX_SHADER_INFO,
+			W3D_CHUNK_FX_SHADER_CONSTANT,
 
 		W3D_CHUNK_DEFORM									=0x00000058,	// mesh deform or 'damage' information.
 			W3D_CHUNK_DEFORM_SET							=0x00000059,	// set of deform information
 				W3D_CHUNK_DEFORM_KEYFRAME				=0x0000005A,	// a keyframe of deform information in the set
 					W3D_CHUNK_DEFORM_DATA				=0x0000005B,	// deform information about a single vertex
+
+		W3D_CHUNK_TANGENTS								=0x00000060,	// per-vertex tangents (later-format declaration only)
+		W3D_CHUNK_BINORMALS								=0x00000061,	// per-vertex binormals, also called bitangents
 
 		W3D_CHUNK_PS2_SHADERS							=0x00000080,	// Shader info specific to the Playstation 2.
 
@@ -440,6 +449,8 @@ enum {
 		W3D_CHUNK_SPOT_LIGHT_INFO,											// extra spot light parameters
 		W3D_CHUNK_NEAR_ATTENUATION,										// optional near attenuation parameters
 		W3D_CHUNK_FAR_ATTENUATION,											// optional far attenuation parameters
+		W3D_CHUNK_SPOT_LIGHT_INFO_5_0,									// later-format spot light parameters (declaration only)
+		W3D_CHUNK_PULSE,														// later-format light pulse data (declaration only)
 
 	W3D_CHUNK_EMITTER									=0x00000500,		// description of a particle emitter
 		W3D_CHUNK_EMITTER_HEADER,											// general information such as name and version
@@ -454,6 +465,7 @@ enum {
 		W3D_CHUNK_EMITTER_ROTATION_KEYFRAMES,							// rotation keys for the particles
 		W3D_CHUNK_EMITTER_FRAME_KEYFRAMES,								// frame keys (u-v based frame animation)
 		W3D_CHUNK_EMITTER_BLUR_TIME_KEYFRAMES,						// length of tail for line groups
+		W3D_CHUNK_EMITTER_EXTRA_INFO,									// later-format emitter data (declaration only)
 
 	W3D_CHUNK_AGGREGATE								=0x00000600,		// description of an aggregate object
 		W3D_CHUNK_AGGREGATE_HEADER,										// general information such as name and version
@@ -468,6 +480,7 @@ enum {
 			W3D_CHUNK_HLOD_SUB_OBJECT,										// an object in this level of detail array
 		W3D_CHUNK_HLOD_AGGREGATE_ARRAY,									// array of aggregates, contains W3D_CHUNK_SUB_OBJECT_ARRAY_HEADER and W3D_CHUNK_SUB_OBJECT_ARRAY
 		W3D_CHUNK_HLOD_PROXY_ARRAY,										// array of proxies, used for application-defined purposes, provides a name and a bone.
+		W3D_CHUNK_HLOD_LIGHT_ARRAY,										// array of lights in later-format HLOD data (declaration only)
 
 	W3D_CHUNK_BOX										=0x00000740,		// defines an collision box render object (W3dBoxStruct)
 	W3D_CHUNK_SPHERE,
@@ -486,6 +499,9 @@ enum {
 	W3D_CHUNK_SOUNDROBJ								=0x00000A00,		// description of a sound render object
 		W3D_CHUNK_SOUNDROBJ_HEADER,										// general information such as name and version
 		W3D_CHUNK_SOUNDROBJ_DEFINITION,									// chunk containing the definition of the sound that is to play
+
+	W3D_CHUNK_SECONDARY_VERTICES					=0x00000C00,		// secondary vertex stream (later-format declaration only)
+	W3D_CHUNK_SECONDARY_VERTEX_NORMALS,									// secondary vertex normal stream (later-format declaration only)
 
 };
 
@@ -642,6 +658,8 @@ struct W3dMaterialInfoStruct
 #define		W3DVERTMAT_STAGE0_MAPPING_RANDOM						0x00100000
 #define		W3DVERTMAT_STAGE0_MAPPING_EDGE						0x00110000
 #define		W3DVERTMAT_STAGE0_MAPPING_BUMPENV					0x00120000
+#define		W3DVERTMAT_STAGE0_MAPPING_GRID_WS_CLASSIC_ENV	0x00130000
+#define		W3DVERTMAT_STAGE0_MAPPING_GRID_WS_ENVIRONMENT	0x00140000
 
 #define		W3DVERTMAT_STAGE1_MAPPING_MASK						0x0000FF00
 #define		W3DVERTMAT_STAGE1_MAPPING_UV							0x00000000
@@ -663,6 +681,8 @@ struct W3dMaterialInfoStruct
 #define		W3DVERTMAT_STAGE1_MAPPING_RANDOM						0x00001000
 #define		W3DVERTMAT_STAGE1_MAPPING_EDGE						0x00001100
 #define		W3DVERTMAT_STAGE1_MAPPING_BUMPENV					0x00001200
+#define		W3DVERTMAT_STAGE1_MAPPING_GRID_WS_CLASSIC_ENV	0x00001300
+#define		W3DVERTMAT_STAGE1_MAPPING_GRID_WS_ENVIRONMENT	0x00001400
 
 #define		W3DVERTMAT_PSX_MASK										0xFF000000
 #define		W3DVERTMAT_PSX_TRANS_MASK 								0x07000000
@@ -844,6 +864,14 @@ struct W3dShaderStruct
 	uint8						PostDetailColorFunc;
 	uint8						PostDetailAlphaFunc;
 	uint8						pad[1];
+};
+
+// On-disk FX shader declaration from BFME II; no loader uses this structure here.
+struct W3dFXShaderStruct
+{
+	char						ShaderName[2 * W3D_NAME_LEN];
+	uint8						Technique;
+	uint8						pad[3];
 };
 
 struct W3dPS2ShaderStruct
@@ -1033,6 +1061,15 @@ typedef enum
 	SURFACE_TYPE_MAX			// NOTE: if you add a surface type, add it to the SurfaceEffects.INI file!
 } W3D_SURFACE_TYPES;
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Later TT-Scripts tools catalog additional surface values without OpenW3D support:
+//   32 BLUE_TIBERIUM, 33 RED_TIBERIUM, 34 TIBERIUM_VEINS, 35 LASER,
+//   36 SNOW_PERMIABLE (reference spelling), 37 ELECTRICAL_GLASS,
+//   38 ELECTRICAL_GLASS_PERMEABLE, 39 SLUSH, and 40-47 EXTRA_1 through EXTRA_8.
+// The later table also reorders existing values 22 through 25.  Adding those entries here
+// requires a compatibility decision and exporter UI work, so this legacy enum is unchanged.
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 {
 	"Light Metal",
@@ -1085,6 +1122,8 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_MESH_FLAG_COLLISION_TYPE_VIS					0x00000040		// vis rays collide with this mesh
 #define W3D_MESH_FLAG_COLLISION_TYPE_CAMERA				0x00000080		// camera rays/boxes collide with this mesh
 #define W3D_MESH_FLAG_COLLISION_TYPE_VEHICLE				0x00000100		// vehicles collide with this mesh (and with physical collision meshes)
+#define W3D_MESH_FLAG_COLLISION_TYPE_USER1				0x00000200		// TT-Scripts application-defined collision type
+#define W3D_MESH_FLAG_COLLISION_TYPE_USER2				0x00000400		// TT-Scriptst application-defined collision type
 
 #define W3D_MESH_FLAG_HIDDEN									0x00001000		// this mesh is hidden by default
 #define W3D_MESH_FLAG_TWO_SIDED								0x00002000		// render both sides of this mesh
@@ -1100,6 +1139,7 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_AABOX					0x00040000		// (4.1+) aabox OBSOLETE!
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_OBBOX					0x00050000		// (4.1+) obbox OBSOLETE!
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_ORIENTED	0x00060000		// (4.1+) camera oriented mesh (points _towards_ camera)
+#define W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_Z_ORIENTED	0x00070000		// TT-Scripts camera Z-oriented mesh
 
 #define W3D_MESH_FLAG_PRELIT_MASK							0x0F000000		// (4.2+)
 #define W3D_MESH_FLAG_PRELIT_UNLIT							0x01000000		// mesh contains an unlit material chunk wrapper
@@ -1109,6 +1149,8 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 
 #define W3D_MESH_FLAG_SHATTERABLE							0x10000000		// this mesh is shatterable.
 #define W3D_MESH_FLAG_NPATCHABLE								0x20000000		// it is ok to NPatch this mesh
+#define W3D_MESH_FLAG_PRELIT									0x40000000		// TT-Scripts prelit mesh flag
+#define W3D_MESH_FLAG_ALWAYSDYNLIGHT						0x80000000		// TT-Scripts always dynamically lit flag
 
 /********************************************************************************
 
@@ -1126,6 +1168,10 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_VERTEX_CHANNEL_TEXCOORD		0x00000004	// texture coordinate
 #define W3D_VERTEX_CHANNEL_COLOR			0x00000008	// vertex color
 #define W3D_VERTEX_CHANNEL_BONEID		0x00000010	// per-vertex bone id for skins
+#define W3D_VERTEX_CHANNEL_TANGENT		0x00000020	// per-vertex tangent (BFME II declaration only)
+#define W3D_VERTEX_CHANNEL_BINORMAL		0x00000040	// per-vertex binormal (BFME II declaration only)
+#define W3D_VERTEX_CHANNEL_SMOOTHSKIN	0x00000080	// W3D_CHUNK_VERTEX_INFLUENCES stores two-bone weighted data from BFME Games
+#define W3D_VERTEX_CHANNEL_SUPERSMOOTHSKIN	0x00000100	// W3D_CHUNK_VERTEX_INFLUENCES_EXTENDED stores four-bone weighted data created by ChAoS for TT-Scripts
 
 #define W3D_FACE_CHANNEL_FACE				0x00000001	// basic face info, W3dTriStruct...
 
@@ -1176,6 +1222,19 @@ struct W3dVertInfStruct
 {
 	uint16					BoneIdx;
 	uint8						Pad[6];
+};
+
+// BFME and TT-Scripts files use an alternate eight-byte W3D_CHUNK_VERTEX_INFLUENCES
+// element when W3D_VERTEX_CHANNEL_SMOOTHSKIN is set:
+//     uint16 BoneIdx[2];
+//     uint16 Weight[2];
+// This declares the format relationship without changing the legacy runtime structure above.
+
+// Extended weighted influence payload used by W3D_CHUNK_VERTEX_INFLUENCES_EXTENDED.
+struct W3dVertInf3WStruct
+{
+	uint16					BoneIdx[4];
+	uint16					Weight[3];			// fourth weight is 65535 minus the first three weights
 };
 
 //
@@ -1451,6 +1510,17 @@ struct W3dAdaptiveDeltaAnimChannelStruct
 };
 // End AdaptiveDelta Structures
 
+// Payload header for W3D_CHUNK_COMPRESSED_ANIMATION_MOTION_CHANNEL in BFME.
+struct W3dCompressedMotionChannelStruct
+{
+	uint8						Zero;
+	uint8						Flavor;
+	uint8						VectorLen;
+	uint8						Flags;
+	uint16					NumTimeCodes;
+	uint16					Pivot;
+};
+
 /********************************************************************************
 
 	HMorphAnimClass
@@ -1658,10 +1728,27 @@ struct W3dSpotLightStruct
 	float32				SpotExponent;
 };
 
+struct W3dSpotLightStruct_v5_0 //  This is a TT-Scripts format
+{
+	float32				SpotOuterAngle;
+	float32				SpotInnerAngle;
+};
+
 struct W3dLightAttenuationStruct
 {
 	float32				Start;
 	float32				End;
+};
+
+struct W3dLightPulseStruct //  This is a TT-Scripts format
+{
+	float32				MinIntensity;
+	float32				MaxIntensity;
+	float32				IntensityTime;
+	float32				IntensityTimeRandom;
+	float32				IntensityAdjust;
+	uint8					IntensityStopsAtMax;
+	uint8					IntensityStopsAtMin;
 };
 
 struct W3dLightTransformStruct
@@ -1740,6 +1827,13 @@ struct W3dVolumeRandomizerStruct
 	float32				Value2;
 	float32				Value3;
 	uint32				reserved[4];
+};
+
+struct W3dEmitterExtraInfoStruct // Seen in the Generals w3d_file.h
+{
+	float32				FutureStartTime;
+	uint8					Unknown;
+	uint32				reserved[8];
 };
 
 #define W3D_EMITTER_RENDER_MODE_TRI_PARTICLES		0

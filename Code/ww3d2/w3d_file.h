@@ -48,268 +48,268 @@
 #include "iostruct.h"
 #include <limits.h>
 
-/********************************************************************************
+ /********************************************************************************
 
-NAMING CONVENTIONS:
+ NAMING CONVENTIONS:
 
-	Typical render object name is 15 characters + NULL
-	Meshes have 31 + NULL character name formed from the concatenation of the "container"
-		model name and the mesh's name:  "ContainerName.MeshName"
-	Animations have 31 + NULL character names formed from the concatenation of the Hierarchy tree
-		name with the animation name: "AnimationName.HierarchyName"
-	Textures have unlimited name length.
-	Typically you can determine which 'W3D' file a render object came from by looking
-		at its name.  If the name contains a '.' then the filename is the string before
-		the '.' and if not, then the render object name is the name of the file.
+	 Typical render object name is 15 characters + NULL
+	 Meshes have 31 + NULL character name formed from the concatenation of the "container"
+		 model name and the mesh's name:  "ContainerName.MeshName"
+	 Animations have 31 + NULL character names formed from the concatenation of the Hierarchy tree
+		 name with the animation name: "AnimationName.HierarchyName"
+	 Textures have unlimited name length.
+	 Typically you can determine which 'W3D' file a render object came from by looking
+		 at its name.  If the name contains a '.' then the filename is the string before
+		 the '.' and if not, then the render object name is the name of the file.
 
-VERSION NUMBERS:
+ VERSION NUMBERS:
 
-	Each Major chunk type will contain a "header" as its first
-	sub-chunk.  The first member of this header will be a Version
-	number formatted so that its major revision number is the
-	high two bytes and its minor revision number is the lower two
-	bytes.
+	 Each Major chunk type will contain a "header" as its first
+	 sub-chunk.  The first member of this header will be a Version
+	 number formatted so that its major revision number is the
+	 high two bytes and its minor revision number is the lower two
+	 bytes.
 
-Version 1.0:
+ Version 1.0:
 
-	MESHES -  contained the following chunks:
-		W3D_CHUNK_MESH_HEADER,			// header for a mesh
-		W3D_CHUNK_VERTICES,				// array of vertices
-		W3D_CHUNK_VERTEX_NORMALS,		// array of normals
-		W3D_CHUNK_SURRENDER_NORMALS,	// array of surrender normals (one per vertex as req. by surrender)
-		W3D_CHUNK_TEXCOORDS,				// array of texture coordinates
-		W3D_CHUNK_MATERIALS,				// array of materials
-		W3D_CHUNK_TRIANGLES,				// array of triangles
-		W3D_CHUNK_SURRENDER_TRIANGLES,// array of surrender format tris
-		W3D_CHUNK_MESH_USER_TEXT,		// Name of owning hierarchy, text from the MAX comment field
+	 MESHES -  contained the following chunks:
+		 W3D_CHUNK_MESH_HEADER,			// header for a mesh
+		 W3D_CHUNK_VERTICES,				// array of vertices
+		 W3D_CHUNK_VERTEX_NORMALS,		// array of normals
+		 W3D_CHUNK_SURRENDER_NORMALS,	// array of surrender normals (one per vertex as req. by surrender)
+		 W3D_CHUNK_TEXCOORDS,				// array of texture coordinates
+		 W3D_CHUNK_MATERIALS,				// array of materials
+		 W3D_CHUNK_TRIANGLES,				// array of triangles
+		 W3D_CHUNK_SURRENDER_TRIANGLES,// array of surrender format tris
+		 W3D_CHUNK_MESH_USER_TEXT,		// Name of owning hierarchy, text from the MAX comment field
 
-	HIERARCHY TREES - contained the following chunks:
-		W3D_CHUNK_HIERARCHY_HEADER,
-		W3D_CHUNK_PIVOTS,
-		W3D_CHUNK_PIVOT_FIXUPS,
+	 HIERARCHY TREES - contained the following chunks:
+		 W3D_CHUNK_HIERARCHY_HEADER,
+		 W3D_CHUNK_PIVOTS,
+		 W3D_CHUNK_PIVOT_FIXUPS,
 
-	HIERARCHY ANIMATIONS - contained the following chunks:
-		W3D_CHUNK_ANIMATION_HEADER,
-		W3D_CHUNK_ANIMATION_CHANNEL,
+	 HIERARCHY ANIMATIONS - contained the following chunks:
+		 W3D_CHUNK_ANIMATION_HEADER,
+		 W3D_CHUNK_ANIMATION_CHANNEL,
 
-	MESH CONNECTIONS - (blueprint for a hierarchical model) contained these chunks:
+	 MESH CONNECTIONS - (blueprint for a hierarchical model) contained these chunks:
 
 
-Version 2.0:
+ Version 2.0:
 
-	MESHES:
+	 MESHES:
 
-	- Mesh header now contains the hierarchy model name.  The mesh name will be built
-	as <HModelName>.<MeshName> instead of the old convention: <HTreeName>.<Meshname>
+	 - Mesh header now contains the hierarchy model name.  The mesh name will be built
+	 as <HModelName>.<MeshName> instead of the old convention: <HTreeName>.<Meshname>
 
-	- The material chunk is replaced with a new material structure which contains
-	some information for animating materials.
+	 - The material chunk is replaced with a new material structure which contains
+	 some information for animating materials.
 
-	- Vertex Influences link vertices of a mesh to bones in a hierarchy, this is
-	the information needed for skinning.
+	 - Vertex Influences link vertices of a mesh to bones in a hierarchy, this is
+	 the information needed for skinning.
 
-	- Damage chunks added.  A damage chunk contains	a new set of materials, a set
-	of vertex offsets, and a set of vertex colors.
+	 - Damage chunks added.  A damage chunk contains	a new set of materials, a set
+	 of vertex offsets, and a set of vertex colors.
 
-	Added the following chunks:
+	 Added the following chunks:
 
-		W3D_CHUNK_VERTEX_COLORS,
-		W3D_CHUNK_VERTEX_INFLUENCES,
-		W3D_CHUNK_DAMAGE,
-		W3D_CHUNK_DAMAGE_HEADER,
-			W3D_CHUNK_DAMAGE_MATERIALS,
-			W3D_CHUNK_DAMAGE_VERTICES,
-			W3D_CHUNK_DAMAGE_COLORS,
-		W3D_CHUNK_MATERIALS2,
-
-	MESH CONNECTIONS: Hierarchy models can now contain skins and collision meshes
-	in addition to the normal meshes.
-
-		W3D_CHUNK_COLLISION_CONNECTION,		// collision meshes connected to the hierarchy
-		W3D_CHUNK_SKIN_CONNECTION,				// skins connected to the hierarchy
-		W3D_CHUNK_CONNECTION_AUX_DATA			// extension of the connection header
-
-
-Dec 12, 1997
-
-	Changed MESH_CONNECTIONS chunks into HMODEL chunks because the name
-	mesh connections was becoming more and more inappropriate...  This was only
-	a data structure naming change so no-one other than the coders are affected
-
-	Added W3D_CHUNK_LODMODEL.  An LOD Model contains a set of names for
-	render objects, each with a specified distance range.
-
-
-Feb 6, 1998
-
-	Added W3D_CHUNK_SECTMESH and its sub-chunks.  This will be the file
-	format for the terrain geometry exported from POV's Atlas tool.
-
-March 29, 1998 : Version 3.0
-
-	- New material chunk which supports the new features of the 3D engine
-	- Modified HTrees to always have a root transform to remove all of the
-	  special case -1 bone indexes.
-	- Added new mesh types, A mesh can now be categorized as: normal,
-	  aligned, skin, collision, or shadow.
-
-June 22, 1998
-
-	Removed the "SECTMESH" chunks which were never implemented or used.
-
-	Adding a new type of object: The 'Tilemap'.  This simple-sounding object
-	is a binary partition tree of tiles where tiles are rectangular regions of
-	space.  In each leaf to the tree, a mesh is referenced.  The tile map is
-	made of several chunks:
-
-	- W3D_CHUNK_TILEMAP
-		- W3D_CHUNK_TILEMAP_HEADER
-		- W3D_CHUNK_TILES
-			- W3D_CHUNK_MESH
-			- W3D_CHUNK_MESH
-			...
-
-		- W3D_CHUNK_PARTITION_TREE
-			- W3D_CHUNK_PARTITION_TREE_HEADER
-			- W3D_CHUNK_PARTITION_TREE_NODES
-
-		- W3D_CHUNK_TILE_INSTANCES
-			- W3D_CHUNK_TILE_INSTANCE
-
-October 19, 1998
-
-	Created the w3d_obsolete.h header file and moved everything that I could into
-	it.  This header was getting so messy that even I couldn't understand it so
-	hopefully this helps a little...
-
-	Updating the mesh format as part of the conversion to Surrender1.40.  Some
-	of the new features in this mesh format are:
-	- per pass, per stage U-V coordinate arrays
-	- per pass vertex diffuse color arrays
-	- per pass vertex specular color arrays
-	- per pass vertex pre-calced diffuse illumination arrays
-
-	In addition, the way you describe the materials for a mesh has *completely*
-	changed.  The new system separates the concepts of VertexMaterial, Texture
-	and Shader.  A VertexMaterial defines the parameters which control the
-	gradient calculations for vertices.  Textures you know about.  Shaders
-	define how the gradients (diffuse and specular) are combined with the texture
-	and the frame buffer.  In addition, a mesh can have several passes; each
-	pass having VertexMaterials, Textures and Shaders
-	- new chunk to describe a shader, contains a W3dShaderStruct
-	- new chunk to describe a vertex material, contains a W3dVertexMaterialStruct
-	- textures use the old 'Map3' chunk still
-	- new chunk to describe a "pass" for the mesh
-	- new chunk to tie up all of these vertex materials, shaders, and textures
-	- new chunks for specifying per-poly, per-pass arrays of texture, shader, and
-	  vertex material indices.
-
-	The culling system changed a bit requiring some re-working of the "Tilemap"
-	so I have removed the tilemap chunks.  At this point in time, all of the AABTree
-	building is being done at run-time.  Once we get the editor a little farther
-	along, we'll define some new chunks for this stuff.
-
-	At this point in time, meshes look like the following.  I've placed an asterisk
-	next to the new chunk types.
-
-	W3D_CHUNK_MESH
-		W3D_CHUNK_MESH_HEADER3
-		W3D_CHUNK_MESH_USER_TEXT
-		W3D_CHUNK_VERTICES
-		W3D_CHUNK_VERTEX_NORMALS
-		W3D_CHUNK_VERTEX_INFLUENCES
-		W3D_CHUNK_TRIANGLES
-*		W3D_CHUNK_VERTEX_SHADE_INDICES
-
-*		W3D_CHUNK_MATERIAL_INFO					// how many passes, vertex mtls, shaders, and textures...
-*		W3D_CHUNK_SHADERS							// array of W3dShaderStruct's
-*		W3D_CHUNK_VERTEX_MATERIALS
-*			W3D_CHUNK_VERTEX_MATERIAL
-*				W3D_CHUNK_VERTEX_MATERIAL_NAME
-*				W3D_CHUNK_VERTEX_MATERIAL_INFO
-			...
-
-*		W3D_CHUNK_TEXTURES
-*			W3D_CHUNK_TEXTURE
-*				W3D_CHUNK_TEXTURE_NAME
-*				W3D_CHUNK_TEXTURE_INFO
-			...
-
-*		W3D_CHUNK_MATERIAL_PASS
-*			W3D_CHUNK_VERTEX_MATERIAL_IDS
-*			W3D_CHUNK_SHADER_IDS
-
-*			W3D_CHUNK_DCG
-*			W3D_CHUNK_DIG
-*			W3D_CHUNK_SCG
-
-*			W3D_CHUNK_TEXTURE_STAGE
-*				W3D_CHUNK_TEXTURE_IDS
-*				W3D_CHUNK_STAGE_TEXCOORDS
-
-
-	Added a Collection chunk type.  When we export a bunch of independent meshes
-	(turning off the hierarchy and animation options) this chunk will be added
-	on to the end of the file.  It lists by name each render object that was
-	defined in the file.  Presumably the run-time asset manager will be able
-	to give you a "collection" render object which will be named the same as
-	the w3d file that it came from and will contain the name or an actual instance
-	of each of the meshes.  This is a feature that was added for the Commando
-	level editor.
-
-	Added the W3D_CHUNK_POINTS chunk.  This is used to implement "snap points"
-	for the level editor.  It is just an array of points that were found in
-	the max scene (helper object->point).  We make these points co-incide in
-	the level editor to snap objects together.  This chunk can occur inside a
-	mesh, hmodel, or collection chunk.  When it does, the points should simply
-	be associated with the model being defined.
-
-August 5, 1999
-
-	Adding Null Object exporting
-
-March 28, 2000
-
-	Adding Merge objects to collections.  We already have "Proxy" objects which ask
-	the level editor to instatiate an object at a given transform.  Now we will
-	have "Merge" objects which mean a copy of the named model should be merged in
-	with this model.  This is used in the case of building interiors.  We can create
-	a building interior and lightmap it as a separate collection, then "merge" it
-	with the level collection (multiple times even) and the tool will pre-transform
-	the meshes and add them to the collection.
-
-March 31, 2000
-
-  Changed W3D_CHUNK_MERGE_NODE to W3D_CHUNK_TRANSFORM_NODE. Same data - slightly
-  different application. Now the information will indicate how a w3d asset with the
-  same name as that in the node should pre-transform itself relative to the object
-  that contains the transform node.
-
-April 07, 2000
-
-  Added W3D_CHUNK_LIGHTSCAPE, W3D_CHUNK_LIGHTSCAPE_LIGHT and W3D_CHUNK_LIGHT_TRANSFORM.
-  These chunks form part of the output of new Westwood light file type (.wlt).
-
-July 10, 2000
-
-  Added W3D_CHUNK_VERTEX_MAPPER_ARGS1 and renamed W3D_CHUNK_VERTEX_MAPPER_ARGS to
-  W3D_CHUNK_VERTEX_MAPPER_ARGS0. These are the mapper args for the first and second
-  texture stages. The choice of mapper for the second stage has been added to the
-  'Attributes' field in W3dVertexMaterialStruct.
-
-August 5, 2000
-
-  Added W3D_CHUNK_LIGHT_GLARE and its sub-chunks.  Light glares are going to
-  be a new 'geometry type' which simply define points where light glare effects
-  should be placed.  The application will supply a callback to the WW3D code
-  which indicates the visibilty of any light glares in the view frustum.
-
-June 5, 2001
-
-  (gth) Adding line rendering options to particle systems today.  This involves a
-  new line-properties chunk and a RenderMode variable added to the InfoV2 struct.
-
-********************************************************************************/
+		 W3D_CHUNK_VERTEX_COLORS,
+		 W3D_CHUNK_VERTEX_INFLUENCES,
+		 W3D_CHUNK_DAMAGE,
+		 W3D_CHUNK_DAMAGE_HEADER,
+			 W3D_CHUNK_DAMAGE_MATERIALS,
+			 W3D_CHUNK_DAMAGE_VERTICES,
+			 W3D_CHUNK_DAMAGE_COLORS,
+		 W3D_CHUNK_MATERIALS2,
+
+	 MESH CONNECTIONS: Hierarchy models can now contain skins and collision meshes
+	 in addition to the normal meshes.
+
+		 W3D_CHUNK_COLLISION_CONNECTION,		// collision meshes connected to the hierarchy
+		 W3D_CHUNK_SKIN_CONNECTION,				// skins connected to the hierarchy
+		 W3D_CHUNK_CONNECTION_AUX_DATA			// extension of the connection header
+
+
+ Dec 12, 1997
+
+	 Changed MESH_CONNECTIONS chunks into HMODEL chunks because the name
+	 mesh connections was becoming more and more inappropriate...  This was only
+	 a data structure naming change so no-one other than the coders are affected
+
+	 Added W3D_CHUNK_LODMODEL.  An LOD Model contains a set of names for
+	 render objects, each with a specified distance range.
+
+
+ Feb 6, 1998
+
+	 Added W3D_CHUNK_SECTMESH and its sub-chunks.  This will be the file
+	 format for the terrain geometry exported from POV's Atlas tool.
+
+ March 29, 1998 : Version 3.0
+
+	 - New material chunk which supports the new features of the 3D engine
+	 - Modified HTrees to always have a root transform to remove all of the
+	   special case -1 bone indexes.
+	 - Added new mesh types, A mesh can now be categorized as: normal,
+	   aligned, skin, collision, or shadow.
+
+ June 22, 1998
+
+	 Removed the "SECTMESH" chunks which were never implemented or used.
+
+	 Adding a new type of object: The 'Tilemap'.  This simple-sounding object
+	 is a binary partition tree of tiles where tiles are rectangular regions of
+	 space.  In each leaf to the tree, a mesh is referenced.  The tile map is
+	 made of several chunks:
+
+	 - W3D_CHUNK_TILEMAP
+		 - W3D_CHUNK_TILEMAP_HEADER
+		 - W3D_CHUNK_TILES
+			 - W3D_CHUNK_MESH
+			 - W3D_CHUNK_MESH
+			 ...
+
+		 - W3D_CHUNK_PARTITION_TREE
+			 - W3D_CHUNK_PARTITION_TREE_HEADER
+			 - W3D_CHUNK_PARTITION_TREE_NODES
+
+		 - W3D_CHUNK_TILE_INSTANCES
+			 - W3D_CHUNK_TILE_INSTANCE
+
+ October 19, 1998
+
+	 Created the w3d_obsolete.h header file and moved everything that I could into
+	 it.  This header was getting so messy that even I couldn't understand it so
+	 hopefully this helps a little...
+
+	 Updating the mesh format as part of the conversion to Surrender1.40.  Some
+	 of the new features in this mesh format are:
+	 - per pass, per stage U-V coordinate arrays
+	 - per pass vertex diffuse color arrays
+	 - per pass vertex specular color arrays
+	 - per pass vertex pre-calced diffuse illumination arrays
+
+	 In addition, the way you describe the materials for a mesh has *completely*
+	 changed.  The new system separates the concepts of VertexMaterial, Texture
+	 and Shader.  A VertexMaterial defines the parameters which control the
+	 gradient calculations for vertices.  Textures you know about.  Shaders
+	 define how the gradients (diffuse and specular) are combined with the texture
+	 and the frame buffer.  In addition, a mesh can have several passes; each
+	 pass having VertexMaterials, Textures and Shaders
+	 - new chunk to describe a shader, contains a W3dShaderStruct
+	 - new chunk to describe a vertex material, contains a W3dVertexMaterialStruct
+	 - textures use the old 'Map3' chunk still
+	 - new chunk to describe a "pass" for the mesh
+	 - new chunk to tie up all of these vertex materials, shaders, and textures
+	 - new chunks for specifying per-poly, per-pass arrays of texture, shader, and
+	   vertex material indices.
+
+	 The culling system changed a bit requiring some re-working of the "Tilemap"
+	 so I have removed the tilemap chunks.  At this point in time, all of the AABTree
+	 building is being done at run-time.  Once we get the editor a little farther
+	 along, we'll define some new chunks for this stuff.
+
+	 At this point in time, meshes look like the following.  I've placed an asterisk
+	 next to the new chunk types.
+
+	 W3D_CHUNK_MESH
+		 W3D_CHUNK_MESH_HEADER3
+		 W3D_CHUNK_MESH_USER_TEXT
+		 W3D_CHUNK_VERTICES
+		 W3D_CHUNK_VERTEX_NORMALS
+		 W3D_CHUNK_VERTEX_INFLUENCES
+		 W3D_CHUNK_TRIANGLES
+ *		W3D_CHUNK_VERTEX_SHADE_INDICES
+
+ *		W3D_CHUNK_MATERIAL_INFO					// how many passes, vertex mtls, shaders, and textures...
+ *		W3D_CHUNK_SHADERS							// array of W3dShaderStruct's
+ *		W3D_CHUNK_VERTEX_MATERIALS
+ *			W3D_CHUNK_VERTEX_MATERIAL
+ *				W3D_CHUNK_VERTEX_MATERIAL_NAME
+ *				W3D_CHUNK_VERTEX_MATERIAL_INFO
+			 ...
+
+ *		W3D_CHUNK_TEXTURES
+ *			W3D_CHUNK_TEXTURE
+ *				W3D_CHUNK_TEXTURE_NAME
+ *				W3D_CHUNK_TEXTURE_INFO
+			 ...
+
+ *		W3D_CHUNK_MATERIAL_PASS
+ *			W3D_CHUNK_VERTEX_MATERIAL_IDS
+ *			W3D_CHUNK_SHADER_IDS
+
+ *			W3D_CHUNK_DCG
+ *			W3D_CHUNK_DIG
+ *			W3D_CHUNK_SCG
+
+ *			W3D_CHUNK_TEXTURE_STAGE
+ *				W3D_CHUNK_TEXTURE_IDS
+ *				W3D_CHUNK_STAGE_TEXCOORDS
+
+
+	 Added a Collection chunk type.  When we export a bunch of independent meshes
+	 (turning off the hierarchy and animation options) this chunk will be added
+	 on to the end of the file.  It lists by name each render object that was
+	 defined in the file.  Presumably the run-time asset manager will be able
+	 to give you a "collection" render object which will be named the same as
+	 the w3d file that it came from and will contain the name or an actual instance
+	 of each of the meshes.  This is a feature that was added for the Commando
+	 level editor.
+
+	 Added the W3D_CHUNK_POINTS chunk.  This is used to implement "snap points"
+	 for the level editor.  It is just an array of points that were found in
+	 the max scene (helper object->point).  We make these points co-incide in
+	 the level editor to snap objects together.  This chunk can occur inside a
+	 mesh, hmodel, or collection chunk.  When it does, the points should simply
+	 be associated with the model being defined.
+
+ August 5, 1999
+
+	 Adding Null Object exporting
+
+ March 28, 2000
+
+	 Adding Merge objects to collections.  We already have "Proxy" objects which ask
+	 the level editor to instatiate an object at a given transform.  Now we will
+	 have "Merge" objects which mean a copy of the named model should be merged in
+	 with this model.  This is used in the case of building interiors.  We can create
+	 a building interior and lightmap it as a separate collection, then "merge" it
+	 with the level collection (multiple times even) and the tool will pre-transform
+	 the meshes and add them to the collection.
+
+ March 31, 2000
+
+   Changed W3D_CHUNK_MERGE_NODE to W3D_CHUNK_TRANSFORM_NODE. Same data - slightly
+   different application. Now the information will indicate how a w3d asset with the
+   same name as that in the node should pre-transform itself relative to the object
+   that contains the transform node.
+
+ April 07, 2000
+
+   Added W3D_CHUNK_LIGHTSCAPE, W3D_CHUNK_LIGHTSCAPE_LIGHT and W3D_CHUNK_LIGHT_TRANSFORM.
+   These chunks form part of the output of new Westwood light file type (.wlt).
+
+ July 10, 2000
+
+   Added W3D_CHUNK_VERTEX_MAPPER_ARGS1 and renamed W3D_CHUNK_VERTEX_MAPPER_ARGS to
+   W3D_CHUNK_VERTEX_MAPPER_ARGS0. These are the mapper args for the first and second
+   texture stages. The choice of mapper for the second stage has been added to the
+   'Attributes' field in W3dVertexMaterialStruct.
+
+ August 5, 2000
+
+   Added W3D_CHUNK_LIGHT_GLARE and its sub-chunks.  Light glares are going to
+   be a new 'geometry type' which simply define points where light glare effects
+   should be placed.  The application will supply a callback to the WW3D code
+   which indicates the visibilty of any light glares in the view frustum.
+
+ June 5, 2001
+
+   (gth) Adding line rendering options to particle systems today.  This involves a
+   new line-properties chunk and a RenderMode variable added to the InfoV2 struct.
+
+ ********************************************************************************/
 
 
 #define W3D_MAKE_VERSION(major,minor)		(((major) << 16) | (minor))
@@ -320,172 +320,188 @@ June 5, 2001
 
 
 
-/********************************************************************************
+ /********************************************************************************
 
-	CHUNK TYPES FOR ALL 3D DATA
+	 CHUNK TYPES FOR ALL 3D DATA
 
-	All 3d data is stored in chunks similar to an IFF file. Each
-	chunk will be headed by an ID and size field.
+	 All 3d data is stored in chunks similar to an IFF file. Each
+	 chunk will be headed by an ID and size field.
 
-	All structures defined in this header file are prefixed with
-	W3d to prevent naming conflicts with in-game structures which
-	may be slightly different than the on-disk structures.
+	 All structures defined in this header file are prefixed with
+	 W3d to prevent naming conflicts with in-game structures which
+	 may be slightly different than the on-disk structures.
 
-	Oct 19,1998: Moved obsolete chunk id's to w3d_obsolete.h, added many
-	new chunk types.
+	 Oct 19,1998: Moved obsolete chunk id's to w3d_obsolete.h, added many
+	 new chunk types.
 
-********************************************************************************/
+ ********************************************************************************/
 
 enum {
 
-	W3D_CHUNK_MESH											=0x00000000,	// Mesh definition
-		W3D_CHUNK_VERTICES								=0x00000002,	// array of vertices (array of W3dVectorStruct's)
-		W3D_CHUNK_VERTEX_NORMALS						=0x00000003,	// array of normals (array of W3dVectorStruct's)
-		W3D_CHUNK_MESH_USER_TEXT						=0x0000000C,	// Text from the MAX comment field (Null terminated string)
-		W3D_CHUNK_VERTEX_INFLUENCES					=0x0000000E,	// Mesh Deformation vertex connections (array of W3dVertInfStruct's)
-		W3D_CHUNK_MESH_HEADER3							=0x0000001F,	//	mesh header contains general info about the mesh. (W3dMeshHeader3Struct)
-		W3D_CHUNK_TRIANGLES								=0x00000020,	// New improved triangles chunk (array of W3dTriangleStruct's)
-		W3D_CHUNK_VERTEX_SHADE_INDICES				=0x00000022,	// shade indexes for each vertex (array of uint32's)
+	W3D_CHUNK_MESH = 0x00000000,	// Mesh definition
+	W3D_CHUNK_VERTICES = 0x00000002,	// array of vertices (array of W3dVectorStruct's)
+	W3D_CHUNK_VERTEX_NORMALS = 0x00000003,	// array of normals (array of W3dVectorStruct's)
+	W3D_CHUNK_MESH_USER_TEXT = 0x0000000C,	// Text from the MAX comment field (Null terminated string)
+	W3D_CHUNK_VERTEX_INFLUENCES = 0x0000000E,	// skin influences (W3dVertInfStruct or two-bone smooth-skin wire layout)
+	W3D_CHUNK_VERTEX_INFLUENCES_EXTENDED = 0x00000C03,	// four-bone supersmooth skin influences (W3dVertInf3WStruct; declaration only)
+	W3D_CHUNK_MESH_HEADER3 = 0x0000001F,	//	mesh header contains general info about the mesh. (W3dMeshHeader3Struct)
+	W3D_CHUNK_TRIANGLES = 0x00000020,	// New improved triangles chunk (array of W3dTriangleStruct's)
+	W3D_CHUNK_VERTEX_SHADE_INDICES = 0x00000022,	// shade indexes for each vertex (array of uint32's)
 
-		W3D_CHUNK_PRELIT_UNLIT							=0x00000023,	// optional unlit material chunk wrapper
-		W3D_CHUNK_PRELIT_VERTEX							=0x00000024,	// optional vertex-lit material chunk wrapper
-		W3D_CHUNK_PRELIT_LIGHTMAP_MULTI_PASS		=0x00000025,	// optional lightmapped multi-pass material chunk wrapper
-		W3D_CHUNK_PRELIT_LIGHTMAP_MULTI_TEXTURE	=0x00000026,	// optional lightmapped multi-texture material chunk wrapper
+	W3D_CHUNK_PRELIT_UNLIT = 0x00000023,	// optional unlit material chunk wrapper
+	W3D_CHUNK_PRELIT_VERTEX = 0x00000024,	// optional vertex-lit material chunk wrapper
+	W3D_CHUNK_PRELIT_LIGHTMAP_MULTI_PASS = 0x00000025,	// optional lightmapped multi-pass material chunk wrapper
+	W3D_CHUNK_PRELIT_LIGHTMAP_MULTI_TEXTURE = 0x00000026,	// optional lightmapped multi-texture material chunk wrapper
 
-			W3D_CHUNK_MATERIAL_INFO						=0x00000028,	// materials information, pass count, etc (contains W3dMaterialInfoStruct)
+	W3D_CHUNK_MATERIAL_INFO = 0x00000028,	// materials information, pass count, etc (contains W3dMaterialInfoStruct)
 
-			W3D_CHUNK_SHADERS								=0x00000029,	// shaders (array of W3dShaderStruct's)
+	W3D_CHUNK_SHADERS = 0x00000029,	// shaders (array of W3dShaderStruct's)
 
-			W3D_CHUNK_VERTEX_MATERIALS					=0x0000002A,	// wraps the vertex materials
-				W3D_CHUNK_VERTEX_MATERIAL				=0x0000002B,
-					W3D_CHUNK_VERTEX_MATERIAL_NAME	=0x0000002C,	// vertex material name (NULL-terminated string)
-					W3D_CHUNK_VERTEX_MATERIAL_INFO	=0x0000002D,	// W3dVertexMaterialStruct
-					W3D_CHUNK_VERTEX_MAPPER_ARGS0		=0x0000002E,	// Null-terminated string
-					W3D_CHUNK_VERTEX_MAPPER_ARGS1		=0x0000002F,	// Null-terminated string
+	W3D_CHUNK_VERTEX_MATERIALS = 0x0000002A,	// wraps the vertex materials
+	W3D_CHUNK_VERTEX_MATERIAL = 0x0000002B,
+	W3D_CHUNK_VERTEX_MATERIAL_NAME = 0x0000002C,	// vertex material name (NULL-terminated string)
+	W3D_CHUNK_VERTEX_MATERIAL_INFO = 0x0000002D,	// W3dVertexMaterialStruct
+	W3D_CHUNK_VERTEX_MAPPER_ARGS0 = 0x0000002E,	// Null-terminated string
+	W3D_CHUNK_VERTEX_MAPPER_ARGS1 = 0x0000002F,	// Null-terminated string
 
-			W3D_CHUNK_TEXTURES							=0x00000030,	// wraps all of the texture info
-				W3D_CHUNK_TEXTURE							=0x00000031,	// wraps a texture definition
-					W3D_CHUNK_TEXTURE_NAME				=0x00000032,	// texture filename (NULL-terminated string)
-					W3D_CHUNK_TEXTURE_INFO				=0x00000033,	// optional W3dTextureInfoStruct
+	W3D_CHUNK_TEXTURES = 0x00000030,	// wraps all of the texture info
+	W3D_CHUNK_TEXTURE = 0x00000031,	// wraps a texture definition
+	W3D_CHUNK_TEXTURE_NAME = 0x00000032,	// texture filename (NULL-terminated string)
+	W3D_CHUNK_TEXTURE_INFO = 0x00000033,	// optional W3dTextureInfoStruct
 
-			W3D_CHUNK_MATERIAL_PASS						=0x00000038,	// wraps the information for a single material pass
-				W3D_CHUNK_VERTEX_MATERIAL_IDS			=0x00000039,	// single or per-vertex array of uint32 vertex material indices (check chunk size)
-				W3D_CHUNK_SHADER_IDS						=0x0000003A,	// single or per-tri array of uint32 shader indices (check chunk size)
-				W3D_CHUNK_DCG								=0x0000003B,	// per-vertex diffuse color values (array of W3dRGBAStruct's)
-				W3D_CHUNK_DIG								=0x0000003C,	// per-vertex diffuse illumination values (array of W3dRGBStruct's)
-				W3D_CHUNK_SCG								=0x0000003E,	// per-vertex specular color values (array of W3dRGBStruct's)
+	W3D_CHUNK_MATERIAL_PASS = 0x00000038,	// wraps the information for a single material pass
+	W3D_CHUNK_VERTEX_MATERIAL_IDS = 0x00000039,	// single or per-vertex array of uint32 vertex material indices (check chunk size)
+	W3D_CHUNK_SHADER_IDS = 0x0000003A,	// single or per-tri array of uint32 shader indices (check chunk size)
+	W3D_CHUNK_DCG = 0x0000003B,	// per-vertex diffuse color values (array of W3dRGBAStruct's)
+	W3D_CHUNK_DIG = 0x0000003C,	// per-vertex diffuse illumination values (array of W3dRGBStruct's)
+	W3D_CHUNK_SCG = 0x0000003E,	// per-vertex specular color values (array of W3dRGBStruct's)
+	W3D_CHUNK_FXSHADER_IDS = 0x0000003F,	// per-triangle FX shader indices (later-format declaration only)
 
-				W3D_CHUNK_TEXTURE_STAGE					=0x00000048,	// wrapper around a texture stage.
-					W3D_CHUNK_TEXTURE_IDS				=0x00000049,	// single or per-tri array of uint32 texture indices (check chunk size)
-					W3D_CHUNK_STAGE_TEXCOORDS			=0x0000004A,	// per-vertex texture coordinates (array of W3dTexCoordStruct's)
-					W3D_CHUNK_PER_FACE_TEXCOORD_IDS	=0x0000004B,	// indices to W3D_CHUNK_STAGE_TEXCOORDS, (array of Vector3i)
+	W3D_CHUNK_TEXTURE_STAGE = 0x00000048,	// wrapper around a texture stage.
+	W3D_CHUNK_TEXTURE_IDS = 0x00000049,	// single or per-tri array of uint32 texture indices (check chunk size)
+	W3D_CHUNK_STAGE_TEXCOORDS = 0x0000004A,	// per-vertex texture coordinates (array of W3dTexCoordStruct's)
+	W3D_CHUNK_PER_FACE_TEXCOORD_IDS = 0x0000004B,	// indices to W3D_CHUNK_STAGE_TEXCOORDS, (array of Vector3i)
 
+	W3D_CHUNK_FX_SHADERS = 0x00000050,	// later-format FX shader declarations; loading is not implemented
+	W3D_CHUNK_FX_SHADER,
+	W3D_CHUNK_FX_SHADER_INFO,
+	W3D_CHUNK_FX_SHADER_CONSTANT,
 
-		W3D_CHUNK_DEFORM									=0x00000058,	// mesh deform or 'damage' information.
-			W3D_CHUNK_DEFORM_SET							=0x00000059,	// set of deform information
-				W3D_CHUNK_DEFORM_KEYFRAME				=0x0000005A,	// a keyframe of deform information in the set
-					W3D_CHUNK_DEFORM_DATA				=0x0000005B,	// deform information about a single vertex
+	W3D_CHUNK_DEFORM = 0x00000058,	// mesh deform or 'damage' information.
+	W3D_CHUNK_DEFORM_SET = 0x00000059,	// set of deform information
+	W3D_CHUNK_DEFORM_KEYFRAME = 0x0000005A,	// a keyframe of deform information in the set
+	W3D_CHUNK_DEFORM_DATA = 0x0000005B,	// deform information about a single vertex
 
-		W3D_CHUNK_PS2_SHADERS							=0x00000080,	// Shader info specific to the Playstation 2.
+	W3D_CHUNK_TANGENTS = 0x00000060,	// per-vertex tangents (later-format declaration only)
+	W3D_CHUNK_BINORMALS = 0x00000061,	// per-vertex binormals, also called bitangents
 
-		W3D_CHUNK_AABTREE									=0x00000090,	// Axis-Aligned Box Tree for hierarchical polygon culling
-			W3D_CHUNK_AABTREE_HEADER,										// catalog of the contents of the AABTree
-			W3D_CHUNK_AABTREE_POLYINDICES,								// array of uint32 polygon indices with count=mesh.PolyCount
-			W3D_CHUNK_AABTREE_NODES,										// array of W3dMeshAABTreeNode's with count=aabheader.NodeCount
+	W3D_CHUNK_PS2_SHADERS = 0x00000080,	// Shader info specific to the Playstation 2.
 
-	W3D_CHUNK_HIERARCHY									=0x00000100,	// hierarchy tree definition
-		W3D_CHUNK_HIERARCHY_HEADER,
-		W3D_CHUNK_PIVOTS,
-		W3D_CHUNK_PIVOT_FIXUPS,												// only needed by the exporter...
+	W3D_CHUNK_AABTREE = 0x00000090,	// Axis-Aligned Box Tree for hierarchical polygon culling
+	W3D_CHUNK_AABTREE_HEADER,										// catalog of the contents of the AABTree
+	W3D_CHUNK_AABTREE_POLYINDICES,								// array of uint32 polygon indices with count=mesh.PolyCount
+	W3D_CHUNK_AABTREE_NODES,										// array of W3dMeshAABTreeNode's with count=aabheader.NodeCount
 
-	W3D_CHUNK_ANIMATION									=0x00000200,	// hierarchy animation data
-		W3D_CHUNK_ANIMATION_HEADER,
-		W3D_CHUNK_ANIMATION_CHANNEL,										// channel of vectors
-		W3D_CHUNK_BIT_CHANNEL,												// channel of boolean values (e.g. visibility)
+	W3D_CHUNK_HIERARCHY = 0x00000100,	// hierarchy tree definition
+	W3D_CHUNK_HIERARCHY_HEADER,
+	W3D_CHUNK_PIVOTS,
+	W3D_CHUNK_PIVOT_FIXUPS,												// only needed by the exporter...
 
-	W3D_CHUNK_COMPRESSED_ANIMATION					=0x00000280,	// compressed hierarchy animation data
-		W3D_CHUNK_COMPRESSED_ANIMATION_HEADER,							// describes playback rate, number of frames, and type of compression
-		W3D_CHUNK_COMPRESSED_ANIMATION_CHANNEL,						// compressed channel, format dependent on type of compression
-		W3D_CHUNK_COMPRESSED_BIT_CHANNEL,								// compressed bit stream channel, format dependent on type of compression
+	W3D_CHUNK_ANIMATION = 0x00000200,	// hierarchy animation data
+	W3D_CHUNK_ANIMATION_HEADER,
+	W3D_CHUNK_ANIMATION_CHANNEL,										// channel of vectors
+	W3D_CHUNK_BIT_CHANNEL,												// channel of boolean values (e.g. visibility)
 
-	W3D_CHUNK_MORPH_ANIMATION							=0x000002C0,	// hierarchy morphing animation data (morphs between poses, for facial animation)
-		W3D_CHUNK_MORPHANIM_HEADER,										// W3dMorphAnimHeaderStruct describes playback rate, number of frames, and type of compression
-		W3D_CHUNK_MORPHANIM_CHANNEL,										// wrapper for a channel
-			W3D_CHUNK_MORPHANIM_POSENAME,									// name of the other anim which contains the poses for this morph channel
-			W3D_CHUNK_MORPHANIM_KEYDATA,									// morph key data for this channel
-		W3D_CHUNK_MORPHANIM_PIVOTCHANNELDATA,							// uin32 per pivot in the htree, indicating which channel controls the pivot
+	W3D_CHUNK_COMPRESSED_ANIMATION = 0x00000280,	// compressed hierarchy animation data
+	W3D_CHUNK_COMPRESSED_ANIMATION_HEADER,							// describes playback rate, number of frames, and type of compression
+	W3D_CHUNK_COMPRESSED_ANIMATION_CHANNEL,						// compressed channel, format dependent on type of compression
+	W3D_CHUNK_COMPRESSED_BIT_CHANNEL,								// compressed bit stream channel, format dependent on type of compression
 
-	W3D_CHUNK_HMODEL										=0x00000300,	// blueprint for a hierarchy model
-		W3D_CHUNK_HMODEL_HEADER,											// Header for the hierarchy model
-		W3D_CHUNK_NODE,														// render objects connected to the hierarchy
-		W3D_CHUNK_COLLISION_NODE,											// collision meshes connected to the hierarchy
-		W3D_CHUNK_SKIN_NODE,													// skins connected to the hierarchy
-		OBSOLETE_W3D_CHUNK_HMODEL_AUX_DATA,								// extension of the hierarchy model header
-		OBSOLETE_W3D_CHUNK_SHADOW_NODE,									// shadow object connected to the hierarchy
+	W3D_CHUNK_MORPH_ANIMATION = 0x000002C0,	// hierarchy morphing animation data (morphs between poses, for facial animation)
+	W3D_CHUNK_MORPHANIM_HEADER,										// W3dMorphAnimHeaderStruct describes playback rate, number of frames, and type of compression
+	W3D_CHUNK_MORPHANIM_CHANNEL,										// wrapper for a channel
+	W3D_CHUNK_MORPHANIM_POSENAME,									// name of the other anim which contains the poses for this morph channel
+	W3D_CHUNK_MORPHANIM_KEYDATA,									// morph key data for this channel
+	W3D_CHUNK_MORPHANIM_PIVOTCHANNELDATA,							// uin32 per pivot in the htree, indicating which channel controls the pivot
 
-	W3D_CHUNK_LODMODEL								=0x00000400,		// blueprint for an LOD model.  This is simply a
-		W3D_CHUNK_LODMODEL_HEADER,											// collection of 'n' render objects, ordered in terms
-		W3D_CHUNK_LOD,															// of their expected rendering costs. (highest is first)
+	W3D_CHUNK_HMODEL = 0x00000300,	// blueprint for a hierarchy model
+	W3D_CHUNK_HMODEL_HEADER,											// Header for the hierarchy model
+	W3D_CHUNK_NODE,														// render objects connected to the hierarchy
+	W3D_CHUNK_COLLISION_NODE,											// collision meshes connected to the hierarchy
+	W3D_CHUNK_SKIN_NODE,													// skins connected to the hierarchy
+	OBSOLETE_W3D_CHUNK_HMODEL_AUX_DATA,								// extension of the hierarchy model header
+	OBSOLETE_W3D_CHUNK_SHADOW_NODE,									// shadow object connected to the hierarchy
 
-	W3D_CHUNK_COLLECTION								=0x00000420,		// collection of render object names
-		W3D_CHUNK_COLLECTION_HEADER,										// general info regarding the collection
-		W3D_CHUNK_COLLECTION_OBJ_NAME,									// contains a string which is the name of a render object
-		W3D_CHUNK_PLACEHOLDER,												// contains information about a 'dummy' object that will be instanced later
-		W3D_CHUNK_TRANSFORM_NODE,											// contains the filename of another w3d file that should be transformed by this node
+	W3D_CHUNK_LODMODEL = 0x00000400,		// blueprint for an LOD model.  This is simply a
+	W3D_CHUNK_LODMODEL_HEADER,											// collection of 'n' render objects, ordered in terms
+	W3D_CHUNK_LOD,															// of their expected rendering costs. (highest is first)
 
-	W3D_CHUNK_POINTS									=0x00000440,		// array of W3dVectorStruct's.  May appear in meshes, hmodels, lodmodels, or collections.
+	W3D_CHUNK_COLLECTION = 0x00000420,		// collection of render object names
+	W3D_CHUNK_COLLECTION_HEADER,										// general info regarding the collection
+	W3D_CHUNK_COLLECTION_OBJ_NAME,									// contains a string which is the name of a render object
+	W3D_CHUNK_PLACEHOLDER,												// contains information about a 'dummy' object that will be instanced later
+	W3D_CHUNK_TRANSFORM_NODE,											// contains the filename of another w3d file that should be transformed by this node
 
-	W3D_CHUNK_LIGHT									=0x00000460,		// description of a light
-		W3D_CHUNK_LIGHT_INFO,												// generic light parameters
-		W3D_CHUNK_SPOT_LIGHT_INFO,											// extra spot light parameters
-		W3D_CHUNK_NEAR_ATTENUATION,										// optional near attenuation parameters
-		W3D_CHUNK_FAR_ATTENUATION,											// optional far attenuation parameters
+	W3D_CHUNK_POINTS = 0x00000440,		// array of W3dVectorStruct's.  May appear in meshes, hmodels, lodmodels, or collections.
 
-	W3D_CHUNK_EMITTER									=0x00000500,		// description of a particle emitter
-		W3D_CHUNK_EMITTER_HEADER,											// general information such as name and version
-		W3D_CHUNK_EMITTER_USER_DATA,										// user-defined data that specific loaders can switch on
-		W3D_CHUNK_EMITTER_INFO,												// generic particle emitter definition
-		W3D_CHUNK_EMITTER_INFOV2,											// generic particle emitter definition (version 2.0)
-		W3D_CHUNK_EMITTER_PROPS,											// Key-frameable properties
-		OBSOLETE_W3D_CHUNK_EMITTER_COLOR_KEYFRAME,					// structure defining a single color keyframe
-		OBSOLETE_W3D_CHUNK_EMITTER_OPACITY_KEYFRAME,					// structure defining a single opacity keyframe
-		OBSOLETE_W3D_CHUNK_EMITTER_SIZE_KEYFRAME,						// structure defining a single size keyframe
-		W3D_CHUNK_EMITTER_LINE_PROPERTIES,								// line properties, used by line rendering mode
-		W3D_CHUNK_EMITTER_ROTATION_KEYFRAMES,							// rotation keys for the particles
-		W3D_CHUNK_EMITTER_FRAME_KEYFRAMES,								// frame keys (u-v based frame animation)
-		W3D_CHUNK_EMITTER_BLUR_TIME_KEYFRAMES,						// length of tail for line groups
+	W3D_CHUNK_LIGHT = 0x00000460,		// description of a light
+	W3D_CHUNK_LIGHT_INFO,												// generic light parameters
+	W3D_CHUNK_SPOT_LIGHT_INFO,											// extra spot light parameters
+	W3D_CHUNK_NEAR_ATTENUATION,										// optional near attenuation parameters
+	W3D_CHUNK_FAR_ATTENUATION,											// optional far attenuation parameters
+	W3D_CHUNK_SPOT_LIGHT_INFO_5_0,									// later-format spot light parameters (declaration only)
+	W3D_CHUNK_PULSE,														// later-format light pulse data (declaration only)
 
-	W3D_CHUNK_AGGREGATE								=0x00000600,		// description of an aggregate object
-		W3D_CHUNK_AGGREGATE_HEADER,										// general information such as name and version
-			W3D_CHUNK_AGGREGATE_INFO,										// references to 'contained' models
-		W3D_CHUNK_TEXTURE_REPLACER_INFO,									// information about which meshes need textures replaced
-		W3D_CHUNK_AGGREGATE_CLASS_INFO,									// information about the original class that created this aggregate
+	W3D_CHUNK_EMITTER = 0x00000500,		// description of a particle emitter
+	W3D_CHUNK_EMITTER_HEADER,											// general information such as name and version
+	W3D_CHUNK_EMITTER_USER_DATA,										// user-defined data that specific loaders can switch on
+	W3D_CHUNK_EMITTER_INFO,												// generic particle emitter definition
+	W3D_CHUNK_EMITTER_INFOV2,											// generic particle emitter definition (version 2.0)
+	W3D_CHUNK_EMITTER_PROPS,											// Key-frameable properties
+	OBSOLETE_W3D_CHUNK_EMITTER_COLOR_KEYFRAME,					// structure defining a single color keyframe
+	OBSOLETE_W3D_CHUNK_EMITTER_OPACITY_KEYFRAME,					// structure defining a single opacity keyframe
+	OBSOLETE_W3D_CHUNK_EMITTER_SIZE_KEYFRAME,						// structure defining a single size keyframe
+	W3D_CHUNK_EMITTER_LINE_PROPERTIES,								// line properties, used by line rendering mode
+	W3D_CHUNK_EMITTER_ROTATION_KEYFRAMES,							// rotation keys for the particles
+	W3D_CHUNK_EMITTER_FRAME_KEYFRAMES,								// frame keys (u-v based frame animation)
+	W3D_CHUNK_EMITTER_BLUR_TIME_KEYFRAMES,						// length of tail for line groups
+	W3D_CHUNK_EMITTER_EXTRA_INFO,									// later-format emitter data (declaration only)
 
-	W3D_CHUNK_HLOD										=0x00000700,		// description of an HLod object (see HLodClass)
-		W3D_CHUNK_HLOD_HEADER,												// general information such as name and version
-		W3D_CHUNK_HLOD_LOD_ARRAY,											// wrapper around the array of objects for each level of detail
-			W3D_CHUNK_HLOD_SUB_OBJECT_ARRAY_HEADER,					// info on the objects in this level of detail array
-			W3D_CHUNK_HLOD_SUB_OBJECT,										// an object in this level of detail array
-		W3D_CHUNK_HLOD_AGGREGATE_ARRAY,									// array of aggregates, contains W3D_CHUNK_SUB_OBJECT_ARRAY_HEADER and W3D_CHUNK_SUB_OBJECT_ARRAY
-		W3D_CHUNK_HLOD_PROXY_ARRAY,										// array of proxies, used for application-defined purposes, provides a name and a bone.
+	W3D_CHUNK_AGGREGATE = 0x00000600,		// description of an aggregate object
+	W3D_CHUNK_AGGREGATE_HEADER,										// general information such as name and version
+	W3D_CHUNK_AGGREGATE_INFO,										// references to 'contained' models
+	W3D_CHUNK_TEXTURE_REPLACER_INFO,									// information about which meshes need textures replaced
+	W3D_CHUNK_AGGREGATE_CLASS_INFO,									// information about the original class that created this aggregate
 
-	W3D_CHUNK_BOX										=0x00000740,		// defines an collision box render object (W3dBoxStruct)
+	W3D_CHUNK_HLOD = 0x00000700,		// description of an HLod object (see HLodClass)
+	W3D_CHUNK_HLOD_HEADER,												// general information such as name and version
+	W3D_CHUNK_HLOD_LOD_ARRAY,											// wrapper around the array of objects for each level of detail
+	W3D_CHUNK_HLOD_SUB_OBJECT_ARRAY_HEADER,					// info on the objects in this level of detail array
+	W3D_CHUNK_HLOD_SUB_OBJECT,										// an object in this level of detail array
+	W3D_CHUNK_HLOD_AGGREGATE_ARRAY,									// array of aggregates, contains W3D_CHUNK_SUB_OBJECT_ARRAY_HEADER and W3D_CHUNK_SUB_OBJECT_ARRAY
+	W3D_CHUNK_HLOD_PROXY_ARRAY,										// array of proxies, used for application-defined purposes, provides a name and a bone.
+	W3D_CHUNK_HLOD_LIGHT_ARRAY,										// array of lights in later-format HLOD data (declaration only)
+
+	W3D_CHUNK_BOX = 0x00000740,		// defines an collision box render object (W3dBoxStruct)
 	W3D_CHUNK_SPHERE,
 	W3D_CHUNK_RING,
 
-	W3D_CHUNK_NULL_OBJECT							=0x00000750,		// defines a NULL object (W3dNullObjectStruct)
+	W3D_CHUNK_NULL_OBJECT = 0x00000750,		// defines a NULL object (W3dNullObjectStruct)
 
-	W3D_CHUNK_LIGHTSCAPE								=0x00000800,		// wrapper for lights created with Lightscape.
-		W3D_CHUNK_LIGHTSCAPE_LIGHT,										// definition of a light created with Lightscape.
-			W3D_CHUNK_LIGHT_TRANSFORM,										// position and orientation (defined as right-handed 4x3 matrix transform W3dLightTransformStruct).
+	W3D_CHUNK_LIGHTSCAPE = 0x00000800,		// wrapper for lights created with Lightscape.
+	W3D_CHUNK_LIGHTSCAPE_LIGHT,										// definition of a light created with Lightscape.
+	W3D_CHUNK_LIGHT_TRANSFORM,										// position and orientation (defined as right-handed 4x3 matrix transform W3dLightTransformStruct).
 
-	W3D_CHUNK_DAZZLE									=0x00000900,		// wrapper for a glare object.  Creates halos and flare lines seen around a bright light source
-		W3D_CHUNK_DAZZLE_NAME,												// null-terminated string, name of the dazzle (typical w3d object naming: "container.object")
-		W3D_CHUNK_DAZZLE_TYPENAME,											// null-terminated string, type of dazzle (from dazzle.ini)
+	W3D_CHUNK_DAZZLE = 0x00000900,		// wrapper for a glare object.  Creates halos and flare lines seen around a bright light source
+	W3D_CHUNK_DAZZLE_NAME,												// null-terminated string, name of the dazzle (typical w3d object naming: "container.object")
+	W3D_CHUNK_DAZZLE_TYPENAME,											// null-terminated string, type of dazzle (from dazzle.ini)
 
-	W3D_CHUNK_SOUNDROBJ								=0x00000A00,		// description of a sound render object
-		W3D_CHUNK_SOUNDROBJ_HEADER,										// general information such as name and version
-		W3D_CHUNK_SOUNDROBJ_DEFINITION,									// chunk containing the definition of the sound that is to play
+	W3D_CHUNK_SOUNDROBJ = 0x00000A00,		// description of a sound render object
+	W3D_CHUNK_SOUNDROBJ_HEADER,										// general information such as name and version
+	W3D_CHUNK_SOUNDROBJ_DEFINITION,									// chunk containing the definition of the sound that is to play
+
+	W3D_CHUNK_SECONDARY_VERTICES = 0x00000C00,		// secondary vertex stream (later-format declaration only)
+	W3D_CHUNK_SECONDARY_VERTEX_NORMALS,									// secondary vertex normal stream (later-format declaration only)
 
 };
 
@@ -528,26 +544,26 @@ struct W3dTexCoordStruct
 /////////////////////////////////////////////////////////////////////////////////////////////
 struct W3dRGBStruct
 {
-	W3dRGBStruct () {}
-	W3dRGBStruct (uint8 r, uint8 g, uint8 b)
+	W3dRGBStruct() {}
+	W3dRGBStruct(uint8 r, uint8 g, uint8 b)
 	{
 		R = r;
 		G = g;
 		B = b;
 	}
 
-	void Set (uint8 r, uint8 g, uint8 b)
+	void Set(uint8 r, uint8 g, uint8 b)
 	{
 		R = r;
 		G = g;
 		B = b;
 	}
 
-	void Set (float r, float g, float b)
+	void Set(float r, float g, float b)
 	{
-		R = (unsigned char) MIN ((float) UCHAR_MAX, MAX (0.0f, r) * ((float) (UCHAR_MAX + 1)));
-		G = (unsigned char) MIN ((float) UCHAR_MAX, MAX (0.0f, g) * ((float) (UCHAR_MAX + 1)));
-		B = (unsigned char) MIN ((float) UCHAR_MAX, MAX (0.0f, b) * ((float) (UCHAR_MAX + 1)));
+		R = (unsigned char)MIN((float)UCHAR_MAX, MAX(0.0f, r) * ((float)(UCHAR_MAX + 1)));
+		G = (unsigned char)MIN((float)UCHAR_MAX, MAX(0.0f, g) * ((float)(UCHAR_MAX + 1)));
+		B = (unsigned char)MIN((float)UCHAR_MAX, MAX(0.0f, b) * ((float)(UCHAR_MAX + 1)));
 	}
 
 	bool operator == (W3dRGBStruct c)
@@ -562,23 +578,23 @@ struct W3dRGBStruct
 
 	W3dRGBStruct operator += (W3dRGBStruct c)
 	{
-		R = MIN (((unsigned) R) + ((unsigned) c.R), (unsigned) UCHAR_MAX);
-		G = MIN (((unsigned) G) + ((unsigned) c.G), (unsigned) UCHAR_MAX);
-		B = MIN (((unsigned) B) + ((unsigned) c.B), (unsigned) UCHAR_MAX);
+		R = MIN(((unsigned)R) + ((unsigned)c.R), (unsigned)UCHAR_MAX);
+		G = MIN(((unsigned)G) + ((unsigned)c.G), (unsigned)UCHAR_MAX);
+		B = MIN(((unsigned)B) + ((unsigned)c.B), (unsigned)UCHAR_MAX);
 		return (*this);
 	}
 
 	W3dRGBStruct operator *= (W3dRGBStruct c)
 	{
-		R = (((unsigned) R) * ((unsigned) c.R)) / ((unsigned) UCHAR_MAX);
-		G = (((unsigned) G) * ((unsigned) c.G)) / ((unsigned) UCHAR_MAX);
-		B = (((unsigned) B) * ((unsigned) c.B)) / ((unsigned) UCHAR_MAX);
+		R = (((unsigned)R) * ((unsigned)c.R)) / ((unsigned)UCHAR_MAX);
+		G = (((unsigned)G) * ((unsigned)c.G)) / ((unsigned)UCHAR_MAX);
+		B = (((unsigned)B) * ((unsigned)c.B)) / ((unsigned)UCHAR_MAX);
 		return (*this);
 	}
 
 	unsigned Get_Color()
 	{
-		return (R<<24)|(G<<16)|(B<<8);
+		return (R << 24) | (G << 16) | (B << 8);
 	}
 
 	uint8			R;
@@ -642,6 +658,8 @@ struct W3dMaterialInfoStruct
 #define		W3DVERTMAT_STAGE0_MAPPING_RANDOM						0x00100000
 #define		W3DVERTMAT_STAGE0_MAPPING_EDGE						0x00110000
 #define		W3DVERTMAT_STAGE0_MAPPING_BUMPENV					0x00120000
+#define		W3DVERTMAT_STAGE0_MAPPING_GRID_WS_CLASSIC_ENV	0x00130000
+#define		W3DVERTMAT_STAGE0_MAPPING_GRID_WS_ENVIRONMENT	0x00140000
 
 #define		W3DVERTMAT_STAGE1_MAPPING_MASK						0x0000FF00
 #define		W3DVERTMAT_STAGE1_MAPPING_UV							0x00000000
@@ -663,6 +681,8 @@ struct W3dMaterialInfoStruct
 #define		W3DVERTMAT_STAGE1_MAPPING_RANDOM						0x00001000
 #define		W3DVERTMAT_STAGE1_MAPPING_EDGE						0x00001100
 #define		W3DVERTMAT_STAGE1_MAPPING_BUMPENV					0x00001200
+#define		W3DVERTMAT_STAGE1_MAPPING_GRID_WS_CLASSIC_ENV	0x00001300
+#define		W3DVERTMAT_STAGE1_MAPPING_GRID_WS_ENVIRONMENT	0x00001400
 
 #define		W3DVERTMAT_PSX_MASK										0xFF000000
 #define		W3DVERTMAT_PSX_TRANS_MASK 								0x07000000
@@ -679,14 +699,14 @@ struct W3dVertexMaterialStruct
 
 	bool operator == (W3dVertexMaterialStruct vm)
 	{
-		return (	  Attributes   == vm.Attributes
-				  && Ambient	   == vm.Ambient
-				  && Diffuse	   == vm.Diffuse
-				  && Specular	   == vm.Specular
-				  && Emissive	   == vm.Emissive
-				  && Shininess	   == vm.Shininess
-				  && Opacity	   == vm.Opacity
-				  && Translucency == vm.Translucency);
+		return (Attributes == vm.Attributes
+			&& Ambient == vm.Ambient
+			&& Diffuse == vm.Diffuse
+			&& Specular == vm.Specular
+			&& Emissive == vm.Emissive
+			&& Shininess == vm.Shininess
+			&& Opacity == vm.Opacity
+			&& Translucency == vm.Translucency);
 	}
 
 	bool operator != (W3dVertexMaterialStruct vm)
@@ -704,7 +724,7 @@ struct W3dVertexMaterialStruct
 	float32					Translucency;				// how much light passes through the material. (default = 0)
 };
 
-inline void W3d_Vertex_Material_Reset(W3dVertexMaterialStruct * vmat)
+inline void W3d_Vertex_Material_Reset(W3dVertexMaterialStruct* vmat)
 {
 	vmat->Attributes = 0;
 	vmat->Ambient.R = vmat->Ambient.G = vmat->Ambient.B = 255;
@@ -739,13 +759,13 @@ enum
 	W3DSHADER_ALPHATEST_ENABLE,						// enable alpha testing
 	W3DSHADER_ALPHATEST_MAX,							// end of enumeration
 
-  	W3DSHADER_DESTBLENDFUNC_ZERO = 0,				// destination pixel doesn't affect blending (default)
-  	W3DSHADER_DESTBLENDFUNC_ONE,						// destination pixel added unmodified
- 	W3DSHADER_DESTBLENDFUNC_SRC_COLOR,				// destination pixel multiplied by fragment RGB components
- 	W3DSHADER_DESTBLENDFUNC_ONE_MINUS_SRC_COLOR, // destination pixel multiplied by one minus (i.e. inverse) fragment RGB components
- 	W3DSHADER_DESTBLENDFUNC_SRC_ALPHA,				// destination pixel multiplied by fragment alpha component
- 	W3DSHADER_DESTBLENDFUNC_ONE_MINUS_SRC_ALPHA,	// destination pixel multiplied by fragment inverse alpha
- 	W3DSHADER_DESTBLENDFUNC_SRC_COLOR_PREFOG,		// destination pixel multiplied by fragment RGB components prior to fogging
+	W3DSHADER_DESTBLENDFUNC_ZERO = 0,				// destination pixel doesn't affect blending (default)
+	W3DSHADER_DESTBLENDFUNC_ONE,						// destination pixel added unmodified
+	W3DSHADER_DESTBLENDFUNC_SRC_COLOR,				// destination pixel multiplied by fragment RGB components
+	W3DSHADER_DESTBLENDFUNC_ONE_MINUS_SRC_COLOR, // destination pixel multiplied by one minus (i.e. inverse) fragment RGB components
+	W3DSHADER_DESTBLENDFUNC_SRC_ALPHA,				// destination pixel multiplied by fragment alpha component
+	W3DSHADER_DESTBLENDFUNC_ONE_MINUS_SRC_ALPHA,	// destination pixel multiplied by fragment inverse alpha
+	W3DSHADER_DESTBLENDFUNC_SRC_COLOR_PREFOG,		// destination pixel multiplied by fragment RGB components prior to fogging
 	W3DSHADER_DESTBLENDFUNC_MAX,						// end of enumeration
 
 	W3DSHADER_PRIGRADIENT_DISABLE = 0,				// disable primary gradient (same as OpenGL 'decal' texture blend)
@@ -758,10 +778,10 @@ enum
 	W3DSHADER_SECGRADIENT_ENABLE,						// add secondary gradient RGB to fragment RGB
 	W3DSHADER_SECGRADIENT_MAX,							// end of enumeration
 
-  	W3DSHADER_SRCBLENDFUNC_ZERO = 0,					// fragment not added to color buffer
-  	W3DSHADER_SRCBLENDFUNC_ONE,						// fragment added unmodified to color buffer (default)
- 	W3DSHADER_SRCBLENDFUNC_SRC_ALPHA,				// fragment RGB components multiplied by fragment A
- 	W3DSHADER_SRCBLENDFUNC_ONE_MINUS_SRC_ALPHA,	// fragment RGB components multiplied by fragment inverse (one minus) A
+	W3DSHADER_SRCBLENDFUNC_ZERO = 0,					// fragment not added to color buffer
+	W3DSHADER_SRCBLENDFUNC_ONE,						// fragment added unmodified to color buffer (default)
+	W3DSHADER_SRCBLENDFUNC_SRC_ALPHA,				// fragment RGB components multiplied by fragment A
+	W3DSHADER_SRCBLENDFUNC_ONE_MINUS_SRC_ALPHA,	// fragment RGB components multiplied by fragment inverse (one minus) A
 	W3DSHADER_SRCBLENDFUNC_MAX,						// end of enumeration
 
 	W3DSHADER_TEXTURING_DISABLE = 0,					// no texturing (treat fragment initial color as 1,1,1,1) (default)
@@ -846,6 +866,14 @@ struct W3dShaderStruct
 	uint8						pad[1];
 };
 
+// On-disk FX shader declaration from BFME II; no loader uses this structure here.
+struct W3dFXShaderStruct
+{
+	char						ShaderName[2 * W3D_NAME_LEN];
+	uint8						Technique;
+	uint8						pad[3];
+};
+
 struct W3dPS2ShaderStruct
 {
 	uint8						DepthCompare;
@@ -860,75 +888,75 @@ struct W3dPS2ShaderStruct
 	uint8						pad[3];
 };
 
-inline void W3d_Shader_Reset(W3dShaderStruct * s)									{
-																										s->DepthCompare = W3DSHADER_DEPTHCOMPARE_PASS_LEQUAL;
-																										s->DepthMask = W3DSHADER_DEPTHMASK_WRITE_ENABLE;
-																										s->ColorMask = 0;	// obsolete
-																										s->DestBlend = W3DSHADER_DESTBLENDFUNC_ZERO;
-																										s->FogFunc = 0;	// obsolete
-																										s->PriGradient = W3DSHADER_PRIGRADIENT_MODULATE;
-																										s->SecGradient = W3DSHADER_SECGRADIENT_DISABLE;
-																										s->SrcBlend = W3DSHADER_SRCBLENDFUNC_ONE;
-																										s->Texturing = W3DSHADER_TEXTURING_DISABLE;
-																										s->DetailColorFunc = W3DSHADER_DETAILCOLORFUNC_DISABLE;
-																										s->DetailAlphaFunc = W3DSHADER_DETAILALPHAFUNC_DISABLE;
-																										s->ShaderPreset = 0;	// obsolete
-																										s->AlphaTest = W3DSHADER_ALPHATEST_DISABLE;
-																										s->PostDetailColorFunc = W3DSHADER_DETAILCOLORFUNC_DISABLE;
-																										s->PostDetailAlphaFunc = W3DSHADER_DETAILALPHAFUNC_DISABLE;
-																										s->pad[0] = 0;
-																									}
+inline void W3d_Shader_Reset(W3dShaderStruct* s) {
+	s->DepthCompare = W3DSHADER_DEPTHCOMPARE_PASS_LEQUAL;
+	s->DepthMask = W3DSHADER_DEPTHMASK_WRITE_ENABLE;
+	s->ColorMask = 0;	// obsolete
+	s->DestBlend = W3DSHADER_DESTBLENDFUNC_ZERO;
+	s->FogFunc = 0;	// obsolete
+	s->PriGradient = W3DSHADER_PRIGRADIENT_MODULATE;
+	s->SecGradient = W3DSHADER_SECGRADIENT_DISABLE;
+	s->SrcBlend = W3DSHADER_SRCBLENDFUNC_ONE;
+	s->Texturing = W3DSHADER_TEXTURING_DISABLE;
+	s->DetailColorFunc = W3DSHADER_DETAILCOLORFUNC_DISABLE;
+	s->DetailAlphaFunc = W3DSHADER_DETAILALPHAFUNC_DISABLE;
+	s->ShaderPreset = 0;	// obsolete
+	s->AlphaTest = W3DSHADER_ALPHATEST_DISABLE;
+	s->PostDetailColorFunc = W3DSHADER_DETAILCOLORFUNC_DISABLE;
+	s->PostDetailAlphaFunc = W3DSHADER_DETAILALPHAFUNC_DISABLE;
+	s->pad[0] = 0;
+}
 
-inline void W3d_Shader_Set_Depth_Compare(W3dShaderStruct * s,int val)			 { s->DepthCompare = val; }
-inline void W3d_Shader_Set_Depth_Mask(W3dShaderStruct * s,int val)				 { s->DepthMask = val; }
-inline void W3d_Shader_Set_Dest_Blend_Func(W3dShaderStruct * s,int val)			 { s->DestBlend = val; }
-inline void W3d_Shader_Set_Pri_Gradient(W3dShaderStruct * s,int val)				 { s->PriGradient = val; }
-inline void W3d_Shader_Set_Sec_Gradient(W3dShaderStruct * s,int val)				 { s->SecGradient = val; }
-inline void W3d_Shader_Set_Src_Blend_Func(W3dShaderStruct * s,int val)			 { s->SrcBlend = val; }
-inline void W3d_Shader_Set_Texturing(W3dShaderStruct * s,int val)					 { s->Texturing = val; }
-inline void W3d_Shader_Set_Detail_Color_Func(W3dShaderStruct * s,int val)		 { s->DetailColorFunc = val; }
-inline void W3d_Shader_Set_Detail_Alpha_Func(W3dShaderStruct * s,int val)		 { s->DetailAlphaFunc = val; }
-inline void W3d_Shader_Set_Alpha_Test(W3dShaderStruct * s,int val)				 { s->AlphaTest = val; }
-inline void W3d_Shader_Set_Post_Detail_Color_Func(W3dShaderStruct * s,int val) { s->PostDetailColorFunc = val; }
-inline void W3d_Shader_Set_Post_Detail_Alpha_Func(W3dShaderStruct * s,int val) { s->PostDetailAlphaFunc = val; }
+inline void W3d_Shader_Set_Depth_Compare(W3dShaderStruct* s, int val) { s->DepthCompare = val; }
+inline void W3d_Shader_Set_Depth_Mask(W3dShaderStruct* s, int val) { s->DepthMask = val; }
+inline void W3d_Shader_Set_Dest_Blend_Func(W3dShaderStruct* s, int val) { s->DestBlend = val; }
+inline void W3d_Shader_Set_Pri_Gradient(W3dShaderStruct* s, int val) { s->PriGradient = val; }
+inline void W3d_Shader_Set_Sec_Gradient(W3dShaderStruct* s, int val) { s->SecGradient = val; }
+inline void W3d_Shader_Set_Src_Blend_Func(W3dShaderStruct* s, int val) { s->SrcBlend = val; }
+inline void W3d_Shader_Set_Texturing(W3dShaderStruct* s, int val) { s->Texturing = val; }
+inline void W3d_Shader_Set_Detail_Color_Func(W3dShaderStruct* s, int val) { s->DetailColorFunc = val; }
+inline void W3d_Shader_Set_Detail_Alpha_Func(W3dShaderStruct* s, int val) { s->DetailAlphaFunc = val; }
+inline void W3d_Shader_Set_Alpha_Test(W3dShaderStruct* s, int val) { s->AlphaTest = val; }
+inline void W3d_Shader_Set_Post_Detail_Color_Func(W3dShaderStruct* s, int val) { s->PostDetailColorFunc = val; }
+inline void W3d_Shader_Set_Post_Detail_Alpha_Func(W3dShaderStruct* s, int val) { s->PostDetailAlphaFunc = val; }
 
 // These functions use the existing W3dShaderStruct unused members to store PS2 specific parameters.
 // At mesh save time, if a PS2 material was used, a separate PS2 material chunk is saved out.
 // If W3dShaderStruct is changed this should still work because it is only used for the PS2 stuff.
-inline void W3d_Shader_Set_PS2_Param_A(W3dShaderStruct *s, int val) {s->ColorMask = val;}
-inline void W3d_Shader_Set_PS2_Param_B(W3dShaderStruct *s, int val) {s->FogFunc = val;}
-inline void W3d_Shader_Set_PS2_Param_C(W3dShaderStruct *s, int val) {s->ShaderPreset = val;}
-inline void W3d_Shader_Set_PS2_Param_D(W3dShaderStruct *s, int val) {s->pad[0] = val;}
+inline void W3d_Shader_Set_PS2_Param_A(W3dShaderStruct* s, int val) { s->ColorMask = val; }
+inline void W3d_Shader_Set_PS2_Param_B(W3dShaderStruct* s, int val) { s->FogFunc = val; }
+inline void W3d_Shader_Set_PS2_Param_C(W3dShaderStruct* s, int val) { s->ShaderPreset = val; }
+inline void W3d_Shader_Set_PS2_Param_D(W3dShaderStruct* s, int val) { s->pad[0] = val; }
 
-inline int W3d_Shader_Get_PS2_Param_A(const W3dShaderStruct *s) {return (s->ColorMask);}
-inline int W3d_Shader_Get_PS2_Param_B(const W3dShaderStruct *s) {return (s->FogFunc);}
-inline int W3d_Shader_Get_PS2_Param_C(const W3dShaderStruct *s) {return (s->ShaderPreset);}
-inline int W3d_Shader_Get_PS2_Param_D(const W3dShaderStruct *s) {return (s->pad[0]);}
+inline int W3d_Shader_Get_PS2_Param_A(const W3dShaderStruct* s) { return (s->ColorMask); }
+inline int W3d_Shader_Get_PS2_Param_B(const W3dShaderStruct* s) { return (s->FogFunc); }
+inline int W3d_Shader_Get_PS2_Param_C(const W3dShaderStruct* s) { return (s->ShaderPreset); }
+inline int W3d_Shader_Get_PS2_Param_D(const W3dShaderStruct* s) { return (s->pad[0]); }
 
-inline int W3d_Shader_Get_PS2_Param_A(const W3dPS2ShaderStruct *s) {return (s->AParam);}
-inline int W3d_Shader_Get_PS2_Param_B(const W3dPS2ShaderStruct *s) {return (s->BParam);}
-inline int W3d_Shader_Get_PS2_Param_C(const W3dPS2ShaderStruct *s) {return (s->CParam);}
-inline int W3d_Shader_Get_PS2_Param_D(const W3dPS2ShaderStruct *s) {return (s->DParam);}
+inline int W3d_Shader_Get_PS2_Param_A(const W3dPS2ShaderStruct* s) { return (s->AParam); }
+inline int W3d_Shader_Get_PS2_Param_B(const W3dPS2ShaderStruct* s) { return (s->BParam); }
+inline int W3d_Shader_Get_PS2_Param_C(const W3dPS2ShaderStruct* s) { return (s->CParam); }
+inline int W3d_Shader_Get_PS2_Param_D(const W3dPS2ShaderStruct* s) { return (s->DParam); }
 
-inline int W3d_Shader_Get_Depth_Compare(const W3dPS2ShaderStruct * s)				 { return s->DepthCompare; }
-inline int W3d_Shader_Get_Depth_Mask(const W3dPS2ShaderStruct * s)					 { return s->DepthMask; }
-inline int W3d_Shader_Get_Pri_Gradient(const W3dPS2ShaderStruct * s)					 { return s->PriGradient; }
-inline int W3d_Shader_Get_Texturing(const W3dPS2ShaderStruct * s)						 { return s->Texturing; }
-inline int W3d_Shader_Get_Alpha_Test(const W3dPS2ShaderStruct * s)					 { return s->AlphaTest; }
+inline int W3d_Shader_Get_Depth_Compare(const W3dPS2ShaderStruct* s) { return s->DepthCompare; }
+inline int W3d_Shader_Get_Depth_Mask(const W3dPS2ShaderStruct* s) { return s->DepthMask; }
+inline int W3d_Shader_Get_Pri_Gradient(const W3dPS2ShaderStruct* s) { return s->PriGradient; }
+inline int W3d_Shader_Get_Texturing(const W3dPS2ShaderStruct* s) { return s->Texturing; }
+inline int W3d_Shader_Get_Alpha_Test(const W3dPS2ShaderStruct* s) { return s->AlphaTest; }
 
 
-inline int W3d_Shader_Get_Depth_Compare(const W3dShaderStruct * s)				 { return s->DepthCompare; }
-inline int W3d_Shader_Get_Depth_Mask(const W3dShaderStruct * s)					 { return s->DepthMask; }
-inline int W3d_Shader_Get_Dest_Blend_Func(const W3dShaderStruct * s)				 { return s->DestBlend; }
-inline int W3d_Shader_Get_Pri_Gradient(const W3dShaderStruct * s)					 { return s->PriGradient; }
-inline int W3d_Shader_Get_Sec_Gradient(const W3dShaderStruct * s)					 { return s->SecGradient; }
-inline int W3d_Shader_Get_Src_Blend_Func(const W3dShaderStruct * s)				 { return s->SrcBlend; }
-inline int W3d_Shader_Get_Texturing(const W3dShaderStruct * s)						 { return s->Texturing; }
-inline int W3d_Shader_Get_Detail_Color_Func(const W3dShaderStruct * s)			 { return s->DetailColorFunc; }
-inline int W3d_Shader_Get_Detail_Alpha_Func(const W3dShaderStruct * s)			 { return s->DetailAlphaFunc; }
-inline int W3d_Shader_Get_Alpha_Test(const W3dShaderStruct * s)					 { return s->AlphaTest; }
-inline int W3d_Shader_Get_Post_Detail_Color_Func(const W3dShaderStruct * s)	 { return s->PostDetailColorFunc; }
-inline int W3d_Shader_Get_Post_Detail_Alpha_Func(const W3dShaderStruct * s)	 { return s->PostDetailAlphaFunc; }
+inline int W3d_Shader_Get_Depth_Compare(const W3dShaderStruct* s) { return s->DepthCompare; }
+inline int W3d_Shader_Get_Depth_Mask(const W3dShaderStruct* s) { return s->DepthMask; }
+inline int W3d_Shader_Get_Dest_Blend_Func(const W3dShaderStruct* s) { return s->DestBlend; }
+inline int W3d_Shader_Get_Pri_Gradient(const W3dShaderStruct* s) { return s->PriGradient; }
+inline int W3d_Shader_Get_Sec_Gradient(const W3dShaderStruct* s) { return s->SecGradient; }
+inline int W3d_Shader_Get_Src_Blend_Func(const W3dShaderStruct* s) { return s->SrcBlend; }
+inline int W3d_Shader_Get_Texturing(const W3dShaderStruct* s) { return s->Texturing; }
+inline int W3d_Shader_Get_Detail_Color_Func(const W3dShaderStruct* s) { return s->DetailColorFunc; }
+inline int W3d_Shader_Get_Detail_Alpha_Func(const W3dShaderStruct* s) { return s->DetailAlphaFunc; }
+inline int W3d_Shader_Get_Alpha_Test(const W3dShaderStruct* s) { return s->AlphaTest; }
+inline int W3d_Shader_Get_Post_Detail_Color_Func(const W3dShaderStruct* s) { return s->PostDetailColorFunc; }
+inline int W3d_Shader_Get_Post_Detail_Alpha_Func(const W3dShaderStruct* s) { return s->PostDetailAlphaFunc; }
 
 
 
@@ -972,7 +1000,7 @@ inline int W3d_Shader_Get_Post_Detail_Alpha_Func(const W3dShaderStruct * s)	 { r
 
 struct W3dTextureInfoStruct
 {
-	W3dTextureInfoStruct(void)	{}
+	W3dTextureInfoStruct(void) {}
 	uint16					Attributes;					// flags for this texture
 	uint16					AnimType;					// animation logic
 	uint32					FrameCount;					// Number of frames (1 if not animated)
@@ -1033,7 +1061,16 @@ typedef enum
 	SURFACE_TYPE_MAX			// NOTE: if you add a surface type, add it to the SurfaceEffects.INI file!
 } W3D_SURFACE_TYPES;
 
-const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Later TT-Scripts tools catalog additional surface values without OpenW3D support:
+//   32 BLUE_TIBERIUM, 33 RED_TIBERIUM, 34 TIBERIUM_VEINS, 35 LASER,
+//   36 SNOW_PERMIABLE (reference spelling), 37 ELECTRICAL_GLASS,
+//   38 ELECTRICAL_GLASS_PERMEABLE, 39 SLUSH, and 40-47 EXTRA_1 through EXTRA_8.
+// The later table also reorders existing values 22 through 25.  Adding those entries here
+// requires a compatibility decision and exporter UI work, so this legacy enum is unchanged.
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+const char* const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 {
 	"Light Metal",
 	"Heavy Metal",
@@ -1085,6 +1122,8 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_MESH_FLAG_COLLISION_TYPE_VIS					0x00000040		// vis rays collide with this mesh
 #define W3D_MESH_FLAG_COLLISION_TYPE_CAMERA				0x00000080		// camera rays/boxes collide with this mesh
 #define W3D_MESH_FLAG_COLLISION_TYPE_VEHICLE				0x00000100		// vehicles collide with this mesh (and with physical collision meshes)
+#define W3D_MESH_FLAG_COLLISION_TYPE_USER1				0x00000200		// TT-Scripts application-defined collision type
+#define W3D_MESH_FLAG_COLLISION_TYPE_USER2				0x00000400		// TT-Scriptst application-defined collision type
 
 #define W3D_MESH_FLAG_HIDDEN									0x00001000		// this mesh is hidden by default
 #define W3D_MESH_FLAG_TWO_SIDED								0x00002000		// render both sides of this mesh
@@ -1100,6 +1139,7 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_AABOX					0x00040000		// (4.1+) aabox OBSOLETE!
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_OBBOX					0x00050000		// (4.1+) obbox OBSOLETE!
 #define W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_ORIENTED	0x00060000		// (4.1+) camera oriented mesh (points _towards_ camera)
+#define W3D_MESH_FLAG_GEOMETRY_TYPE_CAMERA_Z_ORIENTED	0x00070000		// TT-Scripts camera Z-oriented mesh
 
 #define W3D_MESH_FLAG_PRELIT_MASK							0x0F000000		// (4.2+)
 #define W3D_MESH_FLAG_PRELIT_UNLIT							0x01000000		// mesh contains an unlit material chunk wrapper
@@ -1109,6 +1149,8 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 
 #define W3D_MESH_FLAG_SHATTERABLE							0x10000000		// this mesh is shatterable.
 #define W3D_MESH_FLAG_NPATCHABLE								0x20000000		// it is ok to NPatch this mesh
+#define W3D_MESH_FLAG_PRELIT									0x40000000		// TT-Scripts prelit mesh flag
+#define W3D_MESH_FLAG_ALWAYSDYNLIGHT						0x80000000		// TT-Scripts always dynamically lit flag
 
 /********************************************************************************
 
@@ -1126,6 +1168,10 @@ const char * const SURFACE_TYPE_STRINGS[SURFACE_TYPE_MAX] =
 #define W3D_VERTEX_CHANNEL_TEXCOORD		0x00000004	// texture coordinate
 #define W3D_VERTEX_CHANNEL_COLOR			0x00000008	// vertex color
 #define W3D_VERTEX_CHANNEL_BONEID		0x00000010	// per-vertex bone id for skins
+#define W3D_VERTEX_CHANNEL_TANGENT		0x00000020	// per-vertex tangent (BFME II declaration only)
+#define W3D_VERTEX_CHANNEL_BINORMAL		0x00000040	// per-vertex binormal (BFME II declaration only)
+#define W3D_VERTEX_CHANNEL_SMOOTHSKIN	0x00000080	// W3D_CHUNK_VERTEX_INFLUENCES stores two-bone weighted data from BFME Games
+#define W3D_VERTEX_CHANNEL_SUPERSMOOTHSKIN	0x00000100	// W3D_CHUNK_VERTEX_INFLUENCES_EXTENDED stores four-bone weighted data created by ChAoS for TT-Scripts
 
 #define W3D_FACE_CHANNEL_FACE				0x00000001	// basic face info, W3dTriStruct...
 
@@ -1176,6 +1222,19 @@ struct W3dVertInfStruct
 {
 	uint16					BoneIdx;
 	uint8						Pad[6];
+};
+
+// BFME and TT-Scripts files use an alternate eight-byte W3D_CHUNK_VERTEX_INFLUENCES
+// element when W3D_VERTEX_CHANNEL_SMOOTHSKIN is set:
+//     uint16 BoneIdx[2];
+//     uint16 Weight[2];
+// This declares the format relationship without changing the legacy runtime structure above.
+
+// Extended weighted influence payload used by W3D_CHUNK_VERTEX_INFLUENCES_EXTENDED.
+struct W3dVertInf3WStruct
+{
+	uint16					BoneIdx[4];
+	uint16					Weight[3];			// fourth weight is 65535 minus the first three weights
 };
 
 //
@@ -1372,10 +1431,10 @@ enum
 //
 enum
 {
-    ANIM_FLAVOR_TIMECODED = 0,
-    ANIM_FLAVOR_ADAPTIVE_DELTA,
+	ANIM_FLAVOR_TIMECODED = 0,
+	ANIM_FLAVOR_ADAPTIVE_DELTA,
 
-	 ANIM_FLAVOR_VALID
+	ANIM_FLAVOR_VALID
 };
 
 // Begin Classic Structures
@@ -1388,7 +1447,7 @@ struct W3dAnimChannelStruct
 	uint16					Flags;					// channel type.
 	uint16					Pivot;					// pivot affected by this channel
 	uint16					pad;
-	float32					Data[1];				// will be (LastFrame - FirstFrame + 1) * VectorLen int
+	float32					Data[1];				// will be (LastFrame - FirstFrame + 1) * VectorLen long
 };
 
 enum
@@ -1404,7 +1463,7 @@ struct W3dBitChannelStruct
 	uint16					Flags;					// channel type.
 	uint16					Pivot;					// pivot affected by this channel
 	uint8						DefaultVal;			// default state when outside valid range.
-	uint8						Data[1];				// will be (LastFrame - FirstFrame + 1) / 8 int
+	uint8						Data[1];				// will be (LastFrame - FirstFrame + 1) / 8 long
 };
 
 // End Classic Structures
@@ -1450,6 +1509,17 @@ struct W3dAdaptiveDeltaAnimChannelStruct
 
 };
 // End AdaptiveDelta Structures
+
+// Payload header for W3D_CHUNK_COMPRESSED_ANIMATION_MOTION_CHANNEL in BFME.
+struct W3dCompressedMotionChannelStruct
+{
+	uint8						Zero;
+	uint8						Flavor;
+	uint8						VectorLen;
+	uint8						Flags;
+	uint16					NumTimeCodes;
+	uint16					Pivot;
+};
 
 /********************************************************************************
 
@@ -1550,7 +1620,7 @@ struct W3dLODModelHeaderStruct
 
 struct W3dLODStruct
 {
-	char						RenderObjName[2*W3D_NAME_LEN];
+	char						RenderObjName[2 * W3D_NAME_LEN];
 	float32					LODMin;								// "artist" inspired switching distances
 	float32					LODMax;
 };
@@ -1658,15 +1728,32 @@ struct W3dSpotLightStruct
 	float32				SpotExponent;
 };
 
+struct W3dSpotLightStruct_v5_0 //  This is a TT-Scripts format
+{
+	float32				SpotOuterAngle;
+	float32				SpotInnerAngle;
+};
+
 struct W3dLightAttenuationStruct
 {
 	float32				Start;
 	float32				End;
 };
 
+struct W3dLightPulseStruct //  This is a TT-Scripts format
+{
+	float32				MinIntensity;
+	float32				MaxIntensity;
+	float32				IntensityTime;
+	float32				IntensityTimeRandom;
+	float32				IntensityAdjust;
+	uint8					IntensityStopsAtMax;
+	uint8					IntensityStopsAtMin;
+};
+
 struct W3dLightTransformStruct
 {
-	float32 Transform [3][4];
+	float32 Transform[3][4];
 };
 
 
@@ -1699,7 +1786,7 @@ enum
 // The definition of this string array can be found in
 // Part_Ldr.cpp.  Please update this array accordingly.
 //
-extern const char *EMITTER_TYPE_NAMES[EMITTER_TYPEID_COUNT];
+extern const char* EMITTER_TYPE_NAMES[EMITTER_TYPEID_COUNT];
 
 struct W3dEmitterHeaderStruct
 {
@@ -1740,6 +1827,13 @@ struct W3dVolumeRandomizerStruct
 	float32				Value2;
 	float32				Value3;
 	uint32				reserved[4];
+};
+
+struct W3dEmitterExtraInfoStruct // Seen in the Generals w3d_file.h
+{
+	float32				FutureStartTime;
+	uint8					Unknown;
+	uint32				reserved[8];
 };
 
 #define W3D_EMITTER_RENDER_MODE_TRI_PARTICLES		0
@@ -1892,8 +1986,8 @@ struct W3dEmitterLinePropertiesStruct
 ********************************************************************************/
 
 #define W3D_CURRENT_AGGREGATE_VERSION			0x00010003
-const int MESH_PATH_ENTRIES						= 15;
-const int MESH_PATH_ENTRY_LEN						= (W3D_NAME_LEN * 2);
+const int MESH_PATH_ENTRIES = 15;
+const int MESH_PATH_ENTRY_LEN = (W3D_NAME_LEN * 2);
 
 struct W3dAggregateHeaderStruct
 {
@@ -1903,14 +1997,14 @@ struct W3dAggregateHeaderStruct
 
 struct W3dAggregateInfoStruct
 {
-	char					BaseModelName[W3D_NAME_LEN*2];
+	char					BaseModelName[W3D_NAME_LEN * 2];
 	uint32				SubobjectCount;
 };
 
 struct W3dAggregateSubobjectStruct
 {
-	char					SubobjectName[W3D_NAME_LEN*2];
-	char					BoneName[W3D_NAME_LEN*2];
+	char					SubobjectName[W3D_NAME_LEN * 2];
+	char					BoneName[W3D_NAME_LEN * 2];
 };
 
 //
@@ -1933,7 +2027,7 @@ struct W3dTextureReplacerStruct
 //
 // Flags used in the W3dAggregateMiscInfo structure
 //
-const int W3D_AGGREGATE_FORCE_SUB_OBJ_LOD		= 0x00000001;
+const int W3D_AGGREGATE_FORCE_SUB_OBJ_LOD = 0x00000001;
 
 //
 // Structures for version 1.2 and newer
@@ -1993,7 +2087,7 @@ struct W3dHLodArrayHeaderStruct
 struct W3dHLodSubObjectStruct
 {
 	uint32					BoneIndex;
-	char						Name[W3D_NAME_LEN*2];
+	char						Name[W3D_NAME_LEN * 2];
 };
 
 
@@ -2030,7 +2124,7 @@ struct W3dBoxStruct
 {
 	uint32				Version;						// file format version
 	uint32				Attributes;					// box attributes (above #define's)
-	char					Name[2*W3D_NAME_LEN];	// name is in the form <containername>.<boxname>
+	char					Name[2 * W3D_NAME_LEN];	// name is in the form <containername>.<boxname>
 	W3dRGBStruct		Color;						// color to use when drawing the box
 	W3dVectorStruct	Center;						// center of the box
 	W3dVectorStruct	Extent;						// extent of the box
@@ -2054,7 +2148,7 @@ struct W3dNullObjectStruct
 	uint32				Version;						// file format version
 	uint32				Attributes;					// object attributes (currently un-used)
 	uint32				pad[2];						// pad space
-	char					Name[2*W3D_NAME_LEN];	// name is in the form <containername>.<boxname>
+	char					Name[2 * W3D_NAME_LEN];	// name is in the form <containername>.<boxname>
 };
 
 
