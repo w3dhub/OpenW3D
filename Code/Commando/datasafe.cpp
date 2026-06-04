@@ -101,6 +101,19 @@ static DynamicVectorClass<int> random_list_contenders;
 char ErrorVal[1024] = {0,0,0,0};
 
 /*
+** Instances of data safes. One for each type of data we will be storing in the safe.
+**
+** All data safe type MUST be declared here so that they are constructed after the ::TypeList and ::TypeListCount statics above.
+**
+** A data safe of type 'int' must always be declared first.
+**
+*/
+DataSafeClass<int> DataSafeint = {};
+DataSafeClass<unsigned int> DataSafeunsigned = {};
+DataSafeClass<float> DataSafefloat = {};
+DataSafeClass<double> DataSafedouble = {};
+
+/*
 ** Define this to set the keys to a fixed value to aid debugging.
 */
 //#define FIXED_KEY
