@@ -1320,6 +1320,15 @@ FontCharsClass *	WW3DAssetManager::Get_FontChars( const char * name, int point_s
 	return font;							// return it
 }
 
+void WW3DAssetManager::Add_Font( const char * filename )
+{
+	FontCharsClass::Add_Font(filename);
+}
+
+void WW3DAssetManager::Remove_Font( const char * filename )
+{
+	FontCharsClass::Remove_Font(filename);
+}
 
 /***********************************************************************************************
  * WW3DAssetManager::Release_All_FontChars -- Release all FontChars from the asset manager     *

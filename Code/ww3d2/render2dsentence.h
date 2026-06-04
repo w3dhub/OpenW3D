@@ -53,6 +53,14 @@
 */
 class	SurfaceClass;
 
+#ifdef OPENW3D_FREETYPE_BUILD
+#include <unordered_map>
+struct FT_LibraryRec_;
+typedef struct FT_LibraryRec_ *FT_Library;
+struct FT_FaceRec_;
+typedef struct FT_FaceRec_ *FT_Face;
+#endif
+
 class FontCharsClass : public RefCountClass {
 
 public:
@@ -69,6 +77,8 @@ public:
 
 	void	Blit_Char( unichar_t ch, uint16 *dest_ptr, int dest_stride, int x, int y );
 
+	static void Add_Font(const char *filename);
+	static void Remove_Font(const char *filename);
 private:
 
 	//
@@ -83,9 +93,18 @@ private:
 	//
 	//	Private methods
 	//
+	bool 							Locate_Font(const char *font_name, StringClass &font_file_path);
+	#ifdef OPENW3D_FREETYPE_BUILD
+	bool 							Locate_Font_FontConfig(const char *font_name, StringClass &font_file_path);
+	void 							Create_Freetype_Font(const char *font_name);
+	void 							Free_Freetype_Font();
+	const FontCharsClass::CharDataStruct *Store_Freetype_Char( unichar_t ch);
+	#elif defined _WIN32
 	void							Create_GDI_Font( const char *font_name );
 	void							Free_GDI_Font( void );
 	const CharDataStruct *	Store_GDI_Char( unichar_t ch );
+	#endif
+
 	void							Update_Current_Buffer( int char_width );
 	const CharDataStruct	*	Get_Char_Data( unichar_t ch );
 
@@ -102,12 +121,20 @@ private:
 	int									CharHeight;
 	int									PointSize;
 	StringClass							GDIFontName;
+#ifdef OPENW3D_FREETYPE_BUILD
+	static std::unordered_map<std::string, std::string> FontFiles;
+	int CharAscent;
+	int PixelOverlap;
+	FT_Library FtLibrary;
+	FT_Face FtFace;
+#elif defined _WIN32
 	HFONT									OldGDIFont;
 	HBITMAP								OldGDIBitmap;
 	HBITMAP								GDIBitmap;
 	HFONT									GDIFont;
 	uint8 *								GDIBitmapBits;
 	HDC									MemDC;
+#endif
 	CharDataStruct *					ASCIICharArray[256];
 	CharDataStruct **					UnicodeCharArray;
 	unichar_t								FirstUnicodeChar;

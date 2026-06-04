@@ -66,6 +66,10 @@ else()
     )
 endif()
 
+if(TARGET Freetype::Freetype AND TARGET Fontconfig::Fontconfig)
+    target_compile_definitions(wwcommon INTERFACE OPENW3D_FREETYPE_BUILD)
+endif()
+
 # Module static libraries
 add_subdirectory(WWAudio)
 add_subdirectory(BinkMovie)
