@@ -229,6 +229,10 @@ target_link_libraries(ww3d2 PRIVATE
     winmm
 )
 
+if(TARGET Freetype::Freetype AND TARGET Fontconfig::Fontconfig)
+    target_link_libraries(ww3d2 PUBLIC Freetype::Freetype Fontconfig::Fontconfig)
+endif()
+
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
 
 # This module needs building differently for the level editor
@@ -242,6 +246,10 @@ if (W3D_TOOLS)
         vfw32
         winmm
     )
+
+    if(TARGET Freetype::Freetype AND TARGET Fontconfig::Fontconfig)
+        target_link_libraries(ww3d2e PUBLIC Freetype::Freetype Fontconfig::Fontconfig)
+    endif()
 
     target_compile_definitions(ww3d2e PRIVATE PARAM_EDITING_ON)
 

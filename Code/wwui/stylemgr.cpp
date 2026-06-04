@@ -225,7 +225,7 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 			//
 			//	Install the font into windows
 			//
-			::AddFontResourceA (font_filename);
+			WW3DAssetManager::Get_Instance()->Add_Font(font_filename);
 			FontFileList.Add (font_filename);
 		}
 
@@ -317,7 +317,7 @@ StyleMgrClass::Shutdown (void)
 	//	Unregister this font with windows
 	//
 	for (index = 0; index < FontFileList.Count (); index ++) {
-		::RemoveFontResourceA (FontFileList[index]);
+		WW3DAssetManager::Get_Instance()->Remove_Font(FontFileList[index]);
 	}
 
 	//

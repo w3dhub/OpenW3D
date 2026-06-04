@@ -6,6 +6,7 @@
     "icu",
     "openal-soft",
     "sdl3",
+    "freetype",
     "qtbase",
     "qttools",
     "qtimageformats",
