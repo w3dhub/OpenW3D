@@ -75,6 +75,14 @@
 template<typename Type> class RefPtr;
 template<typename Type> class RefPtrConst;
 
+class RefPtrBase;
+template<typename Derived>
+RefPtr<Derived> Dynamic_Cast(RefPtrBase& base);
+template<typename Type>
+RefPtr<Type> Reinterpret_Cast(RefPtrBase& rhs);
+template<typename Type>
+RefPtr<Type> Const_Cast(RefPtrConst<Type>& rhs);
+
 class RefPtrBase
 	{
 	public:
