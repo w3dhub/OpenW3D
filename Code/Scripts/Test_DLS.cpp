@@ -2916,8 +2916,6 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			{
 				Commands->Innate_Disable(obj);
 
-				ActionParamsStruct params;
-
 				params.Set_Basic( this, 100, 1 );
 				params.Set_Animation ("H_A_A0A0_L51", true);
 				Commands->Action_Play_Animation (obj, params);

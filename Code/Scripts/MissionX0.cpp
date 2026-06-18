@@ -1986,7 +1986,6 @@ DECLARE_SCRIPT (MX0_A03_CONTROLLER_DAK, "" )
 			{
 				if (Trooper_One)
 				{
-					GameObject *Trooper_One = Commands->Find_Object( Trooper_One_Id );
 					// Trooper1: "Nice! That'll cost 'em!"
 					int conv_id = Commands->Create_Conversation ( "MX0_A03_08" , 0, 0, true);
 					Commands->Join_Conversation( Trooper_One, conv_id, false, false, true);

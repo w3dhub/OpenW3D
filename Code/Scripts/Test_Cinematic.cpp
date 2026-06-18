@@ -736,7 +736,7 @@ public:
 			if ( obj ) {
 
 				if ( host_slot != -1 ) {
-					int id = ObjectSlots[ host_slot ];
+					id = ObjectSlots[ host_slot ];
 					GameObject * host = Commands->Find_Object( id );
 					if	( host ) {
 						Commands->Attach_To_Object_Bone( obj, host, bone_name );
@@ -791,9 +791,9 @@ public:
 			GameObject * obj = Commands->Find_Object( id );
 			if ( obj ) {
 				Commands->Enable_Hibernation( obj, false );
-				char id[12];
-				sprintf( id, "%d", MyID );
-				Commands->Attach_Script( obj, "Test_Cinematic_Primary_Killed", id );
+				char id_str[12];
+				sprintf( id_str, "%d", MyID );
+				Commands->Attach_Script( obj, "Test_Cinematic_Primary_Killed", id_str );
 			} else {
 //				Commands->Debug_Message( "Slot Object not found %d\n", obj_slot );
 			}

@@ -4666,7 +4666,6 @@ DECLARE_SCRIPT(M08_Patrol_Inactive, "Waypath_ID=0:int, Waypath_Loc:Vector3, Cont
 
 	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
-		ActionParamsStruct params;
 		if(type == M08_INNATE_ON)
 		{
 			// No starting units can hear footsteps until otherwise alerted
@@ -4936,7 +4935,6 @@ DECLARE_SCRIPT(M08_Facility_Scientist_Inactive, "Point1_ID=0:int, Point2_ID=0:in
 
 	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
-		ActionParamsStruct params;
 		if(type == M08_INNATE_ON)
 		{
 			enemy_seen = false;
@@ -6691,7 +6689,6 @@ DECLARE_SCRIPT(M08_Mutant_Behavior, "")
 
 	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
-		ActionParamsStruct params;
 		if(type == M08_INNATE_ON && !freed)
 		{
 

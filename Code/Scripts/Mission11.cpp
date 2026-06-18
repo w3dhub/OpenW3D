@@ -1913,19 +1913,19 @@ DECLARE_SCRIPT(M11_WetBar_NeighborRoom_SpawnerController_JDG, "")
 
 			if (spawnedGuy01 == NULL)
 			{
-				GameObject * spawnedGuy01 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_01_JDG );
+				spawnedGuy01 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_01_JDG );
 				spawn_01_ID = Commands->Get_ID ( spawnedGuy01 );
 			}
 
 			if (spawnedGuy02 == NULL)
 			{
-				GameObject * spawnedGuy02 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_02_JDG );
+				spawnedGuy02 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_02_JDG );
 				spawn_02_ID = Commands->Get_ID ( spawnedGuy02 );
 			}
 
 			if (spawnedGuy03 == NULL)
 			{
-				GameObject * spawnedGuy03 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_03_JDG );
+				spawnedGuy03 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_03_JDG );
 				spawn_03_ID = Commands->Get_ID ( spawnedGuy03 );
 			}
 		}
@@ -2389,21 +2389,21 @@ DECLARE_SCRIPT(M11_Barracks_SpawnerController_JDG, "")//M11_BARRACKS_SPAWNER_CON
 
 			if (spawnedGuy01 == NULL)
 			{
-				GameObject * spawnedGuy01 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_01_JDG );
+				spawnedGuy01 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_01_JDG );
 				Commands->Attach_Script(spawnedGuy01, "M11_Barracks_SpawnedDude_JDG", "");
 				spawn_01_ID = Commands->Get_ID ( spawnedGuy01 );
 			}
 
 			if (spawnedGuy02 == NULL)
 			{
-				GameObject * spawnedGuy02 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_02_JDG );
+				spawnedGuy02 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_02_JDG );
 				Commands->Attach_Script(spawnedGuy02, "M11_Barracks_SpawnedDude_JDG", "");
 				spawn_02_ID = Commands->Get_ID ( spawnedGuy02 );
 			}
 
 			if (spawnedGuy03 == NULL)
 			{
-				GameObject * spawnedGuy03 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_03_JDG );
+				spawnedGuy03 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_03_JDG );
 				Commands->Attach_Script(spawnedGuy03, "M11_Barracks_SpawnedDude_JDG", "");
 				spawn_03_ID = Commands->Get_ID ( spawnedGuy03 );
 			}
@@ -2669,7 +2669,6 @@ DECLARE_SCRIPT(M11_Barracks_Scientist_JDG, "")//M11_BARRACKS_SCIENTIST_JDG 10040
 
 					Commands->Monitor_Conversation(  obj, scientist_conv02 );
 
-					ActionParamsStruct params;
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );
 					params.Set_Animation ("H_A_HOST_L2B", true);
 					Commands->Action_Play_Animation (obj, params);
@@ -3209,8 +3208,6 @@ DECLARE_SCRIPT(M11_Barracks_ToiletMutant01_JDG, "")//this guys ID is M11_BARRACK
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * /* sender */ ) override
 	{
-		ActionParamsStruct params;
-
 		if (param == M01_START_ACTING_JDG)
 		{
 			Commands->Innate_Enable(obj);
@@ -3251,8 +3248,6 @@ DECLARE_SCRIPT(M11_Barracks_ToiletMutant02_JDG, "")//this guys ID is M11_BARRACK
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * /* sender */ ) override
 	{
-		ActionParamsStruct params;
-
 		if (param == M01_START_ACTING_JDG)
 		{
 			Commands->Innate_Enable(obj);
@@ -3713,7 +3708,6 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 		{
 			if (obj && action_id == M01_PICK_A_NEW_LOCATION_JDG)
 			{
-				ActionParamsStruct params;
 				params.Set_Basic(this, 80, M01_WALKING_WAYPATH_01_JDG);
 				params.Set_Movement( Vector3(0,0,0), .1f, 1 );
 
@@ -4236,7 +4230,6 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 		{
 			if (obj && action_id == M01_PICK_A_NEW_LOCATION_JDG)
 			{
-				ActionParamsStruct params;
 				params.Set_Basic(this, 80, M01_WALKING_WAYPATH_01_JDG);
 				params.Set_Movement( Vector3(0,0,0), .1f, 1 );
 
@@ -4286,7 +4279,6 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 
 			else if (obj && action_id == M01_DOING_ANIMATION_01_JDG)
 			{
-				ActionParamsStruct params;
 				params.Set_Basic(this, 80, M01_PICK_A_NEW_LOCATION_JDG);
 				params.Set_Movement( Vector3(-15.128f, 17.965f, -63.748f), .1f, 1 );
 
@@ -6753,8 +6745,6 @@ DECLARE_SCRIPT(M11_Barracks_MutantUprising_BlackhandGuy_JDG, "")//M11_BARRACKS_M
 
 	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override
 	{
-		ActionParamsStruct params;
-
 		switch (complete_reason)
 		{
 			case ACTION_COMPLETE_NORMAL:
@@ -7229,8 +7219,6 @@ DECLARE_SCRIPT(M11_Cell_Mutant02_JDG, "")
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * /* sender */ ) override
 	{
-		ActionParamsStruct params;
-
 		if (param == M01_START_ACTING_JDG)
 		{
 			ActionParamsStruct params;
@@ -7300,8 +7288,6 @@ DECLARE_SCRIPT(M11_Cell_Visceroid_JDG, "")
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * /* sender */ ) override
 	{
-		ActionParamsStruct params;
-
 		if (param == M01_START_ACTING_JDG)
 		{
 			//Commands->Set_Player_Type ( obj, SCRIPT_PLAYERTYPE_MUTANT );

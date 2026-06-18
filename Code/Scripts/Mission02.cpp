@@ -837,8 +837,8 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				}
 			case (400193):
 				{
-					GameObject * object = Commands->Create_Object("Invisible_Object", Vector3(0,0,0));
-					if (object)
+					GameObject * invis_object = Commands->Create_Object("Invisible_Object", Vector3(0,0,0));
+					if (invis_object)
 					{
 						Commands->Control_Enable (STAR, false);
 						Commands->Start_Timer (obj, this, 1.0f, 9);
@@ -847,7 +847,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 						{
 							Commands->Send_Custom_Event (obj, controller, 1000, 1002, 25.0f);
 						}
-						Commands->Attach_Script (object, "Test_Cinematic", "X2K_Midtro.txt");
+						Commands->Attach_Script (invis_object, "Test_Cinematic", "X2K_Midtro.txt");
 					}
 					break;
 				}
