@@ -2813,9 +2813,9 @@ CW3DViewDoc::Copy_Assets_To_Dir (LPCTSTR directory)
 			//
 			//	Determine the source and destination filenames
 			//
-			StringClass filename		= dependency_list[counter];
-			CString src_filename		= src_path + CString (filename);
-			CString dest_filename	= dest_path + CString (filename);
+			StringClass dep_filename		= dependency_list[counter];
+			CString src_filename		= src_path + CString (dep_filename);
+			CString dest_filename	= dest_path + CString (dep_filename);
 
 			//
 			//	Copy the file

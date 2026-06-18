@@ -335,8 +335,7 @@ VisMgrClass::Render_Manual_Vis_Points
 	//	Bulid a list of vis points
 	//
 	DynamicVectorClass<VisPointNodeClass *> point_list;
-	VisPointNodeClass *vis_point = NULL;
-	for (	vis_point = (VisPointNodeClass *)NodeMgrClass::Get_First (NODE_TYPE_VIS_POINT);
+	for (	VisPointNodeClass *vis_point = (VisPointNodeClass *)NodeMgrClass::Get_First (NODE_TYPE_VIS_POINT);
 			vis_point != NULL && keep_going;
 			vis_point = (VisPointNodeClass *)NodeMgrClass::Get_Next (vis_point, NODE_TYPE_VIS_POINT))
 	{

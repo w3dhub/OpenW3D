@@ -1361,8 +1361,7 @@ PresetsFormClass::Save_Presets (FileClass &file_obj, uint32 class_id, bool class
 	//
 	//	Turn saving off for all definitions
 	//
-	DefinitionClass *definition		= NULL;
-	for (	definition = DefinitionMgrClass::Get_First ();
+	for (	DefinitionClass *definition = DefinitionMgrClass::Get_First ();
 			definition != NULL;
 			definition = DefinitionMgrClass::Get_Next (definition))
 	{
@@ -1406,7 +1405,7 @@ PresetsFormClass::Save_Presets (FileClass &file_obj, uint32 class_id, bool class
 	//
 	//	Turn saving back on for all definitions
 	//
-	for (	definition = DefinitionMgrClass::Get_First ();
+	for (	DefinitionClass *definition = DefinitionMgrClass::Get_First ();
 			definition != NULL;
 			definition = DefinitionMgrClass::Get_Next (definition))
 	{
@@ -1671,38 +1670,38 @@ PresetsFormClass::OnDelete (void)
 					//
 					bool save_temp_lib = was_temp;
 					for (int index = 0; index < tree_item_list.Count (); index ++) {
-						PresetClass *preset = Get_Item_Preset (tree_item_list[index]);
-						if (preset != NULL) {
-							::Get_Scene_Editor ()->Delete_Nodes (preset);
-							PresetMgrClass::Remove_Preset (preset);
+						PresetClass *item_preset = Get_Item_Preset (tree_item_list[index]);
+						if (item_preset != NULL) {
+							::Get_Scene_Editor ()->Delete_Nodes (item_preset);
+							PresetMgrClass::Remove_Preset (item_preset);
 
 							//
 							//	Determine if we need to save the temporary preset
 							// library later or not.
 							//
-							if (preset->Get_IsTemporary ()) {
+							if (item_preset->Get_IsTemporary ()) {
 								save_temp_lib = true;
 							}
 
 							//
 							//	Unlink the definition
 							//
-							preset->Set_Definition (NULL);
+							item_preset->Set_Definition (NULL);
 
 							//
 							//	Free the definition
 							//
-							DefinitionClass *definition = preset->Get_Definition ();
-							if (definition != NULL) {
-								DefinitionMgrClass::Unregister_Definition (definition);
-								preset->Set_Definition (NULL);
-								SAFE_DELETE (definition);
+							DefinitionClass *item_definition = item_preset->Get_Definition ();
+							if (item_definition != NULL) {
+								DefinitionMgrClass::Unregister_Definition (item_definition);
+								item_preset->Set_Definition (NULL);
+								SAFE_DELETE (item_definition);
 							}
 
 							//
 							//	Free the preset
 							//
-							SAFE_DELETE (preset);
+							SAFE_DELETE (item_preset);
 						}
 					}
 
@@ -2581,7 +2580,7 @@ PresetsFormClass::OnConvert (void)
 				sel_capture.Restore ();
 
 				item = m_TreeCtrl.GetSelectedItem ();
-				PresetClass *preset = Get_Item_Preset (item);
+				preset = Get_Item_Preset (item);
 				if (preset != NULL) {
 
 					//
@@ -3433,8 +3432,8 @@ PresetsFormClass::Export_File_Dependencies (const char *filename)
 						//
 						//	Now, spit out the list of files
 						//
-						for (int index = 0; index < file_list.Count (); index ++) {
-							entry += file_list[index];
+						for (int file_index = 0; file_index < file_list.Count (); file_index ++) {
+							entry += file_list[file_index];
 							entry += "\t";
 						}
 

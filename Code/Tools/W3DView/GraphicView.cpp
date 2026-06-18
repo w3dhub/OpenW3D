@@ -858,7 +858,7 @@ CGraphicView::OnMouseMove
 	else if ((nFlags & MK_CONTROL) && m_bRMouseDown)
 	{
 		// Get the currently displayed object
-		CW3DViewDoc *doc= (CW3DViewDoc *)GetDocument();
+		doc= (CW3DViewDoc *)GetDocument();
 		LightClass *pscene_light = doc->GetSceneLight ();
 		RenderObjClass *prender_obj = doc->GetDisplayedObject ();
 		if ((pscene_light != NULL) && (prender_obj != NULL)) {
@@ -892,7 +892,7 @@ CGraphicView::OnMouseMove
 	else if (m_bMouseDown)
 	{
 		// Get the document to display
-		CW3DViewDoc* doc = (CW3DViewDoc *)GetDocument();
+		doc = (CW3DViewDoc *)GetDocument();
 
 		// Are we in a valid state?
 		if (m_bInitialized && doc->GetScene ())
@@ -1014,7 +1014,7 @@ CGraphicView::OnMouseMove
 				if (pCMainWnd != NULL)
 				{
 					// Ensure the background camera matches the main camera
-					CW3DViewDoc *doc = (CW3DViewDoc *)GetDocument();
+					doc = (CW3DViewDoc *)GetDocument();
 					doc->GetBackObjectCamera ()->Set_Transform (transform);
 					doc->GetBackObjectCamera ()->Set_Position (Vector3 (0.00F, 0.00F, 0.00F));
 
@@ -1469,12 +1469,12 @@ CGraphicView::SetCameraPos (CAMERA_POS cameraPos)
         CMainFrame *pCMainWnd = (CMainFrame *)::AfxGetMainWnd ();
         if (pCMainWnd != NULL)
         {
-            CW3DViewDoc* doc = (CW3DViewDoc *)GetDocument();
+            doc = (CW3DViewDoc *)GetDocument();
 
             doc->GetBackObjectCamera ()->Set_Transform (transform);
             doc->GetBackObjectCamera ()->Set_Position (Vector3 (0.00F, 0.00F, 0.00F));
 
-            RenderObjClass *pCRenderObj = doc->GetDisplayedObject ();
+            pCRenderObj = doc->GetDisplayedObject ();
             if (pCRenderObj)
             {
                 pCMainWnd->UpdatePolygonCount (pCRenderObj->Get_Num_Polys ());

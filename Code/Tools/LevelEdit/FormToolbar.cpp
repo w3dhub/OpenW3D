@@ -100,10 +100,10 @@ FormToolbarClass::Create
 		retval = m_pCForm->Create (this, 101);
 
 
-		CRect rect;
-		rect = m_pCForm->Get_Form_Rect ();
-		m_minSize.cx = rect.Width ();
-		m_minSize.cy = rect.Height ();
+		CRect form_rect;
+		form_rect = m_pCForm->Get_Form_Rect ();
+		m_minSize.cx = form_rect.Width ();
+		m_minSize.cy = form_rect.Height ();
 		m_minSize.cx += BORDER_LEFT + BORDER_RIGHT;
 		m_minSize.cy += BORDER_TOP + BORDER_BOTTOM;
 		SetWindowPos (NULL, 0, 0, m_minSize.cx, m_minSize.cy, SWP_NOZORDER | SWP_NOMOVE);

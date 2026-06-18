@@ -419,7 +419,7 @@ PresetTransitionTabClass::Create_Render_Obj (void)
 					//
 					//	Create a 'floor' which we can drop the object onto
 					//
-					PhysClass *phys_obj		= node->Peek_Physics_Obj ();
+					phys_obj		= node->Peek_Physics_Obj ();
 					RenderObjClass *floor	= ::Create_Render_Obj ("GRID");
 					if (floor != NULL) {
 						phys_obj->Set_Transform (Matrix3D (Vector3(0, 0, DROP_POS)));

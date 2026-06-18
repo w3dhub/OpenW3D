@@ -248,9 +248,9 @@ EmitterSizePropPageClass::OnNotify
 					float new_max = size;
 					int count = m_SizeBar->Get_Point_Count ();
 					for (int index = 0; index < count; index ++) {
-						float size = m_SizeBar->Get_Graph_Percent (index) * m_MaxSize;
-						if (size > new_max) {
-							new_max = size;
+						float new_size = m_SizeBar->Get_Graph_Percent (index) * m_MaxSize;
+						if (new_size > new_max) {
+							new_max = new_size;
 						}
 					}
 
@@ -258,7 +258,7 @@ EmitterSizePropPageClass::OnNotify
 					//	Rescale the key frame points if necessary
 					//
 					if (new_max != m_MaxSize) {
-						int count = m_SizeBar->Get_Point_Count ();
+						count = m_SizeBar->Get_Point_Count ();
 						for (int index = 0; index < count; index ++) {
 							float percent = m_SizeBar->Get_Graph_Percent (index);
 							m_SizeBar->Set_Graph_Percent (index, (percent * m_MaxSize) / new_max);

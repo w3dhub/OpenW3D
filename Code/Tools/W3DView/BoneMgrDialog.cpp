@@ -445,8 +445,8 @@ BoneMgrDialogClass::OnAttachButton (void)
 {
 	// Get the name of the currently selected render object
 	CString name;
-	int index = m_ObjectCombo.GetCurSel ();
-	m_ObjectCombo.GetLBText (index, name);
+	int selected_index = m_ObjectCombo.GetCurSel ();
+	m_ObjectCombo.GetLBText (selected_index, name);
 
 	// Lookup the currently selected bone item
 	HTREEITEM hbone_item = Get_Current_Bone_Item ();

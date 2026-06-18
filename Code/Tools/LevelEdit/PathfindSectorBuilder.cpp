@@ -2505,8 +2505,8 @@ PathfindSectorBuilderClass::Post_Process_Floodfill_For_Level_Features (void)
 			//
 			m_BodyBoxCullingSystem.Collect_Boxes (box);
 			DynamicVectorClass<FloodfillBoxClass *> &list = m_BodyBoxCullingSystem.Get_Collection_List ();
-			for (int index = 0; index < list.Count (); index ++) {
-				FloodfillBoxClass *body_box = list[index];
+			for (int list_index = 0; list_index < list.Count (); list_index ++) {
+				FloodfillBoxClass *body_box = list[list_index];
 
 				//
 				//	Force the test to pass in the z-component

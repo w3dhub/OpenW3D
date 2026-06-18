@@ -262,11 +262,11 @@ BOOL EmitterFramePropPageClass::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* 
 					//
 					if ((new_max != m_MaxFrame) || (new_min != m_MinFrame)) {
 
-						int count = m_FrameBar->Get_Point_Count ();
+						count = m_FrameBar->Get_Point_Count ();
 						for (int index = 0; index < count; index ++) {
 
-							float frame = Denormalize_Frame(m_FrameBar->Get_Graph_Percent (index));
-							float new_norm = Normalize_Frame(frame,new_min,new_max);
+							float new_frame = Denormalize_Frame(m_FrameBar->Get_Graph_Percent (index));
+							float new_norm = Normalize_Frame(new_frame,new_min,new_max);
 
 							m_FrameBar->Set_Graph_Percent (index, new_norm);
 						}

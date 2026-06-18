@@ -756,7 +756,7 @@ ColorBarClass::Paint_Screen (HDC hwnd_dc)
 				//	Calculate the current frame marker's current rectangle
 				//
 				CRect focus_rect;
-				LONG style = ::GetWindowLong (m_hWnd, GWL_STYLE);
+				style = ::GetWindowLong (m_hWnd, GWL_STYLE);
 				if (style & CBRS_HORZ) {
 					focus_rect.left = m_ColorPoints[m_iCurrentKey].StartPos - (m_iMarkerWidth >> 1);
 					focus_rect.top = m_ColorArea.Height () - (m_iMarkerHeight >> 1);
@@ -898,8 +898,8 @@ ColorBarClass::Insert_Point (CPoint point, DWORD /* flags */)
 		//
 		// Insert the new point
 		//
-		float position = m_MinPos + ((m_MaxPos - m_MinPos) * percent);
-		retval = Insert_Point (new_index, position, red, green, blue);
+		float new_position = m_MinPos + ((m_MaxPos - m_MinPos) * percent);
+		retval = Insert_Point (new_index, new_position, red, green, blue);
 		if (retval) {
 			Set_Graph_Percent (new_index, graph_percent);
 			m_iCurrentKey = new_index;
@@ -1084,7 +1084,7 @@ ColorBarClass::Update_Point_Info (void)
 				//
 				// Assign color increments to the previous color point
 				//
-				int width = m_ColorPoints[index-1].EndPos - m_ColorPoints[index-1].StartPos;
+				width = m_ColorPoints[index-1].EndPos - m_ColorPoints[index-1].StartPos;
 				m_ColorPoints[index-1].RedInc = (m_ColorPoints[index].StartRed - m_ColorPoints[index-1].StartRed) / ((float)width);
 				m_ColorPoints[index-1].GreenInc = (m_ColorPoints[index].StartGreen - m_ColorPoints[index-1].StartGreen) / ((float)width);
 				m_ColorPoints[index-1].BlueInc = (m_ColorPoints[index].StartBlue - m_ColorPoints[index-1].StartBlue) / ((float)width);
@@ -1114,7 +1114,7 @@ ColorBarClass::Update_Point_Info (void)
 				m_ColorPoints[index-1].EndPos = m_ColorPoints[index].StartPos;
 
 				// Assign color increments to the previous color point
-				int height = m_ColorPoints[index-1].EndPos - m_ColorPoints[index-1].StartPos;
+				height = m_ColorPoints[index-1].EndPos - m_ColorPoints[index-1].StartPos;
 				m_ColorPoints[index-1].RedInc = (m_ColorPoints[index].StartRed - m_ColorPoints[index-1].StartRed) / ((float)height);
 				m_ColorPoints[index-1].GreenInc = (m_ColorPoints[index].StartGreen - m_ColorPoints[index-1].StartGreen) / ((float)height);
 				m_ColorPoints[index-1].BlueInc = (m_ColorPoints[index].StartBlue - m_ColorPoints[index-1].StartBlue) / ((float)height);
@@ -1451,7 +1451,7 @@ ColorBarClass::OnMouseMove
 			//	Determine where the marker should be
 			//
 			float new_percent = 0;
-			LONG style = ::GetWindowLong (m_hWnd, GWL_STYLE);
+			style = ::GetWindowLong (m_hWnd, GWL_STYLE);
 			if (style & CBRS_HORZ) {
 				new_percent = ((float)(point.x - m_ColorArea.left)) / ((float)m_ColorArea.Width ());
 			} else {

@@ -308,7 +308,7 @@ BOOL EmitterLineGroupPropPageClass::OnNotify(WPARAM wParam, LPARAM lParam, LRESU
 					//
 					if ((new_max != m_MaxBlurTime) || (new_min != m_MinBlurTime)) {
 
-						int count = m_BlurTimeBar->Get_Point_Count ();
+						count = m_BlurTimeBar->Get_Point_Count ();
 						for (int index = 0; index < count; index ++) {
 
 							float frame = Denormalize_Blur_Time(m_BlurTimeBar->Get_Graph_Percent (index));
