@@ -1083,13 +1083,13 @@ void DX8RigidFVFCategoryContainer::Add_Mesh(MeshClass* mesh_)
 	}
 
 	for (int j=0; j<uvcount; j++) {
-		unsigned char *vb=(unsigned char*) l.Get_Vertex_Array();
+		unsigned char *uvvb=(unsigned char*) l.Get_Vertex_Array();
 		const Vector2*uvs=split_table.Get_UV_Array(j);
 		if (uvs) {
 			for (i=0; i<split_table.Get_Vertex_Count(); i++)
 			{
-				*(Vector2*)(vb+fi.Get_Tex_Offset(j))=uvs[i];
-				vb+=fi.Get_FVF_Size();
+				*(Vector2*)(uvvb+fi.Get_Tex_Offset(j))=uvs[i];
+				uvvb+=fi.Get_FVF_Size();
 			}
 		}
 	}
@@ -1139,15 +1139,15 @@ void DX8FVFCategoryContainer::Insert_To_Texture_Category(
 		** the list always having matching texture categories next to each other.
 		*/
 		bool found_similar_category = false;
-		TextureCategoryListIterator it(&texture_category_list[pass]);
-		while (!it.Is_Done()) {
+		TextureCategoryListIterator add_it(&texture_category_list[pass]);
+		while (!add_it.Is_Done()) {
 			// Categorize according to first stage's texture for now
-			if (it.Peek_Obj()->Peek_Texture(0) == texs[0]) {
-				texture_category_list[pass].Add_After(new_tex_category,it.Peek_Obj());
+			if (add_it.Peek_Obj()->Peek_Texture(0) == texs[0]) {
+				texture_category_list[pass].Add_After(new_tex_category,add_it.Peek_Obj());
 				found_similar_category = true;
 				break;
 			}
-			it.Next();
+			add_it.Next();
 		}
 
 		if (!found_similar_category) {

@@ -686,7 +686,7 @@ void WheelClass::Init
  *=============================================================================================*/
 void WheelClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque)
 {
-	WWPROFILE("WheelClass::Compute_Force_And_Torque");
+	WWPROFILENAMED("WheelClass::Compute_Force_And_Torque", top);
 
 	if (Get_Flag(FAKE)) return;
 

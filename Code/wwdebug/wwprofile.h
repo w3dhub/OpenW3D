@@ -214,9 +214,11 @@ public:
 };
 
 #ifdef ENABLE_WWPROFILE
+#define	WWPROFILENAMED(name, _var)	WWProfileSampleClass _wwprofile##_var( name, false )
 #define	WWPROFILE( name )						WWProfileSampleClass _wwprofile( name, false )
-#define	WWROOTPROFILE( name )				WWProfileSampleClass _wwprofile( name, true )
+#define	WWROOTPROFILE( name )				WWProfileSampleClass _wwrootprofile( name, true )
 #else
+#define	WWPROFILENAMED(name, _var)
 #define	WWPROFILE( name )
 #define	WWROOTPROFILE( name )
 #endif

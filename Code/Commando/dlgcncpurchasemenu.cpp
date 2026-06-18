@@ -347,7 +347,7 @@ CNCPurchaseMenuClass::Add_Item_To_Shopping_Cart (int ctrl_id)
 		//
 		//	Update the counter on the merchandise control
 		//
-		MerchandiseCtrlClass *ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ITEM_CTRL_IDS[item_index]);
+		ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ITEM_CTRL_IDS[item_index]);
 		if (ctrl != NULL) {
 			ctrl->Increment_Purchase_Count ();
 		}

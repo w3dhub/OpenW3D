@@ -401,7 +401,7 @@ void BandwidthCheckerClass::Check(void)
 			if (failure_code == BANDTEST_NO_FINAL_PING_TIME ||
 					(cGameSpyAdmin::Is_Gamespy_Game() &&
 					failure_code == BANDTEST_NO_EXTERNAL_ROUTER)) {
-				BandtestSettingsStruct settings = {
+				settings = {
 					0,		//AlwaysICMP
 					0,		//TTLScatter
 					25,	//FastPingPackets

@@ -896,7 +896,7 @@ void AutoRestartClass::Set_Restart_Flag(bool enable)
 		if (game_mode && game_mode->Is_Active()) {
 			GameMode = 1;
 		} else {
-			GameModeClass *game_mode = GameModeManager::Find("LAN");
+			game_mode = GameModeManager::Find("LAN");
 			if (game_mode && game_mode->Is_Active()) {
 				GameMode = 0;
 			}

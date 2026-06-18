@@ -614,9 +614,9 @@ BaseControllerClass::Request_Harvester (int def_id)
 	//
 	//	Find our vehicle factory
 	//
-	BuildingGameObj *building = Find_Building (TYPE_VEHICLE_FACTORY);
-	if (building != NULL) {
-		VehicleFactoryGameObj *factory = building->As_VehicleFactoryGameObj ();
+	BuildingGameObj *factory_building = Find_Building (TYPE_VEHICLE_FACTORY);
+	if (factory_building != NULL) {
+		VehicleFactoryGameObj *factory = factory_building->As_VehicleFactoryGameObj ();
 
 		//
 		//	If we have a vehicle factory that isn't busy, then start building a harvester
@@ -629,9 +629,9 @@ BaseControllerClass::Request_Harvester (int def_id)
 
 		//	Find our refinery (if we have one)
 		//
-		BuildingGameObj *building = Find_Building (TYPE_REFINERY);
-		if (building != NULL) {
-			RefineryGameObj *refinery = building->As_RefineryGameObj ();
+		BuildingGameObj *refinery_building = Find_Building (TYPE_REFINERY);
+		if (refinery_building != NULL) {
+			RefineryGameObj *refinery = refinery_building->As_RefineryGameObj ();
 
 			//
 			//	If there is no vehicle factory in this level, then

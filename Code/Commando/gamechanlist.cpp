@@ -41,7 +41,7 @@ void cGameChannelList::Add_Channel(cGameData * p_game_data, const RefPtr<WWOnlin
 
    cGameChannel * p_game_channel = Find_Channel(p_game_data->Get_Owner());
 	if (p_game_channel == NULL) {
-		cGameChannel * p_game_channel = new cGameChannel(p_game_data, p_channel);
+		p_game_channel = new cGameChannel(p_game_data, p_channel);
 		WWASSERT(p_game_channel != NULL);
 		ChanList.Add_Tail(p_game_channel);
    } else {

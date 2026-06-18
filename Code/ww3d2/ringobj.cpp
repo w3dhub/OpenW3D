@@ -517,7 +517,7 @@ void RingRenderObjClass::render_ring(RenderInfoClass & /*rinfo*/,const Vector3 &
 	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_SORTING,dynamic_fvf_type,ring.Vertex_ct);
 	{
 		DynamicVBAccessClass::WriteLockClass Lock(&vb);
-		VertexFormatXYZNDUV2 *vb = Lock.Get_Formatted_Vertex_Array();
+		VertexFormatXYZNDUV2 *fva = Lock.Get_Formatted_Vertex_Array();
 
 		//
 		// set up the vertex color+alpha
@@ -531,21 +531,21 @@ void RingRenderObjClass::render_ring(RenderInfoClass & /*rinfo*/,const Vector3 &
 
 		for (int i=0; i<ring.Vertex_ct; i++)
 		{
-			vb->x = ring.vtx[i].X;
-			vb->y = ring.vtx[i].Y;
-			vb->z = ring.vtx[i].Z;
+			fva->x = ring.vtx[i].X;
+			fva->y = ring.vtx[i].Y;
+			fva->z = ring.vtx[i].Z;
 
-			vb->nx = ring.vtx_normal[i].X;		// may not need this!
-			vb->ny = ring.vtx_normal[i].Y;
-			vb->nz = ring.vtx_normal[i].Z;
+			fva->nx = ring.vtx_normal[i].X;		// may not need this!
+			fva->ny = ring.vtx_normal[i].Y;
+			fva->nz = ring.vtx_normal[i].Z;
 
-			vb->diffuse = color;
+			fva->diffuse = color;
 
 			if (RingTexture) {
-				vb->u1 = ring.vtx_uv[i].X;
-				vb->v1 = ring.vtx_uv[i].Y;
+				fva->u1 = ring.vtx_uv[i].X;
+				fva->v1 = ring.vtx_uv[i].Y;
 			}
-			vb++;
+			fva++;
 		}
 	}
 

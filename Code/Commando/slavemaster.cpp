@@ -643,8 +643,8 @@ void SlaveMasterClass::Shutdown_Slaves(void)
 {
 	if (!SlaveMode) {
 		char password[64] = DEFAULT_SERVER_CONTROL_PASSWORD;
-		RegistryClass reg(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL);
-		reg.Get_String(SERVER_CONTROL_PASSWORD_KEY, password, sizeof(password), password);
+		RegistryClass control_reg(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL);
+		control_reg.Get_String(SERVER_CONTROL_PASSWORD_KEY, password, sizeof(password), password);
 
 		for (int i=0 ; i<NumSlaveServers ; i++) {
 			if (SlaveServers[i].IsRunning) {
@@ -703,8 +703,8 @@ bool SlaveMasterClass::Shutdown_Slave(char *slave_login)
 {
 	if (!SlaveMode && slave_login) {
 		char password[64] = DEFAULT_SERVER_CONTROL_PASSWORD;
-		RegistryClass reg(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL);
-		reg.Get_String(SERVER_CONTROL_PASSWORD_KEY, password, sizeof(password), password);
+		RegistryClass control_reg(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL);
+		control_reg.Get_String(SERVER_CONTROL_PASSWORD_KEY, password, sizeof(password), password);
 
 		for (int i=0 ; i<NumSlaveServers ; i++) {
 			if (SlaveServers[i].IsRunning && stricmp(slave_login, SlaveServers[i].NickName) == 0) {
@@ -809,9 +809,9 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 	/*
 	** Make sure the Process ID isn't set in our base registry. It's shouldn't be unless I ran with the --slave command during dev.
 	*/
-	RegistryClass reg(APPLICATION_SUB_KEY_NAME);
-	if (reg.Is_Valid()) {
-		reg.Delete_Value("ProcessId");
+	RegistryClass app_reg(APPLICATION_SUB_KEY_NAME);
+	if (app_reg.Is_Valid()) {
+		app_reg.Delete_Value("ProcessId");
 	}
 
 	RegistryClass::Save_Registry(RegistryFileName, APPLICATION_SUB_KEY_NAME);

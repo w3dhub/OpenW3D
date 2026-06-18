@@ -614,7 +614,7 @@ void cNetwork::Watch_Bandwidth(Render2DTextClass * renderer)
          false,
 			-1);
 
-	   for (int i = PServerConnection->Get_Min_RHost(); i <= PServerConnection->Get_Max_RHost(); i++) {
+	   for (i = PServerConnection->Get_Min_RHost(); i <= PServerConnection->Get_Max_RHost(); i++) {
 
 			WWASSERT(
 				i >= cNetwork::PServerConnection->Get_Min_RHost() &&

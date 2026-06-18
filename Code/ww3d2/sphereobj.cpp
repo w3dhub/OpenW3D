@@ -444,29 +444,29 @@ void SphereRenderObjClass::render_sphere()
 	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_SORTING,dynamic_fvf_type,mesh.Vertex_ct);
 	{
 		DynamicVBAccessClass::WriteLockClass Lock(&vb);
-		VertexFormatXYZNDUV2 *vb = Lock.Get_Formatted_Vertex_Array();
+		VertexFormatXYZNDUV2 *fva = Lock.Get_Formatted_Vertex_Array();
 
 		for (int i=0; i<mesh.Vertex_ct; i++)
 		{
-			vb->x = mesh.vtx[i].X;
-			vb->y = mesh.vtx[i].Y;
-			vb->z = mesh.vtx[i].Z;
+			fva->x = mesh.vtx[i].X;
+			fva->y = mesh.vtx[i].Y;
+			fva->z = mesh.vtx[i].Z;
 
-			vb->nx = mesh.vtx_normal[i].X;		// may not need this!
-			vb->ny = mesh.vtx_normal[i].Y;
-			vb->nz = mesh.vtx_normal[i].Z;
+			fva->nx = mesh.vtx_normal[i].X;		// may not need this!
+			fva->ny = mesh.vtx_normal[i].Y;
+			fva->nz = mesh.vtx_normal[i].Z;
 
 			if (Flags & USE_ALPHA_VECTOR) {
-				vb->diffuse = DX8Wrapper::Convert_Color(mesh.dcg[i]);
+				fva->diffuse = DX8Wrapper::Convert_Color(mesh.dcg[i]);
 			} else {
-				vb->diffuse = 0xFFFFFFFF;		// TODO could combine the material color with this and turn off lighting
+				fva->diffuse = 0xFFFFFFFF;		// TODO could combine the material color with this and turn off lighting
 			}
 
 			if (SphereTexture) {
-				vb->u1 = mesh.vtx_uv[i].X;
-				vb->v1 = mesh.vtx_uv[i].Y;
+				fva->u1 = mesh.vtx_uv[i].X;
+				fva->v1 = mesh.vtx_uv[i].Y;
 			}
-			vb++;
+			fva++;
 		}
 	}
 

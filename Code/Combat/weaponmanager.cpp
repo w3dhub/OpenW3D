@@ -100,6 +100,7 @@ WeaponDefinitionClass::WeaponDefinitionClass( void ) :
 #ifdef PARAM_EDITING_ON
 	int i;
 //	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_INT,			Style);
+	{
 	EnumParameterClass *param;
 	param = new EnumParameterClass( &Style );
 	param->Set_Name ( "Style" );
@@ -108,7 +109,7 @@ WeaponDefinitionClass::WeaponDefinitionClass( void ) :
 	}
 	param->Add_Value ( WeaponStyleNames[WEAPON_HOLD_STYLE_BEACON], WEAPON_HOLD_STYLE_BEACON );
 	GENERIC_EDITABLE_PARAM(WeaponDefinitionClass,param)
-
+	}
 	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_FILENAME,	Model);
 	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_FILENAME,	IdleAnim);
 	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_FILENAME,	FireAnim);
@@ -380,6 +381,7 @@ AmmoDefinitionClass::AmmoDefinitionClass( void ) :
 {
 #ifdef	PARAM_EDITING_ON
 	int i;
+	{
 	EnumParameterClass *param;
 	param = new EnumParameterClass( &AmmoType );
 	param->Set_Name ( "Ammo Type" );
@@ -399,7 +401,7 @@ AmmoDefinitionClass::AmmoDefinitionClass( void ) :
 		param->Add_Value ( ArmorWarheadManager::Get_Warhead_Name( i ), i );
 	}
 	GENERIC_EDITABLE_PARAM(AmmoDefinitionClass,param)
-
+	}
 	EDITABLE_PARAM( AmmoDefinitionClass, ParameterClass::TYPE_FLOAT,		Damage);
 	EDITABLE_PARAM( AmmoDefinitionClass, ParameterClass::TYPE_FLOAT,		Range);
 	EDITABLE_PARAM( AmmoDefinitionClass, ParameterClass::TYPE_FLOAT,		EffectiveRange);
@@ -438,12 +440,12 @@ AmmoDefinitionClass::AmmoDefinitionClass( void ) :
 	EDITABLE_PARAM( AmmoDefinitionClass, ParameterClass::TYPE_SOUNDDEFINITIONID,	C4TimingSound3ID );
 	EDITABLE_PARAM( AmmoDefinitionClass, ParameterClass::TYPE_FLOAT,		AliasedSpeed );
 
-	param = new EnumParameterClass( &HitterType );
-	param->Set_Name ( "HitterType" );
+	EnumParameterClass *hitter_param = new EnumParameterClass( &HitterType );
+	hitter_param->Set_Name ( "HitterType" );
 	for ( i = 0; i < SurfaceEffectsManager::Num_Hitter_Types(); i++ ) {
-		param->Add_Value ( SurfaceEffectsManager::Hitter_Type_Name( i ), i );
+		hitter_param->Add_Value ( SurfaceEffectsManager::Hitter_Type_Name( i ), i );
 	}
-	GENERIC_EDITABLE_PARAM(AmmoDefinitionClass,param)
+	GENERIC_EDITABLE_PARAM(AmmoDefinitionClass,hitter_param)
 
 	GenericDefParameterClass *beacon_param = new GenericDefParameterClass (&BeaconDefID);
 	beacon_param->Set_Class_ID (CLASSID_GAME_OBJECT_DEF_BEACON);

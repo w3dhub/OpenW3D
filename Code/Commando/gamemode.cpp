@@ -210,7 +210,7 @@ void GameModeManager::Safely_Deactivate(void)
 */
 void	GameModeManager::Render( void )
 {
-	WWPROFILE( "Render" );
+	WWPROFILENAMED( "Render", top );
 
 	if (!ConsoleBox.Is_Exclusive()) {
 

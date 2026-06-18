@@ -492,8 +492,6 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 	Vector3				minrayendposition;
 	float					l, boxoffset;
 	ParticleStruct	  *particleptr;
-	float					s;
-	unsigned				spawncount;
 	float					time;
 
 	oldemitterposition = EmitterPosition;
@@ -810,8 +808,8 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 
 	// Spawn any new particles that need to be spawned on this update.
 	// NOTE: For accuracy, accumulate fractional spawncounts so that they can be used on a later iteration.
-	s = Spawn_Count (time);
-	spawncount = floor (s);
+	float s = Spawn_Count (time);
+	unsigned spawncount = floor (s);
 	SpawnCountFraction += s - spawncount;
 	if (SpawnCountFraction >= 1.0f) {
 		SpawnCountFraction -= 1.0f;

@@ -329,7 +329,7 @@ PhysicsSceneClass::~PhysicsSceneClass(void)
  *=============================================================================================*/
 void PhysicsSceneClass::Update(float dt,int frameid)
 {
-	WWPROFILE("PhysicsScene::Update");
+	WWPROFILENAMED("PhysicsScene::Update", top);
 
 	Generate_Static_Shadow_Projectors();
 
@@ -1087,7 +1087,7 @@ void PhysicsSceneClass::Unregister(RenderObjClass * obj,RegType for_what)
  *=============================================================================================*/
 void PhysicsSceneClass::Pre_Render_Processing(CameraClass & camera)
 {
-	WWPROFILE("Pre_Render_Processing");
+	WWPROFILENAMED("Pre_Render_Processing", top);
 
 	LastCameraPosition = camera.Get_Position();
 
@@ -1395,7 +1395,7 @@ void PhysicsSceneClass::Render_Objects(
 	RefPhysListClass * static_list,
 	RefPhysListClass * dyn_list)
 {
-	WWPROFILE("Render_Meshes");
+	WWPROFILENAMED("Render_Meshes", top);
 
 	RefPhysListIterator it(static_ws_list);
 

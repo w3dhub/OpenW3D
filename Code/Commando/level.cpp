@@ -53,7 +53,7 @@
 */
 void		LevelManager::Release_Level( void )
 {
-WWPROFILE( "Release Level" );
+WWPROFILENAMED( "Release Level", top );
 	SaveGameManager::Set_Map_Filename( NULL );
 	ConversationMgrClass::Reset_Active_Conversations ();
 

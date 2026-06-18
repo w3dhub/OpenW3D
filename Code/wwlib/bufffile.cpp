@@ -134,11 +134,11 @@ int BufferedFileClass::Read(void * buffer, int size)
 	int desired_buffer_size = _DesiredBufferSize;
 
 	// If we need more than the buffer will hold, just read it
-	int amount = BufferSize;
-	if ( amount == 0 ) {
-		amount = desired_buffer_size;
+	int buffer_size = BufferSize;
+	if ( buffer_size == 0 ) {
+		buffer_size = desired_buffer_size;
 	}
-	if ( size > amount ) {
+	if ( size > buffer_size ) {
 		return BASECLASS::Read( buffer, size ) + read;
 	}
 
@@ -158,11 +158,11 @@ int BufferedFileClass::Read(void * buffer, int size)
 
 	// If there is anything in the buffer, copy it in.
 	if ( BufferAvailable > 0 ) {
-		int amount = std::min( size, BufferAvailable );
-		::memcpy( buffer, &Buffer[BufferOffset], amount );
-		BufferAvailable -= amount;
-		BufferOffset += amount;
-		read += amount;
+		int buffered = std::min( size, BufferAvailable );
+		::memcpy( buffer, &Buffer[BufferOffset], buffered );
+		BufferAvailable -= buffered;
+		BufferOffset += buffered;
+		read += buffered;
 	}
 
 	return read;

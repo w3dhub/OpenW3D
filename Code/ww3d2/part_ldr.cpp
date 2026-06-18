@@ -1014,9 +1014,9 @@ ParticleEmitterDefClass::Read_Rotation_Keyframes (ChunkLoadClass &chunk_load)
 	m_InitialOrientationRandom				= header.OrientationRandom;
 
 	// Read in the first key
-	W3dEmitterRotationKeyframeStruct key;
-	if (chunk_load.Read(&key,sizeof(key)) == sizeof(key)) {
-		m_RotationKeyframes.Start = key.Rotation;
+	W3dEmitterRotationKeyframeStruct first_key;
+	if (chunk_load.Read(&first_key,sizeof(first_key)) == sizeof(first_key)) {
+		m_RotationKeyframes.Start = first_key.Rotation;
 	}
 
 	// Allocate the rotation keys
@@ -1058,9 +1058,9 @@ ParticleEmitterDefClass::Read_Frame_Keyframes (ChunkLoadClass &chunk_load)
 	}
 
 	// Read in the first key
-	W3dEmitterFrameKeyframeStruct key;
-	if (chunk_load.Read(&key,sizeof(key)) == sizeof(key)) {
-		m_FrameKeyframes.Start = key.Frame;
+	W3dEmitterFrameKeyframeStruct first_key;
+	if (chunk_load.Read(&first_key,sizeof(first_key)) == sizeof(first_key)) {
+		m_FrameKeyframes.Start = first_key.Frame;
 	}
 
 	// Allocate the keys
@@ -1101,9 +1101,9 @@ ParticleEmitterDefClass::Read_Blur_Time_Keyframes (ChunkLoadClass &chunk_load)
 	}
 
 	// Read in the first key
-	W3dEmitterBlurTimeKeyframeStruct key;
-	if (chunk_load.Read(&key,sizeof(key)) == sizeof(key)) {
-		m_BlurTimeKeyframes.Start = key.BlurTime;
+	W3dEmitterBlurTimeKeyframeStruct first_key;
+	if (chunk_load.Read(&first_key,sizeof(first_key)) == sizeof(first_key)) {
+		m_BlurTimeKeyframes.Start = first_key.BlurTime;
 	}
 
 	// Allocate the keys

@@ -161,24 +161,24 @@ void cDiagnostics::Render(void)
 
 #ifdef BETACLIENT
 	PRenderer->Reset();
-	RectClass rect = Render2DClass::Get_Screen_Resolution();
-	PRenderer->Set_Location(Vector2(rect.Left + 5, rect.Bottom - 10));
+	RectClass beta_rect = Render2DClass::Get_Screen_Resolution();
+	PRenderer->Set_Location(Vector2(beta_rect.Left + 5, beta_rect.Bottom - 10));
 	PRenderer->Draw_Text("BETACLIENT");
 	PRenderer->Render();
 #endif // BETACLIENT
 
 #ifdef FREEDEDICATEDSERVER
 	PRenderer->Reset();
-	RectClass rect = Render2DClass::Get_Screen_Resolution();
-	PRenderer->Set_Location(Vector2(rect.Left + 5, rect.Bottom - 10));
+	RectClass fds_rect = Render2DClass::Get_Screen_Resolution();
+	PRenderer->Set_Location(Vector2(fds_rect.Left + 5, fds_rect.Bottom - 10));
 	PRenderer->Draw_Text("FREEDEDICATEDSERVER");
 	PRenderer->Render();
 #endif // FREEDEDICATEDSERVER
 
 #ifdef MULTIPLAYERDEMO
 	PRenderer->Reset();
-	RectClass rect = Render2DClass::Get_Screen_Resolution();
-	PRenderer->Set_Location(Vector2(rect.Left + 5, rect.Bottom - 10));
+	RectClass mpd_rect = Render2DClass::Get_Screen_Resolution();
+	PRenderer->Set_Location(Vector2(mpd_rect.Left + 5, mpd_rect.Bottom - 10));
 	PRenderer->Draw_Text("MULTIPLAYER DEMO");
 	PRenderer->Render();
 #endif // MULTIPLAYERDEMO

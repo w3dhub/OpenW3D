@@ -93,8 +93,7 @@ StringClass::Get_String (size_t length, bool is_temp)
 		//	Try to find an available temporary buffer
 		//
 		// TODO: Don't loop, there are better ways
-		unsigned mask=1;
-		for (int index = 0; index < MAX_TEMP_STRING; index ++, mask<<=1) {
+		for (int index = 0; index < MAX_TEMP_STRING; index ++) {
 			unsigned mask=1<<index;
 			if (!(ReservedMask&mask)) {
 				ReservedMask|=mask;

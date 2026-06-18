@@ -85,6 +85,7 @@ ExplosionDefinitionClass::ExplosionDefinitionClass( void ) :
 	EDITABLE_PARAM( ExplosionDefinitionClass, ParameterClass::TYPE_FLOAT,					DamageStrength );
 
 //	EDITABLE_PARAM( ExplosionDefinitionClass, ParameterClass::TYPE_INT,						DamageWarhead );
+	{
 	EnumParameterClass *param;
 	param = new EnumParameterClass( &DamageWarhead );
 	param->Set_Name ( "Warhead" );
@@ -92,7 +93,8 @@ ExplosionDefinitionClass::ExplosionDefinitionClass( void ) :
 		param->Add_Value ( ArmorWarheadManager::Get_Warhead_Name( i ), i );
 	}
 	GENERIC_EDITABLE_PARAM(ExplosionDefinitionClass,param)
-
+	}
+	
 	EDITABLE_PARAM( ExplosionDefinitionClass, ParameterClass::TYPE_BOOL,						DamageIsScaled );
 	EDITABLE_PARAM( ExplosionDefinitionClass, ParameterClass::TYPE_FILENAME, 				DecalFilename );
 	EDITABLE_PARAM( ExplosionDefinitionClass, ParameterClass::TYPE_FLOAT,					DecalSize );
@@ -320,9 +322,9 @@ void	ExplosionManager::Create_Explosion_At( int explosion_def_id, const Matrix3D
 #ifdef WWDEBUG
 if (!WWMath::Is_Valid_Float(dist)) {
 	WWDEBUG_SAY(("Explosion Distance Bug!\r\n"));
-	Vector3 obj_pos;
-	obj->Get_Position(&obj_pos);
-	WWDEBUG_SAY(("  explosion pos: %f, %f, %f  object pos: %f, %f, %f\r\n",pos.X,pos.Y,pos.Z,obj_pos.X,obj_pos.Y,obj_pos.Z));
+	Vector3 dbg_obj_pos;
+	obj->Get_Position(&dbg_obj_pos);
+	WWDEBUG_SAY(("  explosion pos: %f, %f, %f  object pos: %f, %f, %f\r\n",pos.X,pos.Y,pos.Z,dbg_obj_pos.X,dbg_obj_pos.Y,dbg_obj_pos.Z));
 	WWDEBUG_SAY(("  object definition name: %s\r\n", obj->Get_Definition().Get_Name()));
 	WWDEBUG_SAY(("  explosion definition name; %s\r\n", explosion_def->Get_Name()));
 }

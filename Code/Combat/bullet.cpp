@@ -399,9 +399,9 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 				)
 			{
 				DamageableStaticPhysClass * damphys = (DamageableStaticPhysClass *)event.OtherObj;
-				OffenseObjectClass offense( AmmoDefinition->Damage, (int)AmmoDefinition->Warhead, Get_Owner() );
-				offense.EnableClientDamage = true;	// Only bullets apply to client damage;
-				damphys->Apply_Damage_Static( offense );
+				OffenseObjectClass static_offense( AmmoDefinition->Damage, (int)AmmoDefinition->Warhead, Get_Owner() );
+				static_offense.EnableClientDamage = true;	// Only bullets apply to client damage;
+				damphys->Apply_Damage_Static( static_offense );
 			}
 
 			// check for a non-stopping surface
@@ -824,12 +824,12 @@ void	BulletClass::Think( void )
 
 				cross.Normalize();
 				Matrix3D tm(cross,angle);
-				Vector3	current_vector;
-				Projectile->Get_Velocity( &current_vector );
-				WWASSERT(current_vector.Is_Valid());
-				current_vector = tm.Rotate_Vector( current_vector );
-				WWASSERT(current_vector.Is_Valid());
-				Projectile->Set_Velocity( current_vector );
+				Vector3	turn_vector;
+				Projectile->Get_Velocity( &turn_vector );
+				WWASSERT(turn_vector.Is_Valid());
+				turn_vector = tm.Rotate_Vector( turn_vector );
+				WWASSERT(turn_vector.Is_Valid());
+				Projectile->Set_Velocity( turn_vector );
 			}
 		}
 	}
@@ -840,7 +840,7 @@ void	BulletClass::Think( void )
 */
 void	Simulate_Instant_Bullet( BulletDataClass & data, float /* progress_time */ )
 {
-	WWPROFILE("Simulate_Instant_Bullet");
+	WWPROFILENAMED("Simulate_Instant_Bullet", top);
 //	WWASSERT(data.Position.Is_Valid());
 //	WWASSERT(data.Velocity.Is_Valid());
 

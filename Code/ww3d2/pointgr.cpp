@@ -1161,8 +1161,8 @@ void PointGroupClass::Update_Arrays(
    			float y_scale = (VPYMax - VPYMin) / yres;
 
 				Vector3 scaled_locs[2][3];
-				for (int i = 0; i < 2; i++) {
-					for (int j = 0; j < 3; j++) {
+				for (i = 0; i < 2; i++) {
+					for (j = 0; j < 3; j++) {
 						scaled_locs[i][j].X = _ScreenspaceVertexLocationSizeTable[i][j].X * x_scale;
 						scaled_locs[i][j].Y = _ScreenspaceVertexLocationSizeTable[i][j].Y * y_scale;
 						scaled_locs[i][j].Z = _ScreenspaceVertexLocationSizeTable[i][j].Z;
@@ -1195,8 +1195,8 @@ void PointGroupClass::Update_Arrays(
    			float y_scale = (VPYMax - VPYMin) / yres;
 
 				Vector3 scaled_locs[2][3];
-				for (int i = 0; i < 2; i++) {
-					for (int j = 0; j < 3; j++) {
+				for (i = 0; i < 2; i++) {
+					for (j = 0; j < 3; j++) {
 						scaled_locs[i][j].X = _ScreenspaceVertexLocationSizeTable[i][j].X * x_scale;
 						scaled_locs[i][j].Y = _ScreenspaceVertexLocationSizeTable[i][j].Y * y_scale;
 						scaled_locs[i][j].Z = _ScreenspaceVertexLocationSizeTable[i][j].Z;
@@ -1232,23 +1232,23 @@ void PointGroupClass::Update_Arrays(
 		if (PointMode != QUADS) {
 			// Modes with three vertices per point:
 			Vector2 *uv_ptr = _TriVertexUVFrameTable[FrameRowColumnCountLog2];
-			int vert = 0;
-			for (int i = 0; i < active_points; i++) {
+			int fill_vert = 0;
+			for (i = 0; i < active_points; i++) {
 				int uv_idx = (point_frame[i] & frame_mask) * 3;
-				vertex_uv[vert++] = uv_ptr[uv_idx + 0];
-				vertex_uv[vert++] = uv_ptr[uv_idx + 1];
-				vertex_uv[vert++] = uv_ptr[uv_idx + 2];
+				vertex_uv[fill_vert++] = uv_ptr[uv_idx + 0];
+				vertex_uv[fill_vert++] = uv_ptr[uv_idx + 1];
+				vertex_uv[fill_vert++] = uv_ptr[uv_idx + 2];
 			}
 		} else {
 			// Modes with four vertices per point:
 			Vector2 *uv_ptr = _QuadVertexUVFrameTable[FrameRowColumnCountLog2];
-			int vert = 0;
-			for (int i = 0; i < active_points; i++) {
+			int fill_vert = 0;
+			for (i = 0; i < active_points; i++) {
 				int uv_idx = (point_frame[i] & frame_mask) * 4;
-				vertex_uv[vert++] = uv_ptr[uv_idx + 0];
-				vertex_uv[vert++] = uv_ptr[uv_idx + 1];
-				vertex_uv[vert++] = uv_ptr[uv_idx + 2];
-				vertex_uv[vert++] = uv_ptr[uv_idx + 3];
+				vertex_uv[fill_vert++] = uv_ptr[uv_idx + 0];
+				vertex_uv[fill_vert++] = uv_ptr[uv_idx + 1];
+				vertex_uv[fill_vert++] = uv_ptr[uv_idx + 2];
+				vertex_uv[fill_vert++] = uv_ptr[uv_idx + 3];
 			}
 		}
 
@@ -1259,21 +1259,21 @@ void PointGroupClass::Update_Arrays(
 		if (PointMode != QUADS) {
 			// Modes with three vertices per point:
 			Vector2 *uv_ptr = _TriVertexUVFrameTable[FrameRowColumnCountLog2] + ((DefaultPointFrame & frame_mask) * 3);
-			int vert = 0;
-			for (int i = 0; i < active_points; i++) {
-				vertex_uv[vert++] = uv_ptr[0];
-				vertex_uv[vert++] = uv_ptr[1];
-				vertex_uv[vert++] = uv_ptr[2];
+			int fill_vert = 0;
+			for (i = 0; i < active_points; i++) {
+				vertex_uv[fill_vert++] = uv_ptr[0];
+				vertex_uv[fill_vert++] = uv_ptr[1];
+				vertex_uv[fill_vert++] = uv_ptr[2];
 			}
 		} else {
 			// Modes with four vertices per point:
 			Vector2 *uv_ptr = _QuadVertexUVFrameTable[FrameRowColumnCountLog2] + ((DefaultPointFrame & frame_mask) * 4);
-			int vert = 0;
-			for (int i = 0; i < active_points; i++) {
-				vertex_uv[vert++] = uv_ptr[0];
-				vertex_uv[vert++] = uv_ptr[1];
-				vertex_uv[vert++] = uv_ptr[2];
-				vertex_uv[vert++] = uv_ptr[3];
+			int fill_vert = 0;
+			for (i = 0; i < active_points; i++) {
+				vertex_uv[fill_vert++] = uv_ptr[0];
+				vertex_uv[fill_vert++] = uv_ptr[1];
+				vertex_uv[fill_vert++] = uv_ptr[2];
+				vertex_uv[fill_vert++] = uv_ptr[3];
 			}
 		}
 

@@ -1078,7 +1078,7 @@ bool Phys3Class::Intersection_Test(PhysMeshIntersectionTestClass & test)
  *=============================================================================================*/
 void Phys3Class::Timestep(float dt)
 {
-	WWPROFILE("Phys3::Timestep");
+	WWPROFILENAMED("Phys3::Timestep", top);
 	VERBOSE_LOG(("\r\n***** Phys3::Timestep. %s position: %f %f %f\r\n",Model->Get_Name(),State.Position.X,State.Position.Y,State.Position.Z));
 
 	/*
@@ -1705,13 +1705,13 @@ bool Phys3Class::Apply_Move
 				/*
 				** Try to move up to the obstacle
 				*/
-				float move_len = result.Fraction * move.Length();
-				if (move_len > epsilon) {
-					move_len -= epsilon;
+				float obstacle_move_len = result.Fraction * move.Length();
+				if (obstacle_move_len > epsilon) {
+					obstacle_move_len -= epsilon;
 					Vector3 direction = move;
 					direction.Normalize();
 
-					State.Position += move_len * direction;
+					State.Position += obstacle_move_len * direction;
 
 					move -= result.Fraction * move;
 					dt -= result.Fraction * dt;

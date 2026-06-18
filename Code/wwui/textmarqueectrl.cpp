@@ -330,14 +330,14 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 			//
 			//	Copy this line of text into the control
 			//
-			WideStringClass text;
-			COPY_LINE (text, line_start, line_end);
+			WideStringClass text_str;
+			COPY_LINE (text_str, line_start, line_end);
 
 			//
 			//	Add this line to our list
 			//
 			CREDIT_LINE new_line (line);
-			new_line.Text		= text;
+			new_line.Text		= text_str;
 			new_line.Height	= TextRenderers[new_line.FontIndex].Peek_Font ()->Get_Char_Height ();
 			CreditLines.Add (new_line);
 

@@ -398,7 +398,7 @@ MenuEntryCtrlClass::Update_State (void)
 					//
 					uint32 start_time	= time2;
 					uint32 end_time	= time3;
-					float percent		= float(float(curr_time - start_time) / float(end_time - start_time));
+					percent		= float(float(curr_time - start_time) / float(end_time - start_time));
 
 					Vector3 color = start_color + (end_color - start_color) * percent;
 
@@ -411,7 +411,7 @@ MenuEntryCtrlClass::Update_State (void)
 
 					uint32 start_time	= time1;
 					uint32 end_time	= time2;
-					float percent		= float(float(curr_time - start_time) / float(end_time - start_time));
+					percent		= float(float(curr_time - start_time) / float(end_time - start_time));
 
 					Vector3 color = start_color + (end_color - start_color) * percent;
 					CurrColor = RGB_TO_INT32 (color.X, color.Y, color.Z);

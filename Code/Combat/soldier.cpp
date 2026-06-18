@@ -2274,7 +2274,7 @@ static const char * _profile_name = "Soldier Think";
 //------------------------------------------------------------------------------------
 void	SoldierGameObj::Think( void )
 {
-	{	WWPROFILE( _profile_name );
+	{	WWPROFILENAMED( _profile_name, top );
 
 		if ( this == COMBAT_STAR ) {
 			_shake_delay -= TimeManager::Get_Frame_Seconds();
@@ -2361,7 +2361,7 @@ void	SoldierGameObj::Think( void )
 	}
 
 {
-	WWPROFILE( _profile_name );
+	WWPROFILENAMED( _profile_name, top );
 
 	if ( CombatManager::I_Am_Server() ) {
 		WWPROFILE("Handle C4");
@@ -3137,7 +3137,7 @@ float		SoldierGameObj::Get_Weapon_Length( void )
 //------------------------------------------------------------------------------------
 bool	SoldierGameObj::Internal_Set_Targeting( const Vector3 & target_pos, bool do_tilt )
 {
-	WWPROFILE( "Soldier Set Targeting" );
+	WWPROFILENAMED( "Soldier Set Targeting", top );
 
 	if ( CombatManager::Is_Skeleton_Slider_Demo_Enabled() ) {
 		return false;
@@ -3805,7 +3805,7 @@ void	SoldierGameObj::Apply_Damage_Extended( const OffenseObjectClass & damager, 
 		if ( FreeRandom.Get_Float() < probability ) {
 			// if skin is not impervious to the damage
 			int skin = Get_Defense_Object()->Get_Skin();
-			ArmorWarheadManager::SpecialDamageType special_damage = ArmorWarheadManager::Get_Special_Damage_Type( warhead );
+			special_damage = ArmorWarheadManager::Get_Special_Damage_Type( warhead );
 			if ( !ArmorWarheadManager::Is_Skin_Impervious( special_damage, skin ) ) {
 				Set_Special_Damage_Mode( special_damage, damager.Get_Owner() );
 			}
@@ -3841,8 +3841,8 @@ void	SoldierGameObj::Apply_Damage_Extended( const OffenseObjectClass & damager, 
 
 		// Check for creating visceroids
 		if ( IS_MISSION ) {
-			int warhead = damager.Get_Warhead();
-			float visceroid_probability = ArmorWarheadManager::Get_Visceroid_Probability( warhead );
+			int viceroid_warhead = damager.Get_Warhead();
+			float visceroid_probability = ArmorWarheadManager::Get_Visceroid_Probability( viceroid_warhead );
 			if ( !Is_Human_Controlled() && visceroid_probability != 0 ) {
 				if ( FreeRandom.Get_Float() < visceroid_probability ) {
 

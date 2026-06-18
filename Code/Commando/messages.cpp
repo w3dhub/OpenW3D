@@ -111,7 +111,7 @@ void cNetwork::Tell_Client_About_Dynamic_Objects
 
 if (cDevOptions::UseNewTCADO.Is_False()) {
 
-	WWPROFILE("TCADO");
+	WWPROFILENAMED("TCADO", top);
 
 	WWASSERT(client_id >= 0);
    WWASSERT(cNetwork::I_Am_Server());
@@ -452,7 +452,7 @@ if (cDevOptions::UseNewTCADO.Is_False()) {
 
 	const unsigned char dirty_check = (NetworkObjectClass::BIT_FREQUENT ^ 0xffffffff) & (NetworkObjectClass::BIT_CREATION | NetworkObjectClass::BIT_RARE | NetworkObjectClass::BIT_OCCASIONAL);
 
-	WWPROFILE("TCADO");
+	WWPROFILENAMED("TCADO", top);
 
 	WWASSERT(client_id >= 0);
    WWASSERT(cNetwork::I_Am_Server());

@@ -438,9 +438,9 @@ TranslateDBClass::Export_Table (const char *filename)
 			StringClass english_string = object->Get_English_String ();
 
 			const size_t length = english_string.Get_Length ();
-			for (size_t index = 0; index < length; index ++) {
-				if (english_string[static_cast<int>(index)] == '\n') {
-					english_string[static_cast<int>(index)] = ' ';
+			for (size_t str_index = 0; str_index < length; str_index ++) {
+				if (english_string[static_cast<int>(str_index)] == '\n') {
+					english_string[static_cast<int>(str_index)] = ' ';
 				}
 			}
 

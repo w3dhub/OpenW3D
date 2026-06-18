@@ -104,7 +104,7 @@ void	CampaignManager::Init( void )
 		for ( int state = 0; state < 100; state++ ) {
 			StringClass section_name;
 			section_name.Format( "Backdrop%d", state );
-			int count =  campaignINI->Entry_Count( section_name );
+			count =  campaignINI->Entry_Count( section_name );
 			if ( count != 0 ) {
 				int index = BackdropDescriptions.Count();
 				BackdropDescriptions.Uninitialized_Add();

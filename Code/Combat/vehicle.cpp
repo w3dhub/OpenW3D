@@ -163,6 +163,7 @@ VehicleGameObjDef::VehicleGameObjDef( void ) :
 	EDITABLE_PARAM( VehicleGameObjDef, ParameterClass::TYPE_BOOL,		Aim2D );
 
 #ifdef	PARAM_EDITING_ON
+	{
 	EnumParameterClass *param;
 	param = new EnumParameterClass( (int*)&Type );
 	param->Set_Name ("Type");
@@ -173,6 +174,7 @@ VehicleGameObjDef::VehicleGameObjDef( void ) :
 	param->Add_Value ( "Turret", 	VEHICLE_TYPE_TURRET );
 
 	GENERIC_EDITABLE_PARAM(VehicleGameObjDef,param)
+	}
 #endif
 
 	EDITABLE_PARAM( VehicleGameObjDef, ParameterClass::TYPE_BOOL, 	OccupantsVisible );

@@ -782,12 +782,12 @@ void	C4GameObj::Import_Rare( BitStreamClass &packet )
 		packet.Get(pos.X, BITPACK_WORLD_POSITION_X);
 		packet.Get(pos.Y, BITPACK_WORLD_POSITION_Y);
 		packet.Get(pos.Z, BITPACK_WORLD_POSITION_Z);
-		ProjectileClass * po = Peek_Physical_Object()->As_ProjectileClass();
-		if ( po )  {
+		ProjectileClass * stuck_po = Peek_Physical_Object()->As_ProjectileClass();
+		if ( stuck_po )  {
 			Vector3 local_pos;
-			po->Get_Position(&local_pos);
+			stuck_po->Get_Position(&local_pos);
 			if ((local_pos - pos).Length2() > 0.5f * 0.5f) {
-				po->Set_Position(pos);
+				stuck_po->Set_Position(pos);
 			}
 		}
 		WWDEBUG_SAY(("C4 %p is now STUCK, pos= %f, %f, %f", this, pos.X,pos.Y,pos.Z));

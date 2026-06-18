@@ -92,7 +92,7 @@ cPurchaseRequestEvent::Act(void)
 	//
 	//	Lookup the data needed to make the purchase
 	//
-	SoldierGameObj *player = GameObjManager::Find_Soldier_Of_Client_ID(SenderId);
+	SoldierGameObj *soldier = GameObjManager::Find_Soldier_Of_Client_ID(SenderId);
 
 	VendorClass::PURCHASE_ERROR result = VendorClass::PERR_UNKNOWN;
 
@@ -102,7 +102,7 @@ cPurchaseRequestEvent::Act(void)
 		//
 		//	Attempt to make the purchase
 		//
-		result = VendorClass::Purchase_Item (player, (VendorClass::PURCHASE_TYPE)PurchaseType, ItemIndex, AltSkinIndex, false);
+		result = VendorClass::Purchase_Item (soldier, (VendorClass::PURCHASE_TYPE)PurchaseType, ItemIndex, AltSkinIndex, false);
 	}
 	else
 	{

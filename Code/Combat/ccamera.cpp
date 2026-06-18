@@ -979,7 +979,7 @@ void CCameraClass::Update()
 */
 bool	CCameraClass::Determine_Targeting_Position( void )
 {
-	WWPROFILE( "Determining Targeting" );
+	WWPROFILENAMED( "Determining Targeting", top );
 	bool	looking_at_object = false;
 
 	Matrix3D tm = Get_Transform();
@@ -1127,7 +1127,7 @@ bool	CCameraClass::Determine_Targeting_Position( void )
 
 void	CCameraClass::Apply_Weapon_Help( void )
 {
-	WWPROFILE( "Weapon Help" );
+	WWPROFILENAMED( "Weapon Help", top );
 	WeaponHelpTimer -= TimeManager::Get_Frame_Seconds();
 	if ( WeaponHelpTimer <= 0 ) {
 
