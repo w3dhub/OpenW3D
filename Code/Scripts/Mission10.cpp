@@ -2801,7 +2801,6 @@ DECLARE_SCRIPT (M10_Mammoth_Grant_Controller, "") //2001634
 
 		if (type == GRANT)
 		{
-			GameObject *mammoth = Commands->Find_Object (2000787);
 			float curr_health = Commands->Get_Health(mammoth);
 			Vector3 mammoth_loc = Commands->Get_Position (mammoth);
 			float mammoth_face = Commands->Get_Facing (mammoth);

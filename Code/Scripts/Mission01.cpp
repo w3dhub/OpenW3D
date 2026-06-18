@@ -2545,8 +2545,6 @@ DECLARE_SCRIPT(M01_HON_Medlab_DropOff_Guy_JDG, "")
 
 	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override
 	{
-		ActionParamsStruct params;
-
 		if (action_id == M01_WALKING_WAYPATH_01_JDG && complete_reason == ACTION_COMPLETE_NORMAL)
 		{
 			Commands->Destroy_Object ( obj );
@@ -9081,8 +9079,6 @@ DECLARE_SCRIPT(M01_BuggyScript_New_JDG, "")
 
 			else
 			{
-				ActionParamsStruct params;
-
 				params.Set_Basic( this, 100, M01_WALKING_WAYPATH_01_JDG );
 				params.Set_Movement( Vector3(0,0,0), 0.5f, 5 );
 				params.WaypathID = 103289;
@@ -12359,7 +12355,6 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 		else if (param == M01_GOING_TO_EVAC_SPOT_JDG)//your ride is here--go get in
 		{
 			Vector3 evacSpot = Commands->Get_Position ( Commands->Find_Object ( 103394 ) );
-			ActionParamsStruct params;
 			Commands->Action_Reset ( obj, 100 );
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
@@ -12503,7 +12498,6 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 		else if (param == M01_GOING_TO_EVAC_SPOT_JDG)//your ride is here--go get in
 		{
 			Vector3 evacSpot = Commands->Get_Position ( Commands->Find_Object ( 103394 ) );
-			ActionParamsStruct params;
 			Commands->Action_Reset ( obj, 100 );
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
@@ -12851,7 +12845,6 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_01_JDG, "")//this guys ID is M01_BARN_PRISONER_
 		{
 			Commands->Enable_Hibernation(obj, false );
 			Vector3 evacSpot = Commands->Get_Position ( Commands->Find_Object ( M01_BARNAREA_EVAC_MONITOR_JDG ) );
-			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
 
@@ -13012,7 +13005,6 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_02_JDG, "")//this guys ID is M01_BARN_PRISONER_
 		{
 			Commands->Enable_Hibernation(obj, false );
 			Vector3 evacSpot = Commands->Get_Position ( Commands->Find_Object ( M01_BARNAREA_EVAC_MONITOR_JDG ) );
-			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
 
@@ -13169,7 +13161,6 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_03_JDG, "")//this guys ID is M01_BARN_PRISONER_
 
 			//Commands->Action_Face_Location ( obj, params );
 
-			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_MODIFY_YOUR_ACTION_JDG);
 			//params.Set_Look( STAR, 15 );
 			params.Set_Attack( STAR, 0, 0, true );
@@ -13190,7 +13181,6 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_03_JDG, "")//this guys ID is M01_BARN_PRISONER_
 			Commands->Set_Innate_Is_Stationary ( obj, false );
 
 			Vector3 evacSpot = Commands->Get_Position ( Commands->Find_Object ( M01_BARNAREA_EVAC_MONITOR_JDG ) );
-			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
 
@@ -13208,7 +13198,6 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_03_JDG, "")//this guys ID is M01_BARN_PRISONER_
 			if (action_id == M01_WALKING_WAYPATH_01_JDG)//civ is at hiding spot--crouch
 			{
 				Commands->Set_Innate_Is_Stationary ( obj, true );
-				ActionParamsStruct params;
 				params.Set_Basic(this, 100, M01_MODIFY_YOUR_ACTION_JDG);
 				params.Set_Look( STAR, 15 );
 				//params.Set_Attack( STAR, 0, 0, true );
@@ -18302,8 +18291,6 @@ DECLARE_SCRIPT(M01_TurretBeach_Turret_01_Script_JDG, "")//M01_TURRETBEACH_TURRET
 
 	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason /* complete_reason */ ) override
 	{
-		ActionParamsStruct params;
-
 		if (action_id == M01_START_ATTACKING_01_JDG)//hovercraft is dead...go back to attacking gunboat
 		{
 			GameObject * gunboat = Commands->Find_Object ( M01_TURRETBEACH_GUNBOAT_ID );
@@ -19849,8 +19836,6 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_Target01_JDG, "")
 
 	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override
 	{
-		ActionParamsStruct params;
-
 		if (complete_reason == ACTION_COMPLETE_NORMAL)
 		{
 			if (action_id == M01_WALKING_WAYPATH_01_JDG )//youre now in middle of field--start conversation
@@ -21734,7 +21719,6 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 			else if (param == M01_MODIFY_YOUR_ACTION_03_JDG)//greet havoc M01_GDI01_Conversation_01
 			{
 				Vector3 playersPosition = Commands->Get_Position ( STAR );
-				ActionParamsStruct params;
 				params.Set_Basic( this, 100, M01_START_ACTING_JDG );
 				params.Set_Face_Location( playersPosition, 2 );
 				Commands->Action_Face_Location ( obj, params );
@@ -21796,7 +21780,6 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 				if (havocDownPath == false)
 				{
 					Vector3 playersPosition = Commands->Get_Position ( STAR );
-					ActionParamsStruct params;
 					params.Set_Basic( this, 100, M01_START_ACTING_JDG );
 					params.Set_Face_Location( playersPosition, 2 );
 					Commands->Action_Face_Location ( obj, params );

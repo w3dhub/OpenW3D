@@ -5167,7 +5167,7 @@ DECLARE_SCRIPT(M03_Beach_Scenario_Controller, "")
 			GameObject * obj_con = Commands->Find_Object(1100004);
 			if (obj_con && Commands->Find_Object (1100003))
 			{
-				GameObject * obj_con = Commands->Find_Object(1100004);
+				obj_con = Commands->Find_Object(1100004);
 
 				Commands->Send_Custom_Event(obj, obj_con, 301, 3, 0.0f);
 				Commands->Send_Custom_Event(obj, obj_con, 301, 1, 0.0f);

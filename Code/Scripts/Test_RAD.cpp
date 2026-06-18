@@ -564,7 +564,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 
 						if (space_available)
 						{
-							int count = MX0_A02_ACTOR_NOD_START;
+							count = MX0_A02_ACTOR_NOD_START;
 							while (count < MX0_A02_ACTOR_HEADCOUNT)
 							{
 								if (!MX0_A02_UNIT_ID[count])

@@ -1772,7 +1772,6 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 			{
 				Commands->Action_Reset ( obj, 100 );
 				charge = true;
-				ActionParamsStruct params;
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
 				params.Set_Movement( STAR, 1.5f, 0 );
 				params.Set_Attack(STAR, 100.0f, 5.0f, true);
@@ -1790,7 +1789,6 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 			charge = false;
 			charging = false;
 
-			ActionParamsStruct params;
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN +5, 10 );
 			params.Set_Movement( Vector3(0,0,0), 1.0f, 0 );
 			params.WaypathID = 2000095;
@@ -3530,8 +3528,6 @@ DECLARE_SCRIPT (M09_Mutant_Attack, "Target_num:int")
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
 		target = Get_Int_Parameter ("Target_num");
-
-		ActionParamsStruct params;
 
 		if ( sound.Type == M09_INNATE_ENABLE )
 		{

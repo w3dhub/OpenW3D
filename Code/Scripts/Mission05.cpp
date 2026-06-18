@@ -1714,7 +1714,6 @@ DECLARE_SCRIPT(M05_Triangle_Tank, "")
 
 		if(timer_id == TANK_TIMER)
 		{
-			ActionParamsStruct params;
 			attacking = false;
 			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc));
 
@@ -1782,7 +1781,6 @@ DECLARE_SCRIPT(M05_TownSquare_Tank, "")
 
 		if(timer_id == TANK_TIMER)
 		{
-			ActionParamsStruct params;
 
 			int random = Commands->Get_Random_Int(0, ARRAY_ELEMENT_COUNT(fire_loc));
 
@@ -1850,7 +1848,6 @@ DECLARE_SCRIPT(M05_Bridge_Tank, "")
 
 		if(timer_id == TANK_TIMER)
 		{
-			ActionParamsStruct params;
 			attacking = false;
 			int random = Commands->Get_Random_Int(0, ARRAY_ELEMENT_COUNT(fire_loc));
 
@@ -5400,7 +5397,6 @@ DECLARE_SCRIPT(M05_Inn_Tank, "")
 
 		if(timer_id == TANK_TIMER)
 		{
-			ActionParamsStruct params;
 			attacking = false;
 			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc));
 
@@ -7341,7 +7337,6 @@ DECLARE_SCRIPT(M05_Cathedral_Artillery, "Fire_Loc1=0:int, Fire_Loc2=0:int")
 
 		if(timer_id == TANK_TIMER)
 		{
-			ActionParamsStruct params;
 
 			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc));
 
