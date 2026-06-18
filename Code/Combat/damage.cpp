@@ -185,7 +185,7 @@ void	ArmorWarheadManager::Init( void )
 		for ( armor_num = 0; armor_num < ArmorNames.Count(); armor_num++ ) {
 			char section_name[80];
 			sprintf( section_name, SECTION_SCALE, (const char *)ArmorNames[armor_num] );
-			for ( int warhead_num = 0; warhead_num < WarheadNames.Count(); warhead_num++ ) {
+			for ( warhead_num = 0; warhead_num < WarheadNames.Count(); warhead_num++ ) {
 				Multipliers[ armor_num * Get_Num_Warhead_Types() + warhead_num ]  =
 					armorINI->Get_Float( section_name, WarheadNames[warhead_num], 1.0f );
 			}
@@ -196,7 +196,7 @@ void	ArmorWarheadManager::Init( void )
 		for ( armor_num = 0; armor_num < ArmorNames.Count(); armor_num++ ) {
 			char section_name[80];
 			sprintf( section_name, SECTION_SHIELD, (const char *)ArmorNames[armor_num] );
-			for ( int warhead_num = 0; warhead_num < WarheadNames.Count(); warhead_num++ ) {
+			for ( warhead_num = 0; warhead_num < WarheadNames.Count(); warhead_num++ ) {
 				Absorbsion[ armor_num * Get_Num_Warhead_Types() + warhead_num ]  =
 					armorINI->Get_Float( section_name, WarheadNames[warhead_num], 0.0f );
 			}
@@ -284,7 +284,7 @@ void	ArmorWarheadManager::Init( void )
 			};
 			StringClass section = ImperviousSectionNames[damage];
 
-			int count =  armorINI->Entry_Count( section );
+			count =  armorINI->Entry_Count( section );
 			for ( entry = 0; entry < count; entry++ )	{
 				StringClass	entry_name = armorINI->Get_String( temp_string, section, armorINI->Get_Entry( section, entry) );
 				if ( !entry_name.Is_Empty() ) {

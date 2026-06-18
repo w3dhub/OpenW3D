@@ -440,11 +440,11 @@ bool DynamicMeshClass::End_Vertex()
 	WWASSERT(VertCount < Model->Get_Vertex_Count());
 
 	// if we are a multi-material object record the material
-	int pass = Get_Pass_Count();
-	while (pass--) {
-		if (MultiVertexMaterial[pass]) {
-			VertexMaterialClass *mat = Peek_Material_Info()->Get_Vertex_Material(VertexMaterialIdx[pass]);
-			Model->Set_Material(VertCount, mat, pass);
+	int mvm_pass = Get_Pass_Count();
+	while (mvm_pass--) {
+		if (MultiVertexMaterial[mvm_pass]) {
+			VertexMaterialClass *mat = Peek_Material_Info()->Get_Vertex_Material(VertexMaterialIdx[mvm_pass]);
+			Model->Set_Material(VertCount, mat, mvm_pass);
 			REF_PTR_RELEASE(mat);
 		}
 
@@ -492,13 +492,13 @@ bool DynamicMeshClass::End_Vertex()
 		}
 
 		// check each pass
-		int pass = Get_Pass_Count();
-		while (pass--) {
+		int mt_pass = Get_Pass_Count();
+		while (mt_pass--) {
 
 			// If we are multi texture
-			if (MultiTexture[pass]) {
-				TextureClass *tex = Peek_Material_Info()->Get_Texture(TextureIdx[pass]);
-				Model->Set_Texture(PolyCount, tex, pass);
+			if (MultiTexture[mt_pass]) {
+				TextureClass *tex = Peek_Material_Info()->Get_Texture(TextureIdx[mt_pass]);
+				Model->Set_Texture(PolyCount, tex, mt_pass);
 				REF_PTR_RELEASE(tex);
 			}
 		}

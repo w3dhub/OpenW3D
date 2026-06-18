@@ -1175,7 +1175,7 @@ void CombatGameModeClass::Core_Restart(void)
 					TimeManager::Reset();
 					GenericDataSafeClass::Reset_Timers();
 
-					GameModeClass* game_mode = GameModeManager::Find("WOL");
+					game_mode = GameModeManager::Find("WOL");
 
 					if (game_mode && game_mode->Is_Active()) {
 						WolGameModeClass* wol_game = reinterpret_cast<WolGameModeClass*>(game_mode);
@@ -1238,7 +1238,7 @@ void CombatGameModeClass::Save_Registry_Keys(void)
 */
 void 	CombatGameModeClass::Think()
 {
-	WWPROFILE( "Combat Think" );
+	WWPROFILENAMED( "Combat Think", top );
 
 	if ( !Is_Active() ) {
 		return;

@@ -340,7 +340,7 @@ void	ScriptZoneGameObj::Think()
 		return;
 	}
 
-	WWPROFILE( "ScriptZone Think" );
+	WWPROFILENAMED( "ScriptZone Think", top );
 
 	// check current objects for exiting
 	SLNode<GameObjReference> *pobjrefnode;

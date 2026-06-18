@@ -269,7 +269,7 @@ void TrackedVehicleClass::Add_Track_Mappers(MeshClass * mesh,int track_type)
 	if (has_mapper) {
 		mesh->Make_Unique();
 
-		MaterialInfoClass * matinfo = mesh->Get_Material_Info();
+		matinfo = mesh->Get_Material_Info();
 
 		if (matinfo != NULL) {
 			for (int i=0; i<matinfo->Vertex_Material_Count(); i++) {

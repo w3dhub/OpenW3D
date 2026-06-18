@@ -2213,7 +2213,7 @@ void FirewallHelperClass::Process_Game_Options(void)
 			case WOLNATInterfaceClass::OPTION_ABORT_NEGOTIATION:
 				WWDEBUG_SAY(("FirewallHelper - Got OPTION_ABORT_NEGOTIATION from %s\n", (char*)user.name));
 			{
-				ThreadLockClass locker(this);
+				ThreadLockClass sub_lock(this);
 				if (WOLNATInterface.Am_I_Server()) {
 					if (stricmp((char*)user.name, PlayersName) == 0) {
 						strcpy(CancelPlayer, (char*)user.name);

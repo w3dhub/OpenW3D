@@ -666,7 +666,7 @@ void 	CombatManager::Think()
 {
 	SyncTime += (int)((TimeManager::Get_Frame_Seconds() * 1000.0f) + 0.5f);
 
-	WWPROFILE( "CombatManager Think" );
+	WWPROFILENAMED( "CombatManager Think", top );
 
 	IsGameplayPermitted=NetworkHandler->Is_Gameplay_Permitted();
 
@@ -1058,7 +1058,7 @@ void CombatManager::Update_Star( void )
 
 void CombatManager::Update_Star_Targeting( void )
 {
-	WWPROFILE( "Targeting" );
+	WWPROFILENAMED( "Targeting", top );
 	SmartGameObj * star = NULL;
 
 	if ( COMBAT_STAR != NULL ) {
@@ -1279,9 +1279,9 @@ void	CombatManager::Update_Combat_Mode( void )
 			}
 #endif
 
-			Vector3	pos;
-			vehicle->Get_Position( &pos );
-			COMBAT_CAMERA->Set_Anchor_Position( pos );
+			Vector3	vehicle_pos;
+			vehicle->Get_Position( &vehicle_pos );
+			COMBAT_CAMERA->Set_Anchor_Position( vehicle_pos );
 
 //			bool target_2d = ( !vehicle->Use_2D_Aiming() ^ Input::Get_State(INPUT_FUNCTION_CURSOR_TARGETING) ^ VehicleGameObj::Is_Target_Steering() );
 

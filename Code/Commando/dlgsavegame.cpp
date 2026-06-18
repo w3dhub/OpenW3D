@@ -578,7 +578,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 		//
 		//	Add this entry to the list control
 		//
-		int item_index = list_ctrl->Insert_Entry (index ++, time_string);
+		item_index = list_ctrl->Insert_Entry (index ++, time_string);
 		if (item_index >= 0) {
 			list_ctrl->Set_Entry_Text (item_index, 1, date_string);
 			list_ctrl->Set_Entry_Text (item_index, 2, description);

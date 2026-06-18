@@ -462,7 +462,7 @@ void	SurfaceEffectsManager::Apply_Effect
 	bool allow_emitters
 )
 {
-	WWPROFILE( "Apply Surface Effect" );
+	WWPROFILENAMED( "Apply Surface Effect", top );
 
 	bool ok = (	(surface_type >= 0) &&
 					(surface_type < SURFACE_TYPE_MAX) &&

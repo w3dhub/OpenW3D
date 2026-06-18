@@ -3292,9 +3292,9 @@ const CComPtr<WOL::IIGROptions>& Session::GetIGRObject(void)
 
 		if (SUCCEEDED(hr))
 			{
-			HRESULT hr = igrObject->Init();
+			HRESULT init = igrObject->Init();
 
-			if (S_FALSE == hr)
+			if (S_FALSE == init)
 				{
 				WWDEBUG_SAY(("WOLWARNING: IGR settings not found\n"));
 				}

@@ -844,9 +844,9 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 	//
 	RenderObjClass *aggregate_model = RepairMesh->Peek_Model ();
 	int count		= 8;//aggregate_model->Get_Num_Bones ();
-	int bone_index	= FreeRandom.Get_Int (count) + 1;
+	int rnd_bone_index	= FreeRandom.Get_Int (count) + 1;
 	StringClass bone_name;
-	bone_name.Format ("REP^NODRIM_FX%d", bone_index);
+	bone_name.Format ("REP^NODRIM_FX%d", rnd_bone_index);
 	startpoint = aggregate_model->Get_Bone_Transform (bone_name).Get_Translation ();
 
 	//

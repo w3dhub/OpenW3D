@@ -192,7 +192,7 @@ void ConsoleGameModeClass::Save_Registry_Keys(void)
 */
 void 	ConsoleGameModeClass::Think()
 {
-	WWPROFILE( "Console Think" );
+	WWPROFILENAMED( "Console Think", top );
 
    /*
 	//

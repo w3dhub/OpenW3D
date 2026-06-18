@@ -227,7 +227,7 @@ void 	WeaponViewClass::Enable( bool enable )
 */
 void 	WeaponViewClass::Think()
 {
-	WWPROFILE( "WeaponView Think" );
+	WWPROFILENAMED( "WeaponView Think", top );
 
 	bool bail = false;
 

@@ -1139,9 +1139,9 @@ void WOLChatMgr::HandleNotification(ChannelEvent& event)
 
 void WOLChatMgr::HandleNotification(UserEvent& userEvent)
 	{
-	UserEvent::Event event  = userEvent.GetEvent();
+	UserEvent::Event user_event  = userEvent.GetEvent();
 
-	switch (event)
+	switch (user_event)
 		{
 		case UserEvent::Join:
 			{

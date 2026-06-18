@@ -154,7 +154,6 @@ cBandwidthGraph::Bandwidth_Graph
 	//
 	if (target_bps >= 0)
 	{
-		StringClass text;
    	text.Format("%d", target_bps);
 		PTextRenderer->Set_Location(Vector2(245, YPosition));
 		PTextRenderer->Draw_Text(text);
@@ -286,7 +285,7 @@ cBandwidthGraph::Think
 		bps = PacketManager.Get_Total_Compressed_Bandwidth_In();
 		Bandwidth_Graph(text, bps, -1, -1, -1.0f, false);
 
-	   for (int i = cNetwork::PServerConnection->Get_Min_RHost(); i <= cNetwork::PServerConnection->Get_Max_RHost(); i++)
+	   for (i = cNetwork::PServerConnection->Get_Min_RHost(); i <= cNetwork::PServerConnection->Get_Max_RHost(); i++)
 		{
 			cRemoteHost * p_rhost = cNetwork::Get_Server_Rhost(i);
 

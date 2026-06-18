@@ -635,10 +635,10 @@ void StarfieldClass::Render()
 			DynamicVBAccessClass::WriteLockClass lock (&dynamicvb);
 			VertexFormatXYZNDUV2 *vertex = lock.Get_Formatted_Vertex_Array();
 
-			for (unsigned v = 0; v < ActiveVertexCount; v += VERTICES_PER_TRIANGLE) {
+			for (v = 0; v < ActiveVertexCount; v += VERTICES_PER_TRIANGLE) {
 				for (unsigned t = 0; t < VERTICES_PER_TRIANGLE; t++) {
 
-					unsigned i = v + t;
+					i = v + t;
 
 					vertex->x		 = VertexArray [i].X;
 					vertex->y		 = VertexArray [i].Y;

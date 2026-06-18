@@ -925,10 +925,10 @@ void SegLineRendererClass::Render
 		unsigned int residual_bottom_points = intersection[1][BOTTOM_EDGE].PointCount;
 
 		// Reduce both pointcounts by the same amount so the smaller one is 1 (skip points)
-		unsigned int delta = MIN(residual_top_points, residual_bottom_points) - 1;
-		residual_top_points -= delta;
-		residual_bottom_points -= delta;
-		pidx += delta;
+		unsigned int residual_delta = MIN(residual_top_points, residual_bottom_points) - 1;
+		residual_top_points -= residual_delta;
+		residual_bottom_points -= residual_delta;
+		pidx += residual_delta;
 
 		for (; ; ) {
 
@@ -955,10 +955,10 @@ void SegLineRendererClass::Render
 				pidx++;
 
 				// Generate two vertices for next point by picking nearest point on each direction line
-				Vector3 &top_dir = intersection[top_int_idx][TOP_EDGE].Direction;
-				top = top_dir * Vector3::Dot_Product(local_points[pidx], top_dir);
-				Vector3 &bottom_dir = intersection[bottom_int_idx][BOTTOM_EDGE].Direction;
-				bottom = bottom_dir * Vector3::Dot_Product(local_points[pidx], bottom_dir);
+				Vector3 &next_top_dir = intersection[top_int_idx][TOP_EDGE].Direction;
+				top = next_top_dir * Vector3::Dot_Product(local_points[pidx], next_top_dir);
+				Vector3 &next_bottom_dir = intersection[bottom_int_idx][BOTTOM_EDGE].Direction;
+				bottom = next_bottom_dir * Vector3::Dot_Product(local_points[pidx], next_bottom_dir);
 
 				vArray[vidx].x = top.X;
 				vArray[vidx].y = top.Y;
@@ -991,8 +991,8 @@ void SegLineRendererClass::Render
 					pidx++;
 
 					// Generate bottom vertex by picking nearest point on bottom direction line
-					Vector3 &bottom_dir = intersection[bottom_int_idx][BOTTOM_EDGE].Direction;
-					bottom = bottom_dir * Vector3::Dot_Product(local_points[pidx], bottom_dir);
+					Vector3 &next_bottom_dir = intersection[bottom_int_idx][BOTTOM_EDGE].Direction;
+					bottom = next_bottom_dir * Vector3::Dot_Product(local_points[pidx], next_bottom_dir);
 
 					vArray[vidx].x = bottom.X;
 					vArray[vidx].y = bottom.Y;
@@ -1020,8 +1020,8 @@ void SegLineRendererClass::Render
 					pidx++;
 
 					// Generate top vertex by picking nearest point on top direction line
-					Vector3 &top_dir = intersection[top_int_idx][TOP_EDGE].Direction;
-					top = top_dir * Vector3::Dot_Product(local_points[pidx], top_dir);
+					Vector3 &next_top_dir = intersection[top_int_idx][TOP_EDGE].Direction;
+					top = next_top_dir * Vector3::Dot_Product(local_points[pidx], next_top_dir);
 					vArray[vidx].x = top.X;
 					vArray[vidx].y = top.Y;
 					vArray[vidx].z = top.Z;
@@ -1032,10 +1032,10 @@ void SegLineRendererClass::Render
 			}
 
 			// Reduce both pointcounts by the same amount so the smaller one is 1 (skip points)
-			delta = MIN(residual_top_points, residual_bottom_points) - 1;
-			residual_top_points -= delta;
-			residual_bottom_points -= delta;
-			pidx += delta;
+			residual_delta = MIN(residual_top_points, residual_bottom_points) - 1;
+			residual_top_points -= residual_delta;
+			residual_bottom_points -= residual_delta;
+			pidx += residual_delta;
 
 			// Exit conditions
 			if (	(top_int_idx >= num_intersections[TOP_EDGE] && residual_top_points == 1) ||

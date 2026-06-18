@@ -209,7 +209,7 @@ void MultiHUDClass::Show_Player_Names(void)
 		return;
 	}
 
-	WWPROFILE("Show_Player_Name");
+	WWPROFILENAMED("Show_Player_Name", top);
    if (GameModeManager::Find("Menu")->Is_Active() ||
 		COMBAT_CAMERA == NULL ||
 		!cNetwork::I_Am_Client() ||
@@ -706,34 +706,34 @@ void MultiHUDClass::Show_Player_Rhost_Data(SmartGameObj * smart_obj)
 
 				y = 50;
 
-				StringClass text("Name         ", true);
-				StringClass sub_string;
+				StringClass tmp_text("Name         ", true);
+				StringClass tmp_sub_string;
 
-				sub_string.Format( "RHost ID   ");
-				text += sub_string;
+				tmp_sub_string.Format( "RHost ID   ");
+				tmp_text += tmp_sub_string;
 
-				sub_string.Format( "Ave Pri    ");
-				text += sub_string;
+				tmp_sub_string.Format( "Ave Pri    ");
+				tmp_text += tmp_sub_string;
 
-				sub_string.Format( "Band Mult   ");
-				text += sub_string;
+				tmp_sub_string.Format( "Band Mult   ");
+				tmp_text += tmp_sub_string;
 
-				sub_string.Format( "Target BPS     ");
-				text += sub_string;
+				tmp_sub_string.Format( "Target BPS     ");
+				tmp_text += tmp_sub_string;
 
-				sub_string.Format( "Resend dly  ");
-				text += sub_string;
+				tmp_sub_string.Format( "Resend dly  ");
+				tmp_text += tmp_sub_string;
 
-				sub_string.Format( "Min/Max/Ave ping      ");
-				text += sub_string;
+				tmp_sub_string.Format( "Min/Max/Ave ping      ");
+				tmp_text += tmp_sub_string;
 
-				sub_string.Format( "Tot rsnds ");
-				text += sub_string;
+				tmp_sub_string.Format( "Tot rsnds ");
+				tmp_text += tmp_sub_string;
 
-				sub_string.Format( "Duration");
-				text += sub_string;
+				tmp_sub_string.Format( "Duration");
+				tmp_text += tmp_sub_string;
 
-				Render_Debug_Text(text, x, y);
+				Render_Debug_Text(tmp_text, x, y);
 			}
 		}
    }
@@ -911,7 +911,7 @@ void MultiHUDClass::Think(void)
 	}
 
 	{
-	int count = StaticNetworkObjectClass::Get_Static_Network_Object_Count ();
+	count = StaticNetworkObjectClass::Get_Static_Network_Object_Count ();
 	for (int index = 0; index < count; index ++) {
 
 		StaticNetworkObjectClass * p_object = (StaticNetworkObjectClass * ) StaticNetworkObjectClass::Get_Static_Network_Object (index);

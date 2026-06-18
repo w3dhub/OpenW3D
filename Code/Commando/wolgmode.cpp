@@ -342,7 +342,7 @@ void WolGameModeClass::Think(void)
 		//
 		if (cNetwork::I_Am_Server() && mGameInProgress) {
 
-			unsigned int time = TIMEGETTIME();
+			time = TIMEGETTIME();
 
 			//
 			// Clear out old kicklist entries.

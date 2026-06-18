@@ -575,9 +575,9 @@ void DX8Wrapper::Enumerate_Devices()
 
 		D3DADAPTER_IDENTIFIER9 id;
 		::ZeroMemory(&id, sizeof(D3DADAPTER_IDENTIFIER9));
-		HRESULT res = D3DInterface->GetAdapterIdentifier(adapter_index,0/*D3DENUM_WHQL_LEVEL*/,&id);
+		HRESULT id_res = D3DInterface->GetAdapterIdentifier(adapter_index,0/*D3DENUM_WHQL_LEVEL*/,&id);
 
-		if (res == D3D_OK) {
+		if (id_res == D3D_OK) {
 
 			/*
 			** Set up the render device description
@@ -609,9 +609,9 @@ void DX8Wrapper::Enumerate_Devices()
 			for (int mode_index=0; mode_index<mode_count; mode_index++) {
 				D3DDISPLAYMODE d3dmode;
 				::ZeroMemory(&d3dmode, sizeof(D3DDISPLAYMODE));
-				HRESULT res = D3DInterface->EnumAdapterModes(adapter_index,D3DFMT_X8R8G8B8,mode_index,&d3dmode);
+				HRESULT mode_res = D3DInterface->EnumAdapterModes(adapter_index,D3DFMT_X8R8G8B8,mode_index,&d3dmode);
 
-				if (res == D3D_OK) {
+				if (mode_res == D3D_OK) {
 					int bits = 0;
 					switch (d3dmode.Format)
 					{
@@ -1976,9 +1976,9 @@ void DX8Wrapper::Apply_Render_State_Changes()
 		render_state.shader.Apply();
 	}
 
-	unsigned mask=TEXTURE0_CHANGED;
-	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i,mask<<=1) {
-		if (render_state_changed&mask) {
+	unsigned tex_mask=TEXTURE0_CHANGED;
+	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i,tex_mask<<=1) {
+		if (render_state_changed&tex_mask) {
 			SNAPSHOT_SAY(("DX8 - apply texture %d (%s)\n",i,render_state.Textures[i] ? static_cast<const char *>(render_state.Textures[i]->Get_Full_Path()) : "NULL"));
 			if (render_state.Textures[i]) render_state.Textures[i]->Apply(i);
 			else TextureClass::Apply_Null(i);
@@ -1999,9 +1999,9 @@ void DX8Wrapper::Apply_Render_State_Changes()
 
 	if (render_state_changed&LIGHTS_CHANGED)
 	{
-		unsigned mask=LIGHT0_CHANGED;
-		for (unsigned index=0;index<4;++index,mask<<=1) {
-			if (render_state_changed&mask) {
+		unsigned light_mask=LIGHT0_CHANGED;
+		for (unsigned index=0;index<4;++index,light_mask<<=1) {
+			if (render_state_changed&light_mask) {
 				SNAPSHOT_SAY(("DX8 - apply light %d\n",index));
 				if (render_state.LightEnable[index]) {
 					Set_DX8_Light(index,&render_state.Lights[index]);

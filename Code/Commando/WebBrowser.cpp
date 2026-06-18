@@ -121,7 +121,7 @@ bool WebBrowser::InstallPrerequisites(void)
 				"Renegade Warning!");
 
 		// Attempt to create the key.
-		LONG result = RegCreateKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_URL, 0, NULL,
+		result = RegCreateKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_URL, 0, NULL,
 			REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &key, NULL);
 
 		if (ERROR_SUCCESS != result)

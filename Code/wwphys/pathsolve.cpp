@@ -1638,8 +1638,8 @@ PathSolveClass::Post_Process_Path (void)
 	//	Relax the points
 	//
 	for (index = m_Path.Count () - 2; index > 1; index --) {
-		Vector3 &prev_point				= m_Path[index + 1].m_Point;
-		Vector3 &next_point				= m_Path[index - 1].m_Point;
+		Vector3 &prev_point_ref			= m_Path[index + 1].m_Point;
+		Vector3 &next_point_ref			= m_Path[index - 1].m_Point;
 		PathfindPortalClass *portal	= m_Path[index].m_Portal;
 		if (portal != NULL && portal->As_PathfindActionPortalClass () == NULL) {
 
@@ -1650,7 +1650,7 @@ PathSolveClass::Post_Process_Path (void)
 			AABoxClass portal_box;
 			portal->Get_Bounding_Box (portal_box);
 
-			m_Path[index].m_Point = Relax_Line (prev_point, next_point, portal_box);
+			m_Path[index].m_Point = Relax_Line (prev_point_ref, next_point_ref, portal_box);
 		}
 	}
 
@@ -1679,8 +1679,8 @@ PathSolveClass::Keep_Unit_Inside_Sectors (void)
 	//	Clip the starting point so that the unit will stay on the inside of its sector
 	//
 	Vector3 temp_point = m_Path[0].m_Point;
-	AABoxClass sector_box (m_Path[0].m_SectorCenter, m_Path[0].m_SectorExtent);
-	::Clip_Point (&temp_point, sector_box, m_PathObject.Get_Width () * 2);
+	AABoxClass start_sector_box (m_Path[0].m_SectorCenter, m_Path[0].m_SectorExtent);
+	::Clip_Point (&temp_point, start_sector_box, m_PathObject.Get_Width () * 2);
 	m_Path[0].m_Point = temp_point;
 
 	//

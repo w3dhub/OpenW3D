@@ -97,6 +97,7 @@ SpawnerDefClass::SpawnerDefClass( void ) :
 	DEFIDLIST_PARAM( SpawnerDefClass, SpawnDefinitionIDList, CLASSID_GAME_OBJECTS );
 
 #ifdef	PARAM_EDITING_ON
+	{
 	EnumParameterClass *param;
 	param = new EnumParameterClass( (int*)&PlayerType );
 	param->Set_Name ("PlayerType");
@@ -105,6 +106,7 @@ SpawnerDefClass::SpawnerDefClass( void ) :
 	param->Add_Value ( "GDI",			PLAYERTYPE_GDI );
 
 	GENERIC_EDITABLE_PARAM(SpawnerDefClass,param)
+	}
 #endif
 
 	EDITABLE_PARAM( SpawnerDefClass, ParameterClass::TYPE_INT, SpawnMax );

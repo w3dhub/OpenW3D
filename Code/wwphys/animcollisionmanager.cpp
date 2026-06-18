@@ -1302,7 +1302,7 @@ bool AnimCollisionManagerClass::Check_Collision(CollideableObjClass & collisiono
 			/*
 			** Otherwise, try to push the object out of our way.
 			*/
-			int collision_bits = collisionobj.Clear_Collision_Bits();
+			collision_bits = collisionobj.Clear_Collision_Bits();
   			if (Push_Collided_Object(obj,delta_transform) == false) {
 				VERBOSE_LOG(("SAPO %s Failed to push a rider\r\n",Parent.Peek_Model()->Get_Name()));
 				revert = true;

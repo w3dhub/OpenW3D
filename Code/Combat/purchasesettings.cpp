@@ -145,10 +145,12 @@ PurchaseSettingsDefClass::PurchaseSettingsDefClass (void)	:
 		NAMED_EDITABLE_PARAM (PurchaseSettingsDefClass, ParameterClass::TYPE_STRING,			TextureList[index], "Texture");
 
 		#ifdef PARAM_EDITING_ON
+		{
 			GenericDefParameterClass *param = new GenericDefParameterClass (&(DefinitionList[index]));
 			param->Set_Class_ID (CLASSID_GAME_OBJECTS);
 			param->Set_Name ("Object");
 			GENERIC_EDITABLE_PARAM(PurchaseSettingsDefClass, param)
+		}
 
 			//
 			//	Insert the alternate textures and definitions

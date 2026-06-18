@@ -609,9 +609,9 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 		  bcontinue = ::FindNextFileA(hfile_find, &find_info)) {
 		if ( find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) {
 			if ( find_info.cFileName[0] != '.' ) {
-				StringClass	path;
-				path.Format( "%s%s/", dir, find_info.cFileName );
-				Add_Files( path, mix );
+				StringClass	sub_path;
+				sub_path.Format( "%s%s/", dir, find_info.cFileName );
+				Add_Files( sub_path, mix );
 			}
 		} else {
 			StringClass name;

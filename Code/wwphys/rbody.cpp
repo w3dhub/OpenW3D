@@ -1588,7 +1588,7 @@ inline void RigidBodyClass::Dump_State(void) const
 
 void RigidBodyClass::Timestep(float dt)
 {
-	WWPROFILE("RigidBody::Timestep");
+	WWPROFILENAMED("RigidBody::Timestep", top);
 	LastTimestep = dt;
 
 // DEBUG DEBUG
@@ -1668,7 +1668,7 @@ Vector3 avel0 = AngularVelocity;
 	while ((remaining_time > 0.0f) && (collisions < MAX_COLLISIONS)) {
 
 		Assert_State_Valid();
-		WWPROFILE("RigidBodyClass integration loop");
+		WWPROFILENAMED("RigidBodyClass integration loop", mid);
 		timestep = remaining_time;
 
 		/*

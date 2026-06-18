@@ -862,7 +862,7 @@ void cNetwork::Connection_Status_Change_Feedback(void)
 //-----------------------------------------------------------------------------
 void cNetwork::Update(void)
 {
-	WWPROFILE( "cNetwork::Update" );
+	WWPROFILENAMED( "cNetwork::Update", top );
 	WWMEMLOG(MEM_GAMEDATA);
 
 	bool flush_packets = false;
@@ -909,7 +909,7 @@ void cNetwork::Update(void)
 //			GameSpyQnR.Think();
 //		}
 
-		WWPROFILE( "Server Read" );
+		WWPROFILENAMED( "Server Read", mid );
 		PServerConnection->Service_Read();
 
 		if (!g_is_loading) {

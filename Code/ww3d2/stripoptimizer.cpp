@@ -923,10 +923,10 @@ int* Stripify::stripify  (const Vector3i* inTris, int N)
 			//--------------------------------------------------------------------
 
 			int		bestEdge	= -1;
-			int		bestWeight	= 0x7fffffff;
+			bestWeight	= 0x7fffffff;
 			bool	bestSwap	= false;
 
-			Vector3i nodeWeights = getTriangleNodeConnectivityWeights(queue, *next);
+			nodeWeights = getTriangleNodeConnectivityWeights(queue, *next);
 
 			for (i = 0; i < 3; i++)
 			if (next->m_neighbors[i])									// is there a neighbor?

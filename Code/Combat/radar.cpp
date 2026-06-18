@@ -348,8 +348,8 @@ float	RadarManager::Add_Blip( const Vector3 & pos, int shape_type, int color_typ
 				if ( bracket ) {
 					color = 0x0000FF00;	// Make Green
 					color |= (unsigned int)(RadarIntensity * alpha * 255) << 24;
-					RectClass uv = BlipUV[ BLIP_BRACKET ];
-					Renderer->Add_Quad( blip, uv, color );
+					RectClass braket_uv = BlipUV[ BLIP_BRACKET ];
+					Renderer->Add_Quad( blip, braket_uv, color );
 				}
 			}
 		}
@@ -363,7 +363,7 @@ float	RadarManager::Add_Blip( const Vector3 & pos, int shape_type, int color_typ
 
 void	RadarManager::Update( const Matrix3D & player_tm, const Vector2 & center )
 {
-	WWPROFILE( "Radar Update" );
+	WWPROFILENAMED( "Radar Update", top );
 
 	OldRadarCenter=RadarCenter;
 	RadarCenter = center;
@@ -541,7 +541,7 @@ void	RadarManager::Update( const Matrix3D & player_tm, const Vector2 & center )
 {WWPROFILE( "Objectives" );
 	// for all objectives with a position
 	int count = ObjectiveManager::Get_Objective_Count();
-	for ( int i = 0; i < count; i++ ) {
+	for ( i = 0; i < count; i++ ) {
 		Objective * objective = ObjectiveManager::Get_Objective( i );
 		if ( objective->DrawBlip && objective->Status == ObjectiveManager::STATUS_IS_PENDING ) {
 			float intensity = objective->BlipIntensity;

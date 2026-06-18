@@ -3464,16 +3464,16 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 		robj = Get_Sub_Object(i);
 		WWASSERT(robj);
 
-		const Matrix3D & bonetm = HTree->Get_Transform(Get_Sub_Object_Bone_Index(robj));
+		const Matrix3D & sub_bonetm = HTree->Get_Transform(Get_Sub_Object_Bone_Index(robj));
 
 		SphereClass tmpsphere;
 		robj->Get_Obj_Space_Bounding_Sphere(tmpsphere);
-		tmpsphere.Transform(bonetm);
+		tmpsphere.Transform(sub_bonetm);
 		sphere.Add_Sphere(tmpsphere);
 
 		AABoxClass tmpbox;
 		robj->Get_Obj_Space_Bounding_Box(tmpbox);
-		tmpbox.Transform(bonetm);
+		tmpbox.Transform(sub_bonetm);
 		box.Add_Box(tmpbox);
 
 		robj->Release_Ref();

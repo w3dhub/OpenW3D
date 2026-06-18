@@ -714,7 +714,7 @@ void	WeaponClass::Do_Fire( bool primary )
 */
 void	WeaponClass::Fire_Bullet( const AmmoDefinitionClass *ammo_def, bool primary )
 {
-	WWPROFILE( "Fire Bullet" );
+	WWPROFILENAMED( "Fire Bullet", top );
 
 	if ( Get_Owner() == COMBAT_STAR ) {
 		Vector3 pos;
@@ -1014,7 +1014,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 		return;	// No sounds when time stops
 	}
 
-	WWPROFILE( "Firing Effects" );
+	WWPROFILENAMED( "Firing Effects", top );
 
 	Matrix3D	muzzle = Get_Muzzle();
 
@@ -1286,7 +1286,7 @@ void	WeaponClass::Do_Continuous_Effects( bool enable )
 			}
 
 			ContinuousEmitters.Resize( num_muzzles );
-			for ( int i = 0; i < ContinuousEmitters.Length(); i++ ) {
+			for ( i = 0; i < ContinuousEmitters.Length(); i++ ) {
 				ContinuousEmitters[i] = NULL;
 			}
 		}
@@ -1725,7 +1725,7 @@ void	WeaponClass::Stop_Firing_Sound( void )
 
 void	WeaponClass::Display_Targeting( void )
 {
-	WWPROFILE( "Cast_Star_Weapon" );
+	WWPROFILENAMED( "Cast_Star_Weapon", top );
 	int muzzle_index = Get_Total_Rounds_Fired() & 1;
 
 	// vehicles that don't have a turret bone and do have homing weapons target from the camera
