@@ -239,11 +239,11 @@ BOOL EmitterRotationPropPageClass::OnNotify(WPARAM wParam, LPARAM lParam, LRESUL
 					//
 					if ((new_max != m_MaxRotation) || (new_min != m_MinRotation)) {
 
-						int count = m_RotationBar->Get_Point_Count ();
+						count = m_RotationBar->Get_Point_Count ();
 						for (int index = 0; index < count; index ++) {
 
-							float rotation = Denormalize_Rotation(m_RotationBar->Get_Graph_Percent (index));
-							float new_norm = Normalize_Rotation(rotation,new_min,new_max);
+							float new_rotation = Denormalize_Rotation(m_RotationBar->Get_Graph_Percent (index));
+							float new_norm = Normalize_Rotation(new_rotation,new_min,new_max);
 
 							m_RotationBar->Set_Graph_Percent (index, new_norm);
 						}

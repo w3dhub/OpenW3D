@@ -786,8 +786,8 @@ CMainFrame::OnCreateClient
 
 		// Initialize the WW3D engine using the window handle from
 		// the main view
-		BOOL retval = (WW3D::Init ((HWND)*pview) == WW3D_ERROR_OK);
-		ASSERT (retval);
+		BOOL init_retval = (WW3D::Init ((HWND)*pview) == WW3D_ERROR_OK);
+		ASSERT (init_retval);
 
 		// Show a dialog to the user asking them which
 		// device they would like to use.
@@ -798,7 +798,7 @@ CMainFrame::OnCreateClient
 		} else {
 			// Stop the application from running
 			PostMessage (WM_CLOSE);
-			retval = false;
+			init_retval = false;
 		}
 	}
 
@@ -4050,17 +4050,17 @@ CMainFrame::OnImportLights (void)
       //
 		// Loop through all the selected files
 		//
-		DynamicVectorClass<StringClass> filename_list;
+		DynamicVectorClass<StringClass> selected_file_list;
 		POSITION pos = dialog.GetStartPosition ();
 		while (pos != NULL) {
 
 			//
 			//	Add this filename to the list
 			//
-			filename_list.Add ((LPCTSTR)dialog.GetNextPathName (pos));
+			selected_file_list.Add ((LPCTSTR)dialog.GetNextPathName (pos));
       }
 
-		::Get_Scene_Editor ()->Import_Lights (filename_list);
+		::Get_Scene_Editor ()->Import_Lights (selected_file_list);
 	}
 
 	return ;

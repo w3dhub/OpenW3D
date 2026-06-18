@@ -457,7 +457,6 @@ void CEditLODDialog::OnRecalc (void)
     float switchUp = ::atof (stringTemp);
 
     // Get the down switching distance from the edit control
-    stringTemp;
     GetDlgItemText (IDC_SWITCH_DN_EDIT, stringTemp);
     float switchDown = ::atof (stringTemp);
 
@@ -485,7 +484,6 @@ void CEditLODDialog::OnRecalc (void)
                      iObject ++)
                 {
                     // Set the text of the switch up column
-                    CString stringTemp;
                     stringTemp.Format ("%.2f", switchUp);
                     m_hierarchyListCtrl.SetItemText (iObject, COL_SWITCH_UP, stringTemp);
 

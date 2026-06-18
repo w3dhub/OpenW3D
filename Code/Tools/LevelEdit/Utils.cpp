@@ -1503,13 +1503,13 @@ Fill_Group_Combo
 		if (pgroup != NULL) {
 
 			// Add this group to the combobox
-			int index = ::SendMessage (hcombobox, CB_ADDSTRING, (WPARAM)0, (LPARAM)(LPCTSTR)pgroup->Get_Name ());
-			if (index != CB_ERR) {
-				::SendMessage (hcombobox, CB_SETITEMDATA, (WPARAM)index, (LPARAM)pgroup);
+			int retval = ::SendMessage (hcombobox, CB_ADDSTRING, (WPARAM)0, (LPARAM)(LPCTSTR)pgroup->Get_Name ());
+			if (retval != CB_ERR) {
+				::SendMessage (hcombobox, CB_SETITEMDATA, (WPARAM)retval, (LPARAM)pgroup);
 
 				// If this is the default group, then select it...
 				if (pgroup == pdefault) {
-					::SendMessage (hcombobox, CB_SETCURSEL, (WPARAM)index, 0L);
+					::SendMessage (hcombobox, CB_SETCURSEL, (WPARAM)retval, 0L);
 				}
 			}
 		}

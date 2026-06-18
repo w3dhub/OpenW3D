@@ -187,13 +187,13 @@ EditStringTwiddlerDialogClass::OnOK (void)
 	//
 	//	Get the strind ID the user entered
 	//
-	CString string_id;
-	GetDlgItemText (IDC_CODEID_EDIT, string_id);
+	CString id_string;
+	GetDlgItemText (IDC_CODEID_EDIT, id_string);
 
 	//
 	//	Is this a valid ID?
 	//
-	if (Validate_String_ID (m_hWnd, string_id)) {
+	if (Validate_String_ID (m_hWnd, id_string)) {
 
 		//
 		//	Create a new twiddler (if necessary)
@@ -206,7 +206,7 @@ EditStringTwiddlerDialogClass::OnOK (void)
 		//	Configure the twiddler
 		//
 		StringObject->Reset_String_List ();
-		StringObject->Set_ID_Desc (string_id);
+		StringObject->Set_ID_Desc (id_string);
 
 		//
 		//	Add the list of strings to the twiddler

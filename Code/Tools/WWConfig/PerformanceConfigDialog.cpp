@@ -899,12 +899,12 @@ void AutoConfigSettings()
 		display_format=D3DFMT_R5G6B5;
 
 		// Test if the card if new enough to do 32 bit...
-		DX8Caps tmp_caps(d3d,*d3dcaps,WW3D_FORMAT_UNKNOWN,adapter_id);
-		switch (tmp_caps.Get_Vendor()) {
+		DX8Caps test_caps(d3d,*d3dcaps,WW3D_FORMAT_UNKNOWN,adapter_id);
+		switch (test_caps.Get_Vendor()) {
 		default:
 			break;
 		case DX8Caps::VENDOR_NVIDIA:
-			switch (tmp_caps.Get_Device()) {
+			switch (test_caps.Get_Device()) {
 			default:
 				display_format=D3DFMT_A8R8G8B8;
 				ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_DEPTH, 32);
@@ -922,7 +922,7 @@ void AutoConfigSettings()
 			}
 			break;
 		case DX8Caps::VENDOR_ATI:
-			switch (tmp_caps.Get_Device()) {
+			switch (test_caps.Get_Device()) {
 			case DX8Caps::DEVICE_ATI_RAGE_II:
 			case DX8Caps::DEVICE_ATI_RAGE_II_PLUS:
 			case DX8Caps::DEVICE_ATI_RAGE_IIC_PCI:

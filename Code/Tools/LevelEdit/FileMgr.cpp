@@ -1392,9 +1392,9 @@ FileMgrClass::Update (NodeClass *node, bool add_node)
 	//
 	//	Update the files this preset is dependent on
 	//
-	PresetClass *preset = node->Get_Preset ();
-	if (preset != NULL) {
-		Update (preset, add_node);
+	PresetClass *node_preset = node->Get_Preset ();
+	if (node_preset != NULL) {
+		Update (node_preset, add_node);
 	}
 
 	//
@@ -1403,7 +1403,7 @@ FileMgrClass::Update (NodeClass *node, bool add_node)
 	//
 	if (node->Get_Type () == NODE_TYPE_SPAWNER) {
 
-		SpawnerDefClass *definition = static_cast<SpawnerDefClass *> (preset->Get_Definition ());
+		SpawnerDefClass *definition = static_cast<SpawnerDefClass *> (node_preset->Get_Definition ());
 		if (definition != NULL) {
 
 			//

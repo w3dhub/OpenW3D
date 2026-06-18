@@ -272,8 +272,8 @@ SoundEditDialogClass::OnOK (void)
 		//
 		// Create a new prototype for this emitter and add it to the asset manager
 		//
-		SoundRenderObjDefClass *definition			= new SoundRenderObjDefClass (*SoundRObj);
-		SoundRenderObjPrototypeClass *prototype	= new SoundRenderObjPrototypeClass (definition);
+		SoundRenderObjDefClass *obj_definition			= new SoundRenderObjDefClass (*SoundRObj);
+		SoundRenderObjPrototypeClass *prototype	= new SoundRenderObjPrototypeClass (obj_definition);
 
 		//
 		// Update the asset manager with the new prototype

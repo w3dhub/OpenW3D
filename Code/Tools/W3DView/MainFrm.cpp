@@ -532,7 +532,7 @@ CMainFrame::OnCreateClient
 
 			// Get a pointer to the 'graphic' pane's window
 			CGraphicView *pCGraphicView = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-			BOOL bReturn = (pCGraphicView != NULL);
+			BOOL bReturn2 = (pCGraphicView != NULL);
 
 			// Were we successful in view's getting the pointer?
 			ASSERT (pCGraphicView);
@@ -548,8 +548,8 @@ CMainFrame::OnCreateClient
 
 				// Initialize the WW3D engine using the window handle from
 				// the graphic viewer class.
-				bReturn = (WW3D::Init ((HWND)*pCGraphicView) == WW3D_ERROR_OK);
-				ASSERT (bReturn);
+				bReturn2 = (WW3D::Init ((HWND)*pCGraphicView) == WW3D_ERROR_OK);
+				ASSERT (bReturn2);
 				WW3D::Enable_Static_Sort_Lists(true);
 
 				//

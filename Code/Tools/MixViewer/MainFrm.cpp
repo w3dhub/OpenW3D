@@ -212,9 +212,9 @@ CMainFrame::OnCombineDuplicates (void)
 		//
 		//	Determine what directory to search
 		//
-		StringClass full_path	= static_cast<const char *>(dialog.GetPathName ());
-		StringClass directory	= static_cast<const char *>(Strip_Filename_From_Path (full_path));
-		combiner.Set_Destination_File (full_path);
+		StringClass file_path	= static_cast<const char *>(dialog.GetPathName ());
+		StringClass directory	= static_cast<const char *>(Strip_Filename_From_Path (file_path));
+		combiner.Set_Destination_File (file_path);
 
 		WIN32_FIND_DATA find_info	= { 0 };
 		BOOL keep_going				= true;
@@ -315,8 +315,8 @@ CMainFrame::OnExportFiles (void)
 						StringClass dest_folder = dest_name;
 						int length = ::strrchr( dest_folder, '\\' ) - dest_folder;
 						dest_folder.Erase( length, dest_folder.Get_Length() - length );
-						int result = (int)::CreateDirectory( dest_folder, NULL );
-						int error = ::GetLastError();
+						result = (int)::CreateDirectory( dest_folder, NULL );
+						error = ::GetLastError();
 						if ( result == 0 && error != ERROR_ALREADY_EXISTS ) {
 							StringClass message;
 							message.Format ("Failed to create folder %s.", dest_folder.Peek_Buffer() );
@@ -543,18 +543,18 @@ CMainFrame::OnMakeMixPatch(void)
 				//
 				// Ask for the directory containing the old source art.
 				//
-				char path[_MAX_PATH + 256];
-				BROWSEINFO binfo;
-				binfo.hwndOwner = NULL;
-				binfo.pidlRoot = NULL;
-				binfo.pszDisplayName = path;
-    			binfo.lpszTitle = "Select Old Source Art Directory";
-				binfo.ulFlags = 0;
-				binfo.lpfn = NULL;
-				binfo.lParam = 0;
-				binfo.iImage = 0;
+				char old_path[_MAX_PATH + 256];
+				BROWSEINFO old_binfo;
+				old_binfo.hwndOwner = NULL;
+				old_binfo.pidlRoot = NULL;
+				old_binfo.pszDisplayName = old_path;
+    			old_binfo.lpszTitle = "Select Old Source Art Directory";
+				old_binfo.ulFlags = 0;
+				old_binfo.lpfn = NULL;
+				old_binfo.lParam = 0;
+				old_binfo.iImage = 0;
 
-				LPITEMIDLIST itemptr = SHBrowseForFolder(&binfo);
+				LPITEMIDLIST itemptr = SHBrowseForFolder(&old_binfo);
 
 				if (itemptr) {
 
@@ -565,18 +565,18 @@ CMainFrame::OnMakeMixPatch(void)
 						//
 						// Ask for the directory containing the new source art.
 						//
-						char path[_MAX_PATH + 256];
-						BROWSEINFO binfo;
-						binfo.hwndOwner = NULL;
-						binfo.pidlRoot = NULL;
-						binfo.pszDisplayName = path;
-    					binfo.lpszTitle = "Select New Source Art Directory";
-						binfo.ulFlags = 0;
-						binfo.lpfn = NULL;
-						binfo.lParam = 0;
-						binfo.iImage = 0;
+						char new_path[_MAX_PATH + 256];
+						BROWSEINFO new_binfo;
+						new_binfo.hwndOwner = NULL;
+						new_binfo.pidlRoot = NULL;
+						new_binfo.pszDisplayName = new_path;
+    					new_binfo.lpszTitle = "Select New Source Art Directory";
+						new_binfo.ulFlags = 0;
+						new_binfo.lpfn = NULL;
+						new_binfo.lParam = 0;
+						new_binfo.iImage = 0;
 
-						itemptr = SHBrowseForFolder(&binfo);
+						itemptr = SHBrowseForFolder(&new_binfo);
 
 						if (itemptr) {
 							char new_art_dir[_MAX_PATH + 256];

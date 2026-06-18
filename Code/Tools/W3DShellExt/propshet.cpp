@@ -233,11 +233,11 @@ INT_PTR CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM 
 					char pTextureInfo[MAX_TEXUTRE_NAME_LEN * MAX_MESH];
 					id_of_interest = W3D_CHUNK_TEXTURE_NAME;
 					int found_textures(0);
-					int sizeof_struct = MAX_TEXUTRE_NAME_LEN;
+					int sizeof_tex_struct = MAX_TEXUTRE_NAME_LEN;
 					ptr = pData->Chunks.GetHeadPosition();
 					while(ptr){
 						ChunkItem *pItem = pData->Chunks.GetNext(ptr);
-						GetItemName(pItem, id_of_interest, (void*)pTextureInfo, sizeof_struct, found_textures );
+						GetItemName(pItem, id_of_interest, (void*)pTextureInfo, sizeof_tex_struct, found_textures );
 					}
 					for(int t_count(0); t_count < found_textures; t_count ++){
 						if(lpcs->NotAdded(&(pTextureInfo[t_count*MAX_TEXUTRE_NAME_LEN]))){

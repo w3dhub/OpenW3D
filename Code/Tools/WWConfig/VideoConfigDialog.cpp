@@ -406,15 +406,15 @@ VideoConfigDialogClass::Update_Color_Combo (void)
 			//
 			//	Add this entry to the combobox
 			//
-			int item_index = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_ADDSTRING, 0, (LPARAM)(LPCTSTR)color_string);
-			if (item_index != CB_ERR) {
-				SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_SETITEMDATA, (WPARAM)item_index, (LPARAM)res_desc.BitDepth);
+			int add_index = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_ADDSTRING, 0, (LPARAM)(LPCTSTR)color_string);
+			if (add_index != CB_ERR) {
+				SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_SETITEMDATA, (WPARAM)add_index, (LPARAM)res_desc.BitDepth);
 
 				//
 				//	Select this entry if its the current bit depth
 				//
 				if (res_desc.BitDepth == CurrentBitDepth) {
-					SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_SETCURSEL, (WPARAM)item_index);
+					SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_SETCURSEL, (WPARAM)add_index);
 					selected = true;
 				}
 			}

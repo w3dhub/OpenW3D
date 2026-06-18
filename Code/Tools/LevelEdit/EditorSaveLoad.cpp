@@ -209,8 +209,8 @@ EditorSaveLoadClass::Save (ChunkSaveClass &csave)
 	//
 	STRING_LIST &include_list = ::Get_File_Mgr ()->Get_Include_File_List ();
 	for (index = 0; index < include_list.Count (); index ++) {
-		StringClass filename = (LPCTSTR)include_list[index];
-		WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_INCLUDE_FILE, filename);
+		StringClass include_filename = (LPCTSTR)include_list[index];
+		WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_INCLUDE_FILE, include_filename);
 	}
 
 	csave.End_Chunk ();

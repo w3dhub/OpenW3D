@@ -243,19 +243,19 @@ GroupMgrClass::Clone_Group (void)
 			//
 			WaypointNodeClass *waypoint	= (WaypointNodeClass *)node;
 			WaypathNodeClass *path			= waypoint->Peek_Waypath ();
-			int index							= path->Find_Index (waypoint);
-			if (index >= 0) {
+			int wp_index							= path->Find_Index (waypoint);
+			if (wp_index >= 0) {
 
 				//
 				//	Insert a new point one after the given point
 				//
-				path->Insert_Point (index + 1, waypoint->Get_Position ());
+				path->Insert_Point (wp_index + 1, waypoint->Get_Position ());
 
 				//
 				//	Add this new point to our group
 				//
 				WaypointNodeClass *new_point = NULL;
-				path->Get_Point (index + 1, &new_point);
+				path->Get_Point (wp_index + 1, &new_point);
 				if (new_point != NULL) {
 					SAFE_ADD_REF (new_point);
 					m_GroupList.Add (new_point);

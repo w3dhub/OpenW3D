@@ -621,8 +621,8 @@ ParameterInheritanceDialogClass::OnOK (void)
 	//	Loop over all the selected presets and propagate the changes
 	//
 	DefinitionClass *base_def = m_Preset->Get_Definition ();
-	for (int index = 0; index < preset_list.Count (); index ++) {
-		PresetClass *preset				= preset_list[index];
+	for (int pindex = 0; pindex < preset_list.Count (); pindex ++) {
+		PresetClass *preset				= preset_list[pindex];
 		DefinitionClass *derived_def	= preset->Get_Definition ();
 
 		if (base_def != NULL) {

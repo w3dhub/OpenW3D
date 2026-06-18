@@ -159,9 +159,9 @@ EditorAssetMgrClass::Determine_Real_Location
 				//
 				//	Does the file exist in this directoy?
 				//
-				StringClass full_path = static_cast<const char *>(Make_Path (path_list[index], path));
-				if (cPathUtil::PathExists (full_path)) {
-					test_path = full_path;
+				StringClass dir_path = static_cast<const char *>(Make_Path (path_list[index], path));
+				if (cPathUtil::PathExists (dir_path)) {
+					test_path = dir_path;
 					break;
 				}
 			}
