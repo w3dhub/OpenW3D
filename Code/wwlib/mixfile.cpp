@@ -365,8 +365,8 @@ MixFileFactoryClass::Flush_Changes (void)
 	//
 	//	Delete the old mix file and rename the new one
 	//
-	::DeleteFileA (MixFilename);
-	::MoveFileA (full_path, MixFilename);
+	DeleteFileA (MixFilename);
+	MoveFileA (full_path, MixFilename);
 
 	//
 	//	Reset the lists
@@ -595,6 +595,7 @@ void	MixFileCreator::Add_File( const char * filename, FileClass *file )
 /*
 **
 */
+#if defined(_WIN32)
 void	Add_Files( const char * dir, MixFileCreator & mix )
 {
 	BOOL bcontinue = true;
@@ -637,3 +638,4 @@ void	Setup_Mix_File( void )
 	}
 
 }
+#endif // _WIN32

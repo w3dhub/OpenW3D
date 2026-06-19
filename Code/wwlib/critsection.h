@@ -45,7 +45,11 @@
 
 #include "always.h"
 #include "wwdebug.h"
+#if defined(_WIN32)
 #include <windows.h>
+#else
+#include <mutex>
+#endif
 
 class CriticalSectionClass
 {
@@ -67,7 +71,11 @@ public:
 	friend LockClass;
 
 private:
+#if defined(_WIN32)
 	CRITICAL_SECTION Bar;
+#else
+	std::mutex Bar;
+#endif
 	bool inside;
 	void Enter();
 	void Exit();

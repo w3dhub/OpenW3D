@@ -40,7 +40,9 @@
 
 
 #include "refcount.h"
+#if defined(_WIN32)
 #include <windows.h>
+#endif
 
 
 #ifndef NDEBUG

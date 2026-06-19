@@ -72,6 +72,7 @@ if(NOT WIN32)
     add_compile_definitions(strnicmp=strncasecmp)
     add_compile_definitions(wcsnicmp=wcsncasecmp)
     add_compile_definitions(wcsicmp=wcscasecmp)
+    add_compile_definitions(DebugBreak=__builtin_trap)
 endif()
 
 include(FetchContent)

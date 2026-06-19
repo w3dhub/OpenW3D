@@ -39,7 +39,6 @@ set(WWLIB_SRC
     readline.cpp
     realcrc.cpp
     refcount.cpp
-    registry.cpp
     rndstrng.cpp
     slnode.cpp
     straw.cpp
@@ -53,7 +52,6 @@ set(WWLIB_SRC
     verchk.cpp
     widestring.cpp
     win.cpp
-    WWCOMUtil.cpp
     wwfile.cpp
     wwstring.cpp
     xpipe.cpp
@@ -139,7 +137,6 @@ set(WWLIB_SRC
     verchk.h
     widestring.h
     win.h
-    WWCOMUtil.h
     wwdialog.cpp
     wwdialog.h
     wwfile.h
@@ -148,6 +145,12 @@ set(WWLIB_SRC
     xpipe.h
     xstraw.h
 )
+
+if(WIN32)
+    list(APPEND WWLIB_SRC registry.cpp)
+else()
+    list(APPEND WWLIB_SRC registry_linux.cpp)
+endif()
 
 if(TARGET ffmpeg)
     list(APPEND WWLIB_SRC FFmpegFile.cpp FFmpegFile.h)
