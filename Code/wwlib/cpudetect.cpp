@@ -22,13 +22,25 @@
 #include "thread.h"
 #include "mpu.h"
 #include <cinttypes>
+#if defined(_WIN32)
 #include <windows.h>
+#else
+#include <sys/sysinfo.h>
+#include <sys/utsname.h>
+#include <stdio.h>
+// Stub out Windows OS version platform IDs; Linux Init_OS sets OSVersionPlatformId=3
+// so all switch statements on OSVersionPlatformId fall through to the default case.
+#define VER_PLATFORM_WIN32s        0
+#define VER_PLATFORM_WIN32_WINDOWS 1
+#define VER_PLATFORM_WIN32_NT      2
+#endif
 #include "systimer.h"
 
 #if CPU_X86 || CPU_X86_64
-#if defined(_WIN32)
+#if defined(_MSC_VER)
 #include <intrin.h>
 #else
+#include <x86intrin.h>
 #include <cpuid.h>
 #endif
 #endif
@@ -929,7 +941,15 @@ void CPUDetectClass::Init_Memory()
 #elif defined(OPENW3D_SDL3)
 	TotalPhysicalMemory = SDL_GetSystemRAM();
 #else
-#error "Not implemented"
+	struct sysinfo si = {};
+	if (sysinfo(&si) == 0) {
+		TotalPhysicalMemory     = (unsigned)(si.totalram  * si.mem_unit);
+		AvailablePhysicalMemory = (unsigned)(si.freeram   * si.mem_unit);
+		TotalPageMemory         = (unsigned)(si.totalswap * si.mem_unit);
+		AvailablePageMemory     = (unsigned)(si.freeswap  * si.mem_unit);
+		TotalVirtualMemory      = (unsigned)((si.totalram  + si.totalswap) * si.mem_unit);
+		AvailableVirtualMemory  = (unsigned)((si.freeram   + si.freeswap)  * si.mem_unit);
+	}
 #endif
 }
 
@@ -964,6 +984,7 @@ void CPUDetectClass::Init_OS()
 #elif defined(OPENW3D_SDL3)
 	PlatformName = SDL_GetPlatform();
 #else
+#error "Unknown Platform"
 #endif
 }
 
@@ -978,10 +999,9 @@ bool CPUDetectClass::CPUID(
 	if (!Has_CPUID_Instruction()) {
 		return false;	// Most processors since 486 have CPUID...
 	}
-#ifdef _WIN32
+#if defined(_MSC_VER)
 	int cpuInfo[4];
 	__cpuid(cpuInfo, cpuid_type);
-
 	u_eax_=cpuInfo[0];
 	u_ebx_=cpuInfo[1];
 	u_ecx_=cpuInfo[2];
@@ -989,10 +1009,9 @@ bool CPUDetectClass::CPUID(
 #else
 	__cpuid(cpuid_type, u_eax_, u_ebx_, u_ecx_, u_edx_);
 #endif
-
 	return true;
 #else
-	return false
+	return false;
 #endif
 }
 
@@ -1140,7 +1159,7 @@ void CPUDetectClass::Init_Compact_Log()
 
 	COMPACTLOG(("%s\t%" PRIu64 "\t",Get_Processor_Manufacturer_Name(),Get_Processor_Speed()));
 
-	COMPACTLOG(("%d\t",Get_Total_Physical_Memory()/(1024*1024)+1));
+    COMPACTLOG(("%" PRIu64 "\t",Get_Total_Physical_Memory()/(1024*1024)+1));
 
 	COMPACTLOG(("%x\t%x\t",Get_Feature_Bits(),Get_Extended_Feature_Bits()));
 }

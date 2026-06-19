@@ -38,13 +38,12 @@
 #include "verchk.h"
 #include "rawfile.h"
 #include "ffactory.h"
-#if defined(OPENW3D_WIN32)
+#if defined(_WIN32)
 #include <windows.h>
-#elif defined(OPENW3D_SDL3)
-#include <sys/types.h>
-#include <sys/stat.h>
 #endif
 
+
+#if defined(_WIN32)
 
 /******************************************************************************
 *
@@ -93,6 +92,9 @@ bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo) {
 }
 
 
+#endif // _WIN32
+
+
 bool GetFileCreationTime(const char* filename, FileCreationTime* createTime)
 	{
 	if (filename && createTime)
@@ -118,6 +120,8 @@ bool GetFileCreationTime(const char* filename, FileCreationTime* createTime)
 	return false;
 	}
 
+
+#if defined(_WIN32)
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -230,3 +234,5 @@ Compare_EXE_Version (HINSTANCE app_instance, const char *filename)
 
 	return retval;
 }
+
+#endif // _WIN32
