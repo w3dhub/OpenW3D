@@ -1,6 +1,6 @@
 /*
 **	Command & Conquer Renegade(tm)
-**	Copyright 2025 Electronic Arts Inc.
+**	Copyright 2026 OpenW3D
 **
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 #include "ini.h"
 #include "inisup.h"
 #include "rawfile.h"
+#include "openw3d.h"
 
 #include <assert.h>
 #include <string.h>
@@ -36,20 +37,6 @@
 #include <sys/types.h>
 
 bool RegistryClass::IsLocked = false;
-
-static const char *Registry_File_Path()
-{
-	static char path[512] = {};
-	if (path[0] == '\0') {
-		const char *home = getenv("HOME");
-		if (home) {
-			snprintf(path, sizeof(path), "%s/.config/renegade/registry.ini", home);
-		} else {
-			strncpy(path, "registry.ini", sizeof(path) - 1);
-		}
-	}
-	return path;
-}
 
 static void Ensure_Registry_Dir()
 {
@@ -68,7 +55,7 @@ static INIClass &Registry_INI()
 	static bool loaded = false;
 	if (!loaded) {
 		loaded = true;
-		RawFileClass file(Registry_File_Path());
+        RawFileClass file(OpenW3D::Get_Config_File_Path());
 		if (file.Is_Available()) {
 			ini.Load(file);
 		}
@@ -79,7 +66,7 @@ static INIClass &Registry_INI()
 static void Save_Registry_INI()
 {
 	Ensure_Registry_Dir();
-	RawFileClass file(Registry_File_Path());
+    RawFileClass file(OpenW3D::Get_Config_File_Path());
 	Registry_INI().Save(file);
 }
 
@@ -263,17 +250,19 @@ void RegistryClass::Load_Registry(const char *filename, char *old_path, char *ne
 
 	const size_t old_path_len = ::strlen(old_path);
 	char path[1024];
+    char path_tmp[1024];
 	char string[1024];
 	unsigned char buffer[8192];
 
 	List<INISection *> &section_list = ini.Get_Section_List();
 
 	for (INISection *section = section_list.First(); section != NULL; section = section->Next_Valid()) {
-		char *section_name = section->Section;
-		strcpy(path, new_path);
+        char *section_name = section->Section;
+        snprintf(path, sizeof(path), "%s", new_path);
 		char *cut = strstr(section_name, old_path);
 		if (cut) {
-			strcat(path, cut + old_path_len);
+            memcpy(path_tmp, path, sizeof(path));
+            snprintf(path, sizeof(path), "%s%s", path_tmp, cut + old_path_len);
 		}
 
 		RegistryClass reg(path);

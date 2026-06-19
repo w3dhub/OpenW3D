@@ -163,12 +163,6 @@ __forceinline unsigned int _byteswap_ulong(unsigned int value)
 #ifndef BOOL
 typedef int BOOL;
 #endif
-#ifndef TRUE
-#define TRUE 1
-#endif
-#ifndef FALSE
-#define FALSE 0
-#endif
 
 // Windows path constant equivalents
 #ifndef _MAX_DRIVE

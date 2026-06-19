@@ -43,8 +43,6 @@
 #include	"vector.h"
 #include	"win.h"
 
-#if defined(_WIN32)
-
 /*
 **	Tracks modeless dialog box messages by keeping a record of all active modeless dialog
 **	box handles and then determining if the windows message applies to the dialog box. If it
@@ -253,5 +251,3 @@ void Remove_Accelerator(HACCEL accelerator)
 		}
 	}
 }
-
-#endif // _WIN32

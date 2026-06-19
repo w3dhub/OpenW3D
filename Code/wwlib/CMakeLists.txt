@@ -24,7 +24,6 @@ set(WWLIB_SRC
     mixfile.cpp
     mpmath.cpp
     mpu.cpp
-    msgloop.cpp
     multilist.cpp
     mutex.cpp
     nstrdup.cpp
@@ -147,7 +146,10 @@ set(WWLIB_SRC
 )
 
 if(WIN32)
-    list(APPEND WWLIB_SRC registry.cpp)
+    list(APPEND WWLIB_SRC
+        registry.cpp
+        msgloop.cpp
+    )
 else()
     list(APPEND WWLIB_SRC registry_linux.cpp)
 endif()
