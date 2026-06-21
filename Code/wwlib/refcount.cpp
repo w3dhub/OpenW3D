@@ -40,9 +40,6 @@
 
 
 #include "refcount.h"
-#if defined(_WIN32)
-#include <windows.h>
-#endif
 
 
 #ifndef NDEBUG
@@ -165,19 +162,11 @@ void	RefCountClass::Inc_Total_Refs([[maybe_unused]] RefCountClass * obj)
 
 }
 
-// SKB 7/21/99 Set BreakOnRefernce to a pointer and it will break when called.
-//					This is used for debugging, please do not deleted.
-RefCountClass* BreakOnReference = 0;
-
 #ifndef NDEBUG
 void RefCountClass::Add_Ref(void)
 {
 	NumRefs++;
 
-	// See if programmer set break on for a specific address.
-	if (this == BreakOnReference) {
-		DebugBreak();  // trigger the debugger
-	}
 	Inc_Total_Refs(this);
 }
 #endif
@@ -200,11 +189,6 @@ void	RefCountClass::Dec_Total_Refs(RefCountClass * obj)
 	assert(Validate_Active_Ref(obj));
 #endif
 	TotalRefs--;
-
-	// See if programmer set break on for a specific address.
-	if (obj == BreakOnReference) {
-		 DebugBreak();  // trigger the debugger
-	}
 }
 
 

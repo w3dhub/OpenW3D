@@ -365,8 +365,8 @@ MixFileFactoryClass::Flush_Changes (void)
 	//
 	//	Delete the old mix file and rename the new one
 	//
-	DeleteFileA (MixFilename);
-	MoveFileA (full_path, MixFilename);
+    remove (MixFilename);
+    rename (full_path, MixFilename);
 
 	//
 	//	Reset the lists

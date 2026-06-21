@@ -181,14 +181,6 @@ typedef int BOOL;
 #define _MAX_EXT 256
 #endif
 
-// Windows file operation equivalents
-#ifndef DeleteFileA
-#define DeleteFileA(f) (remove(f) == 0)
-#endif
-#ifndef MoveFileA
-#define MoveFileA(src, dst) (rename(src, dst) == 0)
-#endif
-
 // _splitpath: split a path into drive/dir/fname/ext components
 static inline void _splitpath(const char *path, char *drive, char *dir, char *fname, char *ext)
 {
