@@ -44,6 +44,8 @@
 #include "win.h"
 #include "bittype.h"
 
+#include <cstdio>
+
 /*
 **
 */
