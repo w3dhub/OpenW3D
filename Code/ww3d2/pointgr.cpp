@@ -892,7 +892,7 @@ void PointGroupClass::Render(RenderInfoClass &/*rinfo*/)
 	while (current<vnum)
 	{
 		delta=MIN(vnum-current,MAX_VB_SIZE);
-		DynamicVBAccessClass PointVerts (sort ? BUFFER_TYPE_DYNAMIC_SORTING : BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, delta);
+		DynamicVBAccessClass PointVerts (sort ? BUFFER_TYPE_DYNAMIC_SORTING : BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, static_cast<unsigned short>(delta));
 
 		// Copy in the data to the VB
 		{
@@ -920,9 +920,9 @@ void PointGroupClass::Render(RenderInfoClass &/*rinfo*/)
 		DX8Wrapper::Set_Index_Buffer (indexbuffer, 0);
 		DX8Wrapper::Set_Vertex_Buffer (PointVerts);
 		if (sort) {
-			SortingRendererClass::Insert_Triangles (0, delta / verticesperprimitive, 0, delta);
+			SortingRendererClass::Insert_Triangles (0, static_cast<unsigned short>(delta / verticesperprimitive), 0, static_cast<unsigned short>(delta));
 		} else {
-			DX8Wrapper::Draw_Triangles (0, delta / verticesperprimitive, 0, delta);
+			DX8Wrapper::Draw_Triangles (0, static_cast<unsigned short>(delta / verticesperprimitive), 0, static_cast<unsigned short>(delta));
 		}
 
 		current+=delta;

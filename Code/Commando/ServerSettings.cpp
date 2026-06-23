@@ -713,7 +713,7 @@ void ServerSettingsClass::Encrypt_Serial(StringClass serial_in, StringClass &ser
 		t += (sign * stringbuffer[i]);
 		t += 1000;
 		t %= 10;
-		c  = t + '0';
+		c  = char(t + '0');
 		s[p] = c;
 		p++;
 		if (p == numberlength) {

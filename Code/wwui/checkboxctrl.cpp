@@ -238,21 +238,21 @@ CheckBoxCtrlClass::Update_Client_Rect (void)
 	//
 	//	Determine what size the button should be
 	//
-	float button_width	= int(char_size.X * 1.5F);
+	float button_width	= WWMath::Trunc(char_size.X * 1.5F);
 	float button_height	= button_width;
 
 	//
 	//	Calculate the button rectangle
 	//
 	ButtonRect.Left	= ClientRect.Left;
-	ButtonRect.Top		= ClientRect.Top + int((ClientRect.Height () / 2.0F) - (button_height / 2.0F));
+	ButtonRect.Top		= ClientRect.Top + WWMath::Trunc((ClientRect.Height () / 2.0F) - (button_height / 2.0F));
 	ButtonRect.Right	= ButtonRect.Left + button_width;
-	ButtonRect.Bottom	= ClientRect.Top + int((ClientRect.Height () / 2.0F) + (button_height / 2.0F));
+	ButtonRect.Bottom	= ClientRect.Top + WWMath::Trunc((ClientRect.Height () / 2.0F) + (button_height / 2.0F));
 
 	//
 	//	Calculate the text rectangle
 	//
-	TextRect.Left		= int(ButtonRect.Right + (char_size.X * 0.5F));
+	TextRect.Left		= WWMath::Trunc(ButtonRect.Right + (char_size.X * 0.5F));
 	TextRect.Top		= ClientRect.Top;
 	TextRect.Right		= ClientRect.Right;
 	TextRect.Bottom	= ClientRect.Bottom;

@@ -219,13 +219,13 @@ TextWindowClass::Set_Backdrop
 		//
 		//	Calculate the width and height of the sections
 		//
-		int endcap_width		= endcap_rect.Width ();
-		int fadeout_width		= fadeout_rect.Width ();
-		int textback_width	= screen_rect.Width () - ((endcap_width + fadeout_width) * 2);
+		float endcap_width		= WWMath::Trunc(endcap_rect.Width ());
+		float fadeout_width		= WWMath::Trunc(fadeout_rect.Width ());
+		float textback_width	= WWMath::Trunc(screen_rect.Width () - ((endcap_width + fadeout_width) * 2));
 
-		int endcap_height		= endcap_rect.Height ();
-		int fadeout_height	= fadeout_rect.Height ();
-		int textback_height	= textback_rect.Height ();
+		float endcap_height		= WWMath::Trunc(endcap_rect.Height ());
+		float fadeout_height	= WWMath::Trunc(fadeout_rect.Height ());
+		float textback_height	= WWMath::Trunc(textback_rect.Height ());
 
 		//
 		//	Calculate the UV coordinates for each section
@@ -277,9 +277,9 @@ TextWindowClass::Set_Backdrop
 		//
 		//	Calculate how many times we should vertically tile the text backdrop
 		//
-		int largest_height	= std::min (endcap_height, fadeout_height);
-		largest_height			= std::min (largest_height, textback_height);
-		int section_count		= (screen_rect.Height () / largest_height);
+		float largest_height	= std::min (endcap_height, fadeout_height);
+		largest_height			= WWMath::Trunc(std::min (largest_height, textback_height));
+		int section_count		= int(screen_rect.Height () / largest_height);
 
 		//
 		//	Tile the text backdrop sections
@@ -324,7 +324,7 @@ TextWindowClass::Set_Backdrop
 		//
 		//	Tile the endcaps appropriately
 		//
-		section_count = screen_rect.Height () / endcap_height;
+		section_count = int(screen_rect.Height () / endcap_height);
 		for (index = 0; index < section_count; index ++) {
 
 			//
@@ -765,7 +765,7 @@ TextWindowClass::Update_Row
 	float *	row_height
 )
 {
-	float x_pos	= int (TextRect.Left);
+	float x_pos	= WWMath::Trunc(TextRect.Left);
 
 	//
 	//	Loop over all the columns
@@ -798,7 +798,7 @@ TextWindowClass::Update_Row
 		//	Update the text and color of this renderer
 		//
 		TextRenderers[1]->Build_Sentence (text);
-		TextRenderers[1]->Set_Location (Vector2 (int(x_pos), int(y_pos)));
+		TextRenderers[1]->Set_Location (Vector2 (x_pos, WWMath::Trunc(y_pos)));
 		TextRenderers[1]->Draw_Sentence (VRGB_TO_INT32(color));
 
 		//
@@ -810,7 +810,7 @@ TextWindowClass::Update_Row
 		//
 		//	Move to the next column
 		//
-		x_pos += int (column->Get_Width () * (TextRect.Right - TextRect.Left));
+		x_pos += WWMath::Trunc(column->Get_Width () * (TextRect.Right - TextRect.Left));
 	}
 
 	return ;

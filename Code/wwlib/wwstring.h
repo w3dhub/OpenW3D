@@ -60,7 +60,7 @@ namespace openw3d{
 inline char* string_to_lower(char* str1){
     int x = 0;
     while(str1[x] != '\0'){
-        str1[x] = ::tolower(str1[x]);
+        str1[x] = char(::tolower(str1[x]));
         x++;
     }
     return str1;
@@ -69,7 +69,7 @@ inline char* string_to_lower(char* str1){
 inline char* string_to_upper(char* str1){
     int x = 0;
     while(str1[x] != '\0'){
-        str1[x] = ::toupper(str1[x]);
+        str1[x] = char(::toupper(str1[x]));
         x++;
     }
     return str1;

@@ -475,15 +475,15 @@ void PrintableSize(unsigned int size, WideStringClass& printable)
 	{
 	float value = ((float)size / (float)(1024 * 1024));
 
-	if (value >= 1.0)
+	if (value >= 1.0f)
 		{
 		printable.Format(TRANSLATE(IDS_MENU_TRANSFER_MB_FORMAT), value);
 		return;
 		}
 
-	value = ((float)size / 1024.0);
+	value = ((float)size / 1024.0f);
 
-	if (value >= 1.0)
+	if (value >= 1.0f)
 		{
 		printable.Format(TRANSLATE(IDS_MENU_TRANSFER_KB_FORMAT), value);
 		return;

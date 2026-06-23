@@ -120,7 +120,7 @@ uint32 TimeCodedMorphKeysClass::get_index(float frame)
 {
 	assert(CachedIdx <= (uint32)Keys.Count ()-1);
 
-	float	cached_frame = Keys[CachedIdx].MorphFrame;
+	float	cached_frame = float(Keys[CachedIdx].MorphFrame);
 
 	// check if the requested time is in the cached interval or the following one
 	if (frame >= cached_frame) {
@@ -680,9 +680,9 @@ void HMorphAnimClass::Get_Translation(Vector3& trans,int pividx,float frame) con
 	MorphKeyData[channel].Get_Morph_Info(frame,&pose_frame0,&pose_frame1,&fraction);
 
 	Vector3 t0;
-	PoseData[channel]->Get_Translation(t0,pividx,pose_frame0);
+	PoseData[channel]->Get_Translation(t0,pividx,float(pose_frame0));
 	Vector3 t1;
-	PoseData[channel]->Get_Translation(t1,pividx,pose_frame1);
+	PoseData[channel]->Get_Translation(t1,pividx,float(pose_frame1));
 	Vector3::Lerp(t0,t1,fraction,&trans);
 }
 
@@ -694,9 +694,9 @@ void HMorphAnimClass::Get_Orientation(Quaternion& q, int pividx,float frame) con
 	MorphKeyData[channel].Get_Morph_Info(frame,&pose_frame0,&pose_frame1,&fraction);
 
 	Quaternion q0;
-	PoseData[channel]->Get_Orientation(q0,pividx,pose_frame0);
+	PoseData[channel]->Get_Orientation(q0,pividx,float(pose_frame0));
 	Quaternion q1;
-	PoseData[channel]->Get_Orientation(q1,pividx,pose_frame1);
+	PoseData[channel]->Get_Orientation(q1,pividx,float(pose_frame1));
 	::Fast_Slerp(q,q0,q1,fraction);
 }
 
@@ -708,16 +708,16 @@ void HMorphAnimClass::Get_Transform(Matrix3D& mtx,int pividx,float frame) const
 	MorphKeyData[channel].Get_Morph_Info(frame,&pose_frame0,&pose_frame1,&fraction);
 
 	Quaternion q0;
-	PoseData[channel]->Get_Orientation(q0,pividx,pose_frame0);
+	PoseData[channel]->Get_Orientation(q0,pividx,float(pose_frame0));
 	Quaternion q1;
-	PoseData[channel]->Get_Orientation(q1,pividx,pose_frame1);
+	PoseData[channel]->Get_Orientation(q1,pividx,float(pose_frame1));
 	Quaternion q;
 	::Fast_Slerp(q,q0,q1,fraction);
 	mtx=::Build_Matrix3D(q);
 	Vector3 t0;
-	PoseData[channel]->Get_Translation(t0,pividx,pose_frame0);
+	PoseData[channel]->Get_Translation(t0,pividx,float(pose_frame0));
 	Vector3 t1;
-	PoseData[channel]->Get_Translation(t1,pividx,pose_frame1);
+	PoseData[channel]->Get_Translation(t1,pividx,float(pose_frame1));
 	Vector3 trans;
 	Vector3::Lerp(t0,t1,fraction,&trans);
 	mtx.Set_Translation(trans);
@@ -730,7 +730,7 @@ void HMorphAnimClass::Insert_Morph_Key(const int channel, uint32 morph_frame, ui
 	MorphKeyData[channel].Add_Key(morph_frame,pose_frame);
 
 	// update the framecount to reflect the newly added key
-	FrameCount = WWMath::Max(morph_frame,FrameCount);
+	FrameCount = std::max(int(morph_frame),FrameCount);
 }
 
 void HMorphAnimClass::Release_Keys(void)

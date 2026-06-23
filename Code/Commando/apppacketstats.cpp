@@ -371,7 +371,7 @@ cAppPacketStats::Get_Description
 	DWORD t3 = 0;
 	if (BitsSent[type] > 0)
 	{
-		float bits = BitsSent[type];
+		float bits = float(BitsSent[type]);
 
 		t0 = cMathUtil::Round(100 * (BitsSentTier[type][0] / bits));
 		t1 = cMathUtil::Round(100 * (BitsSentTier[type][1] / bits));

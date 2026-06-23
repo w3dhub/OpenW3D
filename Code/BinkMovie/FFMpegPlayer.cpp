@@ -412,7 +412,7 @@ void FFMpegMovieClass::Render()
 		Renderer.Set_Texture(TextureInfos[t].Texture);
 		Renderer.Set_Coordinate_Range(RectClass(0.0f, 0.0f, 1.0f, 1.0f));//Bink->Get_Width(),Bink->Get_Height()));
 
-		RectClass rect(TextureInfos[t].TextureLocX, TextureInfos[t].TextureLocY, TextureInfos[t].TextureWidth, TextureInfos[t].TextureHeight);
+		RectClass rect(float(TextureInfos[t].TextureLocX), float(TextureInfos[t].TextureLocY), float(TextureInfos[t].TextureWidth), float(TextureInfos[t].TextureHeight));
 		Renderer.Add_Quad(TextureInfos[t].Rect, TextureInfos[t].UV, 0xffffffff);
 		Renderer.Render();
 	}

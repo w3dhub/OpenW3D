@@ -113,7 +113,7 @@ public:
 	void		Transform(const Matrix3D & tm);
 	void		Translate(const Vector3 & pos);
 
-	WWINLINE float Volume(void) const { return 2.0*Extent.X * 2.0*Extent.Y * 2.0*Extent.Z; }
+	WWINLINE float Volume(void) const { return 2.0f*Extent.X * 2.0f*Extent.Y * 2.0f*Extent.Z; }
 	WWINLINE bool		Contains(const Vector3 & point) const;
 	WWINLINE bool		Contains(const AABoxClass & other_box) const;
 	WWINLINE bool		Contains(const MinMaxAABoxClass & other_box) const;

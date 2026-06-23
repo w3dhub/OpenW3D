@@ -107,17 +107,17 @@ SliderCtrlClass::Create_Control_Renderer (void)
 	//	Calculate the thumb's position
 	//
 	float percent		= float(CurrPos - MinPos) / float(MaxPos - MinPos);
-	int thumb_height	= ClientRect.Height () - 2;
+	int thumb_height	= int(ClientRect.Height () - 2);
 	int thumb_width	= thumb_height / 2;
 
 	//
 	//	Calculate the rectangle for the thumb
 	//
 	RectClass rect;
-	rect.Left	= int (ClientRect.Left + (ClientRect.Width () * percent) - (thumb_width * 0.5F));
+	rect.Left	= WWMath::Trunc (ClientRect.Left + (ClientRect.Width () * percent) - (thumb_width * 0.5F));
 	rect.Right	= rect.Left + thumb_width;
-	rect.Top		= int(ClientRect.Top + (ClientRect.Height () / 2) - (thumb_height / 2));
-	rect.Bottom	= int(ClientRect.Top + (ClientRect.Height () / 2) + (thumb_height / 2));
+	rect.Top		= WWMath::Trunc(ClientRect.Top + (ClientRect.Height () / 2) - (thumb_height / 2));
+	rect.Bottom	= WWMath::Trunc(ClientRect.Top + (ClientRect.Height () / 2) + (thumb_height / 2));
 
 
 	//
@@ -139,8 +139,8 @@ SliderCtrlClass::Create_Control_Renderer (void)
 	rect1.Right		= rect.Left;
 	rect2.Left		= rect.Right;
 	rect2.Right		= ClientRect.Right;
-	rect1.Top		= int(ClientRect.Top + (ClientRect.Height () / 2) - (bar_height / 2));
-	rect1.Bottom	= int(ClientRect.Top + (ClientRect.Height () / 2) + (bar_height / 2));
+	rect1.Top		= WWMath::Trunc(ClientRect.Top + (ClientRect.Height () / 2) - (bar_height / 2));
+	rect1.Bottom	= WWMath::Trunc(ClientRect.Top + (ClientRect.Height () / 2) + (bar_height / 2));
 	rect2.Top		= rect1.Top;
 	rect2.Bottom	= rect1.Bottom;
 
@@ -372,7 +372,7 @@ SliderCtrlClass::Slider_Pos_From_Mouse_Pos (const Vector2 &mouse_pos)
 		retval = MaxPos;
 	} else {
 
-		int thumb_height	= ClientRect.Height () - 2;
+		int thumb_height	= int(ClientRect.Height () - 2);
 		int thumb_width	= thumb_height / 2;
 
 		//

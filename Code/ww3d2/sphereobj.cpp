@@ -296,7 +296,7 @@ void SphereRenderObjClass::Generate_Shared_Mesh_Arrays (const AlphaVectorStruct 
 
 		for(int i=0; i < SPHERE_NUM_LOD; i++) {
 
-			SphereMeshArray[i].Generate(1.0f, size, size);
+			SphereMeshArray[i].Generate(1.0f, int(size), int(size));
 
 			size+=step;
 
@@ -441,7 +441,7 @@ void SphereRenderObjClass::render_sphere()
 	DX8Wrapper::Set_Texture(0,SphereTexture);
 	DX8Wrapper::Set_Material(SphereMaterial);
 
-	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_SORTING,dynamic_fvf_type,mesh.Vertex_ct);
+	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_SORTING,dynamic_fvf_type,static_cast<unsigned short>(mesh.Vertex_ct));
 	{
 		DynamicVBAccessClass::WriteLockClass Lock(&vb);
 		VertexFormatXYZNDUV2 *fva = Lock.Get_Formatted_Vertex_Array();
@@ -470,7 +470,7 @@ void SphereRenderObjClass::render_sphere()
 		}
 	}
 
-	DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_SORTING,mesh.face_ct*3);
+	DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_SORTING,static_cast<unsigned short>(mesh.face_ct*3));
 	{
 		DynamicIBAccessClass::WriteLockClass Lock(&ib);
 		unsigned short *mem=Lock.Get_Index_Array();
@@ -486,7 +486,7 @@ void SphereRenderObjClass::render_sphere()
 	DX8Wrapper::Set_Index_Buffer(ib,0);
 
 #if (STATIC_SORT_SPHERES)
-	DX8Wrapper::Draw_Triangles(0,mesh.face_ct,0,mesh.Vertex_ct);
+	DX8Wrapper::Draw_Triangles(0,static_cast<unsigned short>(mesh.face_ct),0,static_cast<unsigned short>(mesh.Vertex_ct));
 #else
 	SortingRendererClass::Insert_Triangles(
 		Get_Bounding_Sphere(),
@@ -597,7 +597,7 @@ void SphereRenderObjClass::Render(RenderInfoClass & rinfo)
 		screen_size = sqrtf(screen_size);
 
 		float lod     = screen_size * ((float) SPHERE_NUM_LOD);
-		int	lod_int = lod;
+		int	lod_int = int(lod);
 		lod-=lod_int;
 
 		if (lod >= 0.5f) lod_int++;
@@ -971,7 +971,7 @@ void SphereRenderObjClass::animate (void)
 			// Convert from milliseconds to seconds and normalize the time
 			//
 			if (AnimDuration > 0) {
-				float	frametime = WW3D::Get_Frame_Time();
+				float	frametime = float(WW3D::Get_Frame_Time());
 				frametime = (frametime * 0.001F) / AnimDuration;
 				anim_time += frametime;
 			} else {
@@ -1323,7 +1323,7 @@ void	SphereMeshClass::Set_Alpha_Vector (const AlphaVectorStruct &v, bool inverse
 			temp = vec * vtx_normal[idx];
 			temp*= Intensity;
 
-			temp = fabs(temp);
+			temp = WWMath::Fabs(temp);
 
 			if (temp > 1.0f) temp = 1.0f;
 
@@ -1338,7 +1338,7 @@ void	SphereMeshClass::Set_Alpha_Vector (const AlphaVectorStruct &v, bool inverse
 			temp = vec * vtx_normal[idx];
 			temp*= Intensity;
 
-			temp = fabs(temp);
+			temp = WWMath::Fabs(temp);
 
 			if (temp > 1.0f) temp = 1.0f;
 
@@ -1511,9 +1511,9 @@ void SphereMeshClass::Generate(float radius, int slices, int stacks)
 		// IJK
 		for(int fidx=0; fidx < (strip_size - 2); fidx++) {
 
-			out->I = in[0];
-			out->J = in[1];
-			out->K = in[2];
+			out->I = static_cast<unsigned short>(in[0]);
+			out->J = static_cast<unsigned short>(in[1]);
+			out->K = static_cast<unsigned short>(in[2]);
 
 			out++;
 			in++;
@@ -1521,9 +1521,9 @@ void SphereMeshClass::Generate(float radius, int slices, int stacks)
 			fidx++;
 			if (fidx >= (strip_size-2)) break;
 
-			out->I = in[0];
-			out->J = in[2];
-			out->K = in[1];
+			out->I = static_cast<unsigned short>(in[0]);
+			out->J = static_cast<unsigned short>(in[2]);
+			out->K = static_cast<unsigned short>(in[1]);
 			out++;
 			in++;
 
@@ -1542,9 +1542,9 @@ void SphereMeshClass::Generate(float radius, int slices, int stacks)
 
 		for (int fidx=0; fidx < (fan_size - 2); fidx++) {
 
-			out->I = base_idx[0];
-			out->J = in[2];
-			out->K = in[1];
+			out->I = static_cast<unsigned short>(base_idx[0]);
+			out->J = static_cast<unsigned short>(in[2]);
+			out->K = static_cast<unsigned short>(in[1]);
 
 			in++;
 			out++;

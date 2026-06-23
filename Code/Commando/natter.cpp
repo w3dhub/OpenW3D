@@ -181,7 +181,7 @@ void WOLNATInterfaceClass::Init(void)
 		/*
 		** Read the local class values from the registry.
 		*/
-		PortBase = reg.Get_Int("PortBase", PortBase);
+		PortBase = (unsigned short) reg.Get_Int("PortBase", PortBase);
 		//ForcePort = reg.Get_Int("ForcePort", ForcePort);
 	}
 
@@ -189,7 +189,7 @@ void WOLNATInterfaceClass::Init(void)
 	** Make sure the base port is reasonable.
 	*/
 	if (PortBase < 1024) {
-		PortBase = FreeRandom.Get_Int(PORT_BASE_MIN, PORT_BASE_MAX - 32);
+		PortBase = (unsigned short) FreeRandom.Get_Int(PORT_BASE_MIN, PORT_BASE_MAX - 32);
 	}
 
 	fw_assert(PortBase >= PORT_BASE_MIN && PortBase < PORT_BASE_MAX);
@@ -610,7 +610,7 @@ void WOLNATInterfaceClass::Get_Config(RegistryClass *reg, int &port_number, bool
 	port_number = local_reg->Get_Int("ForcePort", ForcePort);
 
 	FirewallHelper.Set_Send_Delay(send_delay);
-	ForcePort = port_number;
+	ForcePort = (unsigned short) port_number;
 
 	if (!reg) {
 		delete local_reg;
@@ -646,7 +646,7 @@ void WOLNATInterfaceClass::Set_Config(RegistryClass *reg, int port_number, bool 
 	}
 
 	FirewallHelper.Set_Send_Delay(send_delay);
-	ForcePort = port_number;
+	ForcePort = (unsigned short) port_number;
 
 	local_reg->Set_Bool("SendDelay", send_delay);
 	local_reg->Set_Int("ForcePort", ForcePort);
@@ -1313,7 +1313,7 @@ void WOLNATInterfaceClass::Intercept_Game_Packet(cPacket &packet)
 	*/
 	char payload[512];
 	payload[0] = 0;
-	int payload_size = 512;
+	uint16_t payload_size = 512;
 
 	packet.Get_Terminated_String(payload, payload_size, true);
 	fw_assert(strlen(payload) > 0);

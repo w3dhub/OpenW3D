@@ -797,7 +797,7 @@ void DynamicVBAccessClass::Allocate_Sorting_Dynamic_Buffer()
 	WWASSERT(new_vertex_count<65536);
 	if (new_vertex_count>_DynamicSortingVertexArraySize) {
 		REF_PTR_RELEASE(_DynamicSortingVertexArray);
-		_DynamicSortingVertexArraySize=new_vertex_count;
+		_DynamicSortingVertexArraySize=static_cast<unsigned short>(new_vertex_count);
 		if (_DynamicSortingVertexArraySize<DEFAULT_VB_SIZE) _DynamicSortingVertexArraySize=DEFAULT_VB_SIZE;
 	}
 

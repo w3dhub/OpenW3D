@@ -434,7 +434,7 @@ void SlaveMasterClass::Load(void)
 		SlaveServers[i].Enable = reg.Get_Bool(entry, false);
 
 		sprintf(entry, "%s%d", KEY_SLAVE_PORT, i);
-		SlaveServers[i].Port = reg.Get_Int(entry, false);
+		SlaveServers[i].Port = static_cast<unsigned short>(reg.Get_Int(entry, false));
 
 		sprintf(entry, "%s%d", KEY_SLAVE_BANDWIDTH, i);
 		SlaveServers[i].Bandwidth = reg.Get_Int(entry, false);
@@ -883,7 +883,7 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 				}
 				slave_port += i;
 				slave_port++;
-				SlaveServers[i].ControlPort = slave_port;
+				SlaveServers[i].ControlPort = static_cast<unsigned short>(slave_port);
 				reg.Set_Int(SERVER_CONTROL_PORT_KEY, slave_port);
 
 				/*

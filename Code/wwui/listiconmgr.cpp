@@ -171,8 +171,8 @@ ListIconMgrClass::Render_Icon (const RectClass &clip_rect, const char *texture_n
 		RectClass rect;
 		rect.Left			= clip_rect.Left;
 		rect.Right			= clip_rect.Left + icon_size_x;
-		rect.Top				= int (clip_rect.Center ().Y - (icon_size_y * 0.5F));
-		rect.Bottom			= int (clip_rect.Center ().Y + (icon_size_y * 0.5F));
+		rect.Top				= WWMath::Trunc (clip_rect.Center ().Y - (icon_size_y * 0.5F));
+		rect.Bottom			= WWMath::Trunc (clip_rect.Center ().Y + (icon_size_y * 0.5F));
 		Renderers[index]->Add_Quad (rect);
 	}
 

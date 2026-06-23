@@ -410,14 +410,14 @@ void cTeamManager::List_Print(WideStringClass & text, Vector3 color)
 
 	WWASSERT(PTextRenderer != NULL);
 
-	PTextRenderer->Set_Location(Vector2(cMathUtil::Round(XPos), cMathUtil::Round(YPos)));
+	PTextRenderer->Set_Location(Vector2(float(XPos), float(YPos)));
 
 	int c = ((int)(color[0]*255)&0xFF) << 16 | ((int)(color[1]*255)&0xFF) << 8 | ((int)(color[2]*255)&0xFF) << 0 | 0xFF000000;
 
 	PTextRenderer->Draw_Text(text, c);
 
 	WWASSERT(PFont != NULL);
-   YPos += PFont->Char_Height() * Y_INCREMENT_FACTOR;
+   YPos += int(PFont->Char_Height() * Y_INCREMENT_FACTOR);
 }
 
 //-----------------------------------------------------------------------------
@@ -599,9 +599,9 @@ void cTeamManager::Render_Team_List(void)
 	XPos = 0;
 	float text_len = PFont->String_Width(heading);
 	if (The_Game()->IsIntermission.Is_True()) {
-		XPos = Render2DClass::Get_Screen_Resolution().Center().X - text_len / 2.0f;
+		XPos = int(Render2DClass::Get_Screen_Resolution().Center().X - text_len / 2.0f);
 	} else {
-		XPos = Render2DClass::Get_Screen_Resolution().Right - 20 - text_len;
+		XPos = int(Render2DClass::Get_Screen_Resolution().Right - 20 - text_len);
 	}
 
 	YPos = 10;
@@ -612,12 +612,12 @@ void cTeamManager::Render_Team_List(void)
 	WWASSERT(PTheGameData != NULL);
 	if (The_Game()->IsIntermission.Is_True()) {
 
-		int combined_height =
+		float combined_height = WWMath::Trunc(
 			Compute_Team_List_Height() +
 			cPlayerManager::Compute_Full_Player_List_Height() +
-			2 * PFont->Char_Height() * Y_INCREMENT_FACTOR;
+			2 * PFont->Char_Height() * Y_INCREMENT_FACTOR);
 
-		YPos = (int)(Render2DClass::Get_Screen_Resolution().Height() / 2.0 - combined_height / 2.0);
+		YPos = (int)(Render2DClass::Get_Screen_Resolution().Height() / 2.0f - combined_height / 2.0f);
 		if (YPos < 10) {
 			YPos = 10;
 		}
@@ -626,11 +626,11 @@ void cTeamManager::Render_Team_List(void)
 
 		float x = Render2DClass::Get_Screen_Resolution().Center().X -
 			PFont->String_Width(text) / 2.0f;
-		float y = YPos;
-		PTextRenderer->Set_Location(Vector2(cMathUtil::Round(x), cMathUtil::Round(y)));
+		float y = float(YPos);
+		PTextRenderer->Set_Location(Vector2(WWMath::Round(x), WWMath::Round(y)));
 		PTextRenderer->Draw_Text(text);
 
-		YPos += 2 * PFont->Char_Height() * Y_INCREMENT_FACTOR;
+		YPos += int(2 * PFont->Char_Height() * Y_INCREMENT_FACTOR);
 	}
 
    //

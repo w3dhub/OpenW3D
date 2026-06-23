@@ -274,7 +274,7 @@ void	PlayerDataClass::Increment_Money( float add )
 	Money = (float)Money + add;
 
 	if ( add > 0 ) {
-		Stats_Add_Credit_Grant( (int) add );
+		Stats_Add_Credit_Grant( WWMath::Trunc(add) );
 	}
 
 	//Set_Object_Dirty_Bit(NetworkObjectClass::BIT_OCCASIONAL, true);
@@ -322,7 +322,7 @@ bool	PlayerDataClass::Purchase_Item( int cost )
 			//
 			// Use Increment_Money so that dirty is set.
 			//
-			Increment_Money(-1 * cost);
+			Increment_Money(float(-1 * cost));
 
 			retval = true;
 		}

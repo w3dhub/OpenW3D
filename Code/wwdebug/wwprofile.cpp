@@ -518,7 +518,7 @@ void	WWProfileManager::End_Collecting(const char* filename)
 			file->Open (FileClass::WRITE);
 
 			StringClass str;
-			float avg_frame_time=TotalFrameTimes/float(ProfileCollectVector.Count());
+			float avg_frame_time=float(TotalFrameTimes/float(ProfileCollectVector.Count()));
 			str.Format(
 				"Total frames: %d, average frame time: %fms\r\n"
 				"All frames taking more than twice the average frame time are marked with keyword SPIKE.\r\n\r\n",
@@ -708,7 +708,7 @@ WWTimeItClass::~WWTimeItClass( void )
 	WWProfile_Get_Ticks( &End );
 	End -= Time;
 #ifdef WWDEBUG
-	float time = End * CPUDetectClass::Get_Inv_Processor_Ticks_Per_Second();
+	float time = float(End * CPUDetectClass::Get_Inv_Processor_Ticks_Per_Second());
 	WWDEBUG_SAY(( "*** WWTIMEIT *** %s took %1.9f\n", Name, time ));
 #endif
 }
@@ -730,7 +730,7 @@ WWMeasureItClass::~WWMeasureItClass( void )
 	WWProfile_Get_Ticks( &End );
 	End -= Time;
 	WWASSERT(PResult != NULL);
-	*PResult = End  * CPUDetectClass::Get_Inv_Processor_Ticks_Per_Second();
+	*PResult = float(End  * CPUDetectClass::Get_Inv_Processor_Ticks_Per_Second());
 }
 
 // ----------------------------------------------------------------------------

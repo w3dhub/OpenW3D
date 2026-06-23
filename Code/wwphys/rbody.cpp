@@ -1766,7 +1766,7 @@ Vector3 avel0 = AngularVelocity;
 					** centroid.  (of course, this is all "ad-hoc", not true rigid-body dynamics...)
 					*/
 					Vector3 impulse = 0.3f * (State.LMomentum - oldstate.LMomentum);
-					contact_centroid /= ContactBox->Get_Contact_Count();
+					contact_centroid /= float(ContactBox->Get_Contact_Count());
 
 					Vector3 r = contact_centroid - State.Position;
 					Vector3 a_impulse;

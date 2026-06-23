@@ -1220,7 +1220,7 @@ void	SoldierGameObj::Import_Frequent( BitStreamClass & packet )
 
 	// Bump Z up to the top of the possible values due to packing
 	// we assume the max error is half of the resolution
-	float max_error = cEncoderList::Get_Encoder_Type_Entry( BITPACK_WORLD_POSITION_Z ).Get_Resolution() / 2.0f;
+	float max_error = float(cEncoderList::Get_Encoder_Type_Entry( BITPACK_WORLD_POSITION_Z ).Get_Resolution() / 2.0);
 	sc_position.Z += max_error;
 
 	Interpret_Sc_Position_Data(sc_position);
@@ -2899,8 +2899,8 @@ void	SoldierGameObj::Handle_Head_look( void )
 			}
 		}
 
-#define	HEAD_TURN_RATE		(DEG_TO_RAD( 360 )/2)
-#define	HEAD_TILT_RATE		(DEG_TO_RAD( 180 )/2)
+		constexpr float HEAD_TURN_RATE = (DEG_TO_RADF( 360 )/2);
+		constexpr float HEAD_TILT_RATE = (DEG_TO_RADF( 180 )/2);
 		float max_turn = HEAD_TURN_RATE * TimeManager::Get_Frame_Seconds();
 		float max_tilt = HEAD_TILT_RATE * TimeManager::Get_Frame_Seconds();
 		HeadRotation.X += WWMath::Clamp( (desired_head_rotation.X - HeadRotation.X), -max_turn, max_turn );
@@ -2942,7 +2942,7 @@ void	SoldierGameObj::Set_Blended_Animation( const char *animation_name, bool loo
 		HAnimClass *anim = Get_Anim_Control()->Peek_Animation();
 		if ( anim != NULL ) {
 			int frame_count = anim->Get_Num_Frames();
-			Get_Anim_Control()->Set_Mode( ANIM_MODE_TARGET, frame_count - 1 );
+			Get_Anim_Control()->Set_Mode( ANIM_MODE_TARGET, float(frame_count - 1) );
 			Get_Anim_Control()->Set_Target_Frame( 0 );
 		}
 	}
@@ -3221,7 +3221,7 @@ bool	SoldierGameObj::Internal_Set_Targeting( const Vector3 & target_pos, bool do
 
 	if ( Is_Human_Controlled() && Get_State() != HumanStateClass::IN_VEHICLE ) {
 
-#define		TILT_DOWN_SPEED		4.0
+		constexpr float TILT_DOWN_SPEED = 4.0f;
 		float direction = -1;
 		if ( Get_Weapon() && Get_Weapon()->Is_Reloading() ) {
 			direction = 1;

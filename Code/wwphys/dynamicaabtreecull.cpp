@@ -230,9 +230,9 @@ void DynamicAABTreeCullClass::Re_Partition
 	Vector3 worldsize = grid_max - grid_min;
 
 	Vector3i cellcount;
-	cellcount.I = worldsize.X / min_grid_cell_size.X;
-	cellcount.J = worldsize.Y / min_grid_cell_size.Y;
-	cellcount.K = worldsize.Z / min_grid_cell_size.Z;
+	cellcount.I = int(worldsize.X / min_grid_cell_size.X);
+	cellcount.J = int(worldsize.Y / min_grid_cell_size.Y);
+	cellcount.K = int(worldsize.Z / min_grid_cell_size.Z);
 
 	int total_grid_count = cellcount.I * cellcount.J * cellcount.K;
 	while (total_grid_count > max_grid_cell_count) {

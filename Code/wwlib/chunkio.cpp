@@ -204,7 +204,7 @@ bool ChunkSaveClass::Begin_Micro_Chunk(uint32 id)
 
 	// Save the current file position and chunk header
 	// for the call to End_Micro_Chunk.
-	MCHeader.Set_Type(id);
+	MCHeader.Set_Type(uint8(id));
 	MCHeader.Set_Size(0);
 	MicroChunkPosition = File->Seek(0);
 

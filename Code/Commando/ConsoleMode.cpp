@@ -673,7 +673,7 @@ void ConsoleModeClass::Think(void)
 						Handle_Profile_Key(key);
 					} else {
 						if (key == 32 || isgraph(key)) {
-							string[Pos++] = key;
+							string[Pos++] = char(key);
 							last_suggestion[0] = 0;
 						}
 					}

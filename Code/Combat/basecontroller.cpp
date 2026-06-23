@@ -777,7 +777,7 @@ BaseControllerClass::Distribute_Funds_To_Each_Teammate (int funds)
 				//
 				//	Add the money to this player's total
 				//
-				player_data->Increment_Money (funds);
+				player_data->Increment_Money (float(funds));
 			}
 		}
 	}

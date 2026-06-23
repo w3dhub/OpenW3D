@@ -907,26 +907,26 @@ inline void W3d_Shader_Reset(W3dShaderStruct* s) {
 	s->pad[0] = 0;
 }
 
-inline void W3d_Shader_Set_Depth_Compare(W3dShaderStruct* s, int val) { s->DepthCompare = val; }
-inline void W3d_Shader_Set_Depth_Mask(W3dShaderStruct* s, int val) { s->DepthMask = val; }
-inline void W3d_Shader_Set_Dest_Blend_Func(W3dShaderStruct* s, int val) { s->DestBlend = val; }
-inline void W3d_Shader_Set_Pri_Gradient(W3dShaderStruct* s, int val) { s->PriGradient = val; }
-inline void W3d_Shader_Set_Sec_Gradient(W3dShaderStruct* s, int val) { s->SecGradient = val; }
-inline void W3d_Shader_Set_Src_Blend_Func(W3dShaderStruct* s, int val) { s->SrcBlend = val; }
-inline void W3d_Shader_Set_Texturing(W3dShaderStruct* s, int val) { s->Texturing = val; }
-inline void W3d_Shader_Set_Detail_Color_Func(W3dShaderStruct* s, int val) { s->DetailColorFunc = val; }
-inline void W3d_Shader_Set_Detail_Alpha_Func(W3dShaderStruct* s, int val) { s->DetailAlphaFunc = val; }
-inline void W3d_Shader_Set_Alpha_Test(W3dShaderStruct* s, int val) { s->AlphaTest = val; }
-inline void W3d_Shader_Set_Post_Detail_Color_Func(W3dShaderStruct* s, int val) { s->PostDetailColorFunc = val; }
-inline void W3d_Shader_Set_Post_Detail_Alpha_Func(W3dShaderStruct* s, int val) { s->PostDetailAlphaFunc = val; }
+inline void W3d_Shader_Set_Depth_Compare(W3dShaderStruct* s, int val) { s->DepthCompare = uint8(val); }
+inline void W3d_Shader_Set_Depth_Mask(W3dShaderStruct* s, int val) { s->DepthMask = uint8(val); }
+inline void W3d_Shader_Set_Dest_Blend_Func(W3dShaderStruct* s, int val) { s->DestBlend = uint8(val); }
+inline void W3d_Shader_Set_Pri_Gradient(W3dShaderStruct* s, int val) { s->PriGradient = uint8(val); }
+inline void W3d_Shader_Set_Sec_Gradient(W3dShaderStruct* s, int val) { s->SecGradient = uint8(val); }
+inline void W3d_Shader_Set_Src_Blend_Func(W3dShaderStruct* s, int val) { s->SrcBlend = uint8(val); }
+inline void W3d_Shader_Set_Texturing(W3dShaderStruct* s, int val) { s->Texturing = uint8(val); }
+inline void W3d_Shader_Set_Detail_Color_Func(W3dShaderStruct* s, int val) { s->DetailColorFunc = uint8(val); }
+inline void W3d_Shader_Set_Detail_Alpha_Func(W3dShaderStruct* s, int val) { s->DetailAlphaFunc = uint8(val); }
+inline void W3d_Shader_Set_Alpha_Test(W3dShaderStruct* s, int val) { s->AlphaTest = uint8(val); }
+inline void W3d_Shader_Set_Post_Detail_Color_Func(W3dShaderStruct* s, int val) { s->PostDetailColorFunc = uint8(val); }
+inline void W3d_Shader_Set_Post_Detail_Alpha_Func(W3dShaderStruct* s, int val) { s->PostDetailAlphaFunc = uint8(val); }
 
 // These functions use the existing W3dShaderStruct unused members to store PS2 specific parameters.
 // At mesh save time, if a PS2 material was used, a separate PS2 material chunk is saved out.
 // If W3dShaderStruct is changed this should still work because it is only used for the PS2 stuff.
-inline void W3d_Shader_Set_PS2_Param_A(W3dShaderStruct* s, int val) { s->ColorMask = val; }
-inline void W3d_Shader_Set_PS2_Param_B(W3dShaderStruct* s, int val) { s->FogFunc = val; }
-inline void W3d_Shader_Set_PS2_Param_C(W3dShaderStruct* s, int val) { s->ShaderPreset = val; }
-inline void W3d_Shader_Set_PS2_Param_D(W3dShaderStruct* s, int val) { s->pad[0] = val; }
+inline void W3d_Shader_Set_PS2_Param_A(W3dShaderStruct* s, int val) { s->ColorMask = uint8(val); }
+inline void W3d_Shader_Set_PS2_Param_B(W3dShaderStruct* s, int val) { s->FogFunc = uint8(val); }
+inline void W3d_Shader_Set_PS2_Param_C(W3dShaderStruct* s, int val) { s->ShaderPreset = uint8(val); }
+inline void W3d_Shader_Set_PS2_Param_D(W3dShaderStruct* s, int val) { s->pad[0] = uint8(val); }
 
 inline int W3d_Shader_Get_PS2_Param_A(const W3dShaderStruct* s) { return (s->ColorMask); }
 inline int W3d_Shader_Get_PS2_Param_B(const W3dShaderStruct* s) { return (s->FogFunc); }

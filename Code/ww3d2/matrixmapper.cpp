@@ -147,7 +147,7 @@ void MatrixMapperClass::Update_View_To_Pixel_Transform(float tex_size)
 	** In addition, the z-coordinate is modified so that it goes from 0 to 1 rather than -1 to +1.
 	** It can also be flipped if the INVERT_DEPTH_GRADIENT flag is on.
 	*/
-	float k = 0.5 * (tex_size - 2.0f) / tex_size;
+	float k = 0.5f * (tex_size - 2.0f) / tex_size;
 
 	ViewToPixel[0][0] = k * ViewToTexture[0][0] + k * ViewToTexture[3][0];
 	ViewToPixel[0][1] = k * ViewToTexture[0][1] + k * ViewToTexture[3][1];

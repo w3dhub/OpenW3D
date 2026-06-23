@@ -238,7 +238,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
                     return FAILURE;
                 }
                 if (arg_port != 0 || arg_port > 0) {
-                    port = arg_port;
+                    port = USHORT(arg_port);
                 }
                 saddr = saddr_mem = new char[tport - argval + 1];
                 memcpy(saddr_mem, argval, tport - argval);

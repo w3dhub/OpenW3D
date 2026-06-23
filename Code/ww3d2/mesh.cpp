@@ -893,7 +893,7 @@ void MeshClass::Render_Material_Pass(MaterialPassClass * pass,IndexBufferClass *
 			int min_v = Model->Get_Vertex_Count();
 			int max_v = 0;
 
-			DynamicIBAccessClass dynamic_ib(buftype,temp_apt.Count() * 3);
+			DynamicIBAccessClass dynamic_ib(static_cast<unsigned short>(buftype),static_cast<unsigned short>(temp_apt.Count() * 3));
 			{
 				DynamicIBAccessClass::WriteLockClass lock(&dynamic_ib);
 				unsigned short * indices = lock.Get_Index_Array();
@@ -901,21 +901,21 @@ void MeshClass::Render_Material_Pass(MaterialPassClass * pass,IndexBufferClass *
 
 				for (int i=0; i < temp_apt.Count(); i++)
 				{
-					unsigned v0 = polys[temp_apt[i]].I;
-					unsigned v1 = polys[temp_apt[i]].J;
-					unsigned v2 = polys[temp_apt[i]].K;
+					int v0 = polys[temp_apt[i]].I;
+					int v1 = polys[temp_apt[i]].J;
+					int v2 = polys[temp_apt[i]].K;
 
 					indices[i*3 + 0] = (unsigned short)v0;
 					indices[i*3 + 1] = (unsigned short)v1;
 					indices[i*3 + 2] = (unsigned short)v2;
 
-					min_v = WWMath::Min(v0,min_v);
-					min_v = WWMath::Min(v1,min_v);
-					min_v = WWMath::Min(v2,min_v);
+					min_v = std::min(v0,min_v);
+					min_v = std::min(v1,min_v);
+					min_v = std::min(v2,min_v);
 
-					max_v = WWMath::Max(v0,max_v);
-					max_v = WWMath::Max(v1,max_v);
-					max_v = WWMath::Max(v2,max_v);
+					max_v = std::max(v0,max_v);
+					max_v = std::max(v1,max_v);
+					max_v = std::max(v2,max_v);
 				}
 			}
 
@@ -926,13 +926,13 @@ void MeshClass::Render_Material_Pass(MaterialPassClass * pass,IndexBufferClass *
 			pass->Install_Materials();
 
 			DX8Wrapper::Set_Transform(D3DTS_WORLD,Get_Transform());
-			DX8Wrapper::Set_Index_Buffer(dynamic_ib,vertex_offset);
+			DX8Wrapper::Set_Index_Buffer(dynamic_ib,static_cast<unsigned short>(vertex_offset));
 
 			DX8Wrapper::Draw_Triangles(
 				0,
-				temp_apt.Count(),
-				min_v,
-				max_v-min_v+1);
+				static_cast<unsigned short>(temp_apt.Count()),
+				static_cast<unsigned short>(min_v),
+				static_cast<unsigned short>(max_v-min_v+1));
 		}
 	} else {
 

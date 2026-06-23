@@ -112,9 +112,9 @@ inline void IntersectionClass::Get_Screen_Ray(float screen_x, float screen_y, co
 	float xscale = (max.X - min.X);
 	float yscale = (max.Y - min.Y);
 
-	float zmod = -1.0; // Scene->vpd; // Note: view plane distance is now always 1.0 from the camera
-	float xmod = (-ScreenX + 0.5 + viewport.Min.X) * zmod * xscale;// / aspect;
-	float ymod = (ScreenY - 0.5 - viewport.Min.Y) * zmod * yscale;// * aspect;
+	float zmod = -1.0f; // Scene->vpd; // Note: view plane distance is now always 1.0 from the camera
+	float xmod = (-ScreenX + 0.5f + viewport.Min.X) * zmod * xscale;// / aspect;
+	float ymod = (ScreenY - 0.5f - viewport.Min.Y) * zmod * yscale;// * aspect;
 
 //	float xmod = (ScreenX - 0.5 - viewport.Min.X) * zmod / Scene->axratio;
 //	float ymod = (ScreenY - 0.5 - viewport.Min.Y) * zmod / Scene->ayratio;
@@ -171,9 +171,9 @@ inline bool IntersectionClass::_Point_In_Polygon_Z(
 	// calculate alpha and beta as normalized (0..1) percentages across the 2d projected triangle
 	// and do bounds checking (sum <= 1)  to determine whether or not the triangle intersection occurs.
 
-	if (u1 == 0.0f)    {
+	if (u1 == 0.0)    {
 	  beta = u0 / u2;			// beta is the percentage down the edge Corner1->Corner3
-	  if ((beta >= 0.0f) && (beta <= 1.0f)) {		// make sure it's within the edge segment
+	  if ((beta >= 0.0) && (beta <= 1.0)) {		// make sure it's within the edge segment
 			alpha = (v0 - beta * v2) / v1;	 // alpha is the percentage down the edge Corner1->Corner2
 
 			// if alpha is valid & the sum of alpha & beta is <= 1 then it's within the triangle
@@ -194,7 +194,7 @@ inline bool IntersectionClass::_Point_In_Polygon_Z(
 		float u3 = Corner2[AXIS_3] - Corner1[AXIS_3];
 		float v3 = Corner3[AXIS_3] - Corner1[AXIS_3];
 
-		Point[AXIS_3] = u3 * alpha + v3 * beta + Corner1[AXIS_3];
+		Point[AXIS_3] = float(u3 * alpha + v3 * beta + Corner1[AXIS_3]);
 	}
 
 	return intersect;
@@ -250,19 +250,22 @@ inline bool IntersectionClass::_Point_In_Polygon(
 #endif
 
 	if (u1 == 0.0f)    {
-	  Beta = beta = u0 / u2;			// beta is the percentage down the edge loc1->loc3
+	  beta = u0 / u2;			// beta is the percentage down the edge loc1->loc3
+		Beta = float(beta);
 	  if ((beta >= 0.0f) && (beta <= 1.0f)) {		// make sure it's within the edge segment
-			Alpha = alpha = (v0 - beta * v2) / v1;	 // alpha is the percentage down the edge loc1->loc2
-
+			alpha = (v0 - beta * v2) / v1;	 // alpha is the percentage down the edge loc1->loc2
+			Alpha = float(alpha);
 			// if alpha is valid & the sum of alpha & beta is <= 1 then it's within the triangle
 			// note:       0.00001 added after testing an intersection of a square in the middle indicated
 			// an error of 0.0000001350, apparently due to roundoff.
 			intersect = ((alpha >= 0.0) && ((alpha + beta) <= 1.0)); 
 	  }
 	} else {
-	  Beta = beta = (v0 * u1 - u0 * v1) / (v2 * u1 - u2 * v1);
+	  beta = (v0 * u1 - u0 * v1) / (v2 * u1 - u2 * v1);
+		Beta = float(beta);
 	  if ((beta >= 0.0) && (beta <= 1.0)) {
-			Alpha = alpha = (u0 - beta * u2) / u1;
+			alpha = (u0 - beta * u2) / u1;
+			Alpha = float(alpha);
 			intersect = ((alpha >= 0.0) && ((alpha + beta) <= 1.0));
 	  }
 	}
@@ -337,7 +340,7 @@ inline float IntersectionClass::Plane_Z_Distance(Vector3 &PlaneNormal, Vector3 &
 	// determine distance to plane
 	double d = - (PlanePoint[0] * PlaneNormal[0] + PlanePoint[1] * PlaneNormal[1] + PlanePoint[2] * PlaneNormal[2]);
 
-	float value = - (d + PlaneNormal[0] * (*RayLocation)[0] + PlaneNormal[1] *  (*RayLocation)[1] + PlaneNormal[2] * (*RayLocation)[2]) / divisor;
+	float value = float(- (d + PlaneNormal[0] * (*RayLocation)[0] + PlaneNormal[1] *  (*RayLocation)[1] + PlaneNormal[2] * (*RayLocation)[2]) / divisor);
 
 	return value;
 }
@@ -358,7 +361,7 @@ inline float IntersectionClass::_Get_Z_Elevation(
 	// determine distance to plane
 	double d = - (PlanePoint[0] * PlaneNormal[0] + PlanePoint[1] * PlaneNormal[1] + PlanePoint[2] * PlaneNormal[2]);
 
-	float value = - (d + PlaneNormal[0] * Point[0] + PlaneNormal[1] *  Point[1] ) / PlaneNormal[2];
+	float value = float(- (d + PlaneNormal[0] * Point[0] + PlaneNormal[1] *  Point[1] ) / PlaneNormal[2]);
 
 	return value;
 }

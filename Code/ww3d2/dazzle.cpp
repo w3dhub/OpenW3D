@@ -956,7 +956,7 @@ void DazzleRenderObjClass::Render(RenderInfoClass & rinfo)
 
 			unsigned time_ms=WW3D::Get_Frame_Time();
 			if (time_ms==0) time_ms=1;
-			float weight=pow(params->ic.history_weight,time_ms);
+			float weight=WWMath::Pow(params->ic.history_weight,float(time_ms));
 
 			if (dazzle_intensity>0.0f) {
 				visibility = _VisibilityHandler->Compute_Dazzle_Visibility(rinfo,this,loc);
@@ -1052,7 +1052,7 @@ void DazzleRenderObjClass::Render_Dazzle(CameraClass* camera)
 		lens_max_verts=4*lensflare->lic.flare_count;
 	}
 
-	DynamicVBAccessClass vb_access(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,vertex_count*2+lens_max_verts);
+	DynamicVBAccessClass vb_access(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,static_cast<unsigned short>(vertex_count*2+lens_max_verts));
 	{
 		DynamicVBAccessClass::WriteLockClass lock(&vb_access);
 		VertexFormatXYZNDUV2* verts=lock.Get_Formatted_Vertex_Array();
@@ -1179,7 +1179,7 @@ void DazzleRenderObjClass::Render_Dazzle(CameraClass* camera)
 
 	DX8Wrapper::Set_Vertex_Buffer(vb_access);
 
-	DynamicIBAccessClass ib_access(BUFFER_TYPE_DYNAMIC_DX8,poly_count*3);
+	DynamicIBAccessClass ib_access(BUFFER_TYPE_DYNAMIC_DX8,static_cast<unsigned short>(poly_count*3));
 	{
 		DynamicIBAccessClass::WriteLockClass lock(&ib_access);
 		unsigned short* inds=lock.Get_Index_Array();
@@ -1200,12 +1200,12 @@ void DazzleRenderObjClass::Render_Dazzle(CameraClass* camera)
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,Matrix4(true));
 
 	if (halo_poly_count) {
-		DX8Wrapper::Set_Index_Buffer(ib_access,dazzle_vertex_count);
+		DX8Wrapper::Set_Index_Buffer(ib_access,static_cast<unsigned short>(dazzle_vertex_count));
 		DX8Wrapper::Set_Shader(default_halo_shader);
 		DX8Wrapper::Set_Texture(0,types[type]->Get_Halo_Texture());
 		SphereClass sphere(Get_Position(),0.1f);
 
-		DX8Wrapper::Draw_Triangles(0,halo_poly_count,0,vertex_count);
+		DX8Wrapper::Draw_Triangles(0,static_cast<unsigned short>(halo_poly_count),0,static_cast<unsigned short>(vertex_count));
 	}
 
 	if (dazzle_poly_count) {
@@ -1213,15 +1213,15 @@ void DazzleRenderObjClass::Render_Dazzle(CameraClass* camera)
 		DX8Wrapper::Set_Shader(default_dazzle_shader);
 		DX8Wrapper::Set_Texture(0,types[type]->Get_Dazzle_Texture());
 		SphereClass sphere(Vector3(0.0f,0.0f,0.0f),0.0f);
-		DX8Wrapper::Draw_Triangles(0,dazzle_poly_count,0,vertex_count);
+		DX8Wrapper::Draw_Triangles(0,static_cast<unsigned short>(dazzle_poly_count),0,static_cast<unsigned short>(vertex_count));
 	}
 
 	if (lensflare_poly_count) {
-		DX8Wrapper::Set_Index_Buffer(ib_access,dazzle_vertex_count+halo_vertex_count);
+		DX8Wrapper::Set_Index_Buffer(ib_access,static_cast<unsigned short>(dazzle_vertex_count+halo_vertex_count));
 		DX8Wrapper::Set_Shader(default_dazzle_shader);
 		DX8Wrapper::Set_Texture(0,lensflare->Get_Texture());
 		SphereClass sphere(Vector3(0.0f,0.0f,0.0f),0.0f);
-		DX8Wrapper::Draw_Triangles(0,lensflare_poly_count,0,vertex_count);
+		DX8Wrapper::Draw_Triangles(0,static_cast<unsigned short>(lensflare_poly_count),0,static_cast<unsigned short>(vertex_count));
 	}
 
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,old_projection_transform);

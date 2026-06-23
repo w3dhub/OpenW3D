@@ -1243,7 +1243,7 @@ void cGameData::Begin_Intermission(void)
 	}
 
 	IsIntermission.Set(true);
-   IntermissionTimeRemaining = Get_Intermission_Time_Seconds();
+   IntermissionTimeRemaining = float(Get_Intermission_Time_Seconds());
 
 	//
 	//	Display a dialog with the win information on it
@@ -1302,7 +1302,7 @@ void cGameData::Set_Time_Remaining_Seconds(float time_remaining_seconds)
 //-----------------------------------------------------------------------------
 void cGameData::Reset_Time_Remaining_Seconds(void)
 {
-	TimeRemainingSeconds = 60 * TimeLimitMinutes;
+	TimeRemainingSeconds = float(60 * TimeLimitMinutes);
 }
 
 //-----------------------------------------------------------------------------
@@ -1844,12 +1844,12 @@ void cGameData::Show_Game_Settings_Limits(void)
 
 
 	// Render if needed  -------------------------------------------------------
-	float charHeight = PTextRenderer->Peek_Font()->Get_Char_Height();
+	float charHeight = float(PTextRenderer->Peek_Font()->Get_Char_Height());
 
 	if (!changed) {
 		// Proceed the multihud by one line (as we are caching the time render which would usually do this)
 		float y = MultiHUDClass::Get_Bottom_Text_Y_Pos();
-		y -= 1.2 * charHeight;
+		y -= 1.2f * charHeight;
 		MultiHUDClass::Set_Bottom_Text_Y_Pos(y);
 		BottomText.Reset_Active();
 		return;
@@ -1876,15 +1876,15 @@ void cGameData::Show_Game_Settings_Limits(void)
 	MultiHUDClass::Set_Bottom_Text_Y_Pos( Render2DClass::Get_Screen_Resolution().Bottom - 15 );
 
 	y = MultiHUDClass::Get_Bottom_Text_Y_Pos();
-	y -= 1.2 * charHeight;
-	Vector2 loc(cMathUtil::Round(x), cMathUtil::Round(y));
+	y -= 1.2f * charHeight;
+	Vector2 loc(WWMath::Round(x), WWMath::Round(y));
 	PTextRenderer->Set_Location(loc);
 	PTextRenderer->Build_Sentence(renderer_time_text);
 	PTextRenderer->Draw_Sentence();
 
 	for (j=0;j<OldBottomText.Count();++j) {
-		y -= 1.2 * charHeight;
-		loc[1]=cMathUtil::Round(y);
+		y -= 1.2f * charHeight;
+		loc[1]=WWMath::Round(y);
 		PTextRenderer->Set_Location(loc);
 		PTextRenderer->Build_Sentence(OldBottomText[j]);
 		PTextRenderer->Draw_Sentence();
@@ -1899,7 +1899,7 @@ void cGameData::Show_Game_Settings_Limits(void)
 		x = Render2DClass::Get_Screen_Resolution().Center().X - extent.X / 2.0f;
 
 		y = Render2DClass::Get_Screen_Resolution().Center().Y;
-		PTextRenderer->Set_Location(Vector2(cMathUtil::Round(x), cMathUtil::Round(y)));
+		PTextRenderer->Set_Location(Vector2(WWMath::Round(x), WWMath::Round(y)));
 		PTextRenderer->Build_Sentence(renderer_dedicated_server_label);
 		PTextRenderer->Draw_Sentence(renderer_dedicated_server_color);
 	}
@@ -1908,8 +1908,8 @@ void cGameData::Show_Game_Settings_Limits(void)
 	if (show_gameplay_label) {
 		Vector2 extent = PTextRenderer->Get_Text_Extents(renderer_gameplay_label);
 		x = Render2DClass::Get_Screen_Resolution().Center().X -  extent.X / 2.0f;
-		y = Render2DClass::Get_Screen_Resolution().Center().Y + 1.2 * charHeight;
-		PTextRenderer->Set_Location(Vector2(cMathUtil::Round(x), cMathUtil::Round(y)));
+		y = Render2DClass::Get_Screen_Resolution().Center().Y + 1.2f * charHeight;
+		PTextRenderer->Set_Location(Vector2(WWMath::Round(x), WWMath::Round(y)));
 		PTextRenderer->Build_Sentence(renderer_gameplay_label);
 		PTextRenderer->Draw_Sentence(color);
 	}
@@ -1987,7 +1987,7 @@ void cGameData::Think(void)
 		//
 		// Update CurrentPlayers
 		//
-		int max = (int) WWMath::Max(
+		int max = std::max(
 			cPlayerManager::Count(),
 			cNetwork::PServerConnection->Get_Num_RHosts());
 		Set_Current_Players(max);

@@ -170,7 +170,7 @@ cGameDataSkirmish::Soldier_Added (SoldierGameObj *soldier)
 			soldier->Get_Player_Data() != NULL &&
 			soldier->Get_Player_Data()->Get_Game_Time () == 0)
 	{
-		soldier->Get_Player_Data ()->Set_Money (StartingCredits);
+		soldier->Get_Player_Data ()->Set_Money (float(StartingCredits));
 	}
 
 	return ;

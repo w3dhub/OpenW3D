@@ -91,8 +91,8 @@ ToolTipClass::Create_Text_Renderer (void)
 	//
 	Vector2 text_extent = renderer.Get_Text_Extents (Text);
 
-	int x_pos = int(Rect.Left + ((Rect.Width() - text_extent.X) / 2));
-	int y_pos = int(Rect.Top + ((Rect.Height() - text_extent.Y) / 2));
+	float x_pos = WWMath::Trunc(Rect.Left + ((Rect.Width() - text_extent.X) / 2));
+	float y_pos = WWMath::Trunc(Rect.Top + ((Rect.Height() - text_extent.Y) / 2));
 
 	//
 	//	Draw the text

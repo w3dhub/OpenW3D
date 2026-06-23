@@ -517,7 +517,7 @@ void	ElevatorPhysClass::Set_State( int new_state )
 
 			case STATE_MOVING_DOWN:
 				AnimManager.Set_Animation_Mode( AnimCollisionManagerClass::ANIMATE_TARGET );
-				AnimManager.Set_Target_Frame( AnimManager.Peek_Animation()->Get_Num_Frames() - 1 );
+				AnimManager.Set_Target_Frame( float(AnimManager.Peek_Animation()->Get_Num_Frames() - 1) );
 				break;
 		}
 
@@ -752,7 +752,7 @@ void	ElevatorPhysClass::Update_Sound_Effects( void )
 		//
 		//	Check to see if we should play the opening or closing sounds on the door
 		//
-		if ( Has_Frame_Occured( prev_frame, curr_frame, AnimManager.Peek_Animation()->Get_Num_Frames()-1 ) ) {
+		if ( Has_Frame_Occured( prev_frame, curr_frame, float(AnimManager.Peek_Animation()->Get_Num_Frames()-1) ) ) {
 			Play_Effect( EFFECT_DOOR_CLOSING,  false );
 		} else if ( Has_Frame_Occured( prev_frame, curr_frame, def->DoorClosedTop_FrameNum ) ) {
 			Play_Effect( EFFECT_DOOR_OPENING,  true );

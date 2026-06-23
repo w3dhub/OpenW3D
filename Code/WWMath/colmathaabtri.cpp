@@ -37,7 +37,6 @@
  *   aabtri_check_cross_axis -- projects aab and tri onto a "cross" axis                       *
  *   aabtri_check_basis_axis -- projects the aab and tri onto a basis axis                     *
  *   aabtri_check_normal_axis -- project the box and tri onto the tri-normal                   *
- *   eval_side -- returns -1,0,+1 depending on the sign of val and side                        *
  *   aabtri_compute_contact_normal -- computes the normal of the collision                     *
  *   CollisionMath::Collide -- collide an aabox into a triangle                                *
  *   aabtri_intersect_cross_axis -- intersection check for a "cross-product" axis              *
@@ -282,9 +281,9 @@ static inline bool aabtri_check_axis(void)
 		dist = -dist;
 		axismove = -axismove;
 		CollisionContext.TestAxis = -CollisionContext.TestAxis;
-		CollisionContext.TestSide = -1.0f;
+		CollisionContext.TestSide = -1;
 	} else {
-		CollisionContext.TestSide = 1.0f;
+		CollisionContext.TestSide = 1;
 	}
 
 	// compute coordinates of the leading edge of the box at t0 and t1
@@ -340,9 +339,9 @@ static inline bool aabtri_check_cross_axis
 		axismove = -axismove;
 		dp = -dp;
 		CollisionContext.TestAxis = -CollisionContext.TestAxis;
-		CollisionContext.TestSide = -1.0f;
+		CollisionContext.TestSide = -1;
 	} else {
-		CollisionContext.TestSide = 1.0f;
+		CollisionContext.TestSide = 1;
 	}
 
 	// compute coordinates of the leading edge of the box at t1
@@ -395,9 +394,9 @@ static inline bool aabtri_check_basis_axis
 		dp1 = -dp1;
 		dp2 = -dp2;
 		CollisionContext.TestAxis = -CollisionContext.TestAxis;
-		CollisionContext.TestSide = -1.0f;
+		CollisionContext.TestSide = -1;
 	} else {
-		CollisionContext.TestSide = 1.0f;
+		CollisionContext.TestSide = 1;
 	}
 
 	// this is the "optimization", leb0 = one of the extents
@@ -444,9 +443,9 @@ static inline bool aabtri_check_normal_axis(void)
 		dist = -dist;
 		axismove = -axismove;
 		CollisionContext.TestAxis = -CollisionContext.TestAxis;
-		CollisionContext.TestSide = -1.0f;
+		CollisionContext.TestSide = -1;
 	} else {
-		CollisionContext.TestSide = 1.0f;
+		CollisionContext.TestSide = 1;
 	}
 
 	leb0 =	CollisionContext.Box->Extent.X * WWMath::Fabs(CollisionContext.AN[0]) +
@@ -457,29 +456,6 @@ static inline bool aabtri_check_normal_axis(void)
 	lp = dist;	// this is the "optimization", don't have to find lp
 
 	return aabtri_separation_test(/*CollisionContext,*/lp,leb0,leb1);
-}
-
-/***********************************************************************************************
- * eval_side -- returns -1,0,+1 depending on the sign of val and side                          *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   4/8/99     GTH : Created.                                                                 *
- *=============================================================================================*/
-static inline float eval_side(float val,int side)
-{
-	if (val > 0.0f) {
-		return side;
-	} else if (val < 0.0f) {
-		return -side;
-	} else {
-		return 0.0f;
-	}
 }
 
 /***********************************************************************************************
@@ -507,52 +483,52 @@ static inline void aabtri_compute_contact_normal
 			set_norm.Normalize();
 			break;
 		case AXIS_N:
-			set_norm = -CollisionContext.Side * CollisionContext.N;
+			set_norm = float(-CollisionContext.Side) * CollisionContext.N;
 			set_norm.Normalize();
 			break;
 		case AXIS_A0:
-			set_norm = -CollisionContext.Side * Vector3(1.0f,0.0f,0.0f);
+			set_norm = float(-CollisionContext.Side) * Vector3(1.0f,0.0f,0.0f);
 			break;
 		case AXIS_A1:
-			set_norm = -CollisionContext.Side * Vector3(0.0f,1.0f,0.0f);
+			set_norm = float(-CollisionContext.Side) * Vector3(0.0f,1.0f,0.0f);
 			break;
 		case AXIS_A2:
-			set_norm = -CollisionContext.Side * Vector3(0.0f,0.0f,1.0f);
+			set_norm = float(-CollisionContext.Side) * Vector3(0.0f,0.0f,1.0f);
 			break;
 		case AXIS_A0E0:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[0][0];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[0][0];
 			set_norm.Normalize();
 			break;
 		case AXIS_A1E0:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[1][0];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[1][0];
 			set_norm.Normalize();
 			break;
 		case AXIS_A2E0:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[2][0];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[2][0];
 			set_norm.Normalize();
 			break;
 		case AXIS_A0E1:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[0][1];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[0][1];
 			set_norm.Normalize();
 			break;
 		case AXIS_A1E1:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[1][1];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[1][1];
 			set_norm.Normalize();
 			break;
 		case AXIS_A2E1:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[2][1];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[2][1];
 			set_norm.Normalize();
 			break;
 		case AXIS_A0E2:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[0][2];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[0][2];
 			set_norm.Normalize();
 			break;
 		case AXIS_A1E2:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[1][2];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[1][2];
 			set_norm.Normalize();
 			break;
 		case AXIS_A2E2:
-			set_norm = -CollisionContext.Side * CollisionContext.AxE[2][2];
+			set_norm = float(-CollisionContext.Side) * CollisionContext.AxE[2][2];
 			set_norm.Normalize();
 			break;
 	}

@@ -1329,14 +1329,14 @@ void	SoldierObserverClass::State_Act_Attack( SoldierGameObj * soldier )
 void SoldierObserverClass::Action_Reset( SoldierGameObj * soldier )
 {
 	WWASSERT( soldier != NULL );
-	soldier->Get_Action()->Reset( StatePriorities[ State ] );
+	soldier->Get_Action()->Reset( float(StatePriorities[ State ]) );
 }
 
 void SoldierObserverClass::Action_Face_Location( SoldierGameObj * soldier, const Vector3 & location, SoldierAIState ai_state, bool crouched )
 {
 	WWASSERT( soldier != NULL );
 	ActionParamsStruct parameters;
-	parameters.Set_Basic( Get_ID(), StatePriorities[ State ], INNATE_ACTION_ID, ai_state );
+	parameters.Set_Basic( Get_ID(), float(StatePriorities[ State ]), INNATE_ACTION_ID, ai_state );
 	parameters.Set_Face_Location( location, 2 );
 	parameters.MoveCrouched = crouched;
    soldier->Get_Action()->Face_Location( parameters );
@@ -1348,7 +1348,7 @@ void SoldierObserverClass::Action_Goto_Location( SoldierGameObj * soldier, const
 	Vector3	move_position = location;
 	Stay_Within_Home( soldier, &move_position, &distance );
 	ActionParamsStruct parameters;
-	parameters.Set_Basic( Get_ID(), StatePriorities[ State ], INNATE_ACTION_ID, ai_state );
+	parameters.Set_Basic( Get_ID(), float(StatePriorities[ State ]), INNATE_ACTION_ID, ai_state );
 	parameters.Set_Movement( move_position, speed, distance, crouched );
    soldier->Get_Action()->Goto( parameters );
 }
@@ -1359,7 +1359,7 @@ void SoldierObserverClass::Action_Goto_Location_Facing( SoldierGameObj * soldier
 	Vector3	move_position = location;
 	Stay_Within_Home( soldier, &move_position, &distance );
 	ActionParamsStruct parameters;
-	parameters.Set_Basic( Get_ID(), StatePriorities[ State ], INNATE_ACTION_ID, ai_state );
+	parameters.Set_Basic( Get_ID(), float(StatePriorities[ State ]), INNATE_ACTION_ID, ai_state );
 	parameters.Set_Movement( move_position, speed, distance, crouched );
 	parameters.ForceFacing = true;
 	parameters.FaceLocation = facing_pos;
@@ -1379,7 +1379,7 @@ void SoldierObserverClass::Action_Attack_Object( SoldierGameObj * soldier, Physi
 
 	if ( enemy != NULL && soldier->Get_Weapon() != NULL ) {
 		ActionParamsStruct parameters;
-		parameters.Set_Basic( Get_ID(), StatePriorities[ State ], INNATE_ACTION_ID, AI_STATE_COMBAT );
+		parameters.Set_Basic( Get_ID(), float(StatePriorities[ State ]), INNATE_ACTION_ID, AI_STATE_COMBAT );
 		parameters.Set_Movement( move_position, RUN_SPEED, arrived_distance, kneel );
 		parameters.Set_Attack( enemy, range, FreeRandom.Get_Float(2), true );
 		parameters.AttackCrouched = kneel;
@@ -1399,7 +1399,7 @@ void SoldierObserverClass::Action_Dive( SoldierGameObj * soldier, const Vector3 
 {
 	WWASSERT( soldier != NULL );
 	ActionParamsStruct parameters;
-	parameters.Set_Basic( Get_ID(), StatePriorities[ State ], INNATE_ACTION_ID, AI_STATE_SEARCH );
+	parameters.Set_Basic( Get_ID(), float(StatePriorities[ State ]), INNATE_ACTION_ID, AI_STATE_SEARCH );
 	parameters.MoveLocation = location;
 	soldier->Get_Action()->Dive( parameters );
 }

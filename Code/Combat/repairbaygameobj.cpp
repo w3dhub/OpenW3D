@@ -712,7 +712,7 @@ RepairBayGameObj::Repair_Vehicle (void)
 					//
 					if (health_restored > 0) {
 						if (CombatManager::I_Am_Server ()) {
-							vehicle->Get_Defense_Object ()->Add_Health (health_restored);
+							vehicle->Get_Defense_Object ()->Add_Health (float(health_restored));
 						}
 						is_repairing = true;
 					}
@@ -722,7 +722,7 @@ RepairBayGameObj::Repair_Vehicle (void)
 					//
 					if (shield_restored > 0) {
 						if (CombatManager::I_Am_Server ()) {
-							vehicle->Get_Defense_Object ()->Add_Shield_Strength (shield_restored);
+							vehicle->Get_Defense_Object ()->Add_Shield_Strength (float(shield_restored));
 						}
 						is_repairing = true;
 					}

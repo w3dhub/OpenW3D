@@ -142,16 +142,16 @@ DialogBaseClass::Start_Dialog (void)
 	//	Convert the dialog's width and height from dialog units to screen units
 	//
 	const RectClass &screen_rect	= Render2DClass::Get_Screen_Resolution ();
-	int dlg_screen_width				= int(((float)DialogResource_->cx / RES_SCREEN_WIDTH) * screen_rect.Width ());
-	int dlg_screen_height			= int(((float)DialogResource_->cy / RES_SCREEN_HEIGHT) * screen_rect.Height ());
+	float dlg_screen_width				= WWMath::Trunc(((float)DialogResource_->cx / RES_SCREEN_WIDTH) * screen_rect.Width ());
+	float dlg_screen_height			= WWMath::Trunc(((float)DialogResource_->cy / RES_SCREEN_HEIGHT) * screen_rect.Height ());
 
 	//
 	//	Center the dialog on the screen
 	//
-	Rect.Left	= int(screen_rect.Center ().X - ((float)dlg_screen_width * 0.5F));
-	Rect.Top		= int(screen_rect.Center ().Y - ((float)dlg_screen_height * 0.5F));
-	Rect.Right	= int(Rect.Left + dlg_screen_width);
-	Rect.Bottom	= int(Rect.Top + dlg_screen_height);
+	Rect.Left	= WWMath::Trunc(screen_rect.Center ().X - (dlg_screen_width * 0.5F));
+	Rect.Top		= WWMath::Trunc(screen_rect.Center ().Y - (dlg_screen_height * 0.5F));
+	Rect.Right	= WWMath::Trunc(Rect.Left + dlg_screen_width);
+	Rect.Bottom	= WWMath::Trunc(Rect.Top + dlg_screen_height);
 
 	//
 	//	Now create the controls
@@ -268,17 +268,17 @@ DialogBaseClass::Start_Dialog (void)
 			control->Set_Style (info.style);
 			control->Set_ID (info.id);
 
-			int ctrl_width		= int((((float)info.cx) / RES_SCREEN_WIDTH) * screen_rect.Width ());
-			int ctrl_height	= int((((float)info.cy) / RES_SCREEN_HEIGHT) * screen_rect.Height ());
+			float ctrl_width		= WWMath::Trunc((((float)info.cx) / RES_SCREEN_WIDTH) * screen_rect.Width ());
+			float ctrl_height	= WWMath::Trunc((((float)info.cy) / RES_SCREEN_HEIGHT) * screen_rect.Height ());
 
 			//
 			//	Calculate the screen position of the control
 			//
 			RectClass rect;
-			rect.Left	= int(Rect.Left + ((((float)info.x) / RES_SCREEN_WIDTH) * screen_rect.Width ()));
-			rect.Top		= int(Rect.Top + ((((float)info.y) / RES_SCREEN_HEIGHT) * screen_rect.Height ()));
-			rect.Right	= int(rect.Left + ctrl_width);
-			rect.Bottom	= int(rect.Top + ctrl_height);
+			rect.Left	= WWMath::Trunc(Rect.Left + ((((float)info.x) / RES_SCREEN_WIDTH) * screen_rect.Width ()));
+			rect.Top		= WWMath::Trunc(Rect.Top + ((((float)info.y) / RES_SCREEN_HEIGHT) * screen_rect.Height ()));
+			rect.Right	= WWMath::Trunc(rect.Left + ctrl_width);
+			rect.Bottom	= WWMath::Trunc(rect.Top + ctrl_height);
 			control->Set_Window_Rect (rect);
 
 			//

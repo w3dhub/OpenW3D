@@ -555,10 +555,10 @@ void cConnection::Set_Packet_Loss(double percent_lost)
 
    WWASSERT(percent_lost >= 0 && percent_lost <= 100);
 
-   SimulatedPacketLossPerRANDMAX = (UINT) cMathUtil::Round(
+   SimulatedPacketLossPerRANDMAX = (USHORT) cMathUtil::Round(
 		percent_lost / 100.0 * RAND_MAX);
 
-	WWDEBUG_SAY(("cConnection::Set_Packet_Loss: %d / %d\n", SimulatedPacketLossPerRANDMAX, RAND_MAX));
+	WWDEBUG_SAY(("cConnection::Set_Packet_Loss: %hu / %d\n", SimulatedPacketLossPerRANDMAX, RAND_MAX));
 }
 
 //------------------------------------------------------------------------------------
@@ -575,7 +575,7 @@ void cConnection::Set_Packet_Duplication(double percent_duplicated)
    //
    // Globally:
    //
-   SimulatedPacketDuplicationPerRANDMAX = (UINT) cMathUtil::Round(
+   SimulatedPacketDuplicationPerRANDMAX = (USHORT) cMathUtil::Round(
 		percent_duplicated / 100.0 * RAND_MAX);
 
 	WWDEBUG_SAY(("cConnection::Set_Packet_Duplication: %d / %d\n",  SimulatedPacketDuplicationPerRANDMAX, RAND_MAX));
@@ -745,7 +745,7 @@ bool cConnection::Receive_Packet()
    //
 	// Measurement stats
 	//
-	USHORT packet_bits = Calculate_Packet_Bits(ret_code);
+	USHORT packet_bits = Calculate_Packet_Bits(USHORT(ret_code));
 
    int addressee = Address_To_Rhostid(&packet.Get_From_Address_Wrapper()->FromAddress);
    if (addressee != INVALID_RHOST_ID) {
@@ -1527,7 +1527,7 @@ void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p
 			TotalCompressedBytesSent	+= packet.Get_Compressed_Size_Bytes();
 			TotalUncompressedBytesSent += packet.Get_Uncompressed_Size_Bytes();
 
-         USHORT bits_sent = Calculate_Packet_Bits(packet.Get_Compressed_Size_Bytes());
+         USHORT bits_sent = Calculate_Packet_Bits(USHORT(packet.Get_Compressed_Size_Bytes()));
 
          if (rhost_id != INVALID_RHOST_ID) {
             PRHost[rhost_id]->Get_Stats().StatSample[STAT_PktSent]++;
@@ -2448,7 +2448,7 @@ void cConnection::Service_Send(bool is_urgent)
 	//
 	// Monkey with the stats for a while
 	//
-	float sample_time_ms = ThisFrameTimeMs - CombinedStats.Get_Sample_Start_Time();
+	float sample_time_ms = float(ThisFrameTimeMs - CombinedStats.Get_Sample_Start_Time());
 
    if (IsServer && NumRHosts > 0 &&
       sample_time_ms > cNetUtil::NETSTATS_SAMPLE_TIME_MS) {

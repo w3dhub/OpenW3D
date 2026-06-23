@@ -177,8 +177,8 @@ void WindClass::Set (float heading, float speed, float variability)
  *=============================================================================================*/
 bool WindClass::Update()
 {
-	const double frequency [OCTAVE_COUNT] = {0.5l, 0.2l};
-	const double twopi						  = WWMATH_PI * 2.0l;
+	const double frequency [OCTAVE_COUNT] = {0.5, 0.2};
+	const double twopi						  = WWMATH_PI * 2.0;
 
 	float	h, speed;
 
@@ -189,10 +189,10 @@ bool WindClass::Update()
 
 		for (unsigned octave = 0; octave < OCTAVE_COUNT; octave++) {
 
-			Theta [octave] += WW3D::Get_Frame_Time() * 0.001l * frequency [octave];
-			d = floorf (Theta [octave] / twopi);
+			Theta [octave] += WW3D::Get_Frame_Time() * 0.001 * frequency [octave];
+			d = int(WWMath::Floor (Theta [octave] / twopi));
 			if (d >= 1) Theta [octave] -= d * twopi;
-			f += sinf (Theta [octave]);
+			f += float(WWMath::Sin (Theta [octave]));
 		}
 		speed = Speed - (Speed * ((f + 1.0f) * 0.5f) * Variability);
 	} else {
@@ -200,7 +200,7 @@ bool WindClass::Update()
 	}
 
 	h = Heading + (0.5f * WWMATH_PI);
-	Velocity.Set (cosf (h) * speed, sinf (h) * speed);
+	Velocity.Set (WWMath::Cos (h) * speed, WWMath::Sin (h) * speed);
 
 	// Update wind sound effect.
 	if (Sound != NULL) {
@@ -210,7 +210,7 @@ bool WindClass::Update()
 		float attenuation;
 
 		// Precalculate volume attenuation based on speed.
-		attenuation = (0.5f * (MIN (Speed, maxvolumespeed) + MIN (speed, maxvolumespeed))) / maxvolumespeed;
+		attenuation = (0.5f * (std::min (Speed, maxvolumespeed) + std::min (speed, maxvolumespeed))) / maxvolumespeed;
 		Sound->Set_Volume (SoundEnvironment->Get_Amplitude() * attenuation);
 	}
 
@@ -303,7 +303,7 @@ WeatherSystemClass::WeatherSystemClass	(PhysicsSceneClass *scene,
 		unsigned short *indices = lock.Get_Index_Array();
 
 		for (unsigned i = 0; i < MAX_IB_PARTICLE_COUNT * VERTICES_PER_TRIANGLE; i++) {
-			*indices++ = i;
+			*indices++ = static_cast<unsigned short>(i);
 		}
 	}
 
@@ -405,7 +405,7 @@ void WeatherSystemClass::Set_Density (float density)
 
 	// Calculate no. of rays required.
 	ParticleDensity = density;
-	raycount			 = Spawn_Count (1.0f) / (ParticlesPerUnitLength * ParticleSpeed);
+	raycount			 = int(Spawn_Count (1.0f) / (ParticlesPerUnitLength * ParticleSpeed));
 
 	// Is the ray count increasing or decreasing in size?
 	signedcount = ((int) RayCount) - ((int) raycount);
@@ -473,7 +473,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 	const unsigned randomness		= 10000;
 	const float		oorandomness	= 1.0f / randomness;
 	const float		overlapdelta	= EmitterSize * 2.0f;
-	const unsigned rayupdatecount = MAX (RayCount * 0.018f, 1);
+	const unsigned rayupdatecount = unsigned(std::max (RayCount * 0.018f, 1.0f));
 
 	Vector3				oldemitterposition;
 	float					ooz;
@@ -667,7 +667,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 			// Spawn some particles along the ray.
 			// NOTE: For accuracy, accumulate fractional spawncounts so that they can be used on a later ray.
 			s = ParticlesPerUnitLength * (rayptr->EndPosition - raystartposition).Quick_Length();
-			spawncount = floor (s);
+			spawncount = unsigned(WWMath::Floor (s));
 			spawncountfraction += s - spawncount;
 			if (spawncountfraction >= 1.0f) {
 				spawncountfraction -= 1.0f;
@@ -779,7 +779,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 				// Place the particle at the collision point.
 				particleptr->Velocity.Set (0.0f, 0.0f, 0.0f);
 				particleptr->CurrentPosition = particleptr->CollisionPosition;
-				if (StaticPageExists) particleptr->Page = PageCount - 1;
+				if (StaticPageExists) particleptr->Page = static_cast<unsigned char>(PageCount - 1);
 				particleptr->RenderMode = RENDER_MODE_SURFACE_ALIGNED;
 			}
 
@@ -809,7 +809,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 	// Spawn any new particles that need to be spawned on this update.
 	// NOTE: For accuracy, accumulate fractional spawncounts so that they can be used on a later iteration.
 	float s = Spawn_Count (time);
-	unsigned spawncount = floor (s);
+	unsigned spawncount = unsigned(WWMath::Floor (s));
 	SpawnCountFraction += s - spawncount;
 	if (SpawnCountFraction >= 1.0f) {
 		SpawnCountFraction -= 1.0f;
@@ -914,8 +914,8 @@ bool WeatherSystemClass::Spawn (RayStruct *suppliedrayptr)
 				particleptr->ElapsedTime	  = 0.0f;
 				particleptr->Velocity		  = rayptr->ParticleVelocity;
 				particleptr->CurrentPosition = Vector3 (rayptr->StartPosition.X, rayptr->StartPosition.Y, EmitterPosition.Z);
-				particleptr->Page				  = _RandomNumber (0, PageCount - (StaticPageExists ? 2 : 1));
-				particleptr->RenderMode		  = RenderMode;
+				particleptr->Page				  = static_cast<unsigned char>(_RandomNumber (0, PageCount - (StaticPageExists ? 2 : 1)));
+				particleptr->RenderMode		  = static_cast<unsigned char>(RenderMode);
 
 			} else {
 
@@ -929,17 +929,17 @@ bool WeatherSystemClass::Spawn (RayStruct *suppliedrayptr)
 					particleptr->Velocity.Set (0.0f, 0.0f, 0.0f);
 					particleptr->CurrentPosition = rayptr->EndPosition;
 					if (StaticPageExists) {
-						particleptr->Page	= PageCount - 1;
+						particleptr->Page	= static_cast<unsigned char>(PageCount - 1);
 					} else {
-						particleptr->Page	= _RandomNumber (0, PageCount - 1);
+						particleptr->Page	= static_cast<unsigned char>(_RandomNumber (0, PageCount - 1));
 					}
 					particleptr->RenderMode = RENDER_MODE_SURFACE_ALIGNED;
 
 				} else {
 					particleptr->Velocity		  = rayptr->ParticleVelocity;
 					particleptr->CurrentPosition = Vector3 (rayptr->StartPosition.X, rayptr->StartPosition.Y, EmitterPosition.Z) + (particleptr->Velocity * particleptr->ElapsedTime);
-					particleptr->Page				  = _RandomNumber (0, PageCount - (StaticPageExists ? 2 : 1));
-					particleptr->RenderMode		  = RenderMode;
+					particleptr->Page				  = static_cast<unsigned char>(_RandomNumber (0, PageCount - (StaticPageExists ? 2 : 1)));
+					particleptr->RenderMode		  = static_cast<unsigned char>(RenderMode);
 				}
 			}
 
@@ -1058,13 +1058,13 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 			unsigned particlecount, submittedparticlecount;
 
 			#if WEATHER_PARTICLE_SORT
-			DynamicVBAccessClass dynamicvb (BUFFER_TYPE_DYNAMIC_SORTING, dynamic_fvf_type, bufferparticlecount * VERTICES_PER_TRIANGLE);
+			DynamicVBAccessClass dynamicvb (BUFFER_TYPE_DYNAMIC_SORTING, dynamic_fvf_type, static_cast<unsigned short>(bufferparticlecount * VERTICES_PER_TRIANGLE));
 			#else
-			DynamicVBAccessClass dynamicvb (BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, bufferparticlecount * VERTICES_PER_TRIANGLE);
+			DynamicVBAccessClass dynamicvb (BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, static_cast<unsigned short>(bufferparticlecount * VERTICES_PER_TRIANGLE));
 			#endif
 
 			// Copy the data into the sorting vertex buffer.
-			particlecount = MIN (ParticleCount - processedparticlecount, MAX_IB_PARTICLE_COUNT);
+			particlecount = std::min (ParticleCount - processedparticlecount, unsigned(MAX_IB_PARTICLE_COUNT));
 			submittedparticlecount = 0;
 			{
 				DynamicVBAccessClass::WriteLockClass lock (&dynamicvb);
@@ -1200,9 +1200,9 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 				DX8Wrapper::Set_Vertex_Buffer (dynamicvb);
 
 				#if WEATHER_PARTICLE_SORT
-				SortingRendererClass::Insert_Triangles (0, submittedparticlecount, 0, submittedparticlecount * VERTICES_PER_TRIANGLE);
+				SortingRendererClass::Insert_Triangles (0, static_cast<unsigned short>(submittedparticlecount), 0, static_cast<unsigned short>(submittedparticlecount * VERTICES_PER_TRIANGLE));
 				#else
-				DX8Wrapper::Draw_Triangles (0, submittedparticlecount, 0, submittedparticlecount * VERTICES_PER_TRIANGLE);
+				DX8Wrapper::Draw_Triangles (0, static_cast<unsigned short>(submittedparticlecount), 0, static_cast<unsigned short>(submittedparticlecount * VERTICES_PER_TRIANGLE));
 				#endif
 			}
 

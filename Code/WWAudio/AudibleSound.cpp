@@ -499,7 +499,7 @@ AudibleSoundClass::Play (bool alloc_handle)
 			m_SoundHandle->Start_Sample ();
 		}
 
-		m_CurrentPosition	= m_StartOffset * m_Length;
+		m_CurrentPosition	= unsigned(m_StartOffset * m_Length);
 		if (m_CurrentPosition > 0) {
 			Seek (m_CurrentPosition);
 		}

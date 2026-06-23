@@ -204,7 +204,7 @@ void cNetwork::Init_Client([[maybe_unused]] unsigned short my_port)
 
 	WWASSERT(PTheGameData != NULL);
    PClientConnection->Init_As_Client(
-		The_Game()->Get_Ip_Address(), The_Game()->Get_Port(), my_port);
+		The_Game()->Get_Ip_Address(), static_cast<unsigned short>(The_Game()->Get_Port()), my_port);
 
 	//
 	// This packet resurfaces on the server in Application_Acceptance_Handler
@@ -696,7 +696,7 @@ void cNetwork::Init_Server(void)
 
 	WWASSERT(PTheGameData != NULL);
 	PServerConnection->Init_As_Server(
-		The_Game()->Get_Port(),
+		static_cast<unsigned short>(The_Game()->Get_Port()),
 		The_Game()->Get_Max_Players(),
 		The_Game()->IsDedicated.Get(),
 		ntohl(The_Game()->Get_Ip_Address()));
@@ -997,7 +997,7 @@ void cNetwork::Client_Send_Packet([[maybe_unused]] cPacket & packet, [[maybe_unu
 
 	if (cNetwork::PClientConnection->Is_Established()) {
 
-		PClientConnection->Send_Packet_To_Individual(packet, 0, mode);
+		PClientConnection->Send_Packet_To_Individual(packet, 0, static_cast<unsigned char>(mode));
 
 		/*
 		BYTE message_type = packet.Peek_Message_Type();
@@ -1044,7 +1044,7 @@ void cNetwork::Server_Send_Packet(cPacket & packet, int mode, int recipient)
 				int client_id = p_player->Get_Id();
 
 				PServerConnection->Send_Packet_To_Individual(
-					packet, client_id, mode);
+					packet, client_id, static_cast<unsigned char>(mode));
 
 				/*
 				BYTE message_type = packet.Peek_Message_Type();
@@ -1055,7 +1055,7 @@ void cNetwork::Server_Send_Packet(cPacket & packet, int mode, int recipient)
 		}
 
 	} else {
-		PServerConnection->Send_Packet_To_Individual(packet, recipient, mode);
+		PServerConnection->Send_Packet_To_Individual(packet, recipient, static_cast<unsigned char>(mode));
 
 		/*
 		BYTE message_type = packet.Peek_Message_Type();
@@ -1084,7 +1084,7 @@ void cNetwork::Server_Send_Packet_To_All_Connected(cPacket & packet, int mode)
 
    for (int rhost_id = PServerConnection->Get_Min_RHost(); rhost_id <= PServerConnection->Get_Max_RHost(); rhost_id++) {
 		if (Get_Server_Rhost(rhost_id) != NULL) {
-         PServerConnection->Send_Packet_To_Individual(packet, rhost_id, mode);
+         PServerConnection->Send_Packet_To_Individual(packet, rhost_id, static_cast<unsigned char>(mode));
 
 			/*
 			PServerStatListGroup->Increment_Num_Msg_Sent(rhost_id - 1, message_type);
@@ -1138,7 +1138,7 @@ float cNetwork::Get_Server_Rhost_Threshold_Priority(int client_id)
 {
    WWASSERT(I_Am_Server());
    WWASSERT(Get_Server_Rhost(client_id) != NULL);
-   return Get_Server_Rhost(client_id)->Get_Threshold_Priority();
+   return float(Get_Server_Rhost(client_id)->Get_Threshold_Priority());
 }
 
 //-----------------------------------------------------------------------------
@@ -1146,7 +1146,7 @@ float cNetwork::Get_Client_Rhost_Threshold_Priority(void)
 {
    WWASSERT(I_Am_Client());
    WWASSERT(Get_Client_Rhost() != NULL);
-   return Get_Client_Rhost()->Get_Threshold_Priority();
+   return float(Get_Client_Rhost()->Get_Threshold_Priority());
 }
 
 //-----------------------------------------------------------------------------

@@ -237,7 +237,7 @@ class AudibleSoundClass : public SoundSceneObjClass
 		//
 		virtual unsigned int	Get_Duration (void) const								{ return m_Length; }
 		virtual unsigned int	Get_Play_Position (void) const						{ return m_CurrentPosition; }
-		virtual void				Set_Play_Position (float position)					{ Seek (position * m_Length); }
+		virtual void				Set_Play_Position (float position)					{ Seek (unsigned(position * m_Length)); }
 		virtual void				Set_Play_Position (unsigned int milliseconds)	{ Seek (milliseconds); }
 
 		virtual void				Set_Start_Offset (float offset)						{ m_StartOffset = offset; }

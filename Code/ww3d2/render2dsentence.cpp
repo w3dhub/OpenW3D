@@ -302,7 +302,7 @@ Render2DSentenceClass::Get_Text_Extents (const unichar_t *text)
 		return(temp);
 	}
 
-	Vector2 extent (0, Font->Get_Char_Height());
+	Vector2 extent (0, float(Font->Get_Char_Height()));
 
 	while (*text) {
 		unichar_t ch = *text++;
@@ -336,7 +336,7 @@ Render2DSentenceClass::Find_Row_Start( const unichar_t * text, int row_index )
 
 	float max_x_pos	= 0;
 	float x_pos			= 0;
-	float y_pos			= Font->Get_Char_Height ();
+	float y_pos			= float(Font->Get_Char_Height ());
 
 	int row_counter = 0;
 
@@ -354,7 +354,7 @@ Render2DSentenceClass::Find_Row_Start( const unichar_t * text, int row_index )
 			//	Find the width of the next word
 			//
 			const unichar_t *word	= text;
-			float word_width = Font->Get_Char_Spacing (ch);
+			float word_width = float(Font->Get_Char_Spacing (ch));
 			while ((*word != 0) && ((*word > U_CHAR(' ')) && !IS_BREAK_CHAR (*word))) {
 				word_width += Font->Get_Char_Spacing (*word++);
 			}
@@ -412,7 +412,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const unichar_t *text, int *r
 
 	float max_x_pos	= 0;
 	float x_pos			= 0;
-	float y_pos			= Font->Get_Char_Height ();
+	float y_pos			= float(Font->Get_Char_Height ());
 
 	int row_counter = 0;
 
@@ -430,7 +430,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const unichar_t *text, int *r
 			//	Find the width of the next word
 			//
 			const unichar_t *word	= text;
-			float word_width = Font->Get_Char_Spacing (ch);
+			float word_width = float(Font->Get_Char_Spacing (ch));
 			while ((*word != 0) && ((*word > U_CHAR(' ')) && !IS_BREAK_CHAR (*word))) {
 				word_width += Font->Get_Char_Spacing (*word++);
 			}
@@ -760,7 +760,7 @@ Render2DSentenceClass::Record_Sentence_Chunk (void)
 	//
 	int width = TextureOffset.I - TextureStartX;
 	if (width > 0) {
-		float char_height = Font->Get_Char_Height ();
+		float char_height = float(Font->Get_Char_Height ());
 
 		//
 		//	Build a structure that contains enough information
@@ -773,9 +773,9 @@ Render2DSentenceClass::Record_Sentence_Chunk (void)
 		sentence_data.ScreenRect.Right	= Cursor.X + width;
 		sentence_data.ScreenRect.Top		= Cursor.Y;
 		sentence_data.ScreenRect.Bottom	= Cursor.Y + char_height;
-		sentence_data.UVRect.Left			= TextureStartX;
-		sentence_data.UVRect.Top			= TextureOffset.J;
-		sentence_data.UVRect.Right			= TextureOffset.I;
+		sentence_data.UVRect.Left			= float(TextureStartX);
+		sentence_data.UVRect.Top			= float(TextureOffset.J);
+		sentence_data.UVRect.Right			= float(TextureOffset.I);
 		sentence_data.UVRect.Bottom		= TextureOffset.J + char_height;
 
 		//
@@ -910,7 +910,7 @@ Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 		Allocate_New_Surface (text);
 	}
 
-	float char_height = Font->Get_Char_Height ();
+	float char_height = float(Font->Get_Char_Height ());
 
 	//
 	//	Loop over all the characters in the string
@@ -921,7 +921,7 @@ Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 		//
 		//	Determine how much horizontal space this character requires
 		//
-		float char_spacing = Font->Get_Char_Spacing (ch);
+		float char_spacing = float(Font->Get_Char_Spacing (ch));
 
 		bool exceeded_texture_width	= ((TextureOffset.I + char_spacing) >= CurrTextureSize);
 		bool encountered_break_char	= (IS_BREAK_CHAR (ch) || ch == U_CHAR('\n') || ch == 0 || ch == U_CHAR('\t'));
@@ -977,7 +977,7 @@ Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 				break;
 			} else if (ch == U_CHAR('\t')) {
 				float tab_spacing = (char_spacing * TabStop);
-				float tab_pos = (floor(Cursor.X / tab_spacing) * tab_spacing);
+				float tab_pos = (WWMath::Floor(Cursor.X / tab_spacing) * tab_spacing);
 				Cursor.X = (tab_pos + tab_spacing);
 			}
 
@@ -987,7 +987,7 @@ Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 			if (exceeded_texture_width) {
 				TextureStartX		= 0;
 				TextureOffset.I	= TextureStartX;
-				TextureOffset.J	+= char_height;
+				TextureOffset.J	+= int(char_height);
 
 				//
 				//	Did the text extent completely off the texture?
@@ -1017,7 +1017,7 @@ Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 			//	Blit the character to the surface
 			//
 			Font->Blit_Char (ch, LockedPtr, LockedStride, TextureOffset.I, TextureOffset.J);
-			TextureOffset.I += char_spacing;
+			TextureOffset.I += int(char_spacing);
 		}
 	}
 
@@ -1354,7 +1354,7 @@ FontCharsClass::Store_GDI_Char (unichar_t ch)
 	//
 	CharDataStruct *char_data	= new CharDataStruct;
 	char_data->Value				= ch;
-	char_data->Width				= char_size.cx;
+	char_data->Width				= short(char_size.cx);
 	char_data->Buffer				= BufferList[BufferList.Count () - 1] + CurrPixelOffset;
 
 	//

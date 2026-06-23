@@ -93,8 +93,8 @@ SurfaceClass *Font3DDataClass::Minimize_Font_Image( SurfaceClass *surface )
 
 	surface->Get_Description(sd);
 
-	float current_width = sd.Width;
-	float current_height = sd.Height;
+	float current_width = float(sd.Width);
+	float current_height = float(sd.Height);
 
 	// determine new width make the size of the new image either 128x128 or 256x256,
 	// dependant on the width of the original image
@@ -190,8 +190,8 @@ SurfaceClass *Font3DDataClass::Make_Proportional( SurfaceClass	*surface )
 {
 	SurfaceClass::SurfaceDescription sd;
 	surface->Get_Description(sd);
-	float width  =	sd.Width;
-	float height =	sd.Height;
+	float width  =	float(sd.Width);
+	float height =	float(sd.Height);
 
 	// for each character in the font...
 	for (int char_index = 0; char_index < 256; char_index++) {
@@ -226,7 +226,7 @@ SurfaceClass *Font3DDataClass::Make_Proportional( SurfaceClass	*surface )
 		// update the U and width tables
 		UOffsetTable[ char_index ] = (float)x0 / width;
 		UWidthTable[ char_index ] = (float)( x1 - x0 ) / width;
-		CharWidthTable[ char_index ] = x1 - x0;
+		CharWidthTable[ char_index ] = static_cast<unsigned char>(x1 - x0);
 	}
 
 	// now shink the image given the minimum char sizes
@@ -258,7 +258,7 @@ bool	Font3DDataClass::Load_Font_Image( const char *filename )
 
  		// the height of the strike is the height of the characters
 		VHeight = 1;
-		CharHeight = sd.Height;
+		CharHeight = static_cast<unsigned char>(sd.Height);
 
 		int	column = 0;
 		int	width = sd.Width;
@@ -294,7 +294,7 @@ bool	Font3DDataClass::Load_Font_Image( const char *filename )
 				UOffsetTable[ char_index ] = (float)start / width;
 				VOffsetTable[ char_index ] = 0;
 				UWidthTable[ char_index ] = (float)(end - start) / width;
-				CharWidthTable[ char_index ] = end - start;
+				CharWidthTable[ char_index ] = static_cast<unsigned char>(end - start);
 			}
 
 		}
@@ -309,8 +309,8 @@ bool	Font3DDataClass::Load_Font_Image( const char *filename )
 
 		// Determine the width and height of each mono spaced character in pixels
 		// (assumes 16x16 array of chars)
-		float	font_width = sd.Width;
-		float	font_height = sd.Height;
+		float	font_width = float(sd.Width);
+		float	font_height = float(sd.Height);
 		float	mono_pixel_width = (font_width / 16);
 		float	mono_pixel_height = (font_height / 16);
 
@@ -320,10 +320,10 @@ bool	Font3DDataClass::Load_Font_Image( const char *filename )
 			UOffsetTable[ char_index ] = (float)((char_index % 16) * mono_pixel_width) / font_width;
 			VOffsetTable[ char_index ] = (float)((char_index / 16) * mono_pixel_height) / font_height;
 			UWidthTable[ char_index ] = mono_pixel_width / font_width;
-			CharWidthTable[ char_index ] = mono_pixel_width;
+			CharWidthTable[ char_index ] = static_cast<unsigned char>(mono_pixel_width);
 		}
 		VHeight = mono_pixel_height / font_height;
-		CharHeight = mono_pixel_height;
+		CharHeight = static_cast<unsigned char>(mono_pixel_height);
 
 		// convert the just created mon-spaced font to proportional (optional)
 
@@ -355,7 +355,7 @@ Font3DInstanceClass::Font3DInstanceClass( const char *filename )
 	FontData = WW3DAssetManager::Get_Instance()->Get_Font3DData( filename);
 	MonoSpacing = 0.0f;
 	Scale = 1.0f;
-	SpaceSpacing = (int)(FontData->Char_Width('H') / 2.0f);
+	SpaceSpacing = FontData->Char_Width('H') / 2.0f;
 	InterCharSpacing = 1;
 	Build_Cached_Tables();
 }
@@ -375,7 +375,7 @@ Font3DInstanceClass::~Font3DInstanceClass(void)
 */
 void	Font3DInstanceClass::Set_Mono_Spaced( void )
 {
-	MonoSpacing = FontData->Char_Width('W') + 1;
+	MonoSpacing = float(FontData->Char_Width('W') + 1);
 	Build_Cached_Tables();
 }
 
@@ -383,7 +383,7 @@ void	Font3DInstanceClass::Build_Cached_Tables()
 {
 	// Rebuild the cached tables
 	for (int a=0;a<256;++a) {
-		float width = (float)FontData->Char_Width(a);
+		float width = (float)FontData->Char_Width(unichar_t(a));
 		if ( a == ' ' ) {
 			width = SpaceSpacing;
 		}
@@ -395,7 +395,7 @@ void	Font3DInstanceClass::Build_Cached_Tables()
 			ScaledSpacingTable[a] = Scale * (width + InterCharSpacing);
 		}
 	}
-	ScaledHeight = floor(Scale * (float)FontData->Char_Height('A'));
+	ScaledHeight = WWMath::Floor(Scale * (float)FontData->Char_Height('A'));
 }
 
 /***********************************************************************************************

@@ -86,7 +86,7 @@ cMoneyEvent::Act(void)
 
 	if (p_player != NULL && p_player->Invulnerable.Is_True()) {
 
-		p_player->Set_Money(Amount);
+		p_player->Set_Money(float(Amount));
 
 	   WWDEBUG_SAY(("Client %d setting money to %d.\n", SenderId, Amount));
 	}

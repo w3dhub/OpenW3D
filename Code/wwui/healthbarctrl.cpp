@@ -145,7 +145,7 @@ HealthBarCtrlClass::Create_Control_Renderer (void)
 	//	Calculate how long to draw the texture
 	//
 	float full_width	= Rect.Width ();
-	int	width			= (full_width * Percent);
+	float	width			= WWMath::Trunc(full_width * Percent);
 
 	Vector2 size1 (8.0F, 12.0F);
 	Vector2 size2 (7.0F, 12.0F);

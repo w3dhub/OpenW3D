@@ -144,8 +144,8 @@ HeightDBClass::Get_Height (const Vector3 &pos)
 		//
 		if (percent_x >= 0 && percent_x <= 1.0F && percent_y >= 0 && percent_y <= 1.0F) {
 
-			int entry_ul_x = (m_NumPointsX - 1) * percent_x;
-			int entry_ul_y = (m_NumPointsY - 1) * percent_y;
+			int entry_ul_x = int((m_NumPointsX - 1) * percent_x);
+			int entry_ul_y = int((m_NumPointsY - 1) * percent_y);
 			int entry_ur_x = entry_ul_x + 1;
 			int entry_ur_y = entry_ul_y;
 			int entry_lr_x = entry_ul_x + 1;
@@ -204,8 +204,8 @@ HeightDBClass::Generate (void)
 	//
 	//	Determine how big a heightmap we will need to store data for this level
 	//
-	m_NumPointsX	= ((m_LevelMax.X - m_LevelMin.X) / generate_patch_size) + 1;
-	m_NumPointsY	= ((m_LevelMax.Y - m_LevelMin.Y) / generate_patch_size) + 1;
+	m_NumPointsX	= int((m_LevelMax.X - m_LevelMin.X) / generate_patch_size) + 1;
+	m_NumPointsY	= int((m_LevelMax.Y - m_LevelMin.Y) / generate_patch_size) + 1;
 	int entries		= m_NumPointsX * m_NumPointsY;
 
 	m_HeightArray	= new float[entries];
@@ -463,8 +463,8 @@ HeightDBClass::Submit_Mesh (MeshClass &mesh)
 			//
 			if (percent_x >= 0 && percent_x <= 1.0F && percent_y >= 0 && percent_y <= 1.0F) {
 
-				int entry_ul_x = (m_NumPointsX - 1) * percent_x;
-				int entry_ul_y = (m_NumPointsY - 1) * percent_y;
+				int entry_ul_x = int((m_NumPointsX - 1) * percent_x);
+				int entry_ul_y = int((m_NumPointsY - 1) * percent_y);
 				int entry_ur_x = entry_ul_x + 1;
 				int entry_ur_y = entry_ul_y;
 				int entry_lr_x = entry_ul_x + 1;

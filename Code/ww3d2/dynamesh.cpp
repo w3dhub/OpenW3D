@@ -184,7 +184,7 @@ void DynamicMeshModel::Render(RenderInfoClass & /*rinfo*/)
 	** one texture channel, and the diffuse color channel (color0). If it does not contain all
 	** these components, the code will fail.
 	*/
-	DynamicVBAccessClass dynamic_vb(buffer_type,dynamic_fvf_type,DynamicMeshVNum);
+	DynamicVBAccessClass dynamic_vb(buffer_type,dynamic_fvf_type,static_cast<unsigned short>(DynamicMeshVNum));
 	const FVFInfoClass &fvf_info = dynamic_vb.FVF_Info();
 
 	{ // scope for lock
@@ -227,7 +227,7 @@ void DynamicMeshModel::Render(RenderInfoClass & /*rinfo*/)
 	/*
 	** Write index data to index buffers
 	*/
-	DynamicIBAccessClass dynamic_ib(buffer_type,DynamicMeshPNum * 3);
+	DynamicIBAccessClass dynamic_ib(static_cast<unsigned short>(buffer_type),static_cast<unsigned short>(DynamicMeshPNum * 3));
 	const TriIndex *tris = Get_Polygon_Array();
 
 	{ // scope for lock
@@ -261,7 +261,7 @@ void DynamicMeshModel::Render(RenderInfoClass & /*rinfo*/)
 		*/
 
 		// The vertex index range used
-		unsigned short min_vert_idx = DynamicMeshVNum - 1;
+		unsigned short min_vert_idx = static_cast<unsigned short>(DynamicMeshVNum - 1);
 		unsigned short max_vert_idx = 0;
 		unsigned short start_tri_idx = 0;
 		unsigned short cur_tri_idx = 0;
@@ -327,10 +327,10 @@ void DynamicMeshModel::Render(RenderInfoClass & /*rinfo*/)
 		// If no texture, shader or material arrays for this pass just draw and go to next pass
 		if (!texture_array0 && !texture_array1 && !material_array && !shader_array) {
 			if (buffer_type==BUFFER_TYPE_DYNAMIC_SORTING) {
-				SortingRendererClass::Insert_Triangles(sphere,0, DynamicMeshPNum, 0, DynamicMeshVNum);
+				SortingRendererClass::Insert_Triangles(sphere,0, static_cast<unsigned short>(DynamicMeshPNum), 0, static_cast<unsigned short>(DynamicMeshVNum));
 			}
 			else {
-				DX8Wrapper::Draw_Triangles(0, DynamicMeshPNum, 0, DynamicMeshVNum);
+				DX8Wrapper::Draw_Triangles(0, static_cast<unsigned short>(DynamicMeshPNum), 0, static_cast<unsigned short>(DynamicMeshVNum));
 			}
 			continue;
 		}
@@ -377,7 +377,7 @@ void DynamicMeshModel::Render(RenderInfoClass & /*rinfo*/)
 						1 + max_vert_idx - min_vert_idx);
 				}
 				start_tri_idx = next_tri_idx;
-				min_vert_idx = DynamicMeshVNum - 1;
+				min_vert_idx = static_cast<unsigned short>(DynamicMeshVNum - 1);
 				max_vert_idx = 0;
 				if (texture_changed) DX8Wrapper::Set_Texture(0,texture_array0[next_tri_idx]);
 				if (texture1_changed) DX8Wrapper::Set_Texture(1,texture_array1[next_tri_idx]);
@@ -476,19 +476,19 @@ bool DynamicMeshClass::End_Vertex()
 		// set vertex indices
 		TriIndex *poly = &(Model->Get_Non_Const_Polygon_Array())[PolyCount];
 		if (TriMode == TRI_MODE_STRIPS) {
-			(*poly)[0] = VertCount-3;
-			(*poly)[1] = VertCount-2;
-			(*poly)[2] = VertCount-1;
+			(*poly)[0] = static_cast<unsigned short>(VertCount-3);
+			(*poly)[1] = static_cast<unsigned short>(VertCount-2);
+			(*poly)[2] = static_cast<unsigned short>(VertCount-1);
 
 			// for every other tri, reverse vertex order
 			if (Flip_Face()) {
-				(*poly)[1] = VertCount-1;
-				(*poly)[2] = VertCount-2;
+				(*poly)[1] = static_cast<unsigned short>(VertCount-1);
+				(*poly)[2] = static_cast<unsigned short>(VertCount-2);
 			}
 		} else {
-			(*poly)[0] = FanVertex;
-			(*poly)[1] = VertCount-2;
-			(*poly)[2] = VertCount-1;
+			(*poly)[0] = static_cast<unsigned short>(FanVertex);
+			(*poly)[1] = static_cast<unsigned short>(VertCount-2);
+			(*poly)[2] = static_cast<unsigned short>(VertCount-1);
 		}
 
 		// check each pass

@@ -149,10 +149,10 @@ WWINLINE void BitmapHandlerClass::Read_B8G8R8A8(
 		{
 			unsigned short tmp;
 			tmp=*(unsigned short*)src_ptr;
-			*argb++=((tmp&0x000f)<<4);
-			*argb++=((tmp&0x00f0));
-			*argb++=((tmp&0x0f00)>>4);
-			*argb++=((tmp&0xf000)>>8);
+			*argb++=static_cast<unsigned char>((tmp&0x000f)<<4);
+			*argb++=static_cast<unsigned char>((tmp&0x00f0));
+			*argb++=static_cast<unsigned char>((tmp&0x0f00)>>4);
+			*argb++=static_cast<unsigned char>((tmp&0xf000)>>8);
 		}
 		break;
 	case WW3D_FORMAT_A1R5G5B5:

@@ -407,7 +407,7 @@ bool DoorPhysClass::Set_State( int new_state )
 				//	Open the door
 				//
 				AnimManager.Set_Animation_Mode( AnimCollisionManagerClass::ANIMATE_TARGET );
-				AnimManager.Set_Target_Frame( AnimManager.Peek_Animation()->Get_Num_Frames() - 1	);
+				AnimManager.Set_Target_Frame( float(AnimManager.Peek_Animation()->Get_Num_Frames() - 1)	);
 			}
 			break;
 
@@ -439,7 +439,7 @@ bool DoorPhysClass::Set_State( int new_state )
 				// Clients *must* see the opening - it's a guaranteed packet. ST - 1/15/2002 12:59PM
 				//
 				AnimManager.Set_Animation_Mode( AnimCollisionManagerClass::ANIMATE_TARGET );
-				AnimManager.Set_Target_Frame( AnimManager.Peek_Animation()->Get_Num_Frames() - 1	);
+				AnimManager.Set_Target_Frame( float(AnimManager.Peek_Animation()->Get_Num_Frames() - 1)	);
 			}
 			break;
 

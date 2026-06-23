@@ -1083,19 +1083,19 @@ float	Input::Get_Value( int function_index, int input, float /* clamp */ )
 
 		switch( FunctionKeyStates[ function_index ] & 0x0F ) {
 			case BUTTON_UP:
-				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_HELD) ? 0.0 : 1.0;
+				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_HELD) ? 0.0f : 1.0f;
 
 			case BUTTON_HIT:
-				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_HIT) ? 1.0 : 0.0;
+				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_HIT) ? 1.0f : 0.0f;
 
 			case BUTTON_RELEASE:
-				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_RELEASED) ? 1.0 : 0.0;
+				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_RELEASED) ? 1.0f : 0.0f;
 
 			case BUTTON_HELD:
-				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_HELD) ? 1.0 : 0.0;
+				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_HELD) ? 1.0f : 0.0f;
 
 			case BUTTON_DOUBLE:
-				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_DOUBLE) ? 1.0 : 0.0;
+				return (DirectInput::Get_Button_Value( input ) & BUTTON_BIT_DOUBLE) ? 1.0f : 0.0f;
 		}
 	}
 
@@ -1277,14 +1277,14 @@ Input::Save_Configuration (const char *filename)
 		//	Get the name of the primary key that's mapped to this function
 		//
 		if (FunctionPrimaryKeys[index] != 0) {
-			pri_key = Get_Key_Name (FunctionPrimaryKeys[index]);
+			pri_key = Get_Key_Name (short(FunctionPrimaryKeys[index]));
 		}
 
 		//
 		//	Get the name of the secondary  key that's mapped to this function
 		//
 		if (FunctionSecondaryKeys[index] != 0) {
-			sec_key = Get_Key_Name (FunctionSecondaryKeys[index]);
+			sec_key = Get_Key_Name (short(FunctionSecondaryKeys[index]));
 		}
 
 		//

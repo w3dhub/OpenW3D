@@ -791,7 +791,7 @@ void PhysicalGameObj::Post_Think( void )
 
 void PhysicalGameObj::Set_Collision_Group( int group )
 {
-	Peek_Physical_Object()->Set_Collision_Group( group );
+	Peek_Physical_Object()->Set_Collision_Group( static_cast<unsigned char>(group) );
 }
 
 void	PhysicalGameObj::Attach_To_Object_Bone( PhysicalGameObj * host, const char * bone_name )
@@ -920,7 +920,7 @@ void	PhysicalGameObj::Set_Animation_Frame ( const char *animation_name, int fram
 		AnimControl->Set_Model( Peek_Model() );
 
 		AnimControl->Set_Animation( anim_name, 0 );
-		AnimControl->Set_Mode( ANIM_MODE_STOP, frame );
+		AnimControl->Set_Mode( ANIM_MODE_STOP, float(frame) );
 
 		//
 		//	"Dirty" the object for networking
@@ -1110,8 +1110,8 @@ void	PhysicalGameObj::Export_Rare( BitStreamClass &packet )
 	AnimMode anim_mode	= ANIM_MODE_TARGET;
 	if (AnimControl != NULL) {
 		animation_name	= AnimControl->Get_Animation_Name();
-		target_frame	= AnimControl->Get_Target_Frame ();
-		curr_frame		= AnimControl->Get_Current_Frame ();
+		target_frame	= int(AnimControl->Get_Target_Frame ());
+		curr_frame		= int(AnimControl->Get_Current_Frame ());
 		anim_mode		= AnimControl->Get_Mode ();
 	}
 
@@ -1194,8 +1194,8 @@ void	PhysicalGameObj::Import_Rare( BitStreamClass &packet )
 	//	Pass the animation information onto the controller
 	//
 	if (AnimControl != NULL) {
-		AnimControl->Set_Animation( animation_name, 0, curr_frame );
-		AnimControl->Set_Target_Frame( target_frame );
+		AnimControl->Set_Animation( animation_name, 0, float(curr_frame) );
+		AnimControl->Set_Target_Frame( float(target_frame) );
 		AnimControl->Set_Mode( (AnimMode)anim_mode );
 	}
 

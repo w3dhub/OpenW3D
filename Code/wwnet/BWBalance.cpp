@@ -318,7 +318,7 @@ unsigned int BandwidthBalancerClass::Allocate_Bandwidth(float average_priority, 
 		/*
 		** Work out the bandwidth, initially based on average priority.
 		*/
-		int client_bbo_adjust = (pri - average_priority) * bbo_per_client;
+		int client_bbo_adjust = int((pri - average_priority) * bbo_per_client);
 		if (client_bbo_adjust > 0) {
 			client_bbo_adjust = std::min(client_bbo_adjust, (int)bbo_per_client / 2);
 		} else {

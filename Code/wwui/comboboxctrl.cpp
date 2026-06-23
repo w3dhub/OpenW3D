@@ -197,10 +197,10 @@ ComboBoxCtrlClass::Create_Control_Renderers (void)
 	//
 	rect = ButtonRect;
 	renderer.Add_Line (Vector2 (rect.Left, rect.Bottom),	Vector2 (rect.Left, rect.Top-1),		1, color);
-	float width		= int(ButtonRect.Width () / 4);
-	float height	= int(ButtonRect.Height () / 4);
-	float center_x = int(ButtonRect.Left + (ButtonRect.Width () / 2));
-	float center_y = int(ButtonRect.Top + (ButtonRect.Height () / 2));
+	float width		= WWMath::Trunc(ButtonRect.Width () / 4);
+	float height	= WWMath::Trunc(ButtonRect.Height () / 4);
+	float center_x = WWMath::Trunc(ButtonRect.Left + (ButtonRect.Width () / 2));
+	float center_y = WWMath::Trunc(ButtonRect.Top + (ButtonRect.Height () / 2));
 	renderer.Add_Line (Vector2 (center_x - width, center_y - height),	Vector2 (center_x + width, center_y - height), 1, color);
 	renderer.Add_Line (Vector2 (center_x + width, center_y - height),	Vector2 (center_x, center_y + height), 1, color);
 	renderer.Add_Line (Vector2 (center_x, center_y + height),	Vector2 (center_x - width, center_y - height), 1, color);
@@ -241,10 +241,10 @@ ComboBoxCtrlClass::Set_Window_Pos (const Vector2 &pos)
 	//
 	//	Recalculate the window's bounding rectangle
 	//
-	FullRect.Left	= (int)pos.X;
-	FullRect.Top		= (int)pos.Y;
-	FullRect.Right	= (int)(FullRect.Left + width);
-	FullRect.Bottom	= (int)(FullRect.Top + height);
+	FullRect.Left	= WWMath::Trunc(pos.X);
+	FullRect.Top		= WWMath::Trunc(pos.Y);
+	FullRect.Right	= WWMath::Trunc(FullRect.Left + width);
+	FullRect.Bottom	= WWMath::Trunc(FullRect.Top + height);
 
 	//
 	//	Let the control recalculate anything it needs
@@ -275,7 +275,7 @@ ComboBoxCtrlClass::Update_Client_Rect (void)
 	float border_width	= char_size.X + 2;
 	float border_height	= 2;
 
-	float button_height	= int(char_size.Y * 2.0F);
+	float button_height	= WWMath::Trunc(char_size.Y * 2.0F);
 	float button_width	= button_height;
 
 	//
@@ -287,8 +287,8 @@ ComboBoxCtrlClass::Update_Client_Rect (void)
 	//
 	//	Remember how much space we have for the drop down control
 	//
-	DropDownSize.X = int(ClientRect.Width ());
-	DropDownSize.Y = int(FullRect.Bottom - ClientRect.Bottom);
+	DropDownSize.X = WWMath::Trunc(ClientRect.Width ());
+	DropDownSize.Y = WWMath::Trunc(FullRect.Bottom - ClientRect.Bottom);
 
 	//
 	//	Calculate the bounding rectangle for the drop-down control

@@ -490,7 +490,7 @@ void BoxRenderObjClass::render_box(RenderInfoClass & /*rinfo*/,const Vector3 & c
 		/*
 		** Dump the faces into the sorting dynamic index buffer.
 		*/
-		DynamicIBAccessClass ibaccess(buffer_type,NUM_BOX_FACES*3);
+		DynamicIBAccessClass ibaccess(static_cast<unsigned short>(buffer_type),NUM_BOX_FACES*3);
 		{
 			DynamicIBAccessClass::WriteLockClass lock(&ibaccess);
 			unsigned short * indices = lock.Get_Index_Array();

@@ -431,7 +431,7 @@ void	TimeCodedMotionChannelClass::Get_Vector(float32 frame,float * setvec)
 
   uint32	tc0;
 
-  tc0 = frame;
+  tc0 = uint32(frame);
 
   uint32 pidx = get_index( tc0 );
   uint32 p2idx;
@@ -463,8 +463,8 @@ void	TimeCodedMotionChannelClass::Get_Vector(float32 frame,float * setvec)
 		return;
    }
 
-  float32 time1 = (Data[pidx]  & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
-  float32 time2 = (time & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
+  float32 time1 = float32(Data[pidx]  & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
+  float32 time2 = float32(time & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
 
   float32 ratio = (frame - time1) / (time2 - time1);
 
@@ -489,7 +489,7 @@ Quaternion TimeCodedMotionChannelClass::Get_QuatVector(float32 frame)
 
 	uint32	tc0;
 
-	tc0 = frame;
+	tc0 = uint32(frame);
 
 	uint32 pidx = get_index( tc0 );
 	uint32 p2idx;
@@ -518,8 +518,8 @@ Quaternion TimeCodedMotionChannelClass::Get_QuatVector(float32 frame)
 		return( q );
 	}
 
-	float32 time1 = (Data[pidx]  & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
-	float32 time2 = (time & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
+	float32 time1 = float32(Data[pidx]  & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
+	float32 time2 = float32(time & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
 
 	float32 ratio = (frame - time1) / (time2 - time1);
 
@@ -867,12 +867,12 @@ AdaptiveDeltaMotionChannelClass::AdaptiveDeltaMotionChannelClass(void) :
 
 		for (int i=0; i<FILTER_TABLE_GEN_SIZE; i++)
 		{
-			float ratio = i;
+			float ratio = float(i);
 
 			//ratio = ((ratio + 1.0f) / 128.0f);
 			ratio/=((float) FILTER_TABLE_GEN_SIZE);
 
-			filtertable[i + FILTER_TABLE_GEN_START] = 1.0f - WWMath::Sin( DEG_TO_RAD(90.0f * ratio));
+			filtertable[i + FILTER_TABLE_GEN_START] = 1.0f - WWMath::Sin( DEG_TO_RADF(90.0f * ratio));
 		}
 
 		table_valid = true;
@@ -1027,7 +1027,7 @@ void AdaptiveDeltaMotionChannelClass::decompress(uint32 frame_idx, float *outdat
 
 				// Convert to Floating Point
 
-				float ffactor = factor;
+				float ffactor = float(factor);
 
 				float delta = ffactor * filter;
 
@@ -1107,7 +1107,7 @@ void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata,
 
 				// Convert to Floating Point
 
-				float ffactor = factor;
+				float ffactor = float(factor);
 
 				float delta = ffactor * filter;
 
@@ -1226,7 +1226,7 @@ float AdaptiveDeltaMotionChannelClass::getframe(uint32 frame_idx, uint32 vector_
 void	AdaptiveDeltaMotionChannelClass::Get_Vector(float32 frame,float * setvec)
 {
 
-	uint32 frame1 = frame;
+	uint32 frame1 = uint32(frame);
 
 	float ratio = frame - frame1;
 
@@ -1245,7 +1245,7 @@ void	AdaptiveDeltaMotionChannelClass::Get_Vector(float32 frame,float * setvec)
 Quaternion AdaptiveDeltaMotionChannelClass::Get_QuatVector(float32 frame)
 {
 
-	uint32 frame1 = frame;
+	uint32 frame1 = uint32(frame);
 	uint32 frame2 = frame1+1;
 	float ratio = frame - frame1;
 
@@ -1294,7 +1294,7 @@ Get_Vector(int frame,float * setvec) const{
 			WWASSERT(CompressedData);
 			float scale=ValueScale/65535.0f;
 			for (int i=0; i<VectorLen; i++) {
-				float value=int(CompressedData[vframe * VectorLen + i]);
+				float value=float(CompressedData[vframe * VectorLen + i]);
 				setvec[i] = value*scale+ValueOffset;
 			}
 		}

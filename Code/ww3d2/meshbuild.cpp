@@ -1152,14 +1152,14 @@ void MeshBuilderClass::Compute_Bounding_Sphere(Vector3 * set_center,float * set_
 			radsqr = radius * radius;
 
 			double oldtonew = testrad - radius;
-			center.X = (radius * center.X + oldtonew * Verts[i].Position.X) / testrad;
-			center.Y = (radius * center.Y + oldtonew * Verts[i].Position.Y) / testrad;
-			center.Z = (radius * center.Z + oldtonew * Verts[i].Position.Z) / testrad;
+			center.X = float((radius * center.X + oldtonew * Verts[i].Position.X) / testrad);
+			center.Y = float((radius * center.Y + oldtonew * Verts[i].Position.Y) / testrad);
+			center.Z = float((radius * center.Z + oldtonew * Verts[i].Position.Z) / testrad);
 		}
 	}
 
 	*set_center = center;
-	*set_radius = radius;
+	*set_radius = float(radius);
 }
 
 /***********************************************************************************************

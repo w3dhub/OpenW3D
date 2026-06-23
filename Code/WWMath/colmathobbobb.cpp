@@ -831,7 +831,7 @@ static inline void compute_contact_normal(ObbCollisionStruct & context,CastResul
 		break;
 	}
 
-	result->Normal *= -context.Side;
+	result->Normal *= float(-context.Side);
 }
 
 
@@ -847,12 +847,12 @@ static inline void compute_contact_normal(ObbCollisionStruct & context,CastResul
  * HISTORY:                                                                                    *
  *   4/8/99     GTH : Created.                                                                 *
  *=============================================================================================*/
-static inline float eval_side(float ab,float side)
+static inline float eval_side(float ab,int side)
 {
 	if (ab > 0.0f) {
-		return side;
+		return float(side);
 	} else if (ab < 0.0f) {
-		return -side;
+		return float(-side);
 	} else {
 		return 0.0f;
 	}

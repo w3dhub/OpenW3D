@@ -307,9 +307,9 @@ static inline bool obbtri_check_collision_axis(BTCollisionStruct & context)
 		dist = -dist;
 		axismove = -axismove;
 		context.TestAxis = -context.TestAxis;
-		context.TestSide = -1.0f;
+		context.TestSide = -1;
 	} else {
-		context.TestSide = 1.0f;
+		context.TestSide = 1;
 	}
 
 	// compute coordinates of the leading edge of the box at t0 and t1
@@ -367,9 +367,9 @@ static inline bool obbtri_check_collision_cross_axis
 		axismove = -axismove;
 		dp = -dp;
 		context.TestAxis = -context.TestAxis;
-		context.TestSide = -1.0f;
+		context.TestSide = -1;
 	} else {
-		context.TestSide = 1.0f;
+		context.TestSide = 1;
 	}
 
 	// compute coordinates of the leading edge of the box at t1
@@ -424,9 +424,9 @@ static inline bool obbtri_check_collision_basis_axis
 		dp1 = -dp1;
 		dp2 = -dp2;
 		context.TestAxis = -context.TestAxis;
-		context.TestSide = -1.0f;
+		context.TestSide = -1;
 	} else {
-		context.TestSide = 1.0f;
+		context.TestSide = 1;
 	}
 
 	// this is the "optimization", leb0 = one of the extents
@@ -474,9 +474,9 @@ static inline bool obbtri_check_collision_normal_axis(BTCollisionStruct & contex
 		dist = -dist;
 		axismove = -axismove;
 		context.TestAxis = -context.TestAxis;
-		context.TestSide = -1.0f;
+		context.TestSide = -1;
 	} else {
-		context.TestSide = 1.0f;
+		context.TestSide = 1;
 	}
 
 	leb0 =	context.Box.Extent.X * WWMath::Fabs(context.AN[0]) +
@@ -504,9 +504,9 @@ static inline bool obbtri_check_collision_normal_axis(BTCollisionStruct & contex
 static inline float eval_side(float val,int side)
 {
 	if (val > 0.0f) {
-		return side;
+		return float(side);
 	} else if (val < 0.0f) {
-		return -side;
+		return float(-side);
 	} else {
 		return 0.0f;
 	}
@@ -536,51 +536,51 @@ static inline void obbtri_compute_contact_normal
 //			WWASSERT(0);
 			break;
 		case AXIS_N:
-			*set_normal = -context.Side * *context.Tri.N;
+			*set_normal = float(-context.Side) * *context.Tri.N;
 			break;
 		case AXIS_A0:
-			*set_normal = -context.Side * context.A[0];
+			*set_normal = float(-context.Side) * context.A[0];
 			break;
 		case AXIS_A1:
-			*set_normal = -context.Side * context.A[1];
+			*set_normal = float(-context.Side) * context.A[1];
 			break;
 		case AXIS_A2:
-			*set_normal = -context.Side * context.A[2];
+			*set_normal = float(-context.Side) * context.A[2];
 			break;
 		case AXIS_A0E0:
-			*set_normal = -context.Side * context.AxE[0][0];
+			*set_normal = float(-context.Side) * context.AxE[0][0];
 			set_normal->Normalize();
 			break;
 		case AXIS_A1E0:
-			*set_normal = -context.Side * context.AxE[1][0];
+			*set_normal = float(-context.Side) * context.AxE[1][0];
 			set_normal->Normalize();
 			break;
 		case AXIS_A2E0:
-			*set_normal = -context.Side * context.AxE[2][0];
+			*set_normal = float(-context.Side) * context.AxE[2][0];
 			set_normal->Normalize();
 			break;
 		case AXIS_A0E1:
-			*set_normal = -context.Side * context.AxE[0][1];
+			*set_normal = float(-context.Side) * context.AxE[0][1];
 			set_normal->Normalize();
 			break;
 		case AXIS_A1E1:
-			*set_normal = -context.Side * context.AxE[1][1];
+			*set_normal = float(-context.Side) * context.AxE[1][1];
 			set_normal->Normalize();
 			break;
 		case AXIS_A2E1:
-			*set_normal = -context.Side * context.AxE[2][1];
+			*set_normal = float(-context.Side) * context.AxE[2][1];
 			set_normal->Normalize();
 			break;
 		case AXIS_A0E2:
-			*set_normal = -context.Side * context.AxE[0][2];
+			*set_normal = float(-context.Side) * context.AxE[0][2];
 			set_normal->Normalize();
 			break;
 		case AXIS_A1E2:
-			*set_normal = -context.Side * context.AxE[1][2];
+			*set_normal = float(-context.Side) * context.AxE[1][2];
 			set_normal->Normalize();
 			break;
 		case AXIS_A2E2:
-			*set_normal = -context.Side * context.AxE[2][2];
+			*set_normal = float(-context.Side) * context.AxE[2][2];
 			set_normal->Normalize();
 			break;
 	}

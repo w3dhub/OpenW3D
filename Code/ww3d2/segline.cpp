@@ -465,7 +465,7 @@ void SegmentedLineClass::Decrement_LOD(void)
 
 float SegmentedLineClass::Get_Cost(void) const
 {
-	return Get_Num_Polys();
+	return float(Get_Num_Polys());
 }
 
 float SegmentedLineClass::Get_Value(void) const

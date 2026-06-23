@@ -1406,7 +1406,7 @@ void VehicleGameObj::Apply_Control( void )
 			target_direction += TARGET_STRAFE_ANGLE * Control.Get_Analog( ControlClass::ANALOG_TURN_LEFT );
 
 			// Set the final steering angle
-			float turn_amount = target_direction / DEG_TO_RAD( 60 ) * Control.Get_Analog( ControlClass::ANALOG_MOVE_FORWARD );
+			float turn_amount = target_direction / DEG_TO_RADF( 60 ) * Control.Get_Analog( ControlClass::ANALOG_MOVE_FORWARD );
 			Control.Set_Analog( ControlClass::ANALOG_TURN_LEFT, turn_amount );
 
 		} else {

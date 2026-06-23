@@ -92,7 +92,7 @@ bool RecalculatePingProfile(const RefPtr<Session>& session)
 				pingTime = std::min<int>(pingTime, 1000);
 
 				// Scale ping time to from 0-1000 to 0-255
-				gPingProfile.Pings[index] = (((unsigned int)pingTime * 255) / 1000);
+				gPingProfile.Pings[index] = static_cast<unsigned char>(((unsigned int)pingTime * 255) / 1000);
 				}
 
 			return true;
@@ -223,14 +223,14 @@ void DecodePingProfile(const char* buffer, PingProfile& pings)
 		sscanf(buffer, "%02X%02X%02X%02X%02X%02X%02X%02X",
 			&ping[0], &ping[1], &ping[2], &ping[3], &ping[4], &ping[5], &ping[6], &ping[7]);
 
-		pings.Pings[0] = ping[0];
-		pings.Pings[1] = ping[1];
-		pings.Pings[2] = ping[2];
-		pings.Pings[3] = ping[3];
-		pings.Pings[4] = ping[4];
-		pings.Pings[5] = ping[5];
-		pings.Pings[6] = ping[6];
-		pings.Pings[7] = ping[7];
+		pings.Pings[0] = static_cast<unsigned char>(ping[0]);
+		pings.Pings[1] = static_cast<unsigned char>(ping[1]);
+		pings.Pings[2] = static_cast<unsigned char>(ping[2]);
+		pings.Pings[3] = static_cast<unsigned char>(ping[3]);
+		pings.Pings[4] = static_cast<unsigned char>(ping[4]);
+		pings.Pings[5] = static_cast<unsigned char>(ping[5]);
+		pings.Pings[6] = static_cast<unsigned char>(ping[6]);
+		pings.Pings[7] = static_cast<unsigned char>(ping[7]);
 		}
 	else
 		{

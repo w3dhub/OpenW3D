@@ -262,7 +262,7 @@ int HRawAnimClass::Load_W3D(ChunkLoadClass & cload)
 	NumNodes = base_pose->Num_Pivots();
 
 	NumFrames = aheader.NumFrames;
-	FrameRate = aheader.FrameRate;
+	FrameRate = float(aheader.FrameRate);
 
 	NodeMotion = new NodeMotionStruct[ NumNodes ];
 	if (NodeMotion == NULL) {

@@ -503,7 +503,7 @@ RenegadeTerrainPatchClass::Render_Procedural_Material_Pass(MaterialPassClass * m
 			//
 			//	Draw the mesh!
 			//
-			DX8Wrapper::Draw_Triangles (BUFFER_TYPE_DYNAMIC_DX8, 0, poly_count, 0, vert_count);
+			DX8Wrapper::Draw_Triangles (BUFFER_TYPE_DYNAMIC_DX8, 0, static_cast<unsigned short>(poly_count), 0, static_cast<unsigned short>(vert_count));
 		}
 //	}
 }
@@ -590,7 +590,7 @@ RenegadeTerrainPatchClass::Render_By_Texture (int texture_index, int pass_type)
 	//
 	//	Draw the mesh!
 	//
-	DX8Wrapper::Draw_Triangles (BUFFER_TYPE_DYNAMIC_DX8, 0, poly_count, 0, vert_count);
+	DX8Wrapper::Draw_Triangles (BUFFER_TYPE_DYNAMIC_DX8, 0, static_cast<unsigned short>(poly_count), 0, static_cast<unsigned short>(vert_count));
 	return ;
 }
 
@@ -672,8 +672,8 @@ RenegadeTerrainPatchClass::Build_Rendering_Buffers (int texture_index, int pass_
 	//
 	//	Allocate the vertex and index buffers
 	//
-	material_pass->IndexBuffers[pass_type]		= new DX8IndexBufferClass (poly_count * 3);
-	material_pass->VertexBuffers[pass_type]	= new DX8VertexBufferClass (DX8_FVF_XYZNDUV1, vert_count);
+	material_pass->IndexBuffers[pass_type]		= new DX8IndexBufferClass (static_cast<unsigned short>(poly_count * 3));
+	material_pass->VertexBuffers[pass_type]	= new DX8VertexBufferClass (DX8_FVF_XYZNDUV1, static_cast<unsigned short>(vert_count));
 
 	//
 	// Write index data to index buffers

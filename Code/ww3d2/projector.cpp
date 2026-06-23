@@ -150,8 +150,8 @@ void ProjectorClass::Set_Perspective_Projection(float hfov,float vfov,float znea
 	Mapper->Set_Type(MatrixMapperClass::PERSPECTIVE_PROJECTION);
 	Projection.Init_Perspective(hfov,vfov,0.1f,zfar);					// don't use znear for the projection matrix
 
-	float tan_hfov2 = tan(hfov) * 0.5f;
-	float tan_vfov2 = tan(vfov) * 0.5f;
+	float tan_hfov2 = WWMath::Tan(hfov) * 0.5f;
+	float tan_vfov2 = WWMath::Tan(vfov) * 0.5f;
 
 	LocalBoundingVolume.Center.Set(0.0f,0.0f,-(zfar+znear)*0.5f);	// note, zcenter is negative
 	LocalBoundingVolume.Extent.X = zfar * tan_hfov2;

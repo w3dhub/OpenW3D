@@ -259,7 +259,7 @@ ShortcutBarCtrlClass::Render_Strip (const RectClass &screen_rect, bool flip_uvs)
 	//	Render the top of the bar
 	//
 	RectClass rect	= screen_rect;
-	rect.Bottom		= int(rect.Top + BAR_TOP_UVS.Height ());
+	rect.Bottom		= WWMath::Trunc(rect.Top + BAR_TOP_UVS.Height ());
 	TexturedControlRenderer.Add_Quad (rect, bar_top_uvs);
 
 	//
@@ -275,7 +275,7 @@ ShortcutBarCtrlClass::Render_Strip (const RectClass &screen_rect, bool flip_uvs)
 		//	Render this section of the bar
 		//
 		rect.Top		= rect.Bottom;
-		rect.Bottom = int (rect.Top + tile_height);
+		rect.Bottom = WWMath::Trunc (rect.Top + tile_height);
 		TexturedControlRenderer.Add_Quad (rect, bar_tile_uvs);
 
 		//
@@ -653,10 +653,10 @@ ShortcutBarCtrlClass::Get_Entry_Rect (int index, RectClass &rect)
 	//	Simply calculate the rectangle for this entry and return it
 	// to the caller
 	//
-	rect.Left	= FullRect.Left + int(BORDER_X * StyleMgrClass::Get_X_Scale ());
-	rect.Right	= FullRect.Right - int(BORDER_X * StyleMgrClass::Get_X_Scale ());
-	rect.Top		= int(start_y_pos + (index * entry_height));
-	rect.Bottom	= int(rect.Top + entry_height);
+	rect.Left	= FullRect.Left + WWMath::Trunc(BORDER_X * StyleMgrClass::Get_X_Scale ());
+	rect.Right	= FullRect.Right - WWMath::Trunc(BORDER_X * StyleMgrClass::Get_X_Scale ());
+	rect.Top		= WWMath::Trunc(start_y_pos + (index * entry_height));
+	rect.Bottom	= WWMath::Trunc(rect.Top + entry_height);
 	return ;
 }
 

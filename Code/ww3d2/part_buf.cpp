@@ -107,7 +107,7 @@ ParticleBufferClass::ParticleBufferClass
 	NewParticleQueueCount(0U),
 	RenderMode(render_mode),
 	FrameMode(frame_mode),
-	MaxAge(1000.0f * max_age),
+	MaxAge(int(1000.0f * max_age)),
 	LastUpdateTime(WW3D::Get_Sync_Time()),
 	IsEmitterDead(false),
 	MaxSize(0.0f),
@@ -229,7 +229,7 @@ ParticleBufferClass::ParticleBufferClass
 			PointGroup->Set_Flag(PointGroupClass::TRANSFORM, true);
 			PointGroup->Set_Texture(tex);
 			PointGroup->Set_Shader(shader);
-			PointGroup->Set_Frame_Row_Column_Count_Log2(frame_mode);
+			PointGroup->Set_Frame_Row_Column_Count_Log2(static_cast<unsigned char>(frame_mode));
 			PointGroup->Set_Point_Mode(PointGroupClass::TRIS);
 		}
 		break;
@@ -240,7 +240,7 @@ ParticleBufferClass::ParticleBufferClass
 			PointGroup->Set_Flag(PointGroupClass::TRANSFORM, true);
 			PointGroup->Set_Texture(tex);
 			PointGroup->Set_Shader(shader);
-			PointGroup->Set_Frame_Row_Column_Count_Log2(frame_mode);
+			PointGroup->Set_Frame_Row_Column_Count_Log2(static_cast<unsigned char>(frame_mode));
 			PointGroup->Set_Point_Mode(PointGroupClass::QUADS);
 		}
 		break;
@@ -1772,7 +1772,7 @@ void ParticleBufferClass::Reset_Size(ParticlePropertyStruct<float> &new_props)
 		float last_size = SizeKeyFrameValues[NumSizeKeyFrames - 1] + SizeKeyFrameDeltas[NumSizeKeyFrames - 1] *
 			(float)(MaxAge - SizeKeyFrameTimes[NumSizeKeyFrames - 1]);
 		MaxSize = MAX(MaxSize, last_size);
-		MaxSize += fabs(new_props.Rand);
+		MaxSize += WWMath::Fabs(new_props.Rand);
 
 		// Set up size randomizer table
 
@@ -2992,7 +2992,7 @@ void ParticleBufferClass::Get_Color_Key_Frames (ParticlePropertyStruct<Vector3> 
 			//
 			Vector3 start_color = ColorKeyFrameValues[index - 1];
 			Vector3 &delta = ColorKeyFrameDeltas[NumColorKeyFrames - 1];
-			float time_delta = MaxAge - ColorKeyFrameTimes[index - 1];
+			float time_delta = float(MaxAge - ColorKeyFrameTimes[index - 1]);
 			colors.Values[index - 1] = start_color + (delta * time_delta);
 		}
 	}
@@ -3048,7 +3048,7 @@ void ParticleBufferClass::Get_Opacity_Key_Frames (ParticlePropertyStruct<float> 
 			//
 			float start_alpha = AlphaKeyFrameValues[index - 1];
 			float &delta = AlphaKeyFrameDeltas[NumAlphaKeyFrames - 1];
-			float time_delta = MaxAge - AlphaKeyFrameTimes[index - 1];
+			float time_delta = float(MaxAge - AlphaKeyFrameTimes[index - 1]);
 			opacities.Values[index - 1] = start_alpha + (delta * time_delta);
 		}
 	}
@@ -3105,7 +3105,7 @@ void ParticleBufferClass::Get_Size_Key_Frames (ParticlePropertyStruct<float> &si
 			//
 			float start_size			= SizeKeyFrameValues[index - 1];
 			float &delta				= SizeKeyFrameDeltas[NumSizeKeyFrames - 1];
-			float time_delta			= MaxAge - SizeKeyFrameTimes[index - 1];
+			float time_delta			= float(MaxAge - SizeKeyFrameTimes[index - 1]);
 			sizes.Values[index - 1]	= start_size + (delta * time_delta);
 		}
 	}
@@ -3167,7 +3167,7 @@ void ParticleBufferClass::Get_Rotation_Key_Frames (ParticlePropertyStruct<float>
 			//
 			float start_rotation				= RotationKeyFrameValues[index - 1];
 			float delta							= 2.0f * HalfRotationKeyFrameDeltas[NumRotationKeyFrames - 1];
-			float time_delta					= MaxAge - RotationKeyFrameTimes[index - 1];
+			float time_delta					= float(MaxAge - RotationKeyFrameTimes[index - 1]);
 			rotations.Values[index - 1]	= (start_rotation + (delta * time_delta)) * 1000.0f;
 		}
 	}
@@ -3224,7 +3224,7 @@ void ParticleBufferClass::Get_Frame_Key_Frames (ParticlePropertyStruct<float> &f
 			//
 			float start_frame			= FrameKeyFrameValues[index - 1];
 			float &delta				= FrameKeyFrameDeltas[NumFrameKeyFrames - 1];
-			float time_delta			= MaxAge - FrameKeyFrameTimes[index - 1];
+			float time_delta			= float(MaxAge - FrameKeyFrameTimes[index - 1]);
 			frames.Values[index - 1]	= start_frame + (delta * time_delta);
 		}
 	}
@@ -3280,7 +3280,7 @@ void ParticleBufferClass::Get_Blur_Time_Key_Frames (ParticlePropertyStruct<float
 			//
 			float start_blurtime		= BlurTimeKeyFrameValues[index - 1];
 			float &delta				= BlurTimeKeyFrameDeltas[NumBlurTimeKeyFrames - 1];
-			float time_delta			= MaxAge - BlurTimeKeyFrameTimes[index - 1];
+			float time_delta			= float(MaxAge - BlurTimeKeyFrameTimes[index - 1]);
 			blurtimes.Values[index - 1]	= start_blurtime + (delta * time_delta);
 		}
 	}

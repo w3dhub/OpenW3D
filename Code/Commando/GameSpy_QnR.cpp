@@ -642,7 +642,7 @@ BOOL CGameSpyQnR::Parse_HeartBeat_List(const char *list, bool log_on_error) {
 			// Parse off the port value
 			*s++ = 0;
 			char *p = s;
-			if (atoi(p)) port = atoi(p);
+			if (atoi(p)) port = WORD(atoi(p));
 		}
 		// skip white space
 		while (*t == ' ' || *t == '\t') t++;

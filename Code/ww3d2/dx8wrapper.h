@@ -601,7 +601,7 @@ WWINLINE void DX8Wrapper::_Get_DX8_Transform(D3DTRANSFORMSTATETYPE transform, Ma
 WWINLINE void DX8Wrapper::Set_Index_Buffer_Index_Offset(unsigned offset)
 {
 	if (render_state.index_base_offset==offset) return;
-	render_state.index_base_offset=offset;
+	render_state.index_base_offset=static_cast<unsigned short>(offset);
 	render_state_changed|=INDEX_BUFFER_CHANGED;
 }
 
@@ -849,7 +849,7 @@ WWINLINE void DX8Wrapper::Set_Alpha (const float alpha, unsigned int &color)
 {
 	unsigned char *component = (unsigned char*) &color;
 
-	component [3] = 255.0f * alpha;
+	component [3] = static_cast<unsigned char>(255.0f * alpha);
 }
 
 WWINLINE void DX8Wrapper::Get_Render_State(RenderStateStruct& state)
@@ -892,7 +892,7 @@ WWINLINE void DX8Wrapper::Set_Projection_Transform_With_Z_Bias(const Matrix4& ma
 
 	if (!Get_Current_Caps()->Support_ZBias() && ZNear!=ZFar) {
 		Matrix4 tmp=ProjectionMatrix;
-		float tmp_zbias=ZBias;
+		float tmp_zbias=float(ZBias);
 		tmp_zbias*=(1.0f/16.0f);
 		tmp_zbias*=1.0f / (ZFar - ZNear);
 		tmp[2][2]-=tmp_zbias*tmp[3][2];
@@ -911,7 +911,7 @@ WWINLINE void DX8Wrapper::Set_Pseudo_ZBias(int zbias)
 	ZBias=zbias;
 
 	Matrix4 tmp=ProjectionMatrix;
-	float tmp_zbias=ZBias;
+	float tmp_zbias=float(ZBias);
 	tmp_zbias*=(1.0f/64.0f);
 	tmp_zbias*=1.0f / (ZFar - ZNear);
 	tmp[2][2]-=tmp_zbias*tmp[3][2];

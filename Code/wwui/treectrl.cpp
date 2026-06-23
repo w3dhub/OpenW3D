@@ -190,16 +190,16 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 	//	Build the display rectangles
 	//
 	RectClass rect;
-	rect.Left	= ClientRect.Left + LINE_START + int(level * LINE_SPACING);
+	rect.Left	= ClientRect.Left + LINE_START + WWMath::Trunc(level * LINE_SPACING);
 	rect.Top		= y_pos;
 	rect.Right	= ClientRect.Right;
 	rect.Bottom	= y_pos + RowHeight;
 
 	RectClass plus_rect;
-	plus_rect.Left		= int(rect.Left - LINE_SPACING);
-	plus_rect.Top		= int(rect.Center ().Y - (LINE_SPACING * 0.5F));
-	plus_rect.Right	= int((plus_rect.Left + LINE_SPACING));
-	plus_rect.Bottom	= int(rect.Center ().Y + (LINE_SPACING * 0.5F));
+	plus_rect.Left		= WWMath::Trunc(rect.Left - LINE_SPACING);
+	plus_rect.Top		= WWMath::Trunc(rect.Center ().Y - (LINE_SPACING * 0.5F));
+	plus_rect.Right	= WWMath::Trunc((plus_rect.Left + LINE_SPACING));
+	plus_rect.Bottom	= WWMath::Trunc(rect.Center ().Y + (LINE_SPACING * 0.5F));
 
 	RectClass icon_rect;
 	icon_rect.Left		= rect.Left;
@@ -502,9 +502,9 @@ TreeCtrlClass::Update_Client_Rect (void)
 	//
 	//	Determine how many rows we can fit on a page
 	//
-	RowsPerPage = ClientRect.Height () / RowHeight;
-	ClientRect.Top		= int(Rect.Center ().Y - (RowsPerPage * RowHeight * 0.5F));
-	ClientRect.Bottom	= int(Rect.Center ().Y + (RowsPerPage * RowHeight * 0.5F));
+	RowsPerPage = int(ClientRect.Height () / RowHeight);
+	ClientRect.Top		= WWMath::Trunc(Rect.Center ().Y - (RowsPerPage * RowHeight * 0.5F));
+	ClientRect.Bottom	= WWMath::Trunc(Rect.Center ().Y + (RowsPerPage * RowHeight * 0.5F));
 
 	//
 	//	Choose an arbitrary width, the scroll bar
@@ -750,7 +750,7 @@ TreeCtrlClass::Hit_Test (const Vector2 &mouse_pos, HITTYPE &type)
 		//
 		//	Determine on which row of the screen the user clicked
 		//
-		int row_index = (mouse_pos.Y - ClientRect.Top) / RowHeight;
+		int row_index = int((mouse_pos.Y - ClientRect.Top) / RowHeight);
 
 		//
 		//	Now move down that number of items...

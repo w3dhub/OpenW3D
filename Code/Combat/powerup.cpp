@@ -283,7 +283,7 @@ bool	PowerUpGameObjDef::Grant( SmartGameObj * obj, PowerUpGameObj * p_powerup, b
 		};
 
 		// Round up to next int
-		add = (int)(add + 0.95f);
+		add = WWMath::Trunc(add + 0.95f);
 
 		defense->Set_Shield_Strength_Max( defense->Get_Shield_Strength_Max() + add );
 		granted = true;
@@ -327,7 +327,7 @@ bool	PowerUpGameObjDef::Grant( SmartGameObj * obj, PowerUpGameObj * p_powerup, b
 		};
 
 		// Round up to next int
-		add = (int)(add + 0.95f);
+		add = WWMath::Trunc(add + 0.95f);
 
 		defense->Set_Health_Max( defense->Get_Health_Max() + add );
 		granted = true;

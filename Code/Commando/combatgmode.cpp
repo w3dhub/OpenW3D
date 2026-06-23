@@ -448,7 +448,7 @@ public:
 						// Scale
 						x *= Render2DClass::Get_Screen_Resolution().Right / 640.0f;
 						y *= Render2DClass::Get_Screen_Resolution().Bottom / 480.0f;
-						backdropText2.Set_Location( Vector2( (int)x, (int)y ) );
+						backdropText2.Set_Location( Vector2( WWMath::Trunc(x), WWMath::Trunc(y) ) );
 						backdropText2.Draw_Sentence( color );
 						color=0xFFFFFFFF;
 						backdropText2.Set_Wrapping_Width( 0 );
@@ -471,7 +471,7 @@ public:
 						// Scale
 						x *= Render2DClass::Get_Screen_Resolution().Right / 640.0f;
 						y *= Render2DClass::Get_Screen_Resolution().Bottom / 480.0f;
-						backdropText.Set_Location( Vector2( (int)x, (int)y ) );
+						backdropText.Set_Location( Vector2( WWMath::Trunc(x), WWMath::Trunc(y) ) );
 						backdropText.Draw_Sentence( color );
 						color=0xFFFFFFFF;
 						backdropText.Set_Wrapping_Width( 0 );
@@ -517,7 +517,7 @@ public:
 						// Scale
 						x *= Render2DClass::Get_Screen_Resolution().Right / 640.0f;
 						y *= Render2DClass::Get_Screen_Resolution().Bottom / 480.0f;
-						backdropText.Set_Location( Vector2( (int)x, (int)y ) );
+						backdropText.Set_Location( Vector2( WWMath::Trunc(x), WWMath::Trunc(y) ) );
 						backdropText.Draw_Sentence( color );
 						color=0xFFFFFFFF;
 						backdropText.Set_Wrapping_Width( 0 );
@@ -599,7 +599,7 @@ public:
 		LoadPercentageDrawn += ( LoadPercentage - LoadPercentageDrawn ) * 0.1f;
 		backdrop.Set_Animation_Percentage( LoadPercentageDrawn );
 		if (ConsoleBox.Is_Exclusive() && _last_percent_drawn != LoadPercentageDrawn) {
-			_last_percent_drawn = LoadPercentageDrawn;
+			_last_percent_drawn = int(LoadPercentageDrawn);
 			ConsoleBox.Print("Load %d%% complete\r", (int)(LoadPercentageDrawn * 100.0f));
 		}
 

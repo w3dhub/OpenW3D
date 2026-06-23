@@ -729,7 +729,7 @@ ButtonCtrlClass::Update_Pulse (bool is_mouse_over)
 			//
 			//	Map the percent onto a circle to give us a pulse
 			//
-			float value	= ::cos (DEG_TO_RADF (360.0F) * percent);
+			float value	= WWMath::Cos (DEG_TO_RADF (360.0F) * percent);
 			value			= 0.8F + (value * 0.2F);
 
 			//

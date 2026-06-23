@@ -917,7 +917,7 @@ float Animatable3DObjClass::Compute_Current_Frame() const
 			//	Compute the current frame based on elapsed time.
 			//
 			if (ModeAnim.AnimMode != ANIM_MODE_MANUAL) {
-				float sync_time_diff = WW3D::Get_Sync_Time() - ModeAnim.LastSyncTime;
+				float sync_time_diff = float(WW3D::Get_Sync_Time() - ModeAnim.LastSyncTime);
 				frame += ModeAnim.Motion->Get_Frame_Rate() * sync_time_diff * 0.001f;
 
 				//
@@ -927,7 +927,7 @@ float Animatable3DObjClass::Compute_Current_Frame() const
 				{
 					case ANIM_MODE_ONCE:
 						if (frame >= ModeAnim.Motion->Get_Num_Frames() - 1) {
-							frame = ModeAnim.Motion->Get_Num_Frames() - 1;
+							frame = float(ModeAnim.Motion->Get_Num_Frames() - 1);
 						}
 						break;
 

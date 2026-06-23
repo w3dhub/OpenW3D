@@ -193,7 +193,7 @@ void SystemInfoLog::Record_Loading_Time(unsigned loading_time)
 
 void SystemInfoLog::Record_Frame()
 {
-	unsigned fps=TimeManager::Get_Average_Frame_Rate();
+	unsigned fps=unsigned(TimeManager::Get_Average_Frame_Rate());
 	CurrentTotalFPS+=fps;
 	CurrentFPSCount++;
 	if (fps<VeryMinFPS) {

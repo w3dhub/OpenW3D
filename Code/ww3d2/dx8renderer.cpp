@@ -1002,13 +1002,13 @@ void DX8RigidFVFCategoryContainer::Add_Mesh(MeshClass* mesh_)
 		int vb_size=4000;
 		if (vb_size<needed_vertices) vb_size=needed_vertices;
 		if (sorting) {
-			vertex_buffer=NEW_REF(SortingVertexBufferClass,(vb_size));
+			vertex_buffer=NEW_REF(SortingVertexBufferClass,(static_cast<unsigned short>(vb_size)));
 			WWASSERT(vertex_buffer->FVF_Info().Get_FVF()==FVF);	// Only one sorting FVF type!
 		}
 		else {
 			vertex_buffer=NEW_REF(DX8VertexBufferClass,(
 				FVF,
-				vb_size,
+				static_cast<unsigned short>(vb_size),
 				(DX8Wrapper::Get_Current_Caps()->Support_NPatches() && WW3D::Get_NPatches_Level()>1) ? DX8VertexBufferClass::USAGE_NPATCHES : DX8VertexBufferClass::USAGE_DEFAULT));
 		}
 	}
@@ -1202,11 +1202,11 @@ void DX8FVFCategoryContainer::Generate_Texture_Categories(Vertex_Split_Table& sp
 		int ib_size=12000;
 		if (ib_size<index_count) ib_size=index_count;
 		if (sorting) {
-			index_buffer=NEW_REF(SortingIndexBufferClass,(ib_size));
+			index_buffer=NEW_REF(SortingIndexBufferClass,(static_cast<unsigned short>(ib_size)));
 		}
 		else {
 			index_buffer=NEW_REF(DX8IndexBufferClass,(
-				ib_size,
+				static_cast<unsigned short>(ib_size),
 				(DX8Wrapper::Get_Current_Caps()->Support_NPatches() && WW3D::Get_NPatches_Level()>1) ? DX8IndexBufferClass::USAGE_NPATCHES : DX8IndexBufferClass::USAGE_DEFAULT));
 		}
 	}
@@ -1294,7 +1294,7 @@ void DX8SkinFVFCategoryContainer::Render(void)
 	DynamicVBAccessClass vb(
 		sorting ? BUFFER_TYPE_DYNAMIC_SORTING : BUFFER_TYPE_DYNAMIC_DX8,
 		dynamic_fvf_type,
-		VisibleVertexCount);
+		static_cast<unsigned short>(VisibleVertexCount));
 	SNAPSHOT_SAY(("DynamicVBAccess - %s - %d vertices\n",sorting ? "sorting" : "non-sorting",VisibleVertexCount));
 
 	unsigned vertex_offset=0;

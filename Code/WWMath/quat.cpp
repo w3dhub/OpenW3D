@@ -481,9 +481,9 @@ Quaternion Build_Quaternion(const Matrix3D & mat)
 
 	if (tr > 0.0f) {
 
-		s = sqrt(tr + 1.0);
-		q[3] = s * 0.5;
-		s = 0.5 / s;
+		s = WWMath::Sqrt(tr + 1.0f);
+		q[3] = s * 0.5f;
+		s = 0.5f / s;
 
 		q[0] = (mat[2][1] - mat[1][2]) * s;
 		q[1] = (mat[0][2] - mat[2][0]) * s;
@@ -497,11 +497,11 @@ Quaternion Build_Quaternion(const Matrix3D & mat)
 		j = _nxt[i];
 		k = _nxt[j];
 
-		s = sqrt((mat[i][i] - (mat[j][j] + mat[k][k])) + 1.0);
+		s = WWMath::Sqrt((mat[i][i] - (mat[j][j] + mat[k][k])) + 1.0f);
 
-		q[i] = s * 0.5;
-		if (s != 0.0) {
-			s = 0.5 / s;
+		q[i] = s * 0.5f;
+		if (s != 0.0f) {
+			s = 0.5f / s;
 		}
 
 		q[3] = 	( mat[k][j] - mat[j][k] ) * s;
@@ -522,11 +522,11 @@ Quaternion Build_Quaternion(const Matrix3 & mat)
 	// sum the diagonal of the rotation matrix
 	tr = mat[0][0] + mat[1][1] + mat[2][2];
 
-	if (tr > 0.0) {
+	if (tr > 0.0f) {
 
-		s = sqrt(tr + 1.0);
-		q[3] = s * 0.5;
-		s = 0.5 / s;
+		s = WWMath::Sqrt(tr + 1.0f);
+		q[3] = s * 0.5f;
+		s = 0.5f / s;
 
 		q[0] = (mat[2][1] - mat[1][2]) * s;
 		q[1] = (mat[0][2] - mat[2][0]) * s;
@@ -541,12 +541,12 @@ Quaternion Build_Quaternion(const Matrix3 & mat)
 		j = _nxt[i];
 		k = _nxt[j];
 
-		s = sqrt( (mat[i][i] - (mat[j][j]+mat[k][k])) + 1.0);
+		s = WWMath::Sqrt( (mat[i][i] - (mat[j][j]+mat[k][k])) + 1.0f);
 
-		q[i] =	s * 0.5;
+		q[i] =	s * 0.5f;
 
-		if (s != 0.0) {
-			s = 0.5/s;
+		if (s != 0.0f) {
+			s = 0.5f/s;
 		}
 
 		q[3] = 	( mat[k][j] - mat[j][k] ) * s;
@@ -568,9 +568,9 @@ Quaternion Build_Quaternion(const Matrix4 & mat)
 
 	if (tr > 0.0) {
 
-		s = sqrt(tr + 1.0);
-		q[3] = s * 0.5;
-		s = 0.5 / s;
+		s = WWMath::Sqrt(tr + 1.0f);
+		q[3] = s * 0.5f;
+		s = 0.5f / s;
 
 		q[0] = (mat[2][1] - mat[1][2]) * s;
 		q[1] = (mat[0][2] - mat[2][0]) * s;
@@ -585,11 +585,11 @@ Quaternion Build_Quaternion(const Matrix4 & mat)
 		j = _nxt[i];
 		k = _nxt[j];
 
-		s = sqrt( (mat[i][i] - (mat[j][j]+mat[k][k])) + 1.0);
+		s = WWMath::Sqrt( (mat[i][i] - (mat[j][j]+mat[k][k])) + 1.0f);
 
-		q[i] =	s * 0.5;
-		if (s != 0.0) {
-			s = 0.5/s;
+		q[i] =	s * 0.5f;
+		if (s != 0.0f) {
+			s = 0.5f/s;
 		}
 		q[3] = 	( mat[k][j] - mat[j][k] ) * s;
 		q[j] =	( mat[j][i] + mat[i][j] ) * s;

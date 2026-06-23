@@ -184,7 +184,7 @@ MenuEntryCtrlClass::On_Create (void)
 	if ((Style & 0xF00) == BS_LEFT) {
 		Rect.Right = Rect.Left + extents.X + TextRenderer.Get_Text_Extents (U_CHAR("W")).X;
 	} else {
-		Rect.Left	= int(Rect.Left + (Rect.Width () / 2) - (extents.X / 2));
+		Rect.Left	= WWMath::Trunc(Rect.Left + (Rect.Width () / 2) - (extents.X / 2));
 		Rect.Right	= Rect.Left + extents.X + TextRenderer.Get_Text_Extents (U_CHAR("W")).X;
 	}
 
@@ -390,7 +390,7 @@ MenuEntryCtrlClass::Update_State (void)
 
 				if (curr_time >= (int)time2) {
 
-					Vector3 start_color (MaxHilightRedValue * 3, MaxHilightRedValue * 3.0F * 0.6F, 0);
+					Vector3 start_color (MaxHilightRedValue * 3.0F, MaxHilightRedValue * 3.0F * 0.6F, 0);
 					Vector3 end_color (0, 0, 0);
 
 					//
@@ -406,8 +406,8 @@ MenuEntryCtrlClass::Update_State (void)
 
 				} else {
 
-					Vector3 start_color (MaxHilightRedValue * 3, 0, 0);
-					Vector3 end_color (MaxHilightRedValue * 3, MaxHilightRedValue * 3.0F * 0.6F, 0);
+					Vector3 start_color (MaxHilightRedValue * 3.0F, 0, 0);
+					Vector3 end_color (MaxHilightRedValue * 3.0F, MaxHilightRedValue * 3.0F * 0.6F, 0);
 
 					uint32 start_time	= time1;
 					uint32 end_time	= time2;
@@ -424,13 +424,13 @@ MenuEntryCtrlClass::Update_State (void)
 
 			} else {
 
-				if (CurrRadiusX != 160.0F) {
+				if (CurrRadiusX != 160) {
 
 					//
 					//	Snap the glow to its max
 					//
-					CurrRadiusX	= 160.0F;
-					CurrRadiusY	= 60.0F;
+					CurrRadiusX	= 160;
+					CurrRadiusY	= 60;
 					CurrColor	= RGB_TO_INT32 (0, 0, 0);
 				}
 
@@ -466,9 +466,9 @@ MenuEntryCtrlClass::Update_State (void)
 				//	Fade out the color
 				//
 				if (curr_time > (EndTime - 500)) {
-					float start_time = EndTime - 500;
+					float start_time = float(EndTime - 500);
 					float red_percent = float(float(curr_time - start_time) / float(EndTime - start_time));
-					int red_value		= (1.0F - red_percent) * MaxHilightRedValue;
+					int red_value		= int((1.0F - red_percent) * MaxHilightRedValue);
 					CurrColor = RGB_TO_INT32 (red_value, 0, 0);
 				}
 
@@ -519,14 +519,14 @@ MenuEntryCtrlClass::Create_Text_Renderer (void)
 	//
 	//	Assume cenetered text
 	//
-	int x_pos = int(Rect.Left + (Rect.Width () / 2) - (text_extent.X / 2));
-	int y_pos = int(Rect.Top + (Rect.Height () / 2) - (text_extent.Y / 2));
+	float x_pos = WWMath::Trunc(Rect.Left + (Rect.Width () / 2) - (text_extent.X / 2));
+	float y_pos = WWMath::Trunc(Rect.Top + (Rect.Height () / 2) - (text_extent.Y / 2));
 
 	//
 	//	Should we left justify?
 	//
 	if ((Style & 0xF00) == BS_LEFT) {
-		x_pos = int(Rect.Left + 1);
+		x_pos = WWMath::Trunc(Rect.Left + 1);
 	}
 
 	if (CurrState == UP) {
@@ -763,18 +763,18 @@ MenuEntryCtrlClass::Center_Mouse (void)
 	//
 	Vector2 text_extent = TextRenderer.Get_Text_Extents (Title);
 
-	int x_pos = 0;
+	float x_pos = 0;
 
 	//
 	//	Should we left justify?
 	//
 	if ((Style & 0xF00) == BS_LEFT) {
-		x_pos = int(Rect.Left + (text_extent.X / 2));
+		x_pos = WWMath::Trunc(Rect.Left + (text_extent.X / 2));
 	} else {
-		x_pos = int(Rect.Left + (Rect.Width () / 2) - (text_extent.X / 2));
+		x_pos = WWMath::Trunc(Rect.Left + (Rect.Width () / 2) - (text_extent.X / 2));
 	}
 
-	int y_pos = int(Rect.Top + (Rect.Height () / 2));
+	float y_pos = WWMath::Trunc(Rect.Top + (Rect.Height () / 2));
 
 	//
 	//	Put the mouse cursor in the middle of this control

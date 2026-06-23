@@ -158,8 +158,8 @@ void MultiHUDClass::Render_Text(WideStringClass & text, float x, float y, unsign
 		// is non-integral.
 		//
 
-		x = cMathUtil::Round(x);
-		y = cMathUtil::Round(y);
+		x = WWMath::Round(x);
+		y = WWMath::Round(y);
 
 		NameRenderer->Set_Location(Vector2(x, y));
 		NameRenderer->Build_Sentence(text);
@@ -449,8 +449,8 @@ void MultiHUDClass::Render_Debug_Text(const char *text, float x, float y, unsign
 
 	WWASSERT(text != NULL);
 
-	x = cMathUtil::Round(x);
-	y = cMathUtil::Round(y);
+	x = WWMath::Round(x);
+	y = WWMath::Round(y);
 
 	if (PTextRenderer != NULL) {
 		WWASSERT(PTextRenderer != NULL);
@@ -660,7 +660,7 @@ void MultiHUDClass::Show_Player_Rhost_Data(SmartGameObj * smart_obj)
 
 			cRemoteHost * p_rhost = cNetwork::Get_Server_Rhost(controlling_client);
 			float x = 20;
-			float y = 60 + controlling_client * 10;
+			float y = float(60 + controlling_client * 10);
 
 			WideStringClass name(p_player->Get_Name(), true);
 			StringClass short_name;

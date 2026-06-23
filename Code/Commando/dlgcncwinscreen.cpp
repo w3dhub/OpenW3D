@@ -577,7 +577,7 @@ CNCWinScreenMenuClass::Populate_Player_Lists (int team_id, int list_ctrl1_id)
 			//	Fill in information about the player
 			//
 			list_ctrl->Set_Entry_Int (item_index, COL_RANK,			player->Get_Rung ());
-			list_ctrl->Set_Entry_Int (item_index, COL_SCORE,		player->Get_Score ());
+			list_ctrl->Set_Entry_Int (item_index, COL_SCORE,		int(player->Get_Score ()));
 			list_ctrl->Set_Entry_Int (item_index, COL_KILLS,		player->Get_Kills ());
 			if (ShowLadderPoints) {
 				list_ctrl->Set_Entry_Int (item_index, COL_LADDER,		player->Get_Ladder_Points ());

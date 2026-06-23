@@ -674,7 +674,7 @@ PhysicalGameObj * SpawnerClass::Spawn( int obj_id )
 			SoldierGameObj * soldier = obj->As_SoldierGameObj();
 			if ( soldier != NULL ) {
 				ActionParamsStruct parameters;
-				parameters.Priority = Get_Definition().GotoSpawnerPosPriority;
+				parameters.Priority = int(Get_Definition().GotoSpawnerPosPriority);
 				parameters.ObserverID = 0;
 				parameters.MoveLocation = TM.Get_Translation();
 				parameters.MoveSpeed = 1;

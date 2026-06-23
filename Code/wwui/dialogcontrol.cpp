@@ -154,10 +154,10 @@ DialogControlClass::Set_Window_Pos (const Vector2 &pos)
 	//
 	//	Recalculate the window's bounding rectangle
 	//
-	Rect.Left	= (int)pos.X;
-	Rect.Top		= (int)pos.Y;
-	Rect.Right	= (int)(Rect.Left + width);
-	Rect.Bottom	= (int)(Rect.Top + height);
+	Rect.Left	= WWMath::Trunc(pos.X);
+	Rect.Top		= WWMath::Trunc(pos.Y);
+	Rect.Right	= WWMath::Trunc(Rect.Left + width);
+	Rect.Bottom	= WWMath::Trunc(Rect.Top + height);
 
 	//
 	//	Let the control recalculate anything it needs

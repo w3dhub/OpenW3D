@@ -349,12 +349,12 @@ void DamageableStaticPhysClass::Start_Loop(void)
 
 		if (frame0 != frame1) {
 			Get_Animation_Manager().Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_LOOP);
-			Get_Animation_Manager().Set_Current_Frame(frame0);
-			Get_Animation_Manager().Set_Loop_Start(frame0);
-			Get_Animation_Manager().Set_Loop_End(frame1);
+			Get_Animation_Manager().Set_Current_Frame(float(frame0));
+			Get_Animation_Manager().Set_Loop_Start(float(frame0));
+			Get_Animation_Manager().Set_Loop_End(float(frame1));
 		} else {
 			Get_Animation_Manager().Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_MANUAL);
-			Get_Animation_Manager().Set_Current_Frame(frame0);
+			Get_Animation_Manager().Set_Current_Frame(float(frame0));
 		}
 	} else {
 		WWDEBUG_SAY(("ERROR: Missing definition for damageable object: %s\n",Model->Get_Name()));
@@ -396,8 +396,8 @@ void DamageableStaticPhysClass::Play_Twitch(void)
 
 			if (frame0 != frame1) {
 				Get_Animation_Manager().Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_TARGET);
-				Get_Animation_Manager().Set_Current_Frame(frame0);
-				Get_Animation_Manager().Set_Target_Frame(frame1);
+				Get_Animation_Manager().Set_Current_Frame(float(frame0));
+				Get_Animation_Manager().Set_Target_Frame(float(frame1));
 			}
 		}
 
@@ -415,8 +415,8 @@ void DamageableStaticPhysClass::Play_Death_Transition(void)
 		if (def->DeathTransitionStart != def->DeathTransitionEnd) {
 			CurState = STATE_DEATH_TRANSITION;
 			Get_Animation_Manager().Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_TARGET);
-			Get_Animation_Manager().Set_Current_Frame(def->DeathTransitionStart);
-			Get_Animation_Manager().Set_Target_Frame(def->DeathTransitionEnd);
+			Get_Animation_Manager().Set_Current_Frame(float(def->DeathTransitionStart));
+			Get_Animation_Manager().Set_Target_Frame(float(def->DeathTransitionEnd));
 		} else {
 			Start_Loop();
 		}

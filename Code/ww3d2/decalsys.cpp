@@ -280,7 +280,7 @@ void DecalGeneratorClass::Set_Mesh_Transform(const Matrix3D & mesh_transform)
 //			SurfaceClass::SurfaceDescription surface_desc;
 //			tex->Get_Level_Description(surface_desc);
 //			texsize = surface_desc.Width;
-			texsize = tex->Get_Width();
+			texsize = float(tex->Get_Width());
 		}
 
 		Mapper->Set_Texture_Transform(mesh_to_texture,texsize);

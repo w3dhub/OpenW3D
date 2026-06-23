@@ -230,7 +230,7 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 	ResolutionWidth = DEFAULT_RESOLUTION_WIDTH;
 	ResolutionHeight = DEFAULT_RESOLUTION_HEIGHT;
 	// Initialize Render2DClass Screen Resolution
-	Render2DClass::Set_Screen_Resolution( RectClass( 0, 0, ResolutionWidth, ResolutionHeight ) );
+	Render2DClass::Set_Screen_Resolution( RectClass( 0, 0, float(ResolutionWidth), float(ResolutionHeight) ) );
 	BitDepth = DEFAULT_BIT_DEPTH;
 	IsWindowed = false;
 
@@ -724,7 +724,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	if (height != -1)		ResolutionHeight = height;
 
 	// Initialize Render2DClass Screen Resolution
-	Render2DClass::Set_Screen_Resolution( RectClass( 0, 0, ResolutionWidth, ResolutionHeight ) );
+	Render2DClass::Set_Screen_Resolution( RectClass( 0, 0, float(ResolutionWidth), float(ResolutionHeight) ) );
 
 	if (bits != -1)		BitDepth = bits;
 	if (windowed != -1)	IsWindowed = (windowed != 0);
@@ -1743,7 +1743,7 @@ void DX8Wrapper::Draw_Sorting_IB_VB(
 	}
 
 	// Fill dynamic index buffer with sorting index buffer vertices
-	DynamicIBAccessClass dyn_ib_access(BUFFER_TYPE_DYNAMIC_DX8,index_count);
+	DynamicIBAccessClass dyn_ib_access(BUFFER_TYPE_DYNAMIC_DX8,static_cast<unsigned short>(index_count));
 	{
 		DynamicIBAccessClass::WriteLockClass lock(&dyn_ib_access);
 		unsigned short* dest=lock.Get_Index_Array();
@@ -2407,7 +2407,7 @@ void DX8Wrapper::Set_Light(unsigned index,const LightClass &light)
 	dlight.Phi=light.Get_Spot_Angle();
 
 	// Inverse linear light 1/(1+D)
-	double a,b;
+	float a,b;
 	light.Get_Far_Attenuation_Range(a,b);
 	dlight.Attenuation0=1.0f;
 	if (fabs(a-b)<1e-5)
@@ -2415,7 +2415,7 @@ void DX8Wrapper::Set_Light(unsigned index,const LightClass &light)
 		dlight.Attenuation1=0.0f;
 	else
 		// this will cause the light to drop to half intensity at the first far attenuation
-		dlight.Attenuation1=(float) 1.0/a;
+		dlight.Attenuation1=1.0f/a;
 	dlight.Attenuation2=0.0f;
 
 	Set_Light(index,&dlight);
@@ -2515,20 +2515,20 @@ DX8Wrapper::Create_Render_Target (int width, int height, WW3DFormat format)
 	//	Note: We're going to force the width and height to be powers of two and equal
 	//
 	const D3DCAPS9& dx8caps=Get_Current_Caps()->Get_DX8_Caps();
-	float poweroftwosize = width;
+	float poweroftwosize = float(width);
 	if (height > 0 && height < width) {
-		poweroftwosize = height;
+		poweroftwosize = float(height);
 	}
-	poweroftwosize = ::Find_POT (poweroftwosize);
+	poweroftwosize = float(::Find_POT (int(poweroftwosize)));
 
 	if (poweroftwosize>dx8caps.MaxTextureWidth) {
-		poweroftwosize=dx8caps.MaxTextureWidth;
+		poweroftwosize=float(dx8caps.MaxTextureWidth);
 	}
 	if (poweroftwosize>dx8caps.MaxTextureHeight) {
-		poweroftwosize=dx8caps.MaxTextureHeight;
+		poweroftwosize=float(dx8caps.MaxTextureHeight);
 	}
 
-	width = height = poweroftwosize;
+	width = height = int(poweroftwosize);
 
 	//
 	//	Attempt to create the render target
@@ -3406,7 +3406,7 @@ void DX8Wrapper::Set_DX8_ZBias(int zbias)
 
 	if (!Get_Current_Caps()->Support_ZBias() && ZNear!=ZFar) {
 		Matrix4 tmp=ProjectionMatrix;
-		float tmp_zbias=ZBias;
+		float tmp_zbias=float(ZBias);
 		tmp_zbias*=(1.0f/16.0f);
 		tmp_zbias*=1.0f / (ZFar - ZNear);
 		tmp[2][2]-=tmp_zbias*tmp[3][2];

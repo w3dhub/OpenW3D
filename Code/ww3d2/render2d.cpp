@@ -359,32 +359,32 @@ void	Render2DClass::Internal_Add_Quad_Indicies( int start_vert_index, bool backf
 
 	if (backfaced ^ (CoordinateScale.X * CoordinateScale.Y > 0)) {
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 1;
+		*indices = static_cast<unsigned short>(start_vert_index + 1);
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 0;
+		*indices = static_cast<unsigned short>(start_vert_index + 0);
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 2;
+		*indices = static_cast<unsigned short>(start_vert_index + 2);
 
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 1;
+		*indices = static_cast<unsigned short>(start_vert_index + 1);
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 2;
+		*indices = static_cast<unsigned short>(start_vert_index + 2);
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 3;
+		*indices = static_cast<unsigned short>(start_vert_index + 3);
 	} else {
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 0;
+		*indices = static_cast<unsigned short>(start_vert_index + 0);
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 1;
+		*indices = static_cast<unsigned short>(start_vert_index + 1);
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 2;
+		*indices = static_cast<unsigned short>(start_vert_index + 2);
 
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 2;
+		*indices = static_cast<unsigned short>(start_vert_index + 2);
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 1;
+		*indices = static_cast<unsigned short>(start_vert_index + 1);
 		indices=Indices.Uninitialized_Add();
-		*indices = start_vert_index + 3;
+		*indices = static_cast<unsigned short>(start_vert_index + 3);
 	}
 
 }
@@ -478,9 +478,9 @@ void	Render2DClass::Add_Tri( const Vector2 & v0, const Vector2 & v1, const Vecto
 	*Colors.Uninitialized_Add()=color;
 
 	// Add the faces
-	*Indices.Uninitialized_Add()=old_vert_count + 0;
-	*Indices.Uninitialized_Add()=old_vert_count + 1;
-	*Indices.Uninitialized_Add()=old_vert_count + 2;
+	*Indices.Uninitialized_Add()=static_cast<unsigned short>(old_vert_count + 0);
+	*Indices.Uninitialized_Add()=static_cast<unsigned short>(old_vert_count + 1);
+	*Indices.Uninitialized_Add()=static_cast<unsigned short>(old_vert_count + 2);
 
 }
 
@@ -576,7 +576,7 @@ void Render2DClass::Render(void)
 	DX8Wrapper::Set_View_Identity();
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,identity);
 
-	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,Vertices.Count());
+	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,static_cast<unsigned short>(Vertices.Count()));
 	{
 		DynamicVBAccessClass::WriteLockClass Lock(&vb);
 		const FVFInfoClass &fi=vb.FVF_Info();
@@ -593,7 +593,7 @@ void Render2DClass::Render(void)
 		}
 	}
 
-	DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8,Indices.Count());
+	DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8,static_cast<unsigned short>(Indices.Count()));
 	{
 		DynamicIBAccessClass::WriteLockClass Lock(&ib);
 		unsigned short *mem=Lock.Get_Index_Array();
@@ -603,7 +603,7 @@ void Render2DClass::Render(void)
 
 	DX8Wrapper::Set_Vertex_Buffer(vb);
 	DX8Wrapper::Set_Index_Buffer(ib,0);
-	DX8Wrapper::Draw_Triangles(0,Indices.Count()/3,0,Vertices.Count());
+	DX8Wrapper::Draw_Triangles(0,static_cast<unsigned short>(Indices.Count()/3),0,static_cast<unsigned short>(Vertices.Count()));
 
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,view);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,proj);

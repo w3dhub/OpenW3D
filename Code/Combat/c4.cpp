@@ -239,7 +239,7 @@ void	C4GameObj::Init_C4( const AmmoDefinitionClass * def, SoldierGameObj *owner,
 		Timer = time;
 	}
 
-	float	sound_id = def->C4TimingSound1ID;
+	int	sound_id = def->C4TimingSound1ID;
 	if ( detonation_mode == 2 ) 		sound_id = def->C4TimingSound1ID;
 	if ( detonation_mode == 3 )		sound_id = def->C4TimingSound1ID;
 

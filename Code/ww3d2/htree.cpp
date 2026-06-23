@@ -613,7 +613,7 @@ void HTreeClass::Blend_Update
 			motion0->Get_Translation(trans0,piv_idx,frame0);
 			Vector3 trans1;
 			motion1->Get_Translation(trans1,piv_idx,frame1);
-			Vector3 lerped = (1.0 - percentage) * trans0 + (percentage) * trans1;
+			Vector3 lerped = (1.0f - percentage) * trans0 + (percentage) * trans1;
 			pivot->Transform.Translate(lerped * ScaleFactor);
 
 			// interpolated rotation

@@ -334,7 +334,7 @@ if (!WWMath::Is_Valid_Float(dist)) {
 							float scale = 1.0f;
 							if ( explosion_def->DamageIsScaled ) {
 								WWASSERT(radius > WWMATH_EPSILON);
-								scale = 1.0 - (dist / radius);
+								scale = 1.0f - (dist / radius);
 								WWASSERT(WWMath::Is_Valid_Float(scale));
 							}
 

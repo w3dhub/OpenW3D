@@ -328,9 +328,9 @@ WWINLINE void GridCullSystemClass::clamp_indices_to_grid(int * i,int * j,int * k
 WWINLINE bool GridCullSystemClass::map_point_to_cell(const Vector3 & pt,int & set_i,int & set_j,int & set_k)
 {
 	Vector3 dp = pt - Origin;
-	set_i = floor(dp.X * OOCellDim.X);
-	set_j = floor(dp.Y * OOCellDim.Y);
-	set_k = floor(dp.Z * OOCellDim.Z);
+	set_i = int(WWMath::Floor(dp.X * OOCellDim.X));
+	set_j = int(WWMath::Floor(dp.Y * OOCellDim.Y));
+	set_k = int(WWMath::Floor(dp.Z * OOCellDim.Z));
 
 	if (	(set_i >= 0) && (set_j >= 0) && (set_k >= 0) &&
 			(set_i < CellCount[0]) && (set_j < CellCount[1]) && (set_k < CellCount[2])	)

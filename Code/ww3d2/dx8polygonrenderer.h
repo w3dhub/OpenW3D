@@ -124,18 +124,18 @@ inline void DX8PolygonRendererClass::Render(/*const Matrix3D & tm,*/int base_ver
 	if (strip) {
 		SNAPSHOT_SAY(("Draw_Strip(%d,%d,%d,%d)\n",index_offset,index_count-2,min_vertex_index,vertex_index_range));
 		DX8Wrapper::Draw_Strip(
-			index_offset,
-			index_count-2,
-			min_vertex_index,
-			vertex_index_range);
+			static_cast<unsigned short>(index_offset),
+			static_cast<unsigned short>(index_count-2),
+			static_cast<unsigned short>(min_vertex_index),
+			static_cast<unsigned short>(vertex_index_range));
 	}
 	else {
 		SNAPSHOT_SAY(("Draw_Triangles(%d,%d,%d,%d)\n",index_offset,index_count-2,min_vertex_index,vertex_index_range));
 		DX8Wrapper::Draw_Triangles(
-			index_offset,
-			index_count/3,
-			min_vertex_index,
-			vertex_index_range);
+			static_cast<unsigned short>(index_offset),
+			static_cast<unsigned short>(index_count/3),
+			static_cast<unsigned short>(min_vertex_index),
+			static_cast<unsigned short>(vertex_index_range));
 	}
 }
 
@@ -150,10 +150,10 @@ inline void DX8PolygonRendererClass::Render_Sorted(/*const Matrix3D & tm,*/int b
 	DX8Wrapper::Set_Index_Buffer_Index_Offset(base_vertex_offset);
 	SortingRendererClass::Insert_Triangles(
 		bounding_sphere,
-		index_offset,
-		index_count/3,
-		min_vertex_index,
-		vertex_index_range);
+		static_cast<unsigned short>(index_offset),
+		static_cast<unsigned short>(index_count/3),
+		static_cast<unsigned short>(min_vertex_index),
+		static_cast<unsigned short>(vertex_index_range));
 
 }
 

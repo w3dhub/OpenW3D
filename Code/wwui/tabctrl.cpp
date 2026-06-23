@@ -172,10 +172,10 @@ TabCtrlClass::Create_Text_Renderer (void)
 		//	Calculate what rectangle to render to
 		//
 		RectClass text_rect;
-		text_rect.Left		= (int)(text_left + (radius + x_offset));
-		text_rect.Top		= (int)y_pos;
-		text_rect.Right	= (int)ClientRect.Right;
-		text_rect.Bottom	= int(y_pos + tab_height);
+		text_rect.Left		= WWMath::Trunc(text_left + (radius + x_offset));
+		text_rect.Top		= WWMath::Trunc(y_pos);
+		text_rect.Right	= WWMath::Trunc(ClientRect.Right);
+		text_rect.Bottom	= WWMath::Trunc(y_pos + tab_height);
 
 		//
 		//	Get the title from the child dialog
@@ -343,27 +343,27 @@ TabCtrlClass::Create_Control_Renderer (void)
 	//	Calculate the screen rectangle for the bar
 	//
 	RectClass bar_rect;
-	bar_rect.Left		= int(ClientRect.Left + x_offset + (BAR_OFFSET * ScaleX) - (bar_width / 2));
-	bar_rect.Right		= int(bar_rect.Left + bar_width);
-	bar_rect.Top		= int(ClientRect.Top - (x_offset * 1.5F));
-	bar_rect.Bottom	= int(ClientRect.Bottom + (x_offset * 1.5F));
+	bar_rect.Left		= WWMath::Trunc(ClientRect.Left + x_offset + (BAR_OFFSET * ScaleX) - (bar_width / 2));
+	bar_rect.Right		= WWMath::Trunc(bar_rect.Left + bar_width);
+	bar_rect.Top		= WWMath::Trunc(ClientRect.Top - (x_offset * 1.5F));
+	bar_rect.Bottom	= WWMath::Trunc(ClientRect.Bottom + (x_offset * 1.5F));
 
 	//
 	//	Calculate the screen rectangle for the selector
 	//
-	SelRect.Left	= int(ClientRect.Left + x_offset);
-	SelRect.Right	= int(SelRect.Left + sel_width);
-	SelRect.Top		= int(SelectorPos - (sel_height / 2));
-	SelRect.Bottom	= int(SelRect.Top + sel_height);
+	SelRect.Left	= WWMath::Trunc(ClientRect.Left + x_offset);
+	SelRect.Right	= WWMath::Trunc(SelRect.Left + sel_width);
+	SelRect.Top		= WWMath::Trunc(SelectorPos - (sel_height / 2));
+	SelRect.Bottom	= WWMath::Trunc(SelRect.Top + sel_height);
 
 	//
 	//	Calculate the screen rectangle for the bubble
 	//
 	RectClass bubble_rect;
-	bubble_rect.Left		= int(SelRect.Left + BUBBLE_OFFSET_X * ScaleX);
-	bubble_rect.Right		= int(bubble_rect.Left + bubble_width);
-	bubble_rect.Top		= int(SelRect.Top + BUBBLE_OFFSET_Y * ScaleY);
-	bubble_rect.Bottom	= int(bubble_rect.Top + bubble_height);
+	bubble_rect.Left		= WWMath::Trunc(SelRect.Left + BUBBLE_OFFSET_X * ScaleX);
+	bubble_rect.Right		= WWMath::Trunc(bubble_rect.Left + bubble_width);
+	bubble_rect.Top		= WWMath::Trunc(SelRect.Top + BUBBLE_OFFSET_Y * ScaleY);
+	bubble_rect.Bottom	= WWMath::Trunc(bubble_rect.Top + bubble_height);
 
 	//
 	//	Normalize the UVs
@@ -380,16 +380,16 @@ TabCtrlClass::Create_Control_Renderer (void)
 	//	Render the bar top and bottom
 	//
 	RectClass bar_top_rect;
-	bar_top_rect.Left		= int(bar_rect.Left);
-	bar_top_rect.Right	= int(bar_rect.Right);
-	bar_top_rect.Top		= int(bar_rect.Top);
-	bar_top_rect.Bottom	= int(bar_top_rect.Top + bar_tip_height);
+	bar_top_rect.Left		= WWMath::Trunc(bar_rect.Left);
+	bar_top_rect.Right	= WWMath::Trunc(bar_rect.Right);
+	bar_top_rect.Top		= WWMath::Trunc(bar_rect.Top);
+	bar_top_rect.Bottom	= WWMath::Trunc(bar_top_rect.Top + bar_tip_height);
 
 	RectClass bar_bottom_rect;
-	bar_bottom_rect.Left		= int(bar_rect.Left);
-	bar_bottom_rect.Right	= int(bar_rect.Right);
-	bar_bottom_rect.Top		= int(bar_rect.Bottom - bar_tip_height);
-	bar_bottom_rect.Bottom	= int(bar_rect.Bottom);
+	bar_bottom_rect.Left		= WWMath::Trunc(bar_rect.Left);
+	bar_bottom_rect.Right	= WWMath::Trunc(bar_rect.Right);
+	bar_bottom_rect.Top		= WWMath::Trunc(bar_rect.Bottom - bar_tip_height);
+	bar_bottom_rect.Bottom	= WWMath::Trunc(bar_rect.Bottom);
 
 	renderer.Add_Quad (bar_top_rect, bar_top_uvs);
 	renderer.Add_Quad (bar_bottom_rect, bar_bottom_uvs);
@@ -475,10 +475,10 @@ TabCtrlClass::Update_Client_Rect (void)
 	//
 	for (int index = 0; index < TabList.Count (); index ++) {
 		RectClass rect;
-		rect.Left	= (int)(ClientRect.Left + PAGE_AREA_OFFSET * ScaleX);
-		rect.Top		= (int)ClientRect.Top;
-		rect.Right	= (int)ClientRect.Right;
-		rect.Bottom	= (int)ClientRect.Bottom;
+		rect.Left	= WWMath::Trunc(ClientRect.Left + PAGE_AREA_OFFSET * ScaleX);
+		rect.Top		= WWMath::Trunc(ClientRect.Top);
+		rect.Right	= WWMath::Trunc(ClientRect.Right);
+		rect.Bottom	= WWMath::Trunc(ClientRect.Bottom);
 		TabList[index]->Set_Rect (rect);
 	}
 
@@ -754,7 +754,7 @@ TabCtrlClass::Update_Bubble (void)
 			//	Toggle the bubble light
 			//
 			IsBubbleDisplayed = !IsBubbleDisplayed;
-			NextBlinkTime		= curr_time + BLINK_DELAY;
+			NextBlinkTime		= int(curr_time + BLINK_DELAY);
 
 			//
 			//	Force a repaint
@@ -843,10 +843,10 @@ TabCtrlClass::Add_Tab (ChildDialogClass *dialog)
 	// page area.
 	//
 	RectClass rect;
-	rect.Left	= (int)(ClientRect.Left + PAGE_AREA_OFFSET * ScaleX);
-	rect.Top		= (int)ClientRect.Top;
-	rect.Right	= (int)ClientRect.Right;
-	rect.Bottom	= (int)ClientRect.Bottom;
+	rect.Left	= WWMath::Trunc(ClientRect.Left + PAGE_AREA_OFFSET * ScaleX);
+	rect.Top		= WWMath::Trunc(ClientRect.Top);
+	rect.Right	= WWMath::Trunc(ClientRect.Right);
+	rect.Bottom	= WWMath::Trunc(ClientRect.Bottom);
 	dialog->Set_Rect (rect);
 
 	//

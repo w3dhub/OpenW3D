@@ -161,7 +161,7 @@ void ProjectorManagerClass::Init(const ProjectorManagerDefClass & def,RenderObjC
 			/*
 			** Find the bone
 			*/
-			ProjectorBoneIndex = model->Get_Bone_Index(def.BoneName);
+			ProjectorBoneIndex = uint16(model->Get_Bone_Index(def.BoneName));
 			if (ProjectorBoneIndex == 0xFFFF) {
 				ProjectorBoneIndex = 0;
 			}

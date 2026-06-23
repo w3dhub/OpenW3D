@@ -172,7 +172,7 @@ void	CCameraProfileClass::Set_Zoom( float amount )
 float CCameraProfileClass::Get_Zoom( void )
 {
 	// TSS - by my reckoning this is the actual zoom factor
-	return 0.8 / FOV;
+	return 0.8f / FOV;
 }
 
 #define	Get_Camera_Profile_Radians( v, e )			\
@@ -1345,14 +1345,14 @@ void	CCameraClass::Handle_Input( void )
 
 		Vector3	tweak(0,0,0);
 
-		tweak.X	 =	( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_INC ) ? 1 : 0 ) +
-						( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_DEC ) ? -1 : 0 );
+		tweak.X	 =	float(( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_INC ) ? 1 : 0 ) +
+						( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_DEC ) ? -1 : 0 ));
 
-		tweak.Y	 =	( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_IN ) ? -1 : 0 ) +
-						( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_OUT ) ? 1 : 0 );
+		tweak.Y	 =	float(( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_IN ) ? -1 : 0 ) +
+						( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_OUT ) ? 1 : 0 ));
 
-		tweak.Z	 =	( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_INC ) ? -1 : 0 ) +
-						( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_DEC ) ? 1 : 0 );
+		tweak.Z	 =	float(( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_INC ) ? -1 : 0 ) +
+						( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_DEC ) ? 1 : 0 ));
 
 		tweak *= dt * FP_TWEAK_RATE;
 		if ( tweak.Length() ) {
@@ -1368,28 +1368,28 @@ void	CCameraClass::Handle_Input( void )
 
 	} else {
 
-		float	tilt_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_INC ) ? 1 : 0 ) +
-									( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_DEC ) ? -1 : 0 );
+		float	tilt_amount =	float(( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_INC ) ? 1 : 0 ) +
+									( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_DEC ) ? -1 : 0 ));
 		CurrentProfile->TranslationTilt += TILT_ADJUST * tilt_amount * dt;
 		CurrentProfile->TranslationTilt = WWMath::Clamp( CurrentProfile->TranslationTilt, MIN_TILT, MAX_TILT );
 
-		float	view_tilt_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_VIEWTILT_INC ) ? 1 : 0 ) +
-									( Input::Get_State( INPUT_FUNCTION_CAMERA_VIEWTILT_DEC ) ? -1 : 0 );
+		float	view_tilt_amount =	float(( Input::Get_State( INPUT_FUNCTION_CAMERA_VIEWTILT_INC ) ? 1 : 0 ) +
+									( Input::Get_State( INPUT_FUNCTION_CAMERA_VIEWTILT_DEC ) ? -1 : 0 ));
 		CurrentProfile->ViewTilt += TILT_ADJUST * view_tilt_amount * dt;
 		CurrentProfile->ViewTilt = WWMath::Clamp( CurrentProfile->ViewTilt, MIN_TILT, MAX_TILT );
 
-		float	distance_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_INC ) ? 1 : 0 ) +
-										( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_DEC ) ? -1 : 0 );
+		float	distance_amount =	float(( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_INC ) ? 1 : 0 ) +
+										( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_DEC ) ? -1 : 0 ));
 		CurrentProfile->Distance += DISTANCE_ADJUST * distance_amount * dt;
 		CurrentProfile->Distance = WWMath::Clamp( CurrentProfile->Distance, MIN_DISTANCE, MAX_DISTANCE );
 
-		float	fov_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_FOV_INC ) ? 1 : 0 ) +
-									( Input::Get_State( INPUT_FUNCTION_CAMERA_FOV_DEC ) ? -1 : 0 );
+		float	fov_amount =	float(( Input::Get_State( INPUT_FUNCTION_CAMERA_FOV_INC ) ? 1 : 0 ) +
+									( Input::Get_State( INPUT_FUNCTION_CAMERA_FOV_DEC ) ? -1 : 0 ));
 		CurrentProfile->FOV += FOV_ADJUST * fov_amount * dt;
 		CurrentProfile->FOV = WWMath::Clamp( CurrentProfile->FOV, MIN_FOV, MAX_FOV );
 
-		float	height_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_HEIGHT_INC ) ? 1 : 0 ) +
-										( Input::Get_State( INPUT_FUNCTION_CAMERA_HEIGHT_DEC ) ? -1 : 0 );
+		float	height_amount =	float(( Input::Get_State( INPUT_FUNCTION_CAMERA_HEIGHT_INC ) ? 1 : 0 ) +
+										( Input::Get_State( INPUT_FUNCTION_CAMERA_HEIGHT_DEC ) ? -1 : 0 ));
 		CurrentProfile->Height += HEIGHT_ADJUST * height_amount * dt;
 		CurrentProfile->Height = WWMath::Clamp( CurrentProfile->Height, MIN_HEIGHT, MAX_HEIGHT );
 

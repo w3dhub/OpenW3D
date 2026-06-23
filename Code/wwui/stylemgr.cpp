@@ -152,7 +152,7 @@ StyleMgrClass::Initialize (void)
 		//	Create the font
 		//
 		Fonts[index] = WW3DAssetManager::Get_Instance()->Get_FontChars (DEFAULT_FONTS[index].name,
-								point_size, DEFAULT_FONTS[index].is_bold);
+								int(point_size), DEFAULT_FONTS[index].is_bold);
 	}
 
 	//
@@ -265,7 +265,7 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 			//	Create the font
 			//
 			Fonts[index] = WW3DAssetManager::Get_Instance()->Get_FontChars (font_name,
-									point_size, is_bold);
+									int(point_size), is_bold);
 
 		}
 
@@ -455,8 +455,8 @@ StyleMgrClass::Render_Title_Text
 	//
 	//	Center the text
 	//
-	int x_pos = int(rect.Left + (rect.Width () / 2) - (text_extent.X / 2));
-	int y_pos = int(rect.Top + (rect.Height () / 2) - (text_extent.Y / 2));
+	float x_pos = WWMath::Trunc(rect.Left + (rect.Width () / 2) - (text_extent.X / 2));
+	float y_pos = WWMath::Trunc(rect.Top + (rect.Height () / 2) - (text_extent.Y / 2));
 
 	//
 	//	Build the textures for the text we'll be drawing
@@ -551,8 +551,8 @@ StyleMgrClass::Render_Text
 	//
 	//	Assume left justification
 	//
-	int x_pos = rect.Left + 1;
-	int y_pos = int(rect.Top + (rect.Height () / 2) - (text_extent.Y / 2));
+	float x_pos = WWMath::Trunc(rect.Left + 1);
+	float y_pos = WWMath::Trunc(rect.Top + (rect.Height () / 2) - (text_extent.Y / 2));
 	if (is_vcentered == false) {
 		y_pos = rect.Top;
 	}
@@ -565,13 +565,13 @@ StyleMgrClass::Render_Text
 		//
 		//	Caclulate right justification
 		//
-		x_pos = int(rect.Right - text_extent.X);
+		x_pos = WWMath::Trunc(rect.Right - text_extent.X);
 	} else if (justify == CENTER_JUSTIFY) {
 
 		//
 		//	Calculate center justification
 		//
-		x_pos = int(rect.Left + (rect.Width () / 2) - (text_extent.X / 2));
+		x_pos = WWMath::Trunc(rect.Left + (rect.Width () / 2) - (text_extent.X / 2));
 	}
 
 	//
@@ -845,10 +845,10 @@ StyleMgrClass::Render_Wrapped_Text_Ex
 	//
 	//	Calculate where to start spitting out the text
 	//
-	float text_height		= renderer->Peek_Font ()->Get_Char_Height ();
+	float text_height		= float(renderer->Peek_Font ()->Get_Char_Height ());
 	RectClass curr_rect	= rect;
 	if (do_vcenter) {
-		curr_rect.Top = int(rect.Center ().Y - ((row_count * text_height) * 0.5F));
+		curr_rect.Top = WWMath::Trunc(rect.Center ().Y - ((row_count * text_height) * 0.5F));
 	}
 
 	//
@@ -926,8 +926,8 @@ StyleMgrClass::Render_Wrapped_Text
 	//
 	//	Assume left justification
 	//
-	int x_pos = rect.Left + 1;
-	int y_pos = rect.Top + 1;
+	float x_pos = WWMath::Trunc(rect.Left + 1);
+	float y_pos = WWMath::Trunc(rect.Top + 1);
 
 	//
 	//	Center the text vertically if necessary
@@ -1055,8 +1055,8 @@ StyleMgrClass::Render_Glow
 	//step_count			= std::max (step_count, 4);
 	float angle_inc	= DEG_TO_RADF (360) / step_count;
 
-	float x_inc = radius_x / pass_count;
-	float y_inc = radius_y / pass_count;
+	float x_inc = float(radius_x / pass_count);
+	float y_inc = float(radius_y / pass_count);
 
 	float curr_radiusx = 2.0F;
 	float curr_radiusy = 2.0F;

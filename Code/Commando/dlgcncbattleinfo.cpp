@@ -367,7 +367,7 @@ CNCBattleInfoDialogClass::Populate_Player_List (ListCtrlClass *list_ctrl, int te
 				list_ctrl->Set_Entry_Text(item_index, COL_NAME, (const unichar_t*)displayName);
 
 				list_ctrl->Set_Entry_Int (item_index, COL_RANK,			player->Get_Rung ());
-				list_ctrl->Set_Entry_Int (item_index, COL_SCORE,		player->Get_Score ());
+				list_ctrl->Set_Entry_Int (item_index, COL_SCORE,		int(player->Get_Score ()));
 
 				//
 				//	Put a star by the player's name if this is the local player

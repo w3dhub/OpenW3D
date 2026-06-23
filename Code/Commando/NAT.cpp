@@ -238,7 +238,7 @@ void FirewallHelperClass::Set_Firewall_Info(unsigned int last_behavior, int last
  *=============================================================================================*/
 void FirewallHelperClass::Get_Firewall_Info(unsigned int &last_behavior, int &last_delta, unsigned short &port_pool, bool &send_delay, int &confidence) const
 {
-	port_pool = SourcePortPool;
+	port_pool = static_cast<unsigned short>(SourcePortPool);
 	last_behavior = (unsigned int) LastBehavior;
 	last_delta = LastSourcePortAllocationDelta;
 	send_delay = SendDelay;
@@ -634,7 +634,7 @@ bool FirewallHelperClass::Send_To_Mangler(IPAddressClass *address, SocketHandler
 	** Build the packet to send out.
 	*/
 	unsigned char packet_buf[512];
-	int packet_size = Build_Mangler_Packet(packet_buf, socket_handler->Get_Incoming_Port(), packet_id, blitzme);
+	int packet_size = Build_Mangler_Packet(packet_buf, static_cast<unsigned short>(socket_handler->Get_Incoming_Port()), packet_id, blitzme);
 
 	WWDEBUG_SAY(("FirewallHelper: Sending from port %d to %s\n", (unsigned int)(socket_handler->Get_Incoming_Port()), address->As_String()));
 
@@ -835,7 +835,7 @@ FirewallHelperClass::FirewallBehaviorType FirewallHelperClass::Detect_Firewall_B
 	if (SlaveMaster.Am_I_Slave()) {
 		behavior = LastBehavior;
 		SourcePortAllocationDelta = LastSourcePortAllocationDelta;
-		ExternalAddress.Set_Address(WOLNATInterface.Get_Reg_External_IP(), WOLNATInterface.Get_Reg_External_Port());
+		ExternalAddress.Set_Address(WOLNATInterface.Get_Reg_External_IP(), static_cast<unsigned short>(WOLNATInterface.Get_Reg_External_Port()));
 		return(behavior);
 	}
 
@@ -1360,10 +1360,10 @@ int FirewallHelperClass::Get_NAT_Port_Allocation_Scheme(int num_ports, unsigned 
 			if (mangled_ports[y] > mangled_ports[y+1]) {
 				int temp = mangled_ports[y];
 				mangled_ports[y] = mangled_ports[y+1];
-				mangled_ports[y+1] = temp;
+				mangled_ports[y+1] = static_cast<unsigned short>(temp);
 				temp = original_ports[y];
 				original_ports[y] = original_ports[y+1];
-				original_ports[y+1] = temp;
+				original_ports[y+1] = static_cast<unsigned short>(temp);
 			}
 		}
 	}
@@ -2434,7 +2434,7 @@ void FirewallHelperClass::Send_Connection_Result(int result, unsigned short port
 	WOLNATInterfaceClass::PrivateGameOptionsStruct options;
 	strcpy(options.NATOptionsPrefix, "NAT:");
 	options.Option = WOLNATInterfaceClass::OPTION_CONNECTION_RESULT;
-	options.OptionData.ConnectionResult.Result[0] = 'a' + result;
+	options.OptionData.ConnectionResult.Result[0] = static_cast<char>('a' + result);
 	options.OptionData.ConnectionResult.Result[1] = ',';
 	sprintf(options.OptionData.ConnectionResult.Port, "%04x,", (unsigned int) port);
 
@@ -3550,7 +3550,7 @@ bool FirewallHelperClass::Get_Local_Chat_Connection_Address(void)
 			*/
 			case tcpConnLocalPort:
 				fw_assert(index < connection_list.Count());
-				connection_list[index]->LocalPort = bind_ptr->value.asnValue.number;
+				connection_list[index]->LocalPort = static_cast<unsigned short>(bind_ptr->value.asnValue.number);
 				index++;
 				break;
 
@@ -3568,7 +3568,7 @@ bool FirewallHelperClass::Get_Local_Chat_Connection_Address(void)
 			*/
 			case tcpConnRemPort:
 				fw_assert(index < connection_list.Count());
-				connection_list[index]->RemotePort = bind_ptr->value.asnValue.number;
+				connection_list[index]->RemotePort = static_cast<unsigned short>(bind_ptr->value.asnValue.number);
 				index++;
 				break;
 		}

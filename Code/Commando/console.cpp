@@ -288,7 +288,7 @@ WWPROFILE( "Input Active" );
 
 				default:
 					if ( len + 1 < static_cast<size_t>(MAX_INPUT_LINE_LENGTH)) {
-						InputLine[ len++ ] = key;
+						InputLine[ len++ ] = char(key);
 						InputLine[ len ] = 0;
 
 						if (ConsoleInputType == INPUT_FUNCTION_BEGIN_CONSOLE) {

@@ -895,7 +895,7 @@ int RawFileClass::Size(void)
 				Error(GetLastError(), false, Filename);
 			}
 		#elif defined(OPENW3D_SDL3)
-			size = SDL_GetIOSize(Handle);
+			size = int(SDL_GetIOSize(Handle));
 		#else
 			#error "Not implemented"
 		#endif
@@ -1056,8 +1056,8 @@ static Uint32 Seconds_to_FatTime(time_t t)
 	SDL_DateTime datetime;
 	SDL_zero(datetime);
 	SDL_TimeToDateTime(time_ns, &datetime, true);
-	Uint16 fatDate = datetime.day | (datetime.month << 5) | SDL_max(0, datetime.year - 1980) << 9;
-	Uint16 fatTime = (datetime.second / 2) | (datetime.minute << 5) | (datetime.hour << 11);
+	Uint16 fatDate = Uint16(datetime.day | (datetime.month << 5) | SDL_max(0, datetime.year - 1980) << 9);
+	Uint16 fatTime = Uint16((datetime.second / 2) | (datetime.minute << 5) | (datetime.hour << 11));
 	return (fatDate << 16) | fatTime;
 }
 #endif
@@ -1107,7 +1107,7 @@ unsigned int RawFileClass::Get_Date_Time(void)
 		fstat(fileno(f), &statbuf);
 		return Seconds_to_FatTime(statbuf.st_mtime);
 	}
-	int fd = SDL_GetNumberProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER, 0);
+	int fd = int(SDL_GetNumberProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER, 0));
 	if (fd != 0) {
 		struct stat statbuf;
 		fstat(fd, &statbuf);
@@ -1183,7 +1183,7 @@ bool RawFileClass::Set_Date_Time(unsigned int datetime)
 #endif
 		return true;
 	}
-	int fd = SDL_GetNumberProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER, 0);
+	int fd = int(SDL_GetNumberProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER, 0));
 	if (fd != 0) {
 #ifdef _WIN32
         if (_futime(fd, &tbuf) != 0) {
@@ -1315,7 +1315,7 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 		if (SDL_SeekIO(Handle, pos, whence) == -1) {
 			Error(EIO, false, Filename);
 		}
-		pos = SDL_TellIO(Handle);
+		pos = int(SDL_TellIO(Handle));
 		/*
 		**	If there was an error in the seek, then bail with an error condition.
 		*/

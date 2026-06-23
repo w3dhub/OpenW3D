@@ -421,7 +421,7 @@ void	RadarManager::Update( const Matrix3D & player_tm, const Vector2 & center )
 }
 #endif
 
-	float	bering = WWMath::Wrap( (player_tm.Get_Z_Rotation() / DEG_TO_RAD( 360.0f )) + 0.25f, 0, 1 );
+	float	bering = WWMath::Wrap( (player_tm.Get_Z_Rotation() / DEG_TO_RADF( 360.0f )) + 0.25f, 0, 1 );
 	CurrentCompassRendererIndex = (int)((bering * 8.0f) + 0.5f);
 	CurrentCompassRendererIndex&=7;
 
@@ -438,8 +438,8 @@ void	RadarManager::Update( const Matrix3D & player_tm, const Vector2 & center )
 		Vector2 text_size=CompassRenderers[CurrentCompassRendererIndex]->Get_Text_Extents(TRANSLATE(dir[CurrentCompassRendererIndex]));
 
 		Vector2 pos = center + COMPASS_OFFSET - (text_size * 0.5f);
-		pos.X = (int)pos.X;
-		pos.Y = (int)pos.Y;
+		pos.X = WWMath::Trunc(pos.X);
+		pos.Y = WWMath::Trunc(pos.Y);
 		CompassRenderers[CurrentCompassRendererIndex]->Set_Location( pos );
 
 		CompassRenderers[CurrentCompassRendererIndex]->Draw_Sentence();
@@ -451,8 +451,8 @@ void	RadarManager::Update( const Matrix3D & player_tm, const Vector2 & center )
 			CompassRenderers[CurrentCompassRendererIndex]->Build_Sentence( TRANSLATE(dir[CurrentCompassRendererIndex]));
 			Vector2 text_size=CompassRenderers[CurrentCompassRendererIndex]->Get_Text_Extents(TRANSLATE(dir[CurrentCompassRendererIndex]));
 			Vector2 pos = center + COMPASS_OFFSET - (text_size * 0.5f);
-			pos.X = (int)pos.X;
-			pos.Y = (int)pos.Y;
+			pos.X = WWMath::Trunc(pos.X);
+			pos.Y = WWMath::Trunc(pos.Y);
 			CompassRenderers[CurrentCompassRendererIndex]->Set_Location( pos );
 			CompassRenderers[CurrentCompassRendererIndex]->Draw_Sentence();
 		}

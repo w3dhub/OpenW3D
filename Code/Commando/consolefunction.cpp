@@ -549,7 +549,7 @@ public:
 
 		char mode = 0;
 		if (sscanf(input, "%c", &mode) == 1) {
-			mode = toupper(mode);
+			mode = (char)toupper(mode);
 
 			if (mode == 'P') {
 				if (COMBAT_SCENE->Vis_Grid_Debug_Enter_Parent()) {
@@ -723,7 +723,7 @@ class ShadowIntensityConsoleFunctionClass : public ConsoleFunctionClass
 	virtual	void Activate( const char * input ) override
 	{
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
-		scene->Set_Shadow_Normal_Intensity(atof(input));
+		scene->Set_Shadow_Normal_Intensity(strtof(input, NULL));
 		Print("shadow intensity set to: %f\n",scene->Get_Shadow_Normal_Intensity());
 	}
 };
@@ -750,7 +750,7 @@ class ShadowResolutionConsoleFunctionClass : public ConsoleFunctionClass
 	virtual	void Activate( const char * input ) override
 	{
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
-		scene->Set_Shadow_Resolution(atof(input));
+		scene->Set_Shadow_Resolution(int(strtof(input, NULL)));
 		Print("shadow resolution set to: %f\n",scene->Get_Shadow_Resolution());
 	}
 };
@@ -762,7 +762,7 @@ class ShadowCountConsoleFunctionClass : public ConsoleFunctionClass
 	virtual	void Activate( const char * input ) override
 	{
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
-		scene->Set_Max_Simultaneous_Shadows(atof(input));
+		scene->Set_Max_Simultaneous_Shadows(int(strtof(input, NULL)));
 		Print("simultaneous shadow count set to: %f\n",scene->Get_Max_Simultaneous_Shadows());
 	}
 };
@@ -1763,7 +1763,7 @@ public:
 	virtual	void Activate( const char * input ) override {
       WWASSERT(input != NULL);
 		if (cNetwork::I_Am_Server()) {
-			float f = ::atof(input);
+			float f = ::strtof(input, NULL);
 			cUserOptions::MaxFacingPenalty.Set(f);
          Print( "MaxFacingPenalty set to %5.2f.", f);
 		} else {
@@ -1781,7 +1781,7 @@ public:
 	virtual	void Activate( const char * input ) override {
       WWASSERT(input != NULL);
 		if (cNetwork::I_Am_Server()) {
-			float f = ::atof(input);
+			float f = ::strtof(input, NULL);
 			cUserOptions::IrrelevancePenalty.Set(f);
          Print( "IrrelevancePenalty set to %5.2f.", f);
 		} else {
@@ -2169,7 +2169,7 @@ public:
 	virtual	void Activate( const char * input ) override {
       WWASSERT(input != NULL);
 		if (cNetwork::I_Am_Only_Client()) {
-			float chf = ::atof(input);
+			float chf = ::strtof(input, NULL);
 			cUserOptions::ClientHintFactor.Set(chf);
          Print( "ClientHintFactor set to %5.2f.", chf);
 		} else {
@@ -2827,7 +2827,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "SET_STAR_HEALTH <strength> - sets the strength of the star."; }
 	virtual	void Activate( const char * input ) override {
 		if ( COMBAT_STAR ) {
-			float health = atof( input );
+			float health = strtof( input, NULL );
 			DefenseObjectClass * defense = COMBAT_STAR->Get_Defense_Object();
 			WWASSERT(defense != NULL);
 			if (health > defense->Get_Health_Max()) {
@@ -2859,7 +2859,7 @@ public:
 	virtual	void Activate( const char * input ) override {
 		if ( COMBAT_STAR ) {
 			DefenseObjectClass * defense = COMBAT_STAR->Get_Defense_Object();
-			defense->Set_Shield_Strength( atof( input ) );
+			defense->Set_Shield_Strength( strtof( input, NULL ) );
 			Print( "Star Shield Strength set to %1.1f\n", defense->Get_Shield_Strength() );
 		}
 	}
@@ -2888,7 +2888,7 @@ public:
 		if ( COMBAT_STAR ) {
 			COMBAT_STAR->Get_Position( &star_pos );
 		}
-		float min_dist = atof( input );
+		float min_dist = strtof( input, NULL );
 
 		int count = 0;
 		SLNode<SmartGameObj> *objnode;
@@ -3218,7 +3218,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "SCALE_TIME < factor > - scale time (SP only)."; }
 	virtual	void Activate( const char * input ) override {
 		if (IS_SOLOPLAY) {
-			float scale = atof( input );
+			float scale = strtof( input, NULL );
 			if ( scale <= 0 ) {
 				scale = 1;
 			}
@@ -3606,8 +3606,8 @@ public:
 				RectClass rect;
 				rect.Left = 0;
 				rect.Top = 0;
-				rect.Right = resos[i].Width;
-				rect.Bottom = resos[i].Height;
+				rect.Right = float(resos[i].Width);
+				rect.Bottom = float(resos[i].Height);
 
 				Render2DClass::Set_Screen_Resolution(rect);
 				Print( "Resolution changed to %d * %d, %d bits\n", resos[i].Width,resos[i].Height,resos[i].BitDepth);
@@ -3911,7 +3911,7 @@ public:
 
 				if (active && The_Game()) {
 
-					unsigned int time = The_Game()->Get_Time_Remaining_Seconds();
+					unsigned int time = unsigned(The_Game()->Get_Time_Remaining_Seconds());
 					unsigned int seconds = time % 60;
 					unsigned int minutes = (time / 60) % 60;
 					unsigned int hours = (time / (60*60));

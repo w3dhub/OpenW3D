@@ -538,7 +538,7 @@ void	CombatManager::Unload_Level( void )
 		Vector2 extents = backdropText.Get_Text_Extents( wide_str );
 		float x = (Render2DClass::Get_Screen_Resolution().Right - extents.X) / 2.0f;
 		float y = (Render2DClass::Get_Screen_Resolution().Bottom - extents.Y) / 2.0f;
-		backdropText.Set_Location( Vector2( (int)x, (int)y ) );
+		backdropText.Set_Location( Vector2( WWMath::Trunc(x), WWMath::Trunc(y) ) );
 		backdropText.Draw_Sentence( 0xFF00FF00 );	// Green
 		WW3D::Begin_Render( true, true, Vector3(0.0f,0.0f,0.0f), NULL);
 		backdropText.Render();
