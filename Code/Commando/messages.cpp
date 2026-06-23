@@ -225,7 +225,7 @@ if (cDevOptions::UseNewTCADO.Is_False()) {
 								** Add the packet header.
 								*/
 								packet_size += cPacket::Get_Packet_Header_Size();
-								p_object->Set_Frequent_Update_Export_Size(packet_size);
+								p_object->Set_Frequent_Update_Export_Size(static_cast<unsigned char>(packet_size));
 							} else {
 								/*
 								** For some reason, some objects have a frequent bit set but there is no frequent update export.
@@ -372,7 +372,7 @@ if (cDevOptions::UseNewTCADO.Is_False()) {
 				}
 				temp_obj->Set_Update_Rate(client_id, (unsigned short) update_rate);
 				if (update_rate != infinity_update_rate) {
-					int bps = (1000.0f / update_rate) * temp_obj->Get_Frequent_Update_Export_Size();
+					int bps = int((1000.0f / update_rate) * temp_obj->Get_Frequent_Update_Export_Size());
 					total_bps += bps;
 				}
 			}
@@ -387,7 +387,8 @@ if (cDevOptions::UseNewTCADO.Is_False()) {
 			*/
 			float factor = 1.0;
 			if (total_bps) {
-				factor = avail_bytes_per_update / total_bps;
+				// TODO OmniBlade: This looks bugged, intended that division be floating point rather than integer?
+				factor = float(avail_bytes_per_update / total_bps);
 				if (factor < 0.00001f) {
 					factor = 0.00001f;
 				}
@@ -623,7 +624,7 @@ if (cDevOptions::UseNewTCADO.Is_False()) {
 										hidden = true;
 									}
 									if (hidden) {
-										int distance = cPriority::Get_Object_Distance_2(dest_pos, p_object);
+										int distance = int(cPriority::Get_Object_Distance_2(dest_pos, p_object));
 										if (distance > min_vis_distance) {
 											/*
 											** Allow some very infrequent updates for distant, hidden objects on broadband connections.
@@ -677,7 +678,7 @@ if (cDevOptions::UseNewTCADO.Is_False()) {
 									** Add the packet header.
 									*/
 									packet_size += cPacket::Get_Packet_Header_Size();
-									p_object->Set_Frequent_Update_Export_Size(packet_size);
+									p_object->Set_Frequent_Update_Export_Size(static_cast<unsigned char>(packet_size));
 								} else {
 									/*
 									** For some reason, some objects have a frequent bit set but there is no frequent update export.
@@ -770,12 +771,12 @@ if (cDevOptions::UseNewTCADO.Is_False()) {
 					update_rate = (unsigned int)(((1.0f - pri) * spread) + ms_low);
 				} else {
 					if (pri > 0.009f) {
-						update_rate = min_update_rate;
+						update_rate = int(min_update_rate);
 					}
 				}
 				temp_obj->Set_Update_Rate(client_id, (unsigned short) update_rate);
 				if (update_rate != infinity_update_rate) {
-					int bps = (1000.0f / update_rate) * temp_obj->Get_Frequent_Update_Export_Size();
+					int bps = int((1000.0f / update_rate) * temp_obj->Get_Frequent_Update_Export_Size());
 					total_bps += bps;
 				}
 			}
@@ -790,7 +791,8 @@ if (cDevOptions::UseNewTCADO.Is_False()) {
 			*/
 			float factor = 1.0;
 			if (total_bps) {
-				factor = avail_bytes_per_update / total_bps;
+				// TODO OmniBlade: Looks bugged, should use floating point division rather than integer?
+				factor = float(avail_bytes_per_update / total_bps);
 				if (factor < 0.00001f) {
 					factor = 0.00001f;
 				}

@@ -335,7 +335,7 @@ float Get_Facing( GameObject * obj )
 		return 0;
 	}
 
-	return RAD_TO_DEG( pgobj->Get_Facing() );
+	return RAD_TO_DEGF( pgobj->Get_Facing() );
 }
 
 void	Set_Facing( GameObject * obj, float degrees )
@@ -355,7 +355,7 @@ void	Set_Facing( GameObject * obj, float degrees )
 
 	Matrix3D tm(1);
 	tm.Translate(pos);
-	tm.Rotate_Z( DEG_TO_RAD( degrees ) );
+	tm.Rotate_Z( DEG_TO_RADF( degrees ) );
 
 	pgobj->Set_Transform(tm);
 }
@@ -2245,7 +2245,7 @@ void	Static_Anim_Phys_Goto_Last_Frame( int obj_id, const char * anim_name )
 				sapc->Get_Animation_Manager().Set_Animation( anim_name );
 			}
 			sapc->Get_Animation_Manager().Set_Animation_Mode( AnimCollisionManagerClass::ANIMATE_TARGET );
-			sapc->Get_Animation_Manager().Set_Target_Frame( sapc->Get_Animation_Manager().Peek_Animation()->Get_Num_Frames() - 1 );
+			sapc->Get_Animation_Manager().Set_Target_Frame( float(sapc->Get_Animation_Manager().Peek_Animation()->Get_Num_Frames() - 1) );
 		}
 	}
 }

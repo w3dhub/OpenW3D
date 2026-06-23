@@ -97,7 +97,7 @@ MilesAudioClass::MilesAudioClass (bool lite)
 
 	_theInstance = this;
 
-	m_Max3DBufferSize = m_Max3DBufferSize * 2.0F;
+	m_Max3DBufferSize *= 2;
 
 	return;
 }
@@ -244,8 +244,8 @@ MilesAudioClass::Open_2D_Device
 	wave_format.wf.nChannels = stereo ? 2 : 1;
 	wave_format.wf.nSamplesPerSec = hertz;
 	wave_format.wf.nAvgBytesPerSec = (wave_format.wf.nChannels * wave_format.wf.nSamplesPerSec * bits) >> 3;
-	wave_format.wf.nBlockAlign = (wave_format.wf.nChannels * bits) >> 3;
-	wave_format.wBitsPerSample = bits;
+	wave_format.wf.nBlockAlign = WORD((wave_format.wf.nChannels * bits) >> 3);
+	wave_format.wBitsPerSample = WORD(bits);
 	DRIVER_TYPE_2D type = DRIVER2D_ERROR;
 
 	while (((type = Open_2D_Device (&wave_format.wf)) == DRIVER2D_ERROR) &&
@@ -256,7 +256,7 @@ MilesAudioClass::Open_2D_Device
 		//
 		wave_format.wf.nSamplesPerSec = wave_format.wf.nSamplesPerSec >> 1;
 		wave_format.wf.nAvgBytesPerSec = (wave_format.wf.nChannels * wave_format.wf.nSamplesPerSec * bits) >> 3;
-		wave_format.wf.nBlockAlign = (wave_format.wf.nChannels * bits) >> 3;
+		wave_format.wf.nBlockAlign = WORD((wave_format.wf.nChannels * bits) >> 3);
 	}
 
 	// Pass this structure onto the function that actually opens the device

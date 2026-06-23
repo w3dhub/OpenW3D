@@ -56,7 +56,7 @@ set(WWPHYS_SRC
     pscene_saveload.cpp
     pscene_vis.cpp
     rbody.cpp
-    rbody_obsolete.cpp
+    #rbody_obsolete.cpp
     renderobjphys.cpp
     renegadeterrainmaterialpass.cpp
     renegadeterrainpatch.cpp

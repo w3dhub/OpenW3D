@@ -458,8 +458,8 @@ void FFmpegFile::Seek_Frame(int frame_idx)
 {
 	// Note: not tested, since not used ingame
 	for (const auto &stream : Streams) {
-		int64_t timestamp = av_q2d(FmtCtx->streams[stream.stream_idx]->time_base) * frame_idx
-			* av_q2d(FmtCtx->streams[stream.stream_idx]->avg_frame_rate);
+		int64_t timestamp = int64_t(av_q2d(FmtCtx->streams[stream.stream_idx]->time_base) * frame_idx
+			* av_q2d(FmtCtx->streams[stream.stream_idx]->avg_frame_rate));
 		int result = av_seek_frame(FmtCtx, stream.stream_idx, timestamp, AVSEEK_FLAG_ANY);
 		if (result < 0) {
 			char error_buffer[1024];
@@ -584,7 +584,7 @@ int FFmpegFile::Get_Num_Frames() const
 		return 0;
 	}
 
-	return (FmtCtx->duration / (double)AV_TIME_BASE) * av_q2d(FmtCtx->streams[stream->stream_idx]->avg_frame_rate);
+	return int((FmtCtx->duration / (double)AV_TIME_BASE) * av_q2d(FmtCtx->streams[stream->stream_idx]->avg_frame_rate));
 }
 
 int FFmpegFile::Get_Current_Frame() const
@@ -594,7 +594,7 @@ int FFmpegFile::Get_Current_Frame() const
 		return 0;
 	}
 
-	return stream->codec_ctx->frame_num;
+	return int(stream->codec_ctx->frame_num);
 }
 
 int FFmpegFile::Get_Pixel_Format() const
@@ -614,5 +614,5 @@ unsigned FFmpegFile::Get_Frame_Time() const
 		return 0u;
 	}
 
-	return 1000u / av_q2d(FmtCtx->streams[stream->stream_idx]->avg_frame_rate);
+	return unsigned(1000u / av_q2d(FmtCtx->streams[stream->stream_idx]->avg_frame_rate));
 }

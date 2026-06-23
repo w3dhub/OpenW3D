@@ -930,7 +930,7 @@ void WolGameModeClass::Update_Channel_Settings(cGameData* theGame, const RefPtr<
 			//---------------------------------------------------------------------------
 			// Get average FPS of game (Capped at 255 fps)
 			//---------------------------------------------------------------------------
-			unsigned int fps = TimeManager::Get_Average_Frame_Rate();
+			unsigned int fps = unsigned(TimeManager::Get_Average_Frame_Rate());
 			fps = std::min<unsigned int>(fps, 255);
 
 			int numPlayers = theGame->Get_Current_Players();
@@ -980,7 +980,7 @@ void WolGameModeClass::Init_WOL_Player(cPlayer* player)
 			RefPtr<LadderData> ladder = user->GetTeamLadder();
 
 			if (ladder.IsValid()) {
-				player->Set_WOL_Points(ladder->GetPoints());
+				player->Set_WOL_Points(static_cast<unsigned short>(ladder->GetPoints()));
 				player->Set_Wol_Rank(ladder->GetRung());
 				player->Set_Num_Wol_Games(ladder->GetReserved2());
 				return;
@@ -1677,7 +1677,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 				WWASSERT(team != NULL);
 
 				int teamID = team->Get_Id();
-				int teamScore = team->Get_Score();
+				int teamScore = int(team->Get_Score());
 
 				info.Format("TINFO:%d %d", teamID, teamScore);
 
@@ -1702,7 +1702,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 					int rung = player->Get_Rung();
 					int kills = player->Get_Kills();
 					int deaths = player->Get_Deaths();
-					int score = player->Get_Score();
+					int score = int(player->Get_Score());
 
 					// PINFO string format: Name fps,type,rank,kills,deaths
 					info.Format("PINFO:%S %d %d %d %d %d", (const unichar_t*)name, type, rung, kills, deaths, score);

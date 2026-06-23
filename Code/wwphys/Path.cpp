@@ -496,7 +496,7 @@ PathClass::Add_Waypath_Data
 	//	Loop along the waypath either forwards or backwards, depending
 	// on what the caller has requested
 	//
-	int count	= WWMath::Fabs (end_index - start_index);
+	int count	= abs (end_index - start_index);
 	int inc		= (end_index > start_index) ? 1 : -1;
 	for (int index = start_index; count >= 0; index += inc, count --) {
 

@@ -122,6 +122,6 @@ Process *ProcessManager::Create_Process(const char * const *args)
 	}
 	auto props = SDL_GetProcessProperties(sdl_process);
 	auto pid = SDL_GetNumberProperty(props, SDL_PROP_PROCESS_PID_NUMBER, -1);
-	return new Process(sdl_process, pid);
+	return new Process(sdl_process, int(pid)); // TODO OmniBlade: Investigate consquences of losing part of the pid?
 #endif
 }

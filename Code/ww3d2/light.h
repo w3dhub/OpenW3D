@@ -116,10 +116,10 @@ public:
 	void						Set_Specular(const Vector3 & color) { Specular = color; }
 	void						Get_Specular(Vector3 * set_c) const { if (set_c) { *set_c = Specular; } }
 
-	void						Set_Far_Attenuation_Range(double fStart, double fEnd)				{ FarAttenStart = fStart; FarAttenEnd = fEnd; }
-	void						Get_Far_Attenuation_Range(double& fStart, double& fEnd) const	{ fStart = FarAttenStart; fEnd = FarAttenEnd; }
-	void						Set_Near_Attenuation_Range(double nStart, double nEnd)			{ NearAttenStart = nStart; NearAttenEnd = nEnd; }
-	void						Get_Near_Attenuation_Range(double& nStart, double& nEnd)	const	{ nStart = NearAttenStart; nEnd = NearAttenEnd; }
+	void						Set_Far_Attenuation_Range(float fStart, float fEnd)				{ FarAttenStart = fStart; FarAttenEnd = fEnd; }
+	void						Get_Far_Attenuation_Range(float& fStart, float& fEnd) const	{ fStart = FarAttenStart; fEnd = FarAttenEnd; }
+	void						Set_Near_Attenuation_Range(float nStart, float nEnd)			{ NearAttenStart = nStart; NearAttenEnd = nEnd; }
+	void						Get_Near_Attenuation_Range(float& nStart, float& nEnd)	const	{ nStart = NearAttenStart; nEnd = NearAttenEnd; }
 	float						Get_Attenuation_Range(void) const										{ return FarAttenEnd; }
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -218,7 +218,7 @@ void VisTableClass::Delete_Bit(int delete_index)
 	** first handle the int that the deleted bit is in
 	*/
 	int first_long = delete_index >> 5;
-	int start_bits = WWMath::Min((first_long + 1)<<5,BitCount-1);
+	int start_bits = std::min((first_long + 1)<<5,BitCount-1);
 
 	for (i=delete_index; i<start_bits; i++) {
 		Set_Bit(i,(Get_Bit(i+1) != 0));

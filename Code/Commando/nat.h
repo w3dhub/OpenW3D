@@ -158,7 +158,7 @@ class FirewallHelperClass {
 		*/
 		void Detect_Firewall(HANDLE event = INVALID_HANDLE_VALUE);
 		unsigned short Get_Raw_Firewall_Behavior(void);	// {return((unsigned short)Behavior);};
-		short Get_Source_Port_Allocation_Delta(void) {return(SourcePortAllocationDelta);}
+		short Get_Source_Port_Allocation_Delta(void) {return short(SourcePortAllocationDelta);}
 
 		/*
 		** Query class for behavior.

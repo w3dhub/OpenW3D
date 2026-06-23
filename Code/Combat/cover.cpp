@@ -136,7 +136,7 @@ CoverEntryClass * CoverManager::Request_Cover( const Vector3 & cur_pos, const Ve
 {
 	// Find a cover spot, not in use, within max_dist, that blocks from danger
 	int best_index = -1;
-	int best_dist = max_dist;
+	float best_dist = max_dist;
 	for ( int index = 0; index < CoverPositions.Count(); index++ ) {
 		CoverEntryClass * cover = CoverPositions[ index ];
 		if ( cover->Get_In_Use() ) {

@@ -474,8 +474,8 @@ struct EdgeStruct
 {
 	EdgeStruct(const GradientsStruct & grad,const Vector3 * verts,int top,int bottom)
 	{
-		Y = WWMath::Ceil(verts[top].Y);
-		Height = WWMath::Ceil(verts[bottom].Y) - Y;
+		Y = int(WWMath::Ceil(verts[top].Y));
+		Height = int(WWMath::Ceil(verts[bottom].Y) - Y);
 
 		float y_prestep = Y - verts[top].Y;
 		float real_height = verts[bottom].Y - verts[top].Y;

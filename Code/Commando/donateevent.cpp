@@ -102,8 +102,8 @@ cDonateEvent::Act(void)
 		 (p_donor->Get_Player_Type() == p_recipient->Get_Player_Type()) &&
 		 p_donor->Get_Money() >= Amount) {
 
-		p_donor->Increment_Money(-Amount);
-		p_recipient->Increment_Money(Amount);
+		p_donor->Increment_Money(float(-Amount));
+		p_recipient->Increment_Money(float(Amount));
 
 		//
 		// Notify recipient

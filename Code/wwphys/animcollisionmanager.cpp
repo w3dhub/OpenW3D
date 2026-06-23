@@ -523,7 +523,7 @@ void AnimCollisionManagerClass::Set_Animation(const char * anim_name)
 	*/
 	LoopStart = 0;
 	if (CurAnimation != NULL) {
-		LoopEnd = TargetFrame = CurAnimation->Get_Num_Frames() - 1;
+		LoopEnd = TargetFrame = float(CurAnimation->Get_Num_Frames() - 1);
 	} else {
 		LoopEnd = TargetFrame = 0;
 	}
@@ -614,7 +614,7 @@ void AnimCollisionManagerClass::Set_Target_Frame(float frame)
 void AnimCollisionManagerClass::Set_Target_Frame_End(void)
 {
 	if (CurAnimation != NULL) {
-		Set_Target_Frame(CurAnimation->Get_Num_Frames() - 1);
+		Set_Target_Frame(float(CurAnimation->Get_Num_Frames() - 1));
 	}
 }
 

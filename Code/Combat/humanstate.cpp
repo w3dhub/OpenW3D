@@ -532,7 +532,7 @@ void	HumanStateClass::Start_Transition_Animation( const char * anim_name, bool b
 
 	Set_State( TRANSITION );
 
-	float blend_time = blend ? 0.2 : 0;
+	float blend_time = blend ? 0.2f : 0.0f;
 	AnimControl->Set_Animation( anim_name, blend_time );
 	AnimControl->Set_Mode( ANIM_MODE_ONCE );
 	AnimControl->Update( 0 );	// update
@@ -561,7 +561,7 @@ void	HumanStateClass::Start_Scripted_Animation( const char * anim_name, bool ble
 
 	Set_State( ANIMATION );
 
-	float blend_time = blend ? 0.2 : 0;
+	float blend_time = blend ? 0.2f : 0.0f;
 	AnimControl->Set_Animation( anim_name, blend_time );
 	AnimControl->Set_Mode( looping ? ANIM_MODE_LOOP : ANIM_MODE_ONCE );
 	AnimControl->Update( 0 );	// update
@@ -586,7 +586,7 @@ void	HumanStateClass::Stop_Scripted_Animation( void )
 void	HumanStateClass::Force_Animation( const char * anim_name, bool blend )
 {
 	//Debug_Say(( "Forcing Animation to %s\n", anim_name ));
-	float blend_time = blend ? 0.2 : 0;
+	float blend_time = blend ? 0.2f : 0.0f;
 	AnimControl->Set_Animation( anim_name, blend_time );
 	AnimControl->Update( 0 );	// update
 }
@@ -1469,7 +1469,7 @@ void	HumanStateClass::Complete_Jump( void )
 //			if ( !owner->Is_Human_Controlled() ) {
 				const GameObjObserverList & observer_list = owner->Get_Observers();
 				for( int index = 0; index < observer_list.Count(); index++ ) {
-					observer_list[ index ]->Custom( owner, CUSTOM_EVENT_FALLING_DAMAGE, damage*scale, NULL );
+					observer_list[ index ]->Custom( owner, CUSTOM_EVENT_FALLING_DAMAGE, int(damage*scale), NULL );
 				}
 //			}
 

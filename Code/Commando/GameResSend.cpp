@@ -377,7 +377,7 @@ void AddPlayerStats(GameResPacket& stats, cPlayer* player, WOL::Locale locale,
 		stats.Add_Field("TEAM", team);
 
 		// Score and other information
-		unsigned int score = (unsigned int)std::max<int>(player->Get_Score(), 0);
+		unsigned int score = unsigned(std::max(player->Get_Score(), 0.0f));
 		stats.Add_Field("PSCR", score);
 
 		stats.Add_Field("PPTS",	(int)player->Get_Ladder_Points());

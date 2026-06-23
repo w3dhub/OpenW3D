@@ -1824,7 +1824,7 @@ MendozaBossGameObjClass::STATE_IMPL_END(ATTACK_STATE_MELEE_FLYING_SIDEKICK) (voi
 	//
 	//	Now, play the animation backwards a few frams to simulate "landing"
 	//
-	int curr_frame = Get_Anim_Control()->Get_Current_Frame ();
+	float curr_frame = WWMath::Trunc(Get_Anim_Control()->Get_Current_Frame ());
 	Set_Blended_Animation ("S_A_HUMAN.H_A_FLYKICK", false);
 	Get_Anim_Control()->Set_Mode (ANIM_MODE_TARGET, curr_frame);
 	Get_Anim_Control()->Set_Target_Frame (0);

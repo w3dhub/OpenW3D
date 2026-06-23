@@ -102,7 +102,7 @@ public:
 	void		Init_From_Box_Points(Vector3 * points,int num_points);
 	void		Init_Random(float min_extent = 0.5f,float max_extent = 1.0f);
 	float		Project_To_Axis(const Vector3 & axis) const;
-	float		Volume(void) const { return 2.0*Extent.X * 2.0*Extent.Y * 2.0*Extent.Z; }
+	float		Volume(void) const { return 2.0f*Extent.X * 2.0f*Extent.Y * 2.0f*Extent.Z; }
 	void		Compute_Point(float params[3],Vector3 * set_point) const;
 	void		Compute_Axis_Aligned_Extent(Vector3 * set_extent) const;
 

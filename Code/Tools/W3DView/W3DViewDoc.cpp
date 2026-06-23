@@ -1634,8 +1634,8 @@ CW3DViewDoc::SaveSettings
                                          (LPCTSTR)stringCompleteFilename);
 
             // Write the start attenuation out to the file
-				double start = 0;
-				double end = 0;
+				float start = 0;
+				float end = 0;
 				m_pCSceneLight->Get_Far_Attenuation_Range (start, end);
             stringValue.Format ("%f", start);
             ::WritePrivateProfileString ("Settings",

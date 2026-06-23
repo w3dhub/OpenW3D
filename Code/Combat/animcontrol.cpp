@@ -186,7 +186,7 @@ void AnimChannelClass::Set_Animation( const char *name )
 
 	if ( Animation ) {
 		SET_REF_OWNER( Animation );
-		NumFrames = Animation->Get_Num_Frames();
+		NumFrames = float(Animation->Get_Num_Frames());
 		Mode = ANIM_MODE_ONCE;
 		Frame = 0;
 		TargetFrame = 0;
@@ -211,7 +211,7 @@ void AnimChannelClass::Set_Animation( const HAnimClass *anim )
 
 	if ( Animation ) {
 		Animation->Add_Ref();
-		NumFrames = Animation->Get_Num_Frames();
+		NumFrames = float(Animation->Get_Num_Frames());
 		Mode = ANIM_MODE_ONCE;
 		Frame = 0;
 		TargetFrame = 0;

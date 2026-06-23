@@ -335,8 +335,8 @@ void VertexClass::Lerp
 		Vector4 dcg_v1=DX8Wrapper::Convert_Color(v1.DCG[ipass]);
 		Vector4 dig_v0=DX8Wrapper::Convert_Color(v0.DIG[ipass]);
 		Vector4 dig_v1=DX8Wrapper::Convert_Color(v1.DIG[ipass]);
-		Vector4::Lerp(dcg_v0,dcg_v1,res->DCG[ipass]);
-		Vector4::Lerp(dig_v0,dig_v1,res->DIG[ipass]);
+		Vector4::Lerp(dcg_v0,dcg_v1,float(res->DCG[ipass]));
+		Vector4::Lerp(dig_v0,dig_v1,float(res->DIG[ipass]));
 //		Vector4::Lerp(v0.DCG[ipass],v1.DCG[ipass],lerp,&(res->DCG[ipass]));
 //		Vector4::Lerp(v0.DIG[ipass],v1.DIG[ipass],lerp,&(res->DIG[ipass]));
 		for (int istage=0; istage<MeshMatDescClass::MAX_TEX_STAGES; istage++) {
@@ -447,7 +447,7 @@ void PolygonClass::Compute_Plane(void)
 	ny /= len;
 	nz /= len;
 
-	Plane.Set(Vector3(nx,ny,nz),Vector3(ax,ay,az));
+	Plane.Set(Vector3(float(nx),float(ny),float(nz)),Vector3(float(ax),float(ay),float(az)));
 }
 
 int PolygonClass::Which_Side(const PlaneClass & plane) const

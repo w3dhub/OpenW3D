@@ -1241,9 +1241,9 @@ void Get_OS_Info(
 				}
 			}
 
-			os_info.BuildMajor=build_major;
-			os_info.BuildMinor=build_minor;
-			os_info.BuildSub=build_sub;
+			os_info.BuildMajor=static_cast<unsigned char>(build_major);
+			os_info.BuildMinor=static_cast<unsigned char>(build_minor);
+			os_info.BuildSub=static_cast<unsigned char>(build_sub);
 			if (OSVersionNumberMajor==4) {
 //				os_info.SubCode.Format("%d",build_sub);
 				os_info.SubCode="UNKNOWN";

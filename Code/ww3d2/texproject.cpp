@@ -1238,7 +1238,7 @@ void TexProjectClass::Configure_Camera(CameraClass & camera)
 	}
 
 	// Set one-pixel borders to the texture to avoid "flooding" shadows...
-	float size=Get_Texture_Size();
+	float size=float(Get_Texture_Size());
 	float inv_size=1.0f/size;
 	Vector2 vmin(1.0f*inv_size,1.0f*inv_size);
 	Vector2 vmax((size-1.0f)*inv_size,(size-1.0f)*inv_size);
@@ -1314,9 +1314,9 @@ void TexProjectClass::Pre_Render_Update(const Matrix3D & camera)
 		WWASSERT(Get_Texture_Size() != 0);
 	}
 
-	Mapper->Set_Texture_Transform(view_to_texture,Get_Texture_Size());
+	Mapper->Set_Texture_Transform(view_to_texture,float(Get_Texture_Size()));
 	if (Mapper1) {
-		Mapper1->Set_Texture_Transform(view_to_texture,Get_Texture_Size());
+		Mapper1->Set_Texture_Transform(view_to_texture,float(Get_Texture_Size()));
 	}
 }
 

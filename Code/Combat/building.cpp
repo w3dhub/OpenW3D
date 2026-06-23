@@ -745,7 +745,7 @@ BuildingGameObj::Update_State (bool force_update)
 
 			const GameObjObserverList & observer_list = Get_Observers();
 			for( int index = 0; index < observer_list.Count(); index++ ) {
-				observer_list[ index ]->Custom( this, event, health_percentage, NULL );
+				observer_list[ index ]->Custom( this, event, int(health_percentage), NULL );
 			}
 		}
 

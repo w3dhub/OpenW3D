@@ -236,8 +236,8 @@ DropDownCtrlClass::Update_Client_Rect (void)
 	//
 	//	Calculate how each "text" cell should be
 	//
-	CellSize.X = int(ClientRect.Width ());
-	CellSize.Y = int(char_size.Y * 1.5F);
+	CellSize.X = WWMath::Trunc(ClientRect.Width ());
+	CellSize.Y = WWMath::Trunc(char_size.Y * 1.5F);
 
 	//
 	//	Update the number of entries we can display at one time
@@ -274,7 +274,7 @@ DropDownCtrlClass::Update_Client_Rect (void)
 		float new_width	= ScrollBarCtrl.Get_Window_Rect ().Left;
 		ClientRect.Right	= new_width;
 		Rect.Right			= new_width;
-		CellSize.X			= int(ClientRect.Width ());
+		CellSize.X			= WWMath::Trunc(ClientRect.Width ());
 	}
 
 	Set_Dirty ();

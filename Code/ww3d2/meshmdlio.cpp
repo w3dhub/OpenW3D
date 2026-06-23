@@ -266,7 +266,7 @@ WW3DErrorType MeshModelClass::Load_W3D(ChunkLoadClass & cload)
 	namelen += strlen(context->Header.MeshName);
 	namelen += 2;
 	W3dAttributes = context->Header.Attributes;
-	SortLevel = context->Header.SortLevel;
+	SortLevel = char(context->Header.SortLevel);
 	tmpname = new char[namelen];
 	memset(tmpname,0,namelen);
 

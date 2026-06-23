@@ -676,7 +676,7 @@ WWASSERT(loc1==loc2 || loc1==loc3 || loc2==loc3);
 //vidx2=mmc->Get_Polygon_Array()[polygon_index][1];
 //vidx3=mmc->Get_Polygon_Array()[polygon_index][2];
 
-	PolygonArray[PolygonCount]=TriIndex(vidx1,vidx2,vidx3);
+	PolygonArray[PolygonCount]=TriIndex(static_cast<unsigned short>(vidx1),static_cast<unsigned short>(vidx2),static_cast<unsigned short>(vidx3));
 	for (int pass=0;pass<mmc->Get_Pass_Count();++pass) {
 		if (mmc->Has_Shader_Array(pass)) {
 			ShaderArray[pass][PolygonCount]=mmc->Get_Shader(polygon_index,pass);

@@ -552,7 +552,7 @@ void cPlayerManager::Compute_Ladder_Points(int winning_team)
 	// Additional step. Let's now post-multiply ladder points by the fraction of
 	// gametime that each player was present.
 	//
-	float game_duration_s = The_Game()->Get_Game_Duration_S();
+	float game_duration_s = float(The_Game()->Get_Game_Duration_S());
 	//WWASSERT(game_duration_s > 0);
 	if (game_duration_s == 0)
 	{
@@ -565,7 +565,7 @@ void cPlayerManager::Compute_Ladder_Points(int winning_team)
 			continue;
 		}
 
-		float player_duration_s = Player_Array[i]->Get_Total_Time() / 1000.0;
+		float player_duration_s = Player_Array[i]->Get_Total_Time() / 1000.0f;
 		float ratio_present = player_duration_s / game_duration_s;
 		float ladder_points = ratio_present * Player_Array[i]->Get_Ladder_Points();
 		/*
@@ -965,7 +965,7 @@ int cPlayerManager::Fast_Player_Compare(const void * elem1, const void * elem2)
 int cPlayerManager::Compute_Fast_Sort_Key(cPlayer * player)
 {
 	int key = 0;
-	key = player->Get_Score();
+	key = int(player->Get_Score());
 	return key;
 }
 
@@ -1111,14 +1111,14 @@ void cPlayerManager::List_Print(WideStringClass & text, Vector3 color)
 
 	WWASSERT(PTextRenderer != NULL);
 
-	PTextRenderer->Set_Location(Vector2(cMathUtil::Round(XPos), cMathUtil::Round(YPos)));
+	PTextRenderer->Set_Location(Vector2(float(XPos), float(YPos)));
 
 	int c = ((int)(color[0]*255)&0xFF) << 16 | ((int)(color[1]*255)&0xFF) << 8 | ((int)(color[2]*255)&0xFF) << 0 | 0xFF000000;
 
 	PTextRenderer->Draw_Text(text, c);
 
    WWASSERT(PFont != NULL);
-   YPos += PFont->Char_Height() * Y_INCREMENT_FACTOR;
+   YPos += int(PFont->Char_Height() * Y_INCREMENT_FACTOR);
 }
 
 //-----------------------------------------------------------------------------
@@ -1308,9 +1308,9 @@ void cPlayerManager::Render_Player_List(void)
 	XPos = 0;
 	float text_len = PFont->String_Width(heading);
 	if (The_Game()->IsIntermission.Is_True()) {
-		XPos = Render2DClass::Get_Screen_Resolution().Center().X - text_len / 2.0f;
+		XPos = int(Render2DClass::Get_Screen_Resolution().Center().X - text_len / 2.0f);
 	} else {
-		XPos = Render2DClass::Get_Screen_Resolution().Right - 20 - text_len;
+		XPos = int(Render2DClass::Get_Screen_Resolution().Right - 20 - text_len);
 	}
 
 	//
@@ -1319,12 +1319,12 @@ void cPlayerManager::Render_Player_List(void)
 	if (The_Game()->IsIntermission.Is_True()) {
 		//YPos = 70;
 
-		int combined_height =
+		float combined_height = WWMath::Trunc(
 			cTeamManager::Compute_Team_List_Height() +
 			cPlayerManager::Compute_Full_Player_List_Height() +
-			2 * PFont->Char_Height() * Y_INCREMENT_FACTOR;
+			2 * PFont->Char_Height() * Y_INCREMENT_FACTOR);
 
-		YPos = (int)(Render2DClass::Get_Screen_Resolution().Height() / 2.0 - combined_height / 2.0);
+		YPos = (int)(Render2DClass::Get_Screen_Resolution().Height() / 2.0f - combined_height / 2.0f);
 		if (YPos < 10) {
 			YPos = 10;
 		}
@@ -1349,7 +1349,7 @@ void cPlayerManager::Render_Player_List(void)
 		}
 		*/
 
-		YPos += 2 * PFont->Char_Height() * Y_INCREMENT_FACTOR;
+		YPos += int(2 * PFont->Char_Height() * Y_INCREMENT_FACTOR);
 		YPos += cTeamManager::Compute_Team_List_Height();
 
 	} else {
@@ -1384,8 +1384,8 @@ void cPlayerManager::Render_Player_List(void)
 		if ((MultiHUDClass::Get_Playerlist_Format() != PLAYERLIST_FORMAT_TINY) &&
 			 (renderer_star_index == j)) {
 			float x = XPos - 2 * PFont->String_Width(star_text);
-			float y = YPos;
-			PTextRenderer->Set_Location(Vector2(cMathUtil::Round(x), cMathUtil::Round(y)));
+			float y = float(YPos);
+			PTextRenderer->Set_Location(Vector2(WWMath::Round(x), WWMath::Round(y)));
 			PTextRenderer->Draw_Text(star_text);
 		}
 

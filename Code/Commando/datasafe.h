@@ -1474,9 +1474,9 @@ DataSafeHandleClass DataSafeClass<T>::Add_Entry(T &value, bool is_slop)
 			int index = Get_Handle_ID(list);
 			ds_assert(index >= 0 && index < MAX_ENTRIES_PER_LIST);
 			DataSafeHandleClass handle;
-			handle.Handle.Part.List = list;
-			handle.Handle.Part.ID = index;
-			handle.Handle.Part.Type = Type;
+			handle.Handle.Part.List = static_cast<unsigned short>(list);
+			handle.Handle.Part.ID = static_cast<unsigned char>(index);
+			handle.Handle.Part.Type = static_cast<unsigned char>(Type);
 
 			/*
 			** We have a handle. Better encrypt it.
@@ -1520,9 +1520,9 @@ DataSafeHandleClass DataSafeClass<T>::Add_Entry(T &value, bool is_slop)
 						** keeps the ID usage list neat. Fill in the rest of the handle to make it valid.
 						*/
 						DataSafeHandleClass slop_handle;
-						slop_handle.Handle.Part.ID = Get_Handle_ID(list);
-						slop_handle.Handle.Part.List = list;
-						slop_handle.Handle.Part.Type = Type;
+						slop_handle.Handle.Part.ID = static_cast<unsigned char>(Get_Handle_ID(list));
+						slop_handle.Handle.Part.List = static_cast<unsigned short>(list);
+						slop_handle.Handle.Part.Type = static_cast<unsigned char>(Type);
 						DataSafeHandleClass encrypted_slop_handle = slop_handle ^ SimpleKey;
 						Checksum = Checksum ^ encrypted_slop_handle;
 						entry_ptr->Handle = encrypted_slop_handle;

@@ -3601,7 +3601,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(LIGHTNING_ROD_STATE_ACTIVE) (void)
 		//
 		//	Randomly strike the player
 		//
-		int star_dist = (StarPos - TIBERIUM_POS).Length ();
+		int star_dist = int((StarPos - TIBERIUM_POS).Length ());
 		if (FreeRandom.Get_Int (star_dist) == 1) {
 
 			//
@@ -4184,7 +4184,7 @@ RaveshawBossGameObjClass::Determine_New_Overall_State (void)
 		//
 		//	Should he heal himself?
 		//
-		int possibility = (10.0F * health_percent) + 0.5F;
+		int possibility = int((10.0F * health_percent) + 0.5F);
 		bool go_heal = (health_percent <= 0.75F && possibility > 0) && (FreeRandom.Get_Int (possibility) == 0);
 		if (go_heal) {
 			OverallState.Set_State (OVERALL_STATE_HEALING);

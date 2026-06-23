@@ -318,7 +318,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 	// construct the tetrahedra in the index buffers
 	// assume first vertex is the apex, followed by offset[0-3]
 
-	DynamicIBAccessClass iba(sort?BUFFER_TYPE_DYNAMIC_SORTING:BUFFER_TYPE_DYNAMIC_DX8,num_indices);
+	DynamicIBAccessClass iba(static_cast<unsigned short>(sort?BUFFER_TYPE_DYNAMIC_SORTING:BUFFER_TYPE_DYNAMIC_DX8),static_cast<unsigned short>(num_indices));
 
 	{
 		DynamicIBAccessClass::WriteLockClass lock(&iba);
@@ -386,7 +386,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 
 	// make the vertex buffers
 
-	DynamicVBAccessClass vba(sort ? BUFFER_TYPE_DYNAMIC_SORTING : BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,num_vertices);
+	DynamicVBAccessClass vba(sort ? BUFFER_TYPE_DYNAMIC_SORTING : BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,static_cast<unsigned short>(num_vertices));
 
 	{
 		DynamicVBAccessClass::WriteLockClass lock(&vba);
@@ -469,9 +469,9 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 	DX8Wrapper::Set_Vertex_Buffer(vba);
 
 	if (sort) {
-		SortingRendererClass::Insert_Triangles(0, num_tris, 0, num_vertices);
+		SortingRendererClass::Insert_Triangles(0, static_cast<unsigned short>(num_tris), 0, static_cast<unsigned short>(num_vertices));
 	} else {
-		DX8Wrapper::Draw_Triangles(0, num_tris, 0, num_vertices);
+		DX8Wrapper::Draw_Triangles(0, static_cast<unsigned short>(num_tris), 0, static_cast<unsigned short>(num_vertices));
 	}
 
 	// restore the matrices

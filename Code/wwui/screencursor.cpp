@@ -125,10 +125,10 @@ ScreenCursorClass::Render (void)
 	//	Build the screen-space rectangle we'll render to
 	//
 	RectClass rect;
-	rect.Left	= (int)cursor_pos.X;
-	rect.Top		= (int)cursor_pos.Y;
-	rect.Right	= (int)cursor_pos.X + Width;
-	rect.Bottom	= (int)cursor_pos.Y + Height;
+	rect.Left	= WWMath::Trunc(cursor_pos.X);
+	rect.Top		= WWMath::Trunc(cursor_pos.Y);
+	rect.Right	= WWMath::Trunc(cursor_pos.X + Width);
+	rect.Bottom	= WWMath::Trunc(cursor_pos.Y + Height);
 
 	//
 	//	Render the mouse cursor

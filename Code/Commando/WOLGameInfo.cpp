@@ -503,7 +503,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 			{
 			ModPackageClass& package = ModPackageMgrClass::Get_Current_Package();
 			fileCRC = package.Get_CRC();
-			modMapIndex = package.Get_Map_Index(mMapName);
+			modMapIndex = static_cast<unsigned char>(package.Get_Map_Index(mMapName));
 			}
 		else
 			{

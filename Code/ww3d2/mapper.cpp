@@ -394,8 +394,8 @@ void SineLinearOffsetTextureMapperClass::Apply(int uv_array_index)
 
 	CurrentAngle+=delta*ms_to_radians;
 
-	float offset_u=UAFP.X*sin(UAFP.Y*CurrentAngle+UAFP.Z*WWMATH_PI);
-	float offset_v=VAFP.X*sin(VAFP.Y*CurrentAngle+VAFP.Z*WWMATH_PI);
+	float offset_u=UAFP.X*WWMath::Sin(UAFP.Y*CurrentAngle+UAFP.Z*WWMATH_PI);
+	float offset_v=VAFP.X*WWMath::Sin(VAFP.Y*CurrentAngle+VAFP.Z*WWMATH_PI);
 
 	// ensure both coordinates of offset are in [0, 1] range:
 	offset_u = offset_u - WWMath::Floor(offset_u);
@@ -462,7 +462,7 @@ void StepLinearOffsetTextureMapperClass::Apply(int uv_array_index)
 
 	if (num_steps!=0)
 	{
-		CurrentStep+=Step*num_steps;
+		CurrentStep+=Step*float(num_steps);
 		Remainder-=num_steps/(float)StepsPerMilliSec;
 	}
 

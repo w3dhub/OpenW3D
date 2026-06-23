@@ -359,7 +359,7 @@ static	void	Powerup_Add( const unichar_t * name, int number, const char * textur
 //	SurfaceClass::SurfaceDescription surface_desc;
 //	data->Renderer->Peek_Texture()->Get_Level_Description( surface_desc );
 //	float size = surface_desc.Width;		// Assume square
-	float size = data->Renderer->Peek_Texture()->Get_Width(); // Assume square
+	float size = float(data->Renderer->Peek_Texture()->Get_Width()); // Assume square
 	data->UV = uv;
 	if ( size > 0 ) {
 		data->UV.Scale( Vector2( 1/size, 1/size ) );
@@ -812,8 +812,8 @@ static	void	Weapon_Update( void )
 		WeaponClipCountRenderer->Set_Location( WeaponBase + Vector2( CLIP_ROUNDS_OFFSET ) );
 		WeaponClipCountRenderer->Draw_Text( tmp_text );
 
-		if ( LastClipCount != weapon->Get_Clip_Rounds() ) {
-			LastClipCount = weapon->Get_Clip_Rounds();
+		if ( LastClipCount != float(weapon->Get_Clip_Rounds()) ) {
+			LastClipCount = float(weapon->Get_Clip_Rounds());
 			CenterClipCountTimer = CENTER_CLIP_COUNT_TIME;
 		}
 
@@ -933,7 +933,7 @@ static	void	Weapon_Update( void )
 //			SurfaceClass::SurfaceDescription surface_desc;
 //			WeaponImageRenderer->Peek_Texture()->Get_Level_Description( surface_desc );
 //			float size = surface_desc.Width;		// Assume square
-			float size = WeaponImageRenderer->Peek_Texture()->Get_Width(); // Assume square
+			float size = float(WeaponImageRenderer->Peek_Texture()->Get_Width()); // Assume square
 			if ( size > 0 ) {
 				uv.Scale( Vector2( 1/size, 1/size ) );
 			}
@@ -1036,8 +1036,8 @@ static	void	Build_Weapon_Chart_Icons( void )
 		WeaponChartKeynameRenderer->Build_Sentence( name );
 		Vector2 text_size = WeaponChartKeynameRenderer->Get_Text_Extents( name );
 		Vector2 text_offset = pos - text_size/2 - Vector2( 0, WeaponChartSpacing.Y * screen_scale * 0.75f );
-		text_offset.X = (int)text_offset.X;
-		text_offset.Y = (int)text_offset.Y;
+		text_offset.X = WWMath::Trunc(text_offset.X);
+		text_offset.Y = WWMath::Trunc(text_offset.Y);
 		WeaponChartKeynameRenderer->Set_Location( text_offset );
 		WeaponChartKeynameRenderer->Draw_Sentence();
 
@@ -1079,7 +1079,7 @@ static	void	Build_Weapon_Chart_Icons( void )
 //					SurfaceClass::SurfaceDescription surface_desc;
 //					renderer->Peek_Texture()->Get_Level_Description( surface_desc );
 //					float size = surface_desc.Width;		// Assume square
-					float size = renderer->Peek_Texture()->Get_Width(); // Assume square
+					float size = float(renderer->Peek_Texture()->Get_Width()); // Assume square
 					if ( size > 0 ) {
 						uv.Scale( Vector2( 1/size, 1/size ) );
 					}
@@ -2040,16 +2040,16 @@ static	void	Objective_Update( void )
 		}
 
 		Vector2 arrow_vertex;
-		arrow_vertex.X = WWMath::Fast_Sin( angle + DEG_TO_RAD( 180 + 45 ) );
-		arrow_vertex.Y = WWMath::Fast_Cos( angle + DEG_TO_RAD( 180 + 45 ) );
+		arrow_vertex.X = WWMath::Fast_Sin( angle + DEG_TO_RADF( 180 + 45 ) );
+		arrow_vertex.Y = WWMath::Fast_Cos( angle + DEG_TO_RADF( 180 + 45 ) );
 		Vector2 verts[4];
 		verts[0] = Vector2( arrow_vertex.X, arrow_vertex.Y );
 		verts[1] = Vector2( arrow_vertex.Y, -arrow_vertex.X );
 		verts[2] = Vector2( -arrow_vertex.Y, arrow_vertex.X );
 		verts[3] = Vector2( -arrow_vertex.X, -arrow_vertex.Y );
 		Vector2 offset;
-		offset.Y = WWMath::Fast_Sin( -angle + DEG_TO_RAD( -90 ) );
-		offset.X = WWMath::Fast_Cos( -angle + DEG_TO_RAD( -90 ) );
+		offset.Y = WWMath::Fast_Sin( -angle + DEG_TO_RADF( -90 ) );
+		offset.X = WWMath::Fast_Cos( -angle + DEG_TO_RADF( -90 ) );
 		offset *= 35;
 		offset += pog_box.Center();
 
@@ -2076,7 +2076,7 @@ static	void	Objective_Update( void )
 			WideStringClass str(ObjectiveManager::Get_HUD_Objectives_Message( CurrentObjectiveIndex ),true);
 			ObjectiveTextRenderer->Build_Sentence( str );
 			Vector2 text_size = ObjectiveTextRenderer->Get_Text_Extents( str );
-			position.X = (int)(pog_box.Center().X - (text_size.X/2));
+			position.X = WWMath::Trunc(pog_box.Center().X - (text_size.X/2));
 			ObjectiveTextRenderer->Set_Location( position );
 			ObjectiveTextRenderer->Draw_Sentence();
 
@@ -2085,7 +2085,7 @@ static	void	Objective_Update( void )
 			str.Format( TRANSLATE(IDS_HUD_RANGE), irange );
 			ObjectiveTextRenderer->Build_Sentence( str );
 			text_size = ObjectiveTextRenderer->Get_Text_Extents( str );
-			position.X = (int)(pog_box.Center().X - (text_size.X/2));
+			position.X = WWMath::Trunc(pog_box.Center().X - (text_size.X/2));
 			ObjectiveTextRenderer->Set_Location( position );
 			ObjectiveTextRenderer->Draw_Sentence();
 		}
@@ -2442,7 +2442,7 @@ static	void	Info_Update_Health_Shield( void )
 			draw = uv;
 			uv.Scale( INFO_UV_SCALE );
 			draw += InfoBase + SHIELD_OFFSET - draw.Upper_Left();
-			draw += Vector2( (int)(-percent * TOTAL_SHIELD_MOVEMENT), 0 );
+			draw += Vector2( WWMath::Trunc(-percent * TOTAL_SHIELD_MOVEMENT), 0 );
 			InfoRenderer->Add_Quad( draw, uv );
 		}
 
@@ -2450,7 +2450,7 @@ static	void	Info_Update_Health_Shield( void )
 		draw = uv;
 		uv.Scale( INFO_UV_SCALE );
 		draw += InfoBase + SHIELD_OFFSET - draw.Upper_Left();
-		draw += Vector2( (int)(-shield_percent * TOTAL_SHIELD_MOVEMENT), 0 );
+		draw += Vector2( WWMath::Trunc(-shield_percent * TOTAL_SHIELD_MOVEMENT), 0 );
 		InfoRenderer->Add_Quad( draw, uv );
 
 		// Draw Shield Number
@@ -2860,10 +2860,10 @@ void 	HUDClass::Think()
 		//
 		const RectClass &screen_rect = Render2DClass::Get_Screen_Resolution();
 		RectClass status_bar_rect (0.4F, 0.95F, 0.6F, 0.98F);
-		status_bar_rect.Left		= int(status_bar_rect.Left * screen_rect.Width());
-		status_bar_rect.Right	= int(status_bar_rect.Right * screen_rect.Width());
-		status_bar_rect.Top		= int(status_bar_rect.Top * screen_rect.Height());
-		status_bar_rect.Bottom	= int(status_bar_rect.Bottom  * screen_rect.Height());
+		status_bar_rect.Left		= WWMath::Trunc(status_bar_rect.Left * screen_rect.Width());
+		status_bar_rect.Right	= WWMath::Trunc(status_bar_rect.Right * screen_rect.Width());
+		status_bar_rect.Top		= WWMath::Trunc(status_bar_rect.Top * screen_rect.Height());
+		status_bar_rect.Bottom	= WWMath::Trunc(status_bar_rect.Bottom  * screen_rect.Height());
 		RenderImages[ACTION_STATUSBAR_RENDERER]->Add_Line( status_bar_rect.Upper_Left (), status_bar_rect.Upper_Right (), 1, 0xFFFFFFFF );
 		RenderImages[ACTION_STATUSBAR_RENDERER]->Add_Line( status_bar_rect.Upper_Right (), status_bar_rect.Lower_Right (), 1, 0xFFFFFFFF );
 		RenderImages[ACTION_STATUSBAR_RENDERER]->Add_Line( status_bar_rect.Lower_Right (), status_bar_rect.Lower_Left (), 1, 0xFFFFFFFF );
@@ -3106,7 +3106,7 @@ void	HUDClass::Add_Objective( int type )
 
 void	HUDClass::Add_Data_Link( void )
 {
-	int cur = TimeManager::Get_Total_Seconds() * 2.0f;
+	int cur = int(TimeManager::Get_Total_Seconds() * 2.0f);
 	static int last = 0;
 	// Don't accept too fast;
 	if ( cur == last ) {

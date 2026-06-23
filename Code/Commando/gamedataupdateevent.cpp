@@ -85,7 +85,7 @@ cGameDataUpdateEvent::Act(void)
 
 	if (The_Game() != NULL && TimeRemainingSeconds > 0)
 	{
-		The_Game()->Set_Time_Remaining_Seconds(TimeRemainingSeconds);
+		The_Game()->Set_Time_Remaining_Seconds(float(TimeRemainingSeconds));
 		//The_Game()->Set_Server_Is_Gameplay_Permitted(ServerIsGameplayPermitted);
 	}
 	The_Game()->Set_Hosted_Game_Number(HostedGameNumber);

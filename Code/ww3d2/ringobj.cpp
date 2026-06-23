@@ -375,7 +375,7 @@ void RingRenderObjClass::Generate_Shared_Mesh_Arrays (void)
 
 		for(int i=0; i < RING_NUM_LOD; i++) {
 
-			RingMeshArray[i].Generate(1.0f, size);
+			RingMeshArray[i].Generate(1.0f, int(size));
 
 			size+=step;
 		}
@@ -514,7 +514,7 @@ void RingRenderObjClass::render_ring(RenderInfoClass & /*rinfo*/,const Vector3 &
 	DX8Wrapper::Set_Texture(0,RingTexture);
 	DX8Wrapper::Set_Material(RingMaterial);
 
-	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_SORTING,dynamic_fvf_type,ring.Vertex_ct);
+	DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_SORTING,dynamic_fvf_type,static_cast<unsigned short>(ring.Vertex_ct));
 	{
 		DynamicVBAccessClass::WriteLockClass Lock(&vb);
 		VertexFormatXYZNDUV2 *fva = Lock.Get_Formatted_Vertex_Array();
@@ -549,7 +549,7 @@ void RingRenderObjClass::render_ring(RenderInfoClass & /*rinfo*/,const Vector3 &
 		}
 	}
 
-	DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_SORTING,ring.face_ct*3);
+	DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_SORTING,static_cast<unsigned short>(ring.face_ct*3));
 	{
 		DynamicIBAccessClass::WriteLockClass Lock(&ib);
 		unsigned short *mem=Lock.Get_Index_Array();
@@ -565,7 +565,7 @@ void RingRenderObjClass::render_ring(RenderInfoClass & /*rinfo*/,const Vector3 &
 	DX8Wrapper::Set_Index_Buffer(ib,0);
 
 #if (STATIC_SORT_RINGS)
-	DX8Wrapper::Draw_Triangles(0,ring.face_ct,0,ring.Vertex_ct);
+	DX8Wrapper::Draw_Triangles(0,static_cast<unsigned short>(ring.face_ct),0,static_cast<unsigned short>(ring.Vertex_ct));
 #else
 	SortingRendererClass::Insert_Triangles(
 		Get_Bounding_Sphere(),
@@ -677,7 +677,7 @@ void RingRenderObjClass::Render(RenderInfoClass & rinfo)
 		screen_size = sqrtf(screen_size);
 
 		float lod     = screen_size * ((float) RING_NUM_LOD);
-		int	lod_int = lod;
+		int	lod_int = int(lod);
 		lod-=lod_int;
 
 		if (lod >= 0.5f) lod_int++;
@@ -1017,7 +1017,7 @@ void RingRenderObjClass::animate()
 			// Convert from milliseconds to seconds and normalize the time
 			//
 			if (AnimDuration > 0) {
-				float	frametime = WW3D::Get_Frame_Time();
+				float	frametime = float(WW3D::Get_Frame_Time());
 				frametime = (frametime * 0.001F) / AnimDuration;
 				anim_time += frametime;
 			} else {
@@ -1459,9 +1459,9 @@ void RingMeshClass::Generate(float radius, int slices)
 	//	Make the triangle strip...
 	//
 	for (index = 0; index < face_ct; index ++) {
-		tri_poly[index].I = index;
-		tri_poly[index].J = index+1;
-		tri_poly[index].K = index+2;
+		tri_poly[index].I = static_cast<unsigned short>(index);
+		tri_poly[index].J = static_cast<unsigned short>(index+1);
+		tri_poly[index].K = static_cast<unsigned short>(index+2);
 	}
 
 	return ;

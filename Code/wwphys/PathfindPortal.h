@@ -173,9 +173,9 @@ PathfindPortalClass::Add_Dest_Sector (int sector_index)
 	WWASSERT (sector_index != -1);
 
 	if (m_DestSector1 == (uint16)-1) {
-		m_DestSector1 = sector_index;
+		m_DestSector1 = uint16(sector_index);
 	} else {
-		m_DestSector2 = sector_index;
+		m_DestSector2 = uint16(sector_index);
 	}
 
 	return ;

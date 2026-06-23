@@ -137,7 +137,7 @@ void BuildingAggregateClass::Init(const BuildingAggregateDefClass & def)
 {
 	StaticAnimPhysClass::Init(def);
 	AnimCollisionManagerClass & anim_mgr = Get_Animation_Manager();
-	anim_mgr.Set_Current_Frame(def.Frame0[CurrentState]);
+	anim_mgr.Set_Current_Frame(float(def.Frame0[CurrentState]));
 }
 
 
@@ -187,7 +187,7 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
 				** Calculate the fractional position in our current loop
 				*/
 				float normalized_frame = 0.0f;
-				float cur_loop_len = def->Frame1[CurrentState] - def->Frame0[CurrentState];
+				float cur_loop_len = float(def->Frame1[CurrentState] - def->Frame0[CurrentState]);
 
 				if (cur_loop_len > 0.0f) {
 					normalized_frame = (anim_mgr.Get_Current_Frame() - def->Frame0[CurrentState]) /
@@ -197,8 +197,8 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
 				/*
 				** Switch the loop start and end
 				*/
-				anim_mgr.Set_Loop_Start(def->Frame0[new_state]);
-				anim_mgr.Set_Loop_End(def->Frame1[new_state]);
+				anim_mgr.Set_Loop_Start(float(def->Frame0[new_state]));
+				anim_mgr.Set_Loop_End(float(def->Frame1[new_state]));
 
 				/*
 				** Jump to the same fractional position in the new loop
@@ -220,7 +220,7 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
 				/*
 				** The new target frame is determined by the new state
 				*/
-				anim_mgr.Set_Target_Frame(def->Frame0[new_state]);
+				anim_mgr.Set_Target_Frame(float(def->Frame0[new_state]));
 				anim_mgr.Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_TARGET);
 
 				/*
@@ -229,7 +229,7 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
 				if (	(BuildingStateClass::Is_Power_On(new_state) != BuildingStateClass::Is_Power_On(CurrentState)) ||
 						(def->AnimationEnabled[new_state] == false))
 				{
-					anim_mgr.Set_Current_Frame(def->Frame0[new_state]);
+					anim_mgr.Set_Current_Frame(float(def->Frame0[new_state]));
 				}
 				break;
 			}
@@ -241,8 +241,8 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
 				*/
 				if ((def->Frame0[CurrentState] != def->Frame0[new_state]) || (def->Frame1[CurrentState] != def->Frame1[new_state])) {
 					anim_mgr.Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_TARGET);
-					anim_mgr.Set_Current_Frame(def->Frame0[new_state]);
-					anim_mgr.Set_Target_Frame(def->Frame1[new_state]);
+					anim_mgr.Set_Current_Frame(float(def->Frame0[new_state]));
+					anim_mgr.Set_Target_Frame(float(def->Frame1[new_state]));
 				}
 				break;
 			}

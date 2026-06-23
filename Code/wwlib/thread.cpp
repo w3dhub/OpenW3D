@@ -100,8 +100,8 @@ void ThreadClass::Execute()
 	ResumeThread(mHandle);
 #elif defined(OPENW3D_SDL3)
 	mHandle = SDL_CreateThread(Internal_Thread_Function, ThreadName, this);
-
-	mThreadID = SDL_GetThreadID(mHandle);
+	// TODO OmniBlade: ThreadID probably needs changing to 64bit to handle all platforms.
+	mThreadID = unsigned(SDL_GetThreadID(mHandle));
 #else
 	assert(0);
 #endif
@@ -167,7 +167,7 @@ unsigned ThreadClass::Get_Current_Thread_ID()
 #if defined(OPENW3D_WIN32)
 	return GetCurrentThreadId();
 #elif defined(OPENW3D_SDL3)
-	return SDL_GetCurrentThreadID();
+	return unsigned(SDL_GetCurrentThreadID());
 #else
 	assert(0);
 #endif

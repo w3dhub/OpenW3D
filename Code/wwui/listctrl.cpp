@@ -227,7 +227,7 @@ ListCtrlClass::Create_Text_Renderers (void)
 		//
 		//	Render each column header
 		//
-		int x_pos = HeaderRect.Left;
+		float x_pos = WWMath::Trunc(HeaderRect.Left);
 		for (int index = 0; index < ColList.Count (); index ++) {
 
 			//
@@ -303,7 +303,7 @@ ListCtrlClass::Create_Text_Renderers (void)
 			//
 			//	Move on to the next column
 			//
-			x_pos = rect.Right;
+			x_pos = WWMath::Trunc(rect.Right);
 		}
 	}
 
@@ -344,10 +344,10 @@ ListCtrlClass::Create_Text_Renderers (void)
 			//	Build a bounding rectangle for this entry
 			//
 			RectClass rect;
-			rect.Left	= int(x_pos);
-			rect.Right	= int(x_pos + col_width);
-			rect.Top		= int(y_pos);
-			rect.Bottom	= int(y_pos + row_height);
+			rect.Left	= WWMath::Trunc(x_pos);
+			rect.Right	= WWMath::Trunc(x_pos + col_width);
+			rect.Top		= WWMath::Trunc(y_pos);
+			rect.Bottom	= WWMath::Trunc(y_pos + row_height);
 
 			//
 			//	Render the entry
@@ -365,8 +365,8 @@ ListCtrlClass::Create_Text_Renderers (void)
 		//
 		if (Is_Entry_Selected (row_index)) {
 			RectClass row_rect	= TextRect;
-			row_rect.Top			= (int)std::max (TextRect.Top, (float)y_pos);
-			row_rect.Bottom		= (int)std::min (TextRect.Bottom, (float)(y_pos + row_height));
+			row_rect.Top			= WWMath::Trunc(std::max (TextRect.Top, y_pos));
+			row_rect.Bottom		= WWMath::Trunc(std::min (TextRect.Bottom, (y_pos + row_height)));
 			StyleMgrClass::Render_Hilight (&HilightRenderer, row_rect);
 		}
 
@@ -1660,7 +1660,7 @@ ListCtrlClass::Insert_Entry (int index, const unichar_t *text)
 void
 ListCtrlClass::Update_Row_Height (int row_index)
 {
-	int border_height		= (ROW_SPACING * StyleMgrClass::Get_Y_Scale ());
+	float border_height		= WWMath::Trunc(ROW_SPACING * StyleMgrClass::Get_Y_Scale ());
 	float height			= (TextRenderer.Get_Text_Extents (U_CHAR("W")).Y + border_height);
 
 	//
@@ -1737,7 +1737,7 @@ ListCtrlClass::Set_Icon_Size (float width, float height)
 void
 ListCtrlClass::Set_Min_Row_Height (int height)
 {
-	MinRowHeight = height;
+	MinRowHeight = float(height);
 
 	//
 	//	Update each row using this new height information
@@ -2148,10 +2148,10 @@ ListCtrlClass::Get_Entry_Rect (int index, RectClass &rect)
 		}
 	}
 
-	rect.Left	= int(TextRect.Left);
-	rect.Right	= int(TextRect.Right);
-	rect.Top		= int(y_pos);
-	rect.Bottom	= int(rect.Top + row_height);
+	rect.Left	= WWMath::Trunc(TextRect.Left);
+	rect.Right	= WWMath::Trunc(TextRect.Right);
+	rect.Top		= WWMath::Trunc(y_pos);
+	rect.Bottom	= WWMath::Trunc(rect.Top + row_height);
 	return ;
 }
 
@@ -2169,14 +2169,14 @@ ListCtrlClass::Col_From_Pos (const Vector2 &mouse_pos)
 	//
 	//	Test each column
 	//
-	int x_pos		= HeaderRect.Left;
+	float x_pos		= WWMath::Trunc(HeaderRect.Left);
 	int col_count	= ColList.Count ();
 	for (int col_index = 0; col_index < col_count; col_index ++) {
 
 		//
 		//	Determine how wide this column is
 		//
-		int col_width = (ColList[col_index]->Get_Width () * HeaderRect.Width ());
+		float col_width = WWMath::Trunc(ColList[col_index]->Get_Width () * HeaderRect.Width ());
 
 		//
 		//	Let the last column extend to the edge
@@ -2197,7 +2197,7 @@ ListCtrlClass::Col_From_Pos (const Vector2 &mouse_pos)
 		//
 		//	Move on to the next column
 		//
-		x_pos += col_width;
+		x_pos = WWMath::Trunc(x_pos + col_width);
 	}
 
 	return retval;
@@ -2220,7 +2220,7 @@ ListCtrlClass::Entry_From_Pos (const Vector2 &mouse_pos)
 	//
 	//	Test each row
 	//
-	int y_pos		= TextRect.Top;
+	float y_pos		= WWMath::Trunc(TextRect.Top);
 	int row_count	= Get_Entry_Count ();
 	for (int row_index = ScrollPos; row_index < row_count; row_index ++) {
 
@@ -2237,7 +2237,7 @@ ListCtrlClass::Entry_From_Pos (const Vector2 &mouse_pos)
 		//
 		//	Move down to the next row
 		//
-		y_pos += row_height;
+		y_pos = WWMath::Trunc(y_pos + row_height);
 
 		//
 		//	Stop searching if we've moved off the page

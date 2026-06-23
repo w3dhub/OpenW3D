@@ -106,10 +106,10 @@ ParticleEmitterClass::ParticleEmitterClass(float emit_rate, unsigned int burst_s
 	// The maximum number of particles is determined by the emission rate, burst size and lifetime.
 	// However, it is capped both by the particle cap and by the maximum buffer size, if these are
 	// active.
-	int max_num = BurstSize * emit_rate * (max_age + 1);
+	int max_num = int(BurstSize * emit_rate * (max_age + 1));
 	if (max_particles > 0) max_num = MIN(max_num, max_particles);
 	if (max_buffer_size > 0) max_num = MIN(max_num, max_buffer_size);
-	max_num = MAX(max_num, 2);	// max_num of 1 causes problems
+	max_num = std::max(max_num, 2);	// max_num of 1 causes problems
 
 	Buffer = new ParticleBufferClass(this, max_num, color, opacity, size, rotation, orient_rnd,
 		frames, blur_times, accel/1000000.0f,max_age, tex, shader, pingpong, render_mode, frame_mode,
@@ -268,7 +268,7 @@ ParticleEmitterClass::Create_From_Definition (const ParticleEmitterDefClass &def
 																definition.Get_Lifetime (),
 																ptexture,
 																shader,
-																definition.Get_Max_Emissions (),
+																int(definition.Get_Max_Emissions ()),
 																0,
 																false,
 																definition.Get_Render_Mode (),
@@ -713,7 +713,7 @@ ParticleEmitterClass::Build_Definition (void) const
 		pdefinition->Set_Name (Get_Name ());
 		pdefinition->Set_Lifetime (Get_Lifetime ());
 		pdefinition->Set_Emission_Rate (Get_Emission_Rate ());
-		pdefinition->Set_Max_Emissions (Get_Max_Particles ());
+		pdefinition->Set_Max_Emissions (float(Get_Max_Particles ()));
 		pdefinition->Set_Fade_Time (Get_Fade_Time ());
 		pdefinition->Set_Gravity (0);
 		pdefinition->Set_Elasticity (0);

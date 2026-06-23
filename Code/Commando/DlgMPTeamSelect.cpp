@@ -73,7 +73,7 @@ enum
 typedef void (*GameOptionsDispatchFunc)(DlgMPTeamSelect&, const char*);
 
 #define PARSE_INT(s, d, v) {char* ptr = strtok(s, d); if (ptr) {v = atoi(ptr);}}
-#define PARSE_FLOAT(s, d, v) {char* ptr = strtok(s, d); if (ptr) {v = atof(ptr);}}
+#define PARSE_FLOAT(s, d, v) {char* ptr = strtok(s, d); if (ptr) {v = strtof(ptr, NULL);}}
 #define PARSE_HEXDWORD(s, d, v) {char* ptr = strtok(s, d); if (ptr) {sscanf(ptr, "%08X", &v);}}
 #define PARSE_HEXBYTE(s, d, v) {char* ptr = strtok(s, d); if (ptr) {sscanf(ptr, "%02X", &v);}}
 #define PARSE_STRING(s, d, v) {v = strtok(s, d);}
@@ -1112,7 +1112,7 @@ void DlgMPTeamSelect::AddLANPlayerInfo(cPlayer* player)
 		{
 		list->Set_Entry_Text(itemIndex, COL_NAME, player->Get_Name());
 		list->Set_Entry_Int(itemIndex, COL_RANK, player->Get_Rung());
-		list->Set_Entry_Int(itemIndex, COL_SCORE, player->Get_Score());
+		list->Set_Entry_Int(itemIndex, COL_SCORE, int(player->Get_Score()));
 
 		WideStringClass text(0, true);
 		text.Format(U_CHAR("%d/%d"), player->Get_Kills(), player->Get_Deaths());

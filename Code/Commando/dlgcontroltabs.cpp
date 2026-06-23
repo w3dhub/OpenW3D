@@ -276,7 +276,7 @@ ControlsLookTabClass::Load_Controls (void)
 	//
 	SliderCtrlClass *slider_ctrl = (SliderCtrlClass *)Get_Dlg_Item (IDC_MOUSE_SENSITIVITY_SLIDER);
 	if (slider_ctrl != NULL) {
-		slider_ctrl->Set_Pos (Input::Get_Mouse_Sensitivity () * 100);
+		slider_ctrl->Set_Pos (int(Input::Get_Mouse_Sensitivity () * 100));
 	}
 
 	//

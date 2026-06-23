@@ -129,27 +129,27 @@ void SurfaceClass::Convert_Pixel(Vector3 &rgb, const SurfaceClass::SurfaceDescri
 		{
 			unsigned short tmp;
 			tmp=*(unsigned short*)&pixel[0];
-			rgb.X=((tmp&0x0f00)>>4);   // R
-			rgb.Y=((tmp&0x00f0));		// G
-			rgb.Z=((tmp&0x000f)<<4);	// B
+			rgb.X=float((tmp&0x0f00)>>4);   // R
+			rgb.Y=float((tmp&0x00f0));		// G
+			rgb.Z=float((tmp&0x000f)<<4);	// B
 		}
 		break;
 	case WW3D_FORMAT_A1R5G5B5:
 		{
 			unsigned short tmp;
 			tmp=*(unsigned short*)&pixel[0];
-			rgb.X=(tmp>>7)&0xf8; // R
-			rgb.Y=(tmp>>2)&0xf8; // G
-			rgb.Z=(tmp<<3)&0xf8; // B
+			rgb.X=float((tmp>>7)&0xf8); // R
+			rgb.Y=float((tmp>>2)&0xf8); // G
+			rgb.Z=float((tmp<<3)&0xf8); // B
 		}
 		break;
 	case WW3D_FORMAT_R5G6B5:
 		{
 			unsigned short tmp;
 			tmp=*(unsigned short*)&pixel[0];
-			rgb.X=(tmp>>8)&0xf8;
-			rgb.Y=(tmp>>3)&0xfc;
-			rgb.Z=(tmp<<3)&0xf8;
+			rgb.X=float((tmp>>8)&0xf8);
+			rgb.Y=float((tmp>>3)&0xfc);
+			rgb.Z=float((tmp<<3)&0xf8);
 		}
 		break;
 

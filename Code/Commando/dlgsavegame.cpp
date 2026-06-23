@@ -129,7 +129,7 @@ SaveGameMenuClass::On_ListCtrl_Column_Click
 		if (col_index == CurrSortCol) {
 			IsSortAscending = !IsSortAscending;
 		} else {
-			CurrSortCol = col_index;
+			CurrSortCol = uint16(col_index);
 			IsSortAscending = true;
 		}
 

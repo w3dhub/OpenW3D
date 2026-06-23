@@ -303,7 +303,7 @@ void RigidDecalMeshClass::Render(void)
 	/*
 	** Copy the vertices into the dynamic vb
 	*/
-	DynamicVBAccessClass dynamic_vb(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,Verts.Count());
+	DynamicVBAccessClass dynamic_vb(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,static_cast<unsigned short>(Verts.Count()));
 	{
 		DynamicVBAccessClass::WriteLockClass lock(&dynamic_vb);
 		VertexFormatXYZNDUV2 * vertex = lock.Get_Formatted_Vertex_Array();
@@ -333,7 +333,7 @@ void RigidDecalMeshClass::Render(void)
 	/*
 	** Copy the indices into the dynamic ib
 	*/
-	DynamicIBAccessClass dynamic_ib(BUFFER_TYPE_DYNAMIC_DX8,Polys.Count() * 3);
+	DynamicIBAccessClass dynamic_ib(BUFFER_TYPE_DYNAMIC_DX8,static_cast<unsigned short>(Polys.Count() * 3));
 	{
 		DynamicIBAccessClass::WriteLockClass lock(&dynamic_ib);
 		unsigned short * indices = lock.Get_Index_Array();
@@ -356,8 +356,8 @@ void RigidDecalMeshClass::Render(void)
 
 		DX8Wrapper::Set_Index_Buffer(dynamic_ib,0);
 		DX8Wrapper::Set_Vertex_Buffer(dynamic_vb);
-		DX8Wrapper::Draw_Triangles(	3*cur_poly_index,
-												(next_poly_index - cur_poly_index), // poly count
+		DX8Wrapper::Draw_Triangles(	static_cast<unsigned short>(3*cur_poly_index),
+												static_cast<unsigned short>(next_poly_index - cur_poly_index), // poly count
 												Polys[cur_poly_index].I,
 												1 + Polys[next_poly_index-1].K - Polys[cur_poly_index].I);
 		cur_poly_index = next_poly_index;
@@ -442,9 +442,9 @@ bool RigidDecalMeshClass::Create_Decal
 
 	DecalStruct newdecal;
 	newdecal.DecalID = generator->Get_Decal_ID();
-	newdecal.FaceStartIndex = Polys.Count();		// start faces at the end of the current array
+	newdecal.FaceStartIndex = uint16(Polys.Count());		// start faces at the end of the current array
 	newdecal.FaceCount = 0;								// init facecount to zero
-	newdecal.VertexStartIndex = Verts.Count();	// start vertices at the end of the current array
+	newdecal.VertexStartIndex = uint16(Verts.Count());	// start vertices at the end of the current array
 	newdecal.VertexCount = 0;							// init vertcount to zero
 
 	/*
@@ -537,7 +537,10 @@ bool RigidDecalMeshClass::Create_Decal
 					** Add the triangle, its plane equation, and the per-tri materials
 					*/
 					added_polys = true;
-					Polys.Add(TriIndex(first_vert,first_vert + j,first_vert + j + 1));
+					Polys.Add(TriIndex(
+						static_cast<unsigned short>(first_vert),
+						static_cast<unsigned short>(first_vert + j),
+						static_cast<unsigned short>(first_vert + j + 1)));
 					Shaders.Add(material->Peek_Shader());
 					Textures.Add(material->Get_Texture());					// Get_Texture gives us a reference...
 				}
@@ -564,8 +567,8 @@ bool RigidDecalMeshClass::Create_Decal
 	}
 
 	if (added_polys) {
-		newdecal.FaceCount = Polys.Count() - newdecal.FaceStartIndex;
-		newdecal.VertexCount = Verts.Count() - newdecal.VertexStartIndex;
+		newdecal.FaceCount = uint16(Polys.Count() - newdecal.FaceStartIndex);
+		newdecal.VertexCount = uint16(Verts.Count() - newdecal.VertexStartIndex);
 		Decals.Add(newdecal);
 
 		/*
@@ -795,7 +798,7 @@ void SkinDecalMeshClass::Render(void)
 	/*
 	** Copy the vertices into the dynamic vb
 	*/
-	DynamicVBAccessClass dynamic_vb(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,ParentVertexIndices.Count());
+	DynamicVBAccessClass dynamic_vb(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,static_cast<unsigned short>(ParentVertexIndices.Count()));
 	{
 		DynamicVBAccessClass::WriteLockClass lock(&dynamic_vb);
 		VertexFormatXYZNDUV2 * vertex = lock.Get_Formatted_Vertex_Array();
@@ -829,7 +832,7 @@ void SkinDecalMeshClass::Render(void)
 	/*
 	** Copy the indices into the dynamic ib
 	*/
-	DynamicIBAccessClass dynamic_ib(BUFFER_TYPE_DYNAMIC_DX8,Polys.Count() * 3);
+	DynamicIBAccessClass dynamic_ib(BUFFER_TYPE_DYNAMIC_DX8,static_cast<unsigned short>(Polys.Count() * 3));
 	{
 		DynamicIBAccessClass::WriteLockClass lock(&dynamic_ib);
 		unsigned short * indices = lock.Get_Index_Array();
@@ -852,8 +855,8 @@ void SkinDecalMeshClass::Render(void)
 
 		DX8Wrapper::Set_Index_Buffer(dynamic_ib,0);
 		DX8Wrapper::Set_Vertex_Buffer(dynamic_vb);
-		DX8Wrapper::Draw_Triangles(3*cur_poly_index,
-											(next_poly_index - cur_poly_index), // poly count
+		DX8Wrapper::Draw_Triangles(static_cast<unsigned short>(3*cur_poly_index),
+											static_cast<unsigned short>(next_poly_index - cur_poly_index), // poly count
 											Polys[cur_poly_index].I,
 											1 + Polys[next_poly_index-1].K - Polys[cur_poly_index].I);
 
@@ -927,9 +930,9 @@ bool SkinDecalMeshClass::Create_Decal(DecalGeneratorClass * generator,
 
 	DecalStruct newdecal;
 	newdecal.DecalID = generator->Get_Decal_ID();
-	newdecal.FaceStartIndex = Polys.Count();						// start faces at the end of the current array
+	newdecal.FaceStartIndex = uint16(Polys.Count());						// start faces at the end of the current array
 	newdecal.FaceCount = 0;												// init facecount to zero
-	newdecal.VertexStartIndex = ParentVertexIndices.Count();	// start vertices at the end of the current array
+	newdecal.VertexStartIndex = uint16(ParentVertexIndices.Count());	// start vertices at the end of the current array
 	newdecal.VertexCount = 0;											// init vertcount to zero
 
 	/*
@@ -956,7 +959,10 @@ bool SkinDecalMeshClass::Create_Decal(DecalGeneratorClass * generator,
 	int first_vert = ParentVertexIndices.Count();
 	for (i = 0; i < apt.Count(); i++) {
 		int offset = first_vert + i * 3;
-		Polys.Add(TriIndex(offset, offset + 1, offset + 2), face_size_hint);
+		Polys.Add(TriIndex(
+			static_cast<unsigned short>(offset),
+			static_cast<unsigned short>(offset + 1),
+			static_cast<unsigned short>(offset + 2)), face_size_hint);
 
 		Shaders.Add(material->Peek_Shader(), face_size_hint);
 		Textures.Add(material->Get_Texture(), face_size_hint);		// Get_Texture gives us a reference...
@@ -988,8 +994,8 @@ bool SkinDecalMeshClass::Create_Decal(DecalGeneratorClass * generator,
 		}
 	}
 
-	newdecal.FaceCount = Polys.Count() - newdecal.FaceStartIndex;
-	newdecal.VertexCount = ParentVertexIndices.Count() - newdecal.VertexStartIndex;
+	newdecal.FaceCount = uint16(Polys.Count() - newdecal.FaceStartIndex);
+	newdecal.VertexCount = uint16(ParentVertexIndices.Count() - newdecal.VertexStartIndex);
 	Decals.Add(newdecal);
 
 	material->Release_Ref();

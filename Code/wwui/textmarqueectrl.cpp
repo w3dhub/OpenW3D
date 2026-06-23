@@ -134,7 +134,7 @@ TextMarqueeCtrlClass::Create_Text_Renderer (void)
 	//
 	//	Calculate where to start rendering text
 	//
-	int ctrl_height		= ClientRect.Height ();
+	float ctrl_height		= WWMath::Trunc(ClientRect.Height ());
 	float start_height	= (ScrollPos - ctrl_height);
 
 	float curr_height		= 0;
@@ -177,7 +177,7 @@ TextMarqueeCtrlClass::Create_Text_Renderer (void)
 		//
 		//	Move down to the next row...
 		//
-		text_rect.Top = int(text_rect.Top + line.Height);
+		text_rect.Top = WWMath::Trunc(text_rect.Top + line.Height);
 	}
 
 	return ;
@@ -225,10 +225,10 @@ TextMarqueeCtrlClass::Update_Client_Rect (void)
 	//
 	ClientRect = Rect;
 	ClientRect.Inflate (Vector2 (-5.0F * StyleMgrClass::Get_X_Scale (), -3.75F * StyleMgrClass::Get_Y_Scale ()));
-	ClientRect.Left	= int(ClientRect.Left);
-	ClientRect.Top		= int(ClientRect.Top);
-	ClientRect.Right	= int(ClientRect.Right);
-	ClientRect.Bottom	= int(ClientRect.Bottom);
+	ClientRect.Left	= WWMath::Trunc(ClientRect.Left);
+	ClientRect.Top		= WWMath::Trunc(ClientRect.Top);
+	ClientRect.Right	= WWMath::Trunc(ClientRect.Right);
+	ClientRect.Bottom	= WWMath::Trunc(ClientRect.Bottom);
 
 	Set_Dirty ();
 	return ;
@@ -262,7 +262,7 @@ TextMarqueeCtrlClass::Set_Text (const unichar_t *title)
 	//
 	//	Add two blank pages
 	//
-	PixelHeight += ClientRect.Height () * 2;
+	PixelHeight += int(ClientRect.Height () * 2);
 	return ;
 }
 
@@ -338,7 +338,7 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 			//
 			CREDIT_LINE new_line (line);
 			new_line.Text		= text_str;
-			new_line.Height	= TextRenderers[new_line.FontIndex].Peek_Font ()->Get_Char_Height ();
+			new_line.Height	= float(TextRenderers[new_line.FontIndex].Peek_Font ()->Get_Char_Height ());
 			CreditLines.Add (new_line);
 
 			//
@@ -511,7 +511,7 @@ TextMarqueeCtrlClass::Read_Line (const unichar_t *text, CREDIT_LINE &line)
 void
 TextMarqueeCtrlClass::On_Frame_Update (void)
 {
-	float char_height = TextRenderers[0].Peek_Font ()->Get_Char_Height ();
+	float char_height = float(TextRenderers[0].Peek_Font ()->Get_Char_Height ());
 
 	//
 	//	Determine how many pixels to scroll

@@ -126,8 +126,8 @@ FloodfillGridClass::Initialize
 	//
 	m_CellSize.X	= box_extents.X * 32;
 	m_CellSize.Y	= box_extents.Y * 32;
-	m_CellsX	= ((m_WorldMax.X - m_WorldMin.X) / m_CellSize.X) + 1;
-	m_CellsY	= ((m_WorldMax.Y - m_WorldMin.Y) / m_CellSize.Y) + 1;
+	m_CellsX	= int((m_WorldMax.X - m_WorldMin.X) / m_CellSize.X) + 1;
+	m_CellsY	= int((m_WorldMax.Y - m_WorldMin.Y) / m_CellSize.Y) + 1;
 
 	//
 	//	Allocate the grid

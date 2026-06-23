@@ -127,8 +127,8 @@ CSceneLightDialog::OnInitDialog (void)
 		Set_Color_Control_State (diffuse);
 
 		// Get the light's attenuation
-		double start = 0;
-		double end = 0;
+		float start = 0;
+		float end = 0;
 		pCDoc->GetSceneLight ()->Get_Far_Attenuation_Range (start, end);
 		BOOL atten_on = pCDoc->GetSceneLight ()->Get_Flag (LightClass::FAR_ATTENUATION);
 		SendDlgItemMessage (IDC_ATTENUATION_CHECK, BM_SETCHECK, (WPARAM)atten_on);

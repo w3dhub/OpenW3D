@@ -138,7 +138,7 @@ public:
 	//	Row height support
 	//
 	void				Set_Min_Row_Height (int height);
-	int				Get_Min_Row_Height (void) const	{ return MinRowHeight; }
+	int				Get_Min_Row_Height (void) const	{ return int(MinRowHeight); }
 
 	//
 	//	Icon support

@@ -79,8 +79,8 @@ class	ActionParamsStruct {
 public:
 	ActionParamsStruct( void );
 
-	void	Set_Basic( GameObjObserverClass * script, float priority, int action_id, SoldierAIState ai_state = NO_AI_STATE_CHANGE ) { ObserverID = script->Get_ID(); Priority = priority; ActionID = action_id; AIState = ai_state; }
-   void	Set_Basic( int observer_id, float priority, int action_id, SoldierAIState ai_state = NO_AI_STATE_CHANGE ) { ObserverID = observer_id; Priority = priority; ActionID = action_id; AIState = ai_state; }
+	void	Set_Basic( GameObjObserverClass * script, float priority, int action_id, SoldierAIState ai_state = NO_AI_STATE_CHANGE ) { ObserverID = script->Get_ID(); Priority = int(priority); ActionID = action_id; AIState = ai_state; }
+   void	Set_Basic( int observer_id, float priority, int action_id, SoldierAIState ai_state = NO_AI_STATE_CHANGE ) { ObserverID = observer_id; Priority = int(priority); ActionID = action_id; AIState = ai_state; }
 
 	void	Set_Look( const Vector3 & location, float duration ) { LookLocation = location; LookDuration = duration; }
 	void	Set_Look( GameObject * object, float duration ) { LookObject = object; LookDuration = duration; }
@@ -208,8 +208,8 @@ inline ActionParamsStruct::ActionParamsStruct( void ) :
 void	inline ActionParamsStruct::Set_Face_Location( const Vector3 &obj_pos, float angle, float duration )
 {
 	FaceLocation	= obj_pos;
-	FaceLocation.X	+= ::cos( angle );
-	FaceLocation.Y	+= ::sin( angle );
+	FaceLocation.X	+= WWMath::Cos( angle );
+	FaceLocation.Y	+= WWMath::Sin( angle );
 	FaceDuration	= duration;
 	return ;
 }
@@ -218,8 +218,8 @@ void	inline ActionParamsStruct::Set_Face_Location( const Vector3 &obj_pos, float
 void	inline ActionParamsStruct::Set_Look( const Vector3 &obj_pos, float angle,  float duration )
 {
 	LookLocation	= obj_pos;
-	LookLocation.X	+= ::cos( angle );
-	LookLocation.Y	+= ::sin( angle );
+	LookLocation.X	+= WWMath::Cos( angle );
+	LookLocation.Y	+= WWMath::Sin( angle );
 	LookDuration	= duration;
 	return ;
 }

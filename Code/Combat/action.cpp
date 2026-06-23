@@ -600,7 +600,7 @@ public:
 
 		// Special case for soldier moving
 		if ( soldier && soldier->Is_On_Ladder() ) {
-			obj->Set_Analog_Control( ControlClass::ANALOG_MOVE_FORWARD, (move[2] >= 0) ? 1 : -1 );		// Could we make this move up?
+			obj->Set_Analog_Control( ControlClass::ANALOG_MOVE_FORWARD, (move[2] >= 0) ? 1.0f : -1.0f );		// Could we make this move up?
 		}
 	}
 

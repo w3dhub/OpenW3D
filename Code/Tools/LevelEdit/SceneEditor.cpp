@@ -2596,10 +2596,10 @@ SceneEditorClass::Compare_Lights (LightClass *light1, LightClass *light2)
 			//
 			//	Are their attenuation ranges the same?
 			//
-			double inner1 = 0;
-			double inner2 = 0;
-			double outer1 = 0;
-			double outer2 = 0;
+			float inner1 = 0;
+			float inner2 = 0;
+			float outer1 = 0;
+			float outer2 = 0;
 			light1->Get_Far_Attenuation_Range (inner1, outer1);
 			light2->Get_Far_Attenuation_Range (inner2, outer2);
 			if (inner1 == inner2 && outer1 == outer2) {

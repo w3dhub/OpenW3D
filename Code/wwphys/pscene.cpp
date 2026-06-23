@@ -1215,7 +1215,7 @@ void PhysicsSceneClass::Optimize_LODs
 		it.Peek_Obj()->Peek_Model()->Prepare_LOD(camera);
 		it.Peek_Obj()->Set_Last_Visible_Frame(CurrentFrameNumber);
 	}
-	PredictiveLODOptimizerClass::Optimize_LODs(DynamicPolyBudget);
+	PredictiveLODOptimizerClass::Optimize_LODs(float(DynamicPolyBudget));
 
 	// process the static objects
 	PredictiveLODOptimizerClass::Clear();
@@ -1227,7 +1227,7 @@ void PhysicsSceneClass::Optimize_LODs
 		it.Peek_Obj()->Peek_Model()->Prepare_LOD(camera);
 		it.Peek_Obj()->Set_Last_Visible_Frame(CurrentFrameNumber);
 	}
-	PredictiveLODOptimizerClass::Optimize_LODs(StaticPolyBudget);
+	PredictiveLODOptimizerClass::Optimize_LODs(float(StaticPolyBudget));
 }
 
 

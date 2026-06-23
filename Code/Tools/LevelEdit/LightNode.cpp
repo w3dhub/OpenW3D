@@ -552,8 +552,8 @@ LightNodeClass::Initialize_From_Light (LightClass *light)
 	light->Get_Diffuse (&diffuse_color);
 	light->Get_Specular (&specular_color);
 
-	double inner = 0;
-	double outer = 0;
+	float inner = 0;
+	float outer = 0;
 	light->Get_Far_Attenuation_Range (inner, outer);
 
 	float intensity				= light->Get_Intensity ();

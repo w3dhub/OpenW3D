@@ -768,8 +768,8 @@ MPIngameChatPopupClass::On_Init_Dialog (void)
 	const RectClass &screen_rect = Render2DClass::Get_Screen_Resolution ();
 	RectClass window_rect	= Get_Rect ();
 	float height				= window_rect.Height ();
-	window_rect.Bottom		= int(screen_rect.Bottom - 40.0F);
-	window_rect.Top			= int(window_rect.Bottom - height);
+	window_rect.Bottom		= WWMath::Trunc(screen_rect.Bottom - 40.0F);
+	window_rect.Top			= WWMath::Trunc(window_rect.Bottom - height);
 	Set_Rect (window_rect);
 
 	//

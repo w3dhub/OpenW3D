@@ -128,7 +128,7 @@ public:
 	void							Set_Flag(FlagsType flag,bool onoff)						{ if (onoff) {	Flags |= flag;	} else {	Flags &= ~flag; } }
 	int							Get_Flag(FlagsType flag)									{ return Flags & flag; }
 
-	void							Set_Sort_Level(int level)									{ SortLevel = level; }
+	void							Set_Sort_Level(int level)									{ SortLevel = char(level); }
 	int							Get_Sort_Level(void) const									{ return SortLevel; }
 
 	int							Get_Polygon_Count(void) const								{ return PolyCount; }

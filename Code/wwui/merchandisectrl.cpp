@@ -188,14 +188,14 @@ MerchandiseCtrlClass::Update_Client_Rect (void)
 	//	Make the texture rectangle the 2/3 of the space
 	//
 	TextureRect				= Rect;
-	TextureRect.Bottom	= int(TextureRect.Top + (Rect.Height () * 0.667F));
+	TextureRect.Bottom	= WWMath::Trunc(TextureRect.Top + (Rect.Height () * 0.667F));
 
 	//
 	//	Make the cost rect use up 60% of the remaining space
 	//
 	CostRect				= Rect;
-	CostRect.Top		= int(TextureRect.Bottom + 1);
-	CostRect.Bottom	= CostRect.Top + int((Rect.Bottom - TextureRect.Bottom) * 0.6F);
+	CostRect.Top		= WWMath::Trunc(TextureRect.Bottom + 1);
+	CostRect.Bottom	= CostRect.Top + WWMath::Trunc((Rect.Bottom - TextureRect.Bottom) * 0.6F);
 
 	//
 	//	The rest of the space goes to the text rect
@@ -207,8 +207,8 @@ MerchandiseCtrlClass::Update_Client_Rect (void)
 	//	The counter lives in the upper-right corner
 	//
 	CountRect			= Rect;
-	CountRect.Left		= CountRect.Left + int(Rect.Width () * 0.75F);
-	CountRect.Bottom	= CountRect.Top + int(TextureRect.Height () * 0.25F);
+	CountRect.Left		= CountRect.Left + WWMath::Trunc(Rect.Width () * 0.75F);
+	CountRect.Bottom	= CountRect.Top + WWMath::Trunc(TextureRect.Height () * 0.25F);
 
 	Set_Dirty ();
 	return ;
@@ -277,8 +277,8 @@ MerchandiseCtrlClass::Create_Control_Renderer (void)
 		RectClass button_rect;
 		button_rect.Right		= Rect.Right - 1;
 		button_rect.Top		= Rect.Top + 2;
-		button_rect.Left		= int(button_rect.Right - (BUTTON_WIDTH * StyleMgrClass::Get_X_Scale ()));
-		button_rect.Bottom	= int(button_rect.Top + (BUTTON_HEIGHT * StyleMgrClass::Get_Y_Scale ()));
+		button_rect.Left		= WWMath::Trunc(button_rect.Right - (BUTTON_WIDTH * StyleMgrClass::Get_X_Scale ()));
+		button_rect.Bottom	= WWMath::Trunc(button_rect.Top + (BUTTON_HEIGHT * StyleMgrClass::Get_Y_Scale ()));
 
 		ButtonRenderer.Add_Quad (button_rect);
 	}
@@ -300,8 +300,8 @@ MerchandiseCtrlClass::Create_Control_Renderer (void)
 	//
 	RectClass text_rect = TextRect;
 	RectClass cost_rect = CostRect;
-	text_rect.Right = int(text_rect.Left + name_extents.X + 4.0F);
-	cost_rect.Right = int(cost_rect.Left + cost_extents.X + 4.0F);
+	text_rect.Right = WWMath::Trunc(text_rect.Left + name_extents.X + 4.0F);
+	cost_rect.Right = WWMath::Trunc(cost_rect.Left + cost_extents.X + 4.0F);
 
 	//
 	//	Clip the backdrop to the bounding rectangle
@@ -405,8 +405,8 @@ MerchandiseCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 	RectClass button_rect;
 	button_rect.Right		= Rect.Right - 1;
 	button_rect.Top		= Rect.Top + 2;
-	button_rect.Left		= int(button_rect.Right - (BUTTON_WIDTH * StyleMgrClass::Get_X_Scale ()));
-	button_rect.Bottom	= int(button_rect.Top + (BUTTON_HEIGHT * StyleMgrClass::Get_Y_Scale ()));
+	button_rect.Left		= WWMath::Trunc(button_rect.Right - (BUTTON_WIDTH * StyleMgrClass::Get_X_Scale ()));
+	button_rect.Bottom	= WWMath::Trunc(button_rect.Top + (BUTTON_HEIGHT * StyleMgrClass::Get_Y_Scale ()));
 
 	//
 	//	Did the user click in the cycle button?
@@ -454,8 +454,8 @@ MerchandiseCtrlClass::On_LButton_DblClk (const Vector2 &mouse_pos)
 	RectClass button_rect;
 	button_rect.Right		= Rect.Right - 1;
 	button_rect.Top		= Rect.Top + 2;
-	button_rect.Left		= int(button_rect.Right - (BUTTON_WIDTH * StyleMgrClass::Get_X_Scale ()));
-	button_rect.Bottom	= int(button_rect.Top + (BUTTON_HEIGHT * StyleMgrClass::Get_Y_Scale ()));
+	button_rect.Left		= WWMath::Trunc(button_rect.Right - (BUTTON_WIDTH * StyleMgrClass::Get_X_Scale ()));
+	button_rect.Bottom	= WWMath::Trunc(button_rect.Top + (BUTTON_HEIGHT * StyleMgrClass::Get_Y_Scale ()));
 
 	//
 	//	Did the user click in the cycle button?

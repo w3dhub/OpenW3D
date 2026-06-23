@@ -115,8 +115,13 @@ static WWINLINE int Float_To_Int_Floor(const float& f);
 
 static WWINLINE int Float_To_Long(float f);
 static WWINLINE float Cos(float val);
+static WWINLINE double Cos(double val);
 static WWINLINE float Sin(float val);
+static WWINLINE double Sin(double val);
+static WWINLINE float Tan(float val);
+static WWINLINE double Tan(double val);
 static WWINLINE float Sqrt(float val);
+static WWINLINE double Sqrt(double val);
 static WWINLINE float Inv_Sqrt(float a);
 
 
@@ -131,11 +136,18 @@ static WWINLINE float Fast_Asin(float val);
 static WWINLINE float Asin(float val);
 
 
-static float		Atan(float x) { return static_cast<float>(atan(x)); }
-static float		Atan2(float y,float x) { return static_cast<float>(atan2(y,x)); }
+static float		Atan(float x) { return atanf(x); }
+static double		Atan(double x) { return atan(x); }
+static float		Atan2(float y,float x) { return atan2f(y,x); }
+static double		Atan2(double y,double x) { return atan2(y,x); }
 static float		Sign(float val);
 static float		Ceil(float val) { return ceilf(val); }
 static float		Floor(float val) { return floorf(val); }
+static double		Floor(double val) { return floor(val); }
+static float		Trunc(float val) { return truncf(val); }
+static float		Round(float val) { return roundf(val); }
+static float		Pow(float x, float y) { return powf(x, y); }
+static double		Pow(double x, double y) { return pow(x, y); }
 static bool			Fast_Is_Float_Positive(const float & val);
 
 static float		Random_Float(void);
@@ -302,6 +314,11 @@ WWINLINE float WWMath::Cos(float val)
 	return cosf(val);
 }
 
+WWINLINE double WWMath::Cos(double val)
+{
+	return cos(val);
+}
+
 // ----------------------------------------------------------------------------
 // Sin
 // ----------------------------------------------------------------------------
@@ -309,6 +326,25 @@ WWINLINE float WWMath::Cos(float val)
 WWINLINE float WWMath::Sin(float val)
 {
 	return sinf(val);
+}
+
+WWINLINE double WWMath::Sin(double val)
+{
+	return sin(val);
+}
+
+// ----------------------------------------------------------------------------
+// Tan
+// ----------------------------------------------------------------------------
+
+WWINLINE float WWMath::Tan(float val)
+{
+	return tanf(val);
+}
+
+WWINLINE double WWMath::Tan(double val)
+{
+	return tan(val);
 }
 
 // ----------------------------------------------------------------------------
@@ -485,7 +521,12 @@ WWINLINE float WWMath::Asin(float val)
 
 WWINLINE float WWMath::Sqrt(float val)
 {
-	return (float)sqrt(val);
+	return sqrtf(val);
+}
+
+WWINLINE double WWMath::Sqrt(double val)
+{
+	return sqrt(val);
 }
 
 WWINLINE int WWMath::Float_To_Int_Chop(const float& f)

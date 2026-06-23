@@ -132,8 +132,8 @@ MapMgrClass::Set_Map_Texture (const char *filename)
 //		texture->Get_Level_Description (surface_desc);
 //		MapSize.X = surface_desc.Width;
 //		MapSize.Y = surface_desc.Height;
-		MapSize.X = texture->Get_Width();
-		MapSize.Y = texture->Get_Height();
+		MapSize.X = float(texture->Get_Width());
+		MapSize.Y = float(texture->Get_Height());
 
 		//
 		//	Release our hold on the texture

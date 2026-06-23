@@ -255,8 +255,8 @@ void ProgressCtrlClass::Set_Range(unsigned int min, unsigned int max)
 	// Scale current position to new range
 	if (mPosition > mMinLimit)
 		{
-		float oldDelta = (mMaxLimit - mMinLimit);
-		float newDelta = (max - min);
+		float oldDelta = float(mMaxLimit - mMinLimit);
+		float newDelta = float(max - min);
 		float scaler = (oldDelta / newDelta);
 
 		unsigned int position = (unsigned int)((float)mPosition * scaler);
@@ -412,6 +412,6 @@ void ProgressCtrlClass::Set_Step(unsigned int step)
 void ProgressCtrlClass::Step_Position(void)
 	{
 	float stepping = ((float)(mMaxLimit - mMinLimit) / (float)mStep);
-	float stepPos = (floor((float)mPosition / stepping) * stepping);
-	Set_Position(stepPos + mStep);
+	float stepPos = (WWMath::Floor((float)mPosition / stepping) * stepping);
+	Set_Position(unsigned(stepPos + mStep));
 	}

@@ -184,7 +184,7 @@ void SegLineRendererClass::Set_Texture_Tile_Factor(float factor)
 		factor = 8.0f;
 		WWDEBUG_SAY(("Texture Tile Factor too large in SegLineRendererClass!\r\n"));
 	} else {
-		factor = MAX(factor, 0.0f);
+		factor = std::max(factor, 0.0f);
 	}
 	TextureTileFactor = factor;
 }
@@ -221,8 +221,8 @@ void SegLineRendererClass::Render
 	Vector2 uv_offset = CurrentUVOffset + UVOffsetDeltaPerMS * del;
 
 	// ensure offsets are in [0, 1] range:
-	uv_offset.X = uv_offset.X - floor(uv_offset.X);
-	uv_offset.Y = uv_offset.Y - floor(uv_offset.Y);
+	uv_offset.X = uv_offset.X - WWMath::Floor(uv_offset.X);
+	uv_offset.Y = uv_offset.Y - WWMath::Floor(uv_offset.Y);
 
 	// Update state
 	CurrentUVOffset = uv_offset;
@@ -251,7 +251,7 @@ void SegLineRendererClass::Render
 	// iteration so we don't need another one).
 	for (unsigned int chidx = 0; chidx < num_points - 1; chidx += (chunk_size - 1)) {
 		unsigned int point_cnt = num_points - chidx;
-		point_cnt = MIN(point_cnt, chunk_size);
+		point_cnt = std::min(point_cnt, chunk_size);
 
 		// We use these different loop indices (which loop INSIDE a chunk) to improve readability:
 		unsigned int pidx;	// Point index
@@ -925,7 +925,7 @@ void SegLineRendererClass::Render
 		unsigned int residual_bottom_points = intersection[1][BOTTOM_EDGE].PointCount;
 
 		// Reduce both pointcounts by the same amount so the smaller one is 1 (skip points)
-		unsigned int residual_delta = MIN(residual_top_points, residual_bottom_points) - 1;
+		unsigned int residual_delta = std::min(residual_top_points, residual_bottom_points) - 1;
 		residual_top_points -= residual_delta;
 		residual_bottom_points -= residual_delta;
 		pidx += residual_delta;
@@ -934,13 +934,13 @@ void SegLineRendererClass::Render
 
 			if (residual_top_points == 1 && residual_bottom_points == 1) {
 				// Advance both intersections, creating a tristrip segment
-				v_index_array[tidx].I = last_top_vidx;
-				v_index_array[tidx].J = last_bottom_vidx;
-				v_index_array[tidx].K = vidx;
+				v_index_array[tidx].I = static_cast<unsigned short>(last_top_vidx);
+				v_index_array[tidx].J = static_cast<unsigned short>(last_bottom_vidx);
+				v_index_array[tidx].K = static_cast<unsigned short>(vidx);
 				tidx++;
-				v_index_array[tidx].I = last_bottom_vidx;
-				v_index_array[tidx].J = vidx + 1;
-				v_index_array[tidx].K = vidx;
+				v_index_array[tidx].I = static_cast<unsigned short>(last_bottom_vidx);
+				v_index_array[tidx].J = static_cast<unsigned short>(vidx + 1);
+				v_index_array[tidx].K = static_cast<unsigned short>(vidx);
 				tidx++;
 				last_top_vidx = vidx;
 				last_bottom_vidx = vidx + 1;
@@ -976,9 +976,9 @@ void SegLineRendererClass::Render
 				// Exactly one of the pointcounts is greater than one - advance it and draw one triangle
 				if (residual_top_points > 1) {
 					// Draw one triangle (fan segment)
-					v_index_array[tidx].I = last_top_vidx;
-					v_index_array[tidx].J = last_bottom_vidx;
-					v_index_array[tidx].K = vidx;
+					v_index_array[tidx].I = static_cast<unsigned short>(last_top_vidx);
+					v_index_array[tidx].J = static_cast<unsigned short>(last_bottom_vidx);
+					v_index_array[tidx].K = static_cast<unsigned short>(vidx);
 					tidx++;
 					last_bottom_vidx = vidx;
 
@@ -1005,9 +1005,9 @@ void SegLineRendererClass::Render
 					// residual_bottom_points > 1
 
 					// Draw one triangle (fan segment)
-					v_index_array[tidx].I = last_top_vidx;
-					v_index_array[tidx].J = last_bottom_vidx;
-					v_index_array[tidx].K = vidx;
+					v_index_array[tidx].I = static_cast<unsigned short>(last_top_vidx);
+					v_index_array[tidx].J = static_cast<unsigned short>(last_bottom_vidx);
+					v_index_array[tidx].K = static_cast<unsigned short>(vidx);
 					tidx++;
 					last_top_vidx = vidx;
 
@@ -1032,7 +1032,7 @@ void SegLineRendererClass::Render
 			}
 
 			// Reduce both pointcounts by the same amount so the smaller one is 1 (skip points)
-			residual_delta = MIN(residual_top_points, residual_bottom_points) - 1;
+			residual_delta = std::min(residual_top_points, residual_bottom_points) - 1;
 			residual_top_points -= residual_delta;
 			residual_bottom_points -= residual_delta;
 			pidx += residual_delta;
@@ -1087,7 +1087,7 @@ void SegLineRendererClass::Render
 		** Render
 		*/
 
-		DynamicVBAccessClass Verts((sorting?BUFFER_TYPE_DYNAMIC_SORTING:BUFFER_TYPE_DYNAMIC_DX8),dynamic_fvf_type,vnum);
+		DynamicVBAccessClass Verts((sorting?BUFFER_TYPE_DYNAMIC_SORTING:BUFFER_TYPE_DYNAMIC_DX8),dynamic_fvf_type,static_cast<unsigned short>(vnum));
 		// Copy in the data to the  VB
 		{
 			DynamicVBAccessClass::WriteLockClass Lock(&Verts);
@@ -1108,7 +1108,7 @@ void SegLineRendererClass::Render
 			}
 		} // copy
 
-		DynamicIBAccessClass ib_access((sorting?BUFFER_TYPE_DYNAMIC_SORTING:BUFFER_TYPE_DYNAMIC_DX8),tidx*3);
+		DynamicIBAccessClass ib_access(static_cast<unsigned short>(sorting?BUFFER_TYPE_DYNAMIC_SORTING:BUFFER_TYPE_DYNAMIC_DX8),static_cast<unsigned short>(tidx*3));
 		{
 			unsigned int i;
 			DynamicIBAccessClass::WriteLockClass lock(&ib_access);
@@ -1129,9 +1129,9 @@ void SegLineRendererClass::Render
 		DX8Wrapper::Set_Shader(shader);
 
 		if (sorting) {
-			SortingRendererClass::Insert_Triangles(obj_sphere,0,tidx,0,vnum);
+			SortingRendererClass::Insert_Triangles(obj_sphere,0,static_cast<unsigned short>(tidx),0,static_cast<unsigned short>(vnum));
 		} else {
-			DX8Wrapper::Draw_Triangles(0,tidx,0,vnum);
+			DX8Wrapper::Draw_Triangles(0,static_cast<unsigned short>(tidx),0,static_cast<unsigned short>(vnum));
 		}
 
 		REF_PTR_RELEASE(mat);

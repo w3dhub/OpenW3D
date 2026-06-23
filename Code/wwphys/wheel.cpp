@@ -730,7 +730,7 @@ void WheelClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque)
 	// the wheel can attempt to cancel them.
 	// TODO: load distribution?
 	Vector3 gravity(0.0f,0.0f,-Parent->Get_Weight());
-	gravity /= Parent->Get_Real_Wheel_Count();
+	gravity /= float(Parent->Get_Real_Wheel_Count());
 	Vector3 local_gravity;
 	Matrix3D::Inverse_Rotate_Vector(WheelTM,gravity,&local_gravity);
 
@@ -799,7 +799,7 @@ void WheelClass::Compute_Suspension_Force(const Vector3 & pdot,const Vector3 & /
 	float sforce = - SpringConstant*dx - DampingCoefficient*dv;
 
 	// Clamp the suspension force to produce at most an acceleration of MAX_SUSPENSION_ACCEL
-	float max_sforce = MAX_SUSPENSION_ACCEL * Parent->Get_Mass() / WWMath::Max(Parent->Get_Real_Wheel_Count(),1.0f);
+	float max_sforce = MAX_SUSPENSION_ACCEL * Parent->Get_Mass() / WWMath::Max(float(Parent->Get_Real_Wheel_Count()),1.0f);
 	sforce = WWMath::Clamp(sforce,-max_sforce,max_sforce);
 
 	*suspension_force = Normal;

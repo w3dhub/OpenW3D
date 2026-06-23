@@ -692,7 +692,7 @@ CNCPurchaseMainMenuClass::Refresh_Beacon_State (void)
 	//
 	//	Get the beacon cost and the player's current cash supply
 	//
-	float cost	= definition->Get_Beacon_Cost ();
+	float cost	= float(definition->Get_Beacon_Cost ());
 	int funds	= 0;
 	if (COMBAT_STAR->Get_Player_Data() != NULL) {
 		funds	= (int) COMBAT_STAR->Get_Player_Data ()->Get_Money ();

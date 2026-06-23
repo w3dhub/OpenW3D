@@ -95,7 +95,7 @@ void FrameTimeHistogramClass::Get_Packed_Report(unsigned char* bytes)
 	if (total==0) total=1;
 
 	for (i=0;i<SlotCount;++i) {
-		unsigned char value=255*Counts[i]/total;
+		unsigned char value=static_cast<unsigned char>(255*Counts[i]/total);
 		if (value==0 && Counts[i]!=0) value=1;
 		bytes[i]=value;
 	}
@@ -176,7 +176,7 @@ void	TimeManager::Update_Frame_Time()
 	FrameTicks = MIN( FrameTicks, (TICKS_PER_SECOND / SLOWEST_FPS) );
 
 	if ( WW3D::Get_Movie_Capture_Frame_Rate() != 0.0f ) {
-		FrameTicks = TICKS_PER_SECOND / WW3D::Get_Movie_Capture_Frame_Rate();
+		FrameTicks = int(TICKS_PER_SECOND / WW3D::Get_Movie_Capture_Frame_Rate());
 	}
 
 #if	TIME_STABILIZING_TECHNOLOGY_ENABLED
@@ -220,7 +220,7 @@ void	TimeManager::Update_Frame_Time()
 		FrameTicks = 0;
 	}
 
-	FrameTicks *= TimeScale;
+	FrameTicks = int(FrameTicks * TimeScale);
 	FrameSeconds=(float)FrameTicks / TICKS_PER_SECOND;
 	RealFrameSeconds=(float)RealFrameTicks / TICKS_PER_SECOND;
 

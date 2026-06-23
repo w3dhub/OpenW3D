@@ -517,7 +517,7 @@ void DynamicIBAccessClass::Allocate_Sorting_Dynamic_Buffer()
 	WWASSERT(new_index_count<65536);
 	if (new_index_count>_DynamicSortingIndexArraySize) {
 		REF_PTR_RELEASE(_DynamicSortingIndexArray);
-		_DynamicSortingIndexArraySize=new_index_count;
+		_DynamicSortingIndexArraySize=static_cast<unsigned short>(new_index_count);
 		if (_DynamicSortingIndexArraySize<DEFAULT_IB_SIZE) _DynamicSortingIndexArraySize=DEFAULT_IB_SIZE;
 	}
 

@@ -487,7 +487,7 @@ void SortingRendererClass::Flush_Sorting_Pool()
 	float* polygon_z_array_ptr=Get_Polygon_Z_Array(overlapping_polygon_count);
 	ShortVectorIStruct* polygon_idx_array=(ShortVectorIStruct*)Get_Polygon_Index_Array(overlapping_polygon_count);
 
-	DynamicVBAccessClass dyn_vb_access(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,overlapping_vertex_count);
+	DynamicVBAccessClass dyn_vb_access(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,static_cast<unsigned short>(overlapping_vertex_count));
 	{
 		DynamicVBAccessClass::WriteLockClass lock(&dyn_vb_access);
 		VertexFormatXYZNDUV2* dest_verts=lock.Get_Formatted_Vertex_Array();
@@ -546,12 +546,12 @@ void SortingRendererClass::Flush_Sorting_Pool()
 				polygon_z_array_ptr[array_index]=z;
 				node_id_array_ptr[array_index]=node_id;
 				polygon_idx_array[array_index]=ShortVectorIStruct(
-					idx1+vertex_array_offset,
-					idx2+vertex_array_offset,
-					idx3+vertex_array_offset);
+					static_cast<unsigned short>(idx1+vertex_array_offset),
+					static_cast<unsigned short>(idx2+vertex_array_offset),
+					static_cast<unsigned short>(idx3+vertex_array_offset));
 			}
 
-			state->min_vertex_index=vertex_array_offset;
+			state->min_vertex_index=static_cast<unsigned short>(vertex_array_offset);
 
 			polygon_array_offset+=state->polygon_count;
 			vertex_array_offset+=state->vertex_count;
@@ -562,11 +562,11 @@ void SortingRendererClass::Flush_Sorting_Pool()
 	TempIndexStruct* tis=Get_Temp_Index_Array(overlapping_polygon_count);
 	unsigned a;
 	for (a=0;a<overlapping_polygon_count;++a) {
-		tis[a]=TempIndexStruct(polygon_idx_array[a],node_id_array_ptr[a]);
+		tis[a]=TempIndexStruct(polygon_idx_array[a],static_cast<unsigned short>(node_id_array_ptr[a]));
 	}
 	Sort<TempIndexStruct,float>(tis,polygon_z_array_ptr,overlapping_polygon_count);
 
-	DynamicIBAccessClass dyn_ib_access(BUFFER_TYPE_DYNAMIC_DX8,overlapping_polygon_count*3);
+	DynamicIBAccessClass dyn_ib_access(BUFFER_TYPE_DYNAMIC_DX8,static_cast<unsigned short>(overlapping_polygon_count*3));
 	{
 		DynamicIBAccessClass::WriteLockClass lock(&dyn_ib_access);
 		ShortVectorIStruct* sorted_polygon_index_array=(ShortVectorIStruct*)lock.Get_Index_Array();
@@ -595,8 +595,8 @@ void SortingRendererClass::Flush_Sorting_Pool()
 			Apply_Render_State(state->sorting_state);
 
 			DX8Wrapper::Draw_Triangles(
-				start_index*3,
-				count_to_render,
+				static_cast<unsigned short>(start_index*3),
+				static_cast<unsigned short>(count_to_render),
 				state->min_vertex_index,
 				state->vertex_count);
 
@@ -613,8 +613,8 @@ void SortingRendererClass::Flush_Sorting_Pool()
 		Apply_Render_State(state->sorting_state);
 
 		DX8Wrapper::Draw_Triangles(
-			start_index*3,
-			count_to_render,
+			static_cast<unsigned short>(start_index*3),
+			static_cast<unsigned short>(count_to_render),
 			state->min_vertex_index,
 			state->vertex_count);
 	}

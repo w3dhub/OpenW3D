@@ -1315,8 +1315,8 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
 
 	Targa targ;
 	memset(&targ.Header,0,sizeof(targ.Header));
-	targ.Header.Width=width;
-	targ.Header.Height=height;
+	targ.Header.Width=short(width);
+	targ.Header.Height=short(height);
 	targ.Header.PixelDepth=24;
 	targ.Header.ImageType=TGA_TRUECOLOR;
 	targ.SetImage(image);

@@ -1606,7 +1606,7 @@ WW3DErrorType MeshGeometryClass::Load_W3D(ChunkLoadClass & cload)
 	namelen += strlen(header.MeshName);
 	namelen += 2;
 	W3dAttributes = header.Attributes;
-	SortLevel = header.SortLevel;
+	SortLevel = char(header.SortLevel);
 	tmpname = new char[namelen];
 	memset(tmpname,0,namelen);
 
@@ -1861,9 +1861,9 @@ WW3DErrorType MeshGeometryClass::read_triangles(ChunkLoadClass & cload)
 		}
 
 		// set the vertex indices
-		vi[i].I = tri.Vindex[0];
-		vi[i].J = tri.Vindex[1];
-		vi[i].K = tri.Vindex[2];
+		vi[i].I = static_cast<unsigned short>(tri.Vindex[0]);
+		vi[i].J = static_cast<unsigned short>(tri.Vindex[1]);
+		vi[i].K = static_cast<unsigned short>(tri.Vindex[2]);
 
 		// set the normal
 		peq[i].X = tri.Normal.X;

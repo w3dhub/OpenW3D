@@ -347,7 +347,7 @@ void ProjectileClass::Timestep(float dt)
 						** We were requested to fly through.  Mark the current blocker as ignore
 						** so we collide with him no more this pass
 						*/
-						Integrate(0.02*timestep);
+						Integrate(0.02f*timestep);
 
 						if ( blocker ) {	 // Stop ignoring the last blocker
 							blocker->Dec_Ignore_Counter();

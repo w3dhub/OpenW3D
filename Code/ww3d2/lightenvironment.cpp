@@ -101,7 +101,7 @@ void LightEnvironmentClass::InputLightStruct::Init_From_Point_Or_Spot_Light
 	/*
 	** Compute the attenuation factor
 	*/
-	double atten_start,atten_end;
+	float atten_start,atten_end;
 	light.Get_Far_Attenuation_Range(atten_start,atten_end);
 
 	float atten = 1.0f - (dist - atten_start) / (atten_end - atten_start);

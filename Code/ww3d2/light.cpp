@@ -556,7 +556,7 @@ WW3DErrorType LightClass::Save_W3D(ChunkSaveClass & csave)
 	if (Get_Flag(NEAR_ATTENUATION)) {
 		csave.Begin_Chunk(W3D_CHUNK_NEAR_ATTENUATION);
 
-		double start,end;
+		float start,end;
 		Get_Near_Attenuation_Range(start,end);
 
 		W3dLightAttenuationStruct atten;
@@ -571,7 +571,7 @@ WW3DErrorType LightClass::Save_W3D(ChunkSaveClass & csave)
 	if (Get_Flag(FAR_ATTENUATION)) {
 		csave.Begin_Chunk(W3D_CHUNK_FAR_ATTENUATION);
 
-		double start,end;
+		float start,end;
 		Get_Far_Attenuation_Range(start,end);
 
 		W3dLightAttenuationStruct atten;

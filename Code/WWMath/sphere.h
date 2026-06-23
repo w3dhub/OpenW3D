@@ -220,14 +220,14 @@ inline SphereClass::SphereClass(const Vector3 *Position,const int VertCount)
 			radsqr = radius * radius;
 
 			double oldtonew = testrad - radius;
-			center.X = (radius * center.X + oldtonew * Position[i].X) / testrad;
-			center.Y = (radius * center.Y + oldtonew * Position[i].Y) / testrad;
-			center.Z = (radius * center.Z + oldtonew * Position[i].Z) / testrad;
+			center.X = float((radius * center.X + oldtonew * Position[i].X) / testrad);
+			center.Y = float((radius * center.Y + oldtonew * Position[i].Y) / testrad);
+			center.Z = float((radius * center.Z + oldtonew * Position[i].Z) / testrad);
 		}
 	}
 
 	Center = center;
-	Radius = radius;
+	Radius = float(radius);
 }
 
 
@@ -348,7 +348,7 @@ inline void SphereClass::Transform(const Matrix3D & tm)
  *=============================================================================================*/
 inline float SphereClass::Volume(void) const
 {
-	return (4.0 / 3.0) * WWMATH_PI * (Radius * Radius * Radius);
+	return (4.0f / 3.0f) * WWMATH_PI * (Radius * Radius * Radius);
 }
 
 /***********************************************************************************************

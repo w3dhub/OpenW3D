@@ -1161,7 +1161,7 @@ int Targa::EncodeImage()
 			if ((count != 0) && (packet[0] == 0))
 				{
 				/* Run count */
-				packet[0] = (count | 0x80);
+				packet[0] = char(count | 0x80);
 
 				/* Run pixel */
 				for (i = 0; i < depth; i++)

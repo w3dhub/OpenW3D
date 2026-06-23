@@ -72,14 +72,14 @@ void cNetwork::Packet_Graph(Render2DTextClass * renderer, cMsgStatList * p_stat_
 	WWASSERT(p_stat_list	!= NULL);
 	WWASSERT(label	!= NULL);
 
-	GraphingY = cMathUtil::Round(GraphingY);
+	GraphingY = WWMath::Round(GraphingY);
 
 	//
 	// Draw scaling bar
 	//
 	const float bar_length			= 200.0f;
-	const float bar_height			= cMathUtil::Round(renderer->Peek_Font()->Char_Height());
-	const float y_increment			= cMathUtil::Round(bar_height * 1.25f);
+	const float bar_height			= WWMath::Round(float(renderer->Peek_Font()->Char_Height()));
+	const float y_increment			= WWMath::Round(bar_height * 1.25f);
 
 	renderer->Draw_Block(RectClass(0, GraphingY, bar_length, GraphingY + bar_height), COLOR_BLACK);
 
@@ -318,13 +318,13 @@ void cNetwork::Bandwidth_Graph(Render2DTextClass * renderer,
 	WWASSERT(renderer != NULL);
 	WWASSERT(label != NULL);
 
-	const int screen_width	= Render2DClass::Get_Screen_Resolution().Width();
-	const int screen_height = Render2DClass::Get_Screen_Resolution().Height();
+	const float screen_width	= WWMath::Trunc(Render2DClass::Get_Screen_Resolution().Width());
+	const float screen_height = WWMath::Trunc(Render2DClass::Get_Screen_Resolution().Height());
 
 	WWASSERT(packetloss_pc > -MISCUTIL_EPSILON && packetloss_pc < 100 + MISCUTIL_EPSILON);
 
-	const float bar_height		= cMathUtil::Round(renderer->Peek_Font()->Char_Height());
-	const float y_increment		= cMathUtil::Round(bar_height * 1.25f);
+	const float bar_height		= WWMath::Round(float(renderer->Peek_Font()->Char_Height()));
+	const float y_increment		= WWMath::Round(bar_height * 1.25f);
 
 	float end_x;
 	float full_x;
@@ -427,10 +427,10 @@ void cNetwork::Bandwidth_Graph(Render2DTextClass * renderer,
 	// Render object prioritys so can compare against threshold priority
 	//
 	if (cNetwork::I_Am_Server())	{
-		int top = (int)(0.2 * screen_height);
+		float top = WWMath::Trunc(0.2f * screen_height);
 		int obj_count = NetworkObjectMgrClass::Get_Object_Count();
 
-		int x_pos = screen_width - 75;
+		float x_pos = screen_width - 75;
 
 		renderer->Set_Location(Vector2(x_pos, 300));
 		renderer->Draw_Text("UNKNOWN", COLOR_BLACK);
@@ -465,7 +465,7 @@ void cNetwork::Bandwidth_Graph(Render2DTextClass * renderer,
 			if (priority > 0) {
 
 				RectClass rect;
-				rect.Left	= (int)(priority * screen_width) - 3;
+				rect.Left	= WWMath::Trunc((priority * screen_width) - 3);
 				rect.Right	= rect.Left + 6;
 				rect.Top		= top;
 				rect.Bottom	= rect.Top + 1;
@@ -499,7 +499,7 @@ void cNetwork::Bandwidth_Graph(Render2DTextClass * renderer,
 
 				renderer->Draw_Block(rect, color);
 
-				top += 3;
+				top += 3.0f;
 			}
 		}
 	}
@@ -525,9 +525,9 @@ void cNetwork::Watch_Bandwidth(Render2DTextClass * renderer)
 	//
 	// Draw the scale at the top
 	//
-	const int	screen_width	= Render2DClass::Get_Screen_Resolution().Width();
-	const float	bar_height		= cMathUtil::Round(renderer->Peek_Font()->Char_Height());
-	const float y_increment		= cMathUtil::Round(bar_height * 1.25f);
+	const float	screen_width	= WWMath::Trunc(Render2DClass::Get_Screen_Resolution().Width());
+	const float	bar_height		= WWMath::Round(float(renderer->Peek_Font()->Char_Height()));
+	const float y_increment		= WWMath::Round(bar_height * 1.25f);
 
 	//BandwidthBarLength = screen_width / 8.0f;
 	BandwidthBarLength = screen_width / 10.0f;
@@ -565,10 +565,10 @@ void cNetwork::Watch_Bandwidth(Render2DTextClass * renderer)
 			//XXX Get_Client_Rhost()->Get_Stats().StatSnapshot[STAT_BitsSent],
 			Get_Client_Rhost()->Get_Stats().StatMacroSnapshot[STAT_BitsSent],
 			Get_Client_Rhost()->Get_Target_Bps(),
-         Get_Client_Rhost()->Get_Stats().Get_Pc_Packetloss_Sent(),
+         float(Get_Client_Rhost()->Get_Stats().Get_Pc_Packetloss_Sent()),
 			COLOR_RED,
          true,
-			Get_Client_Rhost()->Get_Threshold_Priority());
+			float(Get_Client_Rhost()->Get_Threshold_Priority()));
 
 		sprintf(text, "c%d<-s", Get_My_Id());
 		Bandwidth_Graph(
@@ -577,7 +577,7 @@ void cNetwork::Watch_Bandwidth(Render2DTextClass * renderer)
 			//XXX Get_Client_Rhost()->Get_Stats().StatSnapshot[STAT_BitsRcv],
 			Get_Client_Rhost()->Get_Stats().StatMacroSnapshot[STAT_BitsRcv],
 			-1,
-         Get_Client_Rhost()->Get_Stats().Get_Pc_Packetloss_Received(),
+         float(Get_Client_Rhost()->Get_Stats().Get_Pc_Packetloss_Received()),
          COLOR_RED,
          false,
 			-1);
@@ -631,10 +631,10 @@ void cNetwork::Watch_Bandwidth(Render2DTextClass * renderer)
 					//XXX p_rhost->Get_Stats().StatSnapshot[STAT_BitsSent],
 					p_rhost->Get_Stats().StatMacroSnapshot[STAT_BitsSent],
 					p_rhost->Get_Target_Bps(),
-               p_rhost->Get_Stats().Get_Pc_Packetloss_Sent(),
+               float(p_rhost->Get_Stats().Get_Pc_Packetloss_Sent()),
 					COLOR_RED,
                true,
-					p_rhost->Get_Threshold_Priority());
+					float(p_rhost->Get_Threshold_Priority()));
 
 				sprintf(text, "s<-c%d", i);
 				Bandwidth_Graph(
@@ -643,7 +643,7 @@ void cNetwork::Watch_Bandwidth(Render2DTextClass * renderer)
 					//XXX p_rhost->Get_Stats().StatSnapshot[STAT_BitsRcv],
 					p_rhost->Get_Stats().StatMacroSnapshot[STAT_BitsRcv],
                -1,
-					p_rhost->Get_Stats().Get_Pc_Packetloss_Received(),
+					float(p_rhost->Get_Stats().Get_Pc_Packetloss_Received()),
 					COLOR_RED,
                false,
 					-1);
