@@ -42,8 +42,6 @@
 #ifndef __VERCHK_H
 #define __VERCHK_H
 
-#include <windows.h>
-
 struct FileCreationTime {
     int year;
     int month;
@@ -53,11 +51,15 @@ struct FileCreationTime {
     int second;
 };
 
-// Obtain version information from the specified file.
-bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo);
-
 // Retreive creation time of specified file.
 bool GetFileCreationTime(const char* filename, FileCreationTime* createTime);
+
+#if defined(_WIN32)
+
+#include <windows.h>
+
+// Obtain version information from the specified file.
+bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo);
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -73,6 +75,7 @@ bool GetFileCreationTime(const char* filename, FileCreationTime* createTime);
 ////////////////////////////////////////////////////////////////////////
 int Compare_EXE_Version (HINSTANCE app_instance, const char *filename);
 
+#endif // _WIN32
 
 #endif //__VERCHK_H
 

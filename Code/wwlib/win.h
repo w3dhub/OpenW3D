@@ -57,10 +57,11 @@
 //#include	<winnt.h>
 //#include	<winuser.h>
 
+extern bool GameInFocus;
+
 #ifdef _WIN32
 extern HINSTANCE	ProgramInstance;
 extern HWND			MainWindow;
-extern bool GameInFocus;
 
 #ifdef _DEBUG
 
@@ -72,8 +73,6 @@ void __cdecl Print_Win32Error(unsigned int win32Error);
 
 #endif // _DEBUG
 
-#else // _WIN32
-//#include <unistd.h>
 #endif // _WIN32
 
 #endif // WIN_H

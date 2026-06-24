@@ -20,6 +20,8 @@
 #include "win.h"
 #include "wwdebug.h"
 
+#if defined(_WIN32)
+
 HINSTANCE	ProgramInstance;
 HWND			MainWindow;
 bool GameInFocus = false;
@@ -47,5 +49,11 @@ void __cdecl Print_Win32Error(unsigned int win32Error)
 	WWDEBUG_SAY(("Win32 Error: %s\n", (const char*)lpMsgBuf));
 	LocalFree(lpMsgBuf);
 }
-#endif
+#endif // _DEBUG
+
+#else // !_WIN32
+
+bool GameInFocus = false;
+
+#endif // _WIN32
 

@@ -1647,9 +1647,9 @@ bool INIClass::Put_String(char const * section, char const * entry, char const *
       if (strcmp(entryptr->Entry, entry)) {
          DuplicateCRCError("INIClass::Put_String", section, entry);
       } else {
-   		OutputDebugStringA("INIClass::Put_String - Duplicate Entry \"");
-	   	OutputDebugStringA(entry);
-		   OutputDebugStringA("\"\n");
+        printf("INIClass::Put_String - Duplicate Entry \"");
+        printf("%s", entry);
+           printf("\"\n");
       }
    	secptr->EntryIndex.Remove_Index(entryptr->Index_ID());
 	   delete entryptr;
@@ -2360,7 +2360,7 @@ void INIClass::DuplicateCRCError(const char *message, const char *section, const
 	snprintf(buffer, sizeof(buffer), "%s - Duplicate Entry \"%s\" in section \"%s\" (%s)\n", message,
 		entry, section, Filename);
 
-	OutputDebugStringA(buffer);
+    printf(buffer);
 	assert(0);
 
 #ifdef NDEBUG

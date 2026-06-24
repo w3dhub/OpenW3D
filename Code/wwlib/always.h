@@ -154,6 +154,63 @@ __forceinline unsigned int _byteswap_ulong(unsigned int value)
 #ifndef _alloca
 #define _alloca(size) alloca(size)
 #endif
+
+#ifndef OutputDebugStringA
+#define OutputDebugStringA(s) ((void)(s))
+#endif
+
+// Windows BOOL type
+#ifndef BOOL
+typedef int BOOL;
+#endif
+
+// Windows path constant equivalents
+#ifndef _MAX_DRIVE
+#define _MAX_DRIVE 3
+#endif
+#ifndef _MAX_DIR
+#define _MAX_DIR 260
+#endif
+#ifndef _MAX_PATH
+#define _MAX_PATH 260
+#endif
+#ifndef _MAX_FNAME
+#define _MAX_FNAME 256
+#endif
+#ifndef _MAX_EXT
+#define _MAX_EXT 256
+#endif
+
+// _splitpath: split a path into drive/dir/fname/ext components
+static inline void _splitpath(const char *path, char *drive, char *dir, char *fname, char *ext)
+{
+	if (drive) drive[0] = '\0'; // no drive letters on Linux
+	const char *last_slash = strrchr(path, '/');
+	const char *name_start = last_slash ? last_slash + 1 : path;
+	const char *last_dot = strrchr(name_start, '.');
+	if (dir) {
+		if (last_slash) {
+			size_t n = (size_t)(last_slash - path) + 1;
+			std::memcpy(dir, path, n);
+			dir[n] = '\0';
+		} else {
+			dir[0] = '\0';
+		}
+	}
+	if (fname) {
+		size_t n = last_dot ? (size_t)(last_dot - name_start) : std::strlen(name_start);
+		std::memcpy(fname, name_start, n);
+		fname[n] = '\0';
+	}
+	if (ext) {
+		if (last_dot) {
+			std::strcpy(ext, last_dot);
+		} else {
+			ext[0] = '\0';
+		}
+	}
+}
+
 #endif // !_WIN32
 
 #endif
