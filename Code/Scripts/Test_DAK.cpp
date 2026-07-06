@@ -147,8 +147,9 @@ DECLARE_SCRIPT(DAK_Electric_Death_DAK, "" )
 {
 	void Created ( GameObject *obj ) override
 	{
-		int time = Commands->Get_Random(1, 3);
-		Commands->Send_Custom_Event ( obj, obj, 0, 0, time );
+		// TODO Why is this casting like this to round rather than calling Get_Random_Int?
+		int time = int(Commands->Get_Random(1, 3));
+		Commands->Send_Custom_Event ( obj, obj, 0, 0, float(time) );
 	}
 
 	void Damaged (GameObject *obj, GameObject * /*damager*/, float /*amount*/ ) override

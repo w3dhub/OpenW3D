@@ -664,8 +664,8 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 	{
 		float facing = Commands->Get_Facing(Owner());
 		Vector3 target = Commands->Get_Position(Owner());
-		target.X += cos(DEG_TO_RADF(facing)) * 10.0f;
-		target.Y += sin(DEG_TO_RADF(facing)) * 10.0f;
+		target.X += WWMath::Cos(DEG_TO_RADF(facing)) * 10.0f;
+		target.Y += WWMath::Sin(DEG_TO_RADF(facing)) * 10.0f;
 		target.Z -= 0.9f;
 		float angle = Get_Float_Parameter(0);
 		angle = WWMath::Clamp(angle, 0.0f, 360.0f);
@@ -701,8 +701,8 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 		float facing = Commands->Get_Facing(Owner());
 		angle = angle / 2;
 		Vector3 target = Commands->Get_Position(Owner());
-		target.X += cos(DEG_TO_RADF(facing)) * 10.0f;
-		target.Y += sin(DEG_TO_RADF(facing)) * 10.0f;
+		target.X += WWMath::Cos(DEG_TO_RADF(facing)) * 10.0f;
+		target.Y += WWMath::Sin(DEG_TO_RADF(facing)) * 10.0f;
 		target.Z -= 1.0f;
 		target -= Commands->Get_Position(Owner());
 		target.Rotate_Z(DEG_TO_RADF(angle));
@@ -1683,8 +1683,8 @@ DECLARE_SCRIPT(DLS_Math, "")
 	{
 		Vector3 pos = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
-		float a = cos(DEG_TO_RADF(facing));
-		float b = sin(DEG_TO_RADF(facing));
+		float a = WWMath::Cos(DEG_TO_RADF(facing));
+		float b = WWMath::Sin(DEG_TO_RADF(facing));
 		Commands->Debug_Message("", a);
 		Commands->Debug_Message("", b);
 	}
@@ -2056,7 +2056,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		}
 
 		const char *conv_name = Wrong_Way_Conv_Table[conv_num];
-		int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+		int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 10);
 		conv_num++;
@@ -2250,7 +2250,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		{
 			// Havoc, you�ve got  to clear out those SAM sites!
 			const char *conv_name = ("MX0_A04_CON005");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1);
 			// RocketTrooper - It�s down! The Obelisk is down!
@@ -2355,7 +2355,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 					Commands->Fade_Background_Music( "Renegade_A10_Outro.mp3", 1, 1);
 					// A10 - This is Eagle Claw 1 �Starting  attack run
 					const char *conv_name = ("MX0_A04_CON010");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(NULL, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 1);
 					// A10 - I�m hit! I�m hit!
@@ -2379,7 +2379,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		if(timer_id == A10_HIT)
 		{
 			const char *conv_name = ("MX0_A04_CON011");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1);
 
@@ -2389,7 +2389,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 			// We have a lock on that base
 			// This is Eagle Base.  I�m not risking any more pilots.
 			const char *conv_name = ("MX0_A04_CON012");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1);
 			// Ion Cannon strike
@@ -2533,7 +2533,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 			{
 				// Eagle Base� We found it!
 				const char *conv_name = ("MX0_A04_CON001");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, CON001);
 				Commands->Monitor_Conversation (obj, conv_id);
@@ -2543,7 +2543,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 			{
 				// We need you up here, Sir.
 				const char *conv_name = ("MX0_A04_CON013");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 10);
 
@@ -2557,7 +2557,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		{
 			// Confirmed.  Excellent work!
 			const char *conv_name = ("MX0_A04_CON002");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, CON002);
 		//	Commands->Monitor_Conversation (obj, conv_id);
@@ -2566,7 +2566,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		{
 			// They have an Obelisk!
 			const char *conv_name = ("MX0_A04_CON003");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, CON002);
 
@@ -2922,7 +2922,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 
 				// Death #1 - Bullet death scream
 				const char *conv_name = ("MX0_A04_CON019");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 10);
 			}
@@ -2931,7 +2931,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			{
 				// They have an Obelisk!
 				const char *conv_name = ("MX0_A04_CON003");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_SEES_OBELISK);
 
@@ -2944,7 +2944,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			{
 				// The Obelisk is hot!  Look out!
 				const char *conv_name = ("MX0_A04_CON004");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_HOT_OBELISK);
 			}
@@ -2953,7 +2953,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			{
 				// It�s down! The Obelisk is down!
 				const char *conv_name = ("MX0_A04_CON006");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_OBELISK_DOWN);
 			}
@@ -2962,7 +2962,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			{
 				// Go! Go!  Knock out those SAMs!
 				const char *conv_name = ("MX0_A04_CON007");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_TAKE_SAMS);
 			}
@@ -2971,7 +2971,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			{
 				// The SAMs are history!
 				const char *conv_name = ("MX0_A04_CON008");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_SAMS_HISTORY);
 			}
@@ -2980,7 +2980,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			{
 				// There, on the wall!
 				const char *conv_name = ("MX0_A04_CON009");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_TROOPER_UP_ON_WALL);
 			}
@@ -2989,7 +2989,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			{
 				// We need your help - over here, Sir!
 				const char *conv_name = ("MX0_A04_CON014");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_CANT_TURN_BACK);
 			}

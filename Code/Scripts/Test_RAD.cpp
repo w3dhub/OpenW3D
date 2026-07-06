@@ -965,7 +965,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					{
 						pre_ambient_count = 1;
 					}
-					Commands->Start_Timer (obj, this, Get_Int_Random (2, 4), MX0_A02_TIMER_PRE_AMBIENT);
+					Commands->Start_Timer (obj, this, float(Get_Int_Random (2, 4)), MX0_A02_TIMER_PRE_AMBIENT);
 				}
 				break;
 			}
@@ -2425,7 +2425,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 							params.Set_Movement(Commands->Get_Position (moveloc), RUN, 0.5f, false);
 							Commands->Action_Goto (obj, params);
 						}
-						Commands->Start_Timer (obj, this, (MX0_A02_TIMERLENGTH_BASIC_MOVE + Get_Int_Random(0, MX0_A02_TIMERLENGTH_BASIC_MOVE)), MX0_A02_TIMER_BASIC_MOVE_02);
+						Commands->Start_Timer (obj, this, float(MX0_A02_TIMERLENGTH_BASIC_MOVE + Get_Int_Random(0, MX0_A02_TIMERLENGTH_BASIC_MOVE)), MX0_A02_TIMER_BASIC_MOVE_02);
 					}
 					break;
 				}
@@ -2488,7 +2488,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 							params.Set_Movement(Commands->Get_Position (moveloc), RUN, 0.5f, false);
 							Commands->Action_Goto (obj, params);
 						}
-						Commands->Start_Timer (obj, this, (MX0_A02_TIMERLENGTH_BASIC_MOVE + Get_Int_Random(0, MX0_A02_TIMERLENGTH_BASIC_MOVE)), MX0_A02_TIMER_BASIC_MOVE_01);
+						Commands->Start_Timer (obj, this, float(MX0_A02_TIMERLENGTH_BASIC_MOVE + Get_Int_Random(0, MX0_A02_TIMERLENGTH_BASIC_MOVE)), MX0_A02_TIMER_BASIC_MOVE_01);
 					}
 					break;
 				}

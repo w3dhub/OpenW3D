@@ -1252,9 +1252,9 @@ DECLARE_SCRIPT(M00_Trigger_Timer_Expired_RAD, "Start_Now=0:int, Receive_Type=15:
 			{
 				GameObject* target_obj;
 				int target_id;
-				int min_delay;
-				int max_delay;
-				int delay_value;
+				float min_delay;
+				float max_delay;
+				float delay_value;
 
 				target_id = Get_Int_Parameter("Target_ID");
 

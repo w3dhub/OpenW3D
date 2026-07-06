@@ -1462,8 +1462,8 @@ DECLARE_SCRIPT(M10_Apache, "Area:int")
 			{
 				Vector3 pos = Commands->Get_Position(STAR);
 				float facing = Commands->Get_Facing(STAR);
-				pos.X -= cos(DEG_TO_RADF(facing)) * 6.0f;
-				pos.Y -= sin(DEG_TO_RADF(facing)) * 6.0f;
+				pos.X -= WWMath::Cos(DEG_TO_RADF(facing)) * 6.0f;
+				pos.Y -= WWMath::Sin(DEG_TO_RADF(facing)) * 6.0f;
 
 				pos.Z = WWMath::Max(pos.Z + 12.0f, Commands->Get_Safe_Flight_Height(pos.X, pos.Y) + 6.0f);
 

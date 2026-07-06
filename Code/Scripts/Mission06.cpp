@@ -74,7 +74,7 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 
 		// EVA - Give me a position on the scientists.\n
 		const char *conv_name = ("M06_CON059");
-		int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+		int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 		Commands->Join_Conversation(STAR, conv_id, false, true, true);
 		Commands->Join_Conversation(NULL, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 300601);
@@ -331,7 +331,7 @@ DECLARE_SCRIPT(M06_WarRoom_Computer, "")
 		{
 			// Data decryption complete. Internal computer systems indicate Dr. Ignatio Mobius is located beneath the Chateau. Access is gained through the dining hall.\n
 			const char *conv_name = ("M06_CON001");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, true, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300603);
@@ -581,7 +581,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 			{
 				// Don't leave me here!\n
 				const char *conv_name = ("M06_CON005");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 1);
 				Commands->Monitor_Conversation (obj, conv_id);
@@ -597,7 +597,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 			{
 				// Wait for me!\n
 				const char *conv_name = ("M06_CON006");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 1);
 				Commands->Monitor_Conversation (obj, conv_id);
@@ -808,8 +808,8 @@ DECLARE_SCRIPT(M06_Destruction_Stub, "")
 			distance *= 3;
 			Vector3 pos = Commands->Get_Position(STAR);
 			float facing = Commands->Get_Facing(STAR);
-			float a = cos(DEG_TO_RADF(facing)) * distance;
-			float b = sin(DEG_TO_RADF(facing)) * distance;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * distance;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * distance;
 			Vector3 explode_loc = pos + Vector3(a, b, 0.0f);
 
 			Commands->Create_Explosion("Chateau_Explosions_Twiddler", explode_loc, obj);
@@ -868,7 +868,7 @@ DECLARE_SCRIPT(M06_GDI_Prisoner, "")
 		{
 			// Thank for the release. I've got a Nod officer I've got to hunt down.\n
 			const char *conv_name = ("M06_CON008");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Join_Conversation(poker, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300607);
@@ -1022,8 +1022,8 @@ DECLARE_SCRIPT(M06_Civ_Prisoner, "")
 
 				Vector3 pos = Commands->Get_Position(obj);
 				float facing = Commands->Get_Facing(obj);
-				float a = cos(DEG_TO_RADF(facing)) * 1.5;
-				float b = sin(DEG_TO_RADF(facing)) * 1.5;
+				float a = WWMath::Cos(DEG_TO_RADF(facing)) * 1.5f;
+				float b = WWMath::Sin(DEG_TO_RADF(facing)) * 1.5f;
 				Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 				Commands->Create_Object("POW_Health_100", powerup_loc);
 				Commands->Enable_HUD_Pokable_Indicator( obj, false );
@@ -2391,8 +2391,8 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 		{
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * 1.5;
-			float b = sin(DEG_TO_RADF(facing)) * 1.5;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * 1.5f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * 1.5f;
 			Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 			Commands->Create_Object("M06_Barracks_Powerups_Twiddler", powerup_loc);
 
@@ -3470,7 +3470,7 @@ DECLARE_SCRIPT(M06_Resistance_Raider_DLS, "")
 			talking = true;
 			// Looks like you're bleedin'.\n
 			const char *conv_name = ("M06_CON045");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 100823);
@@ -3488,8 +3488,8 @@ DECLARE_SCRIPT(M06_Resistance_Raider_DLS, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * 1.5;
-			float b = sin(DEG_TO_RADF(facing)) * 1.5;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * 1.5f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * 1.5f;
 			Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 			Commands->Create_Object("POW_GrenadeLauncher_Player", powerup_loc);
 
@@ -3545,8 +3545,8 @@ DECLARE_SCRIPT(M06_Assistance_Farmer_DLS, "")
 		{
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * 1.5;
-			float b = sin(DEG_TO_RADF(facing)) * 1.5;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * 1.5f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * 1.5f;
 			Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 			Commands->Create_Object("POW_GrenadeLauncher_Player", powerup_loc);
 
@@ -3585,8 +3585,8 @@ DECLARE_SCRIPT(M06_Assistance_Farmer_DLS, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * 1.5;
-			float b = sin(DEG_TO_RADF(facing)) * 1.5;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * 1.5f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * 1.5f;
 			Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 			Commands->Create_Object("tw_POW00_Health", powerup_loc);
 
@@ -5049,7 +5049,7 @@ DECLARE_SCRIPT(M06_Drop_Thunder_Squad, "")
 
 			// This is Nod Helo Delta 14.  We are hot dropping a squad of Black Hand at your doorstep, be advised they are on the ground only long enough to re-equip, skip the standard check in.  Raveshaw's orders.\n
 			const char *conv_name = ("M06_CON057");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, true, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300603);
@@ -5646,7 +5646,7 @@ DECLARE_SCRIPT(M06_Enable_Alarm_Objective, "")
 
 			// Warning: Nod Security Measures Detected.
 			const char *conv_name = ("M06_CON060");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300609);
 			Commands->Monitor_Conversation (obj, conv_id);

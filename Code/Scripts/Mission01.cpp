@@ -1659,7 +1659,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 								}
 							}
 
-							Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_HON_SPAWNS_MINIGUNNER_JDG, m01_HON_SpawnRate );
+							Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_HON_SPAWNS_MINIGUNNER_JDG, float(m01_HON_SpawnRate) );
 						}
 					}
 					break;
@@ -4637,7 +4637,7 @@ DECLARE_SCRIPT(M01_Flamethrower_Point_Guard_JDG, "")
 			float delayTimer = Commands->Get_Random ( 5, 10 );
 
 			params.Set_Basic( this, 45, 20 );
-			params.Set_Face_Location(  myPosition, DEG_TO_RAD(atarashiLookSpot), delayTimer );
+			params.Set_Face_Location(  myPosition, DEG_TO_RADF(atarashiLookSpot), delayTimer );
 			Commands->Action_Face_Location ( obj, params );
 			Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, delayTimer );
 		}
@@ -5263,14 +5263,14 @@ DECLARE_SCRIPT(M01_Whack_A_Mole_Minigunner_JDG, "")
 				attacked = true;
 				Commands->Set_Health ( obj, base_health );
 				points_given = 2 * points_given;
-				speed = speed + .1;
+				speed = speed + .1f;
 
 				if (speed > 1)
 				{
 					speed = 1;
 				}
 
-				Commands->Give_Points( damager, points_given, false );
+				Commands->Give_Points( damager, float(points_given), false );
 
 				Commands->Send_Custom_Event( obj, obj, 0, M01_DOING_ANIMATION_01_JDG, 0 );
 			}
@@ -6446,7 +6446,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Spawner_Controller_JDG, "")//this guys ID is M01_GDI
 					{
 						if (active_unit_count < 2)
 						{
-							int random = Commands->Get_Random(0.5f, 2.5f);
+							float random = Commands->Get_Random(0.5f, 2.5f);
 
 							if ((random >= 0.5f) && (random < 1.5f))
 							{
@@ -6468,7 +6468,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Spawner_Controller_JDG, "")//this guys ID is M01_GDI
 					{
 						if (active_unit_count < 3)
 						{
-							int random = Commands->Get_Random(0.5f, 3.5f);
+							float random = Commands->Get_Random(0.5f, 3.5f);
 
 							if ((random >= 0.5f) && (random < 1.5f))
 							{
@@ -6608,7 +6608,7 @@ DECLARE_SCRIPT(M01_Tailgun_Run_Spawner_Controller_JDG, "")//this guys ID is M01_
 						{
 							if (active_unit_count < 2)
 							{
-								int random = Commands->Get_Random(0.5f, 2.5f);
+								float random = Commands->Get_Random(0.5f, 2.5f);
 
 								if ((random >= 0.5f) && (random < 1.5f))
 								{
@@ -6628,7 +6628,7 @@ DECLARE_SCRIPT(M01_Tailgun_Run_Spawner_Controller_JDG, "")//this guys ID is M01_
 						{
 							if (active_unit_count < 3)
 							{
-								int random = Commands->Get_Random(0.5f, 3.5f);
+								float random = Commands->Get_Random(0.5f, 3.5f);
 
 								if ((random >= 0.5f) && (random < 1.5f))
 								{
@@ -6765,7 +6765,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Spawner_Controller_JDG, "")//this guys ID is M01_C
 						{
 							if (active_unit_count < 2)
 							{
-								int random = Commands->Get_Random(0.5f, 2.5f);
+								float random = Commands->Get_Random(0.5f, 2.5f);
 
 								if ((random >= 0.5f) && (random < 1.5f))
 								{
@@ -6785,7 +6785,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Spawner_Controller_JDG, "")//this guys ID is M01_C
 						{
 							if (active_unit_count < 3)
 							{
-								int random = Commands->Get_Random(0.5f, 3.5f);
+								float random = Commands->Get_Random(0.5f, 3.5f);
 
 								if ((random >= 0.5f) && (random < 1.5f))
 								{

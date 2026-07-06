@@ -740,9 +740,9 @@ DECLARE_SCRIPT(RMV_Sound_Play_Near_Player, "Receive_Type:int, Receive_Param:int,
 			GameObject *player;
 			player = Commands->Get_A_Star(Vector3(0,0,0));
 			Vector3 player_pos = Commands->Get_Position(player);
-			current.X = (int)Commands->Get_Random(-offset.X, offset.X);
-			current.Y = (int)Commands->Get_Random(-offset.Y, offset.Y);
-			current.Z = (int)Commands->Get_Random(0.0, offset.Z);
+			current.X = Commands->Get_Random(-offset.X, offset.X);
+			current.Y = Commands->Get_Random(-offset.Y, offset.Y);
+			current.Z = Commands->Get_Random(0.0, offset.Z);
 			Vector3 sound_pos = player_pos + current;
 			if (freq_max == 0.0)
 				freq = freq_min;

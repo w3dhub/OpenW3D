@@ -39,6 +39,7 @@
 #include <string.h>
 #include "wwlib/wwstring.h"
 #include <limits>
+#include <stdlib.h>
 
 #define		LAST_VALID_TIMESTAMP		999000.0f
 
@@ -49,8 +50,8 @@ DECLARE_SCRIPT (M00_Cinematic_Attack_Command_DLS, "AttackDuration=1.0:float")
 	{
 		float facing = Commands->Get_Facing(Owner());
 		Vector3 target = Commands->Get_Position(Owner());
-		target.X += cos(DEG_TO_RADF(facing)) * 10.0f;
-		target.Y += sin(DEG_TO_RADF(facing)) * 10.0f;
+		target.X += WWMath::Cos(DEG_TO_RADF(facing)) * 10.0f;
+		target.Y += WWMath::Sin(DEG_TO_RADF(facing)) * 10.0f;
 		target.Z += 2.0f;
 
 		ActionParamsStruct params;
@@ -228,7 +229,7 @@ public:
 
 			if ( *line && *line != ';' ) {	// ignore comments
 				float	time;
-				time = atof( line );
+				time = strtof( line , NULL);
 
 				if ( time < 0 ) {	// handle frame numbers
 					time = -time / 30.f;
@@ -822,7 +823,7 @@ public:
 	void	Command_Sniper_Control( char * params )
 	{
 		int enabled = atoi( Get_First_Parameter( params ) );
-		float zoom = atof( Get_Next_Parameter() );
+		float zoom = strtof( Get_Next_Parameter() , NULL);
 
 		Commands->Cinematic_Sniper_Control( enabled != 0, zoom );
 	}
@@ -830,8 +831,8 @@ public:
 	void	Command_Shake_Camera( char * params )
 	{
 		int obj_slot = atoi( Get_First_Parameter( params ) );
-		float intensity = atof( Get_Next_Parameter() );
-		float duration = atof( Get_Next_Parameter() );
+		float intensity = strtof( Get_Next_Parameter() , NULL);
+		float duration = strtof( Get_Next_Parameter() , NULL);
 
 		if ( (obj_slot < 0) || ( obj_slot >= NUM_SLOTS ) ) {
 //			Commands->Debug_Message( "Bad Obj Slot Number %d\n", obj_slot );
@@ -874,25 +875,25 @@ public:
 	void	Command_Enable_Letterbox( char * params )
 	{
 		int onoff = atoi( Get_First_Parameter( params ) );
-		float time = atof( Get_Next_Parameter() );
+		float time = strtof( Get_Next_Parameter() , NULL);
 
 		Commands->Enable_Letterbox(!!onoff,time);
 	}
 
 	void Command_Set_Screen_Fade_Color( char * params )
 	{
-		float r = atof( Get_First_Parameter( params ) );
-		float g = atof( Get_Next_Parameter() );
-		float b = atof( Get_Next_Parameter() );
-		float time = atof( Get_Next_Parameter() );
+		float r = strtof( Get_First_Parameter( params ) , NULL);
+		float g = strtof( Get_Next_Parameter() , NULL);
+		float b = strtof( Get_Next_Parameter() , NULL);
+		float time = strtof( Get_Next_Parameter() , NULL);
 
 		Commands->Set_Screen_Fade_Color(r,g,b,time);
 	}
 
 	void Command_Set_Screen_Fade_Opacity( char * params )
 	{
-		float opacity = atof( Get_First_Parameter( params ) );
-		float time = atof( Get_Next_Parameter() );
+		float opacity = strtof( Get_First_Parameter( params ) , NULL);
+		float time = strtof( Get_Next_Parameter() , NULL);
 
 		Commands->Set_Screen_Fade_Opacity(opacity,time);
 	}

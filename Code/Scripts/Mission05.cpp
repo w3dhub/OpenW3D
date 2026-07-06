@@ -360,7 +360,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		{
 			// Hotwire here, I can't rendezvous at your position, I've got tons of armor pounding my location in the southwest quarter.\n
 			const char *conv_name = ("M05_CON001");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300503);
@@ -432,7 +432,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_501, "")
 
 			// This is Gunner, I'm pinned down under heavy fire on the south side of the village, requesting backup!\n
 			const char *conv_name = ("M05_CON003");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300501);
@@ -478,7 +478,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_502, "")
 
 			// This is Deadeye - I'm held up in the Fancy Inn on the east side with some local resistance fighters. Need further assistance.\n
 			const char *conv_name = ("M05_CON004");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f)), conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
@@ -535,7 +535,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_504, "")
 
 			// Havoc, this is Patch.  I'm at the Cathedral. Nod's gathering for major bloodletting. Get up here.\n
 			const char *conv_name = ("M05_CON005");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300504);
@@ -593,7 +593,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_507, "")
 
 			// Attention GDI forces, this is Resistance Radio. Nod is assaulting the Town Square, on the south side of village. Requesting assistance.\n
 			const char *conv_name = ("M05_CON006");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300507);
@@ -656,7 +656,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_508, "")
 
 			// This is Nod supply helo Delta-12, possible rooftop sighting of terrorists in quadrant 4.  Are those rocket launchers? Evasive- <explosion and static>\n
 			const char *conv_name = ("M05_CON007");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300501);
@@ -735,7 +735,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_509, "")
 
 			// GDI forces, this is Resistance Radio. Communications indicate an escapee from the Chateau is in our custody on the northern side of the village. He has valuable information, make contact if needed.\n
 			const char *conv_name = ("M05_CON038");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300509);
@@ -797,7 +797,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_510, "")
 
 			// How's this work? Okay... Attention, this is Resistance Radio. Rumours are true, our leader Babushka is kidnapped. Is anybody around to help? Hello? Is this on?
 			const char *conv_name = ("M05_CON008");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f)), conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300510);
@@ -874,7 +874,7 @@ DECLARE_SCRIPT(M05_DEAD6_Engineer, "") // first hotwire
 				{
 					// Work your way to the Cathedral and secure comm link to Locke.\n
 					const char *conv_name = ("M05_CON009");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Join_Conversation(Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f)), conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300551);
@@ -1107,7 +1107,7 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier, "") // first gunner
 				{
 					// I'm going to take this town if I have to vaporize every Nod reject in existence. I assume you're assisting?\n
 					const char *conv_name = ("M05_CON010");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300001);
@@ -1121,7 +1121,7 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier, "") // first gunner
 				{
 					// We won't make it out of here if we don't clear the area.\n
 					const char *conv_name = ("M05_CON011");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300002);
 					Commands->Monitor_Conversation (obj, conv_id);
@@ -1356,7 +1356,7 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 				{
 					// Nod is about to roll over this place, time to move out Deadeye.\n
 					const char *conv_name = ("M05_CON013");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300004);
@@ -1446,7 +1446,7 @@ DECLARE_SCRIPT(M05_DEAD6_Grenadier, "")
 				{
 					// Havoc! Black Hand squads are arriving from the Chateau! Support fire needed!\n
 					const char *conv_name = ("M05_CON014");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300004);
@@ -1587,16 +1587,16 @@ DECLARE_SCRIPT(M05_Mendoza, "")
 	{
 		ActionParamsStruct params;
 
-		if(health > (.5 * Commands->Get_Max_Health(obj)))
+		if(health > (.5f * Commands->Get_Max_Health(obj)))
 		{
 			float damage = health - Commands->Get_Health(obj);
 			damage *= 0.25f;
 			health -= damage;
 			Commands->Set_Health(obj, health);
 		}
-		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .23))
+		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .23f))
 		{
-			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .23) );
+			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .23f) );
 
 			if(!exiting)
 			{
@@ -2105,7 +2105,7 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 				{
 					// Thank you GDI, these weapons will help.\n
 					const char *conv_name = ("M05_CON020");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 1);
@@ -2116,7 +2116,7 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 			{
 				// Thank you GDI, these weapons will help.\n
 				const char *conv_name = ("M05_CON020");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Join_Conversation(STAR, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 1);
@@ -2343,7 +2343,7 @@ DECLARE_SCRIPT(M05_Escapee_Brother, "")
 				{
 					// Got one back from the dead huh? What you got for me?\n
 					const char *conv_name = ("M05_CON022");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300509);
@@ -2376,8 +2376,8 @@ DECLARE_SCRIPT(M05_Escapee_Brother, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * 1.5;
-			float b = sin(DEG_TO_RADF(facing)) * 1.5;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * 1.5f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * 1.5f;
 			Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 			Commands->Create_Object("POW_PersonalIonCannon_Player", powerup_loc);
 
@@ -3531,9 +3531,9 @@ DECLARE_SCRIPT(M05_Mendoza3, "")
 			health -= damage;
 			Commands->Set_Health(obj, health);
 		}
-		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .13))
+		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .13f))
 		{
-			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .13) );
+			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .13f) );
 
 			if(!exiting)
 			{
@@ -3802,16 +3802,16 @@ DECLARE_SCRIPT(M05_Mendoza4, "")
 	{
 		ActionParamsStruct params;
 
-		if(health > (.2 * Commands->Get_Max_Health(obj)))
+		if(health > (.2f * Commands->Get_Max_Health(obj)))
 		{
 			float damage = health - Commands->Get_Health(obj);
 			damage *= 0.5f;
 			health -= damage;
 			Commands->Set_Health(obj, health);
 		}
-		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .13))
+		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .13f))
 		{
-			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .13) );
+			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .13f) );
 
 			if(!exiting)
 			{
@@ -3870,7 +3870,7 @@ DECLARE_SCRIPT(M05_Civ_Warn, "")
 		{
 			// Don't shoot, I am a friend! There are enemies shooting from the balcony. Can you help?\n
 			const char *conv_name = ("M05_CON002");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1000971);
@@ -5735,8 +5735,8 @@ DECLARE_SCRIPT(M05_Execution_Civilian, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * 1.5;
-			float b = sin(DEG_TO_RADF(facing)) * 1.5;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * 1.5f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * 1.5f;
 			Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 			Commands->Create_Object("tw_POW00_Health", powerup_loc);
 
@@ -5897,9 +5897,9 @@ DECLARE_SCRIPT(M05_Entrapment_Mendoza, "")
 			health -= damage;
 			Commands->Set_Health(obj, health);
 		}
-		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .23))
+		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .23f))
 		{
-			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .23) );
+			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .23f) );
 
 			if(!exiting)
 			{
@@ -6561,7 +6561,7 @@ DECLARE_SCRIPT(M05_Activate_Roadblock_Tank, "")
 
 DECLARE_SCRIPT(M05_Building_Debris, "")
 {
-	int health;
+	int health; // TODO OmniBlade: This should really be changed to float to silence C4244, but will break savegames.
 	bool already_entered;
 
 	// Register variables to be Auto-Saved
@@ -6575,7 +6575,7 @@ DECLARE_SCRIPT(M05_Building_Debris, "")
 
 	void Created (GameObject * obj) override
 	{
-		health = Commands->Get_Max_Health(obj);
+		health = int(Commands->Get_Max_Health(obj));
 		//Commands->Set_Shield_Type ( obj, "ShieldKevlar" );
 	}
 
@@ -6583,11 +6583,11 @@ DECLARE_SCRIPT(M05_Building_Debris, "")
 	{
 		if(Commands->Get_Player_Type(damager) == SCRIPT_PLAYERTYPE_NOD)
 		{
-			Commands->Set_Health(obj, health);
+			Commands->Set_Health(obj, float(health));
 		}
 		else
 		{
-			health = Commands->Get_Health(obj);
+			health = int(Commands->Get_Health(obj));
 		}
 	}
 
@@ -6719,7 +6719,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 					{
 						// I need help!  Where's the second insertion team?! Backup needed at the Town Square!\n
 						const char *conv_name = ("M05_CON039");
-						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100003);
 
@@ -6733,7 +6733,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 					{
 						// Hotwire here - I'm losing ground.  I need support or my own body bag!\n
 						const char *conv_name = ("M05_CON040");
-						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100002);
 
@@ -6747,7 +6747,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 					{
 						// Havoc, this is Deadeye. Nod pressure increasing.  Need backup immediately!\n
 						const char *conv_name = ("M05_CON041");
-						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100650);
 
@@ -6763,7 +6763,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						mission_failed_text = 1;
 						// This is Hotwire, I can't hold this position! Requesting - oh great! <gunfire and static>\n
 						const char *conv_name = ("M05_CON043");
-						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100002);
 						Commands->Monitor_Conversation (obj, conv_id);
@@ -6774,7 +6774,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						mission_failed_text = 2;
 						// This is Gunner, too many Nod reinforcements... <gunfire> <static>\n
 						const char *conv_name = ("M05_CON042");
-						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100003);
 						Commands->Monitor_Conversation (obj, conv_id);
@@ -6785,7 +6785,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						mission_failed_text = 3;
 						// This is Deadeye, I'm being overrun - <exchanges of gunfire - static>\n
 						const char *conv_name = ("M05_CON044");
-						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100652);
 						Commands->Monitor_Conversation (obj, conv_id);
@@ -6869,7 +6869,7 @@ DECLARE_SCRIPT(M05_Hotwire_Conversation, "")
 
 			// Havoc? Bust me outta here?\n
 			const char *conv_name = ("M05_CON036");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300503);
@@ -7535,8 +7535,8 @@ DECLARE_SCRIPT(M05_APC_Deploy_Soldier, "APC_ID=0:int")
 
 			Vector3 pos = Commands->Get_Position(apc);
 			float facing = Commands->Get_Facing(apc);
-			float a = cos(DEG_TO_RADF(facing)) * Commands->Get_Random(-8.0f, -10.0f);
-			float b = sin(DEG_TO_RADF(facing)) * Commands->Get_Random(-8.0f, -10.0f);
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * Commands->Get_Random(-8.0f, -10.0f);
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * Commands->Get_Random(-8.0f, -10.0f);
 			Vector3 soldier_loc = pos + Vector3(a, b, 0.0f);
 
 			ActionParamsStruct params;
@@ -7751,7 +7751,7 @@ DECLARE_SCRIPT(M05_Resistance_Poke_Conversation, "")
 	void Play_Conversation(GameObject * obj, int Min, int Max)
 	{
 		const char *conv_name = Resistance_Conv_Table[Index(Min, Max)];
-		int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+		int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 0);
 	}

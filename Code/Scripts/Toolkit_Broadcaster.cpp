@@ -101,7 +101,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Register_RAD, "Terminal_ID:int, Send_Attempts=3:
 				}
 				else
 				{
-					Commands->Start_Timer (obj, this, send_delay, 0);
+					Commands->Start_Timer (obj, this, float(send_delay), 0);
 				}
 			}
 		}
@@ -112,7 +112,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Register_RAD, "Terminal_ID:int, Send_Attempts=3:
 		if (type == M00_CUSTOM_BROADCASTER_REGISTRY_ERROR)
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Registry_RAD received custom type M00_CUSTOM_BROADCASTER_REGISTRY_ERROR, param %d.\n", param));
-			Commands->Start_Timer (obj, this, send_delay, 0);
+			Commands->Start_Timer (obj, this, float(send_delay), 0);
 		}
 		else
 		{
@@ -370,7 +370,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 
 								for (object_count = 0;object_count < M00_BROADCASTER_TERMINAL_SIZE_RAD; object_count++)
 								{
-									random_value = Commands->Get_Random (0.0f, 100.0f);
+									random_value = Commands->Get_Random_Int (0, 100);
 									if (random_value <= Get_Float_Parameter ("Random_Percentage"))
 									{
 										if (object_random_record [object_count])
@@ -402,7 +402,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 										target_obj = Commands->Find_Object (object_specific_record [object_count]);
 										if (target_obj)
 										{
-											random_value = int(Commands->Get_Random (float(parameter_low), float(parameter_high)));
+											random_value = Commands->Get_Random_Int (parameter_low, parameter_high);
 											SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Terminal_RAD is sending custom type %d, param %d.\n", type, random_value));
 											Commands->Send_Custom_Event (obj, target_obj, type, random_value, 0.0f);
 										}
@@ -424,13 +424,13 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 								{
 									if (object_random_record [object_count])
 									{
-										random_value = Commands->Get_Random (0.0f, 100.0f);
+										random_value = Commands->Get_Random_Int (0, 100);
 										if (random_value <= Get_Float_Parameter ("Random_Percentage"))
 										{
 											target_obj = Commands->Find_Object (object_random_record [object_count]);
 											if (target_obj)
 											{
-												random_value2 = int(Commands->Get_Random (float(parameter_low), float(parameter_high)));
+												random_value2 = Commands->Get_Random_Int (parameter_low, parameter_high);
 												SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Terminal_RAD is sending custom type %d, param %d.\n", type, random_value2));
 												Commands->Send_Custom_Event (obj, target_obj, type, random_value2, 0.0f);
 											}

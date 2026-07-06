@@ -59,7 +59,7 @@ Function - M00_Controller_Animation_RMV
 void M00_Controller_Animation_RMV (GameObject * obj, GameObjObserverClass * script, const char * animation_name, bool loop, int priority, int action_id, int drop_frame, const char * drop_object, const char * drop_bone)
 {
 	ActionParamsStruct params;
-	params.Set_Basic(script, priority, action_id);
+	params.Set_Basic(script, float(priority), action_id);
 	params.Set_Animation(animation_name, loop);
 	Commands->Action_Play_Animation(obj, params);
 	if (drop_frame != 0)
@@ -68,7 +68,7 @@ void M00_Controller_Animation_RMV (GameObject * obj, GameObjObserverClass * scri
 		{
 			if (drop_bone != NULL)
 			{
-				Commands->Send_Custom_Event(obj, obj, M00_CUSTOM_ANIMATION_DROP_OBJECT, 0, drop_frame/30);
+				Commands->Send_Custom_Event(obj, obj, M00_CUSTOM_ANIMATION_DROP_OBJECT, 0, float(drop_frame/30));
 			}
 		}
 	}
@@ -114,7 +114,7 @@ DECLARE_SCRIPT(M00_Animation_Play_RMV, "Start_Now=0:int, Receive_Type:int, Recei
 			}
 			if (param == Get_Int_Parameter("Receive_Param_Off"))
 			{
-				Commands->Action_Reset(obj, (priority + 1));
+				Commands->Action_Reset(obj, float(priority + 1));
 				SCRIPT_DEBUG_MESSAGE(("M00_Animation_Play_RMV DEACTIVATED.\n"));
 			}
 		}
@@ -182,7 +182,7 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_RMV, "Start_Now=0:int, Receive_Typ
 			}
 			if (param == Get_Int_Parameter("Receive_Param_Off"))
 			{
-				Commands->Action_Reset(obj, (priority + 1));
+				Commands->Action_Reset(obj, float(priority + 1));
 				SCRIPT_DEBUG_MESSAGE(("M00_Animation_Play_Drop_Object_RMV DEACTIVATED.\n"));
 			}
 		}
@@ -253,7 +253,7 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_Attach_Script_RMV, "Start_Now=0:in
 			if (param == Get_Int_Parameter("Receive_Param_Off"))
 			{
 				SCRIPT_DEBUG_MESSAGE(("M00_Animation_Play_Drop_Object_Attach_Script_RMV DEACTIVATED.\n"));
-				Commands->Action_Reset(obj, (priority + 1));
+				Commands->Action_Reset(obj, float(priority + 1));
 			}
 		}
 		if ((type == M00_CUSTOM_ANIMATION_DROP_OBJECT) && (param == 0))

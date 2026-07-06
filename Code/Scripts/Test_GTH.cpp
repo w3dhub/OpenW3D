@@ -48,7 +48,7 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death, "Drop_Object=:string,Drop_Height=0.25:f
 		const char * obj_name = Get_Parameter("Drop_Object");
 
 		bool doit = false;
-		float probability = Get_Int_Parameter("Probability");
+		float probability = float(Get_Int_Parameter("Probability")); // TODO Why is this float?
 
 		if (probability >= 100) {
 			doit = true;
@@ -110,7 +110,7 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Obj
 		const char * obj_name = Get_Parameter("Drop_Object");
 
 		bool doit = false;
-		float probability = Get_Int_Parameter("Probability");
+		float probability = float(Get_Int_Parameter("Probability")); // TODO Why is this float?
 
 		if (probability >= 100) {
 			doit = true;
@@ -218,7 +218,7 @@ protected:
 		}
 
 		// Check probability, if the check fails, just return
-		float probability = Get_Int_Parameter("Probability");
+		float probability = float(Get_Int_Parameter("Probability")); // TODO Why is this float?
 		if (probability < 100) {
 			int random = Commands->Get_Random_Int(0,100);
 			if (random > probability) {
@@ -711,10 +711,10 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, 100, 2);
-				params.Set_Attack(enemy, Get_Int_Parameter("MaxAttackDistance"), 0.0f, true);
+				params.Set_Attack(enemy, float(Get_Int_Parameter("MaxAttackDistance")), 0.0f, true);
 				params.AttackCheckBlocked = false;
 				Commands->Action_Attack(obj, params);
-				Commands->Start_Timer (obj, this, Get_Int_Parameter( "AttackTimer"), 2);
+				Commands->Start_Timer (obj, this, float(Get_Int_Parameter( "AttackTimer")), 2);
 			}
 		}
 	}
@@ -781,8 +781,8 @@ DECLARE_SCRIPT(GTH_Credit_Trickle, "Credits=1:int,Delay=2.0:float")
 	{
 		if (timer_id == TRICKLE_TIMER)
 		{
-			Commands->Give_Money( obj, Get_Int_Parameter("Credits"), true );
-			Commands->Start_Timer (obj, this, Get_Int_Parameter("Delay"), TRICKLE_TIMER);
+			Commands->Give_Money( obj, float(Get_Int_Parameter("Credits")), true );
+			Commands->Start_Timer (obj, this, float(Get_Int_Parameter("Delay")), TRICKLE_TIMER);
 		}
 	}
 };
@@ -1061,7 +1061,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 
 					captured_by_id = 0;
 					// start the flag respawn timer.
-					capture_timer = (((float)Commands->Get_Sync_Time()) / 1000.0);
+					capture_timer = (((float)Commands->Get_Sync_Time()) / 1000.0f);
 					Commands->Attach_To_Object_Bone(obj,NULL,NULL);
 					GTH_DEBUG_INT(0,"Capturer killed!\n");
 
