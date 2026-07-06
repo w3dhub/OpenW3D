@@ -298,7 +298,7 @@ EditorSaveLoadClass::Load_Micro_Chunks (ChunkLoadClass &cload)
 
 				double double_zfar = 0;
 				cload.Read (&double_zfar, sizeof (double_zfar));
-				zfar = double_zfar;
+				zfar = float(double_zfar);
 				::Get_Camera_Mgr ()->Get_Camera ()->Set_Clip_Planes (znear, zfar);
 			}
 			break;

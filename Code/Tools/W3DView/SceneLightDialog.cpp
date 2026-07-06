@@ -155,15 +155,15 @@ CSceneLightDialog::OnInitDialog (void)
 
 		// Set-up the spin controls
 		m_DistanceSpin.SetRange32 (0, 1000000);
-		m_DistanceSpin.SetPos ((distance * 100));
+		m_DistanceSpin.SetPos (int(distance * 100));
 		m_StartAttenSpin.SetRange32 (0, 1000000);
-		m_StartAttenSpin.SetPos ((start * 100));
+		m_StartAttenSpin.SetPos (int(start * 100));
 		m_EndAttenSpin.SetRange32 (0, 1000000);
-		m_EndAttenSpin.SetPos ((end * 100));
+		m_EndAttenSpin.SetPos (int(end * 100));
 
 		// Setup the slider control
 		m_IntensitySlider.SetRange (0, 100);
-		m_IntensitySlider.SetPos (intensity * 100.0F);
+		m_IntensitySlider.SetPos (int(intensity * 100.0F));
 
 		// Record the initial settings so we can restore them on cancel
 		m_InitialStartAtten = start;

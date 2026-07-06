@@ -219,7 +219,7 @@ GeneratingEdgeSampledVisDialogClass::Update_Stats (void)
 		//
 		SetDlgItemInt (IDC_TOTAL_EDGE_COUNT,		m_ProgressObj->Get_Total_Edge_Count ());
 		SetDlgItemInt (IDC_TOTAL_SAMPLE_COUNT,		m_ProgressObj->Get_Total_Sample_Count ());
-		SetDlgItemInt (IDC_AVG_SAMPLES_PER_NODE,	m_ProgressObj->Get_Average_Samples_Per_Node ());
+		SetDlgItemInt (IDC_AVG_SAMPLES_PER_NODE,	int(m_ProgressObj->Get_Average_Samples_Per_Node ()));
 		SetDlgItemInt (IDC_EDGE_COUNT,				m_ProgressObj->Get_Current_Node_Edge_Count ());
 		SetDlgItemInt (IDC_SAMPLE_COUNT,				m_ProgressObj->Get_Current_Node_Sample_Count ());
 
@@ -229,7 +229,7 @@ GeneratingEdgeSampledVisDialogClass::Update_Stats (void)
 		int processed		= m_ProgressObj->Get_Processed_Node_Count ();
 		int total			= m_ProgressObj->Get_Node_Count ();
 		float percent		= static_cast<float>(processed) / static_cast<float>(total);
-		m_ProgressCtrl.SetPos (percent * 100);
+		m_ProgressCtrl.SetPos (int(percent * 100));
 
 		//
 		//	Update the status text

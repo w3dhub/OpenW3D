@@ -179,10 +179,10 @@ EmitterColorPropPageClass::OnInitDialog (void)
 	m_GreenRandomSpin.SetRange (0, 255);
 	m_BlueRandomSpin.SetRange (0, 255);
 
-	m_OpacityRandomSpin.SetPos (m_OrigOpacities.Rand * 100);
-	m_RedRandomSpin.SetPos (m_OrigColors.Rand.X * 255);
-	m_GreenRandomSpin.SetPos (m_OrigColors.Rand.Y * 255);
-	m_BlueRandomSpin.SetPos (m_OrigColors.Rand.Z * 255);
+	m_OpacityRandomSpin.SetPos (int(m_OrigOpacities.Rand * 100));
+	m_RedRandomSpin.SetPos (int(m_OrigColors.Rand.X * 255));
+	m_GreenRandomSpin.SetPos (int(m_OrigColors.Rand.Y * 255));
+	m_BlueRandomSpin.SetPos (int(m_OrigColors.Rand.Z * 255));
 
 	//
 	//	Reset the color bars
@@ -333,9 +333,9 @@ EmitterColorPropPageClass::OnNotify
 				if (Show_Color_Picker (&red, &green, &blue)) {
 					m_ColorBar->Modify_Point (color_bar_hdr->key_index,
 														color_bar_hdr->position,
-														red,
-														green,
-														blue);
+														(float)red,
+														(float)green,
+														(float)blue);
 
 					// Update the emitter
 					Update_Colors ();
@@ -358,7 +358,7 @@ EmitterColorPropPageClass::OnNotify
 			// Update the emitter
 			NMUPDOWN *pudnotif = (NMUPDOWN *)lParam;
 			if (pudnotif->hdr.code == UDN_DELTAPOS) {
-				float pos = (pudnotif->iPos + pudnotif->iDelta);
+				float pos = float(pudnotif->iPos + pudnotif->iDelta);
 				m_CurrentColors.Rand.X = pos / 255.0F;
 				m_pEmitterList->Set_Color_Keyframes (m_CurrentColors);
 				SetModified ();
@@ -371,7 +371,7 @@ EmitterColorPropPageClass::OnNotify
 			// Update the emitter
 			NMUPDOWN *pudnotif = (NMUPDOWN *)lParam;
 			if (pudnotif->hdr.code == UDN_DELTAPOS) {
-				float pos = (pudnotif->iPos + pudnotif->iDelta);
+				float pos = float(pudnotif->iPos + pudnotif->iDelta);
 				m_CurrentColors.Rand.Y = pos / 255.0F;
 				m_pEmitterList->Set_Color_Keyframes (m_CurrentColors);
 				SetModified ();
@@ -384,7 +384,7 @@ EmitterColorPropPageClass::OnNotify
 			// Update the emitter
 			NMUPDOWN *pudnotif = (NMUPDOWN *)lParam;
 			if (pudnotif->hdr.code == UDN_DELTAPOS) {
-				float pos = (pudnotif->iPos + pudnotif->iDelta);
+				float pos = float(pudnotif->iPos + pudnotif->iDelta);
 				m_CurrentColors.Rand.Z = pos / 255.0F;
 				m_pEmitterList->Set_Color_Keyframes (m_CurrentColors);
 				SetModified ();
@@ -397,7 +397,7 @@ EmitterColorPropPageClass::OnNotify
 			// Update the emitter
 			NMUPDOWN *pudnotif = (NMUPDOWN *)lParam;
 			if (pudnotif->hdr.code == UDN_DELTAPOS) {
-				float pos = (pudnotif->iPos + pudnotif->iDelta);
+				float pos = float(pudnotif->iPos + pudnotif->iDelta);
 				m_CurrentOpacities.Rand = pos / 100.0F;
 				m_pEmitterList->Set_Opacity_Keyframes (m_CurrentOpacities);
 				SetModified ();

@@ -136,9 +136,9 @@ LightAmbientFormClass::Update_Settings (void)
 	//
 	Vector3 light_settings = ::Get_Scene_Editor()->Get_Ambient_Light ();
 
-	int red		= light_settings.X * 255;
-	int green	= light_settings.Y * 255;
-	int blue		= light_settings.Z * 255;
+	int red		= int(light_settings.X * 255);
+	int green	= int(light_settings.Y * 255);
+	int blue		= int(light_settings.Z * 255);
 
 	//
 	//	Pass these colors onto the form

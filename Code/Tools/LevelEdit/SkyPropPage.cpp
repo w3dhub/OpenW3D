@@ -98,8 +98,8 @@ BOOL SkyPropPageClass::OnInitDialog()
 	systemtime.wYear	 = 2000;
 	systemtime.wMonth	 = 01;
 	systemtime.wDay	 = 01;
-	systemtime.wHour	 = hours;
-	systemtime.wMinute = minutes;
+	systemtime.wHour	 = WORD(hours);
+	systemtime.wMinute = WORD(minutes);
 	TimeCtrl.SetTime (&systemtime);
 
 	lightsourcetype = BackgroundMgrClass::Get_Light_Source_Type();

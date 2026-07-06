@@ -98,8 +98,8 @@ MoverClass::Get_Mouse_Ray
 	//
 	// Ensure the 'point' is correct for this mode (fullscreen/windowed)
 	//
-	float xpos = mouse_pos.x;
-	float ypos = mouse_pos.y;
+	float xpos = float(mouse_pos.x);
+	float ypos = float(mouse_pos.y);
 	::Constrain_Point_To_Aspect_Ratio (xpos, ypos);
 
 	// The 'end' of the ray is the world coordinates of the supplied point
@@ -429,7 +429,7 @@ MoverClass::Calc_Ray_Intersection_XY
 		// Calculate the fraction of the distance along the ray where the
 		// Z value of the ray is the same as the Z value of the plane.
 		// This simulates an intersection of the ray with the x-y plane at depth 'z'.
-		double fraction = double(plane - ray_start.Z) / double(ray_end.Z - ray_start.Z);
+		float fraction = (plane - ray_start.Z) / (ray_end.Z - ray_start.Z);
 
 		// If the fraction is between 0 and 1, then the ray intersects the plane
 		if ((fraction >= 0) && (fraction <= 1.0F)) {
@@ -472,7 +472,7 @@ MoverClass::Calc_Ray_Intersection_XZ
 		// Calculate the fraction of the distance along the ray where the
 		// Y value of the ray is the same as the Y value of the plane.
 		// This simulates an intersection of the ray with the x-z plane at depth 'y'.
-		double fraction = double(plane - ray_start.Y) / double(ray_end.Y - ray_start.Y);
+		float fraction = (plane - ray_start.Y) / (ray_end.Y - ray_start.Y);
 
 		// If the fraction is between 0 and 1, then the ray intersects the plane
 		if ((fraction >= 0) && (fraction <= 1.0F)) {
@@ -515,7 +515,7 @@ MoverClass::Calc_Ray_Intersection_YZ
 		// Calculate the fraction of the distance along the ray where the
 		// X value of the ray is the same as the X value of the plane.
 		// This simulates an intersection of the ray with the y-z plane at depth 'x'.
-		double fraction = double(plane - ray_start.X) / double(ray_end.X - ray_start.X);
+		float fraction = (plane - ray_start.X) / (ray_end.X - ray_start.X);
 
 		// If the fraction is between 0 and 1, then the ray intersects the plane
 		if ((fraction >= 0) && (fraction <= 1.0F)) {
@@ -739,8 +739,8 @@ MoverClass::Calc_New_Position
 		point = (*mouse_pos);
 	}
 
-	float xpos = point.x;
-	float ypos = point.y;
+	float xpos = float(point.x);
+	float ypos = float(point.y);
 	::Constrain_Point_To_Aspect_Ratio (xpos, ypos);
 
 	//
@@ -987,11 +987,11 @@ MoverClass::Rotate_Nodes_Z
 		//
 		Matrix3D rotation_matrix (1);
 		if (restrict_rotation == false) {
-			rotation_matrix.Rotate_Z (DEG_TO_RAD (5.0F) * multiplier);
+			rotation_matrix.Rotate_Z (DEG_TO_RADF (5.0F) * multiplier);
 		} else if (multiplier > 0.0F) {
-			rotation_matrix.Rotate_Z ((float)DEG_TO_RAD (-90));
+			rotation_matrix.Rotate_Z (DEG_TO_RADF (-90));
 		} else {
-			rotation_matrix.Rotate_Z ((float)DEG_TO_RAD (90));
+			rotation_matrix.Rotate_Z (DEG_TO_RADF (90));
 		}
 
 		// Rotate the node

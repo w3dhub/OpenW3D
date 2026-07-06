@@ -68,7 +68,7 @@ const float FLAT_FACE_NORMAL_MIN				= 0.0F;
 const float VIEWPLANE_BOX_HALF_DEPTH		= 0.0005F;
 const float DEF_VIS_SAMPLE_HEIGHT			= 20.0F;		// we sample up to 20 meters above the vis sector
 const float VERTICAL_GRANULARITY				= 5.0F;		// granularity of sampling in the Z axis
-const float DEF_CAM_SIM_POINT_COUNT			= 32.0F;
+const int DEF_CAM_SIM_POINT_COUNT			= 32;
 const float CAMERA_SIM_RADIUS					= 10.0F;
 
 const char * VIS_BIAS_STRING					= "visbias";
@@ -109,8 +109,8 @@ VisPointGeneratorClass::VisPointGeneratorClass (float granularity)
 	// extruded the view plane by one millimeter.
 	// Note: The extents are half-extents.
 	//
-	float y_dim = znear * ::tan (hfov / 2);
-	float z_dim = znear * ::tan (vfov / 2);
+	float y_dim = float(znear * WWMath::Tan (hfov / 2));
+	float z_dim = float(znear * WWMath::Tan (vfov / 2));
 	float max_dim = std::max (y_dim, z_dim);
 	max_dim += 0.001F;
 
@@ -207,7 +207,7 @@ Read_Float_Param (LPCTSTR text, LPCTSTR key, float *value)
 				//
 				char *number_str = new char[index];
 				::lstrcpyn (number_str, key_value, index);
-				(*value) = ::atof (number_str);
+				(*value) = ::strtof (number_str, NULL);
 				delete [] number_str;
 
 				retval = true;
@@ -280,9 +280,9 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 	//
 	AABoxClass box;
 	mesh.Get_Obj_Space_Bounding_Box (box);
-	int cells_x = (int)fabs(((box.Extent.X * 2) / m_Granularity));
-	int cells_y = (int)fabs(((box.Extent.Y * 2) / m_Granularity));
-	int cells_z = (int)fabs((((box.Extent.Z * 2) + DEF_POINT_RAISE_HEIGHT) / m_Granularity));
+	float cells_x = WWMath::Trunc(WWMath::Fabs(((box.Extent.X * 2) / m_Granularity)));
+	float cells_y = WWMath::Trunc(WWMath::Fabs(((box.Extent.Y * 2) / m_Granularity)));
+	float cells_z = WWMath::Trunc(WWMath::Fabs((((box.Extent.Z * 2) + DEF_POINT_RAISE_HEIGHT) / m_Granularity)));
 	m_Grid.Create_Grid (Vector3 (cells_x + 1, cells_y + 1, cells_z + 1), 0);
 
 	//
@@ -705,7 +705,7 @@ VisPointGeneratorClass::Is_Grid_Cell_Empty (const Vector3 &position)
 	grid_pos.Y = grid_pos.Y / m_Granularity;
 	grid_pos.Z = grid_pos.Z / m_Granularity;
 
-	return (m_Grid.Get_At (grid_pos.X, grid_pos.Y, grid_pos.Z) == NULL);
+	return (m_Grid.Get_At (int(grid_pos.X), int(grid_pos.Y), int(grid_pos.Z)) == NULL);
 }
 
 
@@ -751,7 +751,7 @@ VisPointGeneratorClass::Submit_Point
 	//	Only insert the point into the grid if the grid cell is
 	//	empty.
 	//
-	VisPointInfo *cell_contents = m_Grid.Get_At (grid_pos.X, grid_pos.Y, grid_pos.Z);
+	VisPointInfo *cell_contents = m_Grid.Get_At (int(grid_pos.X), int(grid_pos.Y), int(grid_pos.Z));
 	if ((cell_contents == NULL) ||
 		 ((cell_contents->m_Transform.Get_Translation () - cell_center).Length () > new_point_dist)) {
 
@@ -772,7 +772,7 @@ VisPointGeneratorClass::Submit_Point
 			vis_info->m_DoCameraRing	= do_camera_ring;
 
 			// Insert this point into the grid
-			m_Grid.Set_At (grid_pos.X, grid_pos.Y, grid_pos.Z, vis_info);
+			m_Grid.Set_At (int(grid_pos.X), int(grid_pos.Y), int(grid_pos.Z), vis_info);
 			SAFE_DELETE (cell_contents);
 		}
 	}

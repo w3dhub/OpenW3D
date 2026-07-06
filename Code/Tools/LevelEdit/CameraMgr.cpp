@@ -377,7 +377,7 @@ CameraMgr::Auto_Level (void)
 
 		// Linerally-interpolate between the 2 rotations (from 0.0 - 1.0)
 		Quaternion rotation_now;
-		::Slerp (rotation_now, initial_quat, end_quat, m_AutoLevelPercent);
+		::Slerp (rotation_now, initial_quat, end_quat, float(m_AutoLevelPercent));
 
 		// Increment the current interpolation percent
 		m_AutoLevelPercent += 0.04F;
@@ -964,8 +964,8 @@ CameraMgr::Update_Camera_ORBIT
 
 	Vector3 viewpos;
 	Vector3 last_viewpos;
-	camera.Device_To_View_Space (Vector2 (last_point.x, last_point.y), &last_viewpos);
-	camera.Device_To_View_Space (Vector2 (point.x, point.y), &viewpos);
+	camera.Device_To_View_Space (Vector2 (float(last_point.x), float(last_point.y)), &last_viewpos);
+	camera.Device_To_View_Space (Vector2 (float(point.x), float(point.y)), &viewpos);
 
 	// Rotate the camara like a trackball
 	Quaternion rotation = ::Trackball (last_viewpos.X, last_viewpos.Y, viewpos.X, viewpos.Y, 0.4F);

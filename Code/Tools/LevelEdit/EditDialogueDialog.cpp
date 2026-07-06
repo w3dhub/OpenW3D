@@ -170,7 +170,7 @@ EditDialogueDialogClass::OnOK (void)
 	//	Read the silence configuration
 	//
 	int new_weight = GetDlgItemInt (IDC_SILENCE_WEIGHT_EDIT);
-	m_Dialogue->Set_Silence_Weight (new_weight);
+	m_Dialogue->Set_Silence_Weight (float(new_weight));
 
 	//
 	//	Start with a fresh list of options

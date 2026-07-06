@@ -590,7 +590,7 @@ CMainFrame::OnCreateClient
 				// restore gamma settings
 				int setting=::AfxGetApp()->GetProfileInt("Config","EnableGamma",0);
 				if (setting) {
-					float gamma=::AfxGetApp()->GetProfileInt("Config","Gamma",10);
+					float gamma=float(::AfxGetApp()->GetProfileInt("Config","Gamma",10));
 					gamma=gamma/10.0f;
 					if (gamma<1.0) gamma=1.0;
 					if (gamma>3.0) gamma=3.0;
@@ -2218,7 +2218,7 @@ CMainFrame::Select_Device (bool show_dlg)
 					if (::strstr (driver_name, "glide2") != NULL) {
 
 						// Is this glide driver an acceptable version?
-						float driver_version = ::atof (string_version);
+						float driver_version = ::strtof (string_version, NULL);
 						bool is_voodoo2 = (::strstr (chipset , "VOODOO2") != NULL);
 						if ((is_voodoo2 && (driver_version < 2.54F)) ||
 							 ((is_voodoo2 == false) && (driver_version < 2.46F))) {
@@ -4427,7 +4427,7 @@ void CMainFrame::OnEnableGammaCorrection()
 	enable_gamma=!enable_gamma;
 	::AfxGetApp()->WriteProfileInt("Config", "EnableGamma", enable_gamma?1:0);
 	if (enable_gamma) {
-		float gamma=::AfxGetApp()->GetProfileInt("Config","Gamma",10);
+		float gamma=float(::AfxGetApp()->GetProfileInt("Config","Gamma",10));
 		gamma=gamma/10.0f;
 		if (gamma<1.0) gamma=1.0;
 		if (gamma>3.0) gamma=3.0;

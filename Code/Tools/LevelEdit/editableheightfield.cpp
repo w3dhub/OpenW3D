@@ -1812,10 +1812,10 @@ EditableHeightfieldClass::Create
 				//
 				//	Clip the region to the bitmap
 				//
-				int pixel_x0 = WWMath::Clamp (pixel_x_start, 0, (bmp_info.bmWidth - 1));
-				int pixel_y0 = WWMath::Clamp (pixel_y_start, 0, (bmp_info.bmHeight - 1));
-				int pixel_x1 = WWMath::Clamp (pixel_x_end, 0, (bmp_info.bmWidth - 1));
-				int pixel_y1 = WWMath::Clamp (pixel_y_end, 0, (bmp_info.bmHeight - 1));
+				int pixel_x0 = std::clamp<int> (int(pixel_x_start), 0, (bmp_info.bmWidth - 1));
+				int pixel_y0 = std::clamp<int> (int(pixel_y_start), 0, (bmp_info.bmHeight - 1));
+				int pixel_x1 = std::clamp<int> (int(pixel_x_end), 0, (bmp_info.bmWidth - 1));
+				int pixel_y1 = std::clamp<int> (int(pixel_y_end), 0, (bmp_info.bmHeight - 1));
 				float total_intensity	= 0.0F;
 				int count					= 0;
 

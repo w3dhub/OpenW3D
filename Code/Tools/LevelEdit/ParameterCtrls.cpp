@@ -742,7 +742,7 @@ FloatParameterCtrlClass::Create
 
 
 	::SetWindowFloat (m_EditCtrl, m_Parameter->Get_Value ());
-	m_SpinCtrl.SetRange32 (m_Parameter->Get_Min () * 100, m_Parameter->Get_Max () * 100);
+	m_SpinCtrl.SetRange32 (int(m_Parameter->Get_Min () * 100), int(m_Parameter->Get_Max () * 100));
 
 	if (m_IsReadOnly) {
 		m_EditCtrl.EnableWindow (false);
@@ -830,14 +830,14 @@ AngleParameterCtrlClass::Create
 	//
 	//	Set the initial value of the control
 	//
-	::SetWindowFloat (m_EditCtrl, RAD_TO_DEG (m_Parameter->Get_Value ()));
+	::SetWindowFloat (m_EditCtrl, RAD_TO_DEGF (m_Parameter->Get_Value ()));
 
 	//
 	//	Set the ranges on the spinner
 	//
-	float min_ang = RAD_TO_DEG (m_Parameter->Get_Min ());
-	float max_ang = RAD_TO_DEG (m_Parameter->Get_Max ());
-	m_SpinCtrl.SetRange32 (min_ang * 100, max_ang * 100);
+	float min_ang = RAD_TO_DEGF (m_Parameter->Get_Min ());
+	float max_ang = RAD_TO_DEGF (m_Parameter->Get_Max ());
+	m_SpinCtrl.SetRange32 (int(min_ang * 100), int(max_ang * 100));
 
 	//
 	//	Make the controls read-only if necessary
@@ -874,7 +874,7 @@ AngleParameterCtrlClass::Resize (const CRect &rect)
 void
 AngleParameterCtrlClass::Read_Data (HWND /*parent_wnd*/)
 {
-	m_Parameter->Set_Value (DEG_TO_RAD (::GetWindowFloat (m_EditCtrl, true)));
+	m_Parameter->Set_Value (DEG_TO_RADF (::GetWindowFloat (m_EditCtrl, true)));
 	return ;
 }
 
@@ -1717,9 +1717,9 @@ ColorParameterCtrlClass::On_Command
 		//	Get the current color fron the control
 		//
 		Vector3 color = m_Parameter->Get_Value ();
-		int red		= color.X * 255;
-		int green	= color.Y * 255;
-		int blue		= color.Z * 255;
+		int red		= int(color.X * 255);
+		int green	= int(color.Y * 255);
+		int blue		= int(color.Z * 255);
 
 		//
 		//	Show the color picker to the user

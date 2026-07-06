@@ -669,8 +669,8 @@ Box3DClass::Drag_VertexXY (int vertex_index, POINT point, const Vector3 &locked_
 	//
 	// Ensure the 'point' is correct for this mode (fullscreen/windowed)
 	//
-	float xpos = point.x;
-	float ypos = point.y;
+	float xpos = float(point.x);
+	float ypos = float(point.y);
 	::Constrain_Point_To_Aspect_Ratio (xpos, ypos);
 
 	//
@@ -683,14 +683,14 @@ Box3DClass::Drag_VertexXY (int vertex_index, POINT point, const Vector3 &locked_
 	//
 	// If the ray isn't parallel to the z-axis, then move the corner vertex
 	//
-	if (fabs(ray_end.Z - ray_start.Z) > 1.0F) {
+	if (WWMath::Fabs(ray_end.Z - ray_start.Z) > 1.0F) {
 
 		Vector3 vertex_pos = Get_Vertex_Position (vertex_index);
 
 		// Calculate the fraction of the distance along the ray where the
 		// Z value of the ray is the same as the Z value of the vertex we are moving.
 		// This simulates an intersection of the ray with the x-y plane at height 'z'.
-		double fraction = double(vertex_pos.Z - ray_start.Z) / double(ray_end.Z - ray_start.Z);
+		float fraction = vertex_pos.Z - ray_start.Z / ray_end.Z - ray_start.Z;
 
 		// Now calcuate the 2nd point based on this fraction.
 		// To do this we use the parameterized form of a line equation:
@@ -720,8 +720,8 @@ Box3DClass::Drag_VertexZ (int vertex_index, POINT point, const Vector3 &locked_v
 	//
 	// Ensure the 'point' is correct for this mode (fullscreen/windowed)
 	//
-	float xpos = point.x;
-	float ypos = point.y;
+	float xpos = float(point.x);
+	float ypos = float(point.y);
 	::Constrain_Point_To_Aspect_Ratio (xpos, ypos);
 
 	//
@@ -734,8 +734,8 @@ Box3DClass::Drag_VertexZ (int vertex_index, POINT point, const Vector3 &locked_v
 	//
 	// Determine which plane (y-z or x-z) to base the movement on
 	//
-	float deltax = ::fabs (ray_end.X - ray_start.X);
-	float deltay = ::fabs (ray_end.Y - ray_start.Y);
+	float deltax = WWMath::Fabs (ray_end.X - ray_start.X);
+	float deltay = WWMath::Fabs (ray_end.Y - ray_start.Y);
 
 	//
 	// Determine where the ray intersects this plane
@@ -766,7 +766,7 @@ Box3DClass::Drag_VertexZ (int vertex_index, POINT point, const Vector3 &locked_v
 		// P = P1 + (P2 - P1) * t
 		// (Where t is a percentage between 0 and 1)
 		Vector3 new_point = vertex_pos;
-		new_point.Z = ray_start.Z + ((ray_end.Z - ray_start.Z) * fraction);
+		new_point.Z = float(ray_start.Z + ((ray_end.Z - ray_start.Z) * fraction));
 		Make_Box (locked_vertex, new_point);
 	}
 

@@ -161,7 +161,7 @@ int main(int argc, char **argv)
 	}
 
 	ServerControl.Allow_Remote_Admin(true);
-	if (ServerControl.Start_Listening(local_port, password, &App_Request_Callback, &App_Response_Callback) == false) {
+	if (ServerControl.Start_Listening((unsigned short)local_port, password, &App_Request_Callback, &App_Response_Callback) == false) {
 		cprintf("Failed to open socket for port %d\n", local_port);
 		WSACleanup();
 		return(0);
@@ -184,7 +184,7 @@ int main(int argc, char **argv)
 	if (RequestBuffer[0] != 0) {
 		Connected = false;
 		GotResponse = false;
-		ServerControl.Send_Message(password, ip, port);
+		ServerControl.Send_Message(password, ip, (unsigned short)port);
 	}
 
 
@@ -228,7 +228,7 @@ int main(int argc, char **argv)
 						}
 
 						if (send) {
-							ServerControl.Send_Message(&CommandBuffer[1], ip, port);
+							ServerControl.Send_Message(&CommandBuffer[1], ip, (unsigned short)port);
 							TruncateFile = true;
 						}
 					}
@@ -273,7 +273,7 @@ int main(int argc, char **argv)
 				Connected = true;
 				GotResponse = false;
 				DumpOutput = true;
-				ServerControl.Send_Message(&RequestBuffer[3], ip, port);
+				ServerControl.Send_Message(&RequestBuffer[3], ip, (unsigned short)port);
 			} else {
 				/*
 				** Must be request response - we are done.

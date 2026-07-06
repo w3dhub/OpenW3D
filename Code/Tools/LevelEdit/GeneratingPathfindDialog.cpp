@@ -133,7 +133,7 @@ void
 GeneratingPathfindDialogClass::Set_Status (LPCTSTR text, float percent)
 {
 	if (percent > 0) {
-		m_ProgressBar.SetPos (percent * 100);
+		m_ProgressBar.SetPos (int(percent * 100));
 	}
 
 	SetDlgItemText (IDC_STATUS_TEXT, text);

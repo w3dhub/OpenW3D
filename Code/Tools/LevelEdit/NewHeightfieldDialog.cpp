@@ -73,8 +73,8 @@ END_MESSAGE_MAP()
 void
 NewHeightfieldDialogClass::OnOK (void)
 {
-	int width		= GetDlgItemInt (IDC_WIDTH_EDIT);
-	int height		= GetDlgItemInt (IDC_HEIGHT_EDIT);
+	float width		= float(GetDlgItemInt (IDC_WIDTH_EDIT));
+	float height	= float(GetDlgItemInt (IDC_HEIGHT_EDIT));
 	float density	= ::GetDlgItemFloat (m_hWnd, IDC_DENSITY_EDIT, false);
 
 	//

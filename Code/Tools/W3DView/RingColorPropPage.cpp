@@ -271,9 +271,9 @@ RingColorPropPageClass::OnNotify
 				if (Show_Color_Picker (&red, &green, &blue)) {
 					m_ColorBar->Modify_Point (	color_bar_hdr->key_index,
 														color_bar_hdr->position,
-														red,
-														green,
-														blue);
+														float(red),
+														float(green),
+														float(blue));
 
 					//
 					// Update the object

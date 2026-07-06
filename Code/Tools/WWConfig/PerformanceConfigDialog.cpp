@@ -303,7 +303,7 @@ PerformanceConfigDialogClass::Build_Expert_Window_List (void)
 	//
 	CRect rect;
 	::GetWindowRect (::GetDlgItem (m_hWnd, IDC_EXPERT_CHECK), &rect);
-	float y_pos = rect.top;
+	LONG y_pos = rect.top;
 
 	//
 	//	Loop over all the child windows of the dialog

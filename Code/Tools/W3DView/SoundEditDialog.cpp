@@ -169,7 +169,7 @@ SoundEditDialogClass::OnInitDialog (void)
 		priority				= sound->Peek_Priority ();
 		is_3d					= (sound_3d != NULL);
 		is_music				= (sound->Get_Type () == AudibleSoundClass::TYPE_MUSIC);
-		loop_count			= sound->Get_Loop_Count ();
+		loop_count			= float(sound->Get_Loop_Count ());
 		volume				= sound->Get_Volume ();
 
 		if (sound_3d != NULL) {

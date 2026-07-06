@@ -213,14 +213,14 @@ TransitionEditDialogClass::OnInitDialog (void)
 	//
 	//	Configure the camera
 	//
-	double hfov = 0;
-	double vfov = 0;
+	float hfov = 0;
+	float vfov = 0;
 	if (cy > cx) {
-		vfov = (float)DEG_TO_RAD(45.0f);
-		hfov = (double)cx / (double)cy * vfov;
+		vfov = DEG_TO_RADF(45.0f);
+		hfov = (float)cx / (float)cy * vfov;
 	} else {
-		hfov = (float)DEG_TO_RAD(45.0f);
-		vfov = (double)cy / (double)cx * hfov;
+		hfov = DEG_TO_RADF(45.0f);
+		vfov = (float)cy / (float)cx * hfov;
 	}
 	m_Camera->Set_View_Plane (hfov, vfov);
 
@@ -808,7 +808,7 @@ TransitionEditDialogClass::Handle_Keypress (void)
 		{
 			Matrix3D tm = m_CharacterObj->Get_Transform ();
 			float deg = (::GetAsyncKeyState (VK_RIGHT) < 0) ? 5.0F : -5.0F;
-			tm.Rotate_Z (DEG_TO_RAD (deg));
+			tm.Rotate_Z (DEG_TO_RADF (deg));
 			m_CharacterObj->Set_Transform (tm);
 		}
 

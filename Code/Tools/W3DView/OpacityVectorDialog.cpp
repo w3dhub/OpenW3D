@@ -100,7 +100,7 @@ OpacityVectorDialogClass::OnInitDialog (void)
 	m_OpacityBar->Modify_Point (0, 0, 255, 255, 255);
 	m_OpacityBar->Insert_Point (1, 10, 0, 0, 0);
 
-	float value =  ::atan (((m_Value.intensity / 10.0F) * 11.0F)) / DEG_TO_RAD (84.5) * 10.0F;
+	float value =  WWMath::Atan (((m_Value.intensity / 10.0F) * 11.0F)) / DEG_TO_RADF (84.5f) * 10.0F;
 	m_OpacityBar->Set_Selection_Pos (value);
 
 	//
@@ -152,8 +152,8 @@ OpacityVectorDialogClass::OnInitDialog (void)
 
 	EulerAnglesClass euler_angle (rotation, EulerOrderXYZr);
 	//float x_rot = RAD_TO_DEG (euler_angle.Get_Angle (0));
-	float y_rot = RAD_TO_DEG (euler_angle.Get_Angle (1));
-	float z_rot = RAD_TO_DEG (euler_angle.Get_Angle (2));
+	float y_rot = RAD_TO_DEGF (euler_angle.Get_Angle (1));
+	float z_rot = RAD_TO_DEGF (euler_angle.Get_Angle (2));
 
 	//float y_rot = RAD_TO_DEG (rotation.Get_Y_Rotation ());
 	//float z_rot = RAD_TO_DEG (rotation.Get_Z_Rotation ());
@@ -218,7 +218,7 @@ OpacityVectorDialogClass::Update_Value (void)
 
 	value.angle = ::Build_Quaternion (rot_mat);
 
-	float percent = ::tan ((m_OpacityBar->Get_Selection_Pos () / 10.0F) * DEG_TO_RAD (84.5)) / 11.0F;
+	float percent = WWMath::Tan ((m_OpacityBar->Get_Selection_Pos () / 10.0F) * DEG_TO_RADF (84.5F)) / 11.0F;
 	percent = std::clamp (percent, 0.0F, 1.0F);
 
 	value.intensity = 10.0F * percent;

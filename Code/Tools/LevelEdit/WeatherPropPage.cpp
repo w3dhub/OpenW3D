@@ -119,8 +119,8 @@ BOOL WeatherPropPageClass::OnInitDialog()
 	WeatherMgrClass::Get_Fog_Range (fogstart, fogend);
 	FogStartSpin.SetRange (0, fogstartmax);
 	FogEndSpin.SetRange (0, fogendmax);
-	FogStartSpin.SetPos (fogstart);
-	FogEndSpin.SetPos (fogend);
+	FogStartSpin.SetPos (int(fogstart));
+	FogEndSpin.SetPos (int(fogend));
 
 	// Load the lightning/war-blitz settings into the dialog controls.
 	BackgroundMgrClass::Get_Lightning (lightningintensity, lightningstartdistance, lightningenddistance, lightningheading, lightningdistribution);
@@ -200,9 +200,9 @@ void WeatherPropPageClass::OnFogColor()
 {
 	int red, green, blue;
 
-	red	= MIN (UCHAR_MAX, FogColor.X * ((float) (UCHAR_MAX + 1)));
-	green = MIN (UCHAR_MAX, FogColor.Y * ((float) (UCHAR_MAX + 1)));
-	blue	= MIN (UCHAR_MAX, FogColor.Z * ((float) (UCHAR_MAX + 1)));
+	red	= std::min (UCHAR_MAX, int(FogColor.X * ((float) (UCHAR_MAX + 1))));
+	green = std::min (UCHAR_MAX, int(FogColor.Y * ((float) (UCHAR_MAX + 1))));
+	blue	= std::min (UCHAR_MAX, int(FogColor.Z * ((float) (UCHAR_MAX + 1))));
 	if (::Show_Color_Picker (&red, &green, &blue)) {
 
 		const float ooucharmaxplusone = 1.0f / (UCHAR_MAX + 1);
@@ -236,9 +236,9 @@ void WeatherPropPageClass::OnDrawItem (int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemSt
 	// Fill the button with the appropriate color.
 	dc.Attach (lpDrawItemStruct->hDC);
 
-	r = MIN (UCHAR_MAX, FogColor.X * ((float) (UCHAR_MAX + 1)));
-	g = MIN (UCHAR_MAX, FogColor.Y * ((float) (UCHAR_MAX + 1)));
-	b = MIN (UCHAR_MAX, FogColor.Z * ((float) (UCHAR_MAX + 1)));
+	r = std::min (UCHAR_MAX, int(FogColor.X * ((float) (UCHAR_MAX + 1))));
+	g = std::min (UCHAR_MAX, int(FogColor.Y * ((float) (UCHAR_MAX + 1))));
+	b = std::min (UCHAR_MAX, int(FogColor.Z * ((float) (UCHAR_MAX + 1))));
 	dc.FillSolidRect (&rect, RGB (r, g, b));
 	dc.Detach();
 
@@ -393,7 +393,7 @@ void WeatherPropPageClass::OnOK()
 	WeatherMgrClass::Set_Fog_Enable (IsDlgButtonChecked (IDC_FOG_CHECK) == 1);
 	::Get_Scene_Editor()->Set_Fog_Color (FogColor);
 //	::Get_Scene_Editor()->Set_Fog_Range (FogStartSpin.GetPos(), FogEndSpin.GetPos());
-	WeatherMgrClass::Set_Fog_Range (FogStartSpin.GetPos(), FogEndSpin.GetPos());
+	WeatherMgrClass::Set_Fog_Range (float(FogStartSpin.GetPos()), float(FogEndSpin.GetPos()));
 
 	// Configure lightning/war-blitz.
 	lightningintensity	  = LightningIntensitySlider.GetPos() * oosliderresolution;
@@ -416,7 +416,7 @@ void WeatherPropPageClass::OnOK()
 	}
 
 	// Configure wind.
-	windheading		 = WindHeadingSlider.GetPos();
+	windheading		 = float(WindHeadingSlider.GetPos());
 	windspeed		 = GetWindowFloat (WindSpeedSpin.GetBuddy()->m_hWnd, true);
 	windvariability = WindVariabilitySlider.GetPos() * oosliderresolution;
 	WeatherMgrClass::Set_Wind (windheading, windspeed, windvariability);
