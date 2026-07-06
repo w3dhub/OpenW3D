@@ -112,7 +112,7 @@ EmitterParticlePropPageClass::Initialize (void)
 		//
 		m_Rate			= m_pEmitterList->Get_Emission_Rate ();
 		m_BurstSize		= m_pEmitterList->Get_Burst_Size ();
-		m_MaxParticles	= m_pEmitterList->Get_Max_Emissions ();
+		m_MaxParticles	= int(m_pEmitterList->Get_Max_Emissions ());
 		m_Randomizer	= m_pEmitterList->Get_Creation_Volume ();
 	}
 
@@ -175,7 +175,7 @@ EmitterParticlePropPageClass::OnApply (void)
 	//
 	m_pEmitterList->Set_Emission_Rate (m_Rate);
 	m_pEmitterList->Set_Burst_Size (m_BurstSize);
-	m_pEmitterList->Set_Max_Emissions (m_MaxParticles);
+	m_pEmitterList->Set_Max_Emissions (float(m_MaxParticles));
 	m_pEmitterList->Set_Creation_Volume (m_Randomizer->Clone ());
 
 	// Allow the base class to process this message

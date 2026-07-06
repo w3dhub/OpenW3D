@@ -459,8 +459,8 @@ LightNodeClass::Update_Light (void)
 		Vector3 diffuse		= m_InstanceSettings.Get_Diffuse_Color ();
 		Vector3 specular		= m_InstanceSettings.Get_Specular_Color ();
 		float intensity		= m_InstanceSettings.Get_Intensity ();
-		double inner_radius	= m_InstanceSettings.Get_Inner_Radius ();
-		double outer_radius	= m_InstanceSettings.Get_Outer_Radius ();
+		float inner_radius	= m_InstanceSettings.Get_Inner_Radius ();
+		float outer_radius	= m_InstanceSettings.Get_Outer_Radius ();
 		float spot_angle		= m_InstanceSettings.Get_Spot_Angle ();
 		Vector3 spot_dir		= m_InstanceSettings.Get_Spot_Direction ();
 		float spot_exp			= m_InstanceSettings.Get_Spot_Exponent ();

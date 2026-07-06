@@ -118,7 +118,7 @@ GotoLocationDialogClass::OnInitDialog (void)
 	::SetDlgItemFloat (m_hWnd, IDC_XPOS_EDIT, position.X);
 	::SetDlgItemFloat (m_hWnd, IDC_YPOS_EDIT, position.Y);
 	::SetDlgItemFloat (m_hWnd, IDC_ZPOS_EDIT, position.Z);
-	::SetDlgItemFloat (m_hWnd, IDC_FACING_EDIT, RAD_TO_DEG (facing));
+	::SetDlgItemFloat (m_hWnd, IDC_FACING_EDIT, RAD_TO_DEGF (facing));
 	return true;
 }
 
@@ -144,8 +144,8 @@ GotoLocationDialogClass::OnOK (void)
 	//
 	//	Create a transform for the camera using these new settings
 	//
-	float x_val = ::cos (DEG_TO_RADF (facing));
-	float y_val = ::sin (DEG_TO_RADF (facing));
+	float x_val = WWMath::Cos (DEG_TO_RADF (facing));
+	float y_val = WWMath::Sin (DEG_TO_RADF (facing));
 	Vector3 y_axis = Vector3 (0, 0, 1);
 	Vector3 z_axis = Vector3 (x_val, y_val, 0);
 	Vector3 x_axis = Vector3::Cross_Product (y_axis, z_axis);

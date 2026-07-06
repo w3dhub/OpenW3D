@@ -390,8 +390,8 @@ PathfindSectorBuilderClass::Initialize (void)
 	Vector3 lev_min;
 	Vector3 lev_max;
 	PhysicsSceneClass::Get_Instance ()->Get_Level_Extents (lev_min, lev_max);
-	int width = (lev_max.X - lev_min.X) / m_SimBoundingBox.X;
-	int height = (lev_max.Y - lev_min.Y) / m_SimBoundingBox.Y;
+	int width = int((lev_max.X - lev_min.X) / m_SimBoundingBox.X);
+	int height = int((lev_max.Y - lev_min.Y) / m_SimBoundingBox.Y);
 	m_TotalBoxGuess = width * height;
 
 	//
@@ -1521,7 +1521,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 	//
 	//	Determine what the maximum number of cells in a given direction can be
 	//
-	int max_dim = m_MaxSectorDim / std::max (m_SimBoundingBox.X, m_SimBoundingBox.Y);
+	int max_dim = int(m_MaxSectorDim / std::max (m_SimBoundingBox.X, m_SimBoundingBox.Y));
 
 	//
 	//	Create an object that will allow us to break the sector if

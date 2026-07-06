@@ -201,7 +201,7 @@ GetDlgItemFloat
 	::GetDlgItemText (hdlg, child_id, string_value, sizeof (string_value));
 
 	// Convert the string to a float and return the value
-	return ::atof (string_value);
+	return ::strtof (string_value, NULL);
 }
 
 
@@ -365,7 +365,7 @@ GetWindowFloat (HWND hwnd)
 	::GetWindowText (hwnd, string_value, sizeof (string_value));
 
 	// Convert the string to a float and return the value
-	return ::atof (string_value);
+	return ::strtof (string_value, NULL);
 }
 
 

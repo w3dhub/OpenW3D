@@ -1316,7 +1316,7 @@ GetWindowFloat (HWND hwnd, bool interpret)
 	if (interpret) {
 		value = ((float)::atol (string_value)) / 100.0F;
 	} else {
-		value = ::atof (string_value);
+		value = ::strtof (string_value, NULL);
 	}
 
 	return value;
@@ -1347,7 +1347,7 @@ GetDlgItemFloat
 	if (interpret) {
 		value = ((float)::atol (string_value)) / 100.0F;
 	} else {
-		value = ::atof (string_value);
+		value = ::strtof (string_value, NULL);
 	}
 
 	return value;
@@ -1866,7 +1866,7 @@ fnEditToFloatProc
 		result				= ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);
 		LPCTSTR string		= (LPCTSTR)lparam;
 		if (::strchr (string, '.') != 0) {
-			float float_value	= ::atof (string);
+			float float_value	= ::strtof (string, NULL);
 			int int_value		= int(float_value * 100);
 			::itoa (int_value, (LPTSTR)lparam, 10);
 		} else {
@@ -2229,7 +2229,7 @@ Perform_Job (LPCTSTR filename, bool delete_on_completion)
 
 	CString granularity_string;
 	::GetPrivateProfileString ("Job Description", "Granularity", "1", granularity_string.GetBufferSetLength (20), 20, filename);
-	float granularity = ::atof (granularity_string);
+	float granularity = ::strtof (granularity_string, NULL);
 
 	CString level_file;
 	::GetPrivateProfileString ("Job Description", "LVL", "", level_file.GetBufferSetLength (MAX_PATH), MAX_PATH, filename);

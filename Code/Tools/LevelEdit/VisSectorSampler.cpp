@@ -240,7 +240,7 @@ void VisSectorSamplerClass::Process(RenderObjClass * model)
 
 void VisSectorSamplerClass::Reset(int poly_count)
 {
-	MeshBuilder->Reset(1,poly_count,0.5f*poly_count + 1);
+	MeshBuilder->Reset(1,poly_count,int(0.5f*poly_count + 1));
 }
 
 int VisSectorSamplerClass::Collect_Polygons(RenderObjClass * renderobj)

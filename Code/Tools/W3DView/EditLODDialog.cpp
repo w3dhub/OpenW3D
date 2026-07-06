@@ -191,7 +191,7 @@ CEditLODDialog::OnOK (void)
 
                 // Convert the string to a float and pass this value
                 // onto the LOD manager
-                float switchDistance = ::atof (stringTemp);
+                float switchDistance = strtof (stringTemp, NULL);
                 pLOD->Set_Switch_Up_Dist (iObject, switchDistance);
 
                 // Get the switch down distance from the list control
@@ -199,7 +199,7 @@ CEditLODDialog::OnOK (void)
 
                 // Convert the string to a float and pass this value
                 // onto the LOD manager
-                switchDistance = ::atof (stringTemp);
+                switchDistance = strtof (stringTemp, NULL);
                 pLOD->Set_Switch_Down_Dist (iObject, switchDistance);
             }
         }
@@ -358,7 +358,7 @@ CEditLODDialog::ResetControls (int iIndex)
     SetDlgItemText (IDC_SWITCH_UP_EDIT, stringTemp);
 
     // Set the current position of the spin control
-    float switchDistance = ::atof (stringTemp);
+    float switchDistance = strtof (stringTemp, NULL);
     m_switchUpSpin.SetPos (int(switchDistance * 10.00F));
 
     //
@@ -372,7 +372,7 @@ CEditLODDialog::ResetControls (int iIndex)
     SetDlgItemText (IDC_SWITCH_DN_EDIT, stringTemp);
 
     // Set the current position of the spin control
-    switchDistance = ::atof (stringTemp);
+    switchDistance = strtof (stringTemp, NULL);
     m_switchDownSpin.SetPos (int(switchDistance * 10.00F));
     return ;
 }
@@ -404,7 +404,7 @@ CEditLODDialog::OnUpdateSwitchDnEdit (void)
     // Get the switching distance from the edit control
     CString stringTemp;
     GetDlgItemText (IDC_SWITCH_DN_EDIT, stringTemp);
-    float newVal = ::atof (stringTemp);
+    float newVal = strtof (stringTemp, NULL);
 
     // Change the switching distance in the spin control
     m_switchDownSpin.SetPos (int(newVal * 10.00F));
@@ -429,7 +429,7 @@ void CEditLODDialog::OnUpdateSwitchUpEdit (void)
     // Get the switching distance from the edit control
     CString stringTemp;
     GetDlgItemText (IDC_SWITCH_UP_EDIT, stringTemp);
-    float newVal = ::atof (stringTemp);
+    float newVal = strtof (stringTemp, NULL);
 
     // Change the switching distance in the spin control
     m_switchUpSpin.SetPos (int(newVal * 10.00F));
@@ -454,11 +454,11 @@ void CEditLODDialog::OnRecalc (void)
     // Get the up switching distance from the edit control
     CString stringTemp;
     GetDlgItemText (IDC_SWITCH_UP_EDIT, stringTemp);
-    float switchUp = ::atof (stringTemp);
+    float switchUp = strtof (stringTemp, NULL);
 
     // Get the down switching distance from the edit control
     GetDlgItemText (IDC_SWITCH_DN_EDIT, stringTemp);
-    float switchDown = ::atof (stringTemp);
+    float switchDown = strtof (stringTemp, NULL);
 
     if (switchUp < switchDown)
     {

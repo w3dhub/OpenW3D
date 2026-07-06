@@ -243,7 +243,7 @@ VisPointNodeClass::Load_Variables (ChunkLoadClass &cload)
 			{
 				double double_value = 0;
 				cload.Read (&double_value, sizeof (double_value));
-				m_NearClipPlane = double_value;
+				m_NearClipPlane = float(double_value);
 			}
 			break;
 		}

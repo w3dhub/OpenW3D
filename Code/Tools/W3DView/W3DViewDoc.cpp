@@ -818,7 +818,7 @@ CW3DViewDoc::StepAnimation (int iFrameInc)
 			m_animTime = 0.00F;
 		}
 		else if (m_CurrentFrame < 0) {
-			m_CurrentFrame = iTotalFrames-1;
+			m_CurrentFrame = float(iTotalFrames-1);
 		}
 
 		//
@@ -826,7 +826,7 @@ CW3DViewDoc::StepAnimation (int iFrameInc)
 		//
 		float frame_rate = m_pCAnimation->Get_Frame_Rate ();
 		float anim_speed = ::Get_Graphic_View ()->GetAnimationSpeed ();
-		((CMainFrame *)::AfxGetMainWnd ())->UpdateFrameCount (m_CurrentFrame, iTotalFrames - 1, frame_rate * anim_speed);
+		((CMainFrame *)::AfxGetMainWnd ())->UpdateFrameCount (int(m_CurrentFrame), iTotalFrames - 1, frame_rate * anim_speed);
 
 		//
 		// Update the animation frame
@@ -1103,7 +1103,7 @@ CW3DViewDoc::UpdateFrame (float relativeTimeSlice)
 		// Update the status bar on the main window
 		//
 		float anim_speed = ::Get_Graphic_View ()->GetAnimationSpeed ();
-		((CMainFrame *)::AfxGetMainWnd ())->UpdateFrameCount (m_CurrentFrame, total_frames - 1, frame_rate * anim_speed);
+		((CMainFrame *)::AfxGetMainWnd ())->UpdateFrameCount (int(m_CurrentFrame), total_frames - 1, frame_rate * anim_speed);
 
 		if (m_pCAnimCombo) {
 
@@ -1118,7 +1118,7 @@ CW3DViewDoc::UpdateFrame (float relativeTimeSlice)
 		} else if (m_bAnimBlend) {
 			m_pCRenderObj->Set_Animation (m_pCAnimation, m_CurrentFrame);
 		} else {
-			m_pCRenderObj->Set_Animation (m_pCAnimation, (int)m_CurrentFrame);
+			m_pCRenderObj->Set_Animation (m_pCAnimation, WWMath::Trunc(m_CurrentFrame));
 		}
 
 		Update_Camera ();
@@ -2443,7 +2443,7 @@ CW3DViewDoc::Make_Movie (void)
 		WW3D::Start_Movie_Capture ("Grab", 30);
 		WW3D::Pause_Movie (true);
 
-		float frames = m_pCAnimation->Get_Num_Frames ();
+		float frames = float(m_pCAnimation->Get_Num_Frames ());
 		float frame_inc = m_pCAnimation->Get_Frame_Rate () / 30.0F;
 		DWORD ticks = 1000 / 30;
 
@@ -3048,8 +3048,8 @@ CW3DViewDoc::Load_Camera_Settings (void)
 				CString hfov_string = theApp.GetProfileString ("Config", "hfov", "0");
 				CString vfov_string = theApp.GetProfileString ("Config", "vfov", "0");
 
-				double hfov = ::atof (hfov_string);
-				double vfov = ::atof (vfov_string);
+				float hfov = ::strtof (hfov_string, NULL);
+				float vfov = ::strtof (vfov_string, NULL);
 
 				camera->Set_View_Plane (hfov, vfov);
 			}
@@ -3062,8 +3062,8 @@ CW3DViewDoc::Load_Camera_Settings (void)
 				CString znear_string	= theApp.GetProfileString ("Config", "znear", "0.1F");
 				CString zfar_string	= theApp.GetProfileString ("Config", "zfar", "100.0F");
 
-				float znear	= ::atof (znear_string);
-				float zfar		= ::atof (zfar_string);
+				float znear	= ::strtof (znear_string, NULL);
+				float zfar		= ::strtof (zfar_string, NULL);
 
 				camera->Set_Clip_Planes (znear, zfar);
 

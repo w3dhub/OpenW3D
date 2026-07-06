@@ -171,14 +171,14 @@ ZoneEditDialogClass::OnInitDialog (void)
 	//
 	//	Configure the camera
 	//
-	double hfov = 0;
-	double vfov = 0;
+	float hfov = 0;
+	float vfov = 0;
 	if (cy > cx) {
-		vfov = (float)DEG_TO_RAD(45.0f);
-		hfov = (double)cx / (double)cy * vfov;
+		vfov = DEG_TO_RADF(45.0f);
+		hfov = (float)cx / (float)cy * vfov;
 	} else {
-		hfov = (float)DEG_TO_RAD(45.0f);
-		vfov = (double)cy / (double)cx * hfov;
+		hfov = DEG_TO_RADF(45.0f);
+		vfov = (float)cy / (float)cx * hfov;
 	}
 	m_Camera->Set_View_Plane (hfov, vfov);
 
@@ -1013,7 +1013,7 @@ ZoneEditDialogClass::OnLastFrame (void)
 		//
 		HAnimClass *animation = anim_mgr.Peek_Animation ();
 		if (animation != NULL) {
-			m_RenderObj->Set_Animation (animation, animation->Get_Num_Frames () - 1);
+			m_RenderObj->Set_Animation (animation, float(animation->Get_Num_Frames () - 1));
 		}
 	}
 

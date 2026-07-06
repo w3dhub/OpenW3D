@@ -259,7 +259,7 @@ StringsCategoryViewDialogClass::Update_Controls (void)
 	//	Configure the columns
 	//
 	for (int index = 0; index < Columns.Count (); index ++) {
-		m_ListCtrl.SetColumnWidth (index, ColumnSettings[index].width * width);
+		m_ListCtrl.SetColumnWidth (index, int(ColumnSettings[index].width * width));
 	}
 
 	return ;

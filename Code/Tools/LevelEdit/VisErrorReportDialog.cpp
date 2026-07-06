@@ -243,7 +243,7 @@ VisErrorReportDialogClass::Re_Sync_Data (void)
 
 	// Reset the range of values in the y-axis
 	int max	= (m_TotalPoints >> 1) - (m_ZoomSlider.GetPos () - 2);
-	m_Graph.Set_Y_Axis_Range (0, max);
+	m_Graph.Set_Y_Axis_Range (0, float(max));
 
 	//
 	//	Add the vis error points to the graph
@@ -338,7 +338,7 @@ VisErrorReportDialogClass::OnVScroll
 {
 	// Reset the range of values in the y-axis
 	int max	= m_TotalPoints - (m_ZoomSlider.GetPos () - 2);
-	m_Graph.Set_Y_Axis_Range (0, max);
+	m_Graph.Set_Y_Axis_Range (0, float(max));
 	SetDlgItemInt (IDC_MAX_POINTS, max);
 
 	//

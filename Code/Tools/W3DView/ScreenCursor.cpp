@@ -214,8 +214,8 @@ ScreenCursorClass::On_Frame_Update (void)
 	//
 	float normal_width = ((float)m_Width) / (float)screen_cx;
 	float normal_height = ((float)m_Height) / (float)screen_cy;
-	float x_pos = floor(m_ScreenPos.X * ((float)screen_cx) + 0.5F) / ((float)screen_cx);
-	float y_pos = floor(m_ScreenPos.Y * ((float)screen_cy) + 0.5F) / ((float)screen_cy);
+	float x_pos = WWMath::Floor(m_ScreenPos.X * ((float)screen_cx) + 0.5F) / ((float)screen_cx);
+	float y_pos = WWMath::Floor(m_ScreenPos.Y * ((float)screen_cy) + 0.5F) / ((float)screen_cy);
 	float z_pos = 0;
 
 	//
@@ -295,9 +295,9 @@ ScreenCursorClass::Render (RenderInfoClass & /* rinfo */)
 		DynamicIBAccessClass::WriteLockClass lock(&ibaccess);
 		unsigned short * indices = lock.Get_Index_Array();
 		for (int i=0; i<FACE_COUNT; i++) {
-			indices[3*i+0] = m_Triangles[i][0];
-			indices[3*i+1] = m_Triangles[i][1];
-			indices[3*i+2] = m_Triangles[i][2];
+			indices[3*i+0] = (unsigned short)m_Triangles[i][0];
+			indices[3*i+1] = (unsigned short)m_Triangles[i][1];
+			indices[3*i+2] = (unsigned short)m_Triangles[i][2];
 		}
 	}
 
@@ -334,7 +334,7 @@ void
 ScreenCursorClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	sphere.Center = Get_Transform().Get_Translation();
-	sphere.Radius = std::max (m_Width, m_Height);
+	sphere.Radius = float(std::max (m_Width, m_Height));
 }
 
 
@@ -348,7 +348,7 @@ ScreenCursorClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 {
 	Matrix3D transform = Get_Transform ();
 	box.Center = transform.Get_Translation ();
-	box.Extent.Set(0.1F, m_Width, m_Height);
+	box.Extent.Set(0.1F, float(m_Width), float(m_Height));
 }
 
 

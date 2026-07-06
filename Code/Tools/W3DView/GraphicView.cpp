@@ -451,7 +451,7 @@ CGraphicView::RepaintView
 
 		// Update the W3D frame times according to our elapsed tick count
 		if (ticks_to_use == 0) {
-			WW3D::Sync (WW3D::Get_Sync_Time() + (ticks_elapsed * m_animationSpeed));
+			WW3D::Sync (int(WW3D::Get_Sync_Time() + (ticks_elapsed * m_animationSpeed)));
 		} else {
 			WW3D::Sync (WW3D::Get_Sync_Time() + ticks_to_use);
 		}
@@ -559,7 +559,7 @@ CGraphicView::RepaintView
 		//
 		//	Update the frame time in the status bar
 		//
-		((CMainFrame *)::AfxGetMainWnd ())->Update_Frame_Time (clock_cycles);
+		((CMainFrame *)::AfxGetMainWnd ())->Update_Frame_Time (DWORD(clock_cycles));
 	}
 
 	_already_painting = false;
@@ -1686,7 +1686,7 @@ CGraphicView::Set_FOV (double hfov, double vfov, bool force)
 	CW3DViewDoc *doc = (CW3DViewDoc *)GetDocument();
 
 	if (force || (doc->Is_FOV_Manual () == false)) {
-		m_pCamera->Set_View_Plane (hfov, vfov);
+		m_pCamera->Set_View_Plane (float(hfov), float(vfov));
 	}
 
 	return ;

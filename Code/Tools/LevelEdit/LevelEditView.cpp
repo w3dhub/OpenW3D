@@ -261,7 +261,7 @@ CLevelEditView::Initialize_Render_Device (void)
 	}
 
 	// Reset the camera's FOV
-	m_pCameraMgr->Get_Camera ()->Set_View_Plane (m_HorzFOV, m_VertFOV);
+	m_pCameraMgr->Get_Camera ()->Set_View_Plane (float(m_HorzFOV), float(m_VertFOV));
 
 	if (m_p2DCamera == NULL) {
 
@@ -368,11 +368,11 @@ CLevelEditView::OnSize
 	m_HorzFOV = 0.0F;
 	m_VertFOV = 0.0F;
 	if (cy > cx) {
-		m_VertFOV = (float)DEG_TO_RAD(45.0f);
+		m_VertFOV = DEG_TO_RAD(45.0);
 		m_HorzFOV = (double)cx / (double)cy * m_VertFOV;
 	}
 	else {
-		m_HorzFOV = (float)DEG_TO_RAD(45.0f);
+		m_HorzFOV = DEG_TO_RAD(45.0);
 		m_VertFOV = (double)cy / (double)cx * m_HorzFOV;
 	}
 
@@ -385,7 +385,7 @@ CLevelEditView::OnSize
 		}
 
 		// Reset the field of view
-		m_pCameraMgr->Get_Camera ()->Set_View_Plane (m_HorzFOV, m_VertFOV);
+		m_pCameraMgr->Get_Camera ()->Set_View_Plane (float(m_HorzFOV), float(m_VertFOV));
 
 		// Force a repaint of the screen
 		Repaint_View ();
