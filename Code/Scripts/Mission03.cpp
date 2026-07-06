@@ -1924,7 +1924,7 @@ DECLARE_SCRIPT(M03_Announce_PowerPlant_Controller_JDG, "")
 		{
 
 
-			float lineNumber = Commands->Get_Random ( 0.5f, total_number_of_sounds+0.5);
+			float lineNumber = Commands->Get_Random ( 0.5f, total_number_of_sounds+0.5f);
 
 			if ((lineNumber >= 0.5) && (lineNumber < 1.5))
 			{
@@ -2371,7 +2371,7 @@ DECLARE_SCRIPT(M03_Announce_Refinery_Controller_JDG, "")
 		else if (param == pick_sound)
 		{
 
-			float lineNumber = Commands->Get_Random ( 0.5f, total_number_of_sounds+0.5);
+			float lineNumber = Commands->Get_Random ( 0.5f, total_number_of_sounds+0.5f);
 
 			if ((lineNumber >= 0.5) && (lineNumber < 1.5))
 			{
@@ -2825,7 +2825,7 @@ DECLARE_SCRIPT(M03_Announce_CommCenter_Controller_JDG, "")
 		else if (param == pick_sound)
 		{
 
-			float lineNumber = Commands->Get_Random ( 0.5f, total_number_of_sounds+0.5);
+			float lineNumber = Commands->Get_Random ( 0.5f, total_number_of_sounds+0.5f);
 
 			if ((lineNumber >= 0.5) && (lineNumber < 1.5))
 			{
@@ -3490,8 +3490,8 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 			//distance *= 3;
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * distance;
-			float b = sin(DEG_TO_RADF(facing)) * distance;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * distance;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * distance;
 			Vector3 goto_loc = pos + Vector3(a, b, 0.0f);
 
 			ActionParamsStruct params;
@@ -5135,8 +5135,8 @@ DECLARE_SCRIPT(M03_Structure_Powerup_Drop, "Powerup:string")
 		Vector3 pos = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
 		facing = facing + 180.0f;
-		pos.X += cos(DEG_TO_RADF(facing)) * 2.5f;
-		pos.Y += sin(DEG_TO_RADF(facing)) * 2.5f;
+		pos.X += WWMath::Cos(DEG_TO_RADF(facing)) * 2.5f;
+		pos.Y += WWMath::Sin(DEG_TO_RADF(facing)) * 2.5f;
 		pos.Z += 0.5f;
 
 		const char *powerup = Get_Parameter("Powerup");
@@ -5413,7 +5413,7 @@ DECLARE_SCRIPT(DLS_Volcano_Active, "Receive_Type=0:int, Receive_Param=0:int, Vol
 		receive_type = Get_Int_Parameter("Receive_Type");
 		receive_param = Get_Int_Parameter("Receive_Param");
 		volcano_timer_id = Get_Int_Parameter("Volcano_Timer_Id");
-		volcano_delay = Get_Int_Parameter("Volcano_Delay");
+		volcano_delay = float(Get_Int_Parameter("Volcano_Delay"));
 		explosion_delay_min = Get_Float_Parameter("Explosion_Delay_Min");
 		explosion_delay_max = Get_Float_Parameter("Explosion_Delay_Max");
 		rumble_delay_min = Get_Float_Parameter("Rumble_Delay_Min");
@@ -6769,7 +6769,7 @@ DECLARE_SCRIPT(M03_Engineer_Repair, "Repair_Priority=96:int")
 
 				ActionParamsStruct params;
 
-				params.Set_Basic( this, repair_priority, MOVE_TO_HEAL );
+				params.Set_Basic( this, float(repair_priority), MOVE_TO_HEAL );
 				params.Set_Movement( Commands->Get_Position (sound.Creator), RUN, 5.0f );
 
 				Commands->Action_Goto (obj, params);
@@ -6793,7 +6793,7 @@ DECLARE_SCRIPT(M03_Engineer_Repair, "Repair_Priority=96:int")
 		{
 			ActionParamsStruct params;
 
-			params.Set_Basic( this, repair_priority, REPAIRING );
+			params.Set_Basic( this, float(repair_priority), REPAIRING );
 			params.Set_Attack (Commands->Find_Object (target_id), 50.0f, 0.0f, 0);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
@@ -7037,8 +7037,8 @@ DECLARE_SCRIPT(M03_Paratrooper_Run, "")
 			//distance *= 3;
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * distance;
-			float b = sin(DEG_TO_RADF(facing)) * distance;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * distance;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * distance;
 			Vector3 goto_loc = pos + Vector3(a, b, 0.0f);
 
 			ActionParamsStruct params;

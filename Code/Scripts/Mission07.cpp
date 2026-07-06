@@ -376,7 +376,7 @@ DECLARE_SCRIPT(M07_Havoc_DLS, "")
 		{
 			// You've got to be kidding.\n
 			const char *conv_name = ("M07_CON015");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300707);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -1392,7 +1392,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// Impact: 2 Minutes.\n
 			const char *conv_name = ("M07_CON003");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1406,7 +1406,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// Impact: 1 Minute.\n
 			const char *conv_name = ("M07_CON004");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1416,7 +1416,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// Impact: 30 seconds.\n
 			const char *conv_name = ("M07_CON005");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1426,7 +1426,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// Impact: 20 seconds.\n
 			const char *conv_name = ("M07_CON006");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1436,7 +1436,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// Impact: 10 seconds.\n
 			const char *conv_name = ("M07_CON007");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1446,7 +1446,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// Impact: 5 seconds.\n
 			const char *conv_name = ("M07_CON008");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1459,7 +1459,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 
 			// 4 seconds.\n
 			const char *conv_name = ("M07_CON009");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1469,7 +1469,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// 3 seconds.\n
 			const char *conv_name = ("M07_CON010");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1479,7 +1479,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// 2 seconds.\n
 			const char *conv_name = ("M07_CON011");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1491,7 +1491,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		{
 			// 1 seconds.\n
 			const char *conv_name = ("M07_CON012");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1586,7 +1586,7 @@ DECLARE_SCRIPT(M07_In_Nuke_Blast, "")
 
 			// Warning - Your are within the Nuclear Strike blast radius. Evacuate immediately.\n
 			const char *conv_name = ("M07_CON013");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 		}
@@ -1644,7 +1644,7 @@ DECLARE_SCRIPT(M07_Out_Nuke_Blast, "")
 
 			// Minimum safe distance achieved.\n
 			const char *conv_name = ("M07_CON014");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 10);
 
@@ -1904,7 +1904,7 @@ DECLARE_SCRIPT(M07_Activate_Hotwire, "")
 
 			// Keep those Nod forces off my back, Havoc.  I'll crack these SAM's in no time.\n
 			const char *conv_name = ("M07_CON016");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(HOTWIRE, conv_id, true, true, true);
 			Commands->Start_Conversation (conv_id, HOTWIRE_CAPTURE_SAMS);
 			Commands->Monitor_Conversation(obj, conv_id);
@@ -2207,7 +2207,7 @@ DECLARE_SCRIPT(M07_Activate_Objective_704, "")
 
 			// Attention GDI, this is Resistance Radio. Nod's aerial reinforcements are coordinated from mobile radar stations in the Town Square.  We need those radar dishes destroyed.\n
 			const char *conv_name = ("M07_CON018");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300704);
@@ -2257,7 +2257,7 @@ DECLARE_SCRIPT(M07_Activate_Objective_705, "")
 
 			// This is Resistance Radio, I have reports of captured resistance fighters west of your position.  Can anyone assist?\n
 			const char *conv_name = ("M07_CON019");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300705);
@@ -2303,7 +2303,7 @@ DECLARE_SCRIPT(M07_Activate_Objective_706, "")
 
 			// Havoc, we've spotted an SSM napalm stockpile to your west.\n
 			const char *conv_name = ("M07_CON020");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300706);
@@ -2349,7 +2349,7 @@ DECLARE_SCRIPT(M07_Activate_Objective_707, "")
 
 			// Those must be the SSMs. Time to get to work.\n
 			const char *conv_name = ("M07_CON021");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300707);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -2394,7 +2394,7 @@ DECLARE_SCRIPT(M07_Activate_Objective_708, "")
 
 			// \\Warning - Nod Obelisk detected.\n
 			const char *conv_name = ("M07_CON022");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300708);
@@ -2922,7 +2922,7 @@ DECLARE_SCRIPT(M07_Activate_Present, "")
 
 			// Havoc, got a present for ya.\n
 			const char *conv_name = ("M07_CON023");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300700);
@@ -3016,7 +3016,7 @@ DECLARE_SCRIPT(M07_Vehicle_Drop_Controller, "")
 			{
 				// Havoc!  Taking missile fire over the park.  Launcher is unseen.  Repeat, launcher is unseen.\n
 				const char *conv_name = ("M07_CON024");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(NULL, conv_id, false, true, true);
 				Commands->Join_Conversation(STAR, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 300700);
@@ -3036,7 +3036,7 @@ DECLARE_SCRIPT(M07_Vehicle_Drop_Controller, "")
 				{
 					// Got you another ride, inbound now!\n
 					const char *conv_name = ("M07_CON025");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(NULL, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300700);
 
@@ -3051,7 +3051,7 @@ DECLARE_SCRIPT(M07_Vehicle_Drop_Controller, "")
 				{
 					// Complements of the local resistance.\n
 					const char *conv_name = ("M07_CON026");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(NULL, conv_id, false, true, true);
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300700);
@@ -3070,7 +3070,7 @@ DECLARE_SCRIPT(M07_Vehicle_Drop_Controller, "")
 			{
 				// Last one, Captain.  Recon show Nod's pulling back to the park.\n
 				const char *conv_name = ("M07_CON027");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(NULL, conv_id, false, true, true);
 				Commands->Join_Conversation(STAR, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 300700);
@@ -3656,13 +3656,13 @@ DECLARE_SCRIPT(M07_Encounter_Unit, "Waypath_ID=0:int, Priority=0:int, Suicide=0:
 		}
 		else if(waypath_id == 1)
 		{
-			params.Set_Basic( this, priority, GO_STAR );
+			params.Set_Basic( this, float(priority), GO_STAR );
 			params.Set_Movement( STAR, RUN, 2.0f );
 			Commands->Action_Goto (  obj, params );
 		}
 		else
 		{
-			params.Set_Basic( this, priority, WAYPATH );
+			params.Set_Basic( this, float(priority), WAYPATH );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
 			params.WaypathID = waypath_id;
 			Commands->Action_Goto( obj, params );
@@ -4087,8 +4087,8 @@ DECLARE_SCRIPT(M07_Inn_APC, "")
 
 				Vector3 pos = Commands->Get_Position(obj);
 				float facing = Commands->Get_Facing(obj);
-				float a = cos(DEG_TO_RADF(facing)) * -4.0;
-				float b = sin(DEG_TO_RADF(facing)) * -4.0;
+				float a = WWMath::Cos(DEG_TO_RADF(facing)) * -4.0f;
+				float b = WWMath::Sin(DEG_TO_RADF(facing)) * -4.0f;
 
 				Vector3 soldier_loc1 = pos + Vector3(a, b + .5f, 0.5f);
 				GameObject * soldier1 = Commands->Create_Object("M07_Nod_APC", soldier_loc1);
@@ -4912,8 +4912,8 @@ DECLARE_SCRIPT(M07_Hostage, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * 1.5;
-			float b = sin(DEG_TO_RADF(facing)) * 1.5;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * 1.5f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * 1.5f;
 			Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 			Commands->Create_Object("Ramjet_Weapon_Powerup", powerup_loc);
 
@@ -5034,8 +5034,8 @@ DECLARE_SCRIPT(M07_APC_Dec, "")
 
 				Vector3 pos = Commands->Get_Position(obj);
 				float facing = Commands->Get_Facing(obj);
-				float a = cos(DEG_TO_RADF(facing)) * -4.0;
-				float b = sin(DEG_TO_RADF(facing)) * -4.0;
+				float a = WWMath::Cos(DEG_TO_RADF(facing)) * -4.0f;
+				float b = WWMath::Sin(DEG_TO_RADF(facing)) * -4.0f;
 
 				Vector3 soldier_loc1 = pos + Vector3(a, b + .5f, 0.5f);
 				GameObject * soldier1 = Commands->Create_Object("M07_Nod_APC", soldier_loc1);
@@ -5811,7 +5811,7 @@ DECLARE_SCRIPT(M07_Inn_Evac, "")//104496
 			{
 				// This is Resistance Radio.  Nod SSM deployment confirmed.  All available personnel to the park.\n
 				const char *conv_name = ("M07_CON017");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(NULL, conv_id, false, true, true);
 				Commands->Join_Conversation(STAR, conv_id, false, true, true);
 				Commands->Join_Conversation(NULL, conv_id, false, true, true);
@@ -6162,7 +6162,7 @@ DECLARE_SCRIPT(M07_Alley_Vehicle, "Waypath_ID=0:int")
 		if(!active)
 		{
 			active = true;
-			Commands->Send_Custom_Event (obj, obj, M07_CUSTOM_ACTIVATE, 0.0f, 0.0f);
+			Commands->Send_Custom_Event (obj, obj, M07_CUSTOM_ACTIVATE, 0, 0.0f);
 		}
 		if(!attacking)
 		{
@@ -6185,7 +6185,7 @@ DECLARE_SCRIPT(M07_Alley_Vehicle, "Waypath_ID=0:int")
 		if(!active)
 		{
 			active = true;
-			Commands->Send_Custom_Event (obj, obj, M07_CUSTOM_ACTIVATE, 0.0f, 0.0f);
+			Commands->Send_Custom_Event (obj, obj, M07_CUSTOM_ACTIVATE, 0, 0.0f);
 		}
 
 		if(!attacking && (Commands->Get_Player_Type(damager) != SCRIPT_PLAYERTYPE_NOD))
@@ -6516,7 +6516,7 @@ DECLARE_SCRIPT(M07_Hotwire_Help, "")
 			{
 				// Hotwire here, I need help!  Now!  Anyone!?
 				const char *conv_name = ("M07_CON028");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(NULL, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 100658);
 
@@ -6556,7 +6556,7 @@ DECLARE_SCRIPT(M07_Hotwire_Dead, "")
 			{
 				// This is Hotwire, I can't hold this position! Requesting - oh great! <gunfire and static>
 				const char *conv_name = ("M07_CON029");
-				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 				Commands->Join_Conversation(NULL, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 100658);
 				Commands->Monitor_Conversation (obj, conv_id);

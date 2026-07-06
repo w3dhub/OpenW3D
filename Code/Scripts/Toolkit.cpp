@@ -674,7 +674,7 @@ DECLARE_SCRIPT(M00_ChainRxn_Barrel_JDG, "Controller_ID :int")
 				8,//8
 			};
 
-			Commands->Set_Animation ( obj, barrels_animations[number], false, NULL, 0, barrels_endframe[number], false );
+			Commands->Set_Animation ( obj, barrels_animations[number], false, NULL, 0, float(barrels_endframe[number]), false );
 			Commands->Set_Health ( obj, 0.25f );
 
 			GameObject * controller = Commands->Find_Object ( controller_id );
@@ -2042,10 +2042,10 @@ DECLARE_SCRIPT (M00_Base_Defense, "MinAttackDistance=0:int, MaxAttackDistance=30
 		{
 			ActionParamsStruct params;
 			params.Set_Basic(this, 100, 2);
-			params.Set_Attack(enemy, Get_Int_Parameter("MaxAttackDistance"), 0.0f, true);
+			params.Set_Attack(enemy, float(Get_Int_Parameter("MaxAttackDistance")), 0.0f, true);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack(obj, params);
-			Commands->Start_Timer (obj, this, Get_Int_Parameter( "AttackTimer"), 2);
+			Commands->Start_Timer (obj, this, float(Get_Int_Parameter( "AttackTimer")), 2);
 		}
 	}
 

@@ -100,7 +100,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 		current_attack_location = Get_Vector3_Parameter("_Attack_Location");
 		empty_vector = Vector3(0.0f,0.0f,0.0f);
 
-		params.Set_Basic(this, Get_Int_Parameter("Action_Priority"), Get_Int_Parameter("Action_ID"));
+		params.Set_Basic(this, float(Get_Int_Parameter("Action_Priority")), Get_Int_Parameter("Action_ID"));
 		params.Set_Movement(Get_Vector3_Parameter("_Move_Destination"), Get_Float_Parameter("_Move_Speed"), Get_Float_Parameter("_Move_Arrive_Distance"));
 		params.Set_Attack(Get_Vector3_Parameter("_Attack_Location"), Get_Float_Parameter("_Attack_Range"), Get_Float_Parameter("_Attack_Deviation"), primary_weapon);
 
@@ -185,7 +185,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 				attack_target = Commands->Find_Object(Get_Int_Parameter("_Attack_Target_ID"));
 
 				ActionParamsStruct params;
-				params.Set_Basic(this, Get_Int_Parameter("Action_Priority"), Get_Int_Parameter("Action_ID"));
+				params.Set_Basic(this, float(Get_Int_Parameter("Action_Priority")), Get_Int_Parameter("Action_ID"));
 				params.Set_Movement(Get_Vector3_Parameter("_Move_Destination"), Get_Float_Parameter("_Move_Speed"), Get_Float_Parameter("_Move_Arrive_Distance"));
 				params.Set_Attack(Get_Vector3_Parameter("_Attack_Location"), Get_Float_Parameter("_Attack_Range"), Get_Float_Parameter("_Attack_Deviation"), primary_weapon);
 
@@ -256,7 +256,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Action DEACTIVATED.\n"));
 			script_active = false;
-			Commands->Action_Reset(obj, Get_Int_Parameter("Action_Priority")+1);
+			Commands->Action_Reset(obj, float(Get_Int_Parameter("Action_Priority")+1));
 		}
 	}
 }

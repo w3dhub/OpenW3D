@@ -140,7 +140,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 		// Start a slight delay timer, then tell Logan Sheppard to begin.
 
 		Commands->Start_Timer (obj, this, 2.0f, MTU_TIMER_MISSION_START);
-		Commands->Start_Timer (obj, this, (10 + Get_Int_Random (0, 20)), MTU_TIMER_FLYOVERS);
+		Commands->Start_Timer (obj, this, float(10 + Get_Int_Random (0, 20)), MTU_TIMER_FLYOVERS);
 
 		// Set the gates to be closed at first.
 
@@ -304,7 +304,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 						Commands->Attach_Script (flyover, "MTU_Flyover", "1");
 					}
 				}
-				Commands->Start_Timer (obj, this, (10 + Get_Int_Random (0, 20)), MTU_TIMER_FLYOVERS);
+				Commands->Start_Timer (obj, this, float(10 + Get_Int_Random (0, 20)), MTU_TIMER_FLYOVERS);
 				break;
 			}
 		}
@@ -2207,7 +2207,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 			Commands->Force_Camera_Look (target_loc);
 		}
 
-		int conversation = Commands->Create_Conversation (conv_name, 100.0f, 300.0f, false);
+		int conversation = Commands->Create_Conversation (conv_name, 100, 300.0f, false);
 		Commands->Join_Conversation(obj, conversation, false, true, true);
 		Commands->Join_Conversation(STAR, conversation, false, false, false);
 		Commands->Start_Conversation (conversation, speech_id);
@@ -3272,7 +3272,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		{
 			Commands->Select_Weapon (STAR, NULL);
 			gate_guard_opened = true;
-			int conversation = Commands->Create_Conversation ("MTU_GDI_POKE", 100.0f, 300.0f, true);
+			int conversation = Commands->Create_Conversation ("MTU_GDI_POKE", 100, 300.0f, true);
 			Commands->Join_Conversation(obj, conversation, false, true, true);
 			Commands->Join_Conversation(STAR, conversation, false, true, true);
 			Commands->Start_Conversation (conversation, MTU_SPEECH_GATEGUARD_POKE);
@@ -3870,7 +3870,7 @@ DECLARE_SCRIPT (MSK_Controller, "")
 {
 	void Created (GameObject * obj) override
 	{
-		int conversation = Commands->Create_Conversation ("MSK_MP_STARTUP_DESC", 100.0f, 300.0f, false);
+		int conversation = Commands->Create_Conversation ("MSK_MP_STARTUP_DESC", 100, 300.0f, false);
 		Commands->Join_Conversation(obj, conversation, false, false, false);
 		Commands->Start_Conversation (conversation, 1);
 
@@ -4819,7 +4819,7 @@ DECLARE_SCRIPT (MSK_Info_Zone, "")
 					break;
 				}
 			}
-			int conversation = Commands->Create_Conversation (conv_name, 100.0f, 300.0f, false);
+			int conversation = Commands->Create_Conversation (conv_name, 100, 300.0f, false);
 			Commands->Join_Conversation(obj, conversation, false, false, false);
 			Commands->Start_Conversation (conversation, 1);
 		}

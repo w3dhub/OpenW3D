@@ -224,7 +224,7 @@ DECLARE_SCRIPT (MDD_Respawn_Controller, "")
 			}
 Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",area_unit_count[25],area_unit_max[25]);
 			int players_difficulty = Commands->Get_Difficulty_Level();
-			float timer_length = 25 - (10 * (players_difficulty));
+			float timer_length = float(25 - (10 * (players_difficulty)));
 			Commands->Start_Timer(obj, this, timer_length, 2);
 		}
 		//DEMO
@@ -1007,7 +1007,11 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 				// Time to move the chem-warrior. Pick a new location.
 
 				Vector3 newloc;
-				int rndnum = (Get_Int_Random(0.0f,1.0f) * 5);
+				// TODO OmniBlade: So I've silenced the C4244 warning here, but the logic looks screwed.
+				// Intention seems to have been to generate a random float and then round to int. As it stands
+				// it appears to have a 1/2 chance of hitting either case 0 or default.
+				//int rndnum = (Get_Int_Random(0.0f,1.0f) * 5);
+				int rndnum = (Get_Int_Random(0,1) * 5);
 				switch (rndnum)
 				{
 				case (0):
@@ -1538,7 +1542,7 @@ DECLARE_SCRIPT (MDD_Nod_Apache, "Area_ID:int")
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, 90, 0);
-				params.Set_Movement(Vector3(0,0,0), 0.2 + (0.1 * DIFFICULTY), 5.0f);
+				params.Set_Movement(Vector3(0,0,0), 0.2f + (0.1f * DIFFICULTY), 5.0f);
 				params.WaypathID = waypath_id;
 				params.WaypathSplined = true;
 				params.Set_Attack(STAR, 200.0f, 0.0f, true);
@@ -1559,7 +1563,7 @@ DECLARE_SCRIPT (MDD_Nod_Apache, "Area_ID:int")
 
 			ActionParamsStruct params;
 			params.Set_Basic(this, 90, 0);
-			params.Set_Movement(myloc, 0.0, 5.0f);
+			params.Set_Movement(myloc, 0.0f, 5.0f);
 			//DEMO params.Set_Attack(STAR, 200.0f, 0.0f, true);
 			params.Set_Attack(target, 200.0f, 0.0f, true);
 			//DEMO

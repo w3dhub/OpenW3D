@@ -63,7 +63,7 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 		int drop_frame;
 		drop_frame = 460;
 		float drop_time;
-		drop_time= ( float )drop_frame / 30.0;
+		drop_time= ( float )drop_frame / 30.0f;
 		Commands->Start_Timer( obj, this, drop_time, M00_TIMER_DROP_OBJECT_RMV );
 	}
 
@@ -247,8 +247,8 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 	{
 		float facing = Commands->Get_Facing(Owner());
 		Vector3 target = Commands->Get_Position(Owner());
-		target.X += cos(DEG_TO_RADF(facing)) * 10.0f;
-		target.Y += sin(DEG_TO_RADF(facing)) * 10.0f;
+		target.X += WWMath::Cos(DEG_TO_RADF(facing)) * 10.0f;
+		target.Y += WWMath::Sin(DEG_TO_RADF(facing)) * 10.0f;
 		target.Z -= 0.9f;
 		float angle = Get_Float_Parameter(0);
 		angle = WWMath::Clamp(angle, 0.0f, 360.0f);
@@ -284,8 +284,8 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		float facing = Commands->Get_Facing(Owner());
 		angle = angle / 2;
 		Vector3 target = Commands->Get_Position(Owner());
-		target.X += cos(DEG_TO_RADF(facing)) * 10.0f;
-		target.Y += sin(DEG_TO_RADF(facing)) * 10.0f;
+		target.X += WWMath::Cos(DEG_TO_RADF(facing)) * 10.0f;
+		target.Y += WWMath::Sin(DEG_TO_RADF(facing)) * 10.0f;
 		target.Z -= 1.0f;
 		target -= Commands->Get_Position(Owner());
 		target.Rotate_Z(DEG_TO_RADF(angle));

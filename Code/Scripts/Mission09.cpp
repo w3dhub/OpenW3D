@@ -1551,7 +1551,7 @@ DECLARE_SCRIPT (M09_Mutant_Damage_Mod_10, "")
 		{
 			current_health = Commands->Get_Health (obj);
 			float damage = ((last_health - current_health) + damage_tally);
-			float mod_damage = (damage * .10);
+			float mod_damage = (damage * .10f);
 			damage_tally += mod_damage;
 
 			Commands->Set_Health (obj, (last_health - mod_damage));
@@ -1585,7 +1585,7 @@ DECLARE_SCRIPT (M09_Mutant_Damage_Mod_50, "")
 		{
 			current_health = Commands->Get_Health (obj);
 			float damage = ((last_health - current_health) + damage_tally);
-			float mod_damage = (damage * .25);
+			float mod_damage = (damage * .25f);
 			damage_tally += mod_damage;
 
 			Commands->Set_Health (obj, (last_health - mod_damage));
@@ -1619,7 +1619,7 @@ DECLARE_SCRIPT (M09_Nod_Damage_Mod_10, "")
 		{
 			current_health = Commands->Get_Health (obj);
 			float damage = ((last_health - current_health) + damage_tally);
-			float mod_damage = (damage * .08);
+			float mod_damage = (damage * .08f);
 			damage_tally += mod_damage;
 
 			Commands->Set_Health (obj, (last_health - mod_damage));

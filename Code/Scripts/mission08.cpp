@@ -356,7 +356,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_802, "")
 
 			// Nick, Those scientists you've been digging for are being held in a Nod Research Facility at the far end of the canyon. Figure'd you might want to know.\n
 			const char *conv_name = ("M08_CON001");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
@@ -415,7 +415,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_803, "")
 
 			// Nick, we're going to lose contact when you head inside, there's no radio communication possible due to jamming signals.\n
 			const char *conv_name = ("M08_CON002");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300803);
@@ -475,7 +475,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_804, "")
 
 			// Don't know if you care, hon, but there's a Nod Helipad in back of the Prison Facility. Might help if you blow it up.\n
 			const char *conv_name = ("M08_CON003");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300804);
@@ -535,7 +535,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_806, "")
 
 			// Disable Research Station Alpha.\n
 			const char *conv_name = ("M08_CON004");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300806);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -3005,13 +3005,13 @@ DECLARE_SCRIPT(M08_Encounter_Unit, "Waypath_ID=0:int, Priority=0:int, Suicide=0:
 		}
 		else if(waypath_id == 1)
 		{
-			params.Set_Basic( this, priority, GO_STAR );
+			params.Set_Basic( this, float(priority), GO_STAR );
 			params.Set_Movement( STAR, RUN, 2.0f );
 			Commands->Action_Goto (  obj, params );
 		}
 		else
 		{
-			params.Set_Basic( this, priority, WAYPATH );
+			params.Set_Basic( this, float(priority), WAYPATH );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
 			params.WaypathID = waypath_id;
 			Commands->Action_Goto( obj, params );
@@ -3083,7 +3083,7 @@ DECLARE_SCRIPT(M08_Warden_Announcement1, "")
 
 			// This is the warden, we have a probable escape situation in solitary. Full lockdown, all personnel initiate response protocols.\n
 			const char *conv_name = ("M08_CON006");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -3120,7 +3120,7 @@ DECLARE_SCRIPT(M08_Warden_Announcement2, "")
 
 			// This is the warden, we have a confirmed prison break, repeat, confirmed prison break! Assume all GDI as hostile, kill every last one of them!\n
 			const char *conv_name = ("M08_CON007");
-			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -4527,8 +4527,8 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * -4.0;
-			float b = sin(DEG_TO_RADF(facing)) * -4.0;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * -4.0f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * -4.0f;
 
 			Vector3 soldier_loc1 = pos + Vector3(a, b + .5f, 0.5f);
 			GameObject * soldier1 = Commands->Create_Object("Nod_MiniGunner_1Off", soldier_loc1);
@@ -4568,8 +4568,8 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 
 				Vector3 pos = Commands->Get_Position(obj);
 				float facing = Commands->Get_Facing(obj);
-				float a = cos(DEG_TO_RADF(facing)) * -4.0;
-				float b = sin(DEG_TO_RADF(facing)) * -4.0;
+				float a = WWMath::Cos(DEG_TO_RADF(facing)) * -4.0f;
+				float b = WWMath::Sin(DEG_TO_RADF(facing)) * -4.0f;
 
 				Vector3 soldier_loc1 = pos + Vector3(a, b + .5f, 0.5f);
 				GameObject * soldier1 = Commands->Create_Object("Nod_MiniGunner_1Off", soldier_loc1);
@@ -4607,8 +4607,8 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * -4.0;
-			float b = sin(DEG_TO_RADF(facing)) * -4.0;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * -4.0f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * -4.0f;
 
 			Vector3 soldier_loc1 = pos + Vector3(a, b + .5f, 0.5f);
 			GameObject * soldier1 = Commands->Create_Object("Nod_MiniGunner_1Off", soldier_loc1);
@@ -5246,8 +5246,8 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * -4.0;
-			float b = sin(DEG_TO_RADF(facing)) * -4.0;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * -4.0f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * -4.0f;
 
 			Vector3 soldier_loc1 = pos + Vector3(a, b + .5f, 0.5f);
 			GameObject * soldier1 = Commands->Create_Object("Nod_FlameThrower_2SF", soldier_loc1);
@@ -5285,8 +5285,8 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 
 				Vector3 pos = Commands->Get_Position(obj);
 				float facing = Commands->Get_Facing(obj);
-				float a = cos(DEG_TO_RADF(facing)) * -4.0;
-				float b = sin(DEG_TO_RADF(facing)) * -4.0;
+				float a = WWMath::Cos(DEG_TO_RADF(facing)) * -4.0f;
+				float b = WWMath::Sin(DEG_TO_RADF(facing)) * -4.0f;
 
 				Vector3 soldier_loc1 = pos + Vector3(a, b + .5f, 0.5f);
 				GameObject * soldier1 = Commands->Create_Object("Nod_FlameThrower_2SF", soldier_loc1);
@@ -5324,8 +5324,8 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 
 			Vector3 pos = Commands->Get_Position(obj);
 			float facing = Commands->Get_Facing(obj);
-			float a = cos(DEG_TO_RADF(facing)) * -4.0;
-			float b = sin(DEG_TO_RADF(facing)) * -4.0;
+			float a = WWMath::Cos(DEG_TO_RADF(facing)) * -4.0f;
+			float b = WWMath::Sin(DEG_TO_RADF(facing)) * -4.0f;
 
 			Vector3 soldier_loc1 = pos + Vector3(a, b + .5f, 0.5f);
 			GameObject * soldier1 = Commands->Create_Object("Nod_FlameThrower_2SF", soldier_loc1);
@@ -6459,8 +6459,8 @@ DECLARE_SCRIPT(M08_Apache, "Area:int")
 		{
 			Vector3 pos = Commands->Get_Position(STAR);
 			float facing = Commands->Get_Facing(STAR);
-			pos.X -= cos(DEG_TO_RADF(facing)) * 6.0f;
-			pos.Y -= sin(DEG_TO_RADF(facing)) * 6.0f;
+			pos.X -= WWMath::Cos(DEG_TO_RADF(facing)) * 6.0f;
+			pos.Y -= WWMath::Sin(DEG_TO_RADF(facing)) * 6.0f;
 
 			pos.Z = WWMath::Max(pos.Z + 12.0f, Commands->Get_Safe_Flight_Height(pos.X, pos.Y) + 6.0f);
 
@@ -6637,8 +6637,8 @@ DECLARE_SCRIPT(M08_Mobile_Apache, "Entrance_Path_ID=0:int, Helipad_ID=0:int")
 	{
 		Vector3 pos = Commands->Get_Position(STAR);
 		float facing = Commands->Get_Facing(STAR);
-		pos.X -= cos(DEG_TO_RADF(facing)) * 6.0f;
-		pos.Y -= sin(DEG_TO_RADF(facing)) * 6.0f;
+		pos.X -= WWMath::Cos(DEG_TO_RADF(facing)) * 6.0f;
+		pos.Y -= WWMath::Sin(DEG_TO_RADF(facing)) * 6.0f;
 
 		pos.Z = WWMath::Max(pos.Z + 12.0f, Commands->Get_Safe_Flight_Height(pos.X, pos.Y) + 6.0f);
 
@@ -6802,7 +6802,7 @@ DECLARE_SCRIPT(M08_Prisoner_Conversation, "Orator_ID=0:int, Captive=0:int")
 				{
 					// Save us!\n
 					const char *conv_name = ("M08_CON010");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(Commands->Find_Object(orator_id), conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 2);
 
@@ -6811,7 +6811,7 @@ DECLARE_SCRIPT(M08_Prisoner_Conversation, "Orator_ID=0:int, Captive=0:int")
 				{
 					// It's the Commando!\n
 					const char *conv_name = ("M08_CON009");
-					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 					Commands->Join_Conversation(Commands->Find_Object(orator_id), conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 2);
 				}
@@ -7006,7 +7006,7 @@ DECLARE_SCRIPT(M08_Prisoner_Poke_Conversation, "")
 	void Play_Conversation(GameObject * obj, int Min, int Max)
 	{
 		const char *conv_name = Prisoner_Conv_Table[Index(Min, Max)];
-		int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
+		int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 0);
 	}

@@ -382,7 +382,7 @@ DECLARE_SCRIPT (M00_Tiberium_Refinery, "MoneyAmount:int,TimerLength:int")
 {
 	void Created (GameObject * obj) override
 	{
-		Commands->Start_Timer (obj, this, Get_Int_Parameter("TimerLength"), 1);
+		Commands->Start_Timer (obj, this, float(Get_Int_Parameter("TimerLength")), 1);
 	}
 
 	void Timer_Expired (GameObject * obj, int timer_id) override
@@ -392,8 +392,8 @@ DECLARE_SCRIPT (M00_Tiberium_Refinery, "MoneyAmount:int,TimerLength:int")
 			float health = Commands->Get_Health (obj);
 			if (health)
 			{
-				Commands->Give_Money (obj, Get_Int_Parameter ("MoneyAmount"), true);
-				Commands->Start_Timer (obj, this, Get_Int_Parameter("TimerLength"), 1);
+				Commands->Give_Money (obj, float(Get_Int_Parameter ("MoneyAmount")), true);
+				Commands->Start_Timer (obj, this, float(Get_Int_Parameter("TimerLength")), 1);
 			}
 		}
 	}
