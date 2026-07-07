@@ -83,7 +83,7 @@ function(embed_resources TARGET)
         string(TOLOWER ${filename} filename)
         # Replace filename spaces & extension separator for C compatibility
         string(REGEX REPLACE "\\.| |-" "_" varname ${filename})
-        file(APPEND ${er_BUILD_SOURCE} "  {{ \"${filename}\", {{ \"${filename}\", var_${varname}.data(), var_${varname}.size(), }}, }},\n")
+        file(APPEND ${er_BUILD_SOURCE} "  {{ \"${filename}\", { \"${filename}\", var_${varname}.data(), var_${varname}.size(), }, }},\n")
     endforeach()
 
     # Close initialiser and ifdef
