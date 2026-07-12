@@ -2360,7 +2360,7 @@ void INIClass::DuplicateCRCError(const char *message, const char *section, const
 	snprintf(buffer, sizeof(buffer), "%s - Duplicate Entry \"%s\" in section \"%s\" (%s)\n", message,
 		entry, section, Filename);
 
-    printf(buffer);
+    printf("%s", buffer);
 	assert(0);
 
 #ifdef NDEBUG
