@@ -1,65 +1,68 @@
 
-# Command & Conquer Renegade
+# OpenW3D
 
-This repository includes source code for Command & Conquer Renegade. This release provides support to the [Steam Workshop](https://steamcommunity.com/workshop/browse/?appid=2229890) for the game.
-
+This project is a continuation of the "Command & Conquer: Renegade" game engine that was released as open source software by EA [here](https://github.com/electronicarts/CnC_Renegade).
+It is being developed to be more portable to other platforms, to fix bugs and to develop a platform to build other Renegade like games on top of.
 
 ## Dependencies
 
-If you wish to rebuild the source code and tools successfully you will need to find or write new replacements (or remove the code using them entirely) for the following libraries;
+OpenW3D makes use of several open source libraries to provide cross platform support.
+In order to build the project they will need to be made available to the build system either via a package manager or manually installing and updating your path environment variables.
 
-- DirectX SDK (Version 8.0 or higher) (expected path `\Code\DirectX\`)
-- RAD Bink SDK - (expected path `\Code\BinkMovie\`)
-- RAD Miles Sound System SDK - (expected path `\Code\Miles6\`)
-- NvDXTLib SDK - (expected path `\Code\NvDXTLib\`)
-- Lightscape SDK - (expected path `\Code\Lightscape\`)
-- Umbra SDK - (expected path `\Code\Umbra\`)
-- GameSpy SDK - (expected path `\Code\GameSpy\`)
-- GNU Regex - (expected path `\Code\WWLib\`)
-- SafeDisk API - (expected path `\Code\Launcher\SafeDisk\`)
-- Microsoft Cab Archive Library - (expected path `\Code\Installer\Cab\`)
-- RTPatch Library - (expected path `\Code\Installer\`)
-- Java Runtime Headers - (expected path `\Code\Tools\RenegadeGR\`)
+For convenience we provide support for using vcpkg to install the required dependencies:
 
+[SDL3](https://wiki.libsdl.org/SDL3/FrontPage)
 
-## Compiling (Win32 Only)
+[OpenAL-soft](https://openal-soft.org/)
 
-To use the compiled binaries, you must own the game. The C&C Ultimate Collection is available for purchase on [EA App](https://www.ea.com/en-gb/games/command-and-conquer/command-and-conquer-the-ultimate-collection/buy/pc) or [Steam](https://store.steampowered.com/bundle/39394/Command__Conquer_The_Ultimate_Collection/).
+[FFMpeg](https://www.ffmpeg.org/)
 
-### Renegade
+[FreeType](https://freetype.org/)
 
-The quickest way to build all configurations in the project is to open `commando.dsw` in Microsoft Visual Studio C++ 6.0 (SP5 recommended for binary matching to patch 1.037) and select Build -> Batch Build, then hit the “Rebuild All” button.
+[ICU4C](https://icu.unicode.org/)
 
-If you wish to compile the code under a modern version of Microsoft Visual Studio, you can convert the legacy project file to a modern MSVC solution by opening the `commando.dsw` in Microsoft Visual Studio .NET 2003, and then opening the newly created project and solution file in MSVC 2015 or newer.
+[Qt](https://www.qt.io/)
 
-NOTE: As modern versions of MSVC enforce newer revisions of the C++ standard, you will need to make extensive changes to the codebase before it successfully compiles, even more so if you plan on compiling for the Win64 platform.
+In addition to these, we also use these less commonly packaged libraries that are pulled in by the build system. You do not need to provide these manually unless you are building off line:
 
-When the workspace has finished building, the compiled binaries will be copied to the `/Run/` directory found in the root of this repository. 
+[Crunch](https://github.com/binomialllc/crunch)
+
+[GameSpySDK](https://github.com/TheAssemblyArmada/GamespySDK)
 
 
-### Free Dedicated Server
-It’s possible to build the Windows version of the FDS (Free Dedicated Server) for Command & Conquer Renegade from the source code in this repository, just uncomment `#define FREEDEDICATEDSERVER` in [Combat\specialbuilds.h](Combat\specialbuilds.h) and perform a “Rebuild All” action on the Release config.
+## Compiling the Project
 
+For most platforms the following command should build the project with the default configuration when run from the root folders of a cloned copy of this repository:
 
-### Level Edit (Public Release)
-To build the public release build of Level Edit, modify the LevelEdit project settings and add `PUBLIC_EDITOR_VER` to the preprocessor defines.
+`cmake -B build . && cmake --build build`
 
+The build artifacts will end up in the `build` subdirectory which will be created.
+
+It is also possible to build from various IDE by using the presets provided in `CMakePresets.json`.
+
+You can also create your own prests by creating and populating `CMakeUserPresets.json` in the root folder of the cloned repository. This is useful for development or testing purposes to create additional build options.
+See [cmake-presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) for more information.
+
+## Running the Game
+
+To use the compiled binaries, you must provide game data. At the time of writing only the original C&C: Renegade game is tested and supported.
+The C&C Ultimate Collection is available for purchase on [EA App](https://www.ea.com/en-gb/games/command-and-conquer/command-and-conquer-the-ultimate-collection/buy/pc) or [Steam](https://store.steampowered.com/bundle/39394/Command__Conquer_The_Ultimate_Collection/).
+The compiled binaries will also work with a fully patched installation from the original CDs.
 
 ## Known Issues
 
-The “Debug” configuration of the “Commando” project (the Renegade main project) will sometimes fail to link the final executable. This is due to Windows Defender incorrectly detecting RenegadeD.exe containing a virus (possibly due to the embedded browser code). Excluding the output `/Run/` folder found in the root of this repository in Windows Defender should resolve this for you.
-
+The “Debug” configuration of the “Commando” project (the Renegade main project) will sometimes fail to link the final executable.
+This is due to Windows Defender incorrectly detecting RenegadeD.exe containing a virus (possibly due to the embedded browser code).
+Excluding the output `/Run/` folder found in the root of this repository in Windows Defender should resolve this for you.
 
 ## Contributing
 
-This repository will not be accepting contributions (pull requests, issues, etc). If you wish to create changes to the source code and encourage collaboration, please create a fork of the repository under your GitHub user/organization space.
-
-
-## Support
-
-This repository is for preservation purposes only and is archived without support. 
-
+We welcome contributions to the project! If you’re interested in contributing, you need to have knowledge of C++.
+Join the developer chat on [Discord](https://discord.com/invite/jMmmRa2) for more information on how to get started.
+Please make sure to read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a pull request.
 
 ## License
+
+EA has not endorsed and does not support this project. All trademarks are the property of their respective owners.
 
 This repository and its contents are licensed under the GPL v3 license, with additional terms applied. Please see [LICENSE.md](LICENSE.md) for details.
