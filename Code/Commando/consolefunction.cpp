@@ -159,6 +159,7 @@
 #include "specialbuilds.h"
 #include "lightsolve.h"
 #include "lightsolvecontext.h"
+#include "debugbreak.h"
 #include "openw3d.h"
 
 
@@ -2311,7 +2312,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "BREAK - break execution. Do not use this just for fun."; }
 	virtual	void Activate( const char * /* input */ ) override {
 		Print("Breaking execution on demand.\n");
-		__debugbreak();
+		debugbreak();
 	}
 };
 

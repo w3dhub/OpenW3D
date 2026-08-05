@@ -60,6 +60,7 @@
 #include "vector.h"
 #include "wwdebug.h"
 #include "wwmemlog.h"
+#include "debugbreak.h"
 #include <limits>
 
 #include	<conio.h>
@@ -190,10 +191,10 @@ int __cdecl _purecall(void)
 
 #ifdef WWDEBUG
 	/*
-	** Use int3 to cause an exception.
+	** Use debugbreak to cause an exception.
 	*/
 	WWDEBUG_SAY(("Pure Virtual Function call. Oh No!\n"));
-	__debugbreak();
+	debugbreak();
 #endif	//_DEBUG_ASSERT
 
 	return(return_code);
