@@ -41,6 +41,8 @@
 #ifndef WWDEBUG_H
 #define WWDEBUG_H
 
+#include "debugbreak.h"
+
 // The macro MESSAGE allows user to put:
 // #pragma MESSAGE("Hello world")
 // anywhere in a source file.  The message:
@@ -141,9 +143,9 @@ void					WWDebug_DBWin32_Message_Handler( const char * message);
 ** the debugger...
 */
 #ifdef WWDEBUG
-#define WWDEBUG_BREAK							_asm int 0x03
+#define WWDEBUG_BREAK							debugbreak()
 #else
-#define WWDEBUG_BREAK							_asm int 0x03
+#define WWDEBUG_BREAK							debugbreak()
 #endif
 
 /*

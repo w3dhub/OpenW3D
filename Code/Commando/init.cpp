@@ -113,6 +113,7 @@
 #include "shutdown.h"
 #include "specialbuilds.h"
 #include "wwdialog.h"
+#include "debugbreak.h"
 #include <cstdio>
 
 extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
@@ -352,7 +353,7 @@ void Commando_Assert_Handler(const char * message)
 			m$"               "m           "
                        																												*/
 
-		__debugbreak();
+		debugbreak();
 	}
 
 	if (cDevOptions::ExitThreadOnAssert.Is_True()) {

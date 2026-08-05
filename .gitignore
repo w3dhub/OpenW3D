@@ -13,9 +13,9 @@ GameSpy/
 DirectX/
 
 # Output build folders
-[Rr]elease*
-[Pp]rofile*
-[Dd]ebug*
+[Rr]elease*/
+[Pp]rofile*/
+[Dd]ebug*/
 Hybrid/
 Max4_Release/
 Max4_Hybrid/

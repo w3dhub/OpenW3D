@@ -45,6 +45,7 @@
 #include "wwdebug.h"
 #include "wwdialog.h"
 #include "unichar.h"
+#include "debugbreak.h"
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -320,7 +321,7 @@ void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
       }
 
 		if (code == MESSAGEBOX_BUTTON_RETRY) {
-			__debugbreak();
+			debugbreak();
       	return;
 		}
    }
