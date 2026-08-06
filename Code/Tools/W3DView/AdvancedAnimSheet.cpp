@@ -64,7 +64,7 @@ CAdvancedAnimSheet::CAdvancedAnimSheet(CWnd* pParentWnd, UINT iSelectPage)
 	AnimCount(0)
 {
 	// Blank out the array of animation pointers.
-	ZeroMemory(Anims, sizeof(Anims));
+	memset(Anims, 0, sizeof(Anims));
 
 	// Add the property pages into this property sheet.
 	AddPage(&m_MixingPage);

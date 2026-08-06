@@ -94,7 +94,7 @@ void cPlayerManager::Onetime_Init(void)
    	WWASSERT(PTextRenderer != NULL);
 		PTextRenderer->Set_Coordinate_Range(Render2DClass::Get_Screen_Resolution());
 	}
-   ZeroMemory(Player_Array, sizeof(Player_Array));
+   memset(Player_Array, 0, sizeof(Player_Array));
 }
 
 //------------------------------------------------------------------------------------
@@ -778,7 +778,7 @@ void cPlayerManager::Sort_Players(bool fast_sort)
 {
 	WWPROFILE("cPlayerManager::Sort_Players");
 
-   ZeroMemory(Player_Array, sizeof(Player_Array));
+   memset(Player_Array, 0, sizeof(Player_Array));
 
    //
    // Copy non-spectators from SList into array usable by qsort

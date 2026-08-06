@@ -33,7 +33,7 @@ bit8 Create_Process(Process &process)
     int                      retval;
     STARTUPINFOA              si;
     PROCESS_INFORMATION      piProcess;
-    ZeroMemory(&si,sizeof(si));
+    memset(&si, 0, sizeof(si));
     si.cb=sizeof(si);
 
     char cmdargs[513];

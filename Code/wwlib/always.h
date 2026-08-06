@@ -125,24 +125,7 @@ void operator delete(void *p, size_t size) noexcept;
 
 
 #if !defined(_WIN32)
-#include <bit>
-#include <cstring>
 #include <alloca.h>
-
-#ifndef ZeroMemory
-#define ZeroMemory(Destination, Length) std::memset((Destination), 0, (Length))
-#endif
-
-#ifndef CopyMemory
-#define CopyMemory(Destination, Source, Length) std::memcpy((Destination), (Source), (Length))
-#endif
-
-#ifndef _rotl
-__forceinline unsigned long _rotl(unsigned long value, int shift)
-{
-	return std::rotl(value, shift);
-}
-#endif
 
 #ifndef _byteswap_ulong
 __forceinline unsigned int _byteswap_ulong(unsigned int value)

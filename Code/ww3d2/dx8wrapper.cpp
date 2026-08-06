@@ -236,9 +236,9 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 
 	for (int light=0;light<4;++light) CurrentDX8LightEnables[light]=false;
 
-	::ZeroMemory(&old_world, sizeof(D3DMATRIX));
-	::ZeroMemory(&old_view, sizeof(D3DMATRIX));
-	::ZeroMemory(&old_prj, sizeof(D3DMATRIX));
+	memset(&old_world, 0, sizeof(D3DMATRIX));
+	memset(&old_view, 0, sizeof(D3DMATRIX));
+	memset(&old_prj, 0, sizeof(D3DMATRIX));
 
 	//old_vertex_shader; TODO
 	//old_sr_shader;
@@ -442,7 +442,7 @@ bool DX8Wrapper::Create_Device(void)
 		return false;
 	}
 
-	::ZeroMemory(&CurrentAdapterIdentifier, sizeof(D3DADAPTER_IDENTIFIER9));
+	memset(&CurrentAdapterIdentifier, 0, sizeof(D3DADAPTER_IDENTIFIER9));
 	if (FAILED( D3DInterface->GetAdapterIdentifier(CurRenderDevice,0/*D3DENUM_WHQL_LEVEL*/,&CurrentAdapterIdentifier))) {
 		return false;
 	}
@@ -574,7 +574,7 @@ void DX8Wrapper::Enumerate_Devices()
 	for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
 
 		D3DADAPTER_IDENTIFIER9 id;
-		::ZeroMemory(&id, sizeof(D3DADAPTER_IDENTIFIER9));
+		memset(&id, 0, sizeof(D3DADAPTER_IDENTIFIER9));
 		HRESULT id_res = D3DInterface->GetAdapterIdentifier(adapter_index,0/*D3DENUM_WHQL_LEVEL*/,&id);
 
 		if (id_res == D3D_OK) {
@@ -608,7 +608,7 @@ void DX8Wrapper::Enumerate_Devices()
 			int mode_count = D3DInterface->GetAdapterModeCount(adapter_index,D3DFMT_X8R8G8B8);
 			for (int mode_index=0; mode_index<mode_count; mode_index++) {
 				D3DDISPLAYMODE d3dmode;
-				::ZeroMemory(&d3dmode, sizeof(D3DDISPLAYMODE));
+				memset(&d3dmode, 0, sizeof(D3DDISPLAYMODE));
 				HRESULT mode_res = D3DInterface->EnumAdapterModes(adapter_index,D3DFMT_X8R8G8B8,mode_index,&d3dmode);
 
 				if (mode_res == D3D_OK) {
@@ -737,7 +737,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	/*
 	** Initialize values for D3DPRESENT_PARAMETERS members.
 	*/
-	::ZeroMemory(&_PresentParameters, sizeof(D3DPRESENT_PARAMETERS));
+	memset(&_PresentParameters, 0, sizeof(D3DPRESENT_PARAMETERS));
 
 	_PresentParameters.BackBufferWidth = ResolutionWidth;
 	_PresentParameters.BackBufferHeight = ResolutionHeight;
@@ -760,7 +760,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	** - the depth buffer must use
 	*/
 
-	::ZeroMemory(&DesktopMode, sizeof(D3DDISPLAYMODE));
+	memset(&DesktopMode, 0, sizeof(D3DDISPLAYMODE));
 	D3DInterface->GetAdapterDisplayMode( CurRenderDevice, &DesktopMode );
 	_PresentParameters.BackBufferFormat = DesktopMode.Format;
 
@@ -1270,7 +1270,7 @@ bool DX8Wrapper::Find_Color_Mode(D3DFORMAT colorbuffer, int resx, int resy, UINT
 	UINT i,j,modemax;
 	UINT rx,ry;
 	D3DDISPLAYMODE dmode;
-	::ZeroMemory(&dmode, sizeof(D3DDISPLAYMODE));
+	memset(&dmode, 0, sizeof(D3DDISPLAYMODE));
 
 	rx=(unsigned int) resx;
 	ry=(unsigned int) resy;
@@ -2246,7 +2246,7 @@ IDirect3DTexture9 * DX8Wrapper::_Create_DX8_Texture(
 	IDirect3DTexture9 *texture = NULL;
 
 	D3DSURFACE_DESC surface_desc;
-	::ZeroMemory(&surface_desc, sizeof(D3DSURFACE_DESC));
+	memset(&surface_desc, 0, sizeof(D3DSURFACE_DESC));
 	surface->GetDesc(&surface_desc);
 
 	// This function will create a texture with a different (but similar) format if the surface is
@@ -2436,7 +2436,7 @@ void DX8Wrapper::Set_Light_Environment(LightEnvironmentClass* light_env)
 		Set_DX8_Render_State(D3DRS_AMBIENT,Convert_Color(light_env->Get_Equivalent_Ambient(),0.0f));
 
 		D3DLIGHT9 light;
-		::ZeroMemory(&light, sizeof(D3DLIGHT9));
+		memset(&light, 0, sizeof(D3DLIGHT9));
 		light.Type=D3DLIGHT_DIRECTIONAL;
 		int l;
 

@@ -449,7 +449,7 @@ static void InitializeAdapterSelection(IDirect3D9 **outD3D, D3DCAPS9 *outCaps, D
         return;
     }
 
-    ZeroMemory(outAdapterId, sizeof(D3DADAPTER_IDENTIFIER9));
+    memset(outAdapterId, 0, sizeof(D3DADAPTER_IDENTIFIER9));
     if (FAILED(d3d->GetAdapterIdentifier(currentAdapterIndex, 0, outAdapterId))) {
         d3d->Release();
         *outD3D = nullptr;

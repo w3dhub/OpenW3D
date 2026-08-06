@@ -169,7 +169,7 @@ void ExportAllDlg::OnBrowse()
 {
 	char			folder_name[MAX_PATH];
 	BROWSEINFO	bi;
-	ZeroMemory(&bi, sizeof(bi));
+	memset(&bi, 0, sizeof(bi));
 	bi.hwndOwner = m_hWnd;
 	bi.pszDisplayName = folder_name;
 	bi.lpszTitle = "Select a folder for export...";
