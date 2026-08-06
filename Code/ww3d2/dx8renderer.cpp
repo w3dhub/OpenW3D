@@ -1537,8 +1537,8 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 						unsigned short idx;
 
 						idx=static_cast<unsigned short>(strip[i+1]);
-						vmin=MIN(vmin,idx);
-						vmax=MAX(vmax,idx);
+						vmin=std::min(vmin, idx);
+						vmax=std::max(vmax, idx);
 						*dst_indices++=idx;
 					}
 
@@ -1583,20 +1583,20 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 					unsigned short idx;
 
 					idx=static_cast<unsigned short>(src_indices[i][0]+vertex_offset);
-					vmin=MIN(vmin,idx);
-					vmax=MAX(vmax,idx);
+					vmin=std::min(vmin, idx);
+					vmax=std::max(vmax, idx);
 					*dst_indices++=idx;
 //					WWDEBUG_SAY(("%d, ",idx));
 
 					idx=static_cast<unsigned short>(src_indices[i][1]+vertex_offset);
-					vmin=MIN(vmin,idx);
-					vmax=MAX(vmax,idx);
+					vmin=std::min(vmin, idx);
+					vmax=std::max(vmax, idx);
 					*dst_indices++=idx;
 //					WWDEBUG_SAY(("%d, ",idx));
 
 					idx=static_cast<unsigned short>(src_indices[i][2]+vertex_offset);
-					vmin=MIN(vmin,idx);
-					vmax=MAX(vmax,idx);
+					vmin=std::min(vmin, idx);
+					vmax=std::max(vmax, idx);
 					*dst_indices++=idx;
 //					WWDEBUG_SAY(("%d\n",idx));
 				}

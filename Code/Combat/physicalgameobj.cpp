@@ -971,7 +971,7 @@ void	PhysicalGameObj::Reset_Hibernating( void )
 		End_Hibernation ();
 	}
 
-	HibernationTimer = MIN( HIBERNATION_DELAY, HibernationTimer + TimeManager::Get_Frame_Seconds() * 2 );
+	HibernationTimer = std::min( (float)HIBERNATION_DELAY, HibernationTimer + TimeManager::Get_Frame_Seconds() * 2 );
 }
 
 void	PhysicalGameObj::Begin_Hibernation( void )

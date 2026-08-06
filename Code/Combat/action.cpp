@@ -1914,7 +1914,7 @@ public:
 		// Update Weapons Dynamic Error
 		if ( weapon ) {
 			if ( Action->Get_Parameters().AttackCheckBlocked != false ) {
-				range = MIN( range, weapon->Get_Range() );	// dont fire if not in range
+				range = std::min( range, weapon->Get_Range() );	// dont fire if not in range
 			}
 		}
 
@@ -2213,7 +2213,7 @@ public:
 		}
 
 		EndTime = TimeManager::Get_Seconds() +
-			MAX(action->Get_Parameters().FaceDuration, Action->Get_Parameters().LookDuration);
+			std::max(action->Get_Parameters().FaceDuration, Action->Get_Parameters().LookDuration);
 	}
 
 	virtual	ActResult	Act( void ) override

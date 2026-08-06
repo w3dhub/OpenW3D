@@ -456,7 +456,7 @@ void	WeaponClass::Add_Rounds( int num )
 		if ( num < 0 ) {
 			ClipRounds = Definition->ClipSize;
 		} else if ( InventoryRounds >= 0 )  {
-			int count = MIN( num, (int)Definition->ClipSize );
+			int count = std::min( num, (int)Definition->ClipSize );
 			num -= count;
 			ClipRounds = count;
 		}

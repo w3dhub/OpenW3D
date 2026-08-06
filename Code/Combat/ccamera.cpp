@@ -962,7 +962,7 @@ void CCameraClass::Update()
 		Vector3	star_space_pos;
 		Matrix3D::Inverse_Transform_Vector( star_tm, StarTargetingPosition, &star_space_pos );
 		if ( star_space_pos.X <= 0 ) {
-			star_space_pos.X = MAX( star_space_pos.X, 1 );
+			star_space_pos.X = std::max( star_space_pos.X, 1 );
 		}
 		Debug_Say(( "SSP %f %f %f\n", star_space_pos.X, star_space_pos.Y, star_space_pos.Z ));
 		Matrix3D::Transform_Vector( star_tm, star_space_pos, &StarTargetingPosition );
