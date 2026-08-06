@@ -570,7 +570,7 @@ void SoldierObserverClass::Action_Complete( GameObject * /* obj */, int action_i
 {
 	if ( action_id == INNATE_ACTION_ID ) {
 		SubStateString += "\nComplete";
-	//	ActionTimer = MIN( ActionTimer, 10 );		// When he completes, only stay in the action state for 5 more seconds
+	//	ActionTimer = std::min( ActionTimer, 10 );		// When he completes, only stay in the action state for 5 more seconds
 
 		// if I had an enemy target, who was just killed...
 		PhysicalGameObj* enemy = (PhysicalGameObj*)EnemyObject.Get_Ptr();
@@ -588,10 +588,10 @@ void SoldierObserverClass::Action_Complete( GameObject * /* obj */, int action_i
 		{
 			if ( complete_reason == ACTION_COMPLETE_PATH_BAD_DEST ) {
 				// Pick a new action within 1 to 2 seconds
-				ActionTimer = MIN( ActionTimer, WWMath::Random_Float( 1.0F, 2.0F ) );
+				ActionTimer = std::min( ActionTimer, WWMath::Random_Float( 1.0F, 2.0F ) );
 			} else {
 				// Pick a new action within 2 to 3 seconds
-				ActionTimer = MIN( ActionTimer, WWMath::Random_Float( 2.0F, 3.0F ) );
+				ActionTimer = std::min( ActionTimer, WWMath::Random_Float( 2.0F, 3.0F ) );
 			}
 
 			if ( State > SOLDIER_AI_ALERT_IDLE ) {

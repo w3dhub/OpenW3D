@@ -743,10 +743,10 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 	//			  a bounding box around this.
 	// NOTE 1: Make the bounding box a little bigger to account for the particle point size.
 	minrayendposition = EmitterPosition + ((MinRayEndZ - EmitterPosition.Z) * emitterdirection);
-	l = MAX (HalfParticleWidth, HalfParticleHeight);
+	l = std::max(HalfParticleWidth, HalfParticleHeight);
 	boxoffset = EmitterSize + l;
-	ObjectMax.Set (MAX (EmitterPosition.X, minrayendposition.X) + boxoffset, MAX (EmitterPosition.Y, minrayendposition.Y) + boxoffset, MAX (EmitterPosition.Z, minrayendposition.Z) + l);
-	ObjectMin.Set (MIN (EmitterPosition.X, minrayendposition.X) - boxoffset, MIN (EmitterPosition.Y, minrayendposition.Y) - boxoffset, MIN (EmitterPosition.Z, minrayendposition.Z) - l);
+	ObjectMax.Set (std::max(EmitterPosition.X, minrayendposition.X) + boxoffset, std::max(EmitterPosition.Y, minrayendposition.Y) + boxoffset, std::max(EmitterPosition.Z, minrayendposition.Z) + l);
+	ObjectMin.Set (std::min(EmitterPosition.X, minrayendposition.X) - boxoffset, std::min(EmitterPosition.Y, minrayendposition.Y) - boxoffset, std::min(EmitterPosition.Z, minrayendposition.Z) - l);
 
 	// Flag that the object bounding box has been modified.
 	Invalidate_Cached_Bounding_Volumes();
@@ -924,7 +924,7 @@ bool WeatherSystemClass::Spawn (RayStruct *suppliedrayptr)
 				// Advance the particle some random amount in time.
 				// NOTE: The particle cannot have existed longer than the weather system itself.
 				t = _RandomNumber (0, randomness) * oorandomness * particleptr->LifeTime;
-				particleptr->ElapsedTime = MIN (t, Age);
+				particleptr->ElapsedTime = std::min(t, Age);
 				if (particleptr->ElapsedTime >= particleptr->CollisionTime) {
 					particleptr->Velocity.Set (0.0f, 0.0f, 0.0f);
 					particleptr->CurrentPosition = rayptr->EndPosition;
@@ -1052,7 +1052,7 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
  		camerafocus = rinfo.Camera.Get_Transform().Get_Z_Vector();
 		particleptr = ParticleHead;
 		processedparticlecount = 0;
-		bufferparticlecount = MIN (MAX_IB_PARTICLE_COUNT, ParticleCount);
+		bufferparticlecount = std::min(MAX_IB_PARTICLE_COUNT, ParticleCount);
 		while (processedparticlecount < ParticleCount) {
 
 			unsigned particlecount, submittedparticlecount;
@@ -1064,7 +1064,7 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 			#endif
 
 			// Copy the data into the sorting vertex buffer.
-			particlecount = std::min (ParticleCount - processedparticlecount, unsigned(MAX_IB_PARTICLE_COUNT));
+			particlecount = std::min (ParticleCount - processedparticlecount, MAX_IB_PARTICLE_COUNT);
 			submittedparticlecount = 0;
 			{
 				DynamicVBAccessClass::WriteLockClass lock (&dynamicvb);
@@ -1325,7 +1325,7 @@ bool RainSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 		float attenuation;
 
 		// Calculate sound attenuation based on no. of particles in system.
-		attenuation = MIN (ParticleCount * volumeperparticle, maxvolume) / maxvolume;
+		attenuation = std::min(ParticleCount * volumeperparticle, maxvolume) / maxvolume;
 		Sound->Set_Volume (SoundEnvironment->Get_Amplitude() * attenuation);
 	}
 

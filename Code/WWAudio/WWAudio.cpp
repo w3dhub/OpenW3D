@@ -1560,10 +1560,10 @@ void WWAudioClass::Load_Default_Volume (int &defaultmusicvolume, int &defaultsou
 		}
 	}
 
-	defaultmusicvolume	  = MIN (maxsetting, MAX (minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_MUSIC_VOLUME_ENTRY, 31)));
-	defaultsoundvolume	  = MIN (maxsetting, MAX (minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_SOUND_VOLUME_ENTRY, 43)));
-	defaultdialogvolume	  = MIN (maxsetting, MAX (minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_DIALOG_VOLUME_ENTRY, 50)));
-	defaultcinematicvolume = MIN (maxsetting, MAX (minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_CINEMATIC_VOLUME_ENTRY, 100)));
+	defaultmusicvolume	  = std::min(maxsetting, std::max(minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_MUSIC_VOLUME_ENTRY, 31)));
+	defaultsoundvolume	  = std::min(maxsetting, std::max(minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_SOUND_VOLUME_ENTRY, 43)));
+	defaultdialogvolume	  = std::min(maxsetting, std::max(minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_DIALOG_VOLUME_ENTRY, 50)));
+	defaultcinematicvolume = std::min(maxsetting, std::max(minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_CINEMATIC_VOLUME_ENTRY, 100)));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////

@@ -55,6 +55,7 @@
 #define SIMPLEVEC_H
 
 #include "always.h"
+#include <algorithm>
 #include <assert.h>
 #include <string.h>		// for memmove
 
@@ -571,8 +572,8 @@ inline bool SimpleDynVecClass<T>::Grow(int new_size_hint)
 	** Vector should grow to 25% bigger, grow at least 4 elements,
 	** and grow at least up to the user's new_size_hint
 	*/
-    int new_size = MAX(this->Length() + this->Length()/4,this->Length() + 4);
-	new_size = MAX(new_size,new_size_hint);
+    int new_size = std::max(this->Length() + this->Length()/4, this->Length() + 4);
+	new_size = std::max(new_size, new_size_hint);
 
 	return Resize(new_size);
 }

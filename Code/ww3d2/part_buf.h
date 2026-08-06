@@ -142,7 +142,7 @@ class ParticleBufferClass : public RenderObjClass
 		virtual void	Set_LOD_Level(int lod) override;
 		virtual int		Get_LOD_Level(void) const override;
 		virtual int		Get_LOD_Count(void) const override;
-		virtual void	Set_LOD_Bias(float bias) override	{ LodBias = MAX(bias, 0.0f); }
+		virtual void	Set_LOD_Bias(float bias) override	{ LodBias = std::max(bias, 0.0f); }
 		virtual int		Calculate_Cost_Value_Arrays(float screen_area, float *values, float *costs) const override;
 
 		/*

@@ -37,6 +37,7 @@
 #include "StdAfx.h"
 #include "Targa.h"
 #include "TGAToDXT.H"
+#include <algorithm>
 #include <crnlib.h>
 #include <io.h>
 #include <stdlib.h>
@@ -97,7 +98,7 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 		// 4. Dimensions must be power of 2 (see below).
 		validbitdepth = ((targa.Header.PixelDepth == 24) || (targa.Header.PixelDepth == 32));
 		validsize	  = (targa.Header.Width >= 4) && (targa.Header.Height >= 4);
-		validaspect	  = ((float) MAX (targa.Header.Width, targa.Header.Height)) / ((float) MIN (targa.Header.Width, targa.Header.Height)) <= 8.0f;
+		validaspect	  = ((float) std::max(targa.Header.Width, targa.Header.Height)) / ((float) std::min(targa.Header.Width, targa.Header.Height)) <= 8.0f;
 		if (validbitdepth && validsize && validaspect) {
 			crn_comp_params comp_params;
       comp_params.m_width = targa.Header.Width;
@@ -171,7 +172,7 @@ void TGAToDXTClass::Write (const char *outputpathname)
 //	ReadDTXnFile
 //
 ///////////////////////////////////////////////////////////////////////////////
-void ReadDTXnFile (DWORD /* datacount */, void * /* data */)
+void ReadDTXnFile (unsigned /* datacount */, void * /* data */)
 {
 	// Not implemented.
 	ASSERT (false);
@@ -183,7 +184,7 @@ void ReadDTXnFile (DWORD /* datacount */, void * /* data */)
 //	WriteDTXnFile
 //
 ///////////////////////////////////////////////////////////////////////////////
-void WriteDTXnFile (DWORD datacount, void *data)
+void WriteDTXnFile (unsigned datacount, void *data)
 {
 	// Ensure that the buffer is large enough.
 	if (_TGAToDXTConverter.BufferSize < _TGAToDXTConverter.BufferCount + datacount) {
@@ -191,7 +192,7 @@ void WriteDTXnFile (DWORD datacount, void *data)
 		unsigned			newbuffersize;
 		unsigned char *newbuffer;
 
-		newbuffersize = MAX (_TGAToDXTConverter.BufferSize * 2, _TGAToDXTConverter.BufferCount + datacount);
+		newbuffersize = std::max(_TGAToDXTConverter.BufferSize * 2, _TGAToDXTConverter.BufferCount + datacount);
 		newbuffer	  = new unsigned char [newbuffersize];
 		ASSERT (newbuffer != nullptr);
 		memcpy (newbuffer, _TGAToDXTConverter.Buffer, _TGAToDXTConverter.BufferCount);

@@ -52,7 +52,7 @@ struct W3dEmitterLinePropertiesStruct;
 
 // The maximum allowable level of subdivision. This should be no more than 7 to avoid increasing
 // the chunk buffer size too much
-#define MAX_SEGLINE_SUBDIV_LEVELS 7
+#define MAX_SEGLINE_SUBDIV_LEVELS 7u
 
 
 

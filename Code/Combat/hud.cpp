@@ -2342,7 +2342,7 @@ static	void	Info_Update_Health_Shield( void )
 	draw.Right = draw.Left + draw.Width() * _last_health_percent;
 
 	// Get bar color
-	float color_percent = MAX( _last_health_percent, health_percent );
+	float color_percent = std::max( _last_health_percent, health_percent );
 	InfoRenderer->Add_Quad( draw, uv, Get_Health_Color( color_percent ) );
 
 	uv.Set( GRADIENT_BLACK_UV_UL, GRADIENT_BLACK_UV_LR );
