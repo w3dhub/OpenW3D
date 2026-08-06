@@ -315,7 +315,7 @@ void cTeamManager::Sort_Teams(void)
 {
 	WWPROFILE("cTeamManager::Sort_Teams");
 
-   ZeroMemory(Team_Array, sizeof(Team_Array));
+   memset(Team_Array, 0, sizeof(Team_Array));
 
    int num_teams = 0;
    cTeam * p_team;

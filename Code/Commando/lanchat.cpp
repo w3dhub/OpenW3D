@@ -69,8 +69,8 @@ cLanChat::cLanChat(void) :
 {
    WWDEBUG_SAY(("cLanChat::cLanChat\n"));
 
-	ZeroMemory(&Socket, sizeof(Socket));
-	ZeroMemory(&LocalAddress, sizeof(LocalAddress));
+	memset(&Socket, 0, sizeof(Socket));
+	memset(&LocalAddress, 0, sizeof(LocalAddress));
 
    Load_Lan_Registry_Keys();
    Save_Lan_Registry_Keys();

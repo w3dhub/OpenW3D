@@ -465,7 +465,7 @@ ParticleEmitterDefClass::Convert_To_Ver2 (void)
 			// If texture has an alpha channel do alpha blending instead of additive
 			// (which is the default for point groups):
 //			SurfaceClass::SurfaceDescription surf_desc;
-//			::ZeroMemory(&surf_desc, sizeof(SurfaceClass::SurfaceDescription));
+//			memset(&surf_desc, 0, sizeof(SurfaceClass::SurfaceDescription));
 //			ptexture->Get_Level_Description(surf_desc);
 //			if (Has_Alpha(surf_desc.Format)) {
 			if (Has_Alpha(ptexture->Get_Texture_Format())) {

@@ -856,7 +856,7 @@ void AutoConfigSettings()
 		int adapter_count = d3d->GetAdapterCount();
 		for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
 			D3DADAPTER_IDENTIFIER9 id;
-			::ZeroMemory(&id, sizeof(D3DADAPTER_IDENTIFIER9));
+			memset(&id, 0, sizeof(D3DADAPTER_IDENTIFIER9));
 			HRESULT res = d3d->GetAdapterIdentifier(adapter_index,0/*NO_WHQL_LEVEL*/,&id);
 			// If device ok, check if it matches the currently set adapter name
 			if (res == D3D_OK) {
@@ -876,7 +876,7 @@ void AutoConfigSettings()
 			return;
 		}
 
-		::ZeroMemory(&adapter_id, sizeof(D3DADAPTER_IDENTIFIER9));
+		memset(&adapter_id, 0, sizeof(D3DADAPTER_IDENTIFIER9));
 		if (FAILED( d3d->GetAdapterIdentifier(
 			current_adapter_index,
 			0/*D3DENUM_WHQL_LEVEL*/,

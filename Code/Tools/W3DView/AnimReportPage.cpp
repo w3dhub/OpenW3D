@@ -163,7 +163,7 @@ void CAnimReportPage::FillListControl()
 			{
 				// Add motion channel info to the appropriate column.
 				char channels[6];	// strlen("XYZQV")+1
-				ZeroMemory(channels, sizeof(channels));
+				memset(channels, 0, sizeof(channels));
 				MakeChannelStr(j, pAnim, channels);
 				m_AnimReport.SetItem(idx, i+1, LVIF_TEXT, channels, 0,0,0,0);
 			}

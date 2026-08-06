@@ -317,7 +317,7 @@ void cConnection::Init_As_Client(ULONG server_ip, USHORT server_port, unsigned s
 	WWASSERT(server_port >= MIN_SERVER_PORT && server_port <= MAX_SERVER_PORT);
 
    struct sockaddr_in server_address;
-	ZeroMemory(&server_address, sizeof(server_address));
+	memset(&server_address, 0, sizeof(server_address));
 
    if (!cSinglePlayerData::Is_Single_Player()) {
 		server_address.sin_family			= AF_INET;
@@ -345,7 +345,7 @@ void cConnection::Init_As_Server(USHORT server_port, int max_players,
 	typedef cRemoteHost * PcRemoteHost;
 	PRHost = new PcRemoteHost[max_players + 1];
 	WWASSERT(PRHost != NULL);
-	//ZeroMemory(PRHost, sizeof(PRHost));
+	//memset(PRHost, 0, sizeof(PRHost));
 	for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
       PRHost[rhost_id] = NULL;
    }

@@ -43,7 +43,7 @@ IDirect3DSurface9* MissingTexture::_Create_Missing_Surface()
 	IDirect3DSurface9 *texture_surface = NULL;
 	DX8_ErrorCode(_MissingTexture->GetSurfaceLevel(0, &texture_surface));
 	D3DSURFACE_DESC texture_surface_desc;
-	::ZeroMemory(&texture_surface_desc, sizeof(D3DSURFACE_DESC));
+	memset(&texture_surface_desc, 0, sizeof(D3DSURFACE_DESC));
 	DX8_ErrorCode(texture_surface->GetDesc(&texture_surface_desc));
 
 	IDirect3DSurface9 *surface = NULL;
