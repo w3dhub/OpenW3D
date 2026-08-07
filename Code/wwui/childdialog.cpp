@@ -47,7 +47,7 @@
 //
 ////////////////////////////////////////////////////////////////
 ChildDialogClass::ChildDialogClass (const DialogResource *dialog_resource)	:
-	ParentDialog (NULL),
+	ParentDialog (nullptr),
 	DialogBaseClass (dialog_resource)
 {
 	return ;
@@ -108,7 +108,7 @@ ChildDialogClass::Is_Active (void)
 	//
 	//	We are automatically active if our parent is active
 	//
-	if (IsVisible && ParentDialog != NULL && ParentDialog->Is_Active ()) {
+	if (IsVisible && ParentDialog != nullptr && ParentDialog->Is_Active ()) {
 		//retval = true;
 	}
 

@@ -64,9 +64,9 @@ void M00_Controller_Animation_RMV (GameObject * obj, GameObjObserverClass * scri
 	Commands->Action_Play_Animation(obj, params);
 	if (drop_frame != 0)
 	{
-		if (drop_object != NULL)
+		if (drop_object != nullptr)
 		{
-			if (drop_bone != NULL)
+			if (drop_bone != nullptr)
 			{
 				Commands->Send_Custom_Event(obj, obj, M00_CUSTOM_ANIMATION_DROP_OBJECT, 0, float(drop_frame/30));
 			}

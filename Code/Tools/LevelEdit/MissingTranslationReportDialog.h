@@ -31,7 +31,7 @@ class MissingTranslationReportDialogClass : public CDialog
 {
 // Construction
 public:
-	MissingTranslationReportDialogClass(CWnd* pParent = NULL);   // standard constructor
+	MissingTranslationReportDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(MissingTranslationReportDialogClass)

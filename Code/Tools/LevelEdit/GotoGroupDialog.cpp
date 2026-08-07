@@ -104,7 +104,7 @@ GotoGroupDialogClass::OnOK (void)
 	int index = Get_Current_Selection ();
 	if (index != -1) {
 		GroupMgrClass *pgroup = (GroupMgrClass *)m_GroupList.GetItemData (index);
-		if (pgroup != NULL) {
+		if (pgroup != nullptr) {
 			::Get_Camera_Mgr ()->Goto_Group (pgroup);
 		}
 	}

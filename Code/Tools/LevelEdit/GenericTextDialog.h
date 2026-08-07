@@ -37,7 +37,7 @@ class GenericTextDialogClass : public CDialog
 {
 // Construction
 public:
-	GenericTextDialogClass(CWnd* pParent = NULL);   // standard constructor
+	GenericTextDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GenericTextDialogClass)

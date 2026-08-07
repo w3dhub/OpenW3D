@@ -71,7 +71,7 @@ cGameOptionsEvent::Init(int client_id)
 {
 	WWASSERT(cNetwork::I_Am_Server());
 
-	WWASSERT(The_Game() != NULL);
+	WWASSERT(The_Game() != nullptr);
 	HostedGameNumber = The_Game()->Get_Hosted_Game_Number();
 
 	Set_Object_Dirty_Bit(client_id, BIT_CREATION, true);
@@ -82,14 +82,14 @@ void
 cGameOptionsEvent::Act(void)
 {
 	WWASSERT(cNetwork::I_Am_Only_Client());
-	WWASSERT(The_Game() != NULL);
+	WWASSERT(The_Game() != nullptr);
 
 	The_Game()->Set_Hosted_Game_Number(HostedGameNumber);
 
 	if (!IS_SOLOPLAY) {
 		DialogBaseClass* dialog = DialogMgrClass::Find_Dialog((int)RenegadeDialogID::IDD_MULTIPLAY_CONNECTING);
 
-		if (dialog != NULL) {
+		if (dialog != nullptr) {
 	 		((DlgMPConnect*)dialog)->Connected(The_Game());
 		}
 	}
@@ -103,7 +103,7 @@ cGameOptionsEvent::Export_Creation(BitStreamClass & packet)
 
 	cNetEvent::Export_Creation(packet);
 
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 
 	//GAMESPY
 	//
@@ -135,7 +135,7 @@ cGameOptionsEvent::Import_Creation(BitStreamClass & packet)
 
 	WWASSERT(cNetwork::I_Am_Only_Client());
 
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 
 	The_Game()->Import_Tier_1_Data((cPacket &) packet);
 
@@ -164,7 +164,7 @@ cGameOptionsEvent::Import_Creation(BitStreamClass & packet)
 		if (!The_Game()->Is_Map_Valid()) {
 			DialogBaseClass* dialog = DialogMgrClass::Find_Dialog((int)RenegadeDialogID::IDD_MULTIPLAY_CONNECTING);
 
-			if (dialog != NULL) {
+			if (dialog != nullptr) {
 	 			((DlgMPConnect*)dialog)->Failed_To_Connect();
 				act = false;
 			}

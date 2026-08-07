@@ -143,7 +143,7 @@ void
 FloodProtectionMgrClass::Display_Flood_Message (void)
 {
 	MessageWindowClass *message_window = CombatManager::Get_Message_Window ();
-	if (message_window != NULL) {
+	if (message_window != nullptr) {
 
 		//
 		//	Display a message letting the user know they've been caught spamming

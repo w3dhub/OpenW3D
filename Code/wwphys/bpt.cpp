@@ -251,7 +251,7 @@ class BptNodeClass
 
 public:
 
-	BptNodeClass(void) : NumPolys(0),Polys(NULL),Front(NULL),Back(NULL),ArrayIndex(-1) { }
+	BptNodeClass(void) : NumPolys(0),Polys(nullptr),Front(nullptr),Back(nullptr),ArrayIndex(-1) { }
 	~BptNodeClass(void) { if (Front) delete Front; if (Back) delete Back; if (Polys) delete[] Polys; }
 
 	void				Build(int numpolys,BptPolyClass * polys);
@@ -301,7 +301,7 @@ private:
 	*/
 	struct SplitArraysStruct
 	{
-		SplitArraysStruct(void) : FrontCount(0),BackCount(0),OnCount(0),FrontPolys(NULL),BackPolys(NULL),OnPolys(NULL) {}
+		SplitArraysStruct(void) : FrontCount(0),BackCount(0),OnCount(0),FrontPolys(nullptr),BackPolys(nullptr),OnPolys(nullptr) {}
 
 		int					FrontCount;
 		int					BackCount;
@@ -517,7 +517,7 @@ private:
  *   5/6/98     GTH : Created.                                                                 *
  *=============================================================================================*/
 BptClass::BptClass(void) :
-	BptImp(NULL)
+	BptImp(nullptr)
 {
 
 }
@@ -557,7 +557,7 @@ void BptClass::Free(void)
 {
 	if (BptImp) {
 		delete BptImp;
-		BptImp = NULL;
+		BptImp = nullptr;
 	}
 }
 
@@ -677,7 +677,7 @@ MeshClass * BptClass::Get_Mesh(void)
 		if (BptImp->Mesh) BptImp->Mesh->Add_Ref();
 		return BptImp->Mesh;
 	} else {
-		return NULL;
+		return nullptr;
 	}
 }
 #endif
@@ -1124,8 +1124,8 @@ bool BptPolyClass::Salvage_Degenerate(void)
 
 **************************************************************/
 BptBuilderClass::BptBuilderClass(void) :
-	Root(NULL),
-	MatInfo(NULL),
+	Root(nullptr),
+	MatInfo(nullptr),
 	InputPolyCount(0),
 	OutputPolyCount(0),
 	NodeCount(0),
@@ -1160,7 +1160,7 @@ BptImpClass * BptBuilderClass::Build(MeshClass * mesh)
 	/*
 	** Build function deletes the poly array...
 	*/
-	polys = NULL;
+	polys = nullptr;
 
 	return result;
 }
@@ -1187,7 +1187,7 @@ BptImpClass * BptBuilderClass::Build(int numpolys,BptPolyClass * polys,MaterialI
 	/*
 	** Build the fat tree
 	*/
-	assert(Root == NULL);
+	assert(Root == nullptr);
 	Root = new BptNodeClass;
 	Root->Build(numpolys,polys);
 
@@ -1385,18 +1385,18 @@ void BptNodeClass::Build(int numpolys,BptPolyClass * polys)
 	*/
 	NumPolys = arrays.OnCount;
 	Polys = arrays.OnPolys;
-	arrays.OnPolys = NULL;
+	arrays.OnPolys = nullptr;
 
 	/*
 	** Build a front tree if necessary.  Remember that the Build function
 	** deletes the poly array.
 	*/
 	if (arrays.FrontCount) {
-		assert(arrays.FrontPolys != NULL);
+		assert(arrays.FrontPolys != nullptr);
 
 		Front = new BptNodeClass;
 		Front->Build(arrays.FrontCount,arrays.FrontPolys);
-		arrays.FrontPolys = NULL;
+		arrays.FrontPolys = nullptr;
 
 	}
 
@@ -1405,11 +1405,11 @@ void BptNodeClass::Build(int numpolys,BptPolyClass * polys)
 	** deletes the poly array.
 	*/
 	if (arrays.BackCount) {
-		assert(arrays.BackPolys != NULL);
+		assert(arrays.BackPolys != nullptr);
 
 		Back = new BptNodeClass;
 		Back->Build(arrays.BackCount,arrays.BackPolys);
-		arrays.BackPolys = NULL;
+		arrays.BackPolys = nullptr;
 
 	}
 }
@@ -1621,17 +1621,17 @@ void BptNodeClass::Split_Polys
 	** Check if we threw away all of the polys
 	** (this can only happen if all of them were degenerate...)
 	*/
-	if ((arrays->OnCount == 0) && (arrays->OnPolys != NULL)) {
+	if ((arrays->OnCount == 0) && (arrays->OnPolys != nullptr)) {
 		delete[] arrays->OnPolys;
-		arrays->OnPolys = NULL;
+		arrays->OnPolys = nullptr;
 	}
-	if ((arrays->BackCount == 0) && (arrays->BackPolys != NULL)) {
+	if ((arrays->BackCount == 0) && (arrays->BackPolys != nullptr)) {
 		delete[] arrays->BackPolys;
-		arrays->BackPolys = NULL;
+		arrays->BackPolys = nullptr;
 	}
-	if ((arrays->FrontCount == 0) && (arrays->FrontPolys != NULL)) {
+	if ((arrays->FrontCount == 0) && (arrays->FrontPolys != nullptr)) {
 		delete[] arrays->FrontPolys;
-		arrays->FrontPolys = NULL;
+		arrays->FrontPolys = nullptr;
 	}
 }
 
@@ -1811,17 +1811,17 @@ inline bool BptImpNodeClass::Is_Visible(const CameraClass & camera)
 
 **************************************************************/
 BptImpClass::BptImpClass(void) :
-	Mesh(NULL),
+	Mesh(nullptr),
 	NodeCount(0),
-	Nodes(NULL),
+	Nodes(nullptr),
 	PolyIndexCount(0),
-	PolyIndices(NULL),
+	PolyIndices(nullptr),
 	NormalCount(0),
-	Normals(NULL),
+	Normals(nullptr),
 	DistanceCount(0),
-	Distances(NULL),
+	Distances(nullptr),
 	ActivePolyCount(0),
-	ActivePolyTable(NULL)
+	ActivePolyTable(nullptr)
 
 {
 }
@@ -1834,33 +1834,33 @@ BptImpClass::~BptImpClass(void)
 
 void BptImpClass::Free(void)
 {
-	if (Mesh!=NULL) {
+	if (Mesh!=nullptr) {
 		Mesh->Release_Ref();
-		Mesh = NULL;
+		Mesh = nullptr;
 	}
 
 	NodeCount = 0;
-	if (Nodes != NULL) {
+	if (Nodes != nullptr) {
 		delete[] Nodes;
-		Nodes = NULL;
+		Nodes = nullptr;
 	}
 
 	PolyIndexCount = 0;
-	if (PolyIndices != NULL) {
+	if (PolyIndices != nullptr) {
 		delete[] PolyIndices;
-		PolyIndices = NULL;
+		PolyIndices = nullptr;
 	}
 
 	NormalCount = 0;
-	if (Normals != NULL) {
+	if (Normals != nullptr) {
 		delete[] Normals;
-		Normals = NULL;
+		Normals = nullptr;
 	}
 
 	DistanceCount = 0;
-	if (Distances != NULL) {
+	if (Distances != nullptr) {
 		delete[] Distances;
-		Distances = NULL;
+		Distances = nullptr;
 	}
 }
 
@@ -1929,7 +1929,7 @@ void BptImpClass::Begin_Apt(void)
 
 void BptImpClass::Add_Polys_To_Apt(BptImpNodeClass * node)
 {
-	assert(node != NULL);
+	assert(node != nullptr);
 
 #if 0
 	memcpy(&(ActivePolyTable[ActivePolyCount]),&(PolyIndices[node->FirstPoly]),node->PolyCount);
@@ -2162,13 +2162,13 @@ void BptImpClass::Verify_Node_Bounding_Volume(BptImpNodeClass * node,const Vecto
 
 BptImpBuilderClass::BptImpBuilderClass(void) :
 	MeshBuilder(true,10000,5000),						// TODO: should move this to Build_Bpt_Imp so it is dynamically initialzed
-	UniqueNormals(NULL),
-	UniqueDistances(NULL),
+	UniqueNormals(nullptr),
+	UniqueDistances(nullptr),
 	NodeCount(0),
-	Nodes(NULL),
+	Nodes(nullptr),
 	TriCount(0),
 	CurTriIndex(0),
-	TriIndexArray(NULL)
+	TriIndexArray(nullptr)
 {
 }
 
@@ -2179,27 +2179,27 @@ BptImpBuilderClass::~BptImpBuilderClass(void)
 
 void BptImpBuilderClass::Free(void)
 {
-	if (UniqueNormals != NULL) {
+	if (UniqueNormals != nullptr) {
 		delete UniqueNormals;
-		UniqueNormals = NULL;
+		UniqueNormals = nullptr;
 	}
 
-	if (UniqueDistances != NULL) {
+	if (UniqueDistances != nullptr) {
 		delete UniqueDistances;
-		UniqueDistances = NULL;
+		UniqueDistances = nullptr;
 	}
 
 	NodeCount = 0;
-	if (Nodes != NULL) {
+	if (Nodes != nullptr) {
 		delete[] Nodes;
-		Nodes = NULL;
+		Nodes = nullptr;
 	}
 
 	TriCount = 0;
 	CurTriIndex = 0;
-	if (TriIndexArray != NULL) {
+	if (TriIndexArray != nullptr) {
 		delete[] TriIndexArray;
-		TriIndexArray = NULL;
+		TriIndexArray = nullptr;
 	}
 }
 
@@ -2282,9 +2282,9 @@ BptImpClass * BptImpBuilderClass::Build_Bpt_Imp(BptNodeClass * root,MaterialInfo
 
 	// the "imp" assumed ownership of this stuff
 	mesh->Release_Ref();
-	mesh = NULL;
-	Nodes = NULL;
-	TriIndexArray = NULL;
+	mesh = nullptr;
+	Nodes = nullptr;
+	TriIndexArray = nullptr;
 
 	Free();
 
@@ -2307,7 +2307,7 @@ void BptImpBuilderClass::Add_Bpt_Node(const BptNodeClass * node)
 		assert(node->Front->ArrayIndex < NodeCount);
 		newnode.Front = &(Nodes[node->Front->ArrayIndex]);
 	} else {
-		newnode.Front = NULL; //BptImpNodeClass::NULL_NODE_INDEX;
+		newnode.Front = nullptr; //BptImpNodeClass::NULL_NODE_INDEX;
 	}
 
 	/*
@@ -2318,7 +2318,7 @@ void BptImpBuilderClass::Add_Bpt_Node(const BptNodeClass * node)
 		assert(node->Back->ArrayIndex < NodeCount);
 		newnode.Back = &(Nodes[node->Back->ArrayIndex]);
 	} else {
-		newnode.Back = NULL; //BptImpNodeClass::NULL_NODE_INDEX;
+		newnode.Back = nullptr; //BptImpNodeClass::NULL_NODE_INDEX;
 	}
 
 	/*

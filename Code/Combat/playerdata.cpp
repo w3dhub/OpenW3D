@@ -61,7 +61,7 @@ PlayerDataClass::~PlayerDataClass( void )
 {
 	PlayerInfoLog::Append_To_Log(this);
 	if ( Get_GameObj() ) {
-		Get_GameObj()->Set_Player_Data( NULL );
+		Get_GameObj()->Set_Player_Data( nullptr );
 	}
 }
 
@@ -299,7 +299,7 @@ void	PlayerDataClass::Apply_Death_Points( float points, DamageableGameObj * /* v
 {
 	Increment_Score( points );
 
-	if ( Get_GameObj() == COMBAT_STAR && COMBAT_STAR != NULL ) {
+	if ( Get_GameObj() == COMBAT_STAR && COMBAT_STAR != nullptr ) {
 		HUDClass::Display_Points( points );
 	}
 }

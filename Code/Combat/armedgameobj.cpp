@@ -193,19 +193,19 @@ void	ArmedGameObj::Init( const ArmedGameObjDef & definition )
 */
 void	ArmedGameObj::Copy_Settings( const ArmedGameObjDef & definition )
 {
-	WeaponClass * weapon = NULL;
+	WeaponClass * weapon = nullptr;
 	if ( definition.WeaponDefID != 0 ) {
 		weapon = WeaponBag->Add_Weapon( definition.WeaponDefID, definition.WeaponRounds );
 	}
 
 	if ( definition.SecondaryWeaponDefID != 0 ) {
 		WeaponClass * s_weapon = WeaponBag->Add_Weapon( definition.SecondaryWeaponDefID, definition.WeaponRounds );
-		if ( weapon == NULL ) {
+		if ( weapon == nullptr ) {
 			weapon = s_weapon;
 		}
 	}
 
-	if ( weapon != NULL ) {
+	if ( weapon != nullptr ) {
 		WeaponBag->Select_Weapon( weapon );
 	}
 
@@ -224,7 +224,7 @@ void	ArmedGameObj::Re_Init( const ArmedGameObjDef & definition )
 	//	Remove all non-beacon entries from the weapon bag...
 	//
 	WeaponBagClass *old_bag = WeaponBag;
-	if ( WeaponBag != NULL ) {
+	if ( WeaponBag != nullptr ) {
 
 		//
 		//	Loop over all the weapons in the bag
@@ -236,12 +236,12 @@ void	ArmedGameObj::Re_Init( const ArmedGameObjDef & definition )
 			//
 			//	If this isn't a beacon, then remove it
 			//
-			if (weapon != NULL && weapon->Get_Definition ()->Style != WEAPON_HOLD_STYLE_BEACON) {
+			if (weapon != nullptr && weapon->Get_Definition ()->Style != WEAPON_HOLD_STYLE_BEACON) {
 				WeaponBag->Remove_Weapon( weapon_index );
 			}
 		}
 
-		WeaponBag = NULL;
+		WeaponBag = nullptr;
 	}
 
 	//
@@ -257,7 +257,7 @@ void	ArmedGameObj::Re_Init( const ArmedGameObjDef & definition )
 	//
 	//	Now add any beacons back into the weapon bag
 	//
-	if ( old_bag != NULL ) {
+	if ( old_bag != nullptr ) {
 		WeaponBag->Move_Contents( old_bag );
 		delete old_bag;
 	}
@@ -360,7 +360,7 @@ void ArmedGameObj::Import_Frequent(BitStreamClass & packet)
 	// by this player
 	//
 	SmartGameObj *smart_game_obj = As_SmartGameObj ();
-	if (smart_game_obj == NULL || smart_game_obj->Is_Controlled_By_Me() == false) {
+	if (smart_game_obj == nullptr || smart_game_obj->Is_Controlled_By_Me() == false) {
 		Set_Targeting(targeting_pos);
 	}
 
@@ -427,12 +427,12 @@ void	ArmedGameObj::Post_Think( void )
 		return;
 	}
 
-	if ( Get_Weapon() != NULL ) {			// Update the weapon after the commands and update_human_animation
+	if ( Get_Weapon() != nullptr ) {			// Update the weapon after the commands and update_human_animation
 		Get_Weapon()->Update();
 	}
 
 	// allow any recoil animation to progress
-	if (Peek_Model() != NULL) {
+	if (Peek_Model() != nullptr) {
 		for (int i=0; i<MAX_MUZZLES; i++) {
 			MuzzleRecoilController[i].Update(Peek_Model());
 		}

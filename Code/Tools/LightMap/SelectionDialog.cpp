@@ -46,7 +46,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-SelectionDialog::SelectionDialog (DynamicVectorClass <char*> *listptr, CWnd* pParent /*=NULL*/)
+SelectionDialog::SelectionDialog (DynamicVectorClass <char*> *listptr, CWnd* pParent /*=nullptr*/)
 	: CDialog(SelectionDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(SelectionDialog)
@@ -78,7 +78,7 @@ BOOL SelectionDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	if (ListPtr != NULL) {
+	if (ListPtr != nullptr) {
 
 		CListBox *listboxptr = (CListBox*) GetDlgItem (IDC_SELECTION_LIST);
 

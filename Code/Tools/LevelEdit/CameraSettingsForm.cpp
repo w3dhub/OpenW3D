@@ -117,7 +117,7 @@ void
 CameraSettingsFormClass::Update_Controls (void)
 {
 	CameraMgr *pcamera_mgr = ::Get_Camera_Mgr ();
-	if (pcamera_mgr != NULL) {
+	if (pcamera_mgr != nullptr) {
 		const Matrix3D &transform = pcamera_mgr->Get_Camera ()->Get_Transform ();
 		CString temp_string;
 

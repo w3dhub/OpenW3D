@@ -57,7 +57,7 @@ DECLARE_DEFINITION_FACTORY(GlobalSettingsDef, CLASSID_GLOBAL_SETTINGS_DEF_GENERA
 /*
 ** Static member initialization
 */
-GlobalSettingsDef *GlobalSettingsDef::GlobalSettings = NULL;
+GlobalSettingsDef *GlobalSettingsDef::GlobalSettings = nullptr;
 
 
 GlobalSettingsDef::GlobalSettingsDef( void ) :
@@ -129,7 +129,7 @@ GlobalSettingsDef::GlobalSettingsDef( void ) :
 
 GlobalSettingsDef::~GlobalSettingsDef( void )
 {
-	GlobalSettings = NULL;
+	GlobalSettings = nullptr;
 	return ;
 }
 
@@ -147,7 +147,7 @@ const PersistFactoryClass & GlobalSettingsDef::Get_Factory (void) const
 PersistClass *	GlobalSettingsDef::Create( void ) const
 {
 	WWASSERT( 0 );
-	return NULL;
+	return nullptr;
 }
 
 enum	{
@@ -308,9 +308,9 @@ SimplePersistFactoryClass<HumanLoiterGlobalSettingsDef, CHUNKID_GLOBAL_SETTINGS_
 
 DECLARE_DEFINITION_FACTORY(HumanLoiterGlobalSettingsDef, CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_LOITER, "HumanLoiter") _HumanLoiterGlobalSettingsDefDefFactory;
 
-HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::DefaultLoiters		= NULL;
-HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::WeaponLoiters			= NULL;
-HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::WeaponlessLoiters	= NULL;
+HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::DefaultLoiters		= nullptr;
+HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::WeaponLoiters			= nullptr;
+HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::WeaponlessLoiters	= nullptr;
 
 HumanLoiterGlobalSettingsDef::HumanLoiterGlobalSettingsDef( void ) :
 	ActivationDelay( 20 ),
@@ -324,13 +324,13 @@ HumanLoiterGlobalSettingsDef::HumanLoiterGlobalSettingsDef( void ) :
 HumanLoiterGlobalSettingsDef::~HumanLoiterGlobalSettingsDef( void )
 {
 	if ( this == DefaultLoiters ) {
-		DefaultLoiters = NULL;
+		DefaultLoiters = nullptr;
 	}
 	if ( this == WeaponLoiters ) {
-		WeaponLoiters = NULL;
+		WeaponLoiters = nullptr;
 	}
 	if ( this == WeaponlessLoiters ) {
-		WeaponlessLoiters = NULL;
+		WeaponlessLoiters = nullptr;
 	}
 }
 
@@ -347,7 +347,7 @@ const PersistFactoryClass & HumanLoiterGlobalSettingsDef::Get_Factory (void) con
 PersistClass *	HumanLoiterGlobalSettingsDef::Create( void ) const
 {
 	WWASSERT( 0 );
-	return NULL;
+	return nullptr;
 }
 
 enum	{
@@ -421,10 +421,10 @@ bool	HumanLoiterGlobalSettingsDef::Load( ChunkLoadClass &cload )
 
 HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::Get_Default_Loiters( void )
 {
-	if ( DefaultLoiters == NULL ) {
+	if ( DefaultLoiters == nullptr ) {
 		DefaultLoiters = (HumanLoiterGlobalSettingsDef *)DefinitionMgrClass::Find_Typed_Definition( "Loiter", CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_LOITER );
 	}
-	if ( DefaultLoiters == NULL ) {
+	if ( DefaultLoiters == nullptr ) {
 		Debug_Say(( "Failed to load Default Loiter\n" ));
 	}
 	return DefaultLoiters;
@@ -432,10 +432,10 @@ HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::Get_Default_Loiters
 
 HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::Get_Weapon_Loiters( void )
 {
-	if ( WeaponLoiters == NULL ) {
+	if ( WeaponLoiters == nullptr ) {
 		WeaponLoiters = (HumanLoiterGlobalSettingsDef *)DefinitionMgrClass::Find_Typed_Definition( "Weapon Loiters", CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_LOITER );
 	}
-	if ( WeaponLoiters == NULL ) {
+	if ( WeaponLoiters == nullptr ) {
 		Debug_Say(( "Failed to Weapons Loiter\n" ));
 	}
 	return WeaponLoiters;
@@ -443,10 +443,10 @@ HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::Get_Weapon_Loiters(
 
 HumanLoiterGlobalSettingsDef * HumanLoiterGlobalSettingsDef::Get_Weaponless_Loiters( void )
 {
-	if ( WeaponlessLoiters == NULL ) {
+	if ( WeaponlessLoiters == nullptr ) {
 		WeaponlessLoiters = (HumanLoiterGlobalSettingsDef *)DefinitionMgrClass::Find_Typed_Definition( "Weaponless Loiters", CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_LOITER );
 	}
-	if ( WeaponlessLoiters == NULL ) {
+	if ( WeaponlessLoiters == nullptr ) {
 		Debug_Say(( "Failed to load weaponless Loiter\n" ));
 	}
 	return WeaponlessLoiters;
@@ -464,7 +464,7 @@ const char * HumanLoiterGlobalSettingsDef::Pick_Animation( void )
 /*
 ** HUDGlobalSettingsDef
 */
-HUDGlobalSettingsDef *	HUDGlobalSettingsDef::Instance	= NULL;
+HUDGlobalSettingsDef *	HUDGlobalSettingsDef::Instance	= nullptr;
 
 SimplePersistFactoryClass<HUDGlobalSettingsDef, CHUNKID_GLOBAL_SETTINGS_DEF_HUD>	_HUDGlobalSettingsDefPersistFactory;
 
@@ -648,7 +648,7 @@ HUDGlobalSettingsDef::HUDGlobalSettingsDef( void ) :
 	DamageIndicatorUV(DAMAGE_INDICATOR_UV),
 	DamageDiagIndicatorUV(DAMAGE_DIAG_INDICATOR_UV)
 {
-	WWASSERT( Instance == NULL );	 // Pat, you can remove this if needed
+	WWASSERT( Instance == nullptr );	 // Pat, you can remove this if needed
 	Instance = this;
 
 	PARAM_SEPARATOR( HUDGlobalSettingsDef, "Colors" );
@@ -762,7 +762,7 @@ HUDGlobalSettingsDef::HUDGlobalSettingsDef( void ) :
 HUDGlobalSettingsDef::~HUDGlobalSettingsDef( void )
 {
 	WWASSERT( Instance == this );
-	Instance = NULL;
+	Instance = nullptr;
 }
 
 uint32	HUDGlobalSettingsDef::Get_Class_ID (void) const
@@ -778,7 +778,7 @@ const PersistFactoryClass & HUDGlobalSettingsDef::Get_Factory (void) const
 PersistClass *	HUDGlobalSettingsDef::Create( void ) const
 {
 	WWASSERT( 0 );
-	return NULL;
+	return nullptr;
 }
 
 enum	{
@@ -1149,7 +1149,7 @@ const PersistFactoryClass & HumanAnimOverrideDef::Get_Factory (void) const
 PersistClass *	HumanAnimOverrideDef::Create( void ) const
 {
 	WWASSERT( 0 );
-	return NULL;
+	return nullptr;
 }
 
 enum	{

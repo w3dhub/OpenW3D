@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 //	ImportTranslationDialogClass
 //
 ///////////////////////////////////////////////////////////////////////////
-ImportTranslationDialogClass::ImportTranslationDialogClass (CWnd* pParent /*=NULL*/)
+ImportTranslationDialogClass::ImportTranslationDialogClass (CWnd* pParent /*=nullptr*/)
 	:	IsForExport (false),
 		CDialog(ImportTranslationDialogClass::IDD, pParent)
 {

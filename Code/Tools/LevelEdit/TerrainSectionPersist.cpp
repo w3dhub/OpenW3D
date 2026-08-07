@@ -104,7 +104,7 @@ TerrainSectionPersistClass::~TerrainSectionPersistClass (void)
 void
 TerrainSectionPersistClass::Apply (NodeClass *node)
 {
-	SANITY_CHECK (node != NULL)
+	SANITY_CHECK (node != nullptr)
 	{
 		return ;
 	}
@@ -126,9 +126,9 @@ TerrainSectionPersistClass::Apply (NodeClass *node)
 		//	Assign this physics object its vis ID (if applicable)
 		//
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 
-			if (phys_obj->As_StaticPhysClass () != NULL) {
+			if (phys_obj->As_StaticPhysClass () != nullptr) {
 				((StaticPhysClass *)phys_obj)->Set_Vis_Object_ID (Get_Vis_Obj_ID ());
 				((StaticPhysClass *)phys_obj)->Set_Vis_Sector_ID (Get_Vis_Sector_ID ());
 			} else if (node->Get_Type () == NODE_TYPE_LIGHT) {
@@ -149,7 +149,7 @@ TerrainSectionPersistClass::Apply (NodeClass *node)
 void
 TerrainSectionPersistClass::Initialize (NodeClass *node)
 {
-	SANITY_CHECK (node != NULL)
+	SANITY_CHECK (node != nullptr)
 	{
 		return ;
 	}
@@ -165,7 +165,7 @@ TerrainSectionPersistClass::Initialize (NodeClass *node)
 	//	Lookup the node's definition ID
 	//
 	PresetClass *preset = node->Get_Preset ();
-	if (preset != NULL) {
+	if (preset != nullptr) {
 		m_DefinitionID	= preset->Get_Definition ()->Get_ID ();
 	}
 
@@ -188,9 +188,9 @@ TerrainSectionPersistClass::Initialize (NodeClass *node)
 		//	Lookup the vis IDs for this object (if it has any)
 		//
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 			StaticPhysClass *static_phys_obj = phys_obj->As_StaticPhysClass ();
-			if (static_phys_obj != NULL) {
+			if (static_phys_obj != nullptr) {
 				m_VisObjectID = static_phys_obj->Get_Vis_Object_ID ();
 				m_VisSectorID = static_phys_obj->Get_Vis_Sector_ID ();
 
@@ -198,7 +198,7 @@ TerrainSectionPersistClass::Initialize (NodeClass *node)
 				//	Record the cull-link index from the static object
 				//
 				AABTreeLinkClass *link = (AABTreeLinkClass *)static_phys_obj->Get_Cull_Link ();
-				if (link != NULL) {
+				if (link != nullptr) {
 					m_CullLink = link->Node->Index;
 				}
 			}
@@ -423,7 +423,7 @@ TerrainSectionPersistListClass::Initialize_Virgin_Sections (void)
 	int index;
 	for (index = 0; index < m_VirginSections.Count (); index ++) {
 		NodeClass *node = m_VirginSections[index];
-		if (node != NULL) {
+		if (node != nullptr) {
 			node->Set_ID (NodeMgrClass::Get_Node_ID (node->Get_Type ()));
 			NodeMgrClass::Setup_Node_Identity (*node);
 		}

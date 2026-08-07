@@ -43,7 +43,7 @@ static char THIS_FILE[] = __FILE__;
 // GeneratingManualVisDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-GeneratingManualVisDialogClass::GeneratingManualVisDialogClass(CWnd* pParent /*=NULL*/)
+GeneratingManualVisDialogClass::GeneratingManualVisDialogClass(CWnd* pParent /*=nullptr*/)
 	:	m_FarmMode (false),
 		m_Stop (false),
 		m_TotalPoints (0),
@@ -206,9 +206,9 @@ GeneratingManualVisDialogClass::Get_Manual_Point_Count (void)
 	//
 	//	Count up the total number of manual points in the level
 	//
-	VisPointNodeClass *vis_point = NULL;
+	VisPointNodeClass *vis_point = nullptr;
 	for (	vis_point = (VisPointNodeClass *)NodeMgrClass::Get_First (NODE_TYPE_VIS_POINT);
-			vis_point != NULL && !m_Stop;
+			vis_point != nullptr && !m_Stop;
 			vis_point = (VisPointNodeClass *)NodeMgrClass::Get_Next (vis_point, NODE_TYPE_VIS_POINT))
 	{
 		total ++;

@@ -54,7 +54,7 @@
  *=============================================================================================*/
 RAMFileFactoryClass::RAMFileFactoryClass()
 	: FileFactoryClass(),
-	  FileBuffer (NULL)
+	  FileBuffer (nullptr)
 {
 }
 
@@ -73,7 +73,7 @@ RAMFileFactoryClass::RAMFileFactoryClass()
  *=============================================================================================*/
 RAMFileFactoryClass::~RAMFileFactoryClass()
 {
-	if (FileBuffer != NULL) delete [] FileBuffer;
+	if (FileBuffer != nullptr) delete [] FileBuffer;
 }
 
 
@@ -94,14 +94,14 @@ FileClass *RAMFileFactoryClass::Get_File (const char *filename)
 	RAMFileClass *ramfile;
 
 	// If file buffer has not been read then do it now.
-	if ((FileBuffer == NULL) || (stricmp (filename, FileName) != 0)) {
+	if ((FileBuffer == nullptr) || (stricmp (filename, FileName) != 0)) {
 
 		BufferedFileClass *bufferfile;
 
-		if (FileBuffer != NULL) delete [] FileBuffer;
+		if (FileBuffer != nullptr) delete [] FileBuffer;
 
 		bufferfile = new BufferedFileClass (filename);
-		if ((bufferfile != NULL) && bufferfile->Is_Available()) {
+		if ((bufferfile != nullptr) && bufferfile->Is_Available()) {
 			FileBuffer = new unsigned char [bufferfile->Size()];
 			bufferfile->Open();
 			bufferfile->Read (FileBuffer, bufferfile->Size());

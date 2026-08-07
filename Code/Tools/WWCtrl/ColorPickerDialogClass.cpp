@@ -88,7 +88,7 @@ extern "C"
 		BOOL retval = false;
 
 		ColorPickerDialogClass *dialog = (ColorPickerDialogClass *)::GetProp (form_wnd, "COLORPICKERDLGCLASS");
-		if (dialog != NULL) {
+		if (dialog != nullptr) {
 			(*red)	= dialog->Get_Red ();
 			(*green)	= dialog->Get_Green ();
 			(*blue)	= dialog->Get_Blue ();
@@ -109,7 +109,7 @@ extern "C"
 		BOOL retval = false;
 
 		ColorPickerDialogClass *dialog = (ColorPickerDialogClass *)::GetProp (form_wnd, "COLORPICKERDLGCLASS");
-		if (dialog != NULL) {
+		if (dialog != nullptr) {
 			dialog->Set_Color (red, green, blue);
 			retval = true;
 		}
@@ -128,7 +128,7 @@ extern "C"
 		BOOL retval = false;
 
 		ColorPickerDialogClass *dialog = (ColorPickerDialogClass *)::GetProp (form_wnd, "COLORPICKERDLGCLASS");
-		if (dialog != NULL) {
+		if (dialog != nullptr) {
 			dialog->Set_Original_Color (red, green, blue);
 			retval = true;
 		}
@@ -168,7 +168,7 @@ extern "C"
 		BOOL retval = false;
 
 		ColorPickerDialogClass *dialog = (ColorPickerDialogClass *)::GetProp (form_wnd, "COLORPICKERDLGCLASS");
-		if (dialog != NULL) {
+		if (dialog != nullptr) {
 			dialog->Set_Update_Callback(callback, arg);
 			retval = true;
 		}
@@ -196,15 +196,15 @@ ColorPickerDialogClass::ColorPickerDialogClass
 		m_CurrentRed ((float)red),
 		m_CurrentGreen ((float)green),
 		m_CurrentBlue ((float)blue),
-		m_CurrentColorBar (NULL),
-		m_OrigColorBar (NULL),
-		m_RedColorBar (NULL),
-		m_GreenColorBar (NULL),
-		m_BlueColorBar (NULL),
-		m_WhitenessColorBar (NULL),
-		m_HuePicker (NULL),
+		m_CurrentColorBar (nullptr),
+		m_OrigColorBar (nullptr),
+		m_RedColorBar (nullptr),
+		m_GreenColorBar (nullptr),
+		m_BlueColorBar (nullptr),
+		m_WhitenessColorBar (nullptr),
+		m_HuePicker (nullptr),
 		m_bDeleteOnClose (false),
-		m_UpdateCallback(NULL),
+		m_UpdateCallback(nullptr),
 		CDialog(res_id, pParent)
 {
 	//{{AFX_DATA_INIT(ColorPickerDialogClass)

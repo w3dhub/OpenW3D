@@ -75,9 +75,9 @@ public:
 		DISPLAY_MODE_MICROCHUNKS,
 	};
 
-	void					Set_Word_Size(WordSizeType wordsize)				{ WordSize = wordsize; OnUpdate(NULL,0,NULL); }
+	void					Set_Word_Size(WordSizeType wordsize)				{ WordSize = wordsize; OnUpdate(nullptr,0,nullptr); }
 	WordSizeType		Get_Word_Size(void)										{ return WordSize; }
-	void					Set_Display_Mode(DisplayModeType displaymode)	{ DisplayMode = displaymode; OnUpdate(NULL,0,NULL); }
+	void					Set_Display_Mode(DisplayModeType displaymode)	{ DisplayMode = displaymode; OnUpdate(nullptr,0,nullptr); }
 	DisplayModeType	Get_Display_Mode(void)									{ return DisplayMode; }
 
 // Operations

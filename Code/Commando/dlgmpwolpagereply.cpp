@@ -42,7 +42,7 @@
 #include "ConsoleMode.h"
 #include <wwui/listctrl.h>
 
-DlgWOLPageReply* DlgWOLPageReply::_mInstance = NULL;
+DlgWOLPageReply* DlgWOLPageReply::_mInstance = nullptr;
 
 /******************************************************************************
 *
@@ -66,7 +66,7 @@ bool DlgWOLPageReply::DoDialog(void)
 	{
 	DlgWOLPageReply* dialog = _mInstance;
 
-	if (dialog == NULL)
+	if (dialog == nullptr)
 		{
 		dialog = new DlgWOLPageReply;
 
@@ -81,7 +81,7 @@ bool DlgWOLPageReply::DoDialog(void)
 			}
 		}
 
-	return (dialog != NULL);
+	return (dialog != nullptr);
 	}
 
 
@@ -103,7 +103,7 @@ bool DlgWOLPageReply::DoDialog(void)
 
 bool DlgWOLPageReply::IsOpen(void)
 	{
-	return (NULL != _mInstance);
+	return (nullptr != _mInstance);
 	}
 
 
@@ -125,10 +125,10 @@ bool DlgWOLPageReply::IsOpen(void)
 
 DlgWOLPageReply::DlgWOLPageReply(void) :
 		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_PAGE_REPLY)),
-		mBuddyMgr(NULL)
+		mBuddyMgr(nullptr)
 	{
 	WWDEBUG_SAY(("DlgWOLPageReply Instantiated\n"));
-	WWASSERT(_mInstance == NULL);
+	WWASSERT(_mInstance == nullptr);
 	_mInstance = this;
 	}
 
@@ -158,7 +158,7 @@ DlgWOLPageReply::~DlgWOLPageReply()
 		mBuddyMgr->Release_Ref();
 		}
 
-	_mInstance = NULL;
+	_mInstance = nullptr;
 	}
 
 
@@ -181,7 +181,7 @@ DlgWOLPageReply::~DlgWOLPageReply()
 bool DlgWOLPageReply::FinalizeCreate(void)
 	{
 	mBuddyMgr = WOLBuddyMgr::GetInstance(false);
-	return (mBuddyMgr != NULL);
+	return (mBuddyMgr != nullptr);
 	}
 
 
@@ -378,9 +378,9 @@ void DlgWOLPageReply::Add_Message(const unichar_t* username, const unichar_t* me
 void DlgWOLPageReply::HandleNotification(WOLPagedEvent& event)
 	{
 	WWOnline::PageMessage* page = event.Subject();
-	WWASSERT(page && "NULL page in WOLPagedEvent");
+	WWASSERT(page && "nullptr page in WOLPagedEvent");
 
-	const unichar_t* pager = NULL;
+	const unichar_t* pager = nullptr;
 	if (!ConsoleBox.Is_Exclusive())
 		{
 		if (PAGE_RECEIVED == event.GetAction())

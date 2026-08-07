@@ -32,7 +32,7 @@ class MemLogDialogClass : public CDialog
 {
 // Construction
 public:
-	MemLogDialogClass(CWnd* pParent = NULL);   // standard constructor
+	MemLogDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(MemLogDialogClass)

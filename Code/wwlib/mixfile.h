@@ -135,7 +135,7 @@ public:
 	MixFileCreator( const char * filename );
 	~MixFileCreator( void );
 
-	void	Add_File( const char * source_filename, const char * saved_filename = NULL );
+	void	Add_File( const char * source_filename, const char * saved_filename = nullptr );
 	void	Add_File( const char * filename, FileClass *file );
 
 private:

@@ -150,7 +150,7 @@ inline const MotorVehicleDefClass * MotorVehicleClass::Get_MotorVehicleDef(void)
 {
 	// All motor vehicles have to have definitions... Most of their parameters are only
 	// stored in the definition now...
-	WWASSERT(Definition != NULL);
+	WWASSERT(Definition != nullptr);
 	return (MotorVehicleDefClass *)Definition;
 }
 

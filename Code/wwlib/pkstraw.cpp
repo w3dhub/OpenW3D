@@ -72,7 +72,7 @@ PKStraw::PKStraw(CryptControl control, RandomStraw & rnd) :
 	Rand(rnd),
 	BF((control == ENCRYPT) ? BlowStraw::ENCRYPT : BlowStraw::DECRYPT),
 	Control(control),
-	CipherKey(NULL),
+	CipherKey(nullptr),
 	Counter(0),
 	BytesLeft(0)
 {
@@ -98,19 +98,19 @@ PKStraw::PKStraw(CryptControl control, RandomStraw & rnd) :
 void PKStraw::Get_From(Straw * straw)
 {
 	if (BF.ChainTo != straw) {
-		if (straw != NULL && straw->ChainFrom != NULL) {
-			straw->ChainFrom->Get_From(NULL);
-			straw->ChainFrom = NULL;
+		if (straw != nullptr && straw->ChainFrom != nullptr) {
+			straw->ChainFrom->Get_From(nullptr);
+			straw->ChainFrom = nullptr;
 		}
 
-		if (BF.ChainTo != NULL) {
-			BF.ChainTo->ChainFrom = NULL;
+		if (BF.ChainTo != nullptr) {
+			BF.ChainTo->ChainFrom = nullptr;
 		}
 
 		BF.ChainTo = straw;
 		BF.ChainFrom = this;
 		ChainTo = &BF;
-		if (BF.ChainTo != NULL) {
+		if (BF.ChainTo != nullptr) {
 			BF.ChainTo->ChainFrom = this;
 		}
 	}
@@ -121,12 +121,12 @@ void PKStraw::Get_From(Straw * straw)
 /***********************************************************************************************
  * PKStraw::Key -- Assign a key to the cipher process straw.                                   *
  *                                                                                             *
- *    This routine will assign the key (or NULL if the current key is to be removed) to the    *
+ *    This routine will assign the key (or nullptr if the current key is to be removed) to the    *
  *    cipher stream process. When a key has been assigned, encryption or decryption will       *
- *    take place. In the absence (NULL key pointer) of a key, the data passes through          *
+ *    take place. In the absence (nullptr key pointer) of a key, the data passes through          *
  *    unchanged.                                                                               *
  *                                                                                             *
- * INPUT:   key   -- Pointer to the key to assign to the stream. If the key pointer is NULL,   *
+ * INPUT:   key   -- Pointer to the key to assign to the stream. If the key pointer is nullptr,   *
  *                   then this causes the cipher stream to stop processing the data and will   *
  *                   pass the data through unchanged.                                          *
  *                                                                                             *
@@ -141,7 +141,7 @@ void PKStraw::Get_From(Straw * straw)
 void PKStraw::Key(PKey const * key)
 {
 	CipherKey = key;
-	if (key != NULL) {
+	if (key != nullptr) {
 		IsGettingKey = true;
 	}
 	Counter = 0;
@@ -174,7 +174,7 @@ int PKStraw::Get(void * source, int length)
 	**	If the parameters seem invalid, then pass the request on so that someone
 	**	else can deal with it.
 	*/
-	if (source == NULL || length < 1 || CipherKey == NULL) {
+	if (source == nullptr || length < 1 || CipherKey == nullptr) {
 		return(Straw::Get(source, length));
 	}
 
@@ -275,7 +275,7 @@ int PKStraw::Get(void * source, int length)
  *=============================================================================================*/
 int PKStraw::Encrypted_Key_Length(void) const
 {
-	if (CipherKey == NULL) return(0);
+	if (CipherKey == nullptr) return(0);
 	return(CipherKey->Block_Count(BLOWFISH_KEY_SIZE) * CipherKey->Crypt_Block_Size());
 }
 
@@ -299,6 +299,6 @@ int PKStraw::Encrypted_Key_Length(void) const
  *=============================================================================================*/
 int PKStraw::Plain_Key_Length(void) const
 {
-	if (CipherKey == NULL) return(0);
+	if (CipherKey == nullptr) return(0);
 	return(CipherKey->Block_Count(BLOWFISH_KEY_SIZE) * CipherKey->Plain_Block_Size());
 }

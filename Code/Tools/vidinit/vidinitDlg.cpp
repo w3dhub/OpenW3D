@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CVidinitDlg dialog
 
-CVidinitDlg::CVidinitDlg(CWnd* pParent /*=NULL*/)
+CVidinitDlg::CVidinitDlg(CWnd* pParent /*=nullptr*/)
 	: CDialog(CVidinitDlg::IDD, pParent),
 	m_TestCWnd(0)
 {

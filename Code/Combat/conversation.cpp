@@ -370,7 +370,7 @@ ConversationClass::Load (ChunkLoadClass &cload)
 void
 ConversationClass::Load_Variables (ChunkLoadClass &cload)
 {
-	ConversationClass *old_ptr = NULL;
+	ConversationClass *old_ptr = nullptr;
 
 	//
 	//	Loop through all the microchunks that define the variables
@@ -428,7 +428,7 @@ ConversationClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Register our old pointer so other objects can safely remap to it
 	//
-	WWASSERT (old_ptr != NULL);
+	WWASSERT (old_ptr != nullptr);
 	SaveLoadSystemClass::Register_Pointer (old_ptr, this);
 	return ;
 }
@@ -442,7 +442,7 @@ ConversationClass::Load_Variables (ChunkLoadClass &cload)
 OratorClass *
 ConversationClass::Get_Orator (int index)
 {
-	OratorClass *orator = NULL;
+	OratorClass *orator = nullptr;
 
 	if (index >= 0 && index < OratorList.Count ()) {
 		orator = &OratorList[index];
@@ -460,7 +460,7 @@ ConversationClass::Get_Orator (int index)
 OratorClass *
 ConversationClass::Find_Orator (int orator_id)
 {
-	OratorClass *orator = NULL;
+	OratorClass *orator = nullptr;
 
 	for (int index = 0; index < OratorList.Count (); index ++) {
 		OratorClass *curr_orator = &OratorList[index];

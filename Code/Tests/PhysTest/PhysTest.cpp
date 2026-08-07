@@ -163,9 +163,9 @@ BOOL CPhysTestApp::InitInstance()
 	//  the specific initialization routines you do not need.
 
 	// Is there already an instance of the viewer running?
-	HWND hprev_instance = NULL;
+	HWND hprev_instance = nullptr;
 	::EnumWindows (fnTopLevelWindowSearch, (LPARAM)&hprev_instance);
-	if (hprev_instance == NULL) {
+	if (hprev_instance == nullptr) {
 
 		// Change the registry key under which our settings are stored.
 		// You should modify this string to be something appropriate
@@ -216,7 +216,7 @@ BOOL CPhysTestApp::InitInstance()
 
 	WWDEBUG_SAY(("Logging Begin:\r\n"));
 
-	return (hprev_instance == NULL);
+	return (hprev_instance == nullptr);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -233,9 +233,9 @@ int CPhysTestApp::ExitInstance()
 
 	// Remove message handler functions for the WWDebug messages
 	// and assertion failures.
-	WWDebug_Install_Message_Handler(NULL);
-	WWDebug_Install_Assert_Handler(NULL);
-	//WWDebug_Install_Trigger_Handler(NULL);
+	WWDebug_Install_Message_Handler(nullptr);
+	WWDebug_Install_Assert_Handler(nullptr);
+	//WWDebug_Install_Trigger_Handler(nullptr);
 
 	// Check Active Refs
 	Debug_Refs();
@@ -302,7 +302,7 @@ void Debug_Refs(void)
 				  !strcmp(search_ref->File, ref->File) &&
 				  (search_ref->Line == ref->Line) ) {
 				count++;
-			} else if ( (ref->File == NULL) &&  (search_ref->File == NULL) ) {
+			} else if ( (ref->File == nullptr) &&  (search_ref->File == nullptr) ) {
 				count++;
 			}
 
@@ -313,11 +313,11 @@ void Debug_Refs(void)
 			char buf[256];
 			sprintf(buf,"%d Active Ref: %s %d %p\n",count, ref->File,ref->Line,obj);
 
-			::MessageBox(NULL,buf,"Unreleased Object!",MB_OK);
+			::MessageBox(nullptr,buf,"Unreleased Object!",MB_OK);
 
 			static int num_printed = 0;
 			if (++num_printed > 20) {
-				::MessageBox(NULL,"And Many More......\n",NULL,MB_OK);
+				::MessageBox(nullptr,"And Many More......\n",nullptr,MB_OK);
 				break;
 			}
 		}
@@ -340,7 +340,7 @@ const char * get_log_filename(void)
 
 	char drive[_MAX_DRIVE];
 	char dir[_MAX_DIR];
-	_splitpath(exe_name,drive,dir,NULL,NULL);
+	_splitpath(exe_name,drive,dir,nullptr,nullptr);
 
 	_makepath(log_name,drive,dir,LOGFILE_NAME,LOGFILE_EXTENSION);
 	return log_name;
@@ -365,7 +365,7 @@ void write_to_logfile(const char * string)
 {
    // open/close for each write so as to maximize integrity of this file.
    FILE * file = fopen(get_log_filename(), "a");
-   if (file != NULL) {
+   if (file != nullptr) {
 		fwrite(string, 1, strlen(string), file);
 	   fclose(file);
    }

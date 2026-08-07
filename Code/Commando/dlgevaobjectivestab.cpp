@@ -86,7 +86,7 @@ EvaObjectivesTabClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_OBJECTIVES_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the list control
@@ -145,7 +145,7 @@ EvaObjectivesTabClass::Update_Curr_Objective_Controls (void)
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_OBJECTIVES_LIST_CTRL);
 	ImageCtrlClass *image_ctrl = (ImageCtrlClass *)Get_Dlg_Item (IDC_IMAGE);
-	if (list_ctrl == NULL || image_ctrl == NULL) {
+	if (list_ctrl == nullptr || image_ctrl == nullptr) {
 		return ;
 	}
 
@@ -155,7 +155,7 @@ EvaObjectivesTabClass::Update_Curr_Objective_Controls (void)
 	int curr_sel = list_ctrl->Get_Curr_Sel ();
 	if (curr_sel >= 0) {
 		Objective *objective = ObjectiveManager::Get_Objective (list_ctrl->Get_Entry_Data (curr_sel, 0));
-		if (objective != NULL) {
+		if (objective != nullptr) {
 
 			//
 			//	Put the long description into the edit control
@@ -185,7 +185,7 @@ EvaObjectivesTabClass::Fill_Objectives_List (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_OBJECTIVES_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -195,7 +195,7 @@ EvaObjectivesTabClass::Fill_Objectives_List (void)
 	int count = ObjectiveManager::Get_Objective_Count ();
 	for (int index = 0; index < count; index ++) {
 		Objective *objective = ObjectiveManager::Get_Objective (index);
-		if (objective != NULL) {
+		if (objective != nullptr) {
 
 			//
 			//	Don't display hidden objectives (unless you really want to)

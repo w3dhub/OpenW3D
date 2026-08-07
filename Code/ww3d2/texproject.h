@@ -167,12 +167,12 @@ public:
 
 	/*
 	** virtual interface for getting the pointer of the object that generated this shadow.
-	** defaults to returning NULL.  This is implemented by some derived classes and used by
+	** defaults to returning nullptr.  This is implemented by some derived classes and used by
 	** the system to prevent a projection from being applied to the object that generated
 	** the projection...
 	** (gth) feels kludgy, this got a little messy when I moved this code into WW3D from WWPhys
 	*/
-	virtual void *			Get_Projection_Object_ID(void) const { return NULL; }
+	virtual void *			Get_Projection_Object_ID(void) const { return nullptr; }
 
 protected:
 

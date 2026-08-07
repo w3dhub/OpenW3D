@@ -36,7 +36,7 @@ class GotoObjectByIDDialogClass : public CDialog
 {
 // Construction
 public:
-	GotoObjectByIDDialogClass(CWnd* pParent = NULL);   // standard constructor
+	GotoObjectByIDDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GotoObjectByIDDialogClass)

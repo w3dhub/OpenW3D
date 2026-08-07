@@ -52,7 +52,7 @@ class WebEvent :
 	public:
 		typedef enum
 			{
-			None = 0, // NULL event
+			None = 0, // nullptr event
 			Quit, // User initiated quit
 			CertificationFailed, // Requested page failed certification.
 			} EventID;
@@ -96,7 +96,7 @@ class WebBrowser :
 
 		//! Check if browser is embedded or external (True if embedded)
 		bool UsingEmbeddedBrowser(void) const
-			{return (mWOLBrowser != NULL);}
+			{return (mWOLBrowser != nullptr);}
 
 		//! Test if the external browser is running
 		bool IsExternalBrowserRunning(void) const;

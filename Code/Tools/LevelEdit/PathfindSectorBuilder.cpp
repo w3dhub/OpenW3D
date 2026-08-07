@@ -129,8 +129,8 @@ static const SimDirInfoClass DIR_INFO[DIR_MAX] =
 };
 
 
-static HumanPhysClass *_PhysSimObj = NULL;
-static SoldierGameObj *_GameSimObj = NULL;
+static HumanPhysClass *_PhysSimObj = nullptr;
+static SoldierGameObj *_GameSimObj = nullptr;
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -139,10 +139,10 @@ static SoldierGameObj *_GameSimObj = NULL;
 //
 //////////////////////////////////////////////////////////////////////////
 PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
-	:	m_CurrentSector (NULL),
+	:	m_CurrentSector (nullptr),
 		m_SimBoundingBox (Vector3 (0.5F, 0.5F, 1.8F)),
 		m_SimBoxExtents (Vector3 (0.25F, 0.25F, 0.9F)),
-		m_DirInfo (NULL),
+		m_DirInfo (nullptr),
 		m_StepHeight (0),
 		m_TotalBoxCount (0),
 		m_TotalBoxGuess (0),
@@ -150,26 +150,26 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 		m_AllowWaterFloodfill (false),
 		m_MaxSectorDim (28000.0F)
 {
-	RenderObjClass *commando_obj = NULL;
+	RenderObjClass *commando_obj = nullptr;
 
 	//
 	//	Create an instance of the commando render object we can
 	// use to simulate character movement
 	//
 	SoldierGameObjDef *definition = (SoldierGameObjDef *)DefinitionMgrClass::Find_Typed_Definition ("Commando", CLASSID_GAME_OBJECT_DEF_SOLDIER, false);
-	if (definition != NULL) {
+	if (definition != nullptr) {
 		SoldierGameObj *game_obj = new SoldierGameObj;
 		game_obj->Init (*definition);
 		REF_PTR_SET (commando_obj, game_obj->Peek_Model ());
 		game_obj->Set_Delete_Pending ();
 	}
 
-	if (commando_obj != NULL) {
+	if (commando_obj != nullptr) {
 
 		//
 		//	Attempt to find the collision box for this physics object
 		//
-		RenderObjClass *collision_box = NULL;
+		RenderObjClass *collision_box = nullptr;
 		if (commando_obj->Class_ID () == RenderObjClass::CLASSID_DISTLOD) {
 			RenderObjClass *lod0	= commando_obj->Get_Sub_Object(0);
 			collision_box			= lod0->Get_Sub_Object_By_Name ("WORLDBOX");
@@ -181,7 +181,7 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 		//
 		//	Store the exents of the collision box for use in our simulation
 		//
-		if (collision_box != NULL) {
+		if (collision_box != nullptr) {
 			const AABoxClass &box	= collision_box->Get_Bounding_Box ();
 			m_SimBoundingBox			= box.Extent;
 			m_SimBoundingBox.Z		= (box.Extent.Z * 2);
@@ -243,14 +243,14 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 //////////////////////////////////////////////////////////////////////////
 PathfindSectorBuilderClass::~PathfindSectorBuilderClass (void)
 {
-	/*if (_GameSimObj != NULL) {
+	/*if (_GameSimObj != nullptr) {
 		_GameSimObj->Destroy ();
-		_GameSimObj = NULL;
+		_GameSimObj = nullptr;
 	}*/
 
-	if (m_DirInfo != NULL) {
+	if (m_DirInfo != nullptr) {
 		delete [] m_DirInfo;
-		m_DirInfo = NULL;
+		m_DirInfo = nullptr;
 	}
 
 	return ;
@@ -278,7 +278,7 @@ PathfindSectorBuilderClass::Prepare_Level (void)
 		//
 		PhysClass *phys_obj							= iterator.Peek_Obj ();
 		StaticAnimPhysClass *static_phys_obj	= phys_obj->As_StaticAnimPhysClass ();
-		if (static_phys_obj != NULL) {
+		if (static_phys_obj != nullptr) {
 
 			//
 			//	Should we disable collisions with this object during pathfind?
@@ -298,11 +298,11 @@ PathfindSectorBuilderClass::Prepare_Level (void)
 	//	Make sure that tile's use collision group 15...
 	//
 	for (	NodeClass *node = NodeMgrClass::Get_First (NODE_TYPE_TILE);
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node, NODE_TYPE_TILE))
 	{
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 			phys_obj->Set_Collision_Group (15);
 		}
 	}
@@ -323,11 +323,11 @@ PathfindSectorBuilderClass::Restore_Level (void)
 	//	Restore each tile's collision group...
 	//
 	for (	NodeClass *node = NodeMgrClass::Get_First (NODE_TYPE_TILE);
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node, NODE_TYPE_TILE))
 	{
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 			phys_obj->Set_Collision_Group (EDITOR_COLLISION_GROUP);
 		}
 	}
@@ -343,7 +343,7 @@ PathfindSectorBuilderClass::Restore_Level (void)
 		//
 		PhysClass *phys_obj							= iterator.Peek_Obj ();
 		StaticAnimPhysClass *static_phys_obj	= phys_obj->As_StaticAnimPhysClass ();
-		if (static_phys_obj != NULL) {
+		if (static_phys_obj != nullptr) {
 
 			//
 			//	Do we need to re-enable collisions with this object?
@@ -800,7 +800,7 @@ PathfindSectorBuilderClass::Do_Physics_Sim
 	//
 	bool found = false;
 	FloodfillBoxClass *neighbor = m_CurrentSector->Peek_Neighbor (direction, false);
-	if (neighbor != NULL) {
+	if (neighbor != nullptr) {
 
 		m_SimSweepBox.Center = expected_pos;
 
@@ -869,7 +869,7 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 	//
 	bool found = false;
 	FloodfillBoxClass *neighbor = m_CurrentSector->Peek_Neighbor (direction, false);
-	if (neighbor != NULL) {
+	if (neighbor != nullptr) {
 
 		m_SimSweepBox.Center = expected_pos;
 
@@ -922,7 +922,7 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 			NonRefPhysListIterator it (&obj_list);
 			for (it.First(); !it.Is_Done(); it.Next()) {
 				PhysClass *phys_obj = it.Peek_Obj ();
-				if (phys_obj != NULL) {
+				if (phys_obj != nullptr) {
 					RenderObjClass *model = phys_obj->Peek_Model ();
 
 					AABoxIntersectionTestClass int_test (test_box, COLLISION_TYPE_PHYSICAL);
@@ -1026,7 +1026,7 @@ PathfindSectorBuilderClass::Submit_Box
 	position.Z			= new_box.Center.Z - new_box.Extent.Z + (m_SimBoundingBox.Z * 0.5F);
 
 	FloodfillBoxClass *occupant = Get_Sector_Occupant (position);
-	if (occupant == NULL) {
+	if (occupant == nullptr) {
 
 		//
 		//	Mark this cell and add it to the list of sectors
@@ -1071,7 +1071,7 @@ PathfindSectorBuilderClass::Floodfill (const Vector3 &start_pos)
 		//	Loop through and check any neighbors we don't already know about
 		//
 		for (int index = 0; index < DIR_MAX; index ++) {
-			if (m_CurrentSector->Peek_Neighbor (PATHFIND_DIR(index)) == NULL) {
+			if (m_CurrentSector->Peek_Neighbor (PATHFIND_DIR(index)) == nullptr) {
 				Do_Physics_Sim (start_pos, PATHFIND_DIR(index));
 				m_BeforeUpdateCount ++;
 			}
@@ -1259,7 +1259,7 @@ PathfindSectorBuilderClass::Build_Height_Values (void)
 	//	Backup the body-box list to ensure we delete them all...
 	//
 	for (	FloodfillBoxClass *body_box = FloodfillBoxClass::Get_First ();
-			body_box != NULL;
+			body_box != nullptr;
 			body_box = body_box->Get_Next ())
 	{
 		m_BodyBoxReleaseList.Add (body_box);
@@ -1293,7 +1293,7 @@ Can_Traverse (FloodfillBoxClass *cell, PATHFIND_DIR /* dir */)
 	//	Make sure the cell passes the basic 'traverse-requirements'
 	// to move in the given direction
 	//
-	return (	cell != NULL &&
+	return (	cell != nullptr &&
 				cell->Needs_Processing () == false &&
 				cell->Is_Taken () == false);
 }
@@ -1335,7 +1335,7 @@ PathfindSectorBuilderClass::Move_Dir (FloodfillBoxClass *start_box, PATHFIND_DIR
 	//
 	//	Peek a the cell in the given direction
 	//
-	FloodfillBoxClass *retval		= NULL;
+	FloodfillBoxClass *retval		= nullptr;
 	FloodfillBoxClass *new_cell	= start_box->Peek_Neighbor (dir);
 
 
@@ -1395,7 +1395,7 @@ PathfindSectorBuilderClass::Check_Edge
 	dir_mask |= (count_right > 0) ? MASK_RIGHT : 0;
 	dir_mask |= (count_up > 0) ? MASK_UP : 0;
 	dir_mask |= (count_down > 0) ? MASK_DOWN : 0;
-	if (Move_Dir (start_box, move_dir, dir_mask) != NULL) {
+	if (Move_Dir (start_box, move_dir, dir_mask) != nullptr) {
 		retval = true;
 	}
 
@@ -1410,7 +1410,7 @@ PathfindSectorBuilderClass::Check_Edge
 		// Can we move one step in this direction?
 		//
 		curr_cell = Move_Dir (curr_cell, DIR_LEFT, 0);
-		if (curr_cell != NULL) {
+		if (curr_cell != nullptr) {
 
 			//
 			// Can this new cell move in the movement direction AND
@@ -1418,7 +1418,7 @@ PathfindSectorBuilderClass::Check_Edge
 			//
 			dir_mask = MASK_RIGHT;
 			dir_mask |= ((x + 1) < count_left) ? MASK_LEFT : 0;
-			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != NULL);
+			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != nullptr);
 
 		} else {
 			retval = false;
@@ -1435,7 +1435,7 @@ PathfindSectorBuilderClass::Check_Edge
 		// Can we move one step in this direction?
 		//
 		curr_cell = Move_Dir (curr_cell, DIR_RIGHT, 0);
-		if (curr_cell != NULL) {
+		if (curr_cell != nullptr) {
 
 			//
 			// Can this new cell move in the movement direction AND
@@ -1443,7 +1443,7 @@ PathfindSectorBuilderClass::Check_Edge
 			//
 			dir_mask = MASK_LEFT;
 			dir_mask |= ((x + 1) < count_right) ? MASK_RIGHT : 0;
-			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != NULL);
+			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != nullptr);
 
 		} else {
 			retval = false;
@@ -1461,7 +1461,7 @@ PathfindSectorBuilderClass::Check_Edge
 		// Can we move one step in this direction?
 		//
 		curr_cell = Move_Dir (curr_cell, DIR_UP, 0);
-		if (curr_cell != NULL) {
+		if (curr_cell != nullptr) {
 
 			//
 			// Can this new cell move in the movement direction AND
@@ -1469,7 +1469,7 @@ PathfindSectorBuilderClass::Check_Edge
 			//
 			dir_mask = MASK_DOWN;
 			dir_mask |= ((y + 1) < count_up) ? MASK_UP : 0;
-			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != NULL);
+			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != nullptr);
 
 		} else {
 			retval = false;
@@ -1486,7 +1486,7 @@ PathfindSectorBuilderClass::Check_Edge
 		// Can we move one step in this direction?
 		//
 		curr_cell = Move_Dir (curr_cell, DIR_DOWN, 0);
-		if (curr_cell != NULL) {
+		if (curr_cell != nullptr) {
 
 			//
 			// Can this new cell move in the movement direction AND
@@ -1494,7 +1494,7 @@ PathfindSectorBuilderClass::Check_Edge
 			//
 			dir_mask = MASK_UP;
 			dir_mask |= ((y + 1) < count_down) ? MASK_DOWN : 0;
-			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != NULL);
+			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != nullptr);
 
 		} else {
 			retval = false;
@@ -1539,7 +1539,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 			perimeter->stop_up = true;
 
 			FloodfillBoxClass *new_cell = Move_Dir (up_cell, DIR_UP, 0);
-			if (new_cell != NULL) {
+			if (new_cell != nullptr) {
 				if (Check_Edge (up_cell, perimeter->count_left, perimeter->count_right, 0, 0, DIR_UP)) {
 					up_cell = new_cell;
 					perimeter->count_up ++;
@@ -1555,7 +1555,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 			perimeter->stop_down = true;
 
 			FloodfillBoxClass *new_cell = Move_Dir (down_cell, DIR_DOWN, 0);
-			if (new_cell != NULL) {
+			if (new_cell != nullptr) {
 				if (Check_Edge (down_cell, perimeter->count_left, perimeter->count_right, 0, 0, DIR_DOWN)) {
 					down_cell = new_cell;
 					perimeter->count_down ++;
@@ -1571,7 +1571,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 			perimeter->stop_left = true;
 
 			FloodfillBoxClass *new_cell = Move_Dir (left_cell, DIR_LEFT, 0);
-			if (new_cell != NULL) {
+			if (new_cell != nullptr) {
 				if (Check_Edge (left_cell, 0, 0, perimeter->count_up, perimeter->count_down, DIR_LEFT)) {
 					left_cell = new_cell;
 					perimeter->count_left ++;
@@ -1587,7 +1587,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 			perimeter->stop_right = true;
 
 			FloodfillBoxClass *new_cell = Move_Dir (right_cell, DIR_RIGHT, 0);
-			if (new_cell != NULL) {
+			if (new_cell != nullptr) {
 				if (Check_Edge (right_cell, 0, 0, perimeter->count_up, perimeter->count_down, DIR_RIGHT)) {
 					right_cell = new_cell;
 					perimeter->count_right ++;
@@ -1633,7 +1633,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 	if (upper_left1 != upper_left2) {
 		CString message;
 		message.Format ("upper_left1 = %d\nupper_left2 = %d\nup_cell = %d\nleft_cell = %d", upper_left1, upper_left2, up_cell, left_cell);
-		::MessageBox (NULL, message, "Info", MB_OK);
+		::MessageBox (nullptr, message, "Info", MB_OK);
 	}
 
 	return upper_left1;
@@ -1656,15 +1656,15 @@ PathfindSectorBuilderClass::Compress_Sectors (DynamicVectorClass<AABoxClass> *bo
 	int box_count			= 0;
 
 	bool keep_going					= true;
-	FloodfillBoxClass *start_box			= NULL;
-	FloodfillBoxClass *old_start_box	= NULL;
+	FloodfillBoxClass *start_box			= nullptr;
+	FloodfillBoxClass *old_start_box	= nullptr;
 
 	BOX_PERIMETER old_perimeter = { 0 };
 
 	//
 	//	Loop over all the boxes and compress them into rectangular regions
 	//
-	while (keep_going && ((start_box = FloodfillBoxClass::Get_First ()) != NULL)) {
+	while (keep_going && ((start_box = FloodfillBoxClass::Get_First ()) != nullptr)) {
 
 		//
 		//	Don't compress any boxes that still need processing
@@ -1720,12 +1720,12 @@ PathfindSectorBuilderClass::Compress_Sectors (DynamicVectorClass<AABoxClass> *bo
 				//	Compress the region into a new pathfinding sector
 				//
 				PathfindSectorClass *sector = Build_Sector (upper_left_cell, width, height);
-				if (sector != NULL) {
+				if (sector != nullptr) {
 
 					//
 					//	Sumbit this sector
 					//
-					if (box_list != NULL) {
+					if (box_list != nullptr) {
 						AABoxClass bbox = sector->Get_Bounding_Box ();
 						box_list->Add (bbox);
 						MEMBER_RELEASE (sector);
@@ -1809,7 +1809,7 @@ Scan_Edge
 {
 	FloodfillBoxClass *	best_first_cell	= 0;
 
-	FloodfillBoxClass *	first_cell	= NULL;
+	FloodfillBoxClass *	first_cell	= nullptr;
 	int						count			= 0;
 
 	//
@@ -1826,7 +1826,7 @@ Scan_Edge
 			//
 			//	Start recording this run
 			//
-			if (first_cell == NULL) {
+			if (first_cell == nullptr) {
 				first_cell	= box_obj;
 				count			= 1;
 			} else {
@@ -1846,7 +1846,7 @@ Scan_Edge
 			//
 			//	Reset
 			//
-			first_cell	= NULL;
+			first_cell	= nullptr;
 			count			= 0;
 		}
 
@@ -1955,7 +1955,7 @@ PathfindSectorBuilderClass::Build_Sector
 	//
 	//	Allocate a new sector
 	//
-	PathfindSectorClass *sector = NULL;
+	PathfindSectorClass *sector = nullptr;
 	if (is_valid) {
 		sector = new PathfindSectorClass;
 	}
@@ -2042,7 +2042,7 @@ PathfindSectorBuilderClass::Generate_Portals (void)
 		FloodfillBoxClass *cull_obj = m_PossiblePortalList[index];
 
 		PathfindSectorClass *sector = cull_obj->Peek_Sector ();
-		if ((sector != NULL) && sector->Is_Valid ()) {
+		if ((sector != nullptr) && sector->Is_Valid ()) {
 
 			const AABoxClass &box	= sector->Get_Bounding_Box ();
 			Vector3 portal_size		= m_SimBoundingBox;
@@ -2090,7 +2090,7 @@ PathfindSectorBuilderClass::Free_Floodfill_Boxes (void)
 		FloodfillBoxClass *body_box = m_BodyBoxReleaseList[index];
 		body_box->Reset_Portal_Info ();
 		body_box->Set_Taken (false);
-		body_box->Set_Sector (NULL);
+		body_box->Set_Sector (nullptr);
 		body_box->Remove ();
 		REF_PTR_RELEASE (body_box);
 	}
@@ -2170,7 +2170,7 @@ PathfindSectorBuilderClass::Detect_Elevators (void)
 		//
 		PhysClass *phys_obj				= iterator.Peek_Obj ();
 		ElevatorPhysClass *elevator	= phys_obj->As_ElevatorPhysClass ();
-		if (elevator != NULL) {
+		if (elevator != nullptr) {
 
 			const ElevatorPhysDefClass *definition = elevator->Get_ElevatorPhysDef ();
 
@@ -2260,8 +2260,8 @@ PathfindSectorBuilderClass::Detect_Doors (void)
 		//
 		PhysClass *phys_obj	= iterator.Peek_Obj ();
 		DoorPhysClass *door	= phys_obj->As_DoorPhysClass ();
-		if (	door != NULL &&
-				door->Get_DoorPhysDef () != NULL &&
+		if (	door != nullptr &&
+				door->Get_DoorPhysDef () != nullptr &&
 				door->Get_DoorPhysDef ()->Is_Vehicle_Door () == false)
 		{
 			const DoorPhysDefClass *definition = door->Get_DoorPhysDef ();
@@ -2339,9 +2339,9 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 	//
 	// Loop through all the transitions in the level
 	//
-	TransitionNodeClass *node = NULL;
+	TransitionNodeClass *node = nullptr;
 	for (node = (TransitionNodeClass *)NodeMgrClass::Get_First (NODE_TYPE_TRANSITION);
-		  node != NULL;
+		  node != nullptr;
 		  node = (TransitionNodeClass *)NodeMgrClass::Get_Next (node, NODE_TYPE_TRANSITION))
 	{
 		//
@@ -2352,7 +2352,7 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 		for (int index = 0; index < count; index ++) {
 
 			TransitionInstanceClass *transition = node->Get_Transition (index);
-			if (transition != NULL) {
+			if (transition != nullptr) {
 
 				//
 				//	Build an AABox from the zone this transition uses
@@ -2381,8 +2381,8 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 						//
 						//	Search for the exit transition
 						//
-						TransitionInstanceClass *exit_transition	= NULL;
-						TransitionNodeClass *exit_node				= NULL;
+						TransitionInstanceClass *exit_transition	= nullptr;
+						TransitionNodeClass *exit_node				= nullptr;
 						if (transition->Get_Type () == TransitionDataClass::LADDER_ENTER_BOTTOM) {
 							exit_transition =  Find_Transition (TransitionDataClass::LADDER_EXIT_TOP, pos, 100.0F, &exit_node);
 						} else {
@@ -2392,7 +2392,7 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 						//
 						//	Pass the exit zone onto the level feature object
 						//
-						if (exit_transition != NULL) {
+						if (exit_transition != nullptr) {
 							level_feature->Set_End (exit_transition->Get_Zone ());
 							level_feature->Set_End_TM (exit_transition->Get_Ending_TM ());
 
@@ -2430,7 +2430,7 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 						//
 						//	Can we reuse the same ladder index that the exit portal uses?
 						//
-						if (exit_node != NULL && exit_node->Get_Transition_Game_Obj () != NULL) {
+						if (exit_node != nullptr && exit_node->Get_Transition_Game_Obj () != nullptr) {
 							new_ladder_index = exit_node->Get_Transition_Game_Obj ()->Get_Ladder_Index ();
 							if (new_ladder_index != -1) {
 								need_new_ladder_index = false;
@@ -2450,14 +2450,14 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 						//	Give the level feature a unique identifier
 						//
 						level_feature->Set_Mechanism_ID (ladder_index);
-						if (node->Get_Transition_Game_Obj () != NULL) {
+						if (node->Get_Transition_Game_Obj () != nullptr) {
 							node->Get_Transition_Game_Obj ()->Set_Ladder_Index (ladder_index);
 						}
 
 						//
 						//	Attempt to tie the bottom and top transitions to the same value
 						//
-						if (exit_node != NULL && exit_node->Get_Transition_Game_Obj () != NULL) {
+						if (exit_node != nullptr && exit_node->Get_Transition_Game_Obj () != nullptr) {
 							exit_node->Get_Transition_Game_Obj ()->Set_Ladder_Index (ladder_index);
 						}
 
@@ -2493,7 +2493,7 @@ PathfindSectorBuilderClass::Post_Process_Floodfill_For_Level_Features (void)
 	//
 	for (int index = 0; index < m_LevelFeatureList.Count (); index ++) {
 		LevelFeatureClass *level_feature = m_LevelFeatureList[index];
-		if (level_feature != NULL) {
+		if (level_feature != nullptr) {
 
 			//
 			//	Get the area where the player will be moving
@@ -2557,7 +2557,7 @@ PathfindSectorBuilderClass::Apply_Level_Features (void)
 	//
 	for (int index = 0; index < m_LevelFeatureList.Count (); index ++) {
 		LevelFeatureClass *level_feature = m_LevelFeatureList[index];
-		if (level_feature != NULL) {
+		if (level_feature != nullptr) {
 
 			//
 			//	Integrate this feature into the pathfind data
@@ -2584,8 +2584,8 @@ PathfindSectorBuilderClass::Find_Transition
 	TransitionNodeClass **				transition_node
 )
 {
-	TransitionInstanceClass *retval	= NULL;
-	(*transition_node)					= NULL;
+	TransitionInstanceClass *retval	= nullptr;
+	(*transition_node)					= nullptr;
 
 	float start_z		= start_pos.Z;
 	float	closest_z	= 1000000;
@@ -2594,9 +2594,9 @@ PathfindSectorBuilderClass::Find_Transition
 	//	Loop over all the transitions in the level and find the one
 	// that most closely matches what we are looking for
 	//
-	TransitionNodeClass *node = NULL;
+	TransitionNodeClass *node = nullptr;
 	for (node = (TransitionNodeClass *)NodeMgrClass::Get_First (NODE_TYPE_TRANSITION);
-		  node != NULL;
+		  node != nullptr;
 		  node = (TransitionNodeClass *)NodeMgrClass::Get_Next (node, NODE_TYPE_TRANSITION))
 	{
 		//
@@ -2610,7 +2610,7 @@ PathfindSectorBuilderClass::Find_Transition
 			//	Get the transition game object
 			//
 			TransitionInstanceClass *transition = node->Get_Transition (index);
-			if (transition != NULL) {
+			if (transition != nullptr) {
 
 				const OBBoxClass &zone = transition->Get_Zone ();
 
@@ -2654,32 +2654,32 @@ PathfindSectorBuilderClass::Find_Sector
 {
 	PathfindSectorClass *sector = PathfindClass::Get_Instance ()->Find_Sector (point, 1.0F);
 
-	if (sector == NULL) {
+	if (sector == nullptr) {
 		sector = PathfindClass::Get_Instance ()->Find_Sector (box.Center, 1.0F);
 	}
 
-	if (sector == NULL) {
+	if (sector == nullptr) {
 		Vector3 box_point	= box.Center;
 		box_point.X			+= box.Extent.X;
 		box_point.Y			+= box.Extent.Y;
 		sector				= PathfindClass::Get_Instance ()->Find_Sector (box_point, 1.0F);
 	}
 
-	if (sector == NULL) {
+	if (sector == nullptr) {
 		Vector3 box_point	= box.Center;
 		box_point.X			-= box.Extent.X;
 		box_point.Y			-= box.Extent.Y;
 		sector				= PathfindClass::Get_Instance ()->Find_Sector (box_point, 1.0F);
 	}
 
-	if (sector == NULL) {
+	if (sector == nullptr) {
 		Vector3 box_point	= box.Center;
 		box_point.X			+= box.Extent.X;
 		box_point.Y			-= box.Extent.Y;
 		sector				= PathfindClass::Get_Instance ()->Find_Sector (box_point, 1.0F);
 	}
 
-	if (sector == NULL) {
+	if (sector == nullptr) {
 		Vector3 box_point	= box.Center;
 		box_point.X			-= box.Extent.X;
 		box_point.Y			+= box.Extent.Y;
@@ -2698,7 +2698,7 @@ PathfindSectorBuilderClass::Find_Sector
 void
 PathfindSectorBuilderClass::Build_Sector_For_Level_Feature (LevelFeatureClass *level_feature)
 {
-	if (level_feature == NULL) {
+	if (level_feature == nullptr) {
 		return ;
 	}
 
@@ -2738,7 +2738,7 @@ PathfindSectorBuilderClass::Build_Sector_For_Level_Feature (LevelFeatureClass *l
 	if (	level_feature->Get_Type () == LevelFeatureClass::TYPE_LADDER_BOTTOM ||
 			level_feature->Get_Type () == LevelFeatureClass::TYPE_LADDER_TOP)
 	{
-		if (end_sector != NULL) {
+		if (end_sector != nullptr) {
 			end_box = end_sector->Get_Bounding_Box ();
 		}
 	}
@@ -2759,7 +2759,7 @@ PathfindSectorBuilderClass::Build_Sector_For_Level_Feature (LevelFeatureClass *l
 	//
 	//	Were we successful?
 	//
-	if ((start_sector != NULL) && (end_sector != NULL)) {
+	if ((start_sector != nullptr) && (end_sector != nullptr)) {
 
 		//
 		//	Create a sector from scratch
@@ -2853,9 +2853,9 @@ PathfindSectorBuilderClass::Check_For_Level_Feature (FloodfillBoxClass *body_box
 		//	Find all the features this body box intersects
 		//
 		DynamicVectorClass<LevelFeatureClass *> feature_list;
-		LevelFeatureClass *level_feature = NULL;
+		LevelFeatureClass *level_feature = nullptr;
 		for (	level_feature = m_LevelFeatureCullingSystem.Get_First_Collected_Object ();
-				level_feature != NULL;
+				level_feature != nullptr;
 				level_feature = m_LevelFeatureCullingSystem.Get_Next_Collected_Object (level_feature))
 		{
 			feature_list.Add (level_feature);
@@ -2928,7 +2928,7 @@ PathfindSectorBuilderClass::Path_Across_Feature (LevelFeatureClass *level_featur
 		position.Z = new_box.Center.Z;
 
 		FloodfillBoxClass *occupant = Get_Sector_Occupant (position);
-		if (occupant == NULL) {
+		if (occupant == nullptr) {
 
 			//
 			//	Mark this cell and add it to the list of sectors
@@ -2965,7 +2965,7 @@ fnPathfindDialogThread
 	//	Return the dialog object to the caller
 	//
 	GeneratingPathfindDialogClass **return_val = (GeneratingPathfindDialogClass **)dwparam2;
-	if (return_val != NULL) {
+	if (return_val != nullptr) {
 		(*return_val) = dialog;
 	}
 
@@ -2981,7 +2981,7 @@ fnPathfindDialogThread
 void
 PathfindSectorBuilderClass::Show_Dialog (void)
 {
-	::Create_UI_Thread (fnPathfindDialogThread, 0, (DWORD_PTR)&m_pDialog, 0, NULL, NULL);
+	::Create_UI_Thread (fnPathfindDialogThread, 0, (DWORD_PTR)&m_pDialog, 0, nullptr, nullptr);
 	return ;
 }
 
@@ -2994,7 +2994,7 @@ PathfindSectorBuilderClass::Show_Dialog (void)
 void
 PathfindSectorBuilderClass::Close_Dialog (void)
 {
-	if (m_pDialog != NULL) {
+	if (m_pDialog != nullptr) {
 		::PostMessage (m_pDialog->m_hWnd, WM_USER+101, 0, 0L);
 	}
 

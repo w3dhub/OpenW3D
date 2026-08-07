@@ -48,7 +48,7 @@ class DlgMsgBoxEvent :
 	public:
 		typedef enum
 			{
-			None = 0, // NULL event
+			None = 0, // nullptr event
 			Okay,     // Okay button pressed
 			Yes,      // Yes button pressed
 			No,       // No button pressed
@@ -94,11 +94,11 @@ class DlgMsgBox :
 			} Type;
 
 		static bool DoDialog(const unichar_t* title, const unichar_t* text,
-			DlgMsgBox::Type type = DlgMsgBox::Okay, Observer<DlgMsgBoxEvent>* observer = NULL,
+			DlgMsgBox::Type type = DlgMsgBox::Okay, Observer<DlgMsgBoxEvent>* observer = nullptr,
 			unsigned int user_data = 0);
 
 		static bool DoDialog(int titleID, int textID, DlgMsgBox::Type type = DlgMsgBox::Okay,
-			Observer<DlgMsgBoxEvent>* observer = NULL, unsigned int user_data = 0);
+			Observer<DlgMsgBoxEvent>* observer = nullptr, unsigned int user_data = 0);
 
 		void Set_User_Data(unsigned int user_data)
 			{mUserData = user_data;}

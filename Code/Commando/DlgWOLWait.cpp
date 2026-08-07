@@ -46,7 +46,7 @@
 
 using namespace WWOnline;
 
-DlgWOLWait* DlgWOLWait::mTheInstance = NULL;
+DlgWOLWait* DlgWOLWait::mTheInstance = nullptr;
 
 /******************************************************************************
 *
@@ -86,7 +86,7 @@ bool DlgWOLWait::DoDialog(const unichar_t* title, RefPtr<WaitCondition>& wait,
 			popup->Release_Ref();
 			}
 
-		return (popup != NULL);
+		return (popup != nullptr);
 		}
 
 	return false;
@@ -132,7 +132,7 @@ bool DlgWOLWait::DoDialog(const unichar_t* title, const unichar_t* button_text, 
 			popup->Release_Ref();
 			}
 
-		return (popup != NULL);
+		return (popup != nullptr);
 		}
 
 	return false;
@@ -210,7 +210,7 @@ DlgWOLWait::DlgWOLWait(RefPtr<WaitCondition>& wait, unsigned int timeout, unsign
 
 DlgWOLWait::~DlgWOLWait()
 	{
-	mTheInstance = NULL;
+	mTheInstance = nullptr;
 	}
 
 

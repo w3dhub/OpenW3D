@@ -407,7 +407,7 @@ class DataSafeEntryListClass
 		** Constructor.
 		*/
 		DataSafeEntryListClass(void) {
-			SafeList = NULL;
+			SafeList = nullptr;
 			EntryCount = 0;
 			EntryType = -1;
 			SlopCount = 0;
@@ -732,7 +732,7 @@ class DataSafeClass : public GenericDataSafeClass
 {
 
 	public:
-		DataSafeClass(T *bogus_ptr = NULL, int slopcount = 3);
+		DataSafeClass(T *bogus_ptr = nullptr, int slopcount = 3);
 		~DataSafeClass(void);
 
 		/*
@@ -1106,15 +1106,15 @@ __forceinline void GenericDataSafeClass::Security_Check(void)
 			** Loop through every list.
 			*/
 			for (int i=0 ; i<NumLists ; i++) {
-				ds_assert(Safe[i] != NULL);
-				if (Safe[i] != NULL && Safe[i]->EntryCount > 0) {
+				ds_assert(Safe[i] != nullptr);
+				if (Safe[i] != nullptr && Safe[i]->EntryCount > 0) {
 
 					/*
 					** Dereference stuff - make sure the list makes sense.
 					*/
 					DataSafeEntryClass *entry_ptr = Safe[i]->SafeList;
-					unsigned int *data = NULL;
-					ds_assert(entry_ptr != NULL);
+					unsigned int *data = nullptr;
+					ds_assert(entry_ptr != nullptr);
 					int data_size = entry_ptr->Size;
 					ds_assert((data_size & 3) == 0);
 					data_size = data_size >> 2;
@@ -1164,18 +1164,18 @@ __forceinline void GenericDataSafeClass::Security_Check(void)
 			** Check the values of the sentinels.
 			*/
 			if (NumLists) {
-				int *val = NULL;
+				int *val = nullptr;
 				if ((int)SentinelOne != 0) {
 					bool got = DataSafeClass<int>::Get(SentinelOne, val);
-					if (!got || val == NULL || *val != SENTINEL_ONE) {
+					if (!got || val == nullptr || *val != SENTINEL_ONE) {
 						WWDEBUG_SAY(("Data Safe: Incorrect sentinel value!\n"));
 						Security_Fault();
 					}
 				}
-				val = NULL;
+				val = nullptr;
 				if ((int)SentinelTwo != 0) {
 					bool got = DataSafeClass<int>::Get(SentinelTwo, val);
-					if (!got || val == NULL || *val != SENTINEL_TWO) {
+					if (!got || val == nullptr || *val != SENTINEL_TWO) {
 						WWDEBUG_SAY(("Data Safe: Incorrect sentinel value!\n"));
 						Security_Fault();
 					}
@@ -1293,8 +1293,8 @@ DataSafeClass<T>::~DataSafeClass(void)
 	** time.
 	*/
 	for (int i=0 ; i<NumLists ; i++) {
-		ds_assert(Safe[i] != NULL);
-		if (Safe[i] != NULL && Safe[i]->EntryType == Type && Safe[i]->EntryCount > 0) {
+		ds_assert(Safe[i] != nullptr);
+		if (Safe[i] != nullptr && Safe[i]->EntryType == Type && Safe[i]->EntryCount > 0) {
 
 			while (Safe[i]->EntryCount > 0) {
 
@@ -1448,8 +1448,8 @@ DataSafeHandleClass DataSafeClass<T>::Add_Entry(T &value, bool is_slop)
 		/*
 		** Init the data safe entry to reasonable values.
 		*/
-		entry_ptr->Next = NULL;
-		entry_ptr->Prev = NULL;
+		entry_ptr->Next = nullptr;
+		entry_ptr->Prev = nullptr;
 		entry_ptr->Size = sizeof(value);
 		entry_ptr->IsSlop = is_slop;
 
@@ -1464,9 +1464,9 @@ DataSafeHandleClass DataSafeClass<T>::Add_Entry(T &value, bool is_slop)
 		*/
 		int list = Get_Random_List_For_Insertion(Type);
 		ds_assert(list >= 0 && list < MAX_DATASAFE_LISTS);
-		ds_assert(Safe[list] != NULL);
+		ds_assert(Safe[list] != nullptr);
 
-		if (list != -1 && Safe[list] != NULL) {
+		if (list != -1 && Safe[list] != nullptr) {
 
 			/*
 			** Now we know the list, we can get the next index id for that list and build a handle for the entry.
@@ -1504,8 +1504,8 @@ DataSafeHandleClass DataSafeClass<T>::Add_Entry(T &value, bool is_slop)
 					ds_assert(entry_ptr);
 
 					if (entry_ptr) {
-						entry_ptr->Next = NULL;
-						entry_ptr->Prev = NULL;
+						entry_ptr->Next = nullptr;
+						entry_ptr->Prev = nullptr;
 						entry_ptr->Size = sizeof(T);
 						entry_ptr->IsSlop = true;
 
@@ -1547,7 +1547,7 @@ DataSafeHandleClass DataSafeClass<T>::Add_Entry(T &value, bool is_slop)
 				** removing them one by one.
 				*/
 				entry_ptr = Safe[list]->SafeList;
-				ds_assert(entry_ptr != NULL);
+				ds_assert(entry_ptr != nullptr);
 				DataSafeHandleClass removal_list[MAX_ENTRIES_PER_LIST];
 				int removal_count = 0;
 
@@ -1647,15 +1647,15 @@ void DataSafeClass<T>::Delete_Entry(DataSafeHandleClass handle)
 	*/
 	ds_assert(list >= 0);
 	ds_assert(list < NumLists);
-	ds_assert(Safe[list] != NULL);
+	ds_assert(Safe[list] != nullptr);
 
 	/*
 	** Get a pointer to the actual entry in the safe list.
 	*/
 	DataSafeEntryClass *entry_ptr = Get_Entry(handle);
-	ds_assert(entry_ptr != NULL);
+	ds_assert(entry_ptr != nullptr);
 
-	if (entry_ptr != NULL) {
+	if (entry_ptr != nullptr) {
 
 		/*
 		** Apply the current data key to the handle to fix up the checksum.
@@ -1716,7 +1716,7 @@ bool DataSafeClass<T>::Get(DataSafeHandleClass handle, T* &item)
 	*/
 	DataSafeEntryClass *entry_ptr = Get_Entry(handle);
 
-	if (entry_ptr == NULL) {
+	if (entry_ptr == nullptr) {
 		return(false);
 	}
 
@@ -1782,7 +1782,7 @@ bool DataSafeClass<T>::Set(DataSafeHandleClass handle, T *data)
 	*/
 	DataSafeEntryClass *entry_ptr = Get_Entry(handle);
 
-	if (entry_ptr == NULL) {
+	if (entry_ptr == nullptr) {
 		return(false);
 	}
 
@@ -1969,7 +1969,7 @@ inline T &SafeDataClass<T>::operator = (SafeDataClass<T> &safedata)
 	/*
 	** Locals.
 	*/
-	T *other_value = NULL;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -1987,7 +1987,7 @@ inline T &SafeDataClass<T>::operator = (SafeDataClass<T> &safedata)
 		** and set it into the safe entry with our handle.
 		*/
 		other_value = safedata.Get_Ptr();
-		ds_assert(other_value != NULL);
+		ds_assert(other_value != nullptr);
 
 		if (other_value) {
 			[[maybe_unused]] bool ok = DataSafeClass<T>::Set(Handle, (T*) other_value);
@@ -2028,7 +2028,7 @@ inline T &SafeDataClass<T>::operator = (SafeDataClass<T> &safedata)
 template <class T>
 inline bool SafeDataClass<T>::operator == (T const &data)
 {
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** If we have a valid handle, then check the value against the supplied data.
@@ -2071,8 +2071,8 @@ inline bool SafeDataClass<T>::operator == (SafeDataClass<T> &safedata)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2095,7 +2095,7 @@ inline bool SafeDataClass<T>::operator == (SafeDataClass<T> &safedata)
 			** Looks like we have the value for this safe data class. Get the value for the other one.
 			*/
 			other_value = safedata.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 
@@ -2132,7 +2132,7 @@ inline bool SafeDataClass<T>::operator == (SafeDataClass<T> &safedata)
 template <class T>
 inline bool SafeDataClass<T>::operator != (T const &data)
 {
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** If we have a valid handle, then check the value against the supplied data.
@@ -2173,8 +2173,8 @@ inline bool SafeDataClass<T>::operator != (SafeDataClass<T> &safedata)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2197,7 +2197,7 @@ inline bool SafeDataClass<T>::operator != (SafeDataClass<T> &safedata)
 			** Looks like we have the value for this safe data class. Get the value for the other one.
 			*/
 			other_value = safedata.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 
@@ -2234,7 +2234,7 @@ inline bool SafeDataClass<T>::operator != (SafeDataClass<T> &safedata)
 template <class T>
 inline bool SafeDataClass<T>::operator > (T const &data)
 {
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** If we have a valid handle, then check the value against the supplied data.
@@ -2277,8 +2277,8 @@ inline bool SafeDataClass<T>::operator > (SafeDataClass<T> &safedata)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2301,7 +2301,7 @@ inline bool SafeDataClass<T>::operator > (SafeDataClass<T> &safedata)
 			** Looks like we have the value for this safe data class. Get the value for the other one.
 			*/
 			other_value = safedata.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 
@@ -2340,7 +2340,7 @@ inline bool SafeDataClass<T>::operator > (SafeDataClass<T> &safedata)
 template <class T>
 inline bool SafeDataClass<T>::operator >= (T const &data)
 {
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** If we have a valid handle, then check the value against the supplied data.
@@ -2383,8 +2383,8 @@ inline bool SafeDataClass<T>::operator >= (SafeDataClass<T> &safedata)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2407,7 +2407,7 @@ inline bool SafeDataClass<T>::operator >= (SafeDataClass<T> &safedata)
 			** Looks like we have the value for this safe data class. Get the value for the other one.
 			*/
 			other_value = safedata.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 
@@ -2445,7 +2445,7 @@ inline bool SafeDataClass<T>::operator >= (SafeDataClass<T> &safedata)
 template <class T>
 inline bool SafeDataClass<T>::operator < (T const &data)
 {
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** If we have a valid handle, then check the value against the supplied data.
@@ -2488,8 +2488,8 @@ inline bool SafeDataClass<T>::operator < (SafeDataClass<T> &safedata)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2512,7 +2512,7 @@ inline bool SafeDataClass<T>::operator < (SafeDataClass<T> &safedata)
 			** Looks like we have the value for this safe data class. Get the value for the other one.
 			*/
 			other_value = safedata.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 
@@ -2553,7 +2553,7 @@ inline bool SafeDataClass<T>::operator < (SafeDataClass<T> &safedata)
 template <class T>
 inline bool SafeDataClass<T>::operator <= (T const &data)
 {
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** If we have a valid handle, then check the value against the supplied data.
@@ -2596,8 +2596,8 @@ inline bool SafeDataClass<T>::operator <= (SafeDataClass<T> &safedata)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2620,7 +2620,7 @@ inline bool SafeDataClass<T>::operator <= (SafeDataClass<T> &safedata)
 			** Looks like we have the value for this safe data class. Get the value for the other one.
 			*/
 			other_value = safedata.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 
@@ -2660,7 +2660,7 @@ inline T &SafeDataClass<T>::operator + (T const &value)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -2709,8 +2709,8 @@ inline T &SafeDataClass<T>::operator + (SafeDataClass<T> &safevalue)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2733,7 +2733,7 @@ inline T &SafeDataClass<T>::operator + (SafeDataClass<T> &safevalue)
 			** and do the math.
 			*/
 			other_value = safevalue.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 				*data_ptr = *data_ptr + *other_value;
@@ -2781,7 +2781,7 @@ inline T &SafeDataClass<T>::operator += (T const &value)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -2836,8 +2836,8 @@ inline T &SafeDataClass<T>::operator += (SafeDataClass<T> &safevalue)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2860,7 +2860,7 @@ inline T &SafeDataClass<T>::operator += (SafeDataClass<T> &safevalue)
 			** and do the math.
 			*/
 			other_value = safevalue.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 				*data_ptr = *data_ptr + *other_value;
@@ -2914,7 +2914,7 @@ inline T &SafeDataClass<T>::operator - (T const &value)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -2963,8 +2963,8 @@ inline T &SafeDataClass<T>::operator - (SafeDataClass<T> &safevalue)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -2987,7 +2987,7 @@ inline T &SafeDataClass<T>::operator - (SafeDataClass<T> &safevalue)
 			** and do the math.
 			*/
 			other_value = safevalue.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 				*data_ptr = *data_ptr - *other_value;
@@ -3035,7 +3035,7 @@ inline T &SafeDataClass<T>::operator -= (T const &value)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -3090,8 +3090,8 @@ inline T &SafeDataClass<T>::operator -= (SafeDataClass<T> &safevalue)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -3114,7 +3114,7 @@ inline T &SafeDataClass<T>::operator -= (SafeDataClass<T> &safevalue)
 			** and do the math.
 			*/
 			other_value = safevalue.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 				*data_ptr = *data_ptr - *other_value;
@@ -3172,7 +3172,7 @@ inline T &SafeDataClass<T>::operator * (T const &value)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -3221,8 +3221,8 @@ inline T &SafeDataClass<T>::operator * (SafeDataClass<T> &safevalue)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -3245,7 +3245,7 @@ inline T &SafeDataClass<T>::operator * (SafeDataClass<T> &safevalue)
 			** and do the math.
 			*/
 			other_value = safevalue.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 				*data_ptr = *data_ptr * *other_value;
@@ -3293,7 +3293,7 @@ inline T &SafeDataClass<T>::operator *= (T const &value)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -3348,8 +3348,8 @@ inline T &SafeDataClass<T>::operator *= (SafeDataClass<T> &safevalue)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -3372,7 +3372,7 @@ inline T &SafeDataClass<T>::operator *= (SafeDataClass<T> &safevalue)
 			** and do the math.
 			*/
 			other_value = safevalue.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 				*data_ptr = *data_ptr * *other_value;
@@ -3424,7 +3424,7 @@ inline T &SafeDataClass<T>::operator / (T const &value)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -3474,8 +3474,8 @@ inline T &SafeDataClass<T>::operator / (SafeDataClass<T> &safevalue)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -3498,7 +3498,7 @@ inline T &SafeDataClass<T>::operator / (SafeDataClass<T> &safevalue)
 			** and do the math.
 			*/
 			other_value = safevalue.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 				ds_assert(*other_value != 0);
@@ -3547,7 +3547,7 @@ inline T &SafeDataClass<T>::operator /= (T const &value)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -3603,8 +3603,8 @@ inline T &SafeDataClass<T>::operator /= (SafeDataClass<T> &safevalue)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
-	T *other_value = NULL;
+	T *data_ptr = nullptr;
+	T *other_value = nullptr;
 
 	/*
 	** Asserts.
@@ -3627,7 +3627,7 @@ inline T &SafeDataClass<T>::operator /= (SafeDataClass<T> &safevalue)
 			** and do the math.
 			*/
 			other_value = safevalue.Get_Ptr();
-			ds_assert(other_value != NULL);
+			ds_assert(other_value != nullptr);
 
 			if (other_value) {
 				ds_assert(*other_value != 0);
@@ -3675,7 +3675,7 @@ inline T &SafeDataClass<T>::operator ++ (void)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -3732,7 +3732,7 @@ inline T &SafeDataClass<T>::operator -- (void)
 	/*
 	** Locals.
 	*/
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** Asserts.
@@ -3840,7 +3840,7 @@ inline T &SafeDataClass<T>::operator -- (int)
 template <class T>
 inline T &SafeDataClass<T>::operator () (void) const
 {
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** If the handle we have is valid then use it to get a pointer to a temporary copy of the data safe contents for this
@@ -3885,7 +3885,7 @@ inline SafeDataClass<T>::operator int (void) const
 {
 	ds_assert(sizeof(T) == sizeof(int));
 
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 #ifdef WWDEBUG
 	/*
@@ -3936,7 +3936,7 @@ inline SafeDataClass<T>::operator unsigned int (void) const
 {
 	ds_assert(sizeof(T) == sizeof(unsigned int));
 
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 #ifdef WWDEBUG
 	/*
@@ -3987,7 +3987,7 @@ inline SafeDataClass<T>::operator float (void) const
 {
 	ds_assert(sizeof(T) == sizeof(float));
 
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 #ifdef WWDEBUG
 	/*
@@ -4038,7 +4038,7 @@ inline SafeDataClass<T>::operator double (void) const
 {
 	ds_assert(sizeof(T) == sizeof(double));
 
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 #ifdef WWDEBUG
 	/*
@@ -4093,7 +4093,7 @@ inline SafeDataClass<T>::operator double (void) const
 template <class T>
 inline T *SafeDataClass<T>::Get_Ptr(void) const
 {
-	T *data_ptr = NULL;
+	T *data_ptr = nullptr;
 
 	/*
 	** If the handle we have is valid then use it to get a pointer to a temporary copy of the data safe contents for this
@@ -4111,7 +4111,7 @@ inline T *SafeDataClass<T>::Get_Ptr(void) const
 	** Error case.
 	*/
 	ds_assert(false);
-	return(NULL);
+	return(nullptr);
 }
 
 

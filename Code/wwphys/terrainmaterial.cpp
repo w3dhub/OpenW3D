@@ -65,7 +65,7 @@ enum
 //
 //////////////////////////////////////////////////////////////////////
 TerrainMaterialClass::TerrainMaterialClass (void)	:
-	Texture (NULL),
+	Texture (nullptr),
 	MetersPerTile (10.0F),
 	SurfaceType (0),
 	AreUVsMirrored (false)
@@ -109,7 +109,7 @@ TerrainMaterialClass::Set_Texture (const char *texture_name)
 
 #ifndef PARAM_EDITING_ON
 	const char *dir_delim = ::strrchr (texture_name, '\\');
-	if (dir_delim != NULL) {
+	if (dir_delim != nullptr) {
 		TextureName = dir_delim + 1;
 	}
 #endif

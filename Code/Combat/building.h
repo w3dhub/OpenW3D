@@ -181,14 +181,14 @@ public:
 	// Type identification
 	virtual	BuildingGameObj	*		As_BuildingGameObj( void ) override			{ return this; }
 	virtual	DamageableGameObj	*		As_DamageableGameObj( void ) override		{ return this; }
-	virtual	PowerPlantGameObj *		As_PowerPlantGameObj (void)		{ return NULL; }
-	virtual	SoldierFactoryGameObj *	As_SoldierFactoryGameObj (void)	{ return NULL; }
-	virtual	VehicleFactoryGameObj *	As_VehicleFactoryGameObj (void)	{ return NULL; }
-	virtual	AirStripGameObj *			As_AirStripGameObj (void)			{ return NULL; }
-	virtual	WarFactoryGameObj *		As_WarFactoryGameObj (void)		{ return NULL; }
-	virtual	RefineryGameObj *			As_RefineryGameObj (void)			{ return NULL; }
-	virtual	ComCenterGameObj *		As_ComCenterGameObj (void)			{ return NULL; }
-	virtual	RepairBayGameObj *		As_RepairBayGameObj (void)			{ return NULL; }
+	virtual	PowerPlantGameObj *		As_PowerPlantGameObj (void)		{ return nullptr; }
+	virtual	SoldierFactoryGameObj *	As_SoldierFactoryGameObj (void)	{ return nullptr; }
+	virtual	VehicleFactoryGameObj *	As_VehicleFactoryGameObj (void)	{ return nullptr; }
+	virtual	AirStripGameObj *			As_AirStripGameObj (void)			{ return nullptr; }
+	virtual	WarFactoryGameObj *		As_WarFactoryGameObj (void)		{ return nullptr; }
+	virtual	RefineryGameObj *			As_RefineryGameObj (void)			{ return nullptr; }
+	virtual	ComCenterGameObj *		As_ComCenterGameObj (void)			{ return nullptr; }
+	virtual	RepairBayGameObj *		As_RepairBayGameObj (void)			{ return nullptr; }
 
 	/****/
 

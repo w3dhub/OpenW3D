@@ -241,7 +241,7 @@ void ProjectileClass::Timestep(float dt)
 		/*
 		** This is that last object we choose to ignore
 		*/
-		PhysClass	*blocker = NULL;
+		PhysClass	*blocker = nullptr;
 
 		while ((remaining_time > 0.0f) && (bumps < MAX_BUMPS) && (BounceCount >= 0)) {
 
@@ -301,7 +301,7 @@ void ProjectileClass::Timestep(float dt)
 					/*
 					** Notify the parties involved
 					*/
-					WWASSERT(raytest.CollidedPhysObj != NULL);
+					WWASSERT(raytest.CollidedPhysObj != nullptr);
 
 					CollisionReactionType reaction = COLLISION_REACTION_DEFAULT;
 

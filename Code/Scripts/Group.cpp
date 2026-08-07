@@ -58,9 +58,9 @@ Group::Group(const char* name)
 	mName[0] = '\0';
 
 	// Make copy of team name
-	assert(name != NULL);
+	assert(name != nullptr);
 
-	if (name != NULL)
+	if (name != nullptr)
 		{
 		strncpy(mName, name, sizeof(mName));
 		mName[sizeof(mName) - 1] = '\0';
@@ -129,7 +129,7 @@ const char* Group::GetName(void) const
 
 void Group::AddMember(GameObject* object)
 	{
-	assert(object != NULL);
+	assert(object != nullptr);
 
 	// Add the object if it is not already a member of the team.
 	if (IsMember(object) == false)
@@ -157,7 +157,7 @@ void Group::AddMember(GameObject* object)
 
 void Group::RemoveMember(GameObject* object)
 	{
-	assert(object != NULL);
+	assert(object != nullptr);
 	mMembers.Delete(object);
 	}
 
@@ -180,7 +180,7 @@ void Group::RemoveMember(GameObject* object)
 
 bool Group::IsMember(GameObject* object) const
 	{
-	assert(object != NULL);
+	assert(object != nullptr);
 
 	for (int index = 0; index < mMembers.Count(); index++)
 		{
@@ -263,7 +263,7 @@ void Group::SendCustomEvent(GameObject* from, int event, int data)
 	for (int index = 0; index < mMembers.Count(); index++)
 		{
 		GameObject* object = mMembers[index];
-		assert(object != NULL);
+		assert(object != nullptr);
 		Commands->Send_Custom_Event(from, object, event, data);
 		}
 	}

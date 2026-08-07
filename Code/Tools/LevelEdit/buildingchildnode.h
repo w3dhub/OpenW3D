@@ -67,7 +67,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	BuildingChildNodeClass (PresetClass *preset = NULL);
+	BuildingChildNodeClass (PresetClass *preset = nullptr);
 	BuildingChildNodeClass (const BuildingChildNodeClass &src);
 	~BuildingChildNodeClass (void);
 
@@ -143,7 +143,7 @@ protected:
 inline void
 BuildingChildNodeClass::On_Rotate (void)
 {
-	if (Building != NULL) {
+	if (Building != nullptr) {
 		Building->Update_Lines ();
 	}
 
@@ -158,7 +158,7 @@ BuildingChildNodeClass::On_Rotate (void)
 inline void
 BuildingChildNodeClass::On_Translate (void)
 {
-	if (Building != NULL) {
+	if (Building != nullptr) {
 		Building->Update_Lines ();
 	}
 
@@ -173,7 +173,7 @@ BuildingChildNodeClass::On_Translate (void)
 inline void
 BuildingChildNodeClass::On_Transform (void)
 {
-	if (Building != NULL) {
+	if (Building != nullptr) {
 		Building->Update_Lines ();
 	}
 

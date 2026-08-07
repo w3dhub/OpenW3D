@@ -181,7 +181,7 @@ private:
 
 Phys3HistoryClass::Phys3HistoryClass(void) :
 	Initialized(false),
-	SnapshotArray(NULL),
+	SnapshotArray(nullptr),
 	HeadIndex(0)
 {
 	SnapshotArray = new StateSnapshotClass[PHYS3_SNAPSHOT_COUNT];
@@ -191,9 +191,9 @@ Phys3HistoryClass::Phys3HistoryClass(void) :
 
 Phys3HistoryClass::~Phys3HistoryClass(void)
 {
-	if (SnapshotArray != NULL) {
+	if (SnapshotArray != nullptr) {
 		delete[] SnapshotArray;
-		SnapshotArray = NULL;
+		SnapshotArray = nullptr;
 	}
 }
 
@@ -254,10 +254,10 @@ void Phys3HistoryClass::Compute_Old_State(float t,Vector3 * set_pos,Vector3 * se
 			*/
 			if (index == HeadIndex) {
 				int tail_index = Wrap_Index(HeadIndex - 1);
-				if (set_pos != NULL) {
+				if (set_pos != nullptr) {
 					*set_pos = SnapshotArray[tail_index].Position;
 				}
-				if (set_vel != NULL) {
+				if (set_vel != nullptr) {
 					*set_vel = SnapshotArray[tail_index].Velocity;
 				}
 				return;
@@ -274,10 +274,10 @@ void Phys3HistoryClass::Compute_Old_State(float t,Vector3 * set_pos,Vector3 * se
 	StateSnapshotClass lerp;
 	float fraction = (t - SnapshotArray[prev_index].Age) / (SnapshotArray[next_index].Age - SnapshotArray[prev_index].Age);
 	lerp.Lerp(SnapshotArray[prev_index],SnapshotArray[next_index],fraction);
-	if (set_pos != NULL) {
+	if (set_pos != nullptr) {
 		*set_pos = lerp.Position;
 	}
-	if (set_vel != NULL) {
+	if (set_vel != nullptr) {
 		*set_vel = lerp.Velocity;
 	}
 }
@@ -470,9 +470,9 @@ Phys3Class::Phys3Class(void)
 	SlideAngleTan = tan(SlideAngle);
 	StepHeight = DEFAULT_STEP_HEIGHT;
 	MoveMode = NORMAL_MOVE;
-	GroundObject = NULL;
+	GroundObject = nullptr;
 	AnimationMove.Set(0,0,0);
-	History = NULL;
+	History = nullptr;
 	LatencyError.Set(0,0,0);
 	LastKnownPosition.Set(0,0,0);
 	LastKnownVelocity.Set(0,0,0);
@@ -508,7 +508,7 @@ void Phys3Class::Init(const Phys3DefClass & def)
 	SlideAngleTan = tan(SlideAngle);
 	StepHeight = def.StepHeight;
 	MoveMode = NORMAL_MOVE;
-	GroundObject = NULL;
+	GroundObject = nullptr;
 	AnimationMove.Set(0,0,0);
 	LatencyError.Set(0,0,0);
 	LastKnownPosition.Set(0,0,0);
@@ -532,7 +532,7 @@ void Phys3Class::Init(const Phys3DefClass & def)
  *=============================================================================================*/
 Phys3Class::~Phys3Class(void)
 {
-	if (History != NULL) {
+	if (History != nullptr) {
 		delete History;
 	}
 }
@@ -828,14 +828,14 @@ void Phys3Class::Set_Model(RenderObjClass * model)
 void Phys3Class::Update_Cached_Model_Parameters(void)
 {
 	// if we don't have a model yet, just return
-	if (Model == NULL) {
+	if (Model == nullptr) {
 
 		return;
 
 	} else {
 
 		// Construct our collision box from the model
-		RenderObjClass * box = NULL;
+		RenderObjClass * box = nullptr;
 
 		if (Model->Class_ID() == RenderObjClass::CLASSID_DISTLOD) {
 			RenderObjClass * lod0 = Model->Get_Sub_Object(0);
@@ -1084,7 +1084,7 @@ void Phys3Class::Timestep(float dt)
 	/*
 	** Update our history buffer
 	*/
-	if (History != NULL) {
+	if (History != nullptr) {
 		History->Update_History(State.Position,State.Velocity,dt);
 
 		/*
@@ -1220,7 +1220,7 @@ void Phys3Class::Timestep(float dt)
 		Add_Animation_Move(State.Position - start_pos);
 
 		if (!OnGround) {
-			Link_To_Carrier(NULL);
+			Link_To_Carrier(nullptr);
 		}
 	}
 
@@ -1738,7 +1738,7 @@ bool Phys3Class::Apply_Move
 					/*
 					** We hit something, call the collision callbacks.
 					*/
-					WWASSERT(test.CollidedPhysObj != NULL);
+					WWASSERT(test.CollidedPhysObj != nullptr);
 					CollisionReactionType reaction = COLLISION_REACTION_DEFAULT;
 
 					CollisionEventClass event;
@@ -1767,7 +1767,7 @@ bool Phys3Class::Apply_Move
 						if (clip_move) {
 							Phys3Class * p3obj = test.CollidedPhysObj->As_Phys3Class();
 
-							if (p3obj != NULL) {
+							if (p3obj != nullptr) {
 
 								/*
 								** Compute a move for the object we're contacting which makes it slide out
@@ -1794,12 +1794,12 @@ bool Phys3Class::Apply_Move
 						** SHATTER: If the mesh is shatterable, shatter it.  We are doing this so that
 						** shatterable meshes are purely cosmetic for multiplay.
 						*/
-						MeshClass * mesh = NULL;
-						if ((test.CollidedRenderObj != NULL) && (test.CollidedRenderObj->Class_ID() == RenderObjClass::CLASSID_MESH)) {
+						MeshClass * mesh = nullptr;
+						if ((test.CollidedRenderObj != nullptr) && (test.CollidedRenderObj->Class_ID() == RenderObjClass::CLASSID_MESH)) {
 							mesh = (MeshClass*)test.CollidedRenderObj;
 						}
 
-						if	(	(mesh != NULL) &&
+						if	(	(mesh != nullptr) &&
 								(mesh->Get_W3D_Flags() & W3D_MESH_FLAG_SHATTERABLE) &&
 								(mesh->Is_Not_Hidden_At_All()))
 						{
@@ -1808,7 +1808,7 @@ bool Phys3Class::Apply_Move
 																								State.Position,
 																								result.Normal,
 																								State.Velocity	);
-							if (Observer != NULL) {
+							if (Observer != nullptr) {
 								Observer->Object_Shattered_Something(this,test.CollidedPhysObj,result.SurfaceType);
 							}
 
@@ -1979,7 +1979,7 @@ void Phys3Class::Snap_To_Ground(const Vector3 & actual_move,bool was_stepping)
 					}
 				}
 
-				Link_To_Carrier(NULL);
+				Link_To_Carrier(nullptr);
 
 				VERBOSE_LOG(("  now above non-walkable slope, snapped only up to step-height %f\r\n",snap_down-GROUND_EPSILON));
 			}
@@ -2022,7 +2022,7 @@ void Phys3Class::Snap_To_Ground(const Vector3 & actual_move,bool was_stepping)
  *=============================================================================================*/
 void Phys3Class::Clip_Move(const Vector3 * contacts,int contact_count,Vector3 * move)
 {
-	WWASSERT(contacts != NULL);
+	WWASSERT(contacts != nullptr);
 	VERBOSE_LOG(("Phys3::Clip_Move\r\n"));
 
 #ifdef WWDEBUG
@@ -2088,7 +2088,7 @@ void Phys3Class::Clip_Move(const Vector3 * contacts,int contact_count,Vector3 * 
  *=============================================================================================*/
 void Phys3Class::Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box)
 {
-	WWASSERT(set_obj_space_box != NULL);
+	WWASSERT(set_obj_space_box != nullptr);
 	*set_obj_space_box = CollisionBox;
 }
 
@@ -2107,7 +2107,7 @@ void Phys3Class::Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box)
  *=============================================================================================*/
 void Phys3Class::Get_Collision_Box(AABoxClass * set_box)
 {
-	WWASSERT(set_box != NULL);
+	WWASSERT(set_box != nullptr);
 	Compute_WS_Collision_Box(State,set_box);
 }
 
@@ -2419,11 +2419,11 @@ void Phys3Class::Network_Latency_State_Update(const Vector3 & net_pos,const Vect
 	/*
 	** Allocate a history object if needed
 	*/
-	if (History == NULL) {
+	if (History == nullptr) {
 		History = new Phys3HistoryClass;
 		History->Init(net_pos,net_vel);
 	}
-	WWASSERT(History != NULL);
+	WWASSERT(History != nullptr);
 
 	/*
 	** Search our history to find the point nearest this server update
@@ -2549,8 +2549,8 @@ Phys3Class::GroundStateStruct::GroundStateStruct(void) :
 	Height(0.0f),
 	Normal(0,0,1),
 	Down(1,0,0),
-	GroundObject(NULL),
-	GroundRenderObject(NULL)
+	GroundObject(nullptr),
+	GroundRenderObject(nullptr)
 {
 	Reset();
 }
@@ -2564,8 +2564,8 @@ void Phys3Class::GroundStateStruct::Reset(void)
 	Height = 0.0f;
 	Normal.Set(0,0,1);
 	Down.Set(1,0,0);
-	GroundObject = NULL;
-	GroundRenderObject = NULL;
+	GroundObject = nullptr;
+	GroundRenderObject = nullptr;
 }
 
 void Phys3Class::GroundStateStruct::Init_From_Collision_Result(PhysAABoxCollisionTestClass & test,float height)
@@ -2581,9 +2581,9 @@ void Phys3Class::GroundStateStruct::Init_From_Collision_Result(PhysAABoxCollisio
 		GroundRenderObject = test.CollidedRenderObj;
 		Height = height;
 
-		if (GroundObject != NULL) {
-			if (	(GroundObject->As_HumanPhysClass() != NULL) ||
-					(GroundObject->As_RigidBodyClass() != NULL))
+		if (GroundObject != nullptr) {
+			if (	(GroundObject->As_HumanPhysClass() != nullptr) ||
+					(GroundObject->As_RigidBodyClass() != nullptr))
 			{
 				OnDynamicObj = true;
 			}
@@ -2614,8 +2614,8 @@ void Phys3Class::GroundStateStruct::Init_From_Collision_Result(PhysAABoxCollisio
 	} else {
 		OnGround = false;
 		OnDynamicObj = false;
-		GroundObject = NULL;
-		GroundRenderObject = NULL;
+		GroundObject = nullptr;
+		GroundRenderObject = nullptr;
 		SurfaceType = SURFACE_TYPE_DEFAULT;
 	}
 }

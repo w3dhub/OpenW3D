@@ -34,7 +34,7 @@ class MakeMixFileDialogClass : public CDialog
 {
 // Construction
 public:
-	MakeMixFileDialogClass(CWnd* pParent = NULL);   // standard constructor
+	MakeMixFileDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(MakeMixFileDialogClass)

@@ -111,8 +111,8 @@ void	BeamEffectManagerClass::Shutdown( void )
 
 void BeamEffectManagerClass::Create_Beam_Effect(const AmmoDefinitionClass * ammo_def,const Vector3 & p0,const Vector3 & p1)
 {
-	SegmentedLineClass * beam_model = NULL;
-	TimedDecorationPhysClass * beam_wrapper = NULL;
+	SegmentedLineClass * beam_model = nullptr;
+	TimedDecorationPhysClass * beam_wrapper = nullptr;
 
 	Internal_Get_New_Beam(&beam_model,&beam_wrapper);
 
@@ -208,7 +208,7 @@ void BeamEffectManagerClass::Internal_Get_New_Beam(SegmentedLineClass ** set_bea
 */
 class BulletDataClass {
 public:
-	BulletDataClass(  const AmmoDefinitionClass * def = NULL, const ArmedGameObj * owner = NULL,
+	BulletDataClass(  const AmmoDefinitionClass * def = nullptr, const ArmedGameObj * owner = nullptr,
 							const Vector3 & position = Vector3(0,0,0), const Vector3 & velocity = Vector3(0,0,0) ) :
 		AmmoDefinition( def ),
 		Owner( owner ),
@@ -245,7 +245,7 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 	WWPROFILE( "Bullet Collision Occurred" );
 
 	WWASSERT(event.OtherObj);
-	WWASSERT(event.CollisionResult != NULL);
+	WWASSERT(event.CollisionResult != nullptr);
 //	WWDEBUG_SAY(( "Bullet Collision\n" ));
 
 	//
@@ -258,9 +258,9 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 	const Vector3 & collision_point = event.CollisionResult->ContactPoint;
 	const Vector3 & collision_normal = event.CollisionResult->Normal;
 
-	PhysicalGameObj * other = NULL;
-	BuildingGameObj * building = NULL;
-	if ( event.OtherObj->Get_Observer() != NULL ) {
+	PhysicalGameObj * other = nullptr;
+	BuildingGameObj * building = nullptr;
+	if ( event.OtherObj->Get_Observer() != nullptr ) {
 		other = ((CombatPhysObserverClass *)event.OtherObj->Get_Observer())->As_PhysicalGameObj();
 		building = ((CombatPhysObserverClass *)event.OtherObj->Get_Observer())->As_BuildingGameObj();
 	}
@@ -269,13 +269,13 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 	// If the bullet hits its owner or its owner's vehicle, allow it to continue
 	// Also, if it is a simple "Hidden Object", allow the bullet to continue
 	//
-	if ( other != NULL && Get_Owner() != NULL ) {
+	if ( other != nullptr && Get_Owner() != nullptr ) {
 
 		SimpleGameObj * simple = other->As_SimpleGameObj();
 		VehicleGameObj * vehicle = other->As_VehicleGameObj();
 		SoldierGameObj * soldier = Get_Owner()->As_SoldierGameObj();
 
-		if ( vehicle != NULL && soldier != NULL && vehicle == soldier->Get_Vehicle() ) {
+		if ( vehicle != nullptr && soldier != nullptr && vehicle == soldier->Get_Vehicle() ) {
 //			Debug_Say(( "Bullet Hitting its owner's vehicle\n" ));
 			return COLLISION_REACTION_NO_BOUNCE;
 		}
@@ -283,7 +283,7 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 //			Debug_Say(( "Bullet Hitting its owner\n" ));
 			return COLLISION_REACTION_NO_BOUNCE;
 		}
-		if ((simple != NULL) && (simple->Is_Hidden_Object())) {
+		if ((simple != nullptr) && (simple->Is_Hidden_Object())) {
 			return COLLISION_REACTION_NO_BOUNCE;
 		}
 	}
@@ -294,7 +294,7 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 	// that was collided with.  In the case that the mesh was shattered, we disable surface effect decals.
 	//
 	bool shattered = false;
-	if ((event.CollidedRenderObj != NULL) && (event.CollidedRenderObj->Class_ID() == RenderObjClass::CLASSID_MESH)) {
+	if ((event.CollidedRenderObj != nullptr) && (event.CollidedRenderObj->Class_ID() == RenderObjClass::CLASSID_MESH)) {
 		MeshClass * mesh = (MeshClass *)event.CollidedRenderObj;
 
 		if ((mesh->Get_W3D_Flags() & W3D_MESH_FLAG_SHATTERABLE) && (mesh->Is_Not_Hidden_At_All())) {
@@ -330,8 +330,8 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 	//
 	if (!shattered) {
 
-		const char * collided_obj_name = NULL;
-		if ( event.CollidedRenderObj != NULL ) {
+		const char * collided_obj_name = nullptr;
+		if ( event.CollidedRenderObj != nullptr ) {
 			collided_obj_name = event.CollidedRenderObj->Get_Name();
 		}
 
@@ -358,10 +358,10 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 
 				// If the bullet is hitting C4, also apply damage to the object the C4 is
 				// attached to.  This is a fix for the "C4 armor" exploit.
-				if (other->As_C4GameObj() != NULL) {
+				if (other->As_C4GameObj() != nullptr) {
 					ScriptableGameObj * host = other->As_C4GameObj()->Get_Stuck_Object();
-					if ((host != NULL) && (host->As_PhysicalGameObj() != NULL)) {
-						host->As_PhysicalGameObj()->Apply_Damage_Extended( offense, 1.0f, Velocity, NULL );
+					if ((host != nullptr) && (host->As_PhysicalGameObj() != nullptr)) {
+						host->As_PhysicalGameObj()->Apply_Damage_Extended( offense, 1.0f, Velocity, nullptr );
 					}
 				}
 //			}
@@ -387,7 +387,7 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 			}
 
 			// If hitting a building, apply damage to it
-			if ( building != NULL ) { //	&& CombatManager::I_Am_Server() ) {
+			if ( building != nullptr ) { //	&& CombatManager::I_Am_Server() ) {
 				building->Apply_Damage_Building( offense, event.OtherObj->As_StaticPhysClass() );
 			}
 
@@ -460,7 +460,7 @@ class	BulletClass : public CombatPhysObserverClass, public MultiListObjectClass,
 public:
 	~BulletClass( void );
 
-	void		Init( const BulletDataClass & data, float progress_time, const Vector3 & target, DamageableGameObj * target_object = NULL );
+	void		Init( const BulletDataClass & data, float progress_time, const Vector3 & target, DamageableGameObj * target_object = nullptr );
 	void		Shutdown( void );
 	void		Think( void );
 
@@ -468,7 +468,7 @@ public:
 	virtual	bool	Save( ChunkSaveClass & csave );
 	virtual	bool	Load( ChunkLoadClass & cload );
 	virtual	void	On_Post_Load(void) override;
-	bool	Is_Valid( void )	{ return BulletData.AmmoDefinition != NULL; }
+	bool	Is_Valid( void )	{ return BulletData.AmmoDefinition != nullptr; }
 
 	// Collision
 	virtual CollisionReactionType		Collision_Occurred( const CollisionEventClass & event ) override;
@@ -491,23 +491,23 @@ private:
 
 
 BulletClass::BulletClass( void ) :
-	Projectile( NULL ),
+	Projectile( nullptr ),
 	TargetVector( 0,0,0 ),
 	TrackingErrorTimer( 0 ),
 	TrackingError( 0,0,0 ),
 	ModelNameCRC( 0 )
 {
-	WWASSERT( Projectile == NULL );
+	WWASSERT( Projectile == nullptr );
 	Projectile = NEW_REF( ProjectileClass, () );
    Projectile->Set_Collision_Group( BULLET_COLLISION_GROUP );
 }
 
 BulletClass::~BulletClass( void )
 {
-	if ( Projectile != NULL ) {
-		Projectile->Set_Observer(NULL);
+	if ( Projectile != nullptr ) {
+		Projectile->Set_Observer(nullptr);
 		Projectile->Release_Ref();
-		Projectile = NULL;
+		Projectile = nullptr;
 	}
 }
 
@@ -540,18 +540,18 @@ void BulletClass::Init( const BulletDataClass & data, float progress_time, const
 	}
 	Projectile->Enable_Is_Pre_Lit(true);	// bullets don't get lighting.
 
-	if ( Projectile->Peek_Model() != NULL &&
-		  Projectile->Peek_Model()->Get_Name() != NULL &&
+	if ( Projectile->Peek_Model() != nullptr &&
+		  Projectile->Peek_Model()->Get_Name() != nullptr &&
 		  BulletData.AmmoDefinition->ModelName.Compare_No_Case( Projectile->Peek_Model()->Get_Name() ) == 0 ) {
 		// We don't need to do anything
 	} else {
-		RenderObjClass * model = NULL;
+		RenderObjClass * model = nullptr;
 		model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj( BulletData.AmmoDefinition->ModelName );
 
-		// If no name is given, lets create the NULL render obj
-		if ( model == NULL ) {
+		// If no name is given, lets create the nullptr render obj
+		if ( model == nullptr ) {
 			Debug_Say(( "Bullet Not Found \"%s\" \n", BulletData.AmmoDefinition->ModelName.Peek_Buffer() ));
-			model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj( "NULL" );
+			model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj( "nullptr" );
 
 		}
 
@@ -581,7 +581,7 @@ void BulletClass::Init( const BulletDataClass & data, float progress_time, const
 
 	float duration = (float) BulletData.AmmoDefinition->Range / (float) BulletData.AmmoDefinition->Velocity;
 	if (duration <= 0.0) {
-		Debug_Say(( "NULL DURATION\n" ));
+		Debug_Say(( "nullptr DURATION\n" ));
 	}
 	Projectile->Set_Lifetime( duration * 1.2f );
 	Projectile->Set_Position( data.Position );
@@ -593,11 +593,11 @@ void BulletClass::Init( const BulletDataClass & data, float progress_time, const
 	model->Restart();
 
 	// Timestep last, incase it gets shutdown during this call
-	if ( data.Get_Owner() != NULL ) {
+	if ( data.Get_Owner() != nullptr ) {
 		data.Get_Owner()->Peek_Physical_Object()->Inc_Ignore_Counter();
 	}
 	Projectile->Timestep( progress_time );
-	if ( data.Get_Owner() != NULL ) {
+	if ( data.Get_Owner() != nullptr ) {
 		data.Get_Owner()->Peek_Physical_Object()->Dec_Ignore_Counter();
 	}
 
@@ -605,13 +605,13 @@ void BulletClass::Init( const BulletDataClass & data, float progress_time, const
 
 void	BulletClass::Shutdown( void )
 {
-	if ( Projectile != NULL ) {
+	if ( Projectile != nullptr ) {
 		COMBAT_SCENE->Remove_Object( Projectile );
-		Projectile->Set_Observer( NULL );
+		Projectile->Set_Observer( nullptr );
 	}
 
-	BulletData.AmmoDefinition = NULL;
-	BulletData.Owner = NULL;
+	BulletData.AmmoDefinition = nullptr;
+	BulletData.Owner = nullptr;
 }
 
 /*
@@ -635,7 +635,7 @@ enum	{
 bool	BulletClass::Save( ChunkSaveClass & csave )
 {
 	csave.Begin_Chunk( CHUNKID_VARIABLES );
-		WWASSERT( BulletData.AmmoDefinition != NULL );
+		WWASSERT( BulletData.AmmoDefinition != nullptr );
 		int def_id = BulletData.AmmoDefinition->Get_ID();
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_AMMO_DEFINITION_ID, def_id );
 		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_PROJECTILE, Projectile );
@@ -647,13 +647,13 @@ bool	BulletClass::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_MODEL_NAME_CRC, ModelNameCRC );
 	csave.End_Chunk();
 
-	if ( BulletData.Get_Owner() != NULL ) {
+	if ( BulletData.Get_Owner() != nullptr ) {
 		csave.Begin_Chunk( CHUNKID_OWNER );
 		BulletData.Owner.Save( csave );
 		csave.End_Chunk();
 	}
 
-	if ( TargetObject.Get_Ptr() != NULL ) {
+	if ( TargetObject.Get_Ptr() != nullptr ) {
 		csave.Begin_Chunk( CHUNKID_TARGET_OBJECT );
 		TargetObject.Save( csave );
 		csave.End_Chunk();
@@ -688,12 +688,12 @@ bool	BulletClass::Load( ChunkLoadClass & cload )
 					cload.Close_Micro_Chunk();
 				}
 
-				WWASSERT( BulletData.AmmoDefinition == NULL );
+				WWASSERT( BulletData.AmmoDefinition == nullptr );
 				BulletData.AmmoDefinition = WeaponManager::Find_Ammo_Definition( def_id );
-				WWASSERT( BulletData.AmmoDefinition != NULL );
+				WWASSERT( BulletData.AmmoDefinition != nullptr );
 
-				WWASSERT( Projectile != NULL );
-				if ( Projectile != NULL ) {
+				WWASSERT( Projectile != nullptr );
+				if ( Projectile != nullptr ) {
 					REQUEST_REF_COUNTED_POINTER_REMAP( (RefCountClass **)&Projectile );
 				}
 
@@ -724,7 +724,7 @@ bool	BulletClass::Load( ChunkLoadClass & cload )
 void BulletClass::On_Post_Load (void)
 {
 	// Plug ourselves back into the physics object as an observer
-	WWASSERT(Projectile != NULL);
+	WWASSERT(Projectile != nullptr);
 	Projectile->Set_Observer(this);
 	return ;
 }
@@ -774,7 +774,7 @@ void	BulletClass::Think( void )
 
 		// Track your target object
 		DamageableGameObj * target_obj = (DamageableGameObj *)TargetObject.Get_Ptr();
-		if ( target_obj != NULL ) {
+		if ( target_obj != nullptr ) {
 			if ( target_obj->As_PhysicalGameObj() ) {
 				TargetVector = target_obj->As_PhysicalGameObj()->Get_Bullseye_Position();
 			} else {
@@ -850,11 +850,11 @@ void	Simulate_Instant_Bullet( BulletDataClass & data, float /* progress_time */ 
 	end = start + (end * data.AmmoDefinition->Range);
 
 	// This is that last object we choose to ignore
-	PhysClass	*blocker = NULL;
+	PhysClass	*blocker = nullptr;
 
 	// Always ignore the owner
-	if ( data.Get_Owner() != NULL ) {
-		if ( data.Get_Owner()->Peek_Physical_Object() != NULL ) {
+	if ( data.Get_Owner() != nullptr ) {
+		if ( data.Get_Owner()->Peek_Physical_Object() != nullptr ) {
 			data.Get_Owner()->Peek_Physical_Object()->Inc_Ignore_Counter();
 		}
 	}
@@ -888,7 +888,7 @@ void	Simulate_Instant_Bullet( BulletDataClass & data, float /* progress_time */ 
 				data.Position = raytest.Result->ContactPoint;
 
 				// Notify the parties involved
-				WWASSERT(raytest.CollidedPhysObj != NULL);
+				WWASSERT(raytest.CollidedPhysObj != nullptr);
 
 				CollisionReactionType reaction = COLLISION_REACTION_DEFAULT;
 
@@ -924,8 +924,8 @@ void	Simulate_Instant_Bullet( BulletDataClass & data, float /* progress_time */ 
 	}
 
 	// stop ignoring the owner
-	if ( data.Get_Owner() != NULL ) {
-		if ( data.Get_Owner()->Peek_Physical_Object() != NULL ) {
+	if ( data.Get_Owner() != nullptr ) {
+		if ( data.Get_Owner()->Peek_Physical_Object() != nullptr ) {
 			data.Get_Owner()->Peek_Physical_Object()->Dec_Ignore_Counter();
 		}
 	}
@@ -1000,12 +1000,12 @@ void	BulletManager::Create_Bullet( const AmmoDefinitionClass * def, const Vector
 	}
 
 	WWPROFILE( "Create Bullet" );
-	BulletClass * bullet = NULL;
+	BulletClass * bullet = nullptr;
 
 	// Find a bullet
 	int crc = CRC_Stringi( def->ModelName );
 	MultiListIterator<BulletClass> it( &DeadBulletList );;
-	while ( !it.Is_Done() && bullet == NULL ) {
+	while ( !it.Is_Done() && bullet == nullptr ) {
 		BulletClass * test_bullet = it.Peek_Obj();
 		if ( test_bullet->ModelNameCRC == crc ) {
 			bullet = test_bullet;
@@ -1015,11 +1015,11 @@ void	BulletManager::Create_Bullet( const AmmoDefinitionClass * def, const Vector
 		}
 	}
 
-	if ( bullet == NULL ) {
+	if ( bullet == nullptr ) {
 		bullet = new BulletClass();
 	}
 
-	if ( bullet != NULL ) {
+	if ( bullet != nullptr ) {
 		bullet->Init( data, progress_time, target, target_obj );
 		LiveBulletList.Add( bullet );
 	}

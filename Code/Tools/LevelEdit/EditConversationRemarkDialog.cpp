@@ -63,7 +63,7 @@ const ORATOR_BUTTON_INFO ORATOR_BUTTONS[ORATOR_MAX] =
 // EditConversationRemarkDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-EditConversationRemarkDialogClass::EditConversationRemarkDialogClass(CWnd* pParent /*=NULL*/)
+EditConversationRemarkDialogClass::EditConversationRemarkDialogClass(CWnd* pParent /*=nullptr*/)
 	:	m_OratorBitmask (1),
 		CDialog(EditConversationRemarkDialogClass::IDD, pParent)
 {
@@ -142,7 +142,7 @@ EditConversationRemarkDialogClass::OnInitDialog (void)
 	//
 	StringPicker.Set_Selection (Remark.Get_Text_ID ());
 	StringPicker.Create (this);
-	StringPicker.SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
+	StringPicker.SetWindowPos (nullptr, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
 	StringPicker.ShowWindow (SW_SHOW);
 	return true;
 }

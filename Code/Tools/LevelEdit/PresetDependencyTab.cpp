@@ -109,7 +109,7 @@ void PresetDependencyTabClass::Dump(CDumpContext& dc) const
 void
 PresetDependencyTabClass::HandleInitDialog (void)
 {
-	ASSERT (m_Preset != NULL);
+	ASSERT (m_Preset != nullptr);
 
 	//
 	//	Configure the list control
@@ -208,7 +208,7 @@ PresetDependencyTabClass::OnAdd (void)
 {
 	CFileDialog dialog (true,
 							  ".w3d",
-							  NULL,
+							  nullptr,
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 							  "All Files|*.*|Westwood 3D Files|*.w3d|Texture Files|*.tga|Sound Files|*.wav;*.mp3||",
 							  this);

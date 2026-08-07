@@ -58,7 +58,7 @@ void DirectoryBrowserClass::Get_Selected_Path (WideStringClass &selectedpath)
 	TreeCtrlClass *treectrl;
 
 	treectrl = Get_Dlg_Item (IDC_BROWSER_TREE)->As_TreeCtrlClass();
-	if (treectrl->Get_Selected_Item() != NULL) {
+	if (treectrl->Get_Selected_Item() != nullptr) {
 		Build_Pathname (treectrl->Get_Selected_Item(), selectedpath);
 	} else {
 		selectedpath = L"???";
@@ -96,12 +96,12 @@ void DirectoryBrowserClass::On_Init_Dialog (void)
 
 			TreeItemClass *treeitem;
 
-			treeitem = treectrl->Insert_Item (WideStringClass (drivename), TreeCtrlClass::ICON_FOLDER, TreeCtrlClass::ICON_FOLDER_OPEN, NULL);
+			treeitem = treectrl->Insert_Item (WideStringClass (drivename), TreeCtrlClass::ICON_FOLDER, TreeCtrlClass::ICON_FOLDER_OPEN, nullptr);
 			treeitem->Set_Needs_Children (Has_Children (treectrl, treectrl->Get_ID(), treeitem));
 		}
 	}
 
-	treectrl->Sort_Children_Alphabetically (NULL);
+	treectrl->Sort_Children_Alphabetically (nullptr);
 
 	// Must call base class.
 	PopupDialogClass::On_Init_Dialog();
@@ -122,7 +122,7 @@ void DirectoryBrowserClass::On_Init_Dialog (void)
  *=============================================================================================*/
 void DirectoryBrowserClass::On_TreeCtrl_Needs_Children (TreeCtrlClass *tree_ctrl, int ctrl_id, TreeItemClass *parent_item)
 {
-	if (parent_item != NULL) {
+	if (parent_item != nullptr) {
 
 		WideStringClass path;
 
@@ -150,7 +150,7 @@ bool DirectoryBrowserClass::Has_Children (TreeCtrlClass *tree_ctrl, int ctrl_id,
 {
 	bool haschildren = true;
 
-	if (parent_item != NULL) {
+	if (parent_item != nullptr) {
 
 		WideStringClass path;
 
@@ -178,7 +178,7 @@ void DirectoryBrowserClass::Build_Pathname (TreeItemClass *treenode, WideStringC
 {
 	WideStringClass backslash ("\\");
 
-	if (treenode->Get_Parent() != NULL) {
+	if (treenode->Get_Parent() != nullptr) {
 		Build_Pathname (treenode->Get_Parent(), path);
 	}
 

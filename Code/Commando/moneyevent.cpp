@@ -84,7 +84,7 @@ cMoneyEvent::Act(void)
 
 	cPlayer * p_player = cPlayerManager::Find_Player(SenderId);
 
-	if (p_player != NULL && p_player->Invulnerable.Is_True()) {
+	if (p_player != nullptr && p_player->Invulnerable.Is_True()) {
 
 		p_player->Set_Money(float(Amount));
 

@@ -56,9 +56,9 @@ EditorINIClass::Get_Vector3
 	const Vector3 &defvalue
 )  const
 {
-	if (section != NULL && entry != NULL) {
+	if (section != nullptr && entry != nullptr) {
 		INIEntry * entryptr = Find_Entry(section, entry);
-		if (entryptr && entryptr->Value != NULL) {
+		if (entryptr && entryptr->Value != nullptr) {
 			Vector3	ret;
 			if ( sscanf( entryptr->Value, "%f,%f,%f", &ret[0], &ret[1], &ret[2] ) == 3 ) {
 				return ret;
@@ -82,9 +82,9 @@ EditorINIClass::Get_Vector4
 	const Vector4 &defvalue
 ) const
 {
-	if (section != NULL && entry != NULL) {
+	if (section != nullptr && entry != nullptr) {
 		INIEntry * entryptr = Find_Entry(section, entry);
-		if (entryptr && entryptr->Value != NULL) {
+		if (entryptr && entryptr->Value != nullptr) {
 			Vector4	ret;
 			if ( sscanf( entryptr->Value, "%f,%f,%f,%f", &ret[0], &ret[1], &ret[2], &ret[3] ) == 4 ) {
 				return ret;
@@ -130,7 +130,7 @@ EditorINIClass::Get_Matrix3D
 ) const
 {
 	// check input parameters
-	if ( section == NULL || entry == NULL ) {
+	if ( section == nullptr || entry == nullptr ) {
 		return defvalue;
 	}
 
@@ -171,7 +171,7 @@ EditorINIClass::Put_Matrix3D
 )
 {
 	// check input parameters
-	if ( section == NULL || entry == NULL ) {
+	if ( section == nullptr || entry == nullptr ) {
 		return false;
 	}
 

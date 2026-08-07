@@ -95,7 +95,7 @@ bit8 TCPMgr::getListener(uint32 ip, uint16 port, OUT SOCKET &outsock)
 //
 bit8 TCPMgr::setBufferedWrites(TCPCon *con, bit8 enabled)
 {
-  TCPCon *tempptr=NULL;
+  TCPCon *tempptr=nullptr;
 
   // Check to see if this connection is already in our list
   for (int i=0; i<BufferedWriters_.length(); i++)
@@ -122,7 +122,7 @@ bit8 TCPMgr::setBufferedWrites(TCPCon *con, bit8 enabled)
 //
 void TCPMgr::pumpWriters(void)  // pump the buffered writer connections
 {
-  TCPCon *conptr=NULL;
+  TCPCon *conptr=nullptr;
 
   // Check to see if this connection is already in our list
   for (int i=0; i<BufferedWriters_.length(); i++)
@@ -148,7 +148,7 @@ bit8 TCPMgr::connect(char *host, uint16 port, OUT uint32 *handle)
 
   strcpy(hostName, host);
   hostStruct = gethostbyname(host);
-  if (hostStruct == NULL)
+  if (hostStruct == nullptr)
     return (0);
   hostNode = (struct in_addr *) hostStruct->h_addr;
   return ( connect(ntohl(hostNode->s_addr),port,handle) );
@@ -168,7 +168,7 @@ bit8 TCPMgr::connect(uint32 ip, uint16 port,OUT uint32 *handle)
   pConn.port=0;
   pConn.remoteIp=ip;
   pConn.remotePort=port;
-  pConn.startTime=time(NULL);
+  pConn.startTime=time(nullptr);
   pConn.handle=HandleSequence_++;
   pConn.state=CLOSED;
   pConn.incoming=false;   // outgoing connection
@@ -224,7 +224,7 @@ int TCPMgr::wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readM
   }
 
   timeval      tv;
-  timeval     *tvPtr=NULL;
+  timeval     *tvPtr=nullptr;
   returnSet=givenSet;
   backupSet=givenSet;
 
@@ -246,7 +246,7 @@ int TCPMgr::wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readM
   {
     tvPtr=&tv;
     if (noTimeout)
-      tvPtr=NULL;
+      tvPtr=nullptr;
     else
       timeout.GetTimevalMT(tv);
 
@@ -385,8 +385,8 @@ bit8 TCPMgr::setBlocking(SOCKET fd, bit8 block)
 
 bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wait_secs, DIRECTION dir)
 {
-  PendingConn *connPtr=NULL;
-  time_t      start=time(NULL);
+  PendingConn *connPtr=nullptr;
+  time_t      start=time(nullptr);
   SOCKET      fdArray[1024];
 
   for (int i=0; i<ConnectArray_.length(); i++)
@@ -420,7 +420,7 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
 	 #ifdef _WINDOWS
     Sleep(100);  // windows may be getting flooded with conn msgs, test this
 	 #endif
-    sint32 remaining_wait=wait_secs - (time(NULL)-start);
+    sint32 remaining_wait=wait_secs - (time(nullptr)-start);
     if ((remaining_wait > 0) && (wait(remaining_wait,0,fdArray,ConnectArray_.length(),false) > 0))
       continue;  // got something!
 
@@ -439,7 +439,7 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
 //
 void TCPMgr::pumpConnections(void)
 {
-  PendingConn *connPtr=NULL;
+  PendingConn *connPtr=nullptr;
   STATUS      status;
   int         i;
   int         retval;

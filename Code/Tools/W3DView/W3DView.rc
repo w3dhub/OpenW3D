@@ -348,7 +348,7 @@ BEGIN
     POPUP "&LOD"
     BEGIN
         MENUITEM "&Record Screen Area\tSpace",  IDM_LOD_RECORD_SCREEN_AREA
-        MENUITEM "Include &NULL Object",        IDM_LOD_INCLUDE_NULL
+        MENUITEM "Include &nullptr Object",        IDM_LOD_INCLUDE_NULL
         MENUITEM SEPARATOR
         MENUITEM "&Prev Level\t[",              IDM_LOD_PREV_LEVEL
         MENUITEM "&Next Level\t]",              IDM_LOD_NEXT_LEVEL
@@ -714,7 +714,7 @@ CAPTION "Edit LOD"
 FONT 8, "MS Sans Serif"
 BEGIN
     ICON            IDI_LOD,IDC_STATIC,7,7,21,20
-    LTEXT           "Select an LOD component from the list below.  Use the spin control to select a maximum screen area for the model.  To include an empty render object as the lowest level, check the 'Include NULL' box.",
+    LTEXT           "Select an LOD component from the list below.  Use the spin control to select a maximum screen area for the model.  To include an empty render object as the lowest level, check the 'Include nullptr' box.",
                     IDC_STATIC,37,7,163,35
     LTEXT           "&Models:",IDC_STATIC,7,45,26,8
     CONTROL         "List1",IDC_HIERARCHY_LIST,"SysListView32",LVS_REPORT | 
@@ -726,7 +726,7 @@ BEGIN
     CONTROL         "Spin1",IDC_SWITCH_UP_SPIN,"msctls_updown32",
                     UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,167,126,
                     11,14
-    CONTROL         "&Include NULL object",IDC_CHECK1,"Button",
+    CONTROL         "&Include nullptr object",IDC_CHECK1,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,7,151,81,10
     DEFPUSHBUTTON   "OK",IDOK,48,165,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,108,165,50,14
@@ -1566,10 +1566,10 @@ BEGIN
                     138,179,14
     DEFPUSHBUTTON   "OK",IDOK,47,166,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,117,166,50,14
-    LTEXT           "0 °",IDC_STATIC,49,41,10,8
-    LTEXT           "180 °",IDC_STATIC,177,41,18,8
-    LTEXT           "0 °",IDC_STATIC,49,75,10,8
-    LTEXT           "180 °",IDC_STATIC,177,75,18,8
+    LTEXT           "0 ï¿½",IDC_STATIC,49,41,10,8
+    LTEXT           "180 ï¿½",IDC_STATIC,177,41,18,8
+    LTEXT           "0 ï¿½",IDC_STATIC,49,75,10,8
+    LTEXT           "180 ï¿½",IDC_STATIC,177,75,18,8
     LTEXT           "Transparent",IDC_STATIC,158,128,39,8
     LTEXT           "Opaque",IDC_STATIC,18,128,26,8
 END
@@ -2830,7 +2830,7 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     IDM_LOD_NEXT_LEVEL      "Switch to the next level of detail.\nNext LOD model"
-    IDM_LOD_INCLUDE_NULL    "Include a NULL render object as the lowest level.\nInclude NULL Object"
+    IDM_LOD_INCLUDE_NULL    "Include a nullptr render object as the lowest level.\nInclude nullptr Object"
     IDM_LOD_PREV_LEVEL      "Previous level of detail.\nPrevious LOD model"
     IDM_LOD_AUTOSWITCH      "Allows the LOD to automatically switch between levels.\nLOD Auto Switching"
     IDM_MAKE_MOVIE          "Record a movie of the animation in 800x600.\nMake Movie"

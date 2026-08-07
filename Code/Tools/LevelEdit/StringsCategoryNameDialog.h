@@ -34,7 +34,7 @@ class StringsCategoryNameDialogClass : public CDialog
 {
 // Construction
 public:
-	StringsCategoryNameDialogClass(CWnd* pParent = NULL);   // standard constructor
+	StringsCategoryNameDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(StringsCategoryNameDialogClass)

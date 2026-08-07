@@ -178,7 +178,7 @@ static TextureClass* Create_Projector_Render_Target(unsigned w,unsigned h)
 		format=WW3D_FORMAT_UNKNOWN;
 		return DX8Wrapper::Create_Render_Target(w,h,format);
 	}
-	return NULL;
+	return nullptr;
 
 }
 
@@ -190,7 +190,7 @@ static TextureClass* Create_Projector_Render_Target(unsigned w,unsigned h)
 StaticShadowTexMgrClass::ShadowTexClass::ShadowTexClass(void) :
 	ObjectTypeID(0),
 	ObjectOrientation(1),
-	Texture(NULL)
+	Texture(nullptr)
 {
 }
 
@@ -202,7 +202,7 @@ StaticShadowTexMgrClass::ShadowTexClass::ShadowTexClass
 ) :
 	ObjectTypeID(obj_type_id),
 	ObjectOrientation(orientation),
-	Texture(NULL)
+	Texture(nullptr)
 {
 	REF_PTR_SET(Texture,tex);
 }
@@ -210,7 +210,7 @@ StaticShadowTexMgrClass::ShadowTexClass::ShadowTexClass
 StaticShadowTexMgrClass::ShadowTexClass::ShadowTexClass(const ShadowTexClass & that) :
 	ObjectTypeID(0),
 	ObjectOrientation(1),
-	Texture(NULL)
+	Texture(nullptr)
 {
 	*this = that;
 }
@@ -262,7 +262,7 @@ TextureClass * StaticShadowTexMgrClass::Peek_Shadow_Texture
 			return ShadowTextures[i].Texture;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void StaticShadowTexMgrClass::Add_Shadow_Texture
@@ -272,7 +272,7 @@ void StaticShadowTexMgrClass::Add_Shadow_Texture
 	TextureClass *			tex
 )
 {
-	WWASSERT(Peek_Shadow_Texture(obj_type_id,orientation) == NULL);
+	WWASSERT(Peek_Shadow_Texture(obj_type_id,orientation) == nullptr);
 	ShadowTexClass record(obj_type_id,orientation,tex);
 	ShadowTextures.Add(record);
 }
@@ -304,7 +304,7 @@ DynamicShadowTexMgrClass::DynamicShadowTexMgrClass(void) :
 
 	ShadowTextures.Resize(DEFAULT_MAX_DYNAMIC_SHADOWS);
 	for (int i=0; i<ShadowTextures.Length(); i++) {
-		ShadowTextures[i] = NULL;
+		ShadowTextures[i] = nullptr;
 	}
 }
 
@@ -389,7 +389,7 @@ void DynamicShadowTexMgrClass::Per_Frame_Reset(void)
 void DynamicShadowTexMgrClass::Assign_Render_Target_Texture(TexProjectClass * tex_proj)
 {
 	if (CurShadow < (unsigned int)ShadowTextures.Length()) {
-		if (ShadowTextures[CurShadow] == NULL) {
+		if (ShadowTextures[CurShadow] == nullptr) {
 			ShadowTextures[CurShadow] = Allocate_Render_Target_Texture();
 		}
 		tex_proj->Set_Render_Target(ShadowTextures[CurShadow]);
@@ -401,7 +401,7 @@ TextureClass * DynamicShadowTexMgrClass::Allocate_Render_Target_Texture(void)
 {
 	TextureClass * texture=Create_Projector_Render_Target(TextureResolution,TextureResolution);
 
-	if (texture != NULL) {
+	if (texture != nullptr) {
 
 		SET_REF_OWNER(texture);
 		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
@@ -420,9 +420,9 @@ TextureClass * DynamicShadowTexMgrClass::Allocate_Render_Target_Texture(void)
 ************************************************************************************/
 void PhysicsSceneClass::Release_Projector_Resources(void)
 {
-	if (ShadowRenderContext != NULL) {
+	if (ShadowRenderContext != nullptr) {
 		delete ShadowRenderContext;
-		ShadowRenderContext=NULL;
+		ShadowRenderContext=nullptr;
 	}
 
 	REF_PTR_RELEASE(ShadowMaterialPass);
@@ -457,11 +457,11 @@ unsigned int PhysicsSceneClass::Get_Max_Simultaneous_Shadows(void)
 SpecialRenderInfoClass *
 PhysicsSceneClass::Get_Shadow_Render_Context(int /* width */,int /* height */)
 {
-	if (ShadowRenderContext == NULL) {
+	if (ShadowRenderContext == nullptr) {
 		/*
 		** Create a camera for shadow rendering to use
 		*/
-		if (ShadowCamera == NULL) {
+		if (ShadowCamera == nullptr) {
 			ShadowCamera = NEW_REF(CameraClass,());
 			ShadowCamera->Set_Clip_Planes(0.2f,SHADOW_CLIP_FAR);
 			ShadowCamera->Set_View_Plane(DEG_TO_RAD(90.0f),DEG_TO_RAD(90.0f));
@@ -479,7 +479,7 @@ PhysicsSceneClass::Get_Shadow_Render_Context(int /* width */,int /* height */)
 
 MaterialPassClass * PhysicsSceneClass::Get_Shadow_Material_Pass(void)
 {
-	if (ShadowMaterialPass == NULL) {
+	if (ShadowMaterialPass == nullptr) {
 
 		VertexMaterialClass * vmtl = NEW_REF(VertexMaterialClass,());
 		vmtl->Set_Ambient(0,0,0);
@@ -568,11 +568,11 @@ void PhysicsSceneClass::Set_Shadow_Attenuation(float atten_start_distance,float 
 
 void PhysicsSceneClass::Get_Shadow_Attenuation(float * set_atten_start,float * set_atten_end)
 {
-	if (set_atten_start != NULL) {
+	if (set_atten_start != nullptr) {
 		*set_atten_start = ShadowAttenStart;
 	}
 
-	if (set_atten_end != NULL) {
+	if (set_atten_end != nullptr) {
 		*set_atten_end = ShadowAttenEnd;
 	}
 }
@@ -688,7 +688,7 @@ void PhysicsSceneClass::Apply_Projectors
 		StaticProjectorCullingSystem->Collect_Objects(camera.Get_Frustum());
 
 		TexProjectClass * static_projector = StaticProjectorCullingSystem->Get_First_Collected_Object();
-		while (static_projector != NULL) {
+		while (static_projector != nullptr) {
 
 			/*
 			** only keep considering this projector if its intensity is above ZERO
@@ -735,7 +735,7 @@ void PhysicsSceneClass::Apply_Projectors
 		DynamicProjectorCullingSystem->Collect_Objects(camera.Get_Frustum());
 
 		TexProjectClass * dynamic_projector = DynamicProjectorCullingSystem->Get_First_Collected_Object();
-		while (dynamic_projector != NULL) {
+		while (dynamic_projector != nullptr) {
 
 			/*
 			** only keep considering this projector if its intensity is above ZERO
@@ -806,7 +806,7 @@ void PhysicsSceneClass::Apply_Projectors
 		** Remove it from the list and disable it.
 		*/
 		rt_projector_list.Remove(farthest_shadow);
-		farthest_shadow->Set_Render_Target(NULL);
+		farthest_shadow->Set_Render_Target(nullptr);
 		count--;
 	}
 
@@ -821,14 +821,14 @@ void PhysicsSceneClass::Apply_Projectors
 		TexProjectClass * projector = it.Peek_Obj();
 		_DynamicShadowTexMgr.Assign_Render_Target_Texture(projector);
 
-		if (projector->Peek_Render_Target() != NULL) {
+		if (projector->Peek_Render_Target() != nullptr) {
 			Apply_Projector_To_Objects(projector,camera);
 		}
 
 		it.Next();
 	}
 
-	DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)NULL);
+	DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)nullptr);
 }
 
 void PhysicsSceneClass::Apply_Projector_To_Objects
@@ -999,13 +999,13 @@ static void Create_Render_Target_Test(TextureClass* render_target)
 
 	DX8Wrapper::Set_Index_Buffer(ib_access,0);
 	DX8Wrapper::Set_Shader(shader);
-	DX8Wrapper::Set_Texture(0,NULL);
+	DX8Wrapper::Set_Texture(0,nullptr);
 	DX8Wrapper::Draw_Triangles(0,polygon_count,0,vertex_count);
 
 //	WW3D::Render(*model,*context);
 	WW3D::End_Render(false);
 
-	DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)NULL);
+	DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)nullptr);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,old_projection_transform);
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,old_view_transform);
 	DX8Wrapper::Set_Transform(D3DTS_WORLD,old_world_transform);
@@ -1028,25 +1028,25 @@ static bool Test_Render_Target_Surface(TextureClass* render_target)
 		color1, tmpbits, desc.Format,
 		1*desc.Width/4,
 		1*desc.Height/4,
-		desc.Width,	desc.Height, NULL, 0);
+		desc.Width,	desc.Height, nullptr, 0);
 
 	BitmapHandlerClass::Read_B8G8R8A8(
 		color2, tmpbits, desc.Format,
 		3*desc.Width/4,
 		1*desc.Height/4,
-		desc.Width,	desc.Height, NULL, 0);
+		desc.Width,	desc.Height, nullptr, 0);
 
 	BitmapHandlerClass::Read_B8G8R8A8(
 		color3, tmpbits, desc.Format,
 		3*desc.Width/4,
 		3*desc.Height/4,
-		desc.Width,	desc.Height, NULL, 0);
+		desc.Width,	desc.Height, nullptr, 0);
 
 	BitmapHandlerClass::Read_B8G8R8A8(
 		color4, tmpbits, desc.Format,
 		1*desc.Width/4,
 		3*desc.Height/4,
-		desc.Width,	desc.Height, NULL, 0);
+		desc.Width,	desc.Height, nullptr, 0);
 
 	new_surf->Unlock();
 	REF_PTR_RELEASE(new_surf);
@@ -1081,10 +1081,10 @@ void PhysicsSceneClass::Invalidate_Static_Shadow_Projectors()
 	for (static_anim_iterator.First(); !static_anim_iterator.Is_Done(); static_anim_iterator.Next()) {
 		StaticAnimPhysClass * obj = (StaticAnimPhysClass *)static_anim_iterator.Peek_Obj();
 
-		if (obj != NULL) {
+		if (obj != nullptr) {
 			StaticAnimPhysDefClass * def = obj->Get_StaticAnimPhysDef();
 			if (def && def->Shadow_Dynamic_Objs()) {
-				obj->Set_Shadow(NULL);
+				obj->Set_Shadow(nullptr);
 				shadow_gen_list.Add(obj);
 			}
 		}
@@ -1114,10 +1114,10 @@ void PhysicsSceneClass::Generate_Static_Shadow_Projectors(void)
 	for (static_anim_iterator.First(); !static_anim_iterator.Is_Done(); static_anim_iterator.Next()) {
 		StaticAnimPhysClass * obj = (StaticAnimPhysClass *)static_anim_iterator.Peek_Obj();
 
-		if (obj != NULL) {
+		if (obj != nullptr) {
 			StaticAnimPhysDefClass * def = obj->Get_StaticAnimPhysDef();
 			if (def && def->Shadow_Dynamic_Objs()) {
-				obj->Set_Shadow(NULL);
+				obj->Set_Shadow(nullptr);
 				shadow_gen_list.Add(obj);
 			}
 		}
@@ -1177,7 +1177,7 @@ void PhysicsSceneClass::Generate_Static_Shadow_Projectors(void)
 
 	}
 
-	if (render_target != NULL) {
+	if (render_target != nullptr) {
 		SET_REF_OWNER(render_target);
 
 		/*
@@ -1197,7 +1197,7 @@ void PhysicsSceneClass::Generate_Static_Shadow_Projectors(void)
 			Setup_Static_Directional_Shadow(*obj,sunvector,render_target);
 		}
 
-		DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)NULL);
+		DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)nullptr);
 		REF_PTR_RELEASE(render_target);
 	}
 	StaticProjectorsDirty=false;
@@ -1214,7 +1214,7 @@ void PhysicsSceneClass::Setup_Static_Directional_Shadow
 	** Get the definition for this object
 	*/
 	StaticAnimPhysDefClass * def = obj.Get_StaticAnimPhysDef();
-	if (def == NULL) {
+	if (def == nullptr) {
 		return;
 	}
 
@@ -1253,7 +1253,7 @@ void PhysicsSceneClass::Setup_Static_Directional_Shadow
 	** See if we already have a suitable texture.
 	*/
 	TextureClass * existing_texture = _StaticShadowTexMgr.Peek_Shadow_Texture(type_id,obj_orientation);
-	if (existing_texture != NULL) {
+	if (existing_texture != nullptr) {
 		shadow_projector->Set_Texture(existing_texture);
 	}
 
@@ -1261,7 +1261,7 @@ void PhysicsSceneClass::Setup_Static_Directional_Shadow
 	** If no texture was a available, we have to generate it.
 	** Then add it to the cache so others can use it
 	*/
-	if (existing_texture == NULL) {
+	if (existing_texture == nullptr) {
 
 		shadow_projector->Set_Render_Target(render_target);
 		shadow_projector->Compute_Texture(&obj,def->Shadow_Is_Additive());
@@ -1275,7 +1275,7 @@ void PhysicsSceneClass::Setup_Static_Directional_Shadow
 
 		TextureClass * new_texture = NEW_REF(TextureClass,(new_surf));
 
-		shadow_projector->Set_Render_Target(NULL);
+		shadow_projector->Set_Render_Target(nullptr);
 		shadow_projector->Set_Texture(new_texture);
 
 		REF_PTR_RELEASE(surf);

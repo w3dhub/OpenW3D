@@ -106,15 +106,15 @@ uint32_t											cNetwork::ExeCRC								= 0;
 uint32_t											cNetwork::StringsCRC							= 0;
 char												cNetwork::ClientString[];
 char												cNetwork::ClientEnumerationString[];
-CombatNetworkReceiverInstanceClass *	cNetwork::NetworkReceiver					= NULL;
+CombatNetworkReceiverInstanceClass *	cNetwork::NetworkReceiver					= nullptr;
 GameCombatNetworkHandlerClass				cNetwork::NetHandler;
 int												cNetwork::Fps									= 0;
 int												cNetwork::ThinkCount							= 0;
-cMsgStatList *									cNetwork::PClientStatList					= NULL;
-cMsgStatListGroup *							cNetwork::PServerStatListGroup			= NULL;
-cConnection *									cNetwork::PClientConnection				= NULL;
-cConnection *									cNetwork::PServerConnection				= NULL;
-CombatNetworkReceiver *						cNetwork::Receiver							= NULL;
+cMsgStatList *									cNetwork::PClientStatList					= nullptr;
+cMsgStatListGroup *							cNetwork::PServerStatListGroup			= nullptr;
+cConnection *									cNetwork::PClientConnection				= nullptr;
+cConnection *									cNetwork::PServerConnection				= nullptr;
+CombatNetworkReceiver *						cNetwork::Receiver							= nullptr;
 float												cNetwork::GraphingY;
 float												cNetwork::BandwidthBarLength				= 0;
 //int												cNetwork::BandwidthScaler					= 28800;
@@ -123,7 +123,7 @@ int												cNetwork::BandwidthScaler					= 50000;
 bool												cNetwork::HaveDoneTeamChangeDialog		= false;
 
 bool												cNetwork::HaveDoneMotdDialog				= false;
-VisTableClass *								cNetwork::VisTable							= NULL;
+VisTableClass *								cNetwork::VisTable							= nullptr;
 bool												cNetwork::LastServerConnectionStateBad = false;
 bool												cNetwork::SensibleUpdates					= true;
 
@@ -136,12 +136,12 @@ void cNetwork::Init_Client([[maybe_unused]] unsigned short my_port)
 
    WWDEBUG_SAY(("cNetwork::Init_Client\n"));
 
-	if (PClientConnection != NULL) {
+	if (PClientConnection != nullptr) {
 		Cleanup_Client();
 	}
 
 	PClientStatList = new cMsgStatList;
-	WWASSERT(PClientStatList != NULL);
+	WWASSERT(PClientStatList != nullptr);
 	//PClientStatList->Init(MESSAGE_COUNT);
 	PClientStatList->Init(1);
 	for (int i = 0; i < PClientStatList->Get_Num_Stats(); i++) {
@@ -155,9 +155,9 @@ void cNetwork::Init_Client([[maybe_unused]] unsigned short my_port)
 		PClientStatList->Set_Name(i, "message");
 	}
 
-   WWASSERT(PClientConnection == NULL);
+   WWASSERT(PClientConnection == nullptr);
    PClientConnection = new cConnection;
-   WWASSERT(PClientConnection != NULL);
+   WWASSERT(PClientConnection != nullptr);
 
 	CombatManager::Set_I_Am_Client(true);
 
@@ -167,7 +167,7 @@ void cNetwork::Init_Client([[maybe_unused]] unsigned short my_port)
 	PClientConnection->Install_Client_Packet_Handler(Client_Packet_Handler);
 
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
-		WWASSERT(PTheGameData != NULL);
+		WWASSERT(PTheGameData != nullptr);
 		The_Game()->Set_Password(cGameSpyAdmin::Get_Password_Attempt());
 	}
 
@@ -202,7 +202,7 @@ void cNetwork::Init_Client([[maybe_unused]] unsigned short my_port)
    BOOL is_flow_control_enabled = !IS_SOLOPLAY;
    PClientConnection->Enable_Flow_Control(is_flow_control_enabled);
 
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
    PClientConnection->Init_As_Client(
 		The_Game()->Get_Ip_Address(), static_cast<unsigned short>(The_Game()->Get_Port()), my_port);
 
@@ -257,19 +257,19 @@ void cNetwork::Cleanup_Client(void)
       }
 
       delete PClientConnection;
-      PClientConnection = NULL;
+      PClientConnection = nullptr;
    }
 
 	CombatManager::Set_I_Am_Client(false);
 
 	delete PClientStatList;
-	PClientStatList = NULL;
+	PClientStatList = nullptr;
 
 	delete PClientControl;
-	PClientControl = NULL;
+	PClientControl = nullptr;
 
 	delete PClientFps;
-	PClientFps = NULL;
+	PClientFps = nullptr;
 
 #endif // !FREEDEDICATEDSERVER
 }
@@ -293,14 +293,14 @@ void cNetwork::Accept_Handler(void)
 		//
 		// Create C->S mirrored client control object
 		//
-		WWASSERT(PClientControl == NULL);
+		WWASSERT(PClientControl == nullptr);
 		PClientControl = new CClientControl;
 		PClientControl->Init();
 
 		//
 		// Create C->S mirrored client fps object
 		//
-		WWASSERT(PClientFps == NULL);
+		WWASSERT(PClientFps == nullptr);
 		PClientFps = new CClientFps;
 		PClientFps->Init();
 	}
@@ -333,7 +333,7 @@ void cNetwork::Refusal_Handler([[maybe_unused]] REFUSAL_CODE refusal_code)
 	// Close connecting dialog as neccessary.
 	DialogBaseClass* dialog = DialogMgrClass::Find_Dialog((int)RenegadeDialogID::IDD_MULTIPLAY_CONNECTING);
 
-	if (dialog != NULL) {
+	if (dialog != nullptr) {
 		// Sending 1 as the parameter tells the dialog that it is being closed
 		// as a result of a refusal from the server.
  		dialog->On_Command(IDCANCEL, 0, 1);
@@ -507,7 +507,7 @@ void cNetwork::Compute_Exe_Key(void)
 
 	char exe_filename[500];
    int succeeded = 0;
-	succeeded = ::GetModuleFileNameA(NULL, exe_filename, sizeof(exe_filename));
+	succeeded = ::GetModuleFileNameA(nullptr, exe_filename, sizeof(exe_filename));
 	WWASSERT(succeeded);
 
 	StringClass key_string;
@@ -588,7 +588,7 @@ void cNetwork::Onetime_Shutdown(void)
 {
    WWDEBUG_SAY(("cNetwork::Onetime_Shutdown\n"));
 
-   Set_Receiver(NULL);
+   Set_Receiver(nullptr);
 	delete NetworkReceiver;
 
 #if 0
@@ -627,9 +627,9 @@ void cNetwork::Init_Server(void)
 	NetworkObjectClass::Set_Is_Server(true);
 
 	PServerStatListGroup = new cMsgStatListGroup;
-	WWASSERT(PServerStatListGroup != NULL);
+	WWASSERT(PServerStatListGroup != nullptr);
 	//PServerStatListGroup->Init(The_Game()->Get_Max_Players(), MESSAGE_COUNT);
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 	PServerStatListGroup->Init(The_Game()->Get_Max_Players(), 1);
 
 	/*
@@ -641,9 +641,9 @@ void cNetwork::Init_Server(void)
 	}
 	*/
 
-   WWASSERT(PServerConnection == NULL);
+   WWASSERT(PServerConnection == nullptr);
    PServerConnection = new cConnection;
-   WWASSERT(PServerConnection != NULL);
+   WWASSERT(PServerConnection != nullptr);
 
    CombatManager::Set_I_Am_Server(true);
 
@@ -694,7 +694,7 @@ void cNetwork::Init_Server(void)
    BOOL is_flow_control_enabled = !IS_SOLOPLAY;
    PServerConnection->Enable_Flow_Control(is_flow_control_enabled);
 
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 	PServerConnection->Init_As_Server(
 		static_cast<unsigned short>(The_Game()->Get_Port()),
 		The_Game()->Get_Max_Players(),
@@ -726,13 +726,13 @@ void cNetwork::Cleanup_Server(void)
    if (I_Am_Server()) {
 
       delete PServerConnection;
-      PServerConnection = NULL;
+      PServerConnection = nullptr;
    }
 
    CombatManager::Set_I_Am_Server(false);
 
 	delete PServerStatListGroup;
-	PServerStatListGroup = NULL;
+	PServerStatListGroup = nullptr;
 
 	NetworkObjectClass::Set_Is_Server(false);
 }
@@ -797,12 +797,12 @@ void cNetwork::Update_Fps(void)
 // Needed for release mode too. ST - 1/23/2002 11:02PM
 //#ifdef WWDEBUG
 		if (I_Am_Server()) {
-			WWASSERT(cServerFps::Get_Instance() != NULL);
+			WWASSERT(cServerFps::Get_Instance() != nullptr);
 			cServerFps::Get_Instance()->Set_Fps(Fps);
 		}
 //#endif // WWDEBUG
 
-		if (I_Am_Client() && PClientFps != NULL) {
+		if (I_Am_Client() && PClientFps != nullptr) {
 			PClientFps->Set_Fps(Fps);
 		}
 	}
@@ -818,7 +818,7 @@ void cNetwork::Connection_Status_Change_Feedback(void)
 	static unsigned int _print_good_soon = 0;
 
 	unsigned int time = TIMEGETTIME();
-	const unichar_t *string = NULL;
+	const unichar_t *string = nullptr;
 	if (LastServerConnectionStateBad) {
 		if (_last_print_bad && time - _last_print < 4000) {
 			return;
@@ -844,7 +844,7 @@ void cNetwork::Connection_Status_Change_Feedback(void)
 	}
 	_last_print = time;
 	WideStringClass widestring(string, true);
-	if (CombatManager::Get_Message_Window() != NULL) {
+	if (CombatManager::Get_Message_Window() != nullptr) {
 		//
 		//	Display the message...
 		//
@@ -970,7 +970,7 @@ void cNetwork::Update(void)
 
 		{
 		WWPROFILE( "Client Send" );
-		if (PClientConnection != NULL) {
+		if (PClientConnection != nullptr) {
 			PClientConnection->Service_Send();
 		}
 		}
@@ -1034,7 +1034,7 @@ void cNetwork::Server_Send_Packet(cPacket & packet, int mode, int recipient)
          objnode; objnode = objnode->Next()) {
 
 		   cPlayer * p_player = objnode->Data();
-         WWASSERT(p_player != NULL);
+         WWASSERT(p_player != nullptr);
 
 			//if (p_player->Is_Human()) {
 			if (p_player->Get_Is_Active().Is_True() &&
@@ -1083,7 +1083,7 @@ void cNetwork::Server_Send_Packet_To_All_Connected(cPacket & packet, int mode)
 	//BYTE message_type = packet.Peek_Message_Type();
 
    for (int rhost_id = PServerConnection->Get_Min_RHost(); rhost_id <= PServerConnection->Get_Max_RHost(); rhost_id++) {
-		if (Get_Server_Rhost(rhost_id) != NULL) {
+		if (Get_Server_Rhost(rhost_id) != nullptr) {
          PServerConnection->Send_Packet_To_Individual(packet, rhost_id, static_cast<unsigned char>(mode));
 
 			/*
@@ -1105,7 +1105,7 @@ LPCSTR cNetwork::Get_Client_Enumeration_String(void)
    char temp_str[12];
    strcpy(ClientEnumerationString, "");
    for (int rhost_id = PServerConnection->Get_Min_RHost(); rhost_id <= PServerConnection->Get_Max_RHost(); rhost_id++) {
-		if (Get_Server_Rhost(rhost_id) != NULL) {
+		if (Get_Server_Rhost(rhost_id) != nullptr) {
          strcat(ClientEnumerationString, itoa(rhost_id, temp_str, 12));
          strcat(ClientEnumerationString, " ");
       }
@@ -1137,7 +1137,7 @@ cRemoteHost * cNetwork::Get_Client_Rhost(void)
 float cNetwork::Get_Server_Rhost_Threshold_Priority(int client_id)
 {
    WWASSERT(I_Am_Server());
-   WWASSERT(Get_Server_Rhost(client_id) != NULL);
+   WWASSERT(Get_Server_Rhost(client_id) != nullptr);
    return float(Get_Server_Rhost(client_id)->Get_Threshold_Priority());
 }
 
@@ -1145,7 +1145,7 @@ float cNetwork::Get_Server_Rhost_Threshold_Priority(int client_id)
 float cNetwork::Get_Client_Rhost_Threshold_Priority(void)
 {
    WWASSERT(I_Am_Client());
-   WWASSERT(Get_Client_Rhost() != NULL);
+   WWASSERT(Get_Client_Rhost() != nullptr);
    return float(Get_Client_Rhost()->Get_Threshold_Priority());
 }
 
@@ -1198,7 +1198,7 @@ void cNetwork::Server_Broken_Connection_Handler(int broken_rhost_id)
 		U_CHAR("%s %d\n"),
 		TRANSLATION(IDS_MP_CONNECTION_TO_CLIENT_BROKEN),
 		broken_rhost_id);
-   WWASSERT(CombatManager::Get_Message_Window () != NULL);
+   WWASSERT(CombatManager::Get_Message_Window () != nullptr);
 	//Get_Text_Display()->Print_System(widestring);
 
 	//
@@ -1220,8 +1220,8 @@ void cNetwork::Client_Broken_Connection_Handler(void)
    // many attempts. The connection data has already been destroyed.
    //
 
-   WWASSERT(Get_Text_Display() != NULL);
-   WWASSERT(PClientConnection != NULL);
+   WWASSERT(Get_Text_Display() != nullptr);
+   WWASSERT(PClientConnection != nullptr);
 
    /**/
 	if (PClientConnection->Have_Id()) {
@@ -1308,7 +1308,7 @@ bool cNetwork::I_Am_God(void)
 
 	if (I_Am_Client()) {
 		cPlayer * p_player = cPlayerManager::Find_Player(Get_My_Id());
-		if (p_player != NULL && p_player->Invulnerable.Is_True()) {
+		if (p_player != nullptr && p_player->Invulnerable.Is_True()) {
 			i_am_god = true;
 		}
 	}
@@ -1319,7 +1319,7 @@ bool cNetwork::I_Am_God(void)
 //-----------------------------------------------------------------------------
 cPlayer * cNetwork::Get_My_Player_Object(void)
 {
-   cPlayer * p_me = NULL;
+   cPlayer * p_me = nullptr;
 
 	if (I_Am_Client()) {
 		p_me = cPlayerManager::Find_Player(Get_My_Id());
@@ -1332,7 +1332,7 @@ cPlayer * cNetwork::Get_My_Player_Object(void)
 int cNetwork::Get_My_Team_Number(void)
 {
    cPlayer * p_me = Get_My_Player_Object();
-   WWASSERT(p_me != NULL);
+   WWASSERT(p_me != nullptr);
    return p_me->Get_Player_Type();
 }
 
@@ -1340,7 +1340,7 @@ int cNetwork::Get_My_Team_Number(void)
 Vector3 cNetwork::Get_My_Color(void)
 {
    cPlayer * p_me = cPlayerManager::Find_Player(Get_My_Id());
-   WWASSERT(p_me != NULL);
+   WWASSERT(p_me != nullptr);
    return p_me->Get_Color();
 }
 
@@ -1362,7 +1362,7 @@ float cNetwork::Get_Distance_Priority(Vector3 & pos1, Vector3 & pos2)
    Vector3 gap = pos2 - pos1;
    float d = gap.Length();
 
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 	float max_distance = The_Game()->Get_Maximum_World_Distance();
    WWASSERT(max_distance > 0);
 
@@ -1396,9 +1396,9 @@ float cNetwork::Get_Distance_Priority(Vector3 & pos1, Vector3 & pos2)
 //-----------------------------------------------------------------------------
 void cNetwork::Shell_Command(LPCSTR command)
 {
-	WWASSERT(command != NULL);
+	WWASSERT(command != nullptr);
 
-	HINSTANCE hinst = ShellExecuteA(NULL, NULL, command, NULL, "", SW_SHOW);
+	HINSTANCE hinst = ShellExecuteA(nullptr, nullptr, command, nullptr, "", SW_SHOW);
 	if ((uintptr_t) hinst <= 32) {
       WWDEBUG_SAY(("Error: ShellExecute failed.\n"));
 	}
@@ -1433,7 +1433,7 @@ REFUSAL_CODE cNetwork::Application_Acceptance_Handler(cPacket & packet)
 	uint32_t client_exe_key = packet.Get(client_exe_key);
 
 	// Make sure the clients password matches the games password.
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 	if (The_Game()->IsPassworded.Is_True() && password.Compare(The_Game()->Get_Password()) != 0) {
 		return REFUSAL_BAD_PASSWORD;
 	}
@@ -1474,7 +1474,7 @@ void cNetwork::Connection_Handler(int new_rhost_id)
 
 	WWASSERT(new_rhost_id >= 0);
    WWASSERT(I_Am_Server());
-   WWASSERT(Receiver != NULL);
+   WWASSERT(Receiver != nullptr);
 
    /*
 	//
@@ -1485,7 +1485,7 @@ void cNetwork::Connection_Handler(int new_rhost_id)
    cTeam * p_team;
    for (team_node = cTeamManager::Get_Team_Object_List()->Head(); team_node; team_node = team_node->Next()) {
 		p_team = team_node->Data();
-      WWASSERT(p_team != NULL);
+      WWASSERT(p_team != nullptr);
 		Send_Server_New_Team(p_team, new_rhost_id);
    }
 	*/
@@ -1502,7 +1502,7 @@ void cNetwork::Connection_Handler(int new_rhost_id)
 			team_node = team_node->Next()) {
 
 			cTeam * p_team = team_node->Data();
-			WWASSERT(p_team != NULL);
+			WWASSERT(p_team != nullptr);
 
 			Send_Object_Update(p_team, new_rhost_id);
 		}
@@ -1536,10 +1536,10 @@ void cNetwork::Set_Simulated_Packet_Loss_Pc(int b)
 {
    WWASSERT(b >= 0);
 
-   if (PClientConnection != NULL) {
+   if (PClientConnection != nullptr) {
       PClientConnection->Set_Packet_Loss(b);
    }
-   if (PServerConnection != NULL) {
+   if (PServerConnection != nullptr) {
       PServerConnection->Set_Packet_Loss(b);
    }
 
@@ -1554,10 +1554,10 @@ void cNetwork::Set_Simulated_Packet_Duplication_Pc(int b)
 {
    WWASSERT(b >= 0);
 
-   if (PClientConnection != NULL) {
+   if (PClientConnection != nullptr) {
       PClientConnection->Set_Packet_Duplication(b);
    }
-   if (PServerConnection != NULL) {
+   if (PServerConnection != nullptr) {
       PServerConnection->Set_Packet_Duplication(b);
    }
 
@@ -1574,10 +1574,10 @@ void cNetwork::Set_Simulated_Latency_Range_Ms(int lower, int upper)
    WWASSERT(upper >= 0);
    WWASSERT(lower <= upper);
 
-   if (PClientConnection != NULL) {
+   if (PClientConnection != nullptr) {
       PClientConnection->Set_Packet_Latency_Range(lower, upper);
    }
-   if (PServerConnection != NULL) {
+   if (PServerConnection != nullptr) {
       PServerConnection->Set_Packet_Latency_Range(lower, upper);
    }
 
@@ -1618,8 +1618,8 @@ cNetwork::Flush(void)
 
 	const bool is_urgent = true;
 
-	//if (GameModeManager::Find ("Combat")->Is_Active() && Receiver != NULL) {
-	if (Receiver != NULL) {
+	//if (GameModeManager::Find ("Combat")->Is_Active() && Receiver != nullptr) {
+	if (Receiver != nullptr) {
 
 		if (I_Am_Server()) {
 			Receiver->Server_Update_Dynamic_Objects(is_urgent);
@@ -1661,10 +1661,10 @@ void cNetwork::SwitchTeam(int newTeam)
 void cNetwork::Enable_Waiting_Players(void)
 {
 	SLNode<cPlayer> * objnode;
-   for (objnode = cPlayerManager::Get_Player_Object_List()->Head() ; objnode != NULL ; objnode = objnode->Next()) {
+   for (objnode = cPlayerManager::Get_Player_Object_List()->Head() ; objnode != nullptr ; objnode = objnode->Next()) {
 
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 
 		if (p_player->Is_Human() && p_player->Get_Is_Waiting_For_Intermission().Is_True()) {
 

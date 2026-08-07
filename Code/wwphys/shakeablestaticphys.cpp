@@ -179,7 +179,7 @@ void ShakeableStaticPhysClass::Play_Animation(void)
 	AnimCollisionManagerClass & anim_mgr = Get_Animation_Manager();
 
 	HAnimClass * anim = anim_mgr.Peek_Animation();
-	if (anim != NULL) {
+	if (anim != nullptr) {
 		anim_mgr.Set_Current_Frame(0);
 		anim_mgr.Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_TARGET);
 		anim_mgr.Set_Target_Frame(float(anim->Get_Num_Frames()-1));

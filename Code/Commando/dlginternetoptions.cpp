@@ -67,7 +67,7 @@ InternetOptionsMenuClass::On_Init_Dialog (void)
 	//	Configure the shortcut bar
 	//
 	ShortcutBarCtrlClass *bar = (ShortcutBarCtrlClass *)Get_Dlg_Item (IDC_SHORTCUT_BAR);
-	if (bar != NULL) {
+	if (bar != nullptr) {
 
 		entry_text = TRANSLATE (IDS_MP_SHORTCUT_BUDDIES);
 		bar->Add_Button (IDC_MP_SHORTCUT_BUDDIES, entry_text);

@@ -69,7 +69,7 @@
 
 
 SegLineRendererClass::SegLineRendererClass(void) :
-		Texture(NULL),
+		Texture(nullptr),
 		Shader(ShaderClass::_PresetAdditiveSpriteShader),
 		Width(0.0f),
 		Color(Vector3(1,1,1)),
@@ -87,7 +87,7 @@ SegLineRendererClass::SegLineRendererClass(void) :
 }
 
 SegLineRendererClass::SegLineRendererClass(const SegLineRendererClass & that) :
-		Texture(NULL),
+		Texture(nullptr),
 		Shader(ShaderClass::_PresetAdditiveSpriteShader),
 		Width(0.0f),
 		Color(Vector3(1,1,1)),
@@ -167,7 +167,7 @@ void SegLineRendererClass::Set_Texture(TextureClass *texture)
 
 TextureClass * SegLineRendererClass::Get_Texture(void) const
 {
-	if (Texture != NULL) {
+	if (Texture != nullptr) {
 		Texture->Add_Ref();
 	}
 	return Texture;
@@ -1075,7 +1075,7 @@ void SegLineRendererClass::Render
 			mat=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_NODIFFUSE);
 		}
 
-		// If Texture is non-NULL enable texturing in shader - otherwise disable.
+		// If Texture is non-nullptr enable texturing in shader - otherwise disable.
 		if (Texture) {
 			shader.Set_Texturing(ShaderClass::TEXTURING_ENABLE);
 		} else {

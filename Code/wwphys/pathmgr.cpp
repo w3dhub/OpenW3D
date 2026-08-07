@@ -57,7 +57,7 @@ enum
 /////////////////////////////////////////////////////////////////////////
 DynamicVectorClass<PathSolveClass *>	PathMgrClass::AvailablePathList;
 DynamicVectorClass<PathSolveClass *>	PathMgrClass::UsedPathList;
-PathSolveClass *								PathMgrClass::ActivePath = NULL;
+PathSolveClass *								PathMgrClass::ActivePath = nullptr;
 int64_t											PathMgrClass::TicksPerMilliSec = 0;
 
 
@@ -110,9 +110,9 @@ PathMgrClass::Shutdown (void)
 void
 PathMgrClass::Free_Objects (void)
 {
-	if (ActivePath != NULL) {
+	if (ActivePath != nullptr) {
 		ActivePath->Unlink_Pathfind_Hooks ();
-		ActivePath = NULL;
+		ActivePath = nullptr;
 	}
 
 	//
@@ -171,7 +171,7 @@ PathSolveClass *
 PathMgrClass::Request_Path_Object (void)
 {
 	WWMEMLOG(MEM_PATHFIND);
-	PathSolveClass *path_object = NULL;
+	PathSolveClass *path_object = nullptr;
 
 	int avail_count = AvailablePathList.Count ();
 	if (avail_count > 0) {
@@ -194,7 +194,7 @@ PathMgrClass::Request_Path_Object (void)
 	//
 	//	Add this object to the used path list
 	//
-	if (path_object != NULL) {
+	if (path_object != nullptr) {
 		UsedPathList.Add (path_object);
 	}
 
@@ -213,8 +213,8 @@ PathMgrClass::Request_Path_Object (void)
 void
 PathMgrClass::Return_Path_Object (PathSolveClass *path)
 {
-	WWASSERT (path != NULL);
-	if (path != NULL) {
+	WWASSERT (path != nullptr);
+	if (path != nullptr) {
 
 		//
 		//	Make sure the object doesn't already exist in our list
@@ -235,7 +235,7 @@ PathMgrClass::Return_Path_Object (PathSolveClass *path)
 				//
 				if (path == ActivePath) {
 					ActivePath->Unlink_Pathfind_Hooks ();
-					ActivePath = NULL;
+					ActivePath = nullptr;
 				}
 
 				//
@@ -347,14 +347,14 @@ PathMgrClass::Resolve_Paths (const Vector3 &camera_pos, uint32 milliseconds)
 		//
 		//	Find a path that needs to be solved
 		//
-		if (ActivePath == NULL) {
+		if (ActivePath == nullptr) {
 			Activate_New_Priority_Path (camera_pos);
 		}
 
 		//
 		//	Do we have any paths to solve?
 		//
-		if (ActivePath != NULL) {
+		if (ActivePath != nullptr) {
 
 			//
 			//	Let this path think for (up to) the remainder of our timeslice
@@ -367,7 +367,7 @@ PathMgrClass::Resolve_Paths (const Vector3 &camera_pos, uint32 milliseconds)
 			//
 			if (result != PathSolveClass::THINKING) {
 				ActivePath->Unlink_Pathfind_Hooks ();
-				ActivePath = NULL;
+				ActivePath = nullptr;
 			}
 
 		} else {
@@ -388,7 +388,7 @@ PathMgrClass::Resolve_Paths (const Vector3 &camera_pos, uint32 milliseconds)
 void
 PathMgrClass::Activate_New_Priority_Path (const Vector3 &camera_pos)
 {
-	ActivePath				= NULL;
+	ActivePath				= nullptr;
 	float	best_priority	= 0;
 
 	//
@@ -428,7 +428,7 @@ PathMgrClass::Activate_New_Priority_Path (const Vector3 &camera_pos)
 	//
 	//	Kick off the pathfind
 	//
-	if (ActivePath != NULL) {
+	if (ActivePath != nullptr) {
 		ActivePath->Process_Initial_Sector ();
 	}
 

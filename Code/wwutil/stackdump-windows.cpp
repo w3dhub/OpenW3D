@@ -78,15 +78,15 @@ typedef LPVOID		(WINAPI *SymFunctionTableAccessType)	(HANDLE hProcess, DWORD_ARC
 typedef DWORD		(WINAPI *SymGetModuleBaseType)			(HANDLE hProcess, DWORD_ARCH dwAddr);
 
 
-static SymCleanupType					_SymCleanup						= NULL;
-static SymGetSymFromAddrType			_SymGetSymFromAddr			= NULL;
-static SymInitializeType				_SymInitialize					= NULL;
-static SymLoadModuleType				_SymLoadModule					= NULL;
-static SymSetOptionsType				_SymSetOptions					= NULL;
-static SymUnloadModuleType				_SymUnloadModule				= NULL;
-static StackWalkType						_StackWalk						= NULL;
-static SymFunctionTableAccessType	_SymFunctionTableAccess		= NULL;
-static SymGetModuleBaseType			_SymGetModuleBase				= NULL;
+static SymCleanupType					_SymCleanup						= nullptr;
+static SymGetSymFromAddrType			_SymGetSymFromAddr			= nullptr;
+static SymInitializeType				_SymInitialize					= nullptr;
+static SymLoadModuleType				_SymLoadModule					= nullptr;
+static SymSetOptionsType				_SymSetOptions					= nullptr;
+static SymUnloadModuleType				_SymUnloadModule				= nullptr;
+static StackWalkType						_StackWalk						= nullptr;
+static SymFunctionTableAccessType	_SymFunctionTableAccess		= nullptr;
+static SymGetModuleBaseType			_SymGetModuleBase				= nullptr;
 
 
 //
@@ -101,7 +101,7 @@ Last_Error_Text
 )
 {
 	static char message_buffer[256];
-	::FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, NULL);
+	::FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, nullptr, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, nullptr);
 	return (message_buffer);
 }
 
@@ -116,7 +116,7 @@ cStackDump::Print_Call_Stack
 
 	HINSTANCE imagehelp = ::LoadLibraryA("IMAGEHLP.DLL");
 
-	if (imagehelp == NULL)
+	if (imagehelp == nullptr)
 	{
 		WWDEBUG_SAY(("  Unable to load IMAGEHLP.DLL.\n"));
 	}
@@ -137,33 +137,33 @@ cStackDump::Print_Call_Stack
 
 	extern int Stack_Walk(void ** return_addresses, int num_addresses, CONTEXT * context);
 	void *return_addresses[256];
-	int num_addresses = Stack_Walk(return_addresses, 256, NULL);
+	int num_addresses = Stack_Walk(return_addresses, 256, nullptr);
 	unsigned char symbol[256];
 	IMAGEHLP_SYMBOL * symptr = (IMAGEHLP_SYMBOL*) &symbol;
 	DWORD_ARCH symload = 0;
 	bool symbols_available = false;
 
-	if (_SymInitialize != NULL && _SymInitialize(::GetCurrentProcess(), NULL, false))
+	if (_SymInitialize != nullptr && _SymInitialize(::GetCurrentProcess(), nullptr, false))
 	{
 		WWDEBUG_SAY(("  Symbols are available.\n"));
 		symbols_available = true;
 
-		if (_SymSetOptions != NULL)
+		if (_SymSetOptions != nullptr)
 		{
 			_SymSetOptions(SYMOPT_DEFERRED_LOADS | SYMOPT_UNDNAME);
 		}
 
 		char module_name[_MAX_PATH];
-		::GetModuleFileNameA(NULL, module_name, sizeof(module_name));
+		::GetModuleFileNameA(nullptr, module_name, sizeof(module_name));
 
-		if (_SymLoadModule != NULL)
+		if (_SymLoadModule != nullptr)
 		{
-			symload = static_cast<DWORD_ARCH>(_SymLoadModule(::GetCurrentProcess(), NULL, module_name, NULL, 0, 0));
+			symload = static_cast<DWORD_ARCH>(_SymLoadModule(::GetCurrentProcess(), nullptr, module_name, nullptr, 0, 0));
 		}
 
 		if (symload == 0 && GetLastError() != 0)
 		{
-			assert(_SymLoadModule != NULL);
+			assert(_SymLoadModule != nullptr);
 			WWDEBUG_SAY(("  SymLoad failed for module %s with code %d - %s.\n",
 				module_name, GetLastError(), Last_Error_Text()));
 		}
@@ -194,7 +194,7 @@ cStackDump::Print_Call_Stack
 				symptr->Address = temp_addr;
 
 				DWORD_ARCH displacement = 0;
-				if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr(GetCurrentProcess(), temp_addr, &displacement, symptr))
+				if (_SymGetSymFromAddr != nullptr && _SymGetSymFromAddr(GetCurrentProcess(), temp_addr, &displacement, symptr))
 				{
 					char symbuf[256];
 					//::sprintf(symbuf, "%s + %08X\n", symptr->Name, displacement);
@@ -229,14 +229,14 @@ cStackDump::Print_Call_Stack
 	//
 	if (symbols_available)
 	{
-		if (_SymCleanup != NULL)
+		if (_SymCleanup != nullptr)
 		{
 			_SymCleanup(GetCurrentProcess());
 		}
 
-		if (symload && _SymUnloadModule != NULL)
+		if (symload && _SymUnloadModule != nullptr)
 		{
-			_SymUnloadModule(GetCurrentProcess(), (DWORD_ARCH)NULL);
+			_SymUnloadModule(GetCurrentProcess(), (DWORD_ARCH)nullptr);
 		}
 	}
 
@@ -269,7 +269,7 @@ cStackDump::Print_Call_Stack
 	//	Determine the path to the executable
 	//
 	char path[MAX_PATH] = "";
-	DWORD gmf = ::GetModuleFileNameA(NULL, path, sizeof(path));
+	DWORD gmf = ::GetModuleFileNameA(nullptr, path, sizeof(path));
 
 	if (gmf != 0)
 	{
@@ -277,7 +277,7 @@ cStackDump::Print_Call_Stack
 		//	Strip off the filename
 		//
 		char * filename = ::strrchr(path, '\\');
-		if (filename != NULL)
+		if (filename != nullptr)
 		{
 			filename[0] = 0;
 		}

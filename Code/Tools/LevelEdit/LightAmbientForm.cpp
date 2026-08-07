@@ -48,7 +48,7 @@ void ColorUpdateCallback (int red, int green, int blue, void *arg);
 //
 /////////////////////////////////////////////////////////////////////////////
 LightAmbientFormClass::LightAmbientFormClass()
-	:	m_ColorForm (NULL),
+	:	m_ColorForm (nullptr),
 		DockableFormClass(LightAmbientFormClass::IDD)
 {
 	//{{AFX_DATA_INIT(LightAmbientFormClass)

@@ -40,7 +40,7 @@ static char THIS_FILE[] = __FILE__;
 // CVJoyDialog dialog
 
 
-CVJoyDialog::CVJoyDialog(CWnd* pParent /*=NULL*/)
+CVJoyDialog::CVJoyDialog(CWnd* pParent /*=nullptr*/)
 	: CDialog(CVJoyDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CVJoyDialog)
@@ -117,7 +117,7 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 			point.Y = ((float)y - cy) / ey;
 
 			::SendMessage(GetParent(hwnd),JOYSTICK_UPDATE_COMMAND,GetWindowLong(hwnd,GWL_ID),(int)&point);
-			::InvalidateRect(hwnd,NULL,false);
+			::InvalidateRect(hwnd,nullptr,false);
 			::UpdateWindow(hwnd);
 
 			SetProp(hwnd,"XCOORD",(HANDLE)x);
@@ -133,9 +133,9 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 			FillRect(hdc,&rect,(HBRUSH)GetStockObject(WHITE_BRUSH));
 			FrameRect(hdc,&rect,(HBRUSH)GetStockObject(BLACK_BRUSH));
 
-			MoveToEx(hdc,rect.right/2,0,NULL);
+			MoveToEx(hdc,rect.right/2,0,nullptr);
 			LineTo(hdc,rect.right/2,rect.bottom);
-			MoveToEx(hdc,0,rect.bottom/2,NULL);
+			MoveToEx(hdc,0,rect.bottom/2,nullptr);
 			LineTo(hdc,rect.right,rect.bottom/2);
 
 			int x = (int)GetProp(hwnd,"XCOORD");
@@ -145,7 +145,7 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 			if (y < RADIUS) y = RADIUS;
 			if (y > rect.bottom-RADIUS) y = rect.bottom-RADIUS;
 
-			MoveToEx(hdc,rect.bottom/2,rect.right/2,NULL);
+			MoveToEx(hdc,rect.bottom/2,rect.right/2,nullptr);
 			LineTo(hdc,x,y);
 			Ellipse(hdc,x-RADIUS,y-RADIUS,x+RADIUS,y+RADIUS);
 

@@ -151,12 +151,12 @@ DECLARE_SCRIPT(BMG_Test_Pogs, "" )
 
 		switch( timer_id ) {
 			case 0:
-					Commands->Add_Objective( 100, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_BYON, NULL );
+					Commands->Add_Objective( 100, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_BYON, nullptr );
 					Commands->Set_Objective_Radar_Blip( 100, Vector3( 10, 10, 0 ) );
 					Commands->Set_Objective_HUD_Info( 100, 100, "HUD_OBJE_ARROW.TGA", IDS_BYON );
 					break;
 			case 1:
-					Commands->Add_Objective( 101, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_BYON, NULL );
+					Commands->Add_Objective( 101, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_BYON, nullptr );
 					Commands->Set_Objective_Radar_Blip( 101, Vector3( 10, -10, 0 ) );
 					Commands->Set_Objective_HUD_Info( 101, 101, "HUD_OBJECTIVE.TGA", IDS_BYON );
 					break;
@@ -210,7 +210,7 @@ DECLARE_SCRIPT(BMG_Test_Misc_Script, "" )
 	void Timer_Expired( GameObject * obj, int timer_id )
 	{
 		Commands->Mission_Complete( true );
-//		Commands->Static_Anim_Phys_Goto_Last_Frame (150047, NULL );
+//		Commands->Static_Anim_Phys_Goto_Last_Frame (150047, nullptr );
 //		Commands->Static_Anim_Phys_Goto_Last_Frame (150047, "BASEGATE.BASEGATE" );
 //		Commands->Static_Anim_Phys_Goto_Frame ( 150047, 31, "BASEGATE.BASEGATE" );
 	}
@@ -280,7 +280,7 @@ DECLARE_SCRIPT(BMG_Spray_Shooter, "" )
 	void Timer_Expired( GameObject * obj, int timer_id )
 	{
 		Commands->Mission_Complete( true );
-//		Commands->Static_Anim_Phys_Goto_Last_Frame (150047, NULL );
+//		Commands->Static_Anim_Phys_Goto_Last_Frame (150047, nullptr );
 //		Commands->Static_Anim_Phys_Goto_Last_Frame (150047, "BASEGATE.BASEGATE" );
 //		Commands->Static_Anim_Phys_Goto_Frame ( 150047, 31, "BASEGATE.BASEGATE" );
 	}
@@ -672,7 +672,7 @@ DECLARE_SCRIPT( BMG_Test_Attach, "" )
 	{
 		Commands->Debug_Message("BMG_Test_Attach to Commando's HEAD!!!\n" );
 		GameObject * star = Commands->Get_A_Star( Commands->Get_Position( obj ) );
-		if ( star != NULL ) {
+		if ( star != nullptr ) {
 			Commands->Attach_To_Object_Bone( obj, star, "C HEAD" );
 		}
 	}
@@ -1098,7 +1098,7 @@ DECLARE_SCRIPT(BMG_Test_Follow, "TargetID=:int")
 	{
 		Commands->Debug_Message("BMG Follow\n");
 		GameObject * target = Commands->Find_Object( Get_Int_Parameter( "TargetID" ) );
-		if ( target != NULL ) {
+		if ( target != nullptr ) {
 			Commands->Action_Movement_Follow_Object( obj, target, 1 );
 		}
 	}

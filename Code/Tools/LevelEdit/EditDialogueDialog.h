@@ -41,7 +41,7 @@ class DialogueOptionClass;
 class EditDialogueDialogClass : public CDialog
 {
 public:
-	EditDialogueDialogClass (CWnd *pParent = NULL);
+	EditDialogueDialogClass (CWnd *pParent = nullptr);
 
 // Dialog Data
 	//{{AFX_DATA(EditDialogueDialogClass)

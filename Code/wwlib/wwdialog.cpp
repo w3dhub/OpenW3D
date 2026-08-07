@@ -41,7 +41,7 @@ int Show_Message_Box(unsigned int flags, const char *message, const char *title)
 		mb_flags |= MB_ABORTRETRYIGNORE;
 		break;
 	}
-	switch (MessageBoxA(NULL, message, title, mb_flags)) {
+	switch (MessageBoxA(nullptr, message, title, mb_flags)) {
 	case IDOK:
 	case IDYES:
 	case IDCONTINUE:

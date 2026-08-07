@@ -111,7 +111,7 @@ class PushRecordClass : public AutoPoolClass<PushRecordClass,32>
 {
 public:
 
-	PushRecordClass(PhysClass * obj) : Object(NULL), Next(NULL)	{ REF_PTR_SET(Object,obj); WWASSERT(obj); Transform = obj->Get_Transform(); }
+	PushRecordClass(PhysClass * obj) : Object(nullptr), Next(nullptr)	{ REF_PTR_SET(Object,obj); WWASSERT(obj); Transform = obj->Get_Transform(); }
 	~PushRecordClass(void)													{ REF_PTR_RELEASE(Object); };
 
 	void Revert(void)															{ Object->Set_Transform(Transform); }
@@ -193,7 +193,7 @@ enum
  * HISTORY:                                                                                    *
  *=============================================================================================*/
 AnimCollisionManagerClass::CollideableObjClass::CollideableObjClass(void) :
-	CollisionMesh(NULL),
+	CollisionMesh(nullptr),
 	StartTransform(1),
 	EndTransform(1)
 {
@@ -215,7 +215,7 @@ AnimCollisionManagerClass::CollideableObjClass::CollideableObjClass
 (
 	RenderObjClass * collisionmesh
 ) :
-	CollisionMesh(NULL),
+	CollisionMesh(nullptr),
 	StartTransform(1),
 	EndTransform(1)
 {
@@ -237,7 +237,7 @@ AnimCollisionManagerClass::CollideableObjClass::CollideableObjClass
 (
 	const CollideableObjClass & that
 ) :
-	CollisionMesh(NULL),
+	CollisionMesh(nullptr),
 	StartTransform(1),
 	EndTransform(1)
 {
@@ -328,7 +328,7 @@ AnimCollisionManagerClass::CollideableObjClass::Intersect_Scene
 	NonRefPhysListClass * intersect_list
 )
 {
-	if (CollisionMesh == NULL) return;
+	if (CollisionMesh == nullptr) return;
 	PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
 
 #if VERBOSE_LOGGING
@@ -435,12 +435,12 @@ AnimCollisionManagerClass::AnimCollisionManagerClass(PhysClass & parent) :
 	TargetFrame(0.0f),
 	LoopStart(0.0f),
 	LoopEnd(0.0f),
-	CurAnimation(NULL),
+	CurAnimation(nullptr),
 	CurFrame(0.0f),
-	PrevAnimation(NULL),
+	PrevAnimation(nullptr),
 	PrevFrame(0.0f),
 	CollisionMode(COLLIDE_NONE),
-	PushList(NULL)
+	PushList(nullptr)
 {
 }
 
@@ -459,7 +459,7 @@ AnimCollisionManagerClass::AnimCollisionManagerClass(PhysClass & parent) :
  *=============================================================================================*/
 AnimCollisionManagerClass::~AnimCollisionManagerClass(void)
 {
-	WWASSERT(PushList == NULL);
+	WWASSERT(PushList == nullptr);
 	REF_PTR_RELEASE(CurAnimation);
 	REF_PTR_RELEASE(PrevAnimation);
 }
@@ -522,7 +522,7 @@ void AnimCollisionManagerClass::Set_Animation(const char * anim_name)
 	** Automatically loop this animation by default
 	*/
 	LoopStart = 0;
-	if (CurAnimation != NULL) {
+	if (CurAnimation != nullptr) {
 		LoopEnd = TargetFrame = float(CurAnimation->Get_Num_Frames() - 1);
 	} else {
 		LoopEnd = TargetFrame = 0;
@@ -548,13 +548,13 @@ void AnimCollisionManagerClass::Set_Animation(const char * anim_name)
 void AnimCollisionManagerClass::Internal_Set_Animation(const char * anim_name)
 {
 	HAnimClass * anim = WW3DAssetManager::Get_Instance()->Get_HAnim(anim_name);
-	if ( anim == NULL && anim_name != NULL ) {
+	if ( anim == nullptr && anim_name != nullptr ) {
 		WWDEBUG_SAY(( "FAILED TO FIND ANIM IN AnimCollisionManagerClass::Internal_Set_Animation(\"%s\")\n", anim_name ));
 	}
 	REF_PTR_SET(CurAnimation,anim);
 	REF_PTR_RELEASE(anim);
 
-	if (Parent.Peek_Model() != NULL) {
+	if (Parent.Peek_Model() != nullptr) {
 		Parent.Peek_Model()->Set_Animation(CurAnimation,CurFrame);
 	}
 }
@@ -613,7 +613,7 @@ void AnimCollisionManagerClass::Set_Target_Frame(float frame)
  *=============================================================================================*/
 void AnimCollisionManagerClass::Set_Target_Frame_End(void)
 {
-	if (CurAnimation != NULL) {
+	if (CurAnimation != nullptr) {
 		Set_Target_Frame(float(CurAnimation->Get_Num_Frames() - 1));
 	}
 }
@@ -902,7 +902,7 @@ bool AnimCollisionManagerClass::Is_Collision_Model(RenderObjClass * subobj)
 	** then it is considered an animated collideable mesh.
 	*/
 	return (	(subobj->Get_Collision_Type() & COLLISION_TYPE_PHYSICAL) &&
-				(subobj->Get_Container() != NULL) &&
+				(subobj->Get_Container() != nullptr) &&
 				(subobj->Get_Container()->Get_Sub_Object_Bone_Index(subobj)	!= 0) );
 }
 
@@ -922,7 +922,7 @@ bool AnimCollisionManagerClass::Is_Collision_Model(RenderObjClass * subobj)
 int AnimCollisionManagerClass::Recursive_Count_Collision_Models(RenderObjClass * model)
 {
 	int count = 0;
-	if (model == NULL) {
+	if (model == nullptr) {
 		return 0;
 	}
 
@@ -956,7 +956,7 @@ int AnimCollisionManagerClass::Recursive_Count_Collision_Models(RenderObjClass *
  *=============================================================================================*/
 void AnimCollisionManagerClass::Recursive_Collect_Collision_Models(RenderObjClass * model)
 {
-	if (model == NULL) {
+	if (model == nullptr) {
 		return;
 	}
 
@@ -1034,7 +1034,7 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 	/*
 	** move animation forward
 	*/
-	if (CurAnimation != NULL) {
+	if (CurAnimation != nullptr) {
 		switch (AnimationMode) {
 
 			case ANIMATE_LOOP:
@@ -1133,7 +1133,7 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 	** Release the push records
 	*/
 	PushRecordClass::Delete_List(PushList);
-	PushList = NULL;
+	PushList = nullptr;
 
 	/*
 	** Ratchet our animation state forward for the next frame
@@ -1353,7 +1353,7 @@ bool AnimCollisionManagerClass::Push_Collided_Object(PhysClass * obj,const Matri
 {
 	bool result = false;
 	MoveablePhysClass * move_obj = obj->As_MoveablePhysClass();
-	if (move_obj != NULL) {
+	if (move_obj != nullptr) {
 
 		VERBOSE_LOG(("Pushing object: %s, vector: (%f, %f, %f)\r\n",move_obj->Peek_Model()->Get_Name(),
 				delta_transform.Get_Translation().X,
@@ -1391,11 +1391,11 @@ bool AnimCollisionManagerClass::Save(ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK(csave,ANIMCOLLISIONMANAGER_VARIABLE_LOOPSTART,LoopStart);
 	WRITE_MICRO_CHUNK(csave,ANIMCOLLISIONMANAGER_VARIABLE_LOOPEND,LoopEnd);
 
-	if (CurAnimation != NULL) {
+	if (CurAnimation != nullptr) {
 		WRITE_MICRO_CHUNK_STRING(csave,ANIMCOLLISIONMANAGER_VARIABLE_ANIMATIONNAME,CurAnimation->Get_Name());
 	}
 
-	if (PrevAnimation != NULL) {
+	if (PrevAnimation != nullptr) {
 		WRITE_MICRO_CHUNK_STRING(csave,ANIMCOLLISIONMANAGER_VARIABLE_PREVANIMATIONNAME,PrevAnimation->Get_Name());
 	}
 
@@ -1460,7 +1460,7 @@ bool AnimCollisionManagerClass::Load(ChunkLoadClass &cload)
 
 	if (!prev_anim_name.Is_Empty()) {
 		HAnimClass * anim = WW3DAssetManager::Get_Instance()->Get_HAnim(prev_anim_name);
-		if ( anim == NULL ) {
+		if ( anim == nullptr ) {
 			WWDEBUG_SAY(( "FAILED TO FIND PREV ANIM IN AnimCollisionManagerClass::Internal_Set_Animation(\"%s\")\n", prev_anim_name.Peek_Buffer() ));
 		}
 		REF_PTR_SET(PrevAnimation,anim);

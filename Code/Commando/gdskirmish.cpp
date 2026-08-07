@@ -166,8 +166,8 @@ cGameDataSkirmish::Soldier_Added (SoldierGameObj *soldier)
 	//
 	//	Give the soldier some starting credits
 	//
-	if (	soldier != NULL &&
-			soldier->Get_Player_Data() != NULL &&
+	if (	soldier != nullptr &&
+			soldier->Get_Player_Data() != nullptr &&
 			soldier->Get_Player_Data()->Get_Game_Time () == 0)
 	{
 		soldier->Get_Player_Data ()->Set_Money (float(StartingCredits));
@@ -213,10 +213,10 @@ void cGameDataSkirmish::Base_Destruction_Score_Tweaking(void)
 	WWASSERT(cNetwork::I_Am_Server());
 
 	cTeam * p_nod = cTeamManager::Find_Team(PLAYERTYPE_NOD);
-	WWASSERT(p_nod != NULL);
+	WWASSERT(p_nod != nullptr);
 
 	cTeam * p_gdi = cTeamManager::Find_Team(PLAYERTYPE_GDI);
-	WWASSERT(p_gdi != NULL);
+	WWASSERT(p_gdi != nullptr);
 
 	float nod_score = p_nod->Get_Score();
 	float gdi_score = p_gdi->Get_Score();
@@ -284,7 +284,7 @@ void cGameDataSkirmish::Load_From_Server_Config(void)
 	cGameData::Load_From_Server_Config(Get_Ini_Filename());
 
    INIClass * p_ini = Get_INI(Get_Ini_Filename());
-   WWASSERT(p_ini != NULL);
+   WWASSERT(p_ini != nullptr);
 
    bool				b;
    int				i;
@@ -324,7 +324,7 @@ void cGameDataSkirmish::Save_To_Server_Config(void)
 	cGameData::Save_To_Server_Config(Get_Ini_Filename());
 
    INIClass * p_ini = Get_INI(Get_Ini_Filename());
-   WWASSERT(p_ini != NULL);
+   WWASSERT(p_ini != nullptr);
 
 
 	p_ini->Put_Bool(	INI_SECTION_NAME, "IsFriendlyFirePermitted",	IsFriendlyFirePermitted.Get());
@@ -345,7 +345,7 @@ void cGameDataSkirmish::Show_My_Money(void)
 {
 	if (cNetwork::I_Am_Client()) {
 		cPlayer * p_player = cNetwork::Get_My_Player_Object();
-		if (p_player != NULL) {
+		if (p_player != nullptr) {
 			WideStringClass text(0,true);
 			text.Format(U_CHAR("%s: %d"),
 				TRANSLATION(IDS_MP_MONEY), (int) p_player->Get_Money());
@@ -377,7 +377,7 @@ void cGameDataSkirmish::Filter_Soldiers(void)
 
 	cPlayer * p_player = cNetwork::Get_My_Player_Object();
 
-	if (p_player != NULL) {
+	if (p_player != nullptr) {
 
 		//int my_team = p_player->Get_Player_Type();
 
@@ -388,13 +388,13 @@ void cGameDataSkirmish::Filter_Soldiers(void)
 		//
 		for (
 			SLNode<SmartGameObj> * objnode = GameObjManager::Get_Smart_Game_Obj_List()->Head();
-			objnode != NULL;
+			objnode != nullptr;
 			objnode = objnode->Next())
 		{
 			SmartGameObj * p_smart_obj = objnode->Data();
-			WWASSERT(p_smart_obj != NULL);
+			WWASSERT(p_smart_obj != nullptr);
 
-			if (	p_smart_obj->As_SoldierGameObj() != NULL &&
+			if (	p_smart_obj->As_SoldierGameObj() != nullptr &&
 					!p_smart_obj->Is_Delete_Pending() &&
 					!p_smart_obj->Has_Player() &&
 					p_smart_obj->Get_Player_Type() == my_team) {
@@ -412,7 +412,7 @@ void cGameDataSkirmish::Filter_Soldiers(void)
 
 		for (int i = 0; i < spawner_list.Count(); i++) {
 
-			WWASSERT(spawner_list[i] != NULL);
+			WWASSERT(spawner_list[i] != nullptr);
 
 			if (spawner_list[i]->Get_Definition().Get_Player_Type() == my_team) {
 				spawner_list[i]->Enable(false);

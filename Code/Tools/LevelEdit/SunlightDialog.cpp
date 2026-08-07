@@ -40,8 +40,8 @@ static char THIS_FILE[] = __FILE__;
 // SunlightDialogClass dialog
 
 
-SunlightDialogClass::SunlightDialogClass(CWnd* pParent /*=NULL*/)
-	:	m_pSunlight (NULL),
+SunlightDialogClass::SunlightDialogClass(CWnd* pParent /*=nullptr*/)
+	:	m_pSunlight (nullptr),
 		CDialog(SunlightDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(SunlightDialogClass)
@@ -91,7 +91,7 @@ SunlightDialogClass::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	m_pSunlight = ::Get_Scene_Editor ()->Get_Sun_Light ();
-	ASSERT (m_pSunlight != NULL);
+	ASSERT (m_pSunlight != nullptr);
 	m_pSunlight->Get_Diffuse (&m_Color);
 
 	::Get_Scene_Editor ()->Get_Sun_Light_Orientation (&m_Yaw, &m_Pitch);
@@ -183,7 +183,7 @@ SunlightDialogClass::OnColor (void)
 		//
 		// Repaint the views
 		//
-		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_BK_COLOR), NULL, true);
+		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_BK_COLOR), nullptr, true);
 		::Get_Scene_Editor ()->Update_Lighting ();
 		::Refresh_Main_View ();
 	}

@@ -177,29 +177,29 @@ PersistantSurfaceEffectClass::~PersistantSurfaceEffectClass(void)
 **	PersistantSurfaceSoundClass
 */
 PersistantSurfaceSoundClass::PersistantSurfaceSoundClass( void ) :
-	Sound( NULL )
+	Sound( nullptr )
 {
 }
 
 PersistantSurfaceSoundClass::~PersistantSurfaceSoundClass( void )
 {
-	Set_Sound( NULL );
+	Set_Sound( nullptr );
 }
 
 void	PersistantSurfaceSoundClass::Set_Sound( const char * name )
 {
 	// Stop Old Sound
-	if ( Sound != NULL ) {
+	if ( Sound != nullptr ) {
 		Sound->Stop();
 		Sound->Remove_From_Scene();
 		Sound->Release_Ref();
-		Sound = NULL;
+		Sound = nullptr;
 	}
 
 	// Start new Sound
-	if ( name != NULL ) {
+	if ( name != nullptr ) {
 		Sound = WWAudioClass::Get_Instance()->Create_Continuous_Sound( name );
-		if ( Sound != NULL ) {
+		if ( Sound != nullptr ) {
 			Sound->Add_To_Scene( true );
 		}
 	}
@@ -210,30 +210,30 @@ void	PersistantSurfaceSoundClass::Set_Sound( const char * name )
 **	PersistantSurfaceEmitterClass
 */
 PersistantSurfaceEmitterClass::PersistantSurfaceEmitterClass( void ) :
-	Emitter( NULL )
+	Emitter( nullptr )
 {
 }
 
 PersistantSurfaceEmitterClass::~PersistantSurfaceEmitterClass( void )
 {
-	Set_Emitter( NULL );
+	Set_Emitter( nullptr );
 }
 
 void	PersistantSurfaceEmitterClass::Set_Emitter( const char * name )
 {
 	// Stop Old Emitter
-	if ( Emitter != NULL ) {
+	if ( Emitter != nullptr ) {
 		// Check if it is in the scene, it may ahve already been remove by completion
-		if ( Emitter->Peek_Scene() != NULL ) {
+		if ( Emitter->Peek_Scene() != nullptr ) {
 			PhysicsSceneClass::Get_Instance()->Remove_Render_Object( Emitter );
 		}
 		Emitter->Stop();
 		Emitter->Release_Ref();
-		Emitter = NULL;
+		Emitter = nullptr;
 	}
 
 	// Start new Emitter
-	if ( name != NULL ) {
+	if ( name != nullptr ) {
 		Emitter = (ParticleEmitterClass *)WW3DAssetManager::Get_Instance()->Create_Render_Obj( name );
 		if ( Emitter ) {
 			SET_REF_OWNER( Emitter );
@@ -310,7 +310,7 @@ void	SurfaceEffectsManager::Init( void )
 	// Read Database INI file
 	INIClass	* ini = Get_INI( SURFACE_EFFECTS_INI_FILENAME );
 
-	if ( ini != NULL ) {
+	if ( ini != nullptr ) {
 		WWASSERT( ini && ini->Section_Count() > 0 );
 
 		int surface;
@@ -341,7 +341,7 @@ void	SurfaceEffectsManager::Init( void )
 				section_name.Format( "%s_%s", SURFACE_TYPE_STRINGS[surface], _HitterTypeName[hitter] );
 
 				if ( ini->Entry_Count( section_name ) == 0 ) {
-					SurfaceEffectsDatabase[ surface ][ hitter ] = NULL;
+					SurfaceEffectsDatabase[ surface ][ hitter ] = nullptr;
 					continue;
 				}
 
@@ -420,12 +420,12 @@ void	SurfaceEffectsManager::Init( void )
 		}
 
 		Release_INI( ini );
-		ini = NULL;
+		ini = nullptr;
 	} else {
 		Debug_Say(("SurfaceEffectsManager::Init - Unable to load %s\n", SURFACE_EFFECTS_INI_FILENAME ));
 	}
 
-	WWASSERT(ini == NULL);
+	WWASSERT(ini == nullptr);
    _IsSurfaceEffectsInitted = true;
 }
 
@@ -439,7 +439,7 @@ void	SurfaceEffectsManager::Shutdown( void )
 		for ( int hitter = 0; hitter < NUM_HITTER_TYPES; hitter++ ) {
 			if ( SurfaceEffectsDatabase[ surface ][ hitter ] ) {
 				delete SurfaceEffectsDatabase[ surface ][ hitter ];
-				SurfaceEffectsDatabase[ surface ][ hitter ] = NULL;
+				SurfaceEffectsDatabase[ surface ][ hitter ] = nullptr;
 			}
 		}
 	}
@@ -483,7 +483,7 @@ void	SurfaceEffectsManager::Apply_Effect
 
 	// Return if we don't find any surface effect settings for this combination of surface_type, hitter_type
 	SurfaceEffectClass * surface_effect = SurfaceEffectsDatabase[ surface_type ][ hitter_type ];
-	if ( surface_effect == NULL ) {
+	if ( surface_effect == nullptr ) {
 		if ( SurfaceEffectsManagerDebug ) {
 			Debug_Say(( "No Surface Effect for %s and %s\n", SURFACE_TYPE_STRINGS[surface_type], _HitterTypeName[hitter_type] ));
 		}
@@ -605,11 +605,11 @@ void	SurfaceEffectsManager::Update_Persistant_Sound( PersistantSurfaceSoundClass
 
 		SurfaceEffectClass * surface_effect = SurfaceEffectsDatabase[ surface_type ][ hitter_type ];
 
-		if ( surface_effect == NULL ) {
+		if ( surface_effect == nullptr ) {
 			if ( SurfaceEffectsManagerDebug ) {
 				Debug_Say(( "No Surface Effect for %s and %s\n", SURFACE_TYPE_STRINGS[surface_type], _HitterTypeName[hitter_type] ));
 			}
-			effect->Set_Sound( NULL );
+			effect->Set_Sound( nullptr );
 
 		} else {
 
@@ -625,7 +625,7 @@ void	SurfaceEffectsManager::Update_Persistant_Sound( PersistantSurfaceSoundClass
 	}
 
 	// Update Position
-	if ( effect->Sound != NULL ) {
+	if ( effect->Sound != nullptr ) {
 		effect->Sound->Set_Transform( tm );
 	}
 }
@@ -663,11 +663,11 @@ void	SurfaceEffectsManager::Update_Persistant_Emitter( PersistantSurfaceEmitterC
 		effect->CurrentHitterType = hitter_type;
 		SurfaceEffectClass * surface_effect = SurfaceEffectsDatabase[ surface_type ][ hitter_type ];
 
-		if ( surface_effect == NULL ) {
+		if ( surface_effect == nullptr ) {
 			if ( SurfaceEffectsManagerDebug ) {
 				Debug_Say(( "No Surface Effect for %s and %s\n", SURFACE_TYPE_STRINGS[surface_type], _HitterTypeName[hitter_type] ));
 			}
-			effect->Set_Emitter( NULL );
+			effect->Set_Emitter( nullptr );
 
 		} else {
 
@@ -683,7 +683,7 @@ void	SurfaceEffectsManager::Update_Persistant_Emitter( PersistantSurfaceEmitterC
 	}
 
 	// Update the transform
-	if ( effect->Emitter != NULL ) {
+	if ( effect->Emitter != nullptr ) {
 		effect->Emitter->Set_Transform( tm );
 	}
 }

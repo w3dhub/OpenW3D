@@ -32,8 +32,8 @@
 int Print(HANDLE handle, char const * text)
 {
 	int retval = 0;
-	if (text != NULL)  {
-		WriteFile(handle, text, strlen(text), &retval, NULL);
+	if (text != nullptr)  {
+		WriteFile(handle, text, strlen(text), &retval, nullptr);
 		printf(text);
 	}
 	return(retval);
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	HANDLE handle2;
 	char attrib = 0x70;
 
-	handle1 = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	handle1 = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (handle1 != INVALID_HANDLE_VALUE)  {
 		int retval;
 		struct  {
@@ -62,40 +62,40 @@ int main(int argc, char *argv[])
 		printf("Press <ENTER> to proceed.\n");
 		getchar();
 
-		handle2 = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		handle2 = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 		if (handle2 != INVALID_HANDLE_VALUE)  {
 			Print(handle2, MESSAGE2);
 
 			printf("Press <ENTER> to proceed again.\n");getchar();
 
-			DeviceIoControl(handle1, (DWORD)IOCTL_MONO_BRING_TO_TOP, NULL, 0, NULL, 0, &retval, 0);
+			DeviceIoControl(handle1, (DWORD)IOCTL_MONO_BRING_TO_TOP, nullptr, 0, nullptr, 0, &retval, 0);
 			printf("First page should reappear.\n");getchar();
 
-			DeviceIoControl(handle2, (DWORD)IOCTL_MONO_BRING_TO_TOP, NULL, 0, NULL, 0, &retval, 0);
+			DeviceIoControl(handle2, (DWORD)IOCTL_MONO_BRING_TO_TOP, nullptr, 0, nullptr, 0, &retval, 0);
 			printf("Second page should reappear.\n");getchar();
 			{
-				unsigned short * ptr = NULL;
-				unsigned short * ptr2 = NULL;
+				unsigned short * ptr = nullptr;
+				unsigned short * ptr2 = nullptr;
 
-				DeviceIoControl(handle2, (DWORD)IOCTL_MONO_LOCK, NULL, 0, &ptr, sizeof(ptr), &retval, 0);
-				if (ptr != NULL) {
+				DeviceIoControl(handle2, (DWORD)IOCTL_MONO_LOCK, nullptr, 0, &ptr, sizeof(ptr), &retval, 0);
+				if (ptr != nullptr) {
 					*ptr = 0x0720;
 				}
 				printf("Upper left character should blank out.\n");getchar();
 
-				DeviceIoControl(handle1, (DWORD)IOCTL_MONO_BRING_TO_TOP, NULL, 0, NULL, 0, &retval, 0);
-				DeviceIoControl(handle1, (DWORD)IOCTL_MONO_LOCK, NULL, 0, &ptr2, sizeof(ptr2), &retval, 0);
-				if (ptr2 != NULL) {
+				DeviceIoControl(handle1, (DWORD)IOCTL_MONO_BRING_TO_TOP, nullptr, 0, nullptr, 0, &retval, 0);
+				DeviceIoControl(handle1, (DWORD)IOCTL_MONO_LOCK, nullptr, 0, &ptr2, sizeof(ptr2), &retval, 0);
+				if (ptr2 != nullptr) {
 					*ptr2 = 0x0720;
 				}
-				DeviceIoControl(handle1, (DWORD)IOCTL_MONO_UNLOCK, NULL, 0, NULL, 0, &retval, 0);
+				DeviceIoControl(handle1, (DWORD)IOCTL_MONO_UNLOCK, nullptr, 0, nullptr, 0, &retval, 0);
 				printf("First page should NOT reappear (but it has been modified).\n");getchar();
 
-				DeviceIoControl(handle2, (DWORD)IOCTL_MONO_BRING_TO_TOP, NULL, 0, NULL, 0, &retval, 0);
-				if (ptr != NULL) {
+				DeviceIoControl(handle2, (DWORD)IOCTL_MONO_BRING_TO_TOP, nullptr, 0, nullptr, 0, &retval, 0);
+				if (ptr != nullptr) {
 					*ptr = 0x0721;
 				}
-				DeviceIoControl(handle2, (DWORD)IOCTL_MONO_UNLOCK, NULL, 0, NULL, 0, &retval, 0);
+				DeviceIoControl(handle2, (DWORD)IOCTL_MONO_UNLOCK, nullptr, 0, nullptr, 0, &retval, 0);
 				printf("Second page is now modified after after a call to unlock for page 1.\n");getchar();
 			}
 			CloseHandle(handle2);
@@ -103,8 +103,8 @@ int main(int argc, char *argv[])
 			printf("Unable to open second device handle.\n");getchar();
 		}
 
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_BRING_TO_TOP, NULL, 0, NULL, 0, &retval, 0);
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SET_ATTRIBUTE, &attrib, 1, NULL, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_BRING_TO_TOP, nullptr, 0, nullptr, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SET_ATTRIBUTE, &attrib, 1, nullptr, 0, &retval, 0);
 		Print(handle1, MESSAGE3);
 		printf("First page should reappear with new text.\n");getchar();
 
@@ -112,12 +112,12 @@ int main(int argc, char *argv[])
 		windowcontrol.Y = 10;
 		windowcontrol.W = 20;
 		windowcontrol.H = 10;
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SET_WINDOW, &windowcontrol, sizeof(windowcontrol), NULL, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SET_WINDOW, &windowcontrol, sizeof(windowcontrol), nullptr, 0, &retval, 0);
 		Print(handle1, "This text should appear in a window that is of limited size. You should notice that the text wraps at the right margin.\n");
 		printf("Sub window printing -- no wrap at right margin.\n");getchar();
 
 		value = MONOFLAG_WRAP;
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SET_FLAG, &value, sizeof(value), NULL, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SET_FLAG, &value, sizeof(value), nullptr, 0, &retval, 0);
 		Print(handle1, "\fThis text should appear in a window that is of limited size. You should notice that the text wraps at the right margin.\n");
 		printf("Sub window printing -- wrapping at right margin.\n");getchar();
 
@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
 		fillcontrol.W = 100;
 		fillcontrol.H = 100;
 		fillcontrol.A = 0x0F;
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_FILL_ATTRIB, &fillcontrol, sizeof(fillcontrol), NULL, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_FILL_ATTRIB, &fillcontrol, sizeof(fillcontrol), nullptr, 0, &retval, 0);
 		printf("Screen attribute change.\n");getchar();
 
 		fillcontrol.X = 0;
@@ -135,19 +135,19 @@ int main(int argc, char *argv[])
 		fillcontrol.W = 100;
 		fillcontrol.H = 100;
 		fillcontrol.A = 0x07;
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_FILL_ATTRIB, &fillcontrol, sizeof(fillcontrol), NULL, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_FILL_ATTRIB, &fillcontrol, sizeof(fillcontrol), nullptr, 0, &retval, 0);
 		printf("Screen attribute restore.\n");getchar();
 
 
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_PAN, NULL, 0, NULL, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_PAN, nullptr, 0, nullptr, 0, &retval, 0);
 		printf("Now it should pan over one column.\n");getchar();
 
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SCROLL, NULL, 0, NULL, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SCROLL, nullptr, 0, nullptr, 0, &retval, 0);
 		printf("Now it should scroll up one row.\n");getchar();
 
 		attrib = 0x07;
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SET_ATTRIBUTE, &attrib, 1, NULL, 0, &retval, 0);
-		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_CLEAR_SCREEN, NULL, 0, NULL, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_SET_ATTRIBUTE, &attrib, 1, nullptr, 0, &retval, 0);
+		DeviceIoControl(handle1, (DWORD)IOCTL_MONO_CLEAR_SCREEN, nullptr, 0, nullptr, 0, &retval, 0);
 
 		CloseHandle(handle1);
 	}
@@ -163,29 +163,29 @@ int main(int argc, char *argv[])
 		int Y;
 	} cursorpos;
 
-	if ((hDriver = CreateFile("\\\\.\\MONO", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)) != ((HANDLE)-1))  {
+	if ((hDriver = CreateFile("\\\\.\\MONO", GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr)) != ((HANDLE)-1))  {
 		printf("\nRetrieved valid handle for MONO driver\n");
 	} else {
 		printf("Can't get a handle to MONO driver\n");
 		return 1;
 	}
 
-	WriteFile(hDriver, outputString, strlen(outputString), &cbReturned, NULL);
+	WriteFile(hDriver, outputString, strlen(outputString), &cbReturned, nullptr);
 	printf("WriteFile says it wrote out %d bytes.\n", cbReturned);
 
 
-	if (DeviceIoControl(hDriver, (DWORD) IOCTL_MONO_PRINT_RAW, altString, sizeof(altString)-1, NULL, 0, &cbReturned, 0)) {
+	if (DeviceIoControl(hDriver, (DWORD) IOCTL_MONO_PRINT_RAW, altString, sizeof(altString)-1, nullptr, 0, &cbReturned, 0)) {
 		printf("DeviceIoControl worked\n\n");
 
 		cursorpos.X = 0;
 		cursorpos.Y = 0;
-		DeviceIoControl(hDriver, (DWORD)IOCTL_MONO_SET_CURSOR, (char*)&cursorpos, sizeof(cursorpos), NULL, 0, &cbReturned, 0);
-		WriteFile(hDriver, topline, strlen(topline), &cbReturned, NULL);
+		DeviceIoControl(hDriver, (DWORD)IOCTL_MONO_SET_CURSOR, (char*)&cursorpos, sizeof(cursorpos), nullptr, 0, &cbReturned, 0);
+		WriteFile(hDriver, topline, strlen(topline), &cbReturned, nullptr);
 
 		printf("Hit <Enter> to clear the mono display: \n");
 		getchar();
 
-		DeviceIoControl(hDriver, (DWORD) IOCTL_MONO_CLEAR_SCREEN, NULL, 0, NULL, 0, &cbReturned, 0);
+		DeviceIoControl(hDriver, (DWORD) IOCTL_MONO_CLEAR_SCREEN, nullptr, 0, nullptr, 0, &cbReturned, 0);
 
 		printf("'Bye\n");
 	} else {

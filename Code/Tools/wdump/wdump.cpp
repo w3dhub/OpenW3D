@@ -140,7 +140,7 @@ BOOL CWdumpApp::InitInstance()
 /*			STARTUPINFO info;
 			GetStartupInfo(&info);
 
-			if(info.hStdOutput == NULL) {
+			if(info.hStdOutput == nullptr) {
 				AllocConsole();                  // Allocate console window
 				freopen("CONOUT$", "a", stdout);
 				freopen("CONIN$", "r", stdin);
@@ -161,7 +161,7 @@ BOOL CWdumpApp::InitInstance()
 
 			// CWdumpDoc *doc = (CWdumpDoc *) pDocTemplate->OpenDocumentFile(cmdInfo.m_strFileName, false);
 
-/*			if(info.hStdOutput == NULL) {
+/*			if(info.hStdOutput == nullptr) {
 				printf("Press return to close this window..");
 				getchar();
 				FreeConsole();

@@ -168,7 +168,7 @@ class WOLNATInterfaceClass :	public Observer<WWOnline::UserEvent>,
 		*/
 		bool Get_Packet(char *packet_buffer, int buffer_size, IPAddressClass &address);
 		void Intercept_Game_Packet(cPacket &packet);
-		bool Send_Game_Format_Packet_To(IPAddressClass *address, char *payload, int payload_size, SocketHandlerClass *socket_handler = NULL);
+		bool Send_Game_Format_Packet_To(IPAddressClass *address, char *payload, int payload_size, SocketHandlerClass *socket_handler = nullptr);
 
 		/*
 		** General game helper functions.

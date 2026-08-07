@@ -1067,7 +1067,7 @@ void brute_force_obb_obb_test(int test_count)
 void Test_OBBoxes(void)
 {
 	const int TESTCOUNT = 100;
-	srand(time(NULL));
+	srand(time(nullptr));
 
 	test_obb_tri();
 	test_obb_obb();

@@ -67,7 +67,7 @@ CSplineTestDoc::CSplineTestDoc()
 
 CSplineTestDoc::~CSplineTestDoc()
 {
-	if (Curve != NULL) {
+	if (Curve != nullptr) {
 		delete Curve;
 	}
 }
@@ -118,20 +118,20 @@ void CSplineTestDoc::Dump(CDumpContext& dc) const
 
 void CSplineTestDoc::Reset_Curve(void)
 {
-	if (Curve != NULL) {
+	if (Curve != nullptr) {
 		delete Curve;
 	}
 	Curve = Create_Curve(CurveType);
 	DragIndex = -1;
-	UpdateAllViews(NULL);
+	UpdateAllViews(nullptr);
 }
 
 void CSplineTestDoc::Set_Curve_Type(int type)
 {
-	assert (Curve != NULL);
+	assert (Curve != nullptr);
 
 	if (type != CurveType) {
-		Curve3DClass * new_curve = NULL;
+		Curve3DClass * new_curve = nullptr;
 		new_curve = Create_Curve(type);
 
 		for (int i=0; i<Curve->Key_Count(); i++) {
@@ -140,7 +140,7 @@ void CSplineTestDoc::Set_Curve_Type(int type)
 			Curve->Get_Key(i,&pt,&t);
 			new_curve->Add_Key(pt,t);
 
-			UpdateAllViews(NULL);
+			UpdateAllViews(nullptr);
 		}
 
 		delete Curve;
@@ -162,7 +162,7 @@ Curve3DClass *	CSplineTestDoc::Get_Curve(void)
 
 Curve3DClass * CSplineTestDoc::Create_Curve(int type)
 {
-	Curve3DClass * new_curve = NULL;
+	Curve3DClass * new_curve = nullptr;
 	switch (type) {
 	case LINEAR:
 		new_curve = new LinearCurve3DClass;
@@ -200,7 +200,7 @@ bool  CSplineTestDoc::Drag_Point(const Vector3 & pos)
 	} else {
 		if (Curve) {
 			Curve->Set_Key(DragIndex,pos);
-			UpdateAllViews(NULL);
+			UpdateAllViews(nullptr);
 		}
 		return true;
 	}
@@ -219,14 +219,14 @@ bool CSplineTestDoc::Is_Dragging(void)
 
 bool  CSplineTestDoc::Add_Point(const Vector3 & pos)
 {
-	if (Curve == NULL) return false;
+	if (Curve == nullptr) return false;
 	if (Curve->Key_Count() == 0) {
 		Curve->Add_Key(pos,0.0f);
 	} else {
 		// make dt random for testing
 		Curve->Add_Key(pos,Curve->Get_End_Time() + 1.0f); //WWMath::Random_Float(0.1f,5.0f));
 	}
-	UpdateAllViews(NULL);
+	UpdateAllViews(nullptr);
 	return true;
 }
 
@@ -235,7 +235,7 @@ int CSplineTestDoc::Pick(const Vector3 & pos)
 	int index = -1;
 	for (int pi=0; pi<Curve->Key_Count(); pi++) {
 		Vector3 keypt;
-		Curve->Get_Key(pi,&keypt,NULL);
+		Curve->Get_Key(pi,&keypt,nullptr);
 		if ((keypt - pos).Length() < GRAB_DIST) {
 			index = pi;
 			break;
@@ -268,7 +268,7 @@ void CSplineTestDoc::Edit_Point(const Vector3 & pos)
 		}
 	}
 
-	UpdateAllViews(NULL);
+	UpdateAllViews(nullptr);
 	return;
 }
 

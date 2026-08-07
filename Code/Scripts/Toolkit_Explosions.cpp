@@ -114,7 +114,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_At_Bone_RMV, "Start_Now=0:int, Receive_Type:
 		if (Get_Int_Parameter("Start_Now"))
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Explosion_Create_At_Bone_RMV ACTIVATED.\n"));
-			if (Commands->Find_Object(target_id) != NULL)
+			if (Commands->Find_Object(target_id) != nullptr)
 				Commands->Create_Explosion_At_Bone(Get_Parameter("Explosion_Name"), Commands->Find_Object(target_id), Get_Parameter("Bone_Name"), obj);
 		}
 	}
@@ -125,7 +125,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_At_Bone_RMV, "Start_Now=0:int, Receive_Type:
 		if ((type == custom_type) && (param == parameter))
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Explosion_Create_At_Bone_RMV ACTIVATED.\n"));
-			if (Commands->Find_Object(target_id) != NULL)
+			if (Commands->Find_Object(target_id) != nullptr)
 				Commands->Create_Explosion_At_Bone(Get_Parameter("Explosion_Name"), Commands->Find_Object(target_id), Get_Parameter("Bone_Name"), obj);
 		}
 	}

@@ -92,7 +92,7 @@ void _Game_Main_Loop_Loop(void)
 
 
 {	WWPROFILE( "Pathfind Evaluate" );
-   if (COMBAT_CAMERA != NULL) {
+   if (COMBAT_CAMERA != nullptr) {
 		Vector3 camera_pos = COMBAT_CAMERA->Get_Position();
 		PathMgrClass::Resolve_Paths( camera_pos );
 	}
@@ -125,7 +125,7 @@ void _Game_Main_Loop_Loop(void)
 	// If the following assert hits it may indicate that your
 	// working directory pathname got cleared in the project settings.
 	//
-	WWASSERT(GameModeManager::Find("Combat") != NULL);
+	WWASSERT(GameModeManager::Find("Combat") != nullptr);
 
 	if (!GameModeManager::Find("Combat")->Is_Active()) {
 		cNetwork::Update();

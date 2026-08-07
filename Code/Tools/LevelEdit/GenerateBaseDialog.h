@@ -32,7 +32,7 @@ class GenerateBaseDialogClass : public CDialog
 {
 // Construction
 public:
-	GenerateBaseDialogClass(CWnd* pParent = NULL);   // standard constructor
+	GenerateBaseDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GenerateBaseDialogClass)

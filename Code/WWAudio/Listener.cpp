@@ -75,7 +75,7 @@ Listener3DClass::Initialize_Miles_Handle (void)
 	MMSLockClass lock;
 
 	// Do we have a valid sample handle from miles?
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 		m_SoundHandle->Set_Position(Vector3(0.0F, 0.0F, 0.0F));
 		m_SoundHandle->Set_Orientation(Vector3(1.0F, 0.0F, 0.0F), Vector3(0.0F, 0.0F, 1.0F));
 

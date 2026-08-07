@@ -89,7 +89,7 @@ void AutoRestartProgressDialogClass::On_Init_Dialog (void)
 	RegistryClass reg(APPLICATION_SUB_KEY_NAME_OPTIONS);
 	if (reg.Get_Int("DisableMenuAnim", 0) == 0) {
 		if (MenuBackDropClass *backdrop = Get_BackDrop ()) {
-			if (backdrop->Peek_Model () == NULL) {
+			if (backdrop->Peek_Model () == nullptr) {
 				backdrop->Set_Model ("IF_BACK01");
 				backdrop->Set_Animation ("IF_BACK01.IF_BACK01");
 			}
@@ -100,7 +100,7 @@ void AutoRestartProgressDialogClass::On_Init_Dialog (void)
 	** Set the columns up. Just one with nothing in it.
 	*/
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_PROGRESS_INFO);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 		list_ctrl->Allow_Selection(false);
 		list_ctrl->Set_Wants_Focus(false);

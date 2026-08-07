@@ -379,7 +379,7 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 
 			VehicleGameObj * p_vehicle;
 			p_vehicle = (VehicleGameObj *) Vehicle.Get_Ptr();
-			WWASSERT(p_vehicle != NULL);
+			WWASSERT(p_vehicle != nullptr);
 
 			if (!obj->Is_Permitted_To_Enter_Vehicle() ||
 				 !p_vehicle->Is_Entry_Permitted(obj)) {
@@ -443,7 +443,7 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 			//
 			if( obj == COMBAT_STAR && LadderIndex >= 0 ) {
 				ScriptableGameObj	*occupant = PathActionClass::Get_Ladder_Occupant( LadderIndex );
-				if( occupant != NULL && occupant != obj ) {
+				if( occupant != nullptr && occupant != obj ) {
 					condition = false;
 				}
 			}
@@ -457,7 +457,7 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 			// When exiting a Ladder, we just have to check for a dynamic object blocking our
 			// exit point.  (the third parameter to Can_Teleport_And_Stand is true...)
 			//
-			/*if (	move_phys != NULL &&
+			/*if (	move_phys != nullptr &&
 				   move_phys->Can_Teleport(EndingTM, true) == false)
 			{
 				condition = false;
@@ -471,7 +471,7 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 			// - ignore our vehicle and sweep the character to the exit transform
 			// - un-ignore the vehicle and do a teleport test.
 			//
-			if (move_phys != NULL) {
+			if (move_phys != nullptr) {
 
 				bool can_move_to;
 
@@ -535,7 +535,7 @@ void	TransitionInstanceClass::Start( SoldierGameObj *obj )
 
 	obj->Set_Transform( EndingTM );
 
-	if ( obj->Peek_Physical_Object() != NULL && obj->Peek_Physical_Object()->As_Phys3Class() != NULL ) {
+	if ( obj->Peek_Physical_Object() != nullptr && obj->Peek_Physical_Object()->As_Phys3Class() != nullptr ) {
 		obj->Peek_Physical_Object()->As_Phys3Class()->Set_Velocity( Vector3(0,0,0) );
 	}
 
@@ -568,7 +568,7 @@ void	TransitionInstanceClass::Start( SoldierGameObj *obj )
 			//	Free this ladder so other's can use it
 			//
 			if( obj == COMBAT_STAR && LadderIndex >= 0 ) {
-				PathActionClass::Set_Ladder_Occupant( LadderIndex, NULL );
+				PathActionClass::Set_Ladder_Occupant( LadderIndex, nullptr );
 			}
 
 			break;
@@ -642,7 +642,7 @@ void	TransitionInstanceClass::End( SoldierGameObj *obj,
 
 		case TransitionDataClass::VEHICLE_ENTER:
 		{
-			if ( vehicle != NULL ) {
+			if ( vehicle != nullptr ) {
 				vehicle->Add_Occupant( obj );
 			}
 			break;
@@ -650,7 +650,7 @@ void	TransitionInstanceClass::End( SoldierGameObj *obj,
 
 		case TransitionDataClass::VEHICLE_EXIT:
 		{
-			if ( vehicle != NULL ) {
+			if ( vehicle != nullptr ) {
 				vehicle->Remove_Occupant( obj );
 			} else {
 				obj->Exit_Vehicle();
@@ -724,7 +724,7 @@ bool	TransitionManager::Check( SoldierGameObj *obj, bool action_trigger )
 
 void	TransitionManager::Build_Ladder_List (DynamicVectorClass<TransitionInstanceClass *> &list)
 {
-	SLNode<TransitionInstanceClass> *ti_node = NULL;
+	SLNode<TransitionInstanceClass> *ti_node = nullptr;
 	for (	ti_node = Transitions.Head(); ti_node; ti_node = ti_node->Next()) {
 
 		//

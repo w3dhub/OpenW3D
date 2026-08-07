@@ -29,20 +29,20 @@
 //#define ENABLE_MSG
 //#define	ENABLE_MSG3
 #if defined ENABLE_MSG
-#define ODS(sz)  MessageBox(NULL, sz, "Debug Message", MB_OK)
+#define ODS(sz)  MessageBox(nullptr, sz, "Debug Message", MB_OK)
 #else
 #define ODS(sz)
 #endif
 
 
 #if defined ENABLE_MSG2
-#define ODS2(sz)  MessageBox(NULL, sz, "Debug Message", MB_OK)
+#define ODS2(sz)  MessageBox(nullptr, sz, "Debug Message", MB_OK)
 #else
 #define ODS2(sz)
 #endif
 
 #if defined ENABLE_MSG3
-#define ODS3(sz)  MessageBox(NULL, sz, "Debug Message", MB_OK)
+#define ODS3(sz)  MessageBox(nullptr, sz, "Debug Message", MB_OK)
 #else
 #define ODS3(sz)
 #endif

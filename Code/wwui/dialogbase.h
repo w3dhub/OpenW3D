@@ -137,9 +137,9 @@ public:
 	//
 	//	RTTI
 	//
-	virtual MenuDialogClass *	As_MenuDialogClass (void)	{ return NULL; }
-	virtual PopupDialogClass *	As_PopupDialogClass (void)	{ return NULL; }
-	virtual ChildDialogClass *	As_ChildDialogClass (void)	{ return NULL; }
+	virtual MenuDialogClass *	As_MenuDialogClass (void)	{ return nullptr; }
+	virtual PopupDialogClass *	As_PopupDialogClass (void)	{ return nullptr; }
+	virtual ChildDialogClass *	As_ChildDialogClass (void)	{ return nullptr; }
 
 	const DialogResource * Get_Dlg_Resource(void) const {return DialogResource_;}
 
@@ -224,8 +224,8 @@ public:
 	//
 	//	Transition control
 	//
-	virtual DialogTransitionClass *	Get_Transition_In (DialogBaseClass * /* prev_dlg */)	{ return NULL; }
-	virtual DialogTransitionClass *	Get_Transition_Out (DialogBaseClass * /* next_dlg */)	{ return NULL; }
+	virtual DialogTransitionClass *	Get_Transition_In (DialogBaseClass * /* prev_dlg */)	{ return nullptr; }
+	virtual DialogTransitionClass *	Get_Transition_Out (DialogBaseClass * /* next_dlg */)	{ return nullptr; }
 
 	virtual void			Set_Controls_Hidden (bool onoff)			{ AreControlsHidden = onoff; }
 	virtual bool			Are_Controls_Hidden (void) const			{ return AreControlsHidden; }

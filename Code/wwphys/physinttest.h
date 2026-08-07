@@ -63,7 +63,7 @@
 class PhysAABoxIntersectionTestClass : public AABoxIntersectionTestClass
 {
 public:
-	PhysAABoxIntersectionTestClass(const AABoxClass & box,int col_group,int col_type,NonRefPhysListClass * result_list = NULL) :
+	PhysAABoxIntersectionTestClass(const AABoxClass & box,int col_group,int col_type,NonRefPhysListClass * result_list = nullptr) :
 		AABoxIntersectionTestClass(box,col_type),
 		CollisionGroup(col_group),
 		IntersectedObjects(result_list),
@@ -97,7 +97,7 @@ private:
 class PhysOBBoxIntersectionTestClass : public OBBoxIntersectionTestClass
 {
 public:
-	PhysOBBoxIntersectionTestClass(const OBBoxClass & box,int col_group,int col_type,NonRefPhysListClass * result_list = NULL) :
+	PhysOBBoxIntersectionTestClass(const OBBoxClass & box,int col_group,int col_type,NonRefPhysListClass * result_list = nullptr) :
 		OBBoxIntersectionTestClass(box,col_type),
 		CollisionGroup(col_group),
 		IntersectedObjects(result_list),
@@ -133,13 +133,13 @@ public:
 
 	PhysMeshIntersectionTestClass(MeshClass * mesh,int col_group,int col_type,NonRefPhysListClass * result_list) :
 		IntersectionTestClass(col_type),
-		Mesh(NULL),
+		Mesh(nullptr),
 		CollisionGroup(col_group),
 		IntersectedObjects(result_list),
 		CheckStaticObjs(true),
 		CheckDynamicObjs(true)
 	{
-		WWASSERT(mesh != NULL);
+		WWASSERT(mesh != nullptr);
 		REF_PTR_SET(Mesh,mesh);
 		BoundingBox = Mesh->Get_Bounding_Box();
 	}

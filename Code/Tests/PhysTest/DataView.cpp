@@ -44,8 +44,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CDataView, CTreeView)
 
 CDataView::CDataView() :
-	ModelsRoot(NULL),
-	InstancesRoot(NULL)
+	ModelsRoot(nullptr),
+	InstancesRoot(nullptr)
 {
 }
 
@@ -63,8 +63,8 @@ void CDataView::Rebuild_Tree(void)
 	GetTreeCtrl().DeleteItem(ModelsRoot);
 	GetTreeCtrl().DeleteItem(InstancesRoot);
 
-	ModelsRoot = GetTreeCtrl().InsertItem("Models", NULL, NULL);
-	InstancesRoot = GetTreeCtrl().InsertItem ("Physics Object Instances", NULL, NULL);
+	ModelsRoot = GetTreeCtrl().InsertItem("Models", nullptr, nullptr);
+	InstancesRoot = GetTreeCtrl().InsertItem ("Physics Object Instances", nullptr, nullptr);
 
 	// MODELS
 	// Get an iterator from the asset manager that we can
@@ -83,8 +83,8 @@ void CDataView::Rebuild_Tree(void)
 				const char * model_name = obj_iterator->Current_Item_Name();
 
 				// Add this entry to the tree
-				HTREEITEM hItem = GetTreeCtrl().InsertItem(model_name,NULL,0,ModelsRoot,TVI_SORT);
-				ASSERT (hItem != NULL);
+				HTREEITEM hItem = GetTreeCtrl().InsertItem(model_name,nullptr,0,ModelsRoot,TVI_SORT);
+				ASSERT (hItem != nullptr);
 
 				ItemInfoClass * item_info = new ItemInfoClass(model_name,ItemInfoClass::MODEL);
 				GetTreeCtrl().SetItemData(hItem, (ULONG)item_info);
@@ -103,11 +103,11 @@ void CDataView::Rebuild_Tree(void)
 
 		const char * instance_name = phys_iterator.Peek_Obj()->Get_Name();
 
-		if (instance_name != NULL) {
+		if (instance_name != nullptr) {
 
 			// Add this entry to the tree
-			HTREEITEM hItem = GetTreeCtrl().InsertItem(instance_name,NULL,0,InstancesRoot,TVI_SORT);
-			ASSERT (hItem != NULL);
+			HTREEITEM hItem = GetTreeCtrl().InsertItem(instance_name,nullptr,0,InstancesRoot,TVI_SORT);
+			ASSERT (hItem != nullptr);
 
 			ItemInfoClass * item_info = new ItemInfoClass(instance_name,ItemInfoClass::INSTANCE);
 			item_info->Instance = phys_iterator.Peek_Obj();
@@ -123,11 +123,11 @@ void CDataView::Rebuild_Tree(void)
 
 ItemInfoClass * CDataView::Get_Selected_Item(void)
 {
-	ItemInfoClass * item_info = NULL;
+	ItemInfoClass * item_info = nullptr;
 
 	// Get the currently selected node from the tree control
 	HTREEITEM htree_item = GetTreeCtrl ().GetSelectedItem ();
-	if (htree_item != NULL) {
+	if (htree_item != nullptr) {
 
 		// Get the data associated with this item
 		item_info = (ItemInfoClass *)GetTreeCtrl().GetItemData(htree_item);
@@ -195,8 +195,8 @@ int CDataView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CTreeView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	ModelsRoot = GetTreeCtrl().InsertItem("Models", NULL, NULL);
-	InstancesRoot = GetTreeCtrl().InsertItem ("Physics Object Instances", NULL, NULL);
+	ModelsRoot = GetTreeCtrl().InsertItem("Models", nullptr, nullptr);
+	InstancesRoot = GetTreeCtrl().InsertItem ("Physics Object Instances", nullptr, nullptr);
 
 	return 0;
 }
@@ -208,12 +208,12 @@ void CDataView::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 	ItemInfoClass * item_info = (ItemInfoClass *)pNMTreeView->itemOld.lParam;
 
 	// Free the asset information object
-	if (item_info != NULL) {
+	if (item_info != nullptr) {
 		delete item_info;
 	}
 
 	// Reset the data associated with this entry
-	GetTreeCtrl().SetItemData(pNMTreeView->itemOld.hItem, NULL);
+	GetTreeCtrl().SetItemData(pNMTreeView->itemOld.hItem, nullptr);
 
 	*pResult = 0;
 }

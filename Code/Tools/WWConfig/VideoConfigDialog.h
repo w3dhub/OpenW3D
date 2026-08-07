@@ -55,7 +55,7 @@ class VideoConfigDialogClass : public CDialog
 {
 // Construction
 public:
-	VideoConfigDialogClass(CWnd* pParent = NULL);   // standard constructor
+	VideoConfigDialogClass(CWnd* pParent = nullptr);   // standard constructor
 	~VideoConfigDialogClass();
 
 // Dialog Data

@@ -90,7 +90,7 @@ enum
 ///////////////////////////////////////////////////////////////////////
 // Static member initialization
 ///////////////////////////////////////////////////////////////////////
-NodeClass * NodeMgrClass::_NodeListHead	= NULL;
+NodeClass * NodeMgrClass::_NodeListHead	= nullptr;
 
 uint32 NodeMgrClass::_NextObjectNodeID		= FIRST_OBJECT_NODE_ID;
 uint32 NodeMgrClass::_NextStaticNodeID		= FIRST_STATIC_NODE_ID;
@@ -144,14 +144,14 @@ NodeMgrClass::Setup_Node_Identity (NodeClass &node)
 	//
 	//	Give the node a name
 	//
-	if (preset !=  NULL) {
+	if (preset !=  nullptr) {
 		CString name;
 		name.Format ("%s.%d", preset->Get_Name (), id);
 		node.Set_Name (name);
 	} else {
 
 		RenderObjClass *model = node.Peek_Render_Obj ();
-		if (model != NULL) {
+		if (model != nullptr) {
 			CString name;
 			name.Format ("%s.%d", model->Get_Name (), id);
 			node.Set_Name (name);
@@ -175,7 +175,7 @@ NodeClass *
 NodeMgrClass::Create_Node (PresetClass *preset, uint32 id)
 {
 	NodeClass *node = preset->Create ();
-	if (node != NULL) {
+	if (node != nullptr) {
 
 		//
 		//	Give the new node a unique id and name
@@ -213,8 +213,8 @@ NodeMgrClass::Add_Node (NodeClass *node)
 	//	Add the node to the the list and lock
 	// a refcount on the node
 	//
-	if (	node->m_NextNode == NULL &&
-			node->m_PrevNode == NULL &&
+	if (	node->m_NextNode == nullptr &&
+			node->m_PrevNode == nullptr &&
 			node != _NodeListHead)
 	{
 		Link_Node (node);
@@ -224,7 +224,7 @@ NodeMgrClass::Add_Node (NodeClass *node)
 		//	Update the UI
 		//
 		InstancesPageClass *instances_form = ::Get_Instances_Form ();
-		if (instances_form != NULL) {
+		if (instances_form != nullptr) {
 			instances_form->Add_Node (node);
 		}
 	}
@@ -243,8 +243,8 @@ NodeMgrClass::Remove_Node (NodeClass *node)
 {
 	WWASSERT (node != 0);
 
-	if (	node->m_NextNode != NULL ||
-			node->m_PrevNode != NULL ||
+	if (	node->m_NextNode != nullptr ||
+			node->m_PrevNode != nullptr ||
 			node == _NodeListHead)
 	{
 		//
@@ -257,7 +257,7 @@ NodeMgrClass::Remove_Node (NodeClass *node)
 		//	Update the UI
 		//
 		InstancesPageClass *instances_form = ::Get_Instances_Form ();
-		if (instances_form != NULL) {
+		if (instances_form != nullptr) {
 			instances_form->Remove_Node (node);
 		}
 
@@ -337,25 +337,25 @@ NodeMgrClass::Unlink_Node (NodeClass *node)
 void
 NodeMgrClass::Free_Nodes (void)
 {
-	NodeClass *curr_node = NULL;
-	NodeClass *next_node = NULL;
+	NodeClass *curr_node = nullptr;
+	NodeClass *next_node = nullptr;
 	InstancesPageClass *instances_form = ::Get_Instances_Form ();
 
 	//
 	//	Unlink the nodes
 	//
 	DynamicVectorClass<NodeClass *> node_list;
-	for (curr_node = _NodeListHead; curr_node != NULL; curr_node = next_node) {
+	for (curr_node = _NodeListHead; curr_node != nullptr; curr_node = next_node) {
 		next_node = curr_node->m_NextNode;
-		curr_node->m_PrevNode = NULL;
-		curr_node->m_NextNode = NULL;
+		curr_node->m_PrevNode = nullptr;
+		curr_node->m_NextNode = nullptr;
 		node_list.Add (curr_node);
 	}
 
 	//
 	//	Free the nodes
 	//
-	_NodeListHead = NULL;
+	_NodeListHead = nullptr;
 	for (int index = 0; index < node_list.Count (); index ++) {
 		MEMBER_RELEASE (node_list[index]);
 	}
@@ -372,7 +372,7 @@ NodeMgrClass::Free_Nodes (void)
 	//
 	//	Update the UI
 	//
-	if (instances_form != NULL) {
+	if (instances_form != nullptr) {
 		instances_form->Reset_List ();
 	}
 
@@ -389,10 +389,10 @@ NodeMgrClass::Free_Nodes (void)
 NodeClass *
 NodeMgrClass::Find_Node (uint32 id)
 {
-	NodeClass *req_node = NULL;
+	NodeClass *req_node = nullptr;
 
 	for (	NodeClass *node = _NodeListHead;
-			(req_node == NULL) && (node != NULL);
+			(req_node == nullptr) && (node != nullptr);
 			node = node->m_NextNode)
 	{
 		//
@@ -415,10 +415,10 @@ NodeMgrClass::Find_Node (uint32 id)
 NodeClass *
 NodeMgrClass::Find_Node (const char *name)
 {
-	NodeClass *req_node = NULL;
+	NodeClass *req_node = nullptr;
 
 	for (	NodeClass *node = _NodeListHead;
-			(req_node == NULL) && (node != NULL);
+			(req_node == nullptr) && (node != nullptr);
 			node = node->m_NextNode)
 	{
 		//
@@ -453,14 +453,14 @@ NodeMgrClass::Get_Next (NodeClass *node)
 NodeClass *
 NodeMgrClass::Get_First (NODE_TYPE type)
 {
-	NodeClass *req_node = NULL;
+	NodeClass *req_node = nullptr;
 
 	//
 	//	Loop through all the nodes until we've found the
 	// first one that matches the criteria
 	//
 	for (	NodeClass *node = _NodeListHead;
-			(req_node == NULL) && (node != NULL);
+			(req_node == nullptr) && (node != nullptr);
 			node = node->m_NextNode)
 	{
 		if (node->Get_Type () == type) {
@@ -480,13 +480,13 @@ NodeMgrClass::Get_First (NODE_TYPE type)
 NodeClass *
 NodeMgrClass::Get_Next (NodeClass *current, NODE_TYPE type)
 {
-	NodeClass *req_node = NULL;
+	NodeClass *req_node = nullptr;
 
 	//
 	//	Loop through all the nodes until we've found the
 	// first one that matches the criteria
 	//
-	while ((req_node == NULL) && ((current = current->m_NextNode) != NULL))
+	while ((req_node == nullptr) && ((current = current->m_NextNode) != nullptr))
 	{
 		if (current->Get_Type () == type) {
 			req_node = current;
@@ -506,14 +506,14 @@ NodeMgrClass::Get_Next (NodeClass *current, NODE_TYPE type)
 NodeClass *
 NodeMgrClass::Get_First (PresetClass *preset)
 {
-	NodeClass *req_node = NULL;
+	NodeClass *req_node = nullptr;
 
 	//
 	//	Loop through all the nodes until we've found the
 	// first one that matches the criteria
 	//
 	for (	NodeClass *node = _NodeListHead;
-			(req_node == NULL) && (node != NULL);
+			(req_node == nullptr) && (node != nullptr);
 			node = node->m_NextNode)
 	{
 		if (node->Get_Preset () == preset) {
@@ -533,27 +533,27 @@ NodeMgrClass::Get_First (PresetClass *preset)
 NodeClass *
 NodeMgrClass::Find_First (uint32 class_id)
 {
-	NodeClass *req_node = NULL;
+	NodeClass *req_node = nullptr;
 
 	//
 	//	Loop through all the nodes until we've found the
 	// first one that matches the criteria
 	//
 	for (	NodeClass *node = _NodeListHead;
-			(req_node == NULL) && (node != NULL);
+			(req_node == nullptr) && (node != nullptr);
 			node = node->m_NextNode)
 	{
 		//
 		//	Get the preset this node was created from
 		//
 		PresetClass *preset = node->Get_Preset ();
-		if (preset != NULL) {
+		if (preset != nullptr) {
 
 			//
 			//	Is this preset belong to the requested class?
 			//
 			DefinitionClass *definition = preset->Get_Definition ();
-			if (definition != NULL && definition->Get_Class_ID () == class_id) {
+			if (definition != nullptr && definition->Get_Class_ID () == class_id) {
 				req_node = node;
 			}
 		}
@@ -571,25 +571,25 @@ NodeMgrClass::Find_First (uint32 class_id)
 NodeClass *
 NodeMgrClass::Find_Next (NodeClass *current, uint32 class_id)
 {
-	NodeClass *req_node = NULL;
+	NodeClass *req_node = nullptr;
 
 	//
 	//	Loop through all the nodes until we've found the
 	// first one that matches the criteria
 	//
-	while ((req_node == NULL) && ((current = current->m_NextNode) != NULL))
+	while ((req_node == nullptr) && ((current = current->m_NextNode) != nullptr))
 	{
 		//
 		//	Get the preset this node was created from
 		//
 		PresetClass *preset = current->Get_Preset ();
-		if (preset != NULL) {
+		if (preset != nullptr) {
 
 			//
 			//	Is this preset belong to the requested class?
 			//
 			DefinitionClass *definition = preset->Get_Definition ();
-			if (definition != NULL && definition->Get_Class_ID () == class_id) {
+			if (definition != nullptr && definition->Get_Class_ID () == class_id) {
 				req_node = current;
 			}
 		}
@@ -607,13 +607,13 @@ NodeMgrClass::Find_Next (NodeClass *current, uint32 class_id)
 NodeClass *
 NodeMgrClass::Get_Next (NodeClass *current, PresetClass *preset)
 {
-	NodeClass *req_node = NULL;
+	NodeClass *req_node = nullptr;
 
 	//
 	//	Loop through all the nodes until we've found the
 	// first one that matches the criteria
 	//
-	while ((req_node == NULL) && ((current = current->m_NextNode) != NULL))
+	while ((req_node == nullptr) && ((current = current->m_NextNode) != nullptr))
 	{
 		if (current->Get_Preset () == preset) {
 			req_node = current;
@@ -632,7 +632,7 @@ NodeMgrClass::Get_Next (NodeClass *current, PresetClass *preset)
 bool
 NodeMgrClass::Contains_Data (void) const
 {
-	return (_NodeListHead != NULL);
+	return (_NodeListHead != nullptr);
 }
 
 
@@ -714,7 +714,7 @@ NodeMgrClass::Save_Node_List (ChunkSaveClass &csave, NODE_LIST &node_list)
 	//
 	for (int index = 0; index < node_list.Count (); index ++) {
 		NodeClass *node = node_list[index];
-		if (node != NULL) {
+		if (node != nullptr) {
 
 			//
 			//	Save this node to its own chunk
@@ -743,14 +743,14 @@ NodeMgrClass::Load_Node_List (ChunkLoadClass &cload, NODE_LIST &node_list)
 		//	Load this node from the chunk (if possible)
 		//
 		PersistFactoryClass *factory = SaveLoadSystemClass::Find_Persist_Factory (cload.Cur_Chunk_ID ());
-		if (factory != NULL) {
+		if (factory != nullptr) {
 			NodeClass *node = (NodeClass *)factory->Load (cload);
-			if (node != NULL) {
+			if (node != nullptr) {
 
 				//
 				// Does this node's preset still exist?
 				//
-				if (node->Get_Preset () != NULL || node->Get_Type () == NODE_TYPE_WAYPOINT) {
+				if (node->Get_Preset () != nullptr || node->Get_Type () == NODE_TYPE_WAYPOINT) {
 
 					//
 					//	Initialize the node
@@ -790,7 +790,7 @@ bool
 NodeMgrClass::Save_Nodes (ChunkSaveClass &csave)
 {
 	for (	NodeClass *node = _NodeListHead;
-			node != NULL;
+			node != nullptr;
 			node = node->m_NextNode)
 	{
 		if (node->Needs_Save ()) {
@@ -826,12 +826,12 @@ NodeMgrClass::Load_Nodes (ChunkLoadClass &cload)
 		//	Load this node from the chunk (if possible)
 		//
 		PersistFactoryClass *factory = SaveLoadSystemClass::Find_Persist_Factory (cload.Cur_Chunk_ID ());
-		if (factory != NULL) {
+		if (factory != nullptr) {
 			NodeClass *node = (NodeClass *)factory->Load (cload);
-			if (node != NULL) {
+			if (node != nullptr) {
 
 				// Does this node's preset still exist?
-				if (node->Get_Preset () != NULL || node->Get_Type () == NODE_TYPE_WAYPOINT) {
+				if (node->Get_Preset () != nullptr || node->Get_Type () == NODE_TYPE_WAYPOINT) {
 
 					//
 					//	Initialize the node
@@ -888,7 +888,7 @@ NodeMgrClass::On_Post_Load (void)
 	//	Loop over all the nodes
 	//
 	for (	NodeClass *node = _NodeListHead;
-			node != NULL;
+			node != nullptr;
 			node = node->m_NextNode)
 	{
 		//
@@ -942,7 +942,7 @@ NodeMgrClass::Reload_Nodes (void)
 	Build_Full_Node_List (node_list);
 	for (int index = 0; index < node_list.Count (); index ++) {
 		NodeClass *node = node_list[index];
-		if (node != NULL) {
+		if (node != nullptr) {
 
 			//
 			//	Lookup the preset and re-assign it to this node
@@ -956,7 +956,7 @@ NodeMgrClass::Reload_Nodes (void)
 	//
 	//	Ask each node to recreate itself
 	//
-	for (	NodeClass *node = _NodeListHead; node != NULL; node = node->m_NextNode) {
+	for (	NodeClass *node = _NodeListHead; node != nullptr; node = node->m_NextNode) {
 		node->Reload ();
 	}
 
@@ -980,7 +980,7 @@ NodeMgrClass::Reload_Nodes (PresetClass *preset)
 	//	Loop over all the nodes
 	//
 	for (	NodeClass *node = _NodeListHead;
-			node != NULL;
+			node != nullptr;
 			node = node->m_NextNode)
 	{
 		//
@@ -1030,7 +1030,7 @@ NodeMgrClass::Remove_Dynamic_Objects (NODE_LIST &dynamic_obj_list)
 	//	Build a list of nodes to that are not dynamic
 	//
 	for (	NodeClass *node = NodeMgrClass::Get_First ();
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node))
 	{
 		if (node->Is_Static () == false) {
@@ -1043,7 +1043,7 @@ NodeMgrClass::Remove_Dynamic_Objects (NODE_LIST &dynamic_obj_list)
 	//
 	for (int index = 0; index < dynamic_obj_list.Count (); index ++) {
 		NodeClass *node = dynamic_obj_list[index];
-		if (node != NULL) {
+		if (node != nullptr) {
 			node->Add_Ref ();
 			NodeMgrClass::Remove_Node (node);
 		}
@@ -1065,7 +1065,7 @@ NodeMgrClass::Remove_Static_Objects (NODE_LIST &static_obj_list)
 	//	Build a list of nodes to that are not dynamic
 	//
 	for (	NodeClass *node = NodeMgrClass::Get_First ();
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node))
 	{
 		if (node->Is_Static ()) {
@@ -1078,7 +1078,7 @@ NodeMgrClass::Remove_Static_Objects (NODE_LIST &static_obj_list)
 	//
 	for (int index = 0; index < static_obj_list.Count (); index ++) {
 		NodeClass *node = static_obj_list[index];
-		if (node != NULL) {
+		if (node != nullptr) {
 			node->Add_Ref ();
 			NodeMgrClass::Remove_Node (node);
 		}
@@ -1126,7 +1126,7 @@ NodeMgrClass::Verify_Unique_ID(uint32 id)
 {
 	NodeClass* node = Get_First();
 
-	while (node != NULL) {
+	while (node != nullptr) {
 		if (node->Get_ID() == id) {
 			return false;
 		}
@@ -1151,7 +1151,7 @@ NodeMgrClass::Make_Static_Anim_Phys_Collideable (bool onoff)
 	//
 	NodeClass *node;
 	for (	node = NodeMgrClass::Get_First (NODE_TYPE_TERRAIN);
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node, NODE_TYPE_TERRAIN))
 	{
 		TerrainNodeClass *terrain	= (TerrainNodeClass *)node;
@@ -1162,13 +1162,13 @@ NodeMgrClass::Make_Static_Anim_Phys_Collideable (bool onoff)
 		//
 		for (int index = 0; index < count; index ++) {
 			NodeClass *sub_node = terrain->Get_Sub_Node (index);
-			if (sub_node != NULL) {
+			if (sub_node != nullptr) {
 
 				//
 				//	Check to make sure this is a static anim phys object
 				//
 				PhysClass *phys_obj = sub_node->Peek_Physics_Obj ();
-				if (phys_obj != NULL && phys_obj->As_StaticAnimPhysClass () != NULL) {
+				if (phys_obj != nullptr && phys_obj->As_StaticAnimPhysClass () != nullptr) {
 					sub_node->Hide (onoff == false);
 
 					//
@@ -1188,14 +1188,14 @@ NodeMgrClass::Make_Static_Anim_Phys_Collideable (bool onoff)
 	//	Loop over all the tiles in the level
 	//
 	for (	node = NodeMgrClass::Get_First (NODE_TYPE_TILE);
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node, NODE_TYPE_TILE))
 	{
 		//
 		//	Check to make sure this is a static anim phys object
 		//
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
-		if (phys_obj != NULL && phys_obj->As_StaticAnimPhysClass () != NULL) {
+		if (phys_obj != nullptr && phys_obj->As_StaticAnimPhysClass () != nullptr) {
 			node->Hide (onoff);
 
 			//
@@ -1288,7 +1288,7 @@ NodeMgrClass::Build_Unimportant_ID_Collision_List (NODE_LIST &node_list)
 					//
 					//	Check to make sure this isn't an important node type
 					//
-					if (	node1->As_ObjectNodeClass () == NULL &&
+					if (	node1->As_ObjectNodeClass () == nullptr &&
 							node1->Get_Type () != NODE_TYPE_SPAWNER &&
 							node1->Get_Type () != NODE_TYPE_TILE &&
 							node1->Get_Type () != NODE_TYPE_WAYPATH &&
@@ -1359,7 +1359,7 @@ NodeMgrClass::Find_Max_Used_ID (NODE_TYPE type)
 	uint32 largest_id = min_id;
 	for (int index = 0; index < node_list.Count (); index ++) {
 		NodeClass *node = node_list[index];
-		if (node != NULL) {
+		if (node != nullptr) {
 
 			//
 			//	Is this the largest ID in our range?
@@ -1511,7 +1511,7 @@ NodeMgrClass::Build_Full_Node_List (DynamicVectorClass<NodeClass *> &node_list)
 	//	Add all nodes and sub-nodes to this list
 	//
 	for (NodeClass *node = ::Get_Node_Mgr ().Get_First ();
-		  node != NULL;
+		  node != nullptr;
 		  node = ::Get_Node_Mgr ().Get_Next (node))
 	{
 		Add_Nodes_To_List (node_list, node);
@@ -1575,7 +1575,7 @@ NodeMgrClass::Create_All_Embedded_Nodes (void)
 	for (int index = 0; index < node_list.Count (); index ++) {
 		if (node_list[index]->Is_Proxied () == false) {
 			PresetClass *preset = node_list[index]->Get_Preset ();
-			if (preset != NULL) {
+			if (preset != nullptr) {
 
 				//
 				//	Create the nodes that are embedded inside this preset

@@ -71,7 +71,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	WaypathNodeClass (PresetClass *preset = NULL);
+	WaypathNodeClass (PresetClass *preset = nullptr);
 	WaypathNodeClass (const WaypathNodeClass &src);
 	~WaypathNodeClass (void);
 

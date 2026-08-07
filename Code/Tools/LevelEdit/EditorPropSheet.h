@@ -88,7 +88,7 @@ protected:
 		///////////////////////////////////////////////////////
 		//	Public methods
 		///////////////////////////////////////////////////
-		virtual void	Add_Page (DockableFormClass *pnew_tab) { if (m_hWnd == NULL) m_TabList.Add (pnew_tab); }
+		virtual void	Add_Page (DockableFormClass *pnew_tab) { if (m_hWnd == nullptr) m_TabList.Add (pnew_tab); }
 
 		bool				Is_Read_Only (void) const	{ return m_IsReadOnly; }
 		void				Set_Read_Only (bool onoff)	{ m_IsReadOnly = onoff; }

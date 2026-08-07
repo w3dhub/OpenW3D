@@ -91,7 +91,7 @@ enum
 #define SAFE_DELETE(pobject)					\
 			if (pobject) {							\
 				delete pobject;					\
-				pobject = NULL;					\
+				pobject = nullptr;					\
 			}											\
 
 
@@ -127,7 +127,7 @@ PathClass::PathClass (void)
 		m_State (ERROR_NOT_INITIALIZED),
 		m_TraversalType (SPLINE),
 		m_Velocity (DEF_VEHICLE_VELOCITY),
-		m_Spline (NULL),
+		m_Spline (nullptr),
 		m_MovementRadius (0.1F),
 		m_MovementDirections (MOVE_X | MOVE_Y),
 		m_CurrentAction (-1),
@@ -247,14 +247,14 @@ PathClass::Initialize (PathSolveClass &path_solve)
 		//
 		bool is_valid = true;
 		PathfindPortalClass *portal = raw_path[index].m_Portal;
-		if (portal != NULL) {
+		if (portal != nullptr) {
 
 			//
 			//	See what kind of portal this is
 			//
 			PathfindActionPortalClass *action_portal		= portal->As_PathfindActionPortalClass ();
 			PathfindWaypathPortalClass *waypath_portal	= portal->As_PathfindWaypathPortalClass ();
-			if (action_portal != NULL) {
+			if (action_portal != nullptr) {
 
 				//
 				//	Check to see if we are inadvertantly starting on an "exit" portal
@@ -265,7 +265,7 @@ PathClass::Initialize (PathSolveClass &path_solve)
 					//	Find the entrance portal
 					//
 					PathfindActionPortalClass *enter_portal = action_portal->Get_Enter_Portal ();
-					if (enter_portal != NULL) {
+					if (enter_portal != nullptr) {
 
 						AABoxClass box;
 						enter_portal->Get_Bounding_Box (box);
@@ -302,7 +302,7 @@ PathClass::Initialize (PathSolveClass &path_solve)
 				action_portal->Get_Bounding_Box (box);
 				node.pos	= box.Center;
 
-			} else if (waypath_portal != NULL) {
+			} else if (waypath_portal != nullptr) {
 				is_valid = false;
 
 				//
@@ -310,7 +310,7 @@ PathClass::Initialize (PathSolveClass &path_solve)
 				//
 				if (index + 1 < raw_path.Count ()) {
 					PathfindWaypathPortalClass *next_portal = raw_path[index + 1].m_Portal->As_PathfindWaypathPortalClass ();
-					if (next_portal != NULL) {
+					if (next_portal != nullptr) {
 
 						//
 						//	Create a temporary waypath segment from the portal information
@@ -334,7 +334,7 @@ PathClass::Initialize (PathSolveClass &path_solve)
 
 			} else if (portal->Is_Two_Way_Portal () == false) {
 
-				/*if (index < (raw_path.Count () - 1) && raw_path[index+1].m_Portal != NULL) {
+				/*if (index < (raw_path.Count () - 1) && raw_path[index+1].m_Portal != nullptr) {
 
 					AABoxClass curr_box;
 					AABoxClass next_box;
@@ -430,7 +430,7 @@ PathClass::Add_Waypoint_Info_To_Node_List
 		//
 		//	Record the jump-to point (if there is one)
 		//
-		if (next_point != NULL) {
+		if (next_point != nullptr) {
 			node.dest_pos = next_point->Get_Position ();
 		}
 	} else if (waypoint->Get_Flag (WaypointClass::FLAG_REQUIRES_ACTION)) {
@@ -439,7 +439,7 @@ PathClass::Add_Waypoint_Info_To_Node_List
 		//	Lookup the action portal from the waypoint
 		//
 		PathfindActionPortalClass *action_portal = waypoint->Get_Action_Portal ();
-		if (action_portal != NULL) {
+		if (action_portal != nullptr) {
 
 			//
 			//	Configure the node's action parameters
@@ -506,7 +506,7 @@ PathClass::Add_Waypath_Data
 		//
 		//	Add data from each waypoint into our path node list
 		//
-		if ((waypoint == NULL || next_point == NULL) || waypoint->Get_Position () != next_point->Get_Position ()) {
+		if ((waypoint == nullptr || next_point == nullptr) || waypoint->Get_Position () != next_point->Get_Position ()) {
 			Add_Waypoint_Info_To_Node_List (node_list, waypoint, next_point);
 		}
 	}
@@ -552,7 +552,7 @@ PathClass::Initialize (WaypathClass *waypath, int start_pt_id, int end_pt_id)
 	//
 	//	Initialize the path from this waypath
 	//
-	if (waypath != NULL) {
+	if (waypath != nullptr) {
 
 		//
 		//	Determine if this is a looping path or not
@@ -744,9 +744,9 @@ PathClass::Evaluate_Next_Point (const Vector3 &curr_pos, Vector3 &new_pos)
 
 	new_pos = m_ExpectedPos;
 
-	/*static PhysClass *_DebugObj = NULL;
+	/*static PhysClass *_DebugObj = nullptr;
 
-	if (_DebugObj == NULL) {
+	if (_DebugObj == nullptr) {
 		_DebugObj = new DecorationPhysClass;
 		_DebugObj->Set_Model (WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("C_HAVOC"));
 		_DebugObj->Inc_Ignore_Counter ();
@@ -1451,7 +1451,7 @@ PathClass::Get_Path_Object (PathObjectClass &path_object) const
 void
 PathClass::Save (ChunkSaveClass &csave)
 {
-	if (m_Spline != NULL) {
+	if (m_Spline != nullptr) {
 
 		//
 		//	Use the spline's factory to save it to its own chunk
@@ -1520,7 +1520,7 @@ PathClass::Load (ChunkLoadClass &cload)
 				//
 				if (cload.Open_Chunk ()) {
 					PersistFactoryClass *factory = SaveLoadSystemClass::Find_Persist_Factory (cload.Cur_Chunk_ID ());
-					if (factory != NULL) {
+					if (factory != nullptr) {
 						m_Spline = (Curve3DClass *)factory->Load (cload);
 					}
 					cload.Close_Chunk ();
@@ -1548,7 +1548,7 @@ PathClass::Load (ChunkLoadClass &cload)
 void
 PathClass::Load_Variables (ChunkLoadClass &cload)
 {
-	PathClass *old_ptr = NULL;
+	PathClass *old_ptr = nullptr;
 
 	//
 	//	Loop through all the microchunks that define the variables
@@ -1593,7 +1593,7 @@ PathClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Register our old ptr so other objects can remap to us
 	//
-	if (old_ptr != NULL) {
+	if (old_ptr != nullptr) {
 		SaveLoadSystemClass::Register_Pointer( old_ptr, this );
 	}
 

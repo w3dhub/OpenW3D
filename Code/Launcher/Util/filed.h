@@ -27,7 +27,7 @@ class FileD : public OutputDevice
    FileD(char *filename)
    {
      out=fopen(filename,"w");
-     if (out==NULL)
+     if (out==nullptr)
        out=fopen("FileDev.out","w");
    }
 

@@ -69,7 +69,7 @@ using namespace WWOnline;
 
 void WOLJoinGame::JoinTheGame(const unichar_t* gameName, const unichar_t* password, bool allowTeamSelect)
 	{
-	WWASSERT(gameName != NULL && "Invalid parameter");
+	WWASSERT(gameName != nullptr && "Invalid parameter");
 
 	if (gameName)
 		{
@@ -197,7 +197,7 @@ cGameData* WOLJoinGame::CreateGameFromChannel(const RefPtr<ChannelData>& channel
 
 	if (gameInfo.IsDataValid() == false)
 		{
-		return NULL;
+		return nullptr;
 		}
 
 	// Create an instance of the correct type.
@@ -238,7 +238,7 @@ cGameData* WOLJoinGame::CreateGameFromChannel(const RefPtr<ChannelData>& channel
 *
 * INPUTS
 *     Name        - Name of game channel (This is usually the same as the hosts name).
-*     Password    - Password to enter game; NULL if not passworded.
+*     Password    - Password to enter game; nullptr if not passworded.
 *     AllowSelect - True if user is allowed to select their team.
 *
 * RESULT
@@ -401,14 +401,14 @@ bool WOLJoinGame::StartServerConnect(void)
 	if (PTheGameData)
 		{
 		delete PTheGameData;
-		PTheGameData = NULL;
+		PTheGameData = nullptr;
 		}
 
 	// Create a new game from the channel
 	cGameData* theGame = CreateGameFromChannel(mTheChannel);
 	WWASSERT(theGame && "WOLJoinGame failed to create cGameData");
 
-	if (theGame == NULL)
+	if (theGame == nullptr)
 		{
 		WWDEBUG_SAY(("WOLJoinGame: ERROR failed to create cGameData\n"));
 		return false;

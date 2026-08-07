@@ -75,7 +75,7 @@ bool DlgMPConnect::DoDialog(int teamChoice, unsigned int clanID)
 		popup->Release_Ref();
 		}
 
-	return (popup != NULL);
+	return (popup != nullptr);
 	}
 
 
@@ -99,7 +99,7 @@ DlgMPConnect::DlgMPConnect(int teamChoice, unsigned int clanID) :
 		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_CONNECTING)),
 		mTeamChoice(teamChoice),
 		mClanID(clanID),
-		mTheGame(NULL),
+		mTheGame(nullptr),
 		mFailed(false)
 	{
 	WWDEBUG_SAY(("DlgMPConnect: Instantiated\n"));
@@ -232,7 +232,7 @@ void DlgMPConnect::On_Periodic(void)
 	{
 	PopupDialogClass::On_Periodic();
 
-	if (mTheGame != NULL)
+	if (mTheGame != nullptr)
 		{
 		// Add a reference to keep us alive while we process the game start
 		Add_Ref();

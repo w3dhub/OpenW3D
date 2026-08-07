@@ -65,7 +65,7 @@ BOOL CVidinitApp::InitInstance()
 	//  of your final executable, you should remove from the following
 	//  the specific initialization routines you do not need.
 
-	CVidinitDlg dlg(NULL);
+	CVidinitDlg dlg(nullptr);
 	m_pMainWnd = &dlg;
 	int nResponse = dlg.DoModal();
 	if (nResponse == IDOK)

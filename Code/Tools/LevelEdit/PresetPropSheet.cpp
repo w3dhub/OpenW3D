@@ -74,7 +74,7 @@ PresetPropSheetClass::OnInitDialog (void)
 							m_hWnd,
 							(HMENU)IDC_PROPAGATE,
 							::AfxGetInstanceHandle (),
-							NULL);
+							nullptr);
 	//
 	//	Set the new button's font
 	//
@@ -111,7 +111,7 @@ PresetPropSheetClass::Reposition_Buttons (int cx, int cy)
 	//
 	int first_width = ((button_rect.Width () * 3) / 2);
 	::SetWindowPos (::GetDlgItem (m_hWnd, IDC_PROPAGATE),
-						 NULL,
+						 nullptr,
 						 (cx - first_width) - BORDER_BUTTON_X,
 						 (cy - button_rect.Height ()) - BORDER_BUTTON_Y,
 						 0,
@@ -119,7 +119,7 @@ PresetPropSheetClass::Reposition_Buttons (int cx, int cy)
 						 SWP_NOZORDER | SWP_NOSIZE);
 
 	::SetWindowPos (::GetDlgItem (m_hWnd, IDCANCEL),
-						 NULL,
+						 nullptr,
 						 (cx - (button_rect.Width () + first_width)) - (BORDER_BUTTON_X * 3),
 						 (cy - button_rect.Height ()) - BORDER_BUTTON_Y,
 						 0,
@@ -127,7 +127,7 @@ PresetPropSheetClass::Reposition_Buttons (int cx, int cy)
 						 SWP_NOZORDER | SWP_NOSIZE);
 
 	::SetWindowPos (::GetDlgItem (m_hWnd, IDC_OK),
-						 NULL,
+						 nullptr,
 						 (cx - ((button_rect.Width () * 2) + first_width)) - (BORDER_BUTTON_X * 4),
 						 (cy - button_rect.Height ()) - BORDER_BUTTON_Y,
 						 0,

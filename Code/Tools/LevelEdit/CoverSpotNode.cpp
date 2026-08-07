@@ -85,7 +85,7 @@ static const Vector3	LINE_OFFSET (0, 0, 0.2F);
 //////////////////////////////////////////////////////////////////////////////
 //	Static member initialization
 //////////////////////////////////////////////////////////////////////////////
-PhysClass *	CoverSpotNodeClass::_TheCollisionObj	= NULL;
+PhysClass *	CoverSpotNodeClass::_TheCollisionObj	= nullptr;
 int			CoverSpotNodeClass::_InstanceCount		= 0;
 
 
@@ -95,9 +95,9 @@ int			CoverSpotNodeClass::_InstanceCount		= 0;
 //
 //////////////////////////////////////////////////////////////////////////////
 CoverSpotNodeClass::CoverSpotNodeClass (PresetClass *preset)
-	:	m_PhysObj (NULL),
+	:	m_PhysObj (nullptr),
 		m_RequiresCrouch (false),
-		m_GameCoverSpot (NULL),
+		m_GameCoverSpot (nullptr),
 		NodeClass (preset)
 {
 	_InstanceCount ++;
@@ -111,10 +111,10 @@ CoverSpotNodeClass::CoverSpotNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 CoverSpotNodeClass::CoverSpotNodeClass (const CoverSpotNodeClass &src)
-	:	m_PhysObj (NULL),
+	:	m_PhysObj (nullptr),
 		m_RequiresCrouch (false),
-		m_GameCoverSpot (NULL),
-		NodeClass (NULL)
+		m_GameCoverSpot (nullptr),
+		NodeClass (nullptr)
 {
 	_InstanceCount ++;
 	*this = src;
@@ -162,8 +162,8 @@ CoverSpotNodeClass::Initialize (void)
 	//	Create the camera render object
 	//
 	RenderObjClass *render_obj = ::Create_Render_Obj ("COVERSPOT");
-	WWASSERT (render_obj != NULL);
-	if (render_obj != NULL) {
+	WWASSERT (render_obj != nullptr);
+	if (render_obj != nullptr) {
 
 		// Create the new physics object
 		m_PhysObj = new DecorationPhysClass;
@@ -183,13 +183,13 @@ CoverSpotNodeClass::Initialize (void)
 		MEMBER_RELEASE (render_obj);
 	}
 
-	if (_TheCollisionObj == NULL) {
+	if (_TheCollisionObj == nullptr) {
 
 		//
 		//	Create the collision physics object
 		//
 		PresetClass *preset = PresetMgrClass::Find_Preset ("Walk-Thru");
-		if (preset != NULL && preset->Get_Definition ()  != NULL) {
+		if (preset != nullptr && preset->Get_Definition ()  != nullptr) {
 
 			//
 			//	Load the assets for this preset and get its definition
@@ -243,7 +243,7 @@ CoverSpotNodeClass::Save (ChunkSaveClass &csave)
 		//
 		for (int index = 0; index < m_AttackPointNodes.Count (); index ++) {
 			CoverAttackPointNodeClass *attack_point = m_AttackPointNodes[index];
-			if (attack_point != NULL) {
+			if (attack_point != nullptr) {
 				Matrix3D tm = attack_point->Get_Transform ();
 				WRITE_MICRO_CHUNK (csave, VARID_ATTACK_POINT, tm);
 			}
@@ -329,7 +329,7 @@ CoverSpotNodeClass::On_Post_Load (void)
 	//
 	//	If the spawner isn't valid, then remove it from the system
 	//
-	if (m_Preset == NULL) {
+	if (m_Preset == nullptr) {
 		::Get_Scene_Editor ()->Delete_Node (this, false);
 	} else {
 
@@ -364,7 +364,7 @@ CoverSpotNodeClass::operator= (const CoverSpotNodeClass &src)
 	Free_Attack_Points ();
 	for (int index = 0; index < src.m_AttackPointNodes.Count (); index ++) {
 		CoverAttackPointNodeClass *attack_point = src.m_AttackPointNodes[index];
-		if (attack_point != NULL) {
+		if (attack_point != nullptr) {
 			Add_Attack_Point (attack_point->Get_Transform ());
 		}
 	}
@@ -388,7 +388,7 @@ CoverSpotNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (m_PhysObj);
 
 		//
@@ -433,7 +433,7 @@ CoverSpotNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (m_PhysObj);
 
 		//
@@ -615,7 +615,7 @@ void
 CoverSpotNodeClass::Remove_From_Scene (void)
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
-	if (scene != NULL && m_IsInScene) {
+	if (scene != nullptr && m_IsInScene) {
 
 		//
 		//	Remove all the waypoints from the scene
@@ -661,7 +661,7 @@ CoverSpotNodeClass::Update_Lines (void)
 PhysClass *
 CoverSpotNodeClass::Peek_Collision_Obj (void) const
 {
-	if (_TheCollisionObj != NULL) {
+	if (_TheCollisionObj != nullptr) {
 		_TheCollisionObj->Set_Transform (m_Transform);
 	}
 

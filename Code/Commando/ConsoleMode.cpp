@@ -176,7 +176,7 @@ void ConsoleModeClass::Init(void)
 			/*
 			** Set the text in the console title bar.
 			*/
-			Set_Title(NULL, NULL);
+			Set_Title(nullptr, nullptr);
 
 			/*
 			** Get an HWND for the console window.
@@ -508,9 +508,9 @@ void ConsoleModeClass::Log_To_Disk(const char *string)
 	if (ConsoleOutputHandle != INVALID_HANDLE_VALUE) {
 		if (ServerSettingsClass::Get_Disk_Log_Size() > 0) {
    		FILE *log_file = fopen(Get_Log_File_Name(), "at");
-   		if (log_file != NULL) {
+   		if (log_file != nullptr) {
 				char timestr[256] = "?";
-				GetTimeFormatA(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT, NULL, "'['HH':'mm':'ss'] '", timestr, 255);
+				GetTimeFormatA(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT, nullptr, "'['HH':'mm':'ss'] '", timestr, 255);
 			   fwrite(timestr, 1, strlen(timestr), log_file);
 			   fwrite(string, 1, strlen(string), log_file);
 			   fclose(log_file);

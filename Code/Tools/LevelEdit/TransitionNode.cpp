@@ -68,8 +68,8 @@ SimplePersistFactoryClass<TransitionNodeClass, CHUNKID_NODE_TRANSITION> _Transit
 //
 //////////////////////////////////////////////////////////////////////////////
 TransitionNodeClass::TransitionNodeClass (PresetClass *preset)
-	:	m_PhysObj (NULL),
-		m_TransitionObj (NULL),
+	:	m_PhysObj (nullptr),
+		m_TransitionObj (nullptr),
 		NodeClass (preset)
 {
 	return ;
@@ -82,9 +82,9 @@ TransitionNodeClass::TransitionNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 TransitionNodeClass::TransitionNodeClass (const TransitionNodeClass &src)
-	:	m_PhysObj (NULL),
-		m_TransitionObj (NULL),
-		NodeClass (NULL)
+	:	m_PhysObj (nullptr),
+		m_TransitionObj (nullptr),
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -101,9 +101,9 @@ TransitionNodeClass::~TransitionNodeClass (void)
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
 
-	if (m_TransitionObj != NULL) {
+	if (m_TransitionObj != nullptr) {
 		m_TransitionObj->Set_Delete_Pending ();
-		m_TransitionObj = NULL;
+		m_TransitionObj = nullptr;
 	}
 
 	return ;
@@ -121,15 +121,15 @@ TransitionNodeClass::~TransitionNodeClass (void)
 void
 TransitionNodeClass::Initialize (void)
 {
-	if (m_TransitionObj != NULL) {
+	if (m_TransitionObj != nullptr) {
 		m_TransitionObj->Set_Delete_Pending ();
-		m_TransitionObj = NULL;
+		m_TransitionObj = nullptr;
 	}
 
 	MEMBER_RELEASE (m_PhysObj);
 
 	TransitionGameObjDef *definition = static_cast<TransitionGameObjDef *> (m_Preset->Get_Definition ());
-	if (definition != NULL) {
+	if (definition != nullptr) {
 
 		//	Create the transition object
 		m_TransitionObj = (TransitionGameObj *)definition->Create ();
@@ -199,7 +199,7 @@ TransitionNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (m_PhysObj);
 	}
 	return ;
@@ -217,7 +217,7 @@ TransitionNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (m_PhysObj);
 	}
 	Release_Ref ();
@@ -233,7 +233,7 @@ TransitionNodeClass::Post_Export (void)
 void
 TransitionNodeClass::Add_To_Scene (void)
 {
-	if (m_TransitionObj != NULL) {
+	if (m_TransitionObj != nullptr) {
 		m_TransitionObj->Create_Transitions ();
 	}
 
@@ -250,7 +250,7 @@ TransitionNodeClass::Add_To_Scene (void)
 void
 TransitionNodeClass::Remove_From_Scene (void)
 {
-	if (m_TransitionObj != NULL) {
+	if (m_TransitionObj != nullptr) {
 		m_TransitionObj->Destroy_Transitions ();
 	}
 
@@ -278,7 +278,7 @@ TransitionNodeClass::Find_Transition (TransitionDataClass::StyleType type)
 		//	Is this the type transition we are looking for?
 		//
 		TransitionInstanceClass *transition = Get_Transition (trans_index);
-		if (transition != NULL && transition->Get_Type () == type) {
+		if (transition != nullptr && transition->Get_Type () == type) {
 			index = trans_index;
 		}
 	}

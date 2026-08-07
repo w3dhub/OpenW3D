@@ -83,7 +83,7 @@ bool DlgMsgBox::DoDialog(const unichar_t* title, const unichar_t* text,
 		popup->Release_Ref();
 		}
 
-	return (popup != NULL);
+	return (popup != nullptr);
 	}
 
 

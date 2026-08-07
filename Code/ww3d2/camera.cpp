@@ -765,7 +765,7 @@ float CameraClass::Get_Aspect_Ratio(void) const
 
 void CameraClass::Get_Projection_Matrix(Matrix4 * set_tm)
 {
-	WWASSERT(set_tm != NULL);
+	WWASSERT(set_tm != nullptr);
 
 	Update_Frustum();
 	*set_tm = ProjectionTransform;
@@ -773,7 +773,7 @@ void CameraClass::Get_Projection_Matrix(Matrix4 * set_tm)
 
 void CameraClass::Get_D3D_Projection_Matrix(Matrix4 * set_tm)
 {
-	WWASSERT(set_tm != NULL);
+	WWASSERT(set_tm != nullptr);
 	Update_Frustum();
 	*set_tm = ProjectionTransform;
 
@@ -794,7 +794,7 @@ void CameraClass::Get_D3D_Projection_Matrix(Matrix4 * set_tm)
 
 void CameraClass::Get_View_Matrix(Matrix3D * set_tm)
 {
-	WWASSERT(set_tm != NULL);
+	WWASSERT(set_tm != nullptr);
 	Update_Frustum();
 	*set_tm = CameraInvTransform;
 }

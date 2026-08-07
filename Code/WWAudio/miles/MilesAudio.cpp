@@ -73,10 +73,10 @@ WWAudioClass *WWAudioClass::Create_Instance(bool lite)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 MilesAudioClass::MilesAudioClass (bool lite)
 	: WWAudioClass(),
-		m_Driver2D (NULL),
-	  m_Driver3D (NULL),
+		m_Driver2D (nullptr),
+	  m_Driver3D (nullptr),
 	  m_SpeakerType (0),
-	  m_Driver3DPseudo (NULL),
+	  m_Driver3DPseudo (nullptr),
 	  m_MaxCacheSize (DEF_CACHE_SIZE * 1024),
 	  m_CurrentCacheSize (0),
 	  m_Max2DSamples (DEF_2D_SAMPLE_COUNT),
@@ -113,7 +113,7 @@ MilesAudioClass::~MilesAudioClass (void)
 	//
 	//	Stop the background music
 	//
-	Set_Background_Music (NULL);
+	Set_Background_Music (nullptr);
 
 	//
 	//	Make sure the delayed-release thread is terminated
@@ -187,11 +187,11 @@ MilesAudioClass::Open_2D_Device (WAVEFORMAT *format)
 	//WWASSERT (success == AIL_NO_ERROR);		// This assert fires if there is no sound card.
 
 	// Open the driver
-	success = ::AIL_waveOutOpen (&m_Driver2D, NULL, 0, format);
+	success = ::AIL_waveOutOpen (&m_Driver2D, nullptr, 0, format);
 
 	// Do we need to switch from direct sound to waveout?
 	if ((success == AIL_NO_ERROR) &&
-		 (m_Driver2D != NULL) &&
+		 (m_Driver2D != nullptr) &&
 		 (m_Driver2D->emulated_ds != 0)) {
 		::AIL_waveOutClose (m_Driver2D);
 		success = 2;
@@ -207,7 +207,7 @@ MilesAudioClass::Open_2D_Device (WAVEFORMAT *format)
 		//WWASSERT (success == AIL_NO_ERROR);	// This assert fires if there is no sound card.
 
 		// Open the driver
-		success = ::AIL_waveOutOpen (&m_Driver2D, NULL, 0, reinterpret_cast<LPWAVEFORMAT>(format));
+		success = ::AIL_waveOutOpen (&m_Driver2D, nullptr, 0, reinterpret_cast<LPWAVEFORMAT>(format));
 		type = (success == AIL_NO_ERROR) ? DRIVER2D_WAVEOUT : DRIVER2D_ERROR;
 	}
 
@@ -289,13 +289,13 @@ MilesAudioClass::Close_2D_Device (void)
 	// Do we have an open driver handle to close?
 	//
 	bool retval = false;
-	if (m_Driver2D != NULL) {
+	if (m_Driver2D != nullptr) {
 
 		//
 		// Close the driver
 		//
 		::AIL_waveOutClose (m_Driver2D);
-		m_Driver2D = NULL;
+		m_Driver2D = nullptr;
 		retval = true;
 	}
 
@@ -324,9 +324,9 @@ MilesAudioClass::Close_3D_Device (void)
 	//
 	// Do we have an open driver handle to close?
 	//
-	if (m_Driver3D != NULL) {
+	if (m_Driver3D != nullptr) {
 		::AIL_close_3D_provider (m_Driver3D);
-		m_Driver3D = NULL;
+		m_Driver3D = nullptr;
 		retval = true;
 	}
 
@@ -348,9 +348,9 @@ MilesAudioClass::Get_Sound_Buffer (const char *filename, bool is_3d)
 	// Try to find the buffer in our cache, otherwise create a new buffer.
 	//
 	SoundBufferClass *buffer = Find_Cached_Buffer (filename);
-	if (buffer == NULL) {
+	if (buffer == nullptr) {
 		FileClass *file = Get_File (filename);
-		if (file != NULL && file->Is_Available ()) {
+		if (file != nullptr && file->Is_Available ()) {
 			buffer = Create_Sound_Buffer (*file, filename, is_3d);
 		} else {
 			static int count = 0;
@@ -375,11 +375,11 @@ MilesAudioClass::Find_Cached_Buffer (const char *string_id)
 {
 	WWPROFILE ("Find_Cached_Buffer");
 
-	SoundBufferClass *sound_buffer = NULL;
+	SoundBufferClass *sound_buffer = nullptr;
 
 	// Param OK?
-	WWASSERT (string_id != NULL);
-	if (string_id != NULL) {
+	WWASSERT (string_id != nullptr);
+	if (string_id != nullptr) {
 
 		//
 		// Determine which index in our hash table to use
@@ -429,9 +429,9 @@ MilesAudioClass::Cache_Buffer
 	bool retval = false;
 
 	// Params OK?
-	WWASSERT (buffer != NULL);
-	WWASSERT (string_id != NULL);
-	if ((buffer != NULL) && (string_id != NULL)) {
+	WWASSERT (buffer != nullptr);
+	WWASSERT (string_id != nullptr);
+	if ((buffer != nullptr) && (string_id != nullptr)) {
 		//
 		// Determine which index in our hash table to use
 		//
@@ -476,7 +476,7 @@ MilesAudioClass::Create_Sound_Buffer
 {
 	WWPROFILE ("Create_Sound_Buffer");
 
-	SoundBufferClass *sound_buffer = NULL;
+	SoundBufferClass *sound_buffer = nullptr;
 
 	//
 	//	Determine how large this buffer can be
@@ -502,8 +502,8 @@ MilesAudioClass::Create_Sound_Buffer
 	WWASSERT (success);
 
 	// If we were successful in creating the sound buffer, then
-	// try to cache it as well, otherwise free the buffer and return NULL.
-	if (success && (string_id != NULL)) {
+	// try to cache it as well, otherwise free the buffer and return nullptr.
+	if (success && (string_id != nullptr)) {
 		Cache_Buffer (sound_buffer, string_id);
 	} else if (!success) {
 		REF_PTR_RELEASE (sound_buffer);
@@ -527,7 +527,7 @@ MilesAudioClass::Release_2D_Handles (void)
 	// Release our hold on all the samples we've allocated
 	for (int index = 0; index < m_2DSampleHandles.Count (); index ++) {
 		HSAMPLE sample = m_2DSampleHandles[index];
-		if (sample != NULL) {
+		if (sample != nullptr) {
 			::AIL_release_sample_handle (sample);
 		}
 	}
@@ -550,13 +550,13 @@ MilesAudioClass::Allocate_2D_Handles (void)
 	// Start fresh
 	Release_2D_Handles ();
 
-	if (m_Driver2D != NULL) {
+	if (m_Driver2D != nullptr) {
 
 		// Attempt to allocate our share of 2D sample handles
 		for (int index = 0; index < m_Max2DSamples; index ++) {
 			HSAMPLE sample = ::AIL_allocate_sample_handle (m_Driver2D);
-			if (sample != NULL) {
-				::AIL_set_sample_user_data (sample, INFO_OBJECT_PTR, NULL);
+			if (sample != nullptr) {
+				::AIL_set_sample_user_data (sample, INFO_OBJECT_PTR, nullptr);
 				m_2DSampleHandles.Add (sample);
 			}
 		}
@@ -578,15 +578,15 @@ SoundHandleClass *
 MilesAudioClass::Get_2D_Handle (const AudibleSoundClass &sound_obj, bool streaming)
 {
 	if (!WWAudioClass::Is_OK_To_Give_Handle(sound_obj)) {
-		return NULL;
+		return nullptr;
 	}
 
 	MMSLockClass lock;
 
 	float lowest_priority					= sound_obj.Get_Priority ();
 	float lowest_runtime_priority			= sound_obj.Get_Runtime_Priority ();
-	AudibleSoundClass *lowest_pri_sound = NULL;
-	HSAMPLE lowest_pri_sample				= NULL;
+	AudibleSoundClass *lowest_pri_sound = nullptr;
+	HSAMPLE lowest_pri_sample				= nullptr;
 	HSAMPLE free_sample						= (HSAMPLE)INVALID_MILES_HANDLE;
 
 	// Loop through all the available sample handles and try to find
@@ -595,11 +595,11 @@ MilesAudioClass::Get_2D_Handle (const AudibleSoundClass &sound_obj, bool streami
 	for (int index = 0; (index < m_2DSampleHandles.Count ()) && !found; index ++) {
 
 		HSAMPLE sample = m_2DSampleHandles[index];
-		if (sample != NULL) {
+		if (sample != nullptr) {
 
 			// Get a pointer to the object that is currently using this sample
 			AudibleSoundClass *sample_obj = (AudibleSoundClass *)::AIL_sample_user_data (sample, INFO_OBJECT_PTR);
-			if (sample_obj == NULL) {
+			if (sample_obj == nullptr) {
 
 				// Return this sample handle to the caller
 				free_sample = sample;
@@ -627,17 +627,17 @@ MilesAudioClass::Get_2D_Handle (const AudibleSoundClass &sound_obj, bool streami
 
 	// Steal the sample handle from the lower priority
 	// sound and return the handle to the caller.
-	if ((!found) && (lowest_pri_sound != NULL)) {
+	if ((!found) && (lowest_pri_sound != nullptr)) {
 		lowest_pri_sound->Free_Miles_Handle ();
 		free_sample = lowest_pri_sample;
 	}
 
 	if (free_sample == (HSAMPLE)INVALID_MILES_HANDLE)
 	{
-		return NULL;
+		return nullptr;
 	}
 
-	SoundHandleClass *retval = NULL;
+	SoundHandleClass *retval = nullptr;
 
 	if (streaming) {
 		retval = new SoundStreamHandleClass;
@@ -661,15 +661,15 @@ SoundHandleClass *
 MilesAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj)
 {
 	if (!WWAudioClass::Is_OK_To_Give_Handle(sound_obj)) {
-		return NULL;
+		return nullptr;
 	}
 
 	MMSLockClass lock;
 
 	float lowest_priority					= sound_obj.Get_Priority ();
 	float lowest_runtime_priority			= sound_obj.Get_Runtime_Priority ();
-	AudibleSoundClass *lowest_pri_sound = NULL;
-	H3DSAMPLE lowest_pri_sample			= NULL;
+	AudibleSoundClass *lowest_pri_sound = nullptr;
+	H3DSAMPLE lowest_pri_sample			= nullptr;
 	H3DSAMPLE free_sample					= (H3DSAMPLE)INVALID_MILES_HANDLE;
 
 
@@ -679,11 +679,11 @@ MilesAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj)
 	for (int index = 0; (index < m_3DSampleHandles.Count ()) && !found; index ++) {
 
 		H3DSAMPLE sample = m_3DSampleHandles[index];
-		if (sample != NULL) {
+		if (sample != nullptr) {
 
 			// Get a pointer to the object that is currently using this sample
 			AudibleSoundClass *sample_obj = (AudibleSoundClass *)::AIL_3D_object_user_data (sample, INFO_OBJECT_PTR);
-			if (sample_obj == NULL) {
+			if (sample_obj == nullptr) {
 
 				// Return this sample handle to the caller
 				free_sample = sample;
@@ -711,14 +711,14 @@ MilesAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj)
 
 	// Steal the sample handle from the lower priority
 	// sound and return the handle to the caller.
-	if ((!found) && (lowest_pri_sound != NULL)) {
+	if ((!found) && (lowest_pri_sound != nullptr)) {
 		lowest_pri_sound->Free_Miles_Handle ();
 		free_sample = lowest_pri_sample;
 	}
 
 	if (free_sample == (H3DSAMPLE)INVALID_MILES_HANDLE)
 	{
-		return NULL;
+		return nullptr;
 	}
 
 	SoundHandleClass *retval = new Sound3DHandleClass;
@@ -740,8 +740,8 @@ MilesAudioClass::Build_3D_Driver_List (void)
 	MMSLockClass lock;
 
 	HPROENUM next = HPROENUM_FIRST;
-	HPROVIDER provider = NULL;
-	char *name = NULL;
+	HPROVIDER provider = nullptr;
+	char *name = nullptr;
 	while (::AIL_enumerate_3D_providers (&next, &provider, &name) > 0) {
 
 		// Can we successfully open this provider?
@@ -800,21 +800,21 @@ MilesAudioClass::Free_3D_Driver_List (void)
 	//
 	for (int index = 0; index < m_Driver3DList.Count (); index ++) {
 		DRIVER_INFO_STRUCT *info = m_Driver3DList[index];
-		if (info != NULL) {
+		if (info != nullptr) {
 
 			//
 			// Free the information we have stored with this driver
 			//
-			if (info->name != NULL) {
+			if (info->name != nullptr) {
 				::free (info->name);
 			}
 			delete info;
 		}
 	}
 
-	if (m_Driver3D != NULL) {
+	if (m_Driver3D != nullptr) {
 		::AIL_close_3D_provider (m_Driver3D);
-		m_Driver3D = NULL;
+		m_Driver3D = nullptr;
 	}
 
 	//
@@ -840,7 +840,7 @@ MilesAudioClass::Select_3D_Device (const char *device_name)
 	//
 	for (int index = 0; index < m_Driver3DList.Count (); index ++) {
 		DRIVER_INFO_STRUCT *info = m_Driver3DList[index];
-		if (info != NULL) {
+		if (info != nullptr) {
 
 			//
 			//	Is this the device we were looking for?
@@ -865,7 +865,7 @@ bool
 MilesAudioClass::Select_3D_Device (const char *device_name, HPROVIDER provider)
 {
 	bool retval = false;
-	if ((provider != NULL) && (provider != m_Driver3D)) {
+	if ((provider != nullptr) && (provider != m_Driver3D)) {
 
 		Close_3D_Device ();
 
@@ -983,10 +983,10 @@ MilesAudioClass::Find_3D_Device (DRIVER_TYPE_3D type)
 	int driver_index = -1;
 	for (int index = 0; (index < m_Driver3DList.Count ()) && (driver_index == -1); index ++) {
 		DRIVER_INFO_STRUCT *info = m_Driver3DList[index];
-		if ((info != NULL) && (info->name != NULL)) {
+		if ((info != nullptr) && (info->name != nullptr)) {
 
 			// Is this the driver we were looking for?
-			if (::strstr (info->name, sub_string) != NULL) {
+			if (::strstr (info->name, sub_string) != nullptr) {
 				driver_index = index;
 			}
 		}
@@ -1010,13 +1010,13 @@ MilesAudioClass::Allocate_3D_Handles (void)
 	// Start fresh
 	Release_3D_Handles ();
 
-	if (m_Driver3D != NULL) {
+	if (m_Driver3D != nullptr) {
 
 		// Attempt to allocate our share of 3D sample handles
 		for (int index = 0; index < m_Max3DSamples; index ++) {
 			H3DSAMPLE sample = ::AIL_allocate_3D_sample_handle (m_Driver3D);
-			if (sample != NULL) {
-				::AIL_set_3D_object_user_data (sample, INFO_OBJECT_PTR, NULL);
+			if (sample != nullptr) {
+				::AIL_set_3D_object_user_data (sample, INFO_OBJECT_PTR, nullptr);
 				m_3DSampleHandles.Add (sample);
 			}
 		}
@@ -1041,7 +1041,7 @@ MilesAudioClass::Release_3D_Handles (void)
 	//
 	for (int index = 0; index < m_3DSampleHandles.Count (); index ++) {
 		H3DSAMPLE sample = m_3DSampleHandles[index];
-		if (sample != NULL) {
+		if (sample != nullptr) {
 			::AIL_release_3D_sample_handle (sample);
 		}
 	}
@@ -1064,7 +1064,7 @@ MilesAudioClass::Validate_3D_Sound_Buffer (SoundBufferClass *buffer)
 	//
 	// 3D sound buffer MUST be uncompressed mono WAV data
 	//
-	if ((buffer != NULL) &&
+	if ((buffer != nullptr) &&
 		 (buffer->Get_Channels () == 1) &&
 		 (buffer->Get_Type () == WAVE_FORMAT_PCM) &&
 		 (!buffer->Is_Streaming ()))
@@ -1141,13 +1141,13 @@ MilesAudioClass::Remove_2D_Sound_Handles (void)
 	//
 	for (int index = 0; index < m_2DSampleHandles.Count (); index ++) {
 		HSAMPLE sample = m_2DSampleHandles[index];
-		if (sample != NULL) {
+		if (sample != nullptr) {
 
 			//
 			// Get a pointer to the object that is currently using this sample
 			//
 			AudibleSoundClass *sound_obj = (AudibleSoundClass *)::AIL_sample_user_data (sample, INFO_OBJECT_PTR);
-			if (sound_obj != NULL) {
+			if (sound_obj != nullptr) {
 				sound_obj->Free_Miles_Handle ();
 			}
 		}
@@ -1170,13 +1170,13 @@ MilesAudioClass::Remove_3D_Sound_Handles (void)
 	//
 	for (int index = 0; index < m_3DSampleHandles.Count (); index ++) {
 		H3DSAMPLE sample = m_3DSampleHandles[index];
-		if (sample != NULL) {
+		if (sample != nullptr) {
 
 			//
 			// Get a pointer to the object that is currently using this sample
 			//
 			AudibleSoundClass *sound_obj = (AudibleSoundClass *)::AIL_3D_object_user_data (sample, INFO_OBJECT_PTR);
-			if (sound_obj != NULL) {
+			if (sound_obj != nullptr) {
 				sound_obj->Free_Miles_Handle ();
 			}
 		}
@@ -1258,13 +1258,13 @@ MilesAudioClass::Shutdown (void)
 	//
 	//	Stop the background music
 	//
-	Set_Background_Music (NULL);
+	Set_Background_Music (nullptr);
 
 	//
 	// Stop all sounds from playing
 	//
 	Flush_Playlist ();
-	if (m_SoundScene != NULL) {
+	if (m_SoundScene != nullptr) {
 		m_SoundScene->Flush_Scene ();
 	}
 
@@ -1300,8 +1300,8 @@ MilesAudioClass::Shutdown (void)
 FileClass *
 MilesAudioClass::Get_File (const char* filename)
 {
-	FileClass *file = NULL;
-	if (m_FileFactory != NULL) {
+	FileClass *file = nullptr;
+	if (m_FileFactory != nullptr) {
 		file = m_FileFactory->Get_File (filename);
 	} else {
 		file = _TheFileFactory->Get_File(filename);
@@ -1320,7 +1320,7 @@ MilesAudioClass::Get_File (const char* filename)
 void
 MilesAudioClass::Return_File (FileClass *file)
 {
-	if (m_FileFactory != NULL) {
+	if (m_FileFactory != nullptr) {
 		m_FileFactory->Return_File (file);
 	} else {
 		SAFE_DELETE (file);
@@ -1398,7 +1398,7 @@ MilesAudioClass::Save_To_Registry (const char *subkey_name)
 		//
 		//	Is this the device we were looking for?
 		//
-		if (info != NULL && info->driver == m_Driver3D) {
+		if (info != nullptr && info->driver == m_Driver3D) {
 			device_name = info->name;
 			break;
 		}
@@ -1423,13 +1423,13 @@ MilesAudioClass::File_Open_Callback (char const *filename, void **file_handle)
 {
 	U32 retval = false;
 
-	if (Get_Instance () != NULL) {
+	if (Get_Instance () != nullptr) {
 
 		//
 		//	Open the file
 		//
 		FileClass *file = reinterpret_cast<MilesAudioClass *>(Get_Instance ())->Get_File (filename);
-		if (file != NULL && file->Open ()) {
+		if (file != nullptr && file->Open ()) {
 			(*file_handle) = reinterpret_cast<void *> (file);
 			retval = true;
 		}
@@ -1447,13 +1447,13 @@ MilesAudioClass::File_Open_Callback (char const *filename, void **file_handle)
 void AILCALLBACK
 MilesAudioClass::File_Close_Callback (void *file_handle)
 {
-	if (Get_Instance () != NULL) {
+	if (Get_Instance () != nullptr) {
 
 		//
 		//	Close the file (if necessary)
 		//
 		FileClass *file = reinterpret_cast<FileClass *> (file_handle);
-		if (file != NULL) {
+		if (file != nullptr) {
 			reinterpret_cast<MilesAudioClass *>(Get_Instance ())->Return_File (file);
 		}
 	}
@@ -1476,7 +1476,7 @@ MilesAudioClass::File_Seek_Callback (void *file_handle, S32 offset, U32 type)
 	//	Convert the handle to a file handle type
 	//
 	FileClass *file = reinterpret_cast<FileClass *> (file_handle);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		//
 		//	Convert the Miles seek type to one of our own
@@ -1521,7 +1521,7 @@ MilesAudioClass::File_Read_Callback (void *file_handle, void *buffer, U32 bytes)
 	//	Convert the handle to a file handle type
 	//
 	FileClass *file = reinterpret_cast<FileClass *> (file_handle);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		//
 		//	Read the bytes from the file
@@ -1542,17 +1542,17 @@ AudibleSoundClass *
 MilesAudioClass::Peek_2D_Sample (int index)
 {
 	if (index < 0 || index > m_2DSampleHandles.Count ()) {
-		return NULL;
+		return nullptr;
 	}
 
 	MMSLockClass lock;
-	AudibleSoundClass *retval = NULL;
+	AudibleSoundClass *retval = nullptr;
 
 	//
 	// Try to get the sound object associated with this handle
 	//
 	HSAMPLE sample = m_2DSampleHandles[index];
-	if (sample != NULL) {
+	if (sample != nullptr) {
 		retval = (AudibleSoundClass *)::AIL_sample_user_data (sample, INFO_OBJECT_PTR);
 	}
 
@@ -1569,17 +1569,17 @@ AudibleSoundClass *
 MilesAudioClass::Peek_3D_Sample (int index)
 {
 	if (index < 0 || index > m_3DSampleHandles.Count ()) {
-		return NULL;
+		return nullptr;
 	}
 
 	MMSLockClass lock;
-	AudibleSoundClass *retval = NULL;
+	AudibleSoundClass *retval = nullptr;
 
 	//
 	// Try to get the sound object associated with this handle
 	//
 	H3DSAMPLE sample = m_3DSampleHandles[index];
-	if (sample != NULL) {
+	if (sample != nullptr) {
 		retval = (AudibleSoundClass *)::AIL_3D_object_user_data (sample, INFO_OBJECT_PTR);
 	}
 
@@ -1600,7 +1600,7 @@ MilesAudioClass::Set_Speaker_Type (int speaker_type)
 	//
 	//	Pass the new speaker type onto miles
 	//
-	if (m_Driver3D != NULL) {
+	if (m_Driver3D != nullptr) {
 		::AIL_set_3D_speaker_type (m_Driver3D, speaker_type);
 	}
 

@@ -59,7 +59,7 @@ InstallMenuDialogClass::InstallMenuDialogClass (int resourceid)
 	: 	CallbackMenuDialogClass (resourceid)
 {
 	// If a model has not yet been specified...
-	if (Get_BackDrop()->Peek_Model() == NULL) {
+	if (Get_BackDrop()->Peek_Model() == nullptr) {
 
 		const char		*basemodelname												= "IF_BACK01";
 		const char		*baseanimname												= "IF_BACK01.IF_BACK01";
@@ -76,12 +76,12 @@ InstallMenuDialogClass::InstallMenuDialogClass (int resourceid)
 			HAnimClass		*supplementalanim;
 
 			supplementalmodel = WW3DAssetManager::Get_Instance()->Create_Render_Obj (supplementalmodelname [m]);
-			if (supplementalmodel != NULL) {
+			if (supplementalmodel != nullptr) {
 				Get_BackDrop()->Peek_Scene()->Add_Render_Object (supplementalmodel);
 			}
 
 			supplementalanim = WW3DAssetManager::Get_Instance()->Get_HAnim (supplementalanimname [m]);
-			if (supplementalanim != NULL) {
+			if (supplementalanim != nullptr) {
 				supplementalmodel->Set_Animation (supplementalanim, 0, RenderObjClass::ANIM_MODE_LOOP);
 				REF_PTR_RELEASE (supplementalanim);
 			}

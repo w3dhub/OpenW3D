@@ -260,7 +260,7 @@ public:
 	// NOTE: for network play, locking a vehicle only works at creation time and only
 	// if the lock is set up prior to the creation packet being sent.
 	void						Lock_Vehicle( ScriptableGameObj *lockowner, float locktime ) { LockOwner = lockowner, LockTimer = locktime; }
-	bool						Is_Locked(void) { return ((LockOwner.Get_Ptr() != NULL) && (LockTimer > 0.0f)); }
+	bool						Is_Locked(void) { return ((LockOwner.Get_Ptr() != nullptr) && (LockTimer > 0.0f)); }
 	ScriptableGameObj *	Get_Lock_Owner(void) { return LockOwner.Get_Ptr(); }
 
 	static void	Set_Default_Driver_Is_Gunner(bool flag)		{DefaultDriverIsGunner = flag;}

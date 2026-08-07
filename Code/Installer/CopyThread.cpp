@@ -54,7 +54,7 @@
 
 
 // Static data.
-CopyThreadClass *CopyThreadClass::_ActiveCopyThread = NULL;
+CopyThreadClass *CopyThreadClass::_ActiveCopyThread = nullptr;
 
 
 /***************************************************************************
@@ -118,7 +118,7 @@ FNOPEN( file_open )
 		flagsandattributes = FILE_ATTRIBUTE_NORMAL;
 	}
 
-	while ((handle = CreateFile (pszFile, desiredaccess, FILE_SHARE_READ, NULL, creationdisposition, flagsandattributes | FILE_FLAG_WRITE_THROUGH, NULL)) == INVALID_HANDLE_VALUE) {
+	while ((handle = CreateFile (pszFile, desiredaccess, FILE_SHARE_READ, nullptr, creationdisposition, flagsandattributes | FILE_FLAG_WRITE_THROUGH, nullptr)) == INVALID_HANDLE_VALUE) {
 		if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
 	}
 	return ((int) handle);
@@ -135,7 +135,7 @@ FNREAD( file_read )
 
 		unsigned int bytecount;
 
-		while (!ReadFile ((void*) hf, pv, cb, &bytecount, NULL)) {
+		while (!ReadFile ((void*) hf, pv, cb, &bytecount, nullptr)) {
 			if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
 		}
 		return (bytecount);
@@ -160,7 +160,7 @@ FNWRITE( file_write )
 
 		unsigned int bytecount;
 
-		while (!WriteFile ((void*) hf, pv, cb, &bytecount, NULL)) {
+		while (!WriteFile ((void*) hf, pv, cb, &bytecount, nullptr)) {
 			if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
 		}
 
@@ -217,7 +217,7 @@ FNSEEK( file_seek )
 			break;
 	}
 
-	while ((result = SetFilePointer ((void*) hf, dist, NULL, movemethod)) == 0xffffffff) {
+	while ((result = SetFilePointer ((void*) hf, dist, nullptr, movemethod)) == 0xffffffff) {
 		if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
 	}
 	return (result);
@@ -318,9 +318,9 @@ FNFDINOTIFY( notification_function )
 			CopyThreadClass::_ActiveCopyThread->Get_Filename_Log().Add (multibytetargetpathname);
 
 			// Stamp the target file with write time of source.
-			targetfile = CreateFile (multibytetargetpathname, GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+			targetfile = CreateFile (multibytetargetpathname, GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 			if (targetfile == INVALID_HANDLE_VALUE) return (-1);
-			if (!SetFileTime (targetfile, NULL, NULL, &_sourcefiletime)) return (-1);
+			if (!SetFileTime (targetfile, nullptr, nullptr, &_sourcefiletime)) return (-1);
 			if (!CloseHandle (targetfile)) return (-1);
 
 			// Stamp the target file with attributes of source.
@@ -360,13 +360,13 @@ CopyThreadClass::CopyThreadClass (int64_t bytestocopy)
 	  Status (STATUS_OK),
 	  Abort (false),
 	  CanAbort (true),
-	  AbortLock (NULL),
+	  AbortLock (nullptr),
 	  IsAborting (false),
 	  BytesToCopy (bytestocopy),
 	  BytesCopied (0)
 {
 	// Only one instance can be active.
-	WWASSERT (_ActiveCopyThread == NULL);
+	WWASSERT (_ActiveCopyThread == nullptr);
 	_ActiveCopyThread = this;
 }
 
@@ -385,8 +385,8 @@ CopyThreadClass::CopyThreadClass (int64_t bytestocopy)
  *=============================================================================================*/
 CopyThreadClass::~CopyThreadClass()
 {
-	WWASSERT (_ActiveCopyThread != NULL);
-	_ActiveCopyThread = NULL;
+	WWASSERT (_ActiveCopyThread != nullptr);
+	_ActiveCopyThread = nullptr;
 }
 
 
@@ -551,7 +551,7 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 							cpu80386,		// Type of CPU.
 							&erf);			// Pointer to error structure.
 
-	WWASSERT (hfdi != NULL);
+	WWASSERT (hfdi != nullptr);
 
 	// Create subdirectory (if it doesn't already exist).
 	if (!Create_Directory (targetpath, &Get_Subdirectory_Log())) FATAL_SYSTEM_ERROR;
@@ -598,7 +598,7 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
   				wchar_t extension [_MAX_EXT];
 
    			// Is it a CAB file?
-  				_wsplitpath (filename, NULL, NULL, NULL, extension);
+  				_wsplitpath (filename, nullptr, nullptr, nullptr, extension);
 	  			if (_wcsicmp (cabextension, extension) == 0) {
 
 					StringClass sourcepathbackslash (sourcepath);
@@ -615,8 +615,8 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 									  sourcepathbackslash.Peek_Buffer(),	// File path to cabinet file.
 									  0,												// Flags to control extract operation.
 									  notification_function,					// Ptr to a notification (status update) function.
-									  NULL,											// Ptr to a decryption function.
-									  NULL))
+									  nullptr,											// Ptr to a decryption function.
+									  nullptr))
 
 									  // If failure was not due to user aborting then throw an error.
 									  if (!Is_Aborting()) FATAL_CAB_ERROR (erf.erfOper);
@@ -697,7 +697,7 @@ void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const Wi
 	multibytetargetpathname = targetpathname;
 
 	// Open the read file.
-	while ((sourcefile = CreateFile (multibytesourcepathname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)) == INVALID_HANDLE_VALUE) {
+	while ((sourcefile = CreateFile (multibytesourcepathname, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr)) == INVALID_HANDLE_VALUE) {
 		if (!Retry()) FATAL_SYSTEM_ERROR;
 	}
 
@@ -707,7 +707,7 @@ void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const Wi
 	if (!Generate_Temporary_Pathname (targetpath, multibytetemporarypathname)) FATAL_SYSTEM_ERROR;
 
 	// Open the temporary file for writing.
-	temporaryfile = CreateFile (multibytetemporarypathname, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_WRITE_THROUGH, NULL);
+	temporaryfile = CreateFile (multibytetemporarypathname, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_WRITE_THROUGH, nullptr);
 	if (temporaryfile == INVALID_HANDLE_VALUE) FATAL_SYSTEM_ERROR;
 
 	do {
@@ -715,10 +715,10 @@ void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const Wi
 		// Abort the copying process?
 		if (Get_Abort (true)) break;
 
-		while (!ReadFile (sourcefile, _buffer, buffersize, &sourcebytecount, NULL)) {
+		while (!ReadFile (sourcefile, _buffer, buffersize, &sourcebytecount, nullptr)) {
 			if (!Retry()) FATAL_SYSTEM_ERROR;
 		}
-		if (!WriteFile (temporaryfile, _buffer, sourcebytecount, &bytecount, NULL)) FATAL_SYSTEM_ERROR;
+		if (!WriteFile (temporaryfile, _buffer, sourcebytecount, &bytecount, nullptr)) FATAL_SYSTEM_ERROR;
 		BytesCopied += sourcebytecount;
 
 	} while (sourcebytecount == buffersize);
@@ -755,9 +755,9 @@ void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const Wi
 	Get_Filename_Log().Add (multibytetargetpathname);
 
 	// Stamp the target file with write time of source.
-	targetfile = CreateFile (multibytetargetpathname, GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	targetfile = CreateFile (multibytetargetpathname, GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (targetfile == INVALID_HANDLE_VALUE) FATAL_SYSTEM_ERROR;
-	if (!SetFileTime (targetfile, NULL, NULL, &sourcefiledata.ftLastWriteTime)) FATAL_SYSTEM_ERROR;
+	if (!SetFileTime (targetfile, nullptr, nullptr, &sourcefiledata.ftLastWriteTime)) FATAL_SYSTEM_ERROR;
 	if (!CloseHandle (targetfile)) FATAL_SYSTEM_ERROR;
 
 	// Stamp the target file with file attributes of source (but clear the read-only flag to ensure that
@@ -863,7 +863,7 @@ bool CopyThreadClass::Can_Abort (bool lock)
 {
 	if (lock) {
 
-		if (AbortLock == NULL) {
+		if (AbortLock == nullptr) {
 			AbortLock = new FastCriticalSectionClass::LockClass (SectionAbort);
 		}
 		return (CanAbort);
@@ -892,9 +892,9 @@ bool CopyThreadClass::Can_Abort (bool lock)
 void CopyThreadClass::Set_Abort (bool abort)
 {
 	Abort = abort;
-	WWASSERT (AbortLock != NULL);
+	WWASSERT (AbortLock != nullptr);
 	delete AbortLock;
-	AbortLock = NULL;
+	AbortLock = nullptr;
 }
 
 

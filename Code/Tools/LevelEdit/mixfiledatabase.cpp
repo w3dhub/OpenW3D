@@ -47,7 +47,7 @@
 //////////////////////////////////////////////////////////////////////
 //	Static member initialization
 //////////////////////////////////////////////////////////////////////
-MixFileDatabaseClass *MixFileDatabaseClass::_TheInstance = NULL;
+MixFileDatabaseClass *MixFileDatabaseClass::_TheInstance = nullptr;
 
 
 //////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ MixFileDatabaseClass::MixFileDatabaseClass (void)
 //////////////////////////////////////////////////////////////////////
 MixFileDatabaseClass::~MixFileDatabaseClass (void)
 {
-	_TheInstance = NULL;
+	_TheInstance = nullptr;
 	return ;
 }
 
@@ -129,7 +129,7 @@ MixFileDatabaseClass::Open_Database
 	//
 	WIN32_FIND_DATA find_info	= { 0 };
 	BOOL keep_going				= true;
-	HANDLE file_find				= NULL;
+	HANDLE file_find				= nullptr;
 	for (file_find = ::FindFirstFile (search_path, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (file_find, &find_info))
@@ -217,7 +217,7 @@ MixFileDatabaseClass::Internal_Get (LPCTSTR filename, LPCSTR local_path)
 	//	Get the file from one of the mix files
 	//
 	FileClass *file =  MainFileFactory.Get_File (filename);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		//
 		//	Copy the file if it exists
@@ -242,7 +242,7 @@ MixFileDatabaseClass::Internal_Get (LPCTSTR filename, LPCSTR local_path)
 bool
 MixFileDatabaseClass::Copy_File (FileClass *src_file, LPCTSTR local_filename)
 {
-	if (	src_file == NULL || local_filename == NULL ||
+	if (	src_file == nullptr || local_filename == nullptr ||
 			::GetFileAttributes (local_filename) != 0xFFFFFFFF)
 	{
 		return false;
@@ -347,7 +347,7 @@ MixFileDatabaseClass::Internal_Does_File_Exist (LPCSTR filename)
 	//	Get the file from one of the mix files
 	//
 	FileClass *file =  MainFileFactory.Get_File (filename);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		//
 		//	Does the file exist?
@@ -371,9 +371,9 @@ MixFileDatabaseClass::Internal_Does_File_Exist (LPCSTR filename)
 void
 MixFileDatabaseClass::Create_Directory_Structure (LPCTSTR path)
 {
-	if (path != NULL && path[0] != 0 && ::GetFileAttributes (path) == 0xFFFFFFFF) {
+	if (path != nullptr && path[0] != 0 && ::GetFileAttributes (path) == 0xFFFFFFFF) {
 		Create_Directory_Structure (::Strip_Filename_From_Path (path));
-		::CreateDirectory (path, NULL);
+		::CreateDirectory (path, nullptr);
 	}
 
 	return ;
@@ -417,7 +417,7 @@ MixFileDatabaseClass::Swap_Texture_Extension (StringClass &filename)
 	//	Is this a tga file (uncompressed), or a dds file (compressed)?
 	//
 	char *tga_extension = ::strstr (filename.Peek_Buffer (), ".tga");
-	if (tga_extension != NULL) {
+	if (tga_extension != nullptr) {
 
 		//
 		//	Simply copy the new extension into the string
@@ -426,7 +426,7 @@ MixFileDatabaseClass::Swap_Texture_Extension (StringClass &filename)
 
 	} else {
 		char *dds_extension = ::strstr (filename.Peek_Buffer (), ".dds");
-		if (dds_extension != NULL) {
+		if (dds_extension != nullptr) {
 
 			//
 			//	Simply copy the new extension into the string
@@ -457,7 +457,7 @@ MixFileDatabaseClass::Find_Files (DynamicVectorClass<StringClass> &file_list, LP
 		//	Get a pointer to the current factory
 		//
 		FileFactoryClass *factory = MainFileFactory.Get_Factory (index);
-		if (factory != NULL) {
+		if (factory != nullptr) {
 
 			//
 			//	We assume that this is a mix file factory (since all the factories
@@ -515,7 +515,7 @@ MixFileDatabaseClass::Get_All (LPCTSTR dest_path, LPCTSTR search_mask)
 		//	Get a pointer to the current factory
 		//
 		FileFactoryClass *factory = MainFileFactory.Get_Factory (index);
-		if (factory != NULL) {
+		if (factory != nullptr) {
 
 			//
 			//	We assume that this is a mix file factory (since all the factories
@@ -567,7 +567,7 @@ MixFileDatabaseClass::Get_All (LPCTSTR dest_path, LPCTSTR search_mask)
 FileClass *
 MixFileDatabaseClass::Get_File (LPCTSTR local_filename)
 {
-	FileClass *retval = NULL;
+	FileClass *retval = nullptr;
 
 	if (::GetFileAttributes (local_filename) != 0xFFFFFFFF) {
 
@@ -608,7 +608,7 @@ MixFileDatabaseClass::Get_Filename (LPCTSTR path, StringClass &filename)
 	// return the sub-directory as well
 	//
 	const char *subdir_token = ::strstr (filename, "+\\");
-	if (subdir_token != NULL) {
+	if (subdir_token != nullptr) {
 
 		//
 		//	Try to find the preceeding directory delimiter

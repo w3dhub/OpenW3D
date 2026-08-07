@@ -111,7 +111,7 @@ NetworkObjectMgrClass::Unregister_Object (NetworkObjectClass *object)
 NetworkObjectClass *
 NetworkObjectMgrClass::Find_Object (int object_id)
 {
-	NetworkObjectClass *object = NULL;
+	NetworkObjectClass *object = nullptr;
 
 	//
 	//	Lookup the object in the sorted list
@@ -151,8 +151,8 @@ NetworkObjectMgrClass::Get_New_Dynamic_ID (void)
 	/*
 	//TSS091001
 	NetworkObjectClass * p_object = Find_Object(_NewDynamicID);
-	//WWASSERT(p_object == NULL);
-	if (p_object != NULL) {
+	//WWASSERT(p_object == nullptr);
+	if (p_object != nullptr) {
 		int iii;
 		iii = 111;
 	}
@@ -160,7 +160,7 @@ NetworkObjectMgrClass::Get_New_Dynamic_ID (void)
 
 	//TSS091201
 	NetworkObjectClass * p_object = Find_Object(_NewDynamicID);
-	while (p_object != NULL) {
+	while (p_object != nullptr) {
 		/*
 		WWDEBUG_SAY(("NetworkObjectMgrClass::Get_New_Dynamic_ID :skipping id %d (already in use)\n",
 			_NewDynamicID));
@@ -219,7 +219,7 @@ NetworkObjectMgrClass::Get_New_Client_ID (void)
 bool
 NetworkObjectMgrClass::Find_Object (int id_to_find, int *index)
 {
-	WWASSERT(index != NULL);
+	WWASSERT(index != nullptr);
 
 	bool found		= false;
 	(*index)			= 0;
@@ -282,7 +282,7 @@ NetworkObjectMgrClass::Think (void)
 	//	Simply let each object think
 	//
 	for (int index = 0; index < _ObjectList.Count (); index ++) {
-		WWASSERT(_ObjectList[index] != NULL);
+		WWASSERT(_ObjectList[index] != nullptr);
 		_ObjectList[index]->Network_Think ();
 	}
 
@@ -331,7 +331,7 @@ NetworkObjectMgrClass::Delete_Pending (void)
 	//	Delete each object that is pending...
 	//
 	for (int index = 0; index < _DeletePendingList.Count (); index ++) {
-		WWASSERT(_DeletePendingList[index] != NULL);
+		WWASSERT(_DeletePendingList[index] != nullptr);
 		if (_DeletePendingList[index]->Is_Delete_Pending ()) {
 			_DeletePendingList[index]->Delete ();
 		}
@@ -360,7 +360,7 @@ NetworkObjectMgrClass::Delete_Client_Objects (int client_id)
 	//
 
 	for (int index = 0; index < _ObjectList.Count (); index ++) {
-		WWASSERT(_ObjectList[index] != NULL);
+		WWASSERT(_ObjectList[index] != nullptr);
 		if (_ObjectList[index]->Belongs_To_Client (client_id)) {
 			//TSS092301 _ObjectList[index]->Delete ();
 			_ObjectList[index]->Set_Delete_Pending();
@@ -389,7 +389,7 @@ NetworkObjectMgrClass::Restore_Dirty_Bits (int client_id)
 
 	for (int index = 0; index < _ObjectList.Count (); index ++) {
 		NetworkObjectClass * p_object = _ObjectList[index];
-		WWASSERT(p_object != NULL);
+		WWASSERT(p_object != nullptr);
 		BYTE generic_bits = p_object->Get_Object_Dirty_Bits(NetworkObjectClass::MAX_CLIENT_COUNT - 1);//TSS2001e
 		p_object->Set_Object_Dirty_Bits(client_id, generic_bits);
 	}
@@ -425,7 +425,7 @@ NetworkObjectMgrClass::Reset_Import_State_Counts(void)
 	for (int index = 0; index < _ObjectList.Count (); index ++) {
 
 		NetworkObjectClass * p_object = _ObjectList[index];
-		WWASSERT(p_object != NULL);
+		WWASSERT(p_object != nullptr);
 
 		//
 		//	Reset its import state count

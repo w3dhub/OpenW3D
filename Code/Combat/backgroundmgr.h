@@ -491,7 +491,7 @@ class	BackgroundMgrClass : public SaveLoadSubSystemClass, public NetworkObjectCl
 
 		static Vector3 Get_Clear_Color()
 		{
-			if (_Sky != NULL) {
+			if (_Sky != nullptr) {
 				return (_Sky->Get_Color());
 			} else {
 				return (Vector3 (0.0f, 0.0f, 0.0f));

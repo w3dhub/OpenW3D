@@ -41,7 +41,7 @@
 #include <assert.h>
 
 GroupController _GroupController;
-GroupController* GroupController::_mInstance = NULL;
+GroupController* GroupController::_mInstance = nullptr;
 
 /******************************************************************************
 *
@@ -61,7 +61,7 @@ GroupController* GroupController::_mInstance = NULL;
 
 GroupController* GroupController::Instance(void)
 	{
-	assert(_mInstance != NULL);
+	assert(_mInstance != nullptr);
 	return _mInstance;
 	}
 
@@ -107,7 +107,7 @@ GroupController::GroupController()
 GroupController::~GroupController()
 	{
 	mGroups.Remove_All();
-	_mInstance = NULL;
+	_mInstance = nullptr;
 	}
 
 
@@ -130,15 +130,15 @@ GroupController::~GroupController()
 
 bool GroupController::AddToGroup(const char* groupName, GameObject* object)
 	{
-	assert(groupName != NULL);
-	assert(object != NULL);
+	assert(groupName != nullptr);
+	assert(object != nullptr);
 
-	if ((groupName != NULL) && (object != NULL))
+	if ((groupName != nullptr) && (object != nullptr))
 		{
 		// Find the team to add the GameObject to.
 		Group* group = FindOrCreateGroup(groupName);
 
-		if (group != NULL)
+		if (group != nullptr)
 			{
 			group->AddMember(object);
 			return true;
@@ -168,12 +168,12 @@ bool GroupController::AddToGroup(const char* groupName, GameObject* object)
 
 void GroupController::RemoveFromGroup(const char* groupName, GameObject* object)
 	{
-	assert(groupName != NULL);
-	assert(object != NULL);
+	assert(groupName != nullptr);
+	assert(object != nullptr);
 
 	Group* group = FindGroup(groupName);
 
-	if (group != NULL)
+	if (group != nullptr)
 		{
 		group->RemoveMember(object);
 		}
@@ -192,7 +192,7 @@ void GroupController::RemoveFromGroup(const char* groupName, GameObject* object)
 *     GroupName - Name of group to find.
 *
 * RESULTS
-*     Group - Pointer to Group; NULL if not found.
+*     Group - Pointer to Group; nullptr if not found.
 *
 ******************************************************************************/
 
@@ -201,10 +201,10 @@ Group* GroupController::FindGroup(const char* groupName)
 	SLNode<Group>* node = mGroups.Head();
 
 	// Go through all the Groups
-	while (node != NULL)
+	while (node != nullptr)
 		{
 		Group* group = node->Data();
-		assert(group != NULL);
+		assert(group != nullptr);
 
 		// If there is a group with a matching name then return with that group.
 		const char* name = group->GetName();
@@ -217,7 +217,7 @@ Group* GroupController::FindGroup(const char* groupName)
 		node = node->Next();
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -234,7 +234,7 @@ Group* GroupController::FindGroup(const char* groupName)
 *     GroupName - Name of group to find or create.
 *
 * RESULTS
-*     Group - Pointer to Group; NULL if failure to create group.
+*     Group - Pointer to Group; nullptr if failure to create group.
 *
 ******************************************************************************/
 
@@ -243,12 +243,12 @@ Group* GroupController::FindOrCreateGroup(const char* groupName)
 	Group* group = FindGroup(groupName);
 
 	// Create the group only if it doesn't already exist.
-	if (group == NULL)
+	if (group == nullptr)
 		{
 		Group* group = new Group(groupName);
-		assert(group != NULL);
+		assert(group != nullptr);
 
-		if (group != NULL)
+		if (group != nullptr)
 			{
 			mGroups.Add_Tail(group);
 			}
@@ -282,7 +282,7 @@ void GroupController::SendGroupCustomEvent(const char* groupName, GameObject* fr
 	{
 	Group* group = FindGroup(groupName);
 
-	if (group != NULL)
+	if (group != nullptr)
 		{
 		group->SendCustomEvent(from, event, data);
 		}

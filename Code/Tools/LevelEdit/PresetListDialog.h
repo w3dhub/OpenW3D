@@ -44,7 +44,7 @@ class PresetListDialogClass : public CDialog
 {
 // Construction
 public:
-	PresetListDialogClass (CWnd *pParent = NULL);
+	PresetListDialogClass (CWnd *pParent = nullptr);
 
 // Dialog Data
 	//{{AFX_DATA(PresetListDialogClass)

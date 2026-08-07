@@ -53,10 +53,10 @@
 ////////////////////////////////////////////////////////////////
 MPWolPageBuddyPopupClass::MPWolPageBuddyPopupClass (void)	:
 	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_PAGE_BUDDY)),
-	mBuddyMgr(NULL)
+	mBuddyMgr(nullptr)
 {
 	mBuddyMgr = WOLBuddyMgr::GetInstance(false);
-	WWASSERT(mBuddyMgr != NULL);
+	WWASSERT(mBuddyMgr != nullptr);
 }
 
 

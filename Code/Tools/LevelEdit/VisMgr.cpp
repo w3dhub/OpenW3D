@@ -93,7 +93,7 @@ VisMgrClass::Export_Remap_Data (ChunkSaveClass &csave)
 		//
 		PhysClass *phys_obj					= iterator.Peek_Obj ();
 		StaticPhysClass *static_phys_obj	= phys_obj->As_StaticPhysClass ();
-		if (static_phys_obj != NULL && static_phys_obj->Peek_Model () != NULL) {
+		if (static_phys_obj != nullptr && static_phys_obj->Peek_Model () != nullptr) {
 
 			//
 			//	Build a structure of information about this static object
@@ -158,7 +158,7 @@ VisMgrClass::Import_Remap_Data (ChunkLoadClass &cload)
 				//	Attempt to find this physics object in the scene
 				//
 				StaticPhysClass *vis_object = Find_Static_Phys_Object (info.mesh_name, info.transform);
-				if (vis_object != NULL) {
+				if (vis_object != nullptr) {
 					vis_object->Set_Vis_Object_ID (info.vis_id);
 				} else {
 					is_valid = false;
@@ -185,7 +185,7 @@ VisMgrClass::Import_Remap_Data (ChunkLoadClass &cload)
 	//	Warn the user if we failed
 	//
 	if (is_valid == false) {
-		::MessageBox (	NULL,
+		::MessageBox (	nullptr,
 							"The static geometry in this level does not match the geometry of the level in which vis was generated.  Unable to import vis data into this level.",
 							"Import Error",
 							MB_ICONERROR | MB_OK);
@@ -203,20 +203,20 @@ VisMgrClass::Import_Remap_Data (ChunkLoadClass &cload)
 StaticPhysClass *
 VisMgrClass::Find_Static_Phys_Object (LPCTSTR mesh_name, const Matrix3D &tm)
 {
-	StaticPhysClass *retval = NULL;
+	StaticPhysClass *retval = nullptr;
 
 	//
 	//	Get the list of all static objects from the physics scene
 	//
 	RefPhysListIterator iterator = ::Get_Scene_Editor ()->Get_Static_Object_Iterator ();
-	for (iterator.First (); retval == NULL && !iterator.Is_Done (); iterator.Next ()) {
+	for (iterator.First (); retval == nullptr && !iterator.Is_Done (); iterator.Next ()) {
 
 		//
 		//	Double-check to make sure this object is static
 		//
 		PhysClass *phys_obj					= iterator.Peek_Obj ();
 		StaticPhysClass *static_phys_obj	= phys_obj->As_StaticPhysClass ();
-		if (static_phys_obj != NULL && static_phys_obj->Peek_Model () != NULL) {
+		if (static_phys_obj != nullptr && static_phys_obj->Peek_Model () != nullptr) {
 
 			//
 			//	Is this the object we are looking for?
@@ -250,7 +250,7 @@ VisMgrClass::Build_Node_List (DynamicVectorClass<NodeClass *> &node_list, bool s
 		//
 		for (int index = 0; index < sel_mgr.Get_Count (); index ++) {
 			NodeClass *node = sel_mgr.Get_At (index);
-			if (node != NULL && node->Is_Static ()) {
+			if (node != nullptr && node->Is_Static ()) {
 				Add_Nodes_To_List (node_list, node);
 			}
 		}
@@ -262,7 +262,7 @@ VisMgrClass::Build_Node_List (DynamicVectorClass<NodeClass *> &node_list, bool s
 		// vis renders
 		//
 		for (NodeClass *node = ::Get_Node_Mgr ().Get_First ();
-			  node != NULL;
+			  node != nullptr;
 			  node = ::Get_Node_Mgr ().Get_Next (node))
 		{
 			if (node->Is_Static ()) {
@@ -336,7 +336,7 @@ VisMgrClass::Render_Manual_Vis_Points
 	//
 	DynamicVectorClass<VisPointNodeClass *> point_list;
 	for (	VisPointNodeClass *vis_point = (VisPointNodeClass *)NodeMgrClass::Get_First (NODE_TYPE_VIS_POINT);
-			vis_point != NULL && keep_going;
+			vis_point != nullptr && keep_going;
 			vis_point = (VisPointNodeClass *)NodeMgrClass::Get_Next (vis_point, NODE_TYPE_VIS_POINT))
 	{
 		point_list.Add (vis_point);
@@ -408,7 +408,7 @@ VisMgrClass::Render_Manual_Vis_Points
 		//
 		//	Notify the callback that we've renedered a point
 		//
-		if (callback != NULL) {
+		if (callback != nullptr) {
 			DWORD after	= ::GetTickCount ();
 			keep_going	= (*callback) (after - before, param);
 		}

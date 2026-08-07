@@ -180,7 +180,7 @@ void HumanPhysClass::Timestep(float dt)
 	bool was_on_ground = OnGround;
 
 	if (Is_Asleep()) {
-		if ((Controller != NULL) && (!Controller->Is_Inactive())) {
+		if ((Controller != nullptr) && (!Controller->Is_Inactive())) {
 			Set_Flag(ASLEEP,false);
 		}
 	}
@@ -339,7 +339,7 @@ bool HumanPhysClass::Slide_Move(const GroundStateStruct & gs,float dt)
 	// Compute a move vector which causes the object to slide down the slope...
 	Vector3 start_pos = State.Position;
 	Vector3 move = NormSpeed * dt * gs.Down;
-	if (Controller != NULL) {
+	if (Controller != nullptr) {
 		if (Controller->Get_Move_Vector().Z > 0.0f) {
 			move.Z += Controller->Get_Move_Vector().Z * dt;
 			JustJumped = true;
@@ -370,7 +370,7 @@ bool HumanPhysClass::Normal_Move(const GroundStateStruct & gs,float dt)
 	WWPROFILE("HumanPhys::Normal_Move");
 	VERBOSE_LOG(("HumanPhys::Normal_Move\r\n"));
 
-	if (Controller == NULL) {
+	if (Controller == nullptr) {
 		return false;
 	}
 

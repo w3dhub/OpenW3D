@@ -57,7 +57,7 @@ const float MIN_PRUNE_MATCH_FRACTION = 0.90f;
 ***************************************************************************************************/
 
 VisOptimizationContextClass::PVSInfoStruct::PVSInfoStruct(void) :
-	Table(NULL),
+	Table(nullptr),
 	UnUsed(false)
 {
 }
@@ -92,7 +92,7 @@ VisOptimizationContextClass::VisOptimizationContextClass
 	Scene(scene),
 	Stats(stats)
 {
-	WWASSERT(Scene != NULL);
+	WWASSERT(Scene != nullptr);
 }
 
 VisOptimizationContextClass::~VisOptimizationContextClass(void)
@@ -176,7 +176,7 @@ void VisOptimizationContextClass::Build_Object_Tables(VisTableMgrClass * vis_mgr
 		** Get each sector table
 		*/
 		VisTableClass * sector_table = vis_mgr->Get_Vis_Table(i);
-		if (sector_table == NULL) {
+		if (sector_table == nullptr) {
 			sector_table = NEW_REF(VisTableClass,(object_count,0));
 			sector_table->Reset_All();
 		}
@@ -339,8 +339,8 @@ void VisOptimizationContextClass::Combine_Object_Tables(int object_id_0,int obje
 
 void VisOptimizationContextClass::Install_Results(VisTableMgrClass * vismgr)
 {
-	if (vismgr == NULL) {
-		WWDEBUG_SAY(("Error! NULL VisTableMgrClass passed into Install_Results\n"));
+	if (vismgr == nullptr) {
+		WWDEBUG_SAY(("Error! nullptr VisTableMgrClass passed into Install_Results\n"));
 		return;
 	}
 

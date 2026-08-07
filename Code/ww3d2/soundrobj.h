@@ -230,7 +230,7 @@ public:
 	//	Public constructors/destructors
 	///////////////////////////////////////////////////////////
 	SoundRenderObjPrototypeClass (SoundRenderObjDefClass *def)
-		: Definition (NULL)													{ Set_Definition (def); }
+		: Definition (nullptr)													{ Set_Definition (def); }
 	virtual ~SoundRenderObjPrototypeClass (void)						{ REF_PTR_RELEASE (Definition); }
 
 	///////////////////////////////////////////////////////////

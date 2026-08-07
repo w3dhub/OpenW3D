@@ -266,7 +266,7 @@ static bool Graphics_Settings_Trouble_Shooting()
 }
 
 typedef IDirect3D9* (WINAPI *Direct3DCreate9Type) (UINT SDKVersion);
-static Direct3DCreate9Type	Direct3DCreate9Ptr = NULL;
+static Direct3DCreate9Type	Direct3DCreate9Ptr = nullptr;
 extern const char *Get_D3D9_Object_Name();
 static SharedObject *D3D9Lib = nullptr;
 
@@ -277,9 +277,9 @@ static bool Video_Card_Driver_Check()
 	int disabled=ini.Get_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", 0);
 	if (disabled>=87) return true;
 
-	IDirect3D9* d3d=NULL;
+	IDirect3D9* d3d=nullptr;
 	D3DCAPS9 tmp_caps;
-	const D3DCAPS9* d3dcaps=NULL;
+	const D3DCAPS9* d3dcaps=nullptr;
 	D3DADAPTER_IDENTIFIER9 adapter_id;
 
 	// Init D3D
@@ -287,7 +287,7 @@ static bool Video_Card_Driver_Check()
 
 	D3D9Lib = SharedObject::LoadObject(Get_D3D9_Object_Name());
 
-	if (D3D9Lib != NULL) {
+	if (D3D9Lib != nullptr) {
 		Direct3DCreate9Ptr = reinterpret_cast<Direct3DCreate9Type>(D3D9Lib->LoadFunction("Direct3DCreate9"));
 		if (Direct3DCreate9Ptr) {
 			d3d=Direct3DCreate9Ptr(D3D_SDK_VERSION);		// TODO: handle failure cases...
@@ -427,7 +427,7 @@ int Start_Application(void)
 		if (!SearchPathA(
 			"data",
 			"always.dat",
-			NULL,
+			nullptr,
 			sizeof(tmp_buffer),
 			tmp_buffer,
 			&tmp_ptr)) {
@@ -551,7 +551,7 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
 			return 1;
 
 		case WM_PAINT:
-			ValidateRect(hwnd, NULL);
+			ValidateRect(hwnd, nullptr);
 			break;
 
 		/*
@@ -691,7 +691,7 @@ static BOOL Create_Main_Window(void)
 	WNDCLASSA    wc;
 	BOOL        rc;
 
-	ProgramInstance = (HINSTANCE)GetModuleHandleA(NULL);
+	ProgramInstance = (HINSTANCE)GetModuleHandleA(nullptr);
 
 	if (!ConsoleBox.Is_Exclusive()) {
 		wc.style			= CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
@@ -699,10 +699,10 @@ static BOOL Create_Main_Window(void)
 		wc.cbClsExtra		= 0;
 		wc.cbWndExtra		= 0;
 		wc.hInstance		= ProgramInstance;
-		wc.hIcon				= LoadIcon( NULL, IDI_APPLICATION);
-		wc.hCursor			= LoadCursor( NULL, IDC_ARROW);
+		wc.hIcon				= LoadIcon( nullptr, IDI_APPLICATION);
+		wc.hCursor			= LoadCursor( nullptr, IDC_ARROW);
 		wc.hbrBackground	= (HBRUSH)GetStockObject( BLACK_BRUSH);
-		wc.lpszMenuName	= NULL;
+		wc.lpszMenuName	= nullptr;
 		wc.lpszClassName	= SingletonInstanceKeeperClass::Get_GUID ();
 
 		rc = RegisterClassA( &wc);
@@ -711,7 +711,7 @@ static BOOL Create_Main_Window(void)
 		// Assume windowed mode
 		MainWindow = CreateWindowExA(0, SingletonInstanceKeeperClass::Get_GUID(), "Renegade",
 			WS_SYSMENU|WS_CAPTION|WS_MINIMIZEBOX|WS_CLIPCHILDREN,
-				0, 0, 0, 0, NULL, NULL, ProgramInstance, NULL);
+				0, 0, 0, 0, nullptr, nullptr, ProgramInstance, nullptr);
 
 		if (!MainWindow) {
 			return FALSE;
@@ -792,18 +792,18 @@ bool Set_Working_Directory(void)
 	const char *gamedir = cUserOptions::GameDir.Get();
 #if defined(OPENW3D_WIN32)
 	char path_buffer[_MAX_PATH];
-	if (gamedir == NULL || gamedir[0] == '\0') {
+	if (gamedir == nullptr || gamedir[0] == '\0') {
 		char path_to_exe[256];
 		char drive[_MAX_DRIVE];
 		char dir[_MAX_DIR];
-		GetModuleFileNameA(NULL, path_to_exe, sizeof(path_to_exe));
-		_splitpath(path_to_exe, drive, dir, NULL, NULL);
-		_makepath(path_buffer, drive, dir, NULL, NULL);
+		GetModuleFileNameA(nullptr, path_to_exe, sizeof(path_to_exe));
+		_splitpath(path_to_exe, drive, dir, nullptr, nullptr);
+		_makepath(path_buffer, drive, dir, nullptr, nullptr);
 		gamedir = path_buffer;
 	}
 	return !!SetCurrentDirectoryA(gamedir);
 #elif defined(OPENW3D_SDL3)
-	if (gamedir == NULL || gamedir[0] == '\0') {
+	if (gamedir == nullptr || gamedir[0] == '\0') {
 		gamedir = SDL_GetBasePath();
 	}
 	return !chdir(gamedir);

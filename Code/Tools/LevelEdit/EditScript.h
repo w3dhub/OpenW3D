@@ -170,7 +170,7 @@ EditScriptClass::Get_Param_Count (void)
 inline LPCTSTR
 EditScriptClass::Get_Param_Value (int index)
 {
-	LPCTSTR value = NULL;
+	LPCTSTR value = nullptr;
 
 	if (Valid_Index (index)) {
 		value = m_ParamValues[index].value;
@@ -186,7 +186,7 @@ EditScriptClass::Get_Param_Value (int index)
 inline LPCTSTR
 EditScriptClass::Get_Param_Name (int index)
 {
-	LPCTSTR name = NULL;
+	LPCTSTR name = nullptr;
 
 	if (Valid_Index (index)) {
 		name = m_ParamValues[index].name;

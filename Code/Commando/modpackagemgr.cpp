@@ -116,7 +116,7 @@ ModPackageMgrClass::Build_List (void)
 {
 	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= true;
-	HANDLE file_find				= NULL;
+	HANDLE file_find				= nullptr;
 
 	//
 	//	Build a list of all the saved games we know about
@@ -204,7 +204,7 @@ ModPackageMgrClass::Set_Current_Package (int index)
 ModPackageClass *
 ModPackageMgrClass::Find_Package (const char *name)
 {
-	ModPackageClass *retval = NULL;
+	ModPackageClass *retval = nullptr;
 
 	//
 	//	Loop over all the packages in the list until we've found the
@@ -248,7 +248,7 @@ ModPackageMgrClass::Get_Mod_Map_Name_From_CRC_Index
 		//	Get a pointer to this mod package
 		//
 		ModPackageClass *package = ModPackageMgrClass::Find_Package (mod_name->Peek_Buffer ());
-		if (package != NULL) {
+		if (package != nullptr) {
 
 			//
 			//	Get the list of maps in this mod
@@ -309,7 +309,7 @@ ModPackageMgrClass::Get_Mod_Map_Name_From_CRC
 			//	Get a pointer to this mod package
 			//
 			ModPackageClass *package = ModPackageMgrClass::Find_Package (mod_name->Peek_Buffer ());
-			if (package != NULL) {
+			if (package != nullptr) {
 
 				//
 				//	Try to find the map from its CRC inside the mod package
@@ -336,7 +336,7 @@ ModPackageMgrClass::Find_Filename_From_CRC
 	StringClass *	filename
 )
 {
-	if (search_mask == NULL || filename == NULL) {
+	if (search_mask == nullptr || filename == nullptr) {
 		return false;
 	}
 
@@ -345,7 +345,7 @@ ModPackageMgrClass::Find_Filename_From_CRC
 
 	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= true;
-	HANDLE file_find				= NULL;
+	HANDLE file_find				= nullptr;
 
 	(*filename) = "";
 
@@ -393,7 +393,7 @@ ModPackageMgrClass::Find_Package_From_CRC
 	StringClass *	filename
 )
 {
-	if (filename == NULL) {
+	if (filename == nullptr) {
 		return false;
 	}
 
@@ -451,7 +451,7 @@ ModPackageMgrClass::Unload_Current_Mod (void)
 	//	Return if there isn't a current mod selected
 	//
 	if (	CurrentPackage.Get_Package_Filename ().Is_Empty () ||
-			FileFactoryListClass::Get_Instance () == NULL)
+			FileFactoryListClass::Get_Instance () == nullptr)
 	{
 		return ;
 	}
@@ -460,9 +460,9 @@ ModPackageMgrClass::Unload_Current_Mod (void)
 	//	Delete the temp file factory
 	//
 	FileFactoryClass *factory = FileFactoryListClass::Get_Instance ()->Remove_Temp_FileFactory ();
-	if (factory != NULL) {
+	if (factory != nullptr) {
 		delete factory;
-		factory = NULL;
+		factory = nullptr;
 	}
 
 	return ;

@@ -211,7 +211,7 @@ int PhysicsSceneClass::Get_Vis_Table_Count(void)
 
 void PhysicsSceneClass::Compute_Vis_Sample_Point(const CameraClass & camera,Vector3 * set_point)
 {
-	WWASSERT(set_point != NULL);
+	WWASSERT(set_point != nullptr);
 	if (!VisSamplePointLocked) {
 		float nearz,farz;
 		camera.Get_Clip_Planes(nearz,farz);
@@ -246,7 +246,7 @@ VisTableClass * PhysicsSceneClass::Get_Vis_Table_For_Rendering(const CameraClass
 	// Also, if a sample point hasn't been given, we will skip visibility.
 	// Also, if we don't find a vis sector, we'll try to use the last valid one that we had.
 	int vis_id = -1;
-	VisTableClass * pvs = NULL;
+	VisTableClass * pvs = nullptr;
 	Vector3 vis_sample_point;
 	Compute_Vis_Sample_Point(camera,&vis_sample_point);
 
@@ -274,7 +274,7 @@ VisTableClass * PhysicsSceneClass::Get_Vis_Table_For_Rendering(const CameraClass
 			pvs = VisTableManager.Get_Vis_Table(LastValidVisId);
 		}
 
-		if ((VisInverted) && (pvs != NULL)) {
+		if ((VisInverted) && (pvs != nullptr)) {
 			VisTableClass * new_pvs = NEW_REF(VisTableClass,(*pvs));
 			new_pvs->Invert();
 			REF_PTR_RELEASE(pvs);
@@ -435,7 +435,7 @@ void PhysicsSceneClass::Internal_Vis_Reset(void)
 		RefPhysListIterator it(&ObjList);
 		while (!it.Is_Done()) {
 			DynamicPhysClass * pobj = it.Peek_Obj()->As_DynamicPhysClass();
-			if (pobj!=NULL) {
+			if (pobj!=nullptr) {
 				pobj->Update_Visibility_Status();
 			}
 			it.Next();
@@ -541,7 +541,7 @@ PhysicsSceneClass::Update_Vis
 	*/
 	VisTableClass * original_pvs = VisTableManager.Get_Vis_Table(vis_id,true);
 
-	if (original_pvs == NULL) {
+	if (original_pvs == nullptr) {
 		VisSampleClass vis_sample(camera_tm,direction_bits);
 		vis_sample.Init_Error();
 		WWDEBUG_SAY(("Vis Sample Rejected - No Vis Sector or Vis Sector ID not assigned!\r\n"));
@@ -553,14 +553,14 @@ PhysicsSceneClass::Update_Vis
 	/*
 	** Grab the camera, GERD, shader, vertex material...
 	*/
-	CameraClass * camera = NULL;
+	CameraClass * camera = nullptr;
 	if (alternate_camera) {				// if user is supplying an alternate camera, use it
 		camera = alternate_camera;
 		camera->Add_Ref();
 	} else {									// otherwise use the vis camera
 		camera = Get_Vis_Camera();
 	}
-	WWASSERT (camera != NULL);
+	WWASSERT (camera != nullptr);
 
 	/*
 	** Create the render context, initialize the GERD, install the Vis shader and vertex material
@@ -681,9 +681,9 @@ void PhysicsSceneClass::Generate_Vis_For_Light(int light_index)
 	** Update vis for the specified light.
 	*/
 	LightPhysClass * light = light_it.Peek_Obj()->As_LightPhysClass();
-	if (	(light != NULL) &&
+	if (	(light != nullptr) &&
 			(light->Get_Vis_Sector_ID() != 0xFFFFFFFF) &&
-			(light->Peek_Model() != NULL) &&
+			(light->Peek_Model() != nullptr) &&
 			(light->Peek_Model()->Class_ID() == RenderObjClass::CLASSID_LIGHT))
 	{
 		/*
@@ -727,7 +727,7 @@ void PhysicsSceneClass::Vis_Render_And_Scan(VisRenderContextClass & context,VisS
 	** Have the static culling system evaluate visibility for the occluders
 	** and build the z-buffer in the process.
 	*/
-	WWASSERT(context.VisRasterizer != NULL);
+	WWASSERT(context.VisRasterizer != nullptr);
 	context.VisRasterizer->Set_Render_Mode(IDBufferClass::OCCLUDER_MODE);
 	StaticCullingSystem->Evaluate_Occluder_Visibility(context,vis_sample);
 
@@ -826,7 +826,7 @@ void PhysicsSceneClass::Optimize_Visibility_Data(VisOptProgressClass & stats)
 
 	for (it.First(); !it.Is_Done(); it.Next()) {
 		DynamicPhysClass * obj = it.Peek_Obj()->As_DynamicPhysClass();
-		if (obj != NULL) {
+		if (obj != nullptr) {
 			obj->Update_Visibility_Status();
 		}
 	}

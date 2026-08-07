@@ -83,18 +83,18 @@ void App_Response_Callback(char *response)
 	if (DumpOutput) {
 		HANDLE file = INVALID_HANDLE_VALUE;
 		if (TruncateFile) {
-			file = CreateFileA("RenRem.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+			file = CreateFileA("RenRem.txt", GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 		} else {
-			file = CreateFileA("RenRem.txt", GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+			file = CreateFileA("RenRem.txt", GENERIC_WRITE, 0, nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 		}
 		TruncateFile = false;
 
 		if (file != INVALID_HANDLE_VALUE) {
-			SetFilePointer(file, 0, NULL, FILE_END);
+			SetFilePointer(file, 0, nullptr, FILE_END);
 			DWORD actual = 0;
 			const size_t response_length = ::strlen(response);
 			assert(response_length <= std::numeric_limits<DWORD>::max());
-			WriteFile(file, response, static_cast<DWORD>(response_length), &actual, NULL);
+			WriteFile(file, response, static_cast<DWORD>(response_length), &actual, nullptr);
 			CloseHandle(file);
 		}
 	}

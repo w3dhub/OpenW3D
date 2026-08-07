@@ -33,7 +33,7 @@ static char THIS_FILE[] = __FILE__;
 // ValueListDialogClass dialog
 
 
-ValueListDialogClass::ValueListDialogClass(CWnd* pParent /*=NULL*/)
+ValueListDialogClass::ValueListDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(ValueListDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(ValueListDialogClass)

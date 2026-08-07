@@ -56,7 +56,7 @@ public:
 
 			// Used to reset the position of the line
 			void				Reset (const Vector3 &start, const Vector3 &end, float width) { m_pLine3D->Reset (start, end, width); Update_Cull_Box(); }
-			void				Set_Color (const Vector3 &color) { if (m_pLine3D != NULL) m_pLine3D->Re_Color (color.X, color.Y, color.Z); }
+			void				Set_Color (const Vector3 &color) { if (m_pLine3D != nullptr) m_pLine3D->Re_Color (color.X, color.Y, color.Z); }
 
 		private:
 			Line3DClass		*m_pLine3D;

@@ -42,11 +42,11 @@
 static constexpr char RESOURCE_FILE_TYPE_NAME[] = "File";
 
 WinResourceFileClass::WinResourceFileClass(HMODULE hmodule, char const *filename) :
-	ResourceName(NULL),
-	hModule(NULL),
-	FileBytes(NULL),
-	FilePtr(NULL),
-	EndOfFile(NULL)
+	ResourceName(nullptr),
+	hModule(nullptr),
+	FileBytes(nullptr),
+	FilePtr(nullptr),
+	EndOfFile(nullptr)
 {
 	Set_Name(filename);
 	HRSRC hresource = FindResourceA(hmodule,ResourceName,RESOURCE_FILE_TYPE_NAME);
@@ -64,7 +64,7 @@ WinResourceFileClass::WinResourceFileClass(HMODULE hmodule, char const *filename
 }
 
 WinResourceFileClass::WinResourceFileClass(char const *filename) :
-	WinResourceFileClass(NULL, filename)
+	WinResourceFileClass(nullptr, filename)
 {
 }
 
@@ -78,7 +78,7 @@ char const * WinResourceFileClass::Set_Name(char const *filename)
 {
 	if (ResourceName) {
 		free(ResourceName);
-		ResourceName = NULL;
+		ResourceName = nullptr;
 	}
 	if (filename) {
 		ResourceName = strdup(filename);

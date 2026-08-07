@@ -110,7 +110,7 @@ Process *ProcessManager::Create_Process(const char * const *args)
 	STARTUPINFOA startup_info = { 0 };
 	startup_info.cb = sizeof(startup_info);
 	PROCESS_INFORMATION process_information;
-	if (!CreateProcessA(args[0], command_line.Peek_Buffer(), NULL, NULL, false, 0, nullptr, nullptr, &startup_info, &process_information)) {
+	if (!CreateProcessA(args[0], command_line.Peek_Buffer(), nullptr, nullptr, false, 0, nullptr, nullptr, &startup_info, &process_information)) {
 		return nullptr;
 	}
 	CloseHandle(process_information.hThread);

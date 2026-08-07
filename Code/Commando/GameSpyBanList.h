@@ -39,8 +39,8 @@ enum GAMESPY_KICK_STATE_ENUM
 
 class BanEntry : public Node<BanEntry *>  {
 public:
-	BanEntry(const char *name = NULL, const char *ip = NULL, const char *hash_id = NULL,
-		const char *ip_mask = NULL, bool rtype = false);
+	BanEntry(const char *name = nullptr, const char *ip = nullptr, const char *hash_id = nullptr,
+		const char *ip_mask = nullptr, bool rtype = false);
 
 protected:
 	char	hashid[33];
@@ -73,7 +73,7 @@ protected:
 public:
 	void Think(void);
 	bool Kick_Player(int id) { return Begin_Player_Kick(id);}
-	void Ban_User(const char *nickname, const char *challenge_response = NULL,
+	void Ban_User(const char *nickname, const char *challenge_response = nullptr,
 		ULONG ipaddress = 0xffffffff);
 	bool Is_User_Banned(const char *nickname, const char *challenge_response, ULONG ipaddress);
 	void LoadBans(void);

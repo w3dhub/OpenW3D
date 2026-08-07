@@ -104,12 +104,12 @@ RenegadeTerrainPatchClass::RenegadeTerrainPatchClass (void)	:
 	GridPointsX (0),
 	GridPointsY (0),
 	GridPointCount (0),
-	Grid (NULL),
-	GridNormals (NULL),
-	VertexColors (NULL),
-	QuadFlags (NULL),
-	BaseMaterial (NULL),
-	LayerMaterial (NULL),
+	Grid (nullptr),
+	GridNormals (nullptr),
+	VertexColors (nullptr),
+	QuadFlags (nullptr),
+	BaseMaterial (nullptr),
+	LayerMaterial (nullptr),
 	BaseShader (0),
 	LayerShader (0),
 	BoundingBoxMin (0, 0, 0),
@@ -132,12 +132,12 @@ RenegadeTerrainPatchClass::RenegadeTerrainPatchClass (const RenegadeTerrainPatch
 	GridPointsX (0),
 	GridPointsY (0),
 	GridPointCount (0),
-	Grid (NULL),
-	GridNormals (NULL),
-	VertexColors (NULL),
-	QuadFlags (NULL),
-	BaseMaterial (NULL),
-	LayerMaterial (NULL),
+	Grid (nullptr),
+	GridNormals (nullptr),
+	VertexColors (nullptr),
+	QuadFlags (nullptr),
+	BaseMaterial (nullptr),
+	LayerMaterial (nullptr),
 	BaseShader (0),
 	LayerShader (0),
 	BoundingBoxMin (0, 0, 0),
@@ -275,24 +275,24 @@ RenegadeTerrainPatchClass::Allocate_Grid (void)
 void
 RenegadeTerrainPatchClass::Free_Grid (void)
 {
-	if (Grid != NULL) {
+	if (Grid != nullptr) {
 		delete [] Grid;
-		Grid = NULL;
+		Grid = nullptr;
 	}
 
-	if (GridNormals != NULL) {
+	if (GridNormals != nullptr) {
 		delete [] GridNormals;
-		GridNormals = NULL;
+		GridNormals = nullptr;
 	}
 
-	if (VertexColors != NULL) {
+	if (VertexColors != nullptr) {
 		delete [] VertexColors;
-		VertexColors = NULL;
+		VertexColors = nullptr;
 	}
 
-	if (QuadFlags != NULL) {
+	if (QuadFlags != nullptr) {
 		delete [] QuadFlags;
-		QuadFlags = NULL;
+		QuadFlags = nullptr;
 	}
 
 	Free_Materials ();
@@ -335,7 +335,7 @@ RenegadeTerrainPatchClass::Render (RenderInfoClass &rinfo)
 	//
 	DX8Wrapper::Set_Transform (D3DTS_WORLD, Get_Transform ());
 
-	if (rinfo.light_environment != NULL) {
+	if (rinfo.light_environment != nullptr) {
 		DX8Wrapper::Set_Light_Environment (rinfo.light_environment);
 	}
 
@@ -397,7 +397,7 @@ void
 RenegadeTerrainPatchClass::Render_Procedural_Material_Pass(MaterialPassClass * matpass)
 {
 #if 0
-	if ((pass->Get_Cull_Volume() != NULL) && (MaterialPassClass::Is_Per_Polygon_Culling_Enabled())) {
+	if ((pass->Get_Cull_Volume() != nullptr) && (MaterialPassClass::Is_Per_Polygon_Culling_Enabled())) {
 
 		/*
 		** Generate the APT
@@ -520,8 +520,8 @@ RenegadeTerrainPatchClass::Submit_Rendering_Buffers (int texture_index, int pass
 	//
 	//	Don't render this layer if there isn't anything to render!
 	//
-	if (	MaterialPassList[texture_index]->VertexBuffers[pass_type] == NULL ||
-			MaterialPassList[texture_index]->IndexBuffers[pass_type] == NULL)
+	if (	MaterialPassList[texture_index]->VertexBuffers[pass_type] == nullptr ||
+			MaterialPassList[texture_index]->IndexBuffers[pass_type] == nullptr)
 	{
 		return ;
 	}
@@ -546,8 +546,8 @@ RenegadeTerrainPatchClass::Render_By_Texture (int texture_index, int pass_type)
 	//
 	//	Don't render this layer if there isn't anything to render!
 	//
-	if (	MaterialPassList[texture_index]->VertexBuffers[pass_type] == NULL ||
-			MaterialPassList[texture_index]->IndexBuffers[pass_type] == NULL)
+	if (	MaterialPassList[texture_index]->VertexBuffers[pass_type] == nullptr ||
+			MaterialPassList[texture_index]->IndexBuffers[pass_type] == nullptr)
 	{
 		return ;
 	}
@@ -561,7 +561,7 @@ RenegadeTerrainPatchClass::Render_By_Texture (int texture_index, int pass_type)
 	//	Configure the texture
 	//
 	DX8Wrapper::Set_Texture (0, MaterialPassList[texture_index]->Material->Peek_Texture ());
-	DX8Wrapper::Set_Texture (1, NULL);
+	DX8Wrapper::Set_Texture (1, nullptr);
 
 	//
 	//	Configure the material and shader
@@ -797,7 +797,7 @@ RenegadeTerrainPatchClass::Initialize_Material (void)
 	//
 	//	Allocate the vertex material
 	//
-	WWASSERT (BaseMaterial == NULL);
+	WWASSERT (BaseMaterial == nullptr);
 	BaseMaterial = NEW_REF(VertexMaterialClass, ());
 	BaseMaterial->Set_Ambient (1.0F, 1.0F, 1.0F);
 	BaseMaterial->Set_Diffuse (1.0F, 1.0F, 1.0F);
@@ -1026,7 +1026,7 @@ RenegadeTerrainPatchClass::Cast_OBBox (OBBoxCollisionTestClass &boxtest)
 					best_pass	= index;
 				}
 			}
-			if (MaterialPassList[best_pass]->Material != NULL) {
+			if (MaterialPassList[best_pass]->Material != nullptr) {
 				boxtest.Result->SurfaceType = MaterialPassList[best_pass]->Material->Get_Surface_Type ();
 			}
 		}
@@ -1335,7 +1335,7 @@ RenegadeTerrainPatchClass::Cast_AABox (AABoxCollisionTestClass &boxtest)
 					best_pass	= index;
 				}
 			}
-			if (MaterialPassList[best_pass]->Material != NULL) {
+			if (MaterialPassList[best_pass]->Material != nullptr) {
 				boxtest.Result->SurfaceType = MaterialPassList[best_pass]->Material->Get_Surface_Type ();
 			}
 		}
@@ -1842,7 +1842,7 @@ RenegadeTerrainPatchClass::Save (ChunkSaveClass &csave)
 			//
 			//	Don't save the material information if there' no material configured...
 			//
-			if (MaterialPassList[index]->Material != NULL) {
+			if (MaterialPassList[index]->Material != nullptr) {
 
 				//
 				//	Save this material layer to its own chunk
@@ -2021,7 +2021,7 @@ RenegadeTerrainPatchClass::Add_Material (TerrainMaterialClass *material)
 	//
 	//	Add a reference to the material
 	//
-	if (material != NULL) {
+	if (material != nullptr) {
 		material->Add_Ref ();
 	}
 
@@ -2077,7 +2077,7 @@ RenegadeTerrainPatchClass::Update_UVs (void)
 			//	Calculate the UV coordinate for this texture at this vertex
 			//
 			for (int index = 0; index < MaterialPassList.Count (); index ++) {
-				if (MaterialPassList[index]->Material != NULL) {
+				if (MaterialPassList[index]->Material != nullptr) {
 					float meters_per_texture = MaterialPassList[index]->Material->Get_Meters_Per_Tile ();
 
 
@@ -2199,7 +2199,7 @@ RenegadeTerrainPatchClass::Get_Material_Pass (int index, TerrainMaterialClass *m
 	//	Grow the list as necessary
 	//
 	while (index >= MaterialPassList.Count ()) {
-		Add_Material (NULL);
+		Add_Material (nullptr);
 	}
 
 	//

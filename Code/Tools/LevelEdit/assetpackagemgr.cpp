@@ -121,7 +121,7 @@ AssetPackageMgrClass::Build_Package_List (STRING_LIST &list)
 	//
 	WIN32_FIND_DATA find_info	= { 0 };
 	BOOL keep_going				= true;
-	HANDLE file_find				= NULL;
+	HANDLE file_find				= nullptr;
 	for (file_find = ::FindFirstFile (search_path, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (file_find, &find_info))
@@ -179,21 +179,21 @@ AssetPackageMgrClass::Create_Package (const char *name)
 	//
 	//	Attempt to create the directory
 	//
-	if (::CreateDirectory (new_path, NULL) == false) {
+	if (::CreateDirectory (new_path, nullptr) == false) {
 
 		//
 		//	Warn the user on error
 		//
 		CString message;
 		message.Format ("Unable to create the directory: %s", (const char *)new_path);
-		::MessageBox (NULL, message, "File Error", MB_ICONERROR | MB_OK | MB_TOPMOST);
+		::MessageBox (nullptr, message, "File Error", MB_ICONERROR | MB_OK | MB_TOPMOST);
 	} else {
 
 		//
 		//	Make a directory for the levels to be stored in
 		//
 		CString levels_full_path = ::Make_Path (new_path, LEVELS_ASSET_DIR);
-		::CreateDirectory (levels_full_path, NULL);
+		::CreateDirectory (levels_full_path, nullptr);
 	}
 
 	return ;

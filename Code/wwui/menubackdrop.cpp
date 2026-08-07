@@ -50,10 +50,10 @@
 //
 ////////////////////////////////////////////////////////////////
 MenuBackDropClass::MenuBackDropClass (void)	:
-	Scene (NULL),
-	Camera (NULL),
-	Model (NULL),
-	Anim (NULL),
+	Scene (nullptr),
+	Camera (nullptr),
+	Model (nullptr),
+	Anim (nullptr),
 	ClearScreen (true)
 {
 	//
@@ -66,7 +66,7 @@ MenuBackDropClass::MenuBackDropClass (void)	:
 	// Create a single scene light
 	//
 	LightClass *light = new LightClass;
-	if (light != NULL) {
+	if (light != nullptr) {
 
 		//
 		// Configure the light
@@ -154,7 +154,7 @@ MenuBackDropClass::Set_Model (const char *name)
 	//	Load the new model
 	//
 	Model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj (name);
-	if (Model != NULL) {
+	if (Model != nullptr) {
 
 		//
 		//	Check to see if this model has a camera bone
@@ -197,7 +197,7 @@ MenuBackDropClass::Set_Model (const char *name)
 void
 MenuBackDropClass::Remove_Model (void)
 {
-	if (Model != NULL) {
+	if (Model != nullptr) {
 		Model->Remove();
 	}
 	REF_PTR_RELEASE (Model);
@@ -228,7 +228,7 @@ MenuBackDropClass::Set_Animation (const char *anim_name)
 void
 MenuBackDropClass::Set_Animation_Percentage (float percent)
 {
-	if ( Model != NULL && Anim != NULL ) {
+	if ( Model != nullptr && Anim != nullptr ) {
 		float frame = (float)(Anim->Get_Num_Frames()-1) * WWMath::Clamp( percent, 0, 1 );
 		Model->Set_Animation (Anim, frame, RenderObjClass::ANIM_MODE_MANUAL);
 	}
@@ -244,7 +244,7 @@ MenuBackDropClass::Set_Animation_Percentage (float percent)
 void
 MenuBackDropClass::Play_Animation (void)
 {
-	if (Model == NULL) {
+	if (Model == nullptr) {
 		return ;
 	}
 
@@ -255,7 +255,7 @@ MenuBackDropClass::Play_Animation (void)
 		//
 		REF_PTR_RELEASE (Anim);
 		Anim = WW3DAssetManager::Get_Instance ()->Get_HAnim (AnimationName);
-		if (Anim != NULL) {
+		if (Anim != nullptr) {
 			Model->Set_Animation (Anim, 0, RenderObjClass::ANIM_MODE_LOOP);
 		}
 
@@ -265,7 +265,7 @@ MenuBackDropClass::Play_Animation (void)
 		//	Stop the animation
 		//
 		REF_PTR_RELEASE (Anim);
-		Model->Set_Animation (NULL);
+		Model->Set_Animation (nullptr);
 	}
 
 	return ;

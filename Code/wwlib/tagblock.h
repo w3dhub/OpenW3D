@@ -84,14 +84,14 @@ class TagBlockFile : protected RawFileClass
 
 		// Creation of a Handle so block can be crated/writen/read.
 		// Use delete to destroy handle or use Close_Tag().
-		// Open_Tag() returns NULL if tag not found.
-		// Create_Tag() returns NULL if tag already exists.
+		// Open_Tag() returns nullptr if tag not found.
+		// Create_Tag() returns nullptr if tag already exists.
 		TagBlockHandle *Open_Tag(const char *tagname);
 		TagBlockHandle *Create_Tag(const char *tagname);
 		void Close_Tag(TagBlockHandle *handle);
 
 		int Does_Tag_Exist(const char *tagname)  {
-			return(Find_Block(tagname) != NULL);
+			return(Find_Block(tagname) != nullptr);
 		}
 
 		virtual unsigned int Get_Date_Time(void) override {
@@ -104,7 +104,7 @@ class TagBlockFile : protected RawFileClass
 			return(blockoffset + sizeof(BlockHeader));
 		}
 		static int Calc_Data_Offset(int blockoffset, const char* tagname) {
-			WWASSERT(tagname != NULL);
+			WWASSERT(tagname != nullptr);
 
 			const size_t base_offset = static_cast<size_t>(Calc_Tag_Offset(blockoffset));
 			const size_t tag_length = strlen(tagname);
@@ -154,13 +154,13 @@ class TagBlockFile : protected RawFileClass
 			// Used to verify file integrity.
 			int				Index = 0;
 
-			// Size of tagname (including NULL) that follows this block.
+			// Size of tagname (including nullptr) that follows this block.
 			int				TagSize = 0;
 
 			// Size of block not including header.
 			int				DataSize = 0;
 
-			// A variable length name (NULL terminated) follows this structure.
+			// A variable length name (nullptr terminated) follows this structure.
 			// The name is then followed by the Data.
 
 			// The entire length of the block is sizeof(BlockHeader) + TagSize + DataSize.

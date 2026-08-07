@@ -108,7 +108,7 @@ SkinPackageMgrClass::Build_List (void)
 {
 	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= true;
-	HANDLE file_find				= NULL;
+	HANDLE file_find				= nullptr;
 
 	//
 	//	Build a list of all the saved games we know about

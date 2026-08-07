@@ -71,8 +71,8 @@
  *   HLodClass::Peek_Additional_Model -- returns pointer to an additional model                *
  *   HLodClass::Get_Additional_Model -- returns pointer to an additional model                 *
  *   HLodClass::Get_Additional_Model_Bone -- returns the bone index of an additional model     *
- *   HLodClass::Is_NULL_Lod_Included -- does this HLod have NULL as its lowest LOD             *
- *   HLodClass::Include_NULL_Lod -- Add NULL as the lowest LOD                                 *
+ *   HLodClass::Is_NULL_Lod_Included -- does this HLod have nullptr as its lowest LOD             *
+ *   HLodClass::Include_NULL_Lod -- Add nullptr as the lowest LOD                                 *
  *   HLodClass::Get_Num_Polys -- returns polycount of the current LOD                          *
  *   HLodClass::Render -- render this HLod                                                     *
  *   HLodClass::Special_Render -- Special_Render for HLod                                      *
@@ -213,15 +213,15 @@ PrototypeClass *HLodLoaderClass::Load_W3D( ChunkLoadClass &cload )
 {
 	HLodDefClass * def = new HLodDefClass;
 
-	if (def == NULL)
+	if (def == nullptr)
 	{
-		return NULL;
+		return nullptr;
 	}
 
 	if (def->Load_W3D(cload) != WW3D_ERROR_OK) {
 		// load failed, delete the model and return an error
 		delete def;
-		return NULL;
+		return nullptr;
 	}
 
 	// ok, accept this model!
@@ -269,11 +269,11 @@ RenderObjClass * HLodPrototypeClass::Create(void)
  * HISTORY:                                                                                    *
  *=============================================================================================*/
 HLodDefClass::HLodDefClass(void) :
-	Name(NULL),
-	HierarchyTreeName(NULL),
+	Name(nullptr),
+	HierarchyTreeName(nullptr),
 	LodCount(0),
-	Lod(NULL),
-	ProxyArray(NULL)
+	Lod(nullptr),
+	ProxyArray(nullptr)
 {
 }
 
@@ -291,11 +291,11 @@ HLodDefClass::HLodDefClass(void) :
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
 HLodDefClass::HLodDefClass(HLodClass &src_lod) :
-	Name(NULL),
-	HierarchyTreeName(NULL),
+	Name(nullptr),
+	HierarchyTreeName(nullptr),
 	LodCount(0),
-	Lod(NULL),
-	ProxyArray(NULL)
+	Lod(nullptr),
+	ProxyArray(nullptr)
 {
 	Initialize (src_lod);
 	return ;
@@ -337,17 +337,17 @@ void HLodDefClass::Free(void)
 {
 	if (Name) {
 		::free(Name);
-		Name = NULL;
+		Name = nullptr;
 	}
 
 	if (HierarchyTreeName) {
 		::free(HierarchyTreeName);
-		HierarchyTreeName = NULL;
+		HierarchyTreeName = nullptr;
 	}
 
 	if (Lod) {
 		delete[] Lod;
-		Lod = NULL;
+		Lod = nullptr;
 	}
 	LodCount = 0;
 
@@ -377,7 +377,7 @@ void HLodDefClass::Initialize(HLodClass &src_lod)
 	// Copy the name and hierarcy name from the source object
 	Name = ::strdup (src_lod.Get_Name ());
 	const HTreeClass *phtree = src_lod.Get_HTree ();
-	if (phtree != NULL) {
+	if (phtree != nullptr) {
 		HierarchyTreeName = ::strdup (phtree->Get_Name ());
 	}
 
@@ -403,11 +403,11 @@ void HLodDefClass::Initialize(HLodClass &src_lod)
 
 				// Record information about this model (if possible)
 				RenderObjClass *prender_obj = src_lod.Peek_Lod_Model (index, model_index);
-				if (prender_obj != NULL) {
+				if (prender_obj != nullptr) {
 					model_names[model_index] = ::strdup (prender_obj->Get_Name ());
 					bone_indicies[model_index] = src_lod.Get_Lod_Model_Bone (index, model_index);
 				} else {
-					model_names[model_index] = NULL;
+					model_names[model_index] = nullptr;
 					bone_indicies[model_index] = 0;
 				}
 			}
@@ -728,8 +728,8 @@ bool HLodDefClass::read_proxy_array(ChunkLoadClass & cload)
 HLodDefClass::SubObjectArrayClass::SubObjectArrayClass(void) :
 	MaxScreenSize(NO_MAX_SCREEN_SIZE),
 	ModelCount(0),
-	ModelName(NULL),
-	BoneIndex(NULL)
+	ModelName(nullptr),
+	BoneIndex(nullptr)
 {
 }
 
@@ -768,16 +768,16 @@ void HLodDefClass::SubObjectArrayClass::Reset(void)
 {
 	MaxScreenSize = NO_MAX_SCREEN_SIZE;
 
-	if (ModelName != NULL) {
+	if (ModelName != nullptr) {
 		for (int imodel=0; imodel<ModelCount;imodel++) {
 			free(ModelName[imodel]);
 		}
 		delete[] ModelName;
-		ModelName = NULL;
+		ModelName = nullptr;
 	}
-	if (BoneIndex != NULL) {
+	if (BoneIndex != nullptr) {
 		delete[] BoneIndex;
-		BoneIndex = NULL;
+		BoneIndex = nullptr;
 	}
 
 	ModelCount = 0;
@@ -916,16 +916,16 @@ bool HLodDefClass::SubObjectArrayClass::Save_W3D(ChunkSaveClass &csave)
  * HISTORY:                                                                                    *
  *=============================================================================================*/
 HLodClass::HLodClass(void) :
-	Animatable3DObjClass(NULL),
+	Animatable3DObjClass(nullptr),
 	LodCount(0),
 	CurLod(0),
-	Lod(NULL),
+	Lod(nullptr),
 	BoundingBoxIndex(-1),
-	Cost(NULL),
-	Value(NULL),
+	Cost(nullptr),
+	Value(nullptr),
 	AdditionalModels(),
-	SnapPoints(NULL),
-	ProxyArray(NULL),
+	SnapPoints(nullptr),
+	ProxyArray(nullptr),
 	LODBias(1.0f)
 {
 }
@@ -947,13 +947,13 @@ HLodClass::HLodClass(const HLodClass & src) :
 	Animatable3DObjClass(src),
 	LodCount(0),
 	CurLod(0),
-	Lod(NULL),
+	Lod(nullptr),
 	BoundingBoxIndex(-1),
-	Cost(NULL),
-	Value(NULL),
+	Cost(nullptr),
+	Value(nullptr),
 	AdditionalModels(),
-	SnapPoints(NULL),
-	ProxyArray(NULL),
+	SnapPoints(nullptr),
+	ProxyArray(nullptr),
 	LODBias(1.0f)
 {
 	*this = src;
@@ -976,21 +976,21 @@ HLodClass::HLodClass(const HLodClass & src) :
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
 HLodClass::HLodClass(const char * name,RenderObjClass ** lods,int count) :
-	Animatable3DObjClass(NULL),
+	Animatable3DObjClass(nullptr),
 	LodCount(0),
 	CurLod(0),
-	Lod(NULL),
+	Lod(nullptr),
 	BoundingBoxIndex(-1),
-	Cost(NULL),
-	Value(NULL),
+	Cost(nullptr),
+	Value(nullptr),
 	AdditionalModels(),
-	SnapPoints(NULL),
-	ProxyArray(NULL),
+	SnapPoints(nullptr),
+	ProxyArray(nullptr),
 	LODBias(1.0f)
 {
 	// enforce parameters
-	WWASSERT(name != NULL);
-	WWASSERT(lods != NULL);
+	WWASSERT(name != nullptr);
+	WWASSERT(lods != nullptr);
 	WWASSERT((count > 0) && (count < 256));
 
 	// Set the name
@@ -1010,7 +1010,7 @@ HLodClass::HLodClass(const char * name,RenderObjClass ** lods,int count) :
 	// Create our HTree from the highest LOD if it is an HModel
 	// Otherwise, create a single node tree
 	const HTreeClass * tree = lods[count-1]->Get_HTree();
-	if (tree != NULL) {
+	if (tree != nullptr) {
 		HTree = new HTreeClass(*tree);
 	} else {
 		HTree = new HTreeClass();
@@ -1081,13 +1081,13 @@ HLodClass::HLodClass(const HLodDefClass & def) :
 	Animatable3DObjClass(def.HierarchyTreeName),
 	LodCount(0),
 	CurLod(0),
-	Lod(NULL),
+	Lod(nullptr),
 	BoundingBoxIndex(-1),
-	Cost(NULL),
-	Value(NULL),
+	Cost(nullptr),
+	Value(nullptr),
 	AdditionalModels(),
-	SnapPoints(NULL),
-	ProxyArray(NULL),
+	SnapPoints(nullptr),
+	ProxyArray(nullptr),
 	LODBias(1.0f)
 {
 	// Set the name
@@ -1114,7 +1114,7 @@ HLodClass::HLodClass(const HLodDefClass & def) :
 
 			RenderObjClass * robj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(def.Lod[ilod].ModelName[imodel]);
 			int boneindex = def.Lod[ilod].BoneIndex[imodel];
-			if (robj != NULL) {
+			if (robj != nullptr) {
 				add_lod_model(ilod,robj,boneindex);
 				robj->Release_Ref();
 			}
@@ -1127,7 +1127,7 @@ HLodClass::HLodClass(const HLodDefClass & def) :
 	for (int iagg=0; iagg<def.Aggregates.ModelCount; iagg++) {
 		RenderObjClass * robj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(def.Aggregates.ModelName[iagg]);
 		int boneindex = def.Aggregates.BoneIndex[iagg];
-		if (robj != NULL) {
+		if (robj != nullptr) {
 			Add_Sub_Object_To_Bone(robj,boneindex);
 			robj->Release_Ref();
 		}
@@ -1169,13 +1169,13 @@ HLodClass::HLodClass(const HModelDefClass & def) :
 	Animatable3DObjClass(def.BasePoseName),
 	LodCount(0),
 	CurLod(0),
-	Lod(NULL),
+	Lod(nullptr),
 	BoundingBoxIndex(-1),
-	Cost(NULL),
-	Value(NULL),
+	Cost(nullptr),
+	Value(nullptr),
 	AdditionalModels(),
-	SnapPoints(NULL),
-	ProxyArray(NULL),
+	SnapPoints(nullptr),
+	ProxyArray(nullptr),
 	LODBias(1.0f)
 {
 	// Set the name
@@ -1250,7 +1250,7 @@ HLodClass & HLodClass::operator = (const HLodClass & that)
 		WWASSERT(LodCount >= 1);
 
 		Lod = new ModelArrayClass[LodCount];
-		WWASSERT(Lod != NULL);
+		WWASSERT(Lod != nullptr);
 		Cost = new float[LodCount];
 		WWASSERT(Cost);
 		// Value has LodCount + 1 entries so PostIncrementValue can always use
@@ -1351,37 +1351,37 @@ void HLodClass::Free(void)
 		for (model = 0; model < Lod[lod].Count(); model++) {
 
 			RenderObjClass * robj = Lod[lod][model].Model;
-			Lod[lod][model].Model = NULL;
+			Lod[lod][model].Model = nullptr;
 
 			WWASSERT(robj);
-			robj->Set_Container(NULL);
+			robj->Set_Container(nullptr);
 			robj->Release_Ref();
 
 		}
 
 		Lod[lod].Delete_All();
 	}
-	if (Lod != NULL) {
+	if (Lod != nullptr) {
 		delete[] Lod;
-		Lod = NULL;
+		Lod = nullptr;
 	}
 	LodCount = 0;
 
-	if (Cost != NULL) {
+	if (Cost != nullptr) {
 		delete[] Cost;
-		Cost = NULL;
+		Cost = nullptr;
 	}
-	if (Value != NULL) {
+	if (Value != nullptr) {
 		delete[] Value;
-		Value = NULL;
+		Value = nullptr;
 	}
 
 	for (model = 0; model < AdditionalModels.Count(); model++) {
 		RenderObjClass * robj = AdditionalModels[model].Model;
-		AdditionalModels[model].Model = NULL;
+		AdditionalModels[model].Model = nullptr;
 
 		WWASSERT(robj);
-		robj->Set_Container(NULL);
+		robj->Set_Container(nullptr);
 		robj->Release_Ref();
 	}
 	AdditionalModels.Delete_All();
@@ -1430,7 +1430,7 @@ void HLodClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 	if (BoundingBoxIndex >= 0 && BoundingBoxIndex < count) {
 
 		RenderObjClass *mesh = Lod[LodCount - 1][BoundingBoxIndex].Model;
-		if (mesh != NULL && mesh->Class_ID () == RenderObjClass::CLASSID_OBBOX) {
+		if (mesh != nullptr && mesh->Class_ID () == RenderObjClass::CLASSID_OBBOX) {
 
 			OBBoxRenderObjClass *obbox_mesh = (OBBoxRenderObjClass *)mesh;
 
@@ -1709,7 +1709,7 @@ int HLodClass::Get_Lod_Model_Count(int lod_index) const
  *=============================================================================================*/
 RenderObjClass *HLodClass::Peek_Lod_Model(int lod_index, int model_index) const
 {
-	RenderObjClass *pmodel = NULL;
+	RenderObjClass *pmodel = nullptr;
 
 	// Params valid?
 	WWASSERT(lod_index >= 0);
@@ -1741,7 +1741,7 @@ RenderObjClass *HLodClass::Peek_Lod_Model(int lod_index, int model_index) const
  *=============================================================================================*/
 RenderObjClass *HLodClass::Get_Lod_Model(int lod_index, int model_index) const
 {
-	RenderObjClass *pmodel = NULL;
+	RenderObjClass *pmodel = nullptr;
 
 	// Params valid?
 	WWASSERT(lod_index >= 0);
@@ -1752,7 +1752,7 @@ RenderObjClass *HLodClass::Get_Lod_Model(int lod_index, int model_index) const
 
 		// Get a pointer to the requested model
 		pmodel = Lod[lod_index][model_index].Model;
-		if (pmodel != NULL) {
+		if (pmodel != nullptr) {
 			pmodel->Add_Ref ();
 		}
 	}
@@ -1826,7 +1826,7 @@ int HLodClass::Get_Additional_Model_Count(void) const
  *=============================================================================================*/
 RenderObjClass * HLodClass::Peek_Additional_Model (int model_index) const
 {
-	RenderObjClass *pmodel = NULL;
+	RenderObjClass *pmodel = nullptr;
 
 	// Param valid?
 	WWASSERT(model_index >= 0);
@@ -1857,7 +1857,7 @@ RenderObjClass * HLodClass::Peek_Additional_Model (int model_index) const
  *=============================================================================================*/
 RenderObjClass * HLodClass::Get_Additional_Model (int model_index) const
 {
-	RenderObjClass *pmodel = NULL;
+	RenderObjClass *pmodel = nullptr;
 
 	// Param valid?
 	WWASSERT(model_index >= 0);
@@ -1867,7 +1867,7 @@ RenderObjClass * HLodClass::Get_Additional_Model (int model_index) const
 
 		// Get a pointer to the requested model
 		pmodel = AdditionalModels[model_index].Model;
-		if (pmodel != NULL) {
+		if (pmodel != nullptr) {
 			pmodel->Add_Ref ();
 		}
 	}
@@ -1909,7 +1909,7 @@ int HLodClass::Get_Additional_Model_Bone (int model_index) const
 
 
 /***********************************************************************************************
- * HLodClass::Is_NULL_Lod_Included -- does this HLod have NULL as its lowest LOD               *
+ * HLodClass::Is_NULL_Lod_Included -- does this HLod have nullptr as its lowest LOD               *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1925,7 +1925,7 @@ bool HLodClass::Is_NULL_Lod_Included(void) const
 	bool included = false;
 
 	// Determine if the lowest-level LOD is the null render object or not...
-	if ((LodCount > 0) && (Lod[0][0].Model != NULL)) {
+	if ((LodCount > 0) && (Lod[0][0].Model != nullptr)) {
 		included = (Lod[0][0].Model->Class_ID () == RenderObjClass::CLASSID_NULL);
 	}
 
@@ -1935,7 +1935,7 @@ bool HLodClass::Is_NULL_Lod_Included(void) const
 
 
 /***********************************************************************************************
- * HLodClass::Include_NULL_Lod -- Add NULL as the lowest LOD                                   *
+ * HLodClass::Include_NULL_Lod -- Add nullptr as the lowest LOD                                   *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1950,15 +1950,15 @@ void HLodClass::Include_NULL_Lod(bool include)
 {
 	if ((include == false) && Is_NULL_Lod_Included ()) {
 
-		// Free the 'NULL' object's stored information
+		// Free the 'nullptr' object's stored information
 		int index = 0;
 		for (int model = 0; model < Lod[index].Count (); model++) {
 
 			RenderObjClass * robj = Lod[index][model].Model;
-			Lod[index][model].Model = NULL;
+			Lod[index][model].Model = nullptr;
 
 			WWASSERT(robj);
-			robj->Set_Container (NULL);
+			robj->Set_Container (nullptr);
 			robj->Release_Ref ();
 		}
 
@@ -1986,10 +1986,10 @@ void HLodClass::Include_NULL_Lod(bool include)
 
 	} else if (include && (Is_NULL_Lod_Included () == false)) {
 
-		// Tag the NULL render object onto the end
-		RenderObjClass *null_object = WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("NULL");
-		WWASSERT (null_object != NULL);
-		if (null_object != NULL) {
+		// Tag the nullptr render object onto the end
+		RenderObjClass *null_object = WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("nullptr");
+		WWASSERT (null_object != nullptr);
+		if (null_object != nullptr) {
 
 			// Resize the lod array
 			ModelArrayClass *temp_lods = new ModelArrayClass[LodCount + 1];
@@ -2011,7 +2011,7 @@ void HLodClass::Include_NULL_Lod(bool include)
 			Cost = temp_cost;
 			LodCount ++;
 
-			// Add this NULL object to the start of the lod list
+			// Add this nullptr object to the start of the lod list
 			add_lod_model (0, null_object, 0);
 			null_object->Release_Ref ();
 		}
@@ -2041,7 +2041,7 @@ void HLodClass::Include_NULL_Lod(bool include)
  *=============================================================================================*/
 int HLodClass::Get_Proxy_Count(void) const
 {
-	if (ProxyArray != NULL) {
+	if (ProxyArray != nullptr) {
 		return ProxyArray->Length();
 	} else {
 		return 0;
@@ -2065,7 +2065,7 @@ bool HLodClass::Get_Proxy (int index, ProxyClass &proxy) const
 {
 	bool retval = false;
 
-	if (ProxyArray != NULL) {
+	if (ProxyArray != nullptr) {
 
 		//
 		//	Lookup the proxy's transform
@@ -2377,7 +2377,7 @@ int HLodClass::Add_Sub_Object(RenderObjClass * subobj)
 int HLodClass::Remove_Sub_Object(RenderObjClass * removeme)
 {
 	// no object given?
-	if (removeme == NULL) {
+	if (removeme == nullptr) {
 		return 0;
 	}
 
@@ -2414,7 +2414,7 @@ int HLodClass::Remove_Sub_Object(RenderObjClass * removeme)
 	if (found) {
 
 		// clear the object's container pointer
-		removeme->Set_Container(NULL);
+		removeme->Set_Container(nullptr);
 
 		// let him know in case he is removed from the scene as a result of this
 		// this is the combination of this HLod being in the scene and and this model
@@ -2500,7 +2500,7 @@ RenderObjClass * HLodClass::Get_Sub_Object_On_Bone(int index,int boneindex) cons
 			count++;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 
@@ -3314,7 +3314,7 @@ int HLodClass::Get_Num_Snap_Points(void)
  *=============================================================================================*/
 void HLodClass::Get_Snap_Point(int index,Vector3 * set)
 {
-	WWASSERT(set != NULL);
+	WWASSERT(set != nullptr);
 	if (SnapPoints) {
 		*set = (*SnapPoints)[index];
 	} else {
@@ -3414,7 +3414,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 		{
 			const char *name = model->Get_Name ();
 			const char *name_seg = ::strchr (name, '.');
-			if (name_seg != NULL) {
+			if (name_seg != nullptr) {
 				name = name_seg + 1;
 			}
 
@@ -3429,7 +3429,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 
 
 	int i;
-	RenderObjClass * robj = NULL;
+	RenderObjClass * robj = nullptr;
 
 	// if we don't have any sub objects, just set default bounds
 	if (Get_Num_Sub_Objects() <= 0) {
@@ -3505,7 +3505,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
  *=============================================================================================*/
 void HLodClass::add_lod_model(int lod,RenderObjClass * robj,int boneindex)
 {
-	WWASSERT(robj != NULL);
+	WWASSERT(robj != nullptr);
 
 	ModelNodeClass newnode;
 	newnode.Model = robj;

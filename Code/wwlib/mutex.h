@@ -45,7 +45,7 @@ class CriticalSectionClass
 	void Unlock();
 
 public:
-	// Name can (and usually should) be NULL. Use name only if you wish to create a globally unique mutex
+	// Name can (and usually should) be nullptr. Use name only if you wish to create a globally unique mutex
 	CriticalSectionClass();
 	~CriticalSectionClass();
 
@@ -100,7 +100,7 @@ class FastCriticalSectionClass
 	}
 
 public:
-	// Name can (and usually should) be NULL. Use name only if you wish to create a globally unique mutex
+	// Name can (and usually should) be nullptr. Use name only if you wish to create a globally unique mutex
     FastCriticalSectionClass() {}
 
 	class LockClass

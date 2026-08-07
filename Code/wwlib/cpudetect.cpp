@@ -905,7 +905,7 @@ void CPUDetectClass::Init_OS()
 	// GetVersionEx only returns the version of Windows it was manifested for since Windows 8.
 	// RtlGetVersion returns the correct information at least at the time of writing.
 	typedef LONG(WINAPI * RtlGetVersionFuncPtr)(PRTL_OSVERSIONINFOW);
-	HMODULE nt_lib = LoadLibraryExA("ntdll", NULL, 0);
+	HMODULE nt_lib = LoadLibraryExA("ntdll", nullptr, 0);
 	if (nt_lib != nullptr) {
 		RtlGetVersionFuncPtr RtlGetVersion = (RtlGetVersionFuncPtr)::GetProcAddress(nt_lib, "RtlGetVersion");
 

@@ -121,7 +121,7 @@ WinMain
 	catch (...)
 	{
 
-		::MessageBox (NULL, "Internal Application Error", "Unrecoverable Error", MB_ICONERROR | MB_OK);
+		::MessageBox (nullptr, "Internal Application Error", "Unrecoverable Error", MB_ICONERROR | MB_OK);
 	}
 #endif //_DEBUG
 
@@ -138,7 +138,7 @@ void
 Do_Version_Check (void)
 {
 	char curr_filename[MAX_PATH];
-	::GetModuleFileName (NULL, curr_filename, MAX_PATH);
+	::GetModuleFileName (nullptr, curr_filename, MAX_PATH);
 
 	CString filename = "\\\\cabal\\mis\\r&d\\w3d\\w3dview\\";
 	filename += ::Get_Filename_From_Path (curr_filename);
@@ -148,7 +148,7 @@ Do_Version_Check (void)
 	// against the version we are running.
 	//
 	if (Compare_EXE_Version (::AfxGetInstanceHandle (), filename) < 0) {
-		::MessageBox (NULL, "There is a newer version of the W3DViewer, please run W3DUpdate to upgrade your local copy.", "Version Info", MB_ICONEXCLAMATION | MB_OK | MB_SETFOREGROUND | MB_SYSTEMMODAL);
+		::MessageBox (nullptr, "There is a newer version of the W3DViewer, please run W3DUpdate to upgrade your local copy.", "Version Info", MB_ICONEXCLAMATION | MB_OK | MB_SETFOREGROUND | MB_SYSTEMMODAL);
 	}
 
 	return ;
@@ -172,9 +172,9 @@ BOOL CW3DViewApp::InitInstance (void)
 	RegisterColorBar (::AfxGetInstanceHandle ());
 
 	// Is there already an instance of the viewer running?
-	HWND hprev_instance = NULL;
+	HWND hprev_instance = nullptr;
 	::EnumWindows (fnTopLevelWindowSearch, (LPARAM)&hprev_instance);
-	if (hprev_instance == NULL) {
+	if (hprev_instance == nullptr) {
 
 		// Change the registry key under which our settings are stored.
 		// You should modify this string to be something appropriate
@@ -241,7 +241,7 @@ BOOL CW3DViewApp::InitInstance (void)
 		::SetForegroundWindow (hprev_instance);
 	}
 
-	return (hprev_instance == NULL);
+	return (hprev_instance == nullptr);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -330,7 +330,7 @@ void Debug_Refs(void)
 				  !strcmp(search_ref->File, ref->File) &&
 				  (search_ref->Line == ref->Line) ) {
 				count++;
-			} else if ( (ref->File == NULL) &&  (search_ref->File == NULL) ) {
+			} else if ( (ref->File == nullptr) &&  (search_ref->File == nullptr) ) {
 				count++;
 			}
 
@@ -388,7 +388,7 @@ CW3DViewApp::ExitInstance()
 		//	Free the asset manager
 		//
 		delete _TheAssetMgr;
-		_TheAssetMgr = NULL;
+		_TheAssetMgr = nullptr;
 	}
 
 	Debug_Refs ();
@@ -436,7 +436,7 @@ CAboutDlg::OnInitDialog (void)
 
 	// Get the name and path of the currently executing application
 	TCHAR filename[MAX_PATH];
-	::GetModuleFileName (NULL, filename, sizeof (filename));
+	::GetModuleFileName (nullptr, filename, sizeof (filename));
 
 	// Get the version information for this file
 	DWORD dummy_var = 0;
@@ -449,7 +449,7 @@ CAboutDlg::OnInitDialog (void)
 
 			// Query the block for the file version information
 			UINT version_len = 0;
-			VS_FIXEDFILEINFO *pversion_info = NULL;
+			VS_FIXEDFILEINFO *pversion_info = nullptr;
 			if (::VerQueryValue (pblock, "\\", (LPVOID *)&pversion_info, &version_len)) {
 				version_major = pversion_info->dwFileVersionMS;
 				version_minor = pversion_info->dwFileVersionLS;

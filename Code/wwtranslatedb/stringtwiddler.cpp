@@ -253,7 +253,7 @@ StringTwiddlerClass::Randomize (int lang_id)
 		//
 		int index = (rand () % count);
 		TDBObjClass *object = TranslateDBClass::Find_Object (StringList[index]);
-		if (object != NULL && object->As_StringTwiddlerClass () == NULL) {
+		if (object != nullptr && object->As_StringTwiddlerClass () == nullptr) {
 
 			//
 			//	Copy the string contents into ourselves

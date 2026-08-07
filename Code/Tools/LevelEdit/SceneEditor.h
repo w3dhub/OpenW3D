@@ -89,7 +89,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		//	Object creation/destruction
 		//
 		virtual void						Add_Node (NodeClass *node);
-		virtual NodeClass *				Create_Node (PresetClass *preset, Matrix3D *transform = NULL, DWORD obj_id = 0, bool add_to_scene = true);
+		virtual NodeClass *				Create_Node (PresetClass *preset, Matrix3D *transform = nullptr, DWORD obj_id = 0, bool add_to_scene = true);
 		virtual NodeClass *				Clone_Node (NodeClass *node);
 		virtual bool						Delete_Node (NodeClass *node, bool allow_undo = true);
 		virtual void						Delete_Nodes (void);
@@ -110,7 +110,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		virtual bool						Clone_Object (NodeClass * /* pnode */) { return false; }
 		virtual bool						Undo (void);
 		virtual void						Begin_Operation (OPERATION_TYPE type, NodeClass *node);
-		virtual void						Begin_Operation (OPERATION_TYPE type, NODE_LIST *affected_list = NULL);
+		virtual void						Begin_Operation (OPERATION_TYPE type, NODE_LIST *affected_list = nullptr);
 		virtual void						End_Operation (void);
 
 		//
@@ -129,7 +129,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		//
 		//	Group methods
 		//
-		virtual GroupMgrClass *			Add_Global_Group (const CString &name, NODE_LIST *initial_list = NULL);
+		virtual GroupMgrClass *			Add_Global_Group (const CString &name, NODE_LIST *initial_list = nullptr);
 		virtual void						Remove_Global_Group (GroupMgrClass *pgroup);
 		virtual void						Add_Group_To_Toolbar (GroupMgrClass *pgroup);
 		virtual void						Remove_Group_From_Toolbar (GroupMgrClass *pgroup);
@@ -153,7 +153,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		//	Hit test methods
 		//
 		bool									Execute_Function_At_Point (CPoint point);
-		NodeClass *							Find_Node_At_Point (CPoint point, Vector3 *intersect_pt = NULL);
+		NodeClass *							Find_Node_At_Point (CPoint point, Vector3 *intersect_pt = nullptr);
 		void									Select_Node_At_Point (CPoint point)					{ Set_Selection (Find_Node_At_Point (point)); }
 		void									Toggle_Node_Selection_At_Point (CPoint point)	{ Toggle_Selection (Find_Node_At_Point (point)); }
 
@@ -211,7 +211,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		void									Turn_Lights_On (bool onoff);
 		void									Reload_Lightmap_Models (void);
 		void									Export_Lights (LPCTSTR filename);
-		void									Import_Lights (DynamicVectorClass<StringClass> &filename_list, DynamicVectorClass<LightNodeClass *> *node_list = NULL);
+		void									Import_Lights (DynamicVectorClass<StringClass> &filename_list, DynamicVectorClass<LightNodeClass *> *node_list = nullptr);
 		void									Import_Sunlight (LPCTSTR filename);
 		void									Build_Light_List (ChunkLoadClass &cload, DynamicVectorClass<LightClass *> &light_list, uintptr_t group_id = 0);
 		void									Filter_Lights (DynamicVectorClass<LightClass *> &light_list);
@@ -269,7 +269,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		//////////////////////////////////////////////////////////
 		virtual void						Add_Groups_To_List (NodeClass &node, GROUP_LIST &group_list);
 		virtual void						Add_Nodes_To_List (NodeClass &node, NODE_LIST &node_list);
-		virtual void						Build_Group_List (GROUP_LIST &group_list, NodeClass *node = NULL);
+		virtual void						Build_Group_List (GROUP_LIST &group_list, NodeClass *node = nullptr);
 		virtual void						Build_Node_List (NODE_LIST &node_list, NodeClass *node);
 		virtual void						Update_Toolbars (void);
 		virtual void						Empty_Local_Clipboard (void);

@@ -62,7 +62,7 @@ GameResField::GameResField(const char *id, char data)
 	mSize	= sizeof(data);
 	mData	= new char[mSize];
 	memcpy(mData, &data, mSize);
-	mNext = NULL;
+	mNext = nullptr;
 	}
 
 
@@ -85,7 +85,7 @@ GameResField::GameResField(const char *id, unsigned char data)
 	mSize = sizeof(data);
 	mData = new char[mSize];
 	memcpy(mData, &data, mSize);
-	mNext = NULL;
+	mNext = nullptr;
 	}
 
 
@@ -108,7 +108,7 @@ GameResField::GameResField(const char *id, short data)
 	mSize = sizeof(data);
 	mData = new char[mSize];
 	memcpy(mData, &data, mSize);
-	mNext = NULL;
+	mNext = nullptr;
 	}
 
 
@@ -131,7 +131,7 @@ GameResField::GameResField(const char *id, unsigned short data)
 	mSize = sizeof(data);
 	mData = new char[mSize];
 	memcpy(mData, &data, mSize);
-	mNext = NULL;
+	mNext = nullptr;
 	}
 
 
@@ -154,7 +154,7 @@ GameResField::GameResField(const char *id, int data)
 	mSize = sizeof(data);
 	mData = new char[mSize];
 	memcpy(mData, &data, mSize);
-	mNext = NULL;
+	mNext = nullptr;
 	}
 
 
@@ -177,7 +177,7 @@ GameResField::GameResField(const char *id, unsigned int data)
 	mSize = sizeof(data);
 	mData = new char[mSize];
 	memcpy(mData, &data, mSize);
-	mNext = NULL;
+	mNext = nullptr;
 	}
 
 
@@ -200,7 +200,7 @@ GameResField::GameResField(const char *id, const char *data)
 	mSize = (unsigned short)(strlen(data)+1);
 	mData = new char[mSize];
 	memcpy(mData, data, mSize);
-	mNext = NULL;
+	mNext = nullptr;
 	}
 
 
@@ -223,7 +223,7 @@ GameResField::GameResField(const char *id, void *data, int length)
 	mSize = (unsigned short)length;
 	mData = new char[mSize];
 	memcpy(mData, data, mSize);
-	mNext = NULL;
+	mNext = nullptr;
 	}
 
 

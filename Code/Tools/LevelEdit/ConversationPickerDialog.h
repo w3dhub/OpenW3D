@@ -40,7 +40,7 @@ class ConversationPickerDialogClass : public CDialog
 {
 // Construction
 public:
-	ConversationPickerDialogClass(CWnd* pParent = NULL);   // standard constructor
+	ConversationPickerDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(ConversationPickerDialogClass)

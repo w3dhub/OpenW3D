@@ -259,11 +259,11 @@ static VARIANT yellow, solid;
 /////////////////////////////////////////////////////////////////////////
 //	Static member initialization
 /////////////////////////////////////////////////////////////////////////
-_Application *		ExcelClass::Application		= NULL;
-Workbooks *			ExcelClass::WorkbooksObj	= NULL;
-_Worksheet *		ExcelClass::WorksheetObj	= NULL;
-_Workbook *			ExcelClass::WorkbookObj		= NULL;
-Range *				ExcelClass::RangeObj			= NULL;
+_Application *		ExcelClass::Application		= nullptr;
+Workbooks *			ExcelClass::WorkbooksObj	= nullptr;
+_Worksheet *		ExcelClass::WorksheetObj	= nullptr;
+_Workbook *			ExcelClass::WorkbookObj		= nullptr;
+Range *				ExcelClass::RangeObj			= nullptr;
 StringClass			ExcelClass::CurrPath;
 
 
@@ -278,7 +278,7 @@ ExcelClass::Initialize (void)
 	//
 	//	Don't reinitialize
 	//
-	if (Application != NULL) {
+	if (Application != nullptr) {
 		return true;
 	}
 
@@ -298,7 +298,7 @@ ExcelClass::Initialize (void)
 		//	Get the workbook interface
 		//
 		LPDISPATCH dispatch = Application->GetWorkbooks ();
-		if (dispatch != NULL) {
+		if (dispatch != nullptr) {
 			retval = true;
 
 			//
@@ -362,12 +362,12 @@ ExcelClass::Shutdown (void)
 	SAFE_DELETE (RangeObj);
 	SAFE_DELETE (WorksheetObj);
 
-	if (WorkbooksObj != NULL) {
+	if (WorkbooksObj != nullptr) {
 		WorkbooksObj->Close ();
 		SAFE_DELETE (WorksheetObj);
 	}
 
-	if (Application != NULL) {
+	if (Application != nullptr) {
 		Application->Quit ();
 		Application->ReleaseDispatch ();
 		SAFE_DELETE (Application);
@@ -389,7 +389,7 @@ ExcelClass::Shutdown (void)
 void
 ExcelClass::New_Workbook (const char *template_filename)
 {
-	if (template_filename == NULL) {
+	if (template_filename == nullptr) {
 		return ;
 	}
 
@@ -407,7 +407,7 @@ ExcelClass::New_Workbook (const char *template_filename)
 	//	Create the new workbook
 	//
 	LPDISPATCH dispatch = WorkbooksObj->Add (temp);
-	if (dispatch != NULL) {
+	if (dispatch != nullptr) {
 
 		//
 		//	Create a new wrapper object for this workbook
@@ -438,7 +438,7 @@ ExcelClass::Open_Workbook (const char *filename)
 	LPDISPATCH dispatch = WorkbooksObj->Open (filename, dummy0, yes, dummy, nullstring,
 														nullstring, yes, dummy, dummy, no, no, dummy, no);
 
-	if (dispatch != NULL) {
+	if (dispatch != nullptr) {
 
 		//
 		//	Wrap the dispatch pointer in a friendlier object
@@ -459,7 +459,7 @@ ExcelClass::Open_Workbook (const char *filename)
 void
 ExcelClass::Save_Workbook (const char *filename)
 {
-	if (WorkbookObj == NULL) {
+	if (WorkbookObj == nullptr) {
 		return ;
 	}
 
@@ -482,7 +482,7 @@ ExcelClass::Save_Workbook (const char *filename)
 
 	VariantClear (&name);
 
-	/*if (WorkbookObj != NULL) {
+	/*if (WorkbookObj != nullptr) {
 		WorkbookObj->Save ();
 	}*/
 
@@ -515,7 +515,7 @@ ExcelClass::Save_Workbook (const char *filename)
 	//	Save the workbook and refresh our workbook object
 	//
 	LPDISPATCH dispatch = WorkbooksObj->Add (temp);
-	if (dispatch != NULL) {
+	if (dispatch != nullptr) {
 		WorkbookObj = new _Workbook (dispatch);
 	}
 
@@ -536,7 +536,7 @@ ExcelClass::Close_Workbook (void)
 	//
 	//	Simply close and delete the workbook
 	//
-	if (WorkbookObj != NULL) {
+	if (WorkbookObj != nullptr) {
 		WorkbookObj->SetSaved (true);
 		WorkbookObj->Close (no, nullstring, no);
 		SAFE_DELETE (WorkbookObj);
@@ -696,7 +696,7 @@ ExcelClass::Select_Active_Sheet (void)
 	//
 	//	If possible, attach the new worksheet
 	//
-	if (dispatch != NULL) {
+	if (dispatch != nullptr) {
 		WorksheetObj->ReleaseDispatch ();
 		WorksheetObj->AttachDispatch (dispatch);
 	}
@@ -713,7 +713,7 @@ ExcelClass::Select_Active_Sheet (void)
 bool
 ExcelClass::Get_Cell (int row, int col, VARIANT &result)
 {
-	if (WorksheetObj == NULL) {
+	if (WorksheetObj == nullptr) {
 		return false;
 	}
 
@@ -736,7 +736,7 @@ ExcelClass::Get_Cell (int row, int col, VARIANT &result)
 	//	Get the data
 	//
 	LPDISPATCH dispatch = WorksheetObj->GetRange (cell, cell);
-	if (dispatch != NULL) {
+	if (dispatch != nullptr) {
 
 		//
 		//	Retrieve the data from the range object
@@ -763,7 +763,7 @@ ExcelClass::Get_Cell (int row, int col, VARIANT &result)
 bool
 ExcelClass::Set_Cell (int row, int col, const VARIANT &data)
 {
-	if (WorksheetObj == NULL) {
+	if (WorksheetObj == nullptr) {
 		return false;
 	}
 
@@ -786,7 +786,7 @@ ExcelClass::Set_Cell (int row, int col, const VARIANT &data)
 	//	Get the cell range
 	//
 	LPDISPATCH dispatch = WorksheetObj->GetRange (cell, cell);
-	if (dispatch != NULL) {
+	if (dispatch != nullptr) {
 
 		//
 		//	Shove our new data into this range

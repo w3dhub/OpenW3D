@@ -55,7 +55,7 @@ namespace IME {
 
 IMECandidate::IMECandidate() :
 		mCandidateSize(0),
-		mCandidates(NULL)
+		mCandidates(nullptr)
 	{
 	Close();
 	}
@@ -142,18 +142,18 @@ void IMECandidate::Read(void)
 		// Get the size of the candidate list
 		if (mUseUnicode)
 			{
-			size = ImmGetCandidateListW(imc, mIndex, NULL, 0);
+			size = ImmGetCandidateListW(imc, mIndex, nullptr, 0);
 			}
 		else
 			{
-			size = ImmGetCandidateList(imc, mIndex, NULL, 0);
+			size = ImmGetCandidateList(imc, mIndex, nullptr, 0);
 			}
 
 		// Allocate space to hold candidates
-		if ((mCandidates == NULL) || (size > mCandidateSize))
+		if ((mCandidates == nullptr) || (size > mCandidateSize))
 			{
 			// Free the existing candidate buffer
-			if (mCandidates != NULL)
+			if (mCandidates != nullptr)
 				{
 				delete[] mCandidates;
 				}
@@ -163,7 +163,7 @@ void IMECandidate::Read(void)
 			mCandidateSize = size;
 			}
 
-		if (mCandidates != NULL)
+		if (mCandidates != nullptr)
 			{
 			if (mUseUnicode)
 				{
@@ -202,7 +202,7 @@ void IMECandidate::Read(void)
 void IMECandidate::Close(void)
 	{
 	mIndex = -1;
-	mHWND = NULL;
+	mHWND = nullptr;
 	mCodePage = CP_ACP;
 	mUseUnicode = true;
 	mStartFrom1 = true;
@@ -232,7 +232,7 @@ void IMECandidate::Close(void)
 
 bool IMECandidate::IsValid(void) const
 	{
-	return ((-1 != mIndex) && (mCandidates != NULL));
+	return ((-1 != mIndex) && (mCandidates != nullptr));
 	}
 
 
@@ -274,7 +274,7 @@ int IMECandidate::GetIndex(void) const
 
 unsigned int IMECandidate::GetStyle(void) const
 	{
-	WWASSERT(mCandidates != NULL);
+	WWASSERT(mCandidates != nullptr);
 	return mCandidates->dwStyle;
 	}
 
@@ -294,7 +294,7 @@ unsigned int IMECandidate::GetStyle(void) const
 
 unsigned int IMECandidate::GetPageStart(void) const
 	{
-	WWASSERT(mCandidates != NULL);
+	WWASSERT(mCandidates != nullptr);
 	return mCandidates->dwPageStart;
 	}
 
@@ -351,7 +351,7 @@ void IMECandidate::SetPageStart(unsigned int start)
 
 unsigned int IMECandidate::GetPageSize(void) const
 	{
-	WWASSERT(mCandidates != NULL);
+	WWASSERT(mCandidates != nullptr);
 	return mCandidates->dwPageSize;
 	}
 
@@ -400,7 +400,7 @@ unsigned int IMECandidate::GetCount(void) const
 
 unsigned int IMECandidate::GetSelection(void) const
 	{
-	WWASSERT(mCandidates != NULL);
+	WWASSERT(mCandidates != nullptr);
 	return mCandidates->dwSelection;
 	}
 
@@ -483,7 +483,7 @@ const unichar_t* IMECandidate::GetCandidate(unsigned int index)
 		return reinterpret_cast<unichar_t *>(mTempString);;
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 

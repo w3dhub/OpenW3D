@@ -137,7 +137,7 @@ class UString
 		bool Resize(UInt size);
 
 		const WChar* Get(void) const
-			{return (mData != NULL) ? mData : L"";}
+			{return (mData != nullptr) ? mData : L"";}
 
 		//! Assignment operator
 		UString operator=(const Char* s)

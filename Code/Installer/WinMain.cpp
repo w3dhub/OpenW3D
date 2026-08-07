@@ -122,7 +122,7 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 			//	Load the translation table.
 			file = _TheFileFactory->Get_File (installstringsfilename);
-			if (file == NULL) {
+			if (file == nullptr) {
 
 				// Output an appropriate Windows error message.
 				SetLastError (2);
@@ -161,10 +161,10 @@ int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 												StringClass (TxWideStringClass (IDS_APPLICATION_NAME)),
 												WS_SYSMENU|WS_CAPTION|WS_MINIMIZEBOX|WS_CLIPCHILDREN,
 												0, 0, 0, 0,
-												NULL, NULL,
-												hInstance, NULL);
+												nullptr, nullptr,
+												hInstance, nullptr);
 
-			if (MainWindow == NULL) FATAL_SYSTEM_ERROR;
+			if (MainWindow == nullptr) FATAL_SYSTEM_ERROR;
 
 			ShowCursor (false);
 			_Installer.Install (&mixfilefactory);
@@ -213,7 +213,7 @@ ATOM MyRegisterClass (HINSTANCE hInstance)
 	wcex.cbWndExtra	 = 0;
 	wcex.hInstance		 = hInstance;
 	wcex.hIcon			 = LoadIcon(hInstance, (LPCTSTR)IDI_INSTALLER);
-	wcex.hCursor		 = LoadCursor(NULL, IDC_ARROW);
+	wcex.hCursor		 = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
 	wcex.lpszMenuName	 = (LPCSTR)IDS_INSTALLER;
 	wcex.lpszClassName = _classname;
@@ -240,7 +240,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	//	Pass this message through to the input handler. If the message
 	//	was processed and requires no further action, then return with
 	//	this information.
-	if (_Installer.Get_Input() != NULL) {
+	if (_Installer.Get_Input() != nullptr) {
 
 		LRESULT result = 0;
 
@@ -265,7 +265,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return (1);
 
 		case WM_PAINT:
-			ValidateRect (hWnd, NULL);
+			ValidateRect (hWnd, nullptr);
 			break;
 
 		case WM_CREATE:
@@ -313,7 +313,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case WM_MOUSEWHEEL:
 		{
-			if (_Installer.Get_Input() != NULL) {
+			if (_Installer.Get_Input() != nullptr) {
 				_Installer.Get_Input()->Add_Mouse_Wheel (HIWORD (wParam));
 				return (0);
 			}
@@ -325,7 +325,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			PDEV_BROADCAST_HDR pdbch;
 
 			pdbch = (PDEV_BROADCAST_HDR) lParam;
-			if (pdbch != NULL) {
+			if (pdbch != nullptr) {
 				if (pdbch->dbch_devicetype == DBT_DEVTYP_VOLUME) {
 
 					// Assume that this is the CD-ROM drive.
@@ -370,16 +370,16 @@ bool Is_Autorun_Running()
 {
 	HANDLE autorunmutex = OpenMutex (MUTEX_ALL_ACCESS & SYNCHRONIZE, false, AUTORUN_MUTEX_OBJECT);
 
-	if (autorunmutex != NULL) {
+	if (autorunmutex != nullptr) {
 
-		HWND window = FindWindow (RxStringClass (IDS_AUTORUN_MAIN_WINDOW), NULL);
+		HWND window = FindWindow (RxStringClass (IDS_AUTORUN_MAIN_WINDOW), nullptr);
 		if (window) {
 
 			CDTimerClass <SafeTimerClass> delaytimer (10 * 1000);
 
 			// Hang around for a while to see if Autorun is about to quit...
-			while ((delaytimer.Value() > 0) && (window != NULL)) {
-				window = FindWindow (RxStringClass (IDS_AUTORUN_MAIN_WINDOW), NULL);
+			while ((delaytimer.Value() > 0) && (window != nullptr)) {
+				window = FindWindow (RxStringClass (IDS_AUTORUN_MAIN_WINDOW), nullptr);
 			}
 		}
 
@@ -395,7 +395,7 @@ bool Is_Autorun_Running()
 		}
 	}
 
-	return (autorunmutex != NULL);
+	return (autorunmutex != nullptr);
 }
 
 
@@ -413,11 +413,11 @@ bool Is_Autorun_Running()
  *=============================================================================================*/
 bool Is_Application_Running()
 {
-	HANDLE appmutex = CreateMutex (NULL, false, APPLICATION_MUTEX_OBJECT);
-	if (appmutex == NULL) FATAL_SYSTEM_ERROR;
+	HANDLE appmutex = CreateMutex (nullptr, false, APPLICATION_MUTEX_OBJECT);
+	if (appmutex == nullptr) FATAL_SYSTEM_ERROR;
 
 	// See if the application was already running.
-	HWND prev = FindWindow (RxStringClass (IDS_APPLICATION_MAIN_WINDOW), NULL);
+	HWND prev = FindWindow (RxStringClass (IDS_APPLICATION_MAIN_WINDOW), nullptr);
 	if (prev) {
 		if (IsIconic (prev)) {
 			ShowWindow (prev, SW_RESTORE);
@@ -504,7 +504,7 @@ bool Running_As_Administrator()
 {
 	bool			  fAdmin;
 	HANDLE		  hThread;
-	TOKEN_GROUPS *ptg = NULL;
+	TOKEN_GROUPS *ptg = nullptr;
 	DWORD			  cbTokenGroups;
 	DWORD			  dwGroup;
 	PSID			  psidAdmin;
@@ -526,8 +526,8 @@ bool Running_As_Administrator()
 	}
 
 	// Query the size of the group information associated with the token. Note that we expect a false result from GetTokenInformation
-	// because we've given it a NULL buffer. On exit cbTokenGroups will tell the size of the group information.
-	if (GetTokenInformation (hThread, TokenGroups, NULL, 0, &cbTokenGroups)) {
+	// because we've given it a nullptr buffer. On exit cbTokenGroups will tell the size of the group information.
+	if (GetTokenInformation (hThread, TokenGroups, nullptr, 0, &cbTokenGroups)) {
 		return (false);
 	}
 

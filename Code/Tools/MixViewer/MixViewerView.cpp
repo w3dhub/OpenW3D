@@ -158,7 +158,7 @@ CMixViewerView::Reload (const char *filename)
 	CurrentFilename = filename;
 
 	CMixViewerDoc *document = GetDocument ();
-	if (document == NULL) {
+	if (document == nullptr) {
 		return ;
 	}
 
@@ -258,11 +258,11 @@ MixFilenamesListSortCallback
 	//
 	StringClass *item_data1 = (StringClass *)lParam1;
 	StringClass *item_data2 = (StringClass *)lParam2;
-	if (item_data1 != NULL && item_data2 != NULL) {
+	if (item_data1 != nullptr && item_data2 != nullptr) {
 
 
-		bool is_1_dir = (::strrchr (*item_data1, '\\') != NULL);
-		bool is_2_dir = (::strrchr (*item_data2, '\\') != NULL);
+		bool is_1_dir = (::strrchr (*item_data1, '\\') != nullptr);
+		bool is_2_dir = (::strrchr (*item_data2, '\\') != nullptr);
 
 		if (is_1_dir && is_2_dir == false) {
 			retval = -1;
@@ -301,9 +301,9 @@ CMixViewerView::OnDeleteitem (NMHDR *pNMHDR, LRESULT *pResult)
 	//
 	//	Free the string
 	//
-	if (string != NULL) {
+	if (string != nullptr) {
 		delete string;
-		string = NULL;
+		string = nullptr;
 	}
 
 	return ;

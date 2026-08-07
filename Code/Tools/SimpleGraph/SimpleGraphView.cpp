@@ -534,7 +534,7 @@ CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 		m_Max.X += units_x;
 		m_Max.Y += units_y;
 
-		InvalidateRect (NULL, true);
+		InvalidateRect (nullptr, true);
 		UpdateWindow ();
 
 	} else if (m_IsZooming) {
@@ -555,7 +555,7 @@ CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 		m_Max.X = m_Max.X + (factor * delta_x);
 		m_Max.Y = m_Max.Y + (factor * delta_y);
 
-		InvalidateRect (NULL, true);
+		InvalidateRect (nullptr, true);
 		UpdateWindow ();
 
 	} else if (m_DraggingPt >= 0) {
@@ -767,7 +767,7 @@ CSimpleGraphView::Get_Graph_Rect (CRect &rect)
 void
 CSimpleGraphView::OnInitialUpdate (void)
 {
-	HDC screen_dc = ::GetDC (NULL);
+	HDC screen_dc = ::GetDC (nullptr);
 	m_Font	= CreateFont (-::MulDiv (7, GetDeviceCaps(screen_dc, LOGPIXELSY), 72),
 										0,
 										0,
@@ -782,7 +782,7 @@ CSimpleGraphView::OnInitialUpdate (void)
 										DEFAULT_QUALITY,
 										DEFAULT_PITCH,
 										"Small Fonts");
-	::ReleaseDC (NULL, screen_dc);
+	::ReleaseDC (nullptr, screen_dc);
 
 	CView::OnInitialUpdate();
 	return ;
@@ -889,7 +889,7 @@ CSimpleGraphView::OnZoomExtents (void)
 		m_Max.X += (delta_x / 100.0F);
 		m_Max.Y += (delta_y / 100.0F);
 
-		InvalidateRect (NULL, true);
+		InvalidateRect (nullptr, true);
 		UpdateWindow ();
 	}
 

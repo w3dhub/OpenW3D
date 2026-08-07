@@ -39,10 +39,10 @@ static char THIS_FILE[] = __FILE__;
 // ConversationPickerDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-ConversationPickerDialogClass::ConversationPickerDialogClass (CWnd *pParent /*=NULL*/)
-	:	Conversation (NULL),
-		GlobalsRoot (NULL),
-		LevelsRoot (NULL),
+ConversationPickerDialogClass::ConversationPickerDialogClass (CWnd *pParent /*=nullptr*/)
+	:	Conversation (nullptr),
+		GlobalsRoot (nullptr),
+		LevelsRoot (nullptr),
 		CDialog (ConversationPickerDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(ConversationPickerDialogClass)
@@ -90,20 +90,20 @@ ConversationPickerDialogClass::OnSelchangedConversationTree
 {
 	(*pResult) = 0;
 
-	Conversation = NULL;
+	Conversation = nullptr;
 
 	//
 	//	Lookup the currently selected conversation
 	//
 	HTREEITEM selected_item = m_TreeCtrl.GetSelectedItem ();
-	if (selected_item != NULL) {
+	if (selected_item != nullptr) {
 		Conversation = (ConversationClass *)m_TreeCtrl.GetItemData (selected_item);
 	}
 
 	//
 	//	Update the enable state based on whether or not a conversation was selected
 	//
-	::EnableWindow (::GetDlgItem (m_hWnd, IDOK), (Conversation != NULL));
+	::EnableWindow (::GetDlgItem (m_hWnd, IDOK), (Conversation != nullptr));
 	return ;
 }
 
@@ -155,7 +155,7 @@ ConversationPickerDialogClass::OnInitDialog (void)
 void
 ConversationPickerDialogClass::OnOK (void)
 {
-	if (Conversation != NULL) {
+	if (Conversation != nullptr) {
 		CDialog::OnOK ();
 	}
 
@@ -184,7 +184,7 @@ ConversationPickerDialogClass::Insert_Entry (ConversationClass *conversation)
 	//
 	HTREEITEM tree_item = m_TreeCtrl.InsertItem (conversation->Get_Name (), DIALOGUE_ICON,
 													DIALOGUE_ICON, parent_item);
-	if (tree_item != NULL) {
+	if (tree_item != nullptr) {
 
 		//
 		//	Associate the conversation with the entry in the tree

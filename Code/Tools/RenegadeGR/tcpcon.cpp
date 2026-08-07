@@ -23,7 +23,7 @@
 
 TCPCon::TCPCon(SOCKET sock) :
   BufferedWrites_(false),
-  TCPMgrPtr_(NULL)
+  TCPMgrPtr_(nullptr)
 {
   Socket_=sock;
   isConnected();  // This will set the internal connect status
@@ -110,7 +110,7 @@ void TCPCon::pumpWrites(void)
 
   int   sendlen;
   int   retval;
-  uint8 *bufptr=NULL;
+  uint8 *bufptr=nullptr;
 
   while(1)
   {
@@ -124,7 +124,7 @@ void TCPCon::pumpWrites(void)
     if (retval <= 0)
       break;
 
-    WriteQueue_.removeMany(NULL, 0, retval);  // successful send
+    WriteQueue_.removeMany(nullptr, 0, retval);  // successful send
   }
   return;
 }
@@ -145,7 +145,7 @@ sint32 TCPCon::normalWrite(IN uint8 *msg,uint32 len, sint32 wait_secs)
 
   sint32 retval=0;
   sint32 sendCount=0;
-  time_t start=time(NULL);
+  time_t start=time(nullptr);
 
   TCPMgr::STATUS status;
 
@@ -168,7 +168,7 @@ sint32 TCPCon::normalWrite(IN uint8 *msg,uint32 len, sint32 wait_secs)
     else if (retval > 0)
       sendCount+=retval;
 
-    sint32 remaining_wait=wait_secs - (time(NULL)-start);
+    sint32 remaining_wait=wait_secs - (time(nullptr)-start);
     if ((remaining_wait > 0) && (TCPMgr::wait(remaining_wait,0,&Socket_,1,false) > 0))
       continue;  // I can write now....
 
@@ -188,7 +188,7 @@ sint32 TCPCon::read(OUT uint8 *msg,uint32 maxlen, sint32 wait_secs)
 {
   sint32 retval=0;
   sint32 recvCount=0;
-  time_t start=time(NULL);
+  time_t start=time(nullptr);
   char   readBuffer[257];
 
   if (wait_secs < 0)
@@ -250,7 +250,7 @@ sint32 TCPCon::read(OUT uint8 *msg,uint32 maxlen, sint32 wait_secs)
         return(-1);
     }
 
-    sint32 remaining_wait=wait_secs - (time(NULL)-start);
+    sint32 remaining_wait=wait_secs - (time(nullptr)-start);
     if ((remaining_wait > 0) && (TCPMgr::wait(remaining_wait,0,&Socket_,1,true) > 0))
       continue;  // I can read now....
 

@@ -56,11 +56,11 @@ class Grid3DClass
 		////////////////////////////////////////////////////////////////////
 		Grid3DClass (void)
 			:	m_GridSize (0, 0, 0),
-				m_Grid (NULL)				{ }
+				m_Grid (nullptr)				{ }
 
 		Grid3DClass (const Vector3 &grid_size, const T &inital_value)
 			:	m_GridSize (0, 0, 0),
-				m_Grid (NULL)				{ Create_Grid (grid_size, inital_value); }
+				m_Grid (nullptr)				{ Create_Grid (grid_size, inital_value); }
 
 		virtual ~Grid3DClass (void)	{ Free_Grid (); }
 
@@ -145,9 +145,9 @@ template<class T>
 inline void
 Grid3DClass<T>::Free_Grid (void)
 {
-	if (m_Grid != NULL) {
+	if (m_Grid != nullptr) {
 		delete m_Grid;
-		m_Grid = NULL;
+		m_Grid = nullptr;
 	}
 
 	m_GridSize.Set (0, 0, 0);
@@ -177,7 +177,7 @@ template<class T>
 inline T &
 Grid3DClass<T>::Get_At (int x, int y, int z)
 {
-	WWASSERT (m_Grid != NULL);
+	WWASSERT (m_Grid != nullptr);
 	WWASSERT ((x < m_GridSize.X) && (y < m_GridSize.Y) && (z < m_GridSize.Z));
 
 	return m_Grid[Cell_Coord_To_Index (x, y, z)];
@@ -193,7 +193,7 @@ template<class T>
 inline void
 Grid3DClass<T>::Set_At (int x, int y, int z, const T &value)
 {
-	WWASSERT (m_Grid != NULL);
+	WWASSERT (m_Grid != nullptr);
 	WWASSERT ((x < m_GridSize.X) && (y < m_GridSize.Y) && (z < m_GridSize.Z));
 
 	m_Grid[Cell_Coord_To_Index (x, y, z)] = value;

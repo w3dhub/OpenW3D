@@ -44,14 +44,14 @@ int main(int argc, char* argv[])
 	/*
 	** Open the input file
 	*/
-	HANDLE inputfile = CreateFile(argv[1],GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
+	HANDLE inputfile = CreateFile(argv[1],GENERIC_READ,FILE_SHARE_READ,nullptr,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,nullptr);
 	if (inputfile == INVALID_HANDLE_VALUE) {
 		printf("Could not open file: %s\n",argv[1]);
 		Print_Usage();
 		return 1;
 	}
 
-	DWORD inputsize = GetFileSize(inputfile,NULL);
+	DWORD inputsize = GetFileSize(inputfile,nullptr);
 
 	/*
 	** Open up the two output files
@@ -62,18 +62,18 @@ int main(int argc, char* argv[])
 	char cpp_fname[_MAX_DRIVE + _MAX_DIR + _MAX_FNAME + _MAX_EXT];
 	char h_fname[_MAX_DRIVE + _MAX_DIR + _MAX_FNAME + _MAX_EXT];
 
-	_splitpath(argv[1],drive,dir,fname,NULL);
+	_splitpath(argv[1],drive,dir,fname,nullptr);
 	_makepath(cpp_fname,drive,dir,fname,"cpp");
 	_makepath(h_fname,drive,dir,fname,"h");
 
-	HANDLE hfile = CreateFile(h_fname,GENERIC_WRITE,0,NULL,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,NULL);
+	HANDLE hfile = CreateFile(h_fname,GENERIC_WRITE,0,nullptr,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,nullptr);
 	if (hfile == INVALID_HANDLE_VALUE) {
 		printf("Could not create file: %s\n",h_fname);
 		Print_Usage();
 		return 1;
 	}
 
-	HANDLE cppfile = CreateFile(cpp_fname,GENERIC_WRITE,0,NULL,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,NULL);
+	HANDLE cppfile = CreateFile(cpp_fname,GENERIC_WRITE,0,nullptr,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,nullptr);
 	if (cppfile == INVALID_HANDLE_VALUE) {
 		printf("Could not create file: %s\n",h_fname);
 		Print_Usage();
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 		DWORD readsize = min(LINELEN,inputsize - bytesread);
 		DWORD actualread;
 
-		ReadFile(inputfile,bytes,readsize,&actualread,NULL);
+		ReadFile(inputfile,bytes,readsize,&actualread,nullptr);
 		assert(actualread == readsize);
 		bytesread += readsize;
 
@@ -135,7 +135,7 @@ void Write(HANDLE file,const char * format,...)
 	va_end(va);
 
 	unsigned int byteswritten;
-	WriteFile(file,_StringBuf,strlen(_StringBuf),&byteswritten,NULL);
+	WriteFile(file,_StringBuf,strlen(_StringBuf),&byteswritten,nullptr);
 }
 
 void Write_Bytes(HANDLE file,const char * bytes,int bytecount)

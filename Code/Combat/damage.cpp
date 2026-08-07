@@ -86,8 +86,8 @@ StringClass SpecialDamageExplosion[ArmorWarheadManager::NUM_SPECIAL_DAMAGE_TYPES
 // Skins that are imprevious to special damage
 DynamicVectorClass<ArmorType>		ImperviousSkins[ArmorWarheadManager::NUM_SPECIAL_DAMAGE_TYPES];
 
-safe_float		*	ArmorWarheadManager::Multipliers = NULL;
-safe_float		*	ArmorWarheadManager::Absorbsion = NULL;
+safe_float		*	ArmorWarheadManager::Multipliers = nullptr;
+safe_float		*	ArmorWarheadManager::Absorbsion = nullptr;
 
 #define	ARMOR_INI_FILENAME		"armor.ini"
 
@@ -117,7 +117,7 @@ void	ArmorWarheadManager::Init( void )
 	Shutdown();
 
 	INIClass	* armorINI = Get_INI( ARMOR_INI_FILENAME );
-	if (armorINI != NULL) {
+	if (armorINI != nullptr) {
 
 		WWASSERT( armorINI && armorINI->Section_Count() > 0 );
 
@@ -307,14 +307,14 @@ void	ArmorWarheadManager::Init( void )
 
 void ArmorWarheadManager::Shutdown( void )
 {
-	if ( Multipliers != NULL ) {
+	if ( Multipliers != nullptr ) {
 		delete [] Multipliers;
-		Multipliers = NULL;
+		Multipliers = nullptr;
 	}
 
-	if ( Absorbsion != NULL ) {
+	if ( Absorbsion != nullptr ) {
 		delete [] Absorbsion;
-		Absorbsion = NULL;
+		Absorbsion = nullptr;
 	}
 
 	ArmorNames.Delete_All();
@@ -704,7 +704,7 @@ float	DefenseObjectClass::Apply_Damage( const OffenseObjectClass & offense, floa
 	bool normal = IS_SOLOPLAY || !cCsDamageEvent::Get_Are_Clients_Trusted();
 	DamageableGameObj * owner = Get_Owner();
 	// Buildings have no owner
-	if ( owner == NULL || owner->As_BuildingGameObj() ) {
+	if ( owner == nullptr || owner->As_BuildingGameObj() ) {
 		normal = true;
 	}
 	if ( offense.ForceServerDamage || !offense.EnableClientDamage ) {
@@ -723,7 +723,7 @@ float	DefenseObjectClass::Apply_Damage( const OffenseObjectClass & offense, floa
 	// If I am a server, and the damager has a client, ignore the damage
 	bool has_client = false;
 	bool my_client = false;
-	if ( offense.Get_Owner() != NULL && offense.Get_Owner()->As_SmartGameObj() ) {
+	if ( offense.Get_Owner() != nullptr && offense.Get_Owner()->As_SmartGameObj() ) {
 		int control_owner = offense.Get_Owner()->As_SmartGameObj()->Get_Control_Owner();
 		has_client = control_owner > 0;
 		my_client = control_owner == CombatManager::Get_My_Id();
@@ -784,9 +784,9 @@ void	DefenseObjectClass::Request_Damage( const OffenseObjectClass & offense, flo
 */
 float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float scale, int alternate_skin )
 {
-	SmartGameObj * smart = NULL;
+	SmartGameObj * smart = nullptr;
 
-	if ( offense.Get_Owner() != NULL ) {
+	if ( offense.Get_Owner() != nullptr ) {
 		smart = offense.Get_Owner()->As_SmartGameObj();
 	}
 
@@ -799,19 +799,19 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 	int damager_id = -1;
 	int damagee_id = -1;
 
-	if (offense.Get_Owner() != NULL) {
+	if (offense.Get_Owner() != nullptr) {
 		damager_id = offense.Get_Owner()->Get_Network_ID();
 	}
 
-	if (Get_Owner() != NULL) {
+	if (Get_Owner() != nullptr) {
 		damagee_id = Get_Owner()->Get_Network_ID();
 	}
 
-	if (offense.Get_Owner() != NULL && damagee_id != -1) {
+	if (offense.Get_Owner() != nullptr && damagee_id != -1) {
 		offense.Get_Owner()->Set_Last_Object_Id_I_Damaged(damagee_id);
 	}
 
-	if (Get_Owner() != NULL && damager_id != -1) {
+	if (Get_Owner() != nullptr && damager_id != -1) {
 		Get_Owner()->Set_Last_Object_Id_I_Got_Damaged_By(damager_id);
 	}
 
@@ -840,7 +840,7 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 	}
 
 	// check for punish = no more damage
-	if ( smart != NULL && smart->Get_Player_Data() ) {
+	if ( smart != nullptr && smart->Get_Player_Data() ) {
 #define	PUNISH_DELAY	60
 		if ( smart->Get_Player_Data()->Get_Punish_Timer() > PUNISH_DELAY ) {
 			damage_scale = 0;
@@ -945,7 +945,7 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 		}
 	}
 
-	if ( COMBAT_STAR != NULL &&			// dedicated server test
+	if ( COMBAT_STAR != nullptr &&			// dedicated server test
 		  Get_Owner() == COMBAT_STAR ) {
 		Vector3 pos;
 		Get_Owner()->Get_Position( &pos );
@@ -962,7 +962,7 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 	   DIAG_LOG(( "DRCV", "%s; %d; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f", weapon_name, hitter_id, points, armor, static_cast<float>(Health), pos.X, pos.Y, pos.Z ));
 	}
 
-	if (( smart == COMBAT_STAR ) && ( smart != NULL )) {
+	if (( smart == COMBAT_STAR ) && ( smart != nullptr )) {
 		Vector3 pos;
 		smart->Get_Position( &pos );
 		const char * weapon_name = "";
@@ -990,14 +990,14 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 	if ( damage > 0 && (float)Health <= 0 ) {
 		int victim_id = 0;
 		Vector3 victim_pos(0,0,0);
-		if ( Get_Owner() != NULL ) {
+		if ( Get_Owner() != nullptr ) {
 			victim_id = Get_Owner()->Get_ID();
 			Get_Owner()->Get_Position( &victim_pos );
 		}
 		int killer_id = 0;
 		Vector3 killer_pos(0,0,0);
 		const char * weapon_name = "";
-		if ( smart != NULL ) {
+		if ( smart != nullptr ) {
 			killer_id = smart->Get_ID();
 			smart->Get_Position( &killer_pos );
 			if ( smart->Get_Weapon() ) {
@@ -1012,16 +1012,16 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 
 	if (damage > 0 &&
 		 (float) Health <= 0 &&
-		 smart != NULL &&
-		 smart->As_SoldierGameObj() != NULL &&
-		 Get_Owner() != NULL &&
-		 Get_Owner()->As_SoldierGameObj() != NULL) {
+		 smart != nullptr &&
+		 smart->As_SoldierGameObj() != nullptr &&
+		 Get_Owner() != nullptr &&
+		 Get_Owner()->As_SoldierGameObj() != nullptr) {
 
 		CombatManager::On_Soldier_Kill(smart->As_SoldierGameObj(), Get_Owner()->As_SoldierGameObj());
 	}
 
 	// Apply Points for damage/death
-	if ( smart != NULL && smart->Get_Player_Data() ) {
+	if ( smart != nullptr && smart->Get_Player_Data() ) {
 
 		float points_dir = 1;
 
@@ -1073,8 +1073,8 @@ bool DefenseObjectClass::Would_Damage( const OffenseObjectClass	& offense, float
 	float damage_scale = ArmorWarheadManager::Get_Damage_Multiplier( Skin, offense.Get_Warhead() );
 	float shield_damage_scale = ArmorWarheadManager::Get_Damage_Multiplier( ShieldType, offense.Get_Warhead() );
 
-	SmartGameObj * smart = NULL;
-	if ( offense.Get_Owner() != NULL ) {
+	SmartGameObj * smart = nullptr;
+	if ( offense.Get_Owner() != nullptr ) {
 		smart = offense.Get_Owner()->As_SmartGameObj();
 	}
 	if (	smart && Get_Owner() &&
@@ -1331,7 +1331,7 @@ void DefenseObjectClass::Set_Precision(void)
 */
 void	DefenseObjectClass::Mark_Owner_Dirty( void )
 {
-	if ( Get_Owner() != NULL ) {
+	if ( Get_Owner() != nullptr ) {
 		Get_Owner()->Set_Object_Dirty_Bit( NetworkObjectClass::BIT_OCCASIONAL, true );
 	}
 }
@@ -1375,7 +1375,7 @@ void	DefenseObjectClass::Set_Shield_Type( ArmorType type )
 			// Do extra stuff when somebody kills somebody
 			//
 			/*
-			if ( Get_Owner() != NULL &&
+			if ( Get_Owner() != nullptr &&
 				  Get_Owner()->As_SmartGameObj() &&
 				  Get_Owner()->As_SmartGameObj()->Has_Player() ) {
 
@@ -1385,10 +1385,10 @@ void	DefenseObjectClass::Set_Shield_Type( ArmorType type )
 			}
 			*/
 			/*
-			if ( Get_Owner() != NULL &&
-				  Get_Owner()->As_DamageableGameObj() != NULL &&
-				  Get_Owner()->As_DamageableGameObj()->As_PhysicalGameObj() != NULL &&
-				  Get_Owner()->As_DamageableGameObj()->As_PhysicalGameObj()->As_SoldierGameObj() != NULL &&
+			if ( Get_Owner() != nullptr &&
+				  Get_Owner()->As_DamageableGameObj() != nullptr &&
+				  Get_Owner()->As_DamageableGameObj()->As_PhysicalGameObj() != nullptr &&
+				  Get_Owner()->As_DamageableGameObj()->As_PhysicalGameObj()->As_SoldierGameObj() != nullptr &&
 				  Get_Owner()->As_SmartGameObj() != smart) {
 
 				int victim_id = Get_Owner()->As_SmartGameObj()->Get_Control_Owner();
@@ -1398,11 +1398,11 @@ void	DefenseObjectClass::Set_Shield_Type( ArmorType type )
 			}
 			*/
 			/*
-			if ( Get_Owner() != NULL &&
-				  Get_Owner()->As_SoldierGameObj != NULL &&
+			if ( Get_Owner() != nullptr &&
+				  Get_Owner()->As_SoldierGameObj != nullptr &&
 				  Get_Owner()->As_SmartGameObj() != smart) {
 
-				WWASSERT(Get_Owner()->As_SmartGameObj() != NULL);
+				WWASSERT(Get_Owner()->As_SmartGameObj() != nullptr);
 				int victim_id = Get_Owner()->As_SmartGameObj()->Get_Control_Owner();
 				int victim_team = Get_Owner()->As_SmartGameObj()->Get_Player_Type();
 

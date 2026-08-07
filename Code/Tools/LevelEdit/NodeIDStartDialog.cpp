@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 // NodeIDStartDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-NodeIDStartDialogClass::NodeIDStartDialogClass(CWnd* pParent /*=NULL*/)
+NodeIDStartDialogClass::NodeIDStartDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(NodeIDStartDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(NodeIDStartDialogClass)

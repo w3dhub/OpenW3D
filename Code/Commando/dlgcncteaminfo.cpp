@@ -113,7 +113,7 @@ CNCTeamInfoDialogClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the columns
@@ -146,7 +146,7 @@ CNCTeamInfoDialogClass::On_Init_Dialog (void)
 	//	Activate the menu game mode (if necessary)
 	//
 	GameModeClass *menu_game_mode = GameModeManager::Find ("Menu");
-	if (menu_game_mode != NULL && menu_game_mode->Is_Active () == false) {
+	if (menu_game_mode != nullptr && menu_game_mode->Is_Active () == false) {
 		menu_game_mode->Activate ();
 	}
 
@@ -163,7 +163,7 @@ void
 CNCTeamInfoDialogClass::Configure_Icons (void)
 {
 	BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();
-	if (base == NULL) {
+	if (base == nullptr) {
 		return ;
 	}
 
@@ -215,7 +215,7 @@ CNCTeamInfoDialogClass::Configure_Icons (void)
 	//	Configure the base defense building
 	//
 	BuildingGameObj *building = base->Find_Building (BuildingConstants::TYPE_BASE_DEFENSE);
-	if (building != NULL) {
+	if (building != nullptr) {
 		float life = building->Get_Defense_Object ()->Get_Health () / building->Get_Defense_Object ()->Get_Health_Max ();
 		((ImageCtrlClass *)Get_Dlg_Item (ICON_CTRLS[next_slot]))->Set_Texture (defenses_icon_name);
 		((HealthBarCtrlClass *)Get_Dlg_Item (HEALTH_CTRLS[next_slot]))->Set_Life (life);
@@ -226,7 +226,7 @@ CNCTeamInfoDialogClass::Configure_Icons (void)
 	//	Configure the refinery building
 	//
 	building = base->Find_Building (BuildingConstants::TYPE_REFINERY);
-	if (building != NULL) {
+	if (building != nullptr) {
 		float life = building->Get_Defense_Object ()->Get_Health () / building->Get_Defense_Object ()->Get_Health_Max ();
 		((ImageCtrlClass *)Get_Dlg_Item (ICON_CTRLS[next_slot]))->Set_Texture (refinery_icon_name);
 		((HealthBarCtrlClass *)Get_Dlg_Item (HEALTH_CTRLS[next_slot]))->Set_Life (life);
@@ -237,7 +237,7 @@ CNCTeamInfoDialogClass::Configure_Icons (void)
 	//	Configure the powerplant building
 	//
 	building = base->Find_Building (BuildingConstants::TYPE_POWER_PLANT);
-	if (building != NULL) {
+	if (building != nullptr) {
 		float life = building->Get_Defense_Object ()->Get_Health () / building->Get_Defense_Object ()->Get_Health_Max ();
 		((ImageCtrlClass *)Get_Dlg_Item (ICON_CTRLS[next_slot]))->Set_Texture (pplant_icon_name);
 		((HealthBarCtrlClass *)Get_Dlg_Item (HEALTH_CTRLS[next_slot]))->Set_Life (life);
@@ -248,7 +248,7 @@ CNCTeamInfoDialogClass::Configure_Icons (void)
 	//	Configure the soldier factory building
 	//
 	building = base->Find_Building (BuildingConstants::TYPE_SOLDIER_FACTORY);
-	if (building != NULL) {
+	if (building != nullptr) {
 		float life = building->Get_Defense_Object ()->Get_Health () / building->Get_Defense_Object ()->Get_Health_Max ();
 		((ImageCtrlClass *)Get_Dlg_Item (ICON_CTRLS[next_slot]))->Set_Texture (sfact_icon_name);
 		((HealthBarCtrlClass *)Get_Dlg_Item (HEALTH_CTRLS[next_slot]))->Set_Life (life);
@@ -259,7 +259,7 @@ CNCTeamInfoDialogClass::Configure_Icons (void)
 	//	Configure the soldier factory building
 	//
 	building = base->Find_Building (BuildingConstants::TYPE_VEHICLE_FACTORY);
-	if (building != NULL) {
+	if (building != nullptr) {
 		float life = building->Get_Defense_Object ()->Get_Health () / building->Get_Defense_Object ()->Get_Health_Max ();
 		((ImageCtrlClass *)Get_Dlg_Item (ICON_CTRLS[next_slot]))->Set_Texture (vfact_icon_name);
 		((HealthBarCtrlClass *)Get_Dlg_Item (HEALTH_CTRLS[next_slot]))->Set_Life (life);
@@ -290,7 +290,7 @@ CNCTeamInfoDialogClass::Populate_Player_List (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -304,11 +304,11 @@ CNCTeamInfoDialogClass::Populate_Player_List (void)
 	//
 	int index = 0;
 	for (	SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ();
-			player_node != NULL;
+			player_node != nullptr;
 			player_node = player_node->Next ())
 	{
 		cPlayer *player = player_node->Data ();
-		WWASSERT (player != NULL);
+		WWASSERT (player != nullptr);
 
 		if (player->Get_Is_Active().Is_False()) {
 			continue;
@@ -336,7 +336,7 @@ CNCTeamInfoDialogClass::Populate_Player_List (void)
 				//	Fill in the character and vehicle columns
 				//
 				SmartGameObj *game_obj = player->Get_GameObj ();
-				if (game_obj != NULL && game_obj->As_SoldierGameObj () != NULL) {
+				if (game_obj != nullptr && game_obj->As_SoldierGameObj () != nullptr) {
 					//StringClass tga_filename;
 					//::Strip_Path_From_Filename (tga_filename, game_obj->Get_Definition ().Get_Icon_Filename ());
 					//list_ctrl->Add_Icon (item_index, COL_CHARACTER,	tga_filename);
@@ -349,7 +349,7 @@ CNCTeamInfoDialogClass::Populate_Player_List (void)
 					//
 					SoldierGameObj *soldier = game_obj->As_SoldierGameObj ();
 					VehicleGameObj	*vehicle = soldier->Get_Vehicle ();
-					if (vehicle != NULL) {
+					if (vehicle != nullptr) {
 						//::Strip_Path_From_Filename (tga_filename, vehicle->Get_Definition ().Get_Icon_Filename ());
 						//list_ctrl->Add_Icon (item_index, COL_VEHICLE, tga_filename);
 						name = TRANSLATE (vehicle->Get_Translated_Name_ID ());

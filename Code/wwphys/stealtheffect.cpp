@@ -76,8 +76,8 @@ StealthEffectClass::StealthEffectClass(void) :
 	RenderStealthMaterial(true),
 	IntensityScale(0.0f),
 	UVOffset(0.0f,0.0f),
-	Mapper(NULL),
-	MaterialPass(NULL)
+	Mapper(nullptr),
+	MaterialPass(nullptr)
 {
 	MaterialPass = NEW_REF(MaterialPassClass,());
 

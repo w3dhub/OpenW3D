@@ -91,7 +91,7 @@ WOLQuickMatch* WOLQuickMatch::Create(void)
 		match->Release_Ref();
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -265,7 +265,7 @@ RefPtr<WaitCondition> WOLQuickMatch::Disconnect(void)
 			}
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -422,7 +422,7 @@ void WOLQuickMatch::ParseResponse(const unichar_t* message)
 			{U_CHAR("INFO "), WOLQuickMatch::ProcessInfo},
 			{U_CHAR("ERROR "), WOLQuickMatch::ProcessError},
 			{U_CHAR("START "), WOLQuickMatch::ProcessStart},
-			{NULL, WOLQuickMatch::ProcessUnknown}
+			{nullptr, WOLQuickMatch::ProcessUnknown}
 			};
 
 		int index = 0;

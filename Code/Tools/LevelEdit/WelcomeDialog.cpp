@@ -41,9 +41,9 @@ static char THIS_FILE[] = __FILE__;
 //
 //	WelcomeDialogClass
 //
-WelcomeDialogClass::WelcomeDialogClass (CWnd* pParent /*=NULL*/)
+WelcomeDialogClass::WelcomeDialogClass (CWnd* pParent /*=nullptr*/)
 	: m_bChangesTemp (false),
-	  m_hBMP (NULL),
+	  m_hBMP (nullptr),
 	  CDialog(WelcomeDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(WelcomeDialogClass)
@@ -113,7 +113,7 @@ WelcomeDialogClass::OnInitDialog (void)
 	SetDlgItemText (IDC_ASSET_TREE_LOCATION, ::Get_File_Mgr()->Get_Base_Path ());
 
 	m_hBMP = ::LoadBitmap (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDB_WELCOME_BMP));
-	if (m_hBMP != NULL) {
+	if (m_hBMP != nullptr) {
 
 		// Determine the BMPs dimensions
 		BITMAP bitmap = { 0 };
@@ -155,7 +155,7 @@ WelcomeDialogClass::OnPaint (void)
 {
 	CPaintDC dc (this);
 
-	if (m_hBMP != NULL) {
+	if (m_hBMP != nullptr) {
 
 		// Paint into the BMP window's contents
 		HWND hwnd = ::GetDlgItem (m_hWnd, IDC_BMP);
@@ -170,7 +170,7 @@ WelcomeDialogClass::OnPaint (void)
 
 		// Get the DCs we need to do the blitting
 		HDC hdc = ::GetDC (hwnd);
-		HDC hmem_dc = ::CreateCompatibleDC (NULL);
+		HDC hmem_dc = ::CreateCompatibleDC (nullptr);
 		HBITMAP hold_BMP = (HBITMAP)::SelectObject (hmem_dc, m_hBMP);
 
 		// Paint the BMP, centered, onto screen
@@ -190,7 +190,7 @@ WelcomeDialogClass::OnPaint (void)
 		::DeleteDC (hmem_dc);
 
 		// Validate the contents of the window so the control won't paint itself
-		::ValidateRect (hwnd, NULL);
+		::ValidateRect (hwnd, nullptr);
 	}
 
 	return ;
@@ -205,9 +205,9 @@ void
 WelcomeDialogClass::OnDestroy (void)
 {
 	// Free the BMP if we need to
-	if (m_hBMP != NULL) {
+	if (m_hBMP != nullptr) {
 		::DeleteObject (m_hBMP);
-		m_hBMP = NULL;
+		m_hBMP = nullptr;
 	}
 
 	// Allow the base class to process this message

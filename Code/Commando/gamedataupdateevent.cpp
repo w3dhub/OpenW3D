@@ -65,7 +65,7 @@ cGameDataUpdateEvent::Init(int client_id)
 
 	Reset();
 
-	WWASSERT(The_Game() != NULL);
+	WWASSERT(The_Game() != nullptr);
 	TimeRemainingSeconds = (int) The_Game()->Get_Time_Remaining_Seconds();
 	//ServerIsGameplayPermitted = The_Game()->Get_Server_Is_Gameplay_Permitted();
 	HostedGameNumber = The_Game()->Get_Hosted_Game_Number();
@@ -83,7 +83,7 @@ cGameDataUpdateEvent::Act(void)
 {
 	WWASSERT(cNetwork::I_Am_Only_Client());
 
-	if (The_Game() != NULL && TimeRemainingSeconds > 0)
+	if (The_Game() != nullptr && TimeRemainingSeconds > 0)
 	{
 		The_Game()->Set_Time_Remaining_Seconds(float(TimeRemainingSeconds));
 		//The_Game()->Set_Server_Is_Gameplay_Permitted(ServerIsGameplayPermitted);

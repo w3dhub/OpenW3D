@@ -66,7 +66,7 @@ void MuzzleRecoilClass::Start_Recoil(float recoil_scale,float recoil_time)
 
 void MuzzleRecoilClass::Update(RenderObjClass * model)
 {
-	WWASSERT(model != NULL);
+	WWASSERT(model != nullptr);
 	if ((RecoilTimer <= 0.0f) || (BoneIndex <= 0)) {
 		return;
 	}

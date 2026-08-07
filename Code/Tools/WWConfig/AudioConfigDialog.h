@@ -34,7 +34,7 @@ class AudioConfigDialogClass : public CDialog
 {
 // Construction
 public:
-	AudioConfigDialogClass(CWnd* pParent = NULL);   // standard constructor
+	AudioConfigDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(AudioConfigDialogClass)

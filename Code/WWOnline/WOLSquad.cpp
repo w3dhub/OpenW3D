@@ -94,7 +94,7 @@ RefPtr<SquadData> SquadData::FindByID(unsigned int id)
 			}
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -136,7 +136,7 @@ RefPtr<SquadData> SquadData::FindByAbbr(const unichar_t* abbr)
 			}
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -160,7 +160,7 @@ RefPtr<SquadData> SquadData::Create(const WOL::Squad& wolSquad)
 	{
 	if (wolSquad.id == 0)
 		{
-		return NULL;
+		return nullptr;
 		}
 
 	RefPtr<SquadData> squad = FindByID(wolSquad.id);
@@ -241,7 +241,7 @@ SquadData::~SquadData()
 void SquadData::UpdateData(const WOL::Squad& squad)
 	{
 	memcpy(&mData, &squad, sizeof(mData));
-	mData.next = NULL;
+	mData.next = nullptr;
 	}
 
 

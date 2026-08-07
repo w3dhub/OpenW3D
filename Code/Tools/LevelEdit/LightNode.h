@@ -66,7 +66,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	LightNodeClass (PresetClass *preset = NULL);
+	LightNodeClass (PresetClass *preset = nullptr);
 	LightNodeClass (const LightNodeClass &src);
 	~LightNodeClass (void);
 
@@ -105,7 +105,7 @@ public:
 	bool			Show_Settings_Dialog (void);
 	bool			Can_Be_Rotated_Freely (void) const	{ return true; }
 
-	bool			Is_Attenuation_Sphere_Shown (void)	{ return (m_Sphere != NULL); }
+	bool			Is_Attenuation_Sphere_Shown (void)	{ return (m_Sphere != nullptr); }
 	void			Show_Attenuation_Spheres (bool onoff);
 	float			Get_Attenuation_Radius (void);
 	void			Set_Attenuation_Radius (float radius);
@@ -173,12 +173,12 @@ protected:
 inline void
 LightNodeClass::On_Rotate (void)
 {
-	if (m_LightPhysObj != NULL) {
+	if (m_LightPhysObj != nullptr) {
 		m_LightPhysObj->Set_Transform (m_Transform);
 		::Get_Scene_Editor ()->Update_Lighting ();
 	}
 
-	if (m_Sphere != NULL) {
+	if (m_Sphere != nullptr) {
 		m_Sphere->Set_Transform (m_Transform);
 	}
 
@@ -193,12 +193,12 @@ LightNodeClass::On_Rotate (void)
 inline void
 LightNodeClass::On_Translate (void)
 {
-	if (m_LightPhysObj != NULL) {
+	if (m_LightPhysObj != nullptr) {
 		m_LightPhysObj->Set_Transform (m_Transform);
 		::Get_Scene_Editor ()->Update_Lighting ();
 	}
 
-	if (m_Sphere != NULL) {
+	if (m_Sphere != nullptr) {
 		m_Sphere->Set_Transform (m_Transform);
 	}
 
@@ -213,12 +213,12 @@ LightNodeClass::On_Translate (void)
 inline void
 LightNodeClass::On_Transform (void)
 {
-	if (m_LightPhysObj != NULL) {
+	if (m_LightPhysObj != nullptr) {
 		m_LightPhysObj->Set_Transform (m_Transform);
 		::Get_Scene_Editor ()->Update_Lighting ();
 	}
 
-	if (m_Sphere != NULL) {
+	if (m_Sphere != nullptr) {
 		m_Sphere->Set_Transform (m_Transform);
 	}
 
@@ -259,7 +259,7 @@ LightNodeClass::Set_Attenuation_Radius (float radius)
 		//
 		//	Update the sphere (if necessary)
 		//
-		if (m_Sphere != NULL) {
+		if (m_Sphere != nullptr) {
 			m_Sphere->Set_Radius (radius);
 		}
 	}
@@ -274,7 +274,7 @@ LightNodeClass::Set_Attenuation_Radius (float radius)
 inline void
 LightNodeClass::Set_Group_ID (uintptr_t group_id)
 {
-	if (m_LightPhysObj != NULL) {
+	if (m_LightPhysObj != nullptr) {
 		m_LightPhysObj->Set_Group_ID (group_id);
 	}
 
@@ -289,7 +289,7 @@ inline uintptr_t
 LightNodeClass::Get_Group_ID (void) const
 {
 	uintptr_t group_id = 0;
-	if (m_LightPhysObj != NULL) {
+	if (m_LightPhysObj != nullptr) {
 		group_id = m_LightPhysObj->Get_Group_ID ();
 	}
 

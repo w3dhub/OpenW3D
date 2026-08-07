@@ -54,7 +54,7 @@ WeaponBagClass::WeaponBagClass( ArmedGameObj * owner ) :
 {
 	Mark_Owner_Dirty();
 
-	WeaponList.Add( NULL );		// Index 0 is no weapon
+	WeaponList.Add( nullptr );		// Index 0 is no weapon
 }
 
 WeaponBagClass::~WeaponBagClass( void )
@@ -143,7 +143,7 @@ bool	WeaponBagClass::Load( ChunkLoadClass &cload )
 bool	WeaponBagClass::Is_Weapon_Owned( int weapon_id )
 {
 	WeaponClass * weapon = Find_Weapon( WeaponManager::Find_Weapon_Definition( weapon_id ) );
-	return ( weapon != NULL && weapon->Does_Weapon_Exist() );
+	return ( weapon != nullptr && weapon->Does_Weapon_Exist() );
 }
 
 bool	WeaponBagClass::Is_Ammo_Full( int weapon_id )
@@ -190,13 +190,13 @@ void	WeaponBagClass::Clear_Weapons( void )
 */
 WeaponClass * 	WeaponBagClass::Add_Weapon( const WeaponDefinitionClass * def, int rounds, bool give_weapon )
 {
-	if ( def == NULL ) {
+	if ( def == nullptr ) {
 		Debug_Say(( "Failed to create Weapon\n" ));
-		return NULL;
+		return nullptr;
 	}
 
 	WeaponClass * weapon = Find_Weapon( def );
-	if ( weapon == NULL ) {
+	if ( weapon == nullptr ) {
 		//	Debug_Say(( "Adding new weapon %s\n", weapon->Get_Name() ));
 		weapon = new WeaponClass( def );
 		if ( weapon ) {
@@ -266,12 +266,12 @@ WeaponClass	*	WeaponBagClass::Get_Next_Weapon( void )
 	for ( int i = 0; i < WeaponList.Count(); i++ ) {
 		int index = ( WeaponIndex + i + 1 ) % WeaponList.Count();
 		// BMG remove no weapon slot
-//		if ( WeaponList[ index ] == NULL || WeaponList[ index ]->Does_Weapon_Exist() ) {
-		if ( WeaponList[ index ] != NULL && WeaponList[ index ]->Does_Weapon_Exist() ) {
+//		if ( WeaponList[ index ] == nullptr || WeaponList[ index ]->Does_Weapon_Exist() ) {
+		if ( WeaponList[ index ] != nullptr && WeaponList[ index ]->Does_Weapon_Exist() ) {
 			return WeaponList[ index ];
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void	WeaponBagClass::Select_Next( void )
@@ -280,8 +280,8 @@ void	WeaponBagClass::Select_Next( void )
 	for ( int i = 1; i < WeaponList.Count(); i++ ) {
 		int index = ( WeaponIndex + i ) % WeaponList.Count();
 		// BMG remove no weapon slot
-//		if ( WeaponList[ index ] == NULL || WeaponList[ index ]->Does_Weapon_Exist() ) {
-		if ( WeaponList[ index ] != NULL && WeaponList[ index ]->Does_Weapon_Exist() ) {
+//		if ( WeaponList[ index ] == nullptr || WeaponList[ index ]->Does_Weapon_Exist() ) {
+		if ( WeaponList[ index ] != nullptr && WeaponList[ index ]->Does_Weapon_Exist() ) {
 			Select_Index( index );
 			break;
 		}
@@ -294,8 +294,8 @@ void	WeaponBagClass::Select_Prev( void )
 	for ( int i = 1; i < WeaponList.Count(); i++ ) {
 		int index = ( WeaponIndex - i + WeaponList.Count()) % WeaponList.Count();
 		// BMG remove no weapon slot
-//		if ( WeaponList[ index ] == NULL || WeaponList[ index ]->Does_Weapon_Exist() ) {
-		if ( WeaponList[ index ] != NULL && WeaponList[ index ]->Does_Weapon_Exist() ) {
+//		if ( WeaponList[ index ] == nullptr || WeaponList[ index ]->Does_Weapon_Exist() ) {
+		if ( WeaponList[ index ] != nullptr && WeaponList[ index ]->Does_Weapon_Exist() ) {
 			Select_Index( index );
 			break;
 		}
@@ -310,7 +310,7 @@ void	WeaponBagClass::Select_Key_Number( int key_number )
 		// Start from the current, find the next existing weapon with the right key_number
 		for ( int i = 1; i < WeaponList.Count(); i++ ) {
 			int index = ( WeaponIndex + i ) % WeaponList.Count();
-			if (	WeaponList[ index ] != NULL &&
+			if (	WeaponList[ index ] != nullptr &&
 					WeaponList[ index ]->Does_Weapon_Exist() &&
 					(int)WeaponList[ index ]->Get_Key_Number() == key_number ) {
 				Select_Index( index );
@@ -332,7 +332,7 @@ void	WeaponBagClass::Select_Weapon_ID( int weapon_id )
 
 void	WeaponBagClass::Select_Weapon_Name( const char * name )
 {
-	if ( ( name == NULL ) || ( *name == 0 ) ) {
+	if ( ( name == nullptr ) || ( *name == 0 ) ) {
 		Select_Index ( 0 );
 	} else {
 		for( int i = 1; i < WeaponList.Count(); i++ ) {
@@ -397,13 +397,13 @@ void WeaponBagClass::Import_Weapon_List(BitStreamClass & packet)
 		int total_rounds = packet.Get(total_rounds);
 		Add_Weapon(weapon_id, 0);
 
-		WeaponClass * weapon = NULL;
+		WeaponClass * weapon = nullptr;
 		for( int i = 1; i < WeaponList.Count(); i++ ) {
 			if ( (int) WeaponList[i]->Get_Definition()->Get_ID() == weapon_id ) {
 				weapon = WeaponList[i];
 			}
 		}
-		if ( weapon != NULL ) {
+		if ( weapon != nullptr ) {
 			weapon->Set_Total_Rounds( total_rounds );
 		}
 	}
@@ -422,8 +422,8 @@ void WeaponBagClass::Export_Weapon_List(BitStreamClass & packet)
 //-----------------------------------------------------------------------------
 WeaponClass * WeaponBagClass::Find_Weapon( const WeaponDefinitionClass * def )
 {
-	if ( def == NULL ) {
-		return NULL;
+	if ( def == nullptr ) {
+		return nullptr;
 	}
 
 	for( int i = 1; i < WeaponList.Count(); i++ ) {
@@ -432,7 +432,7 @@ WeaponClass * WeaponBagClass::Find_Weapon( const WeaponDefinitionClass * def )
 		}
 	}
 //	Debug_Say(( "Didn't Find weapon %s\n", name ));
-	return NULL;
+	return nullptr;
 }
 
 
@@ -495,7 +495,7 @@ void	WeaponBagClass::Store_Inventory( InventoryClass * inventory )
 */
 void	WeaponBagClass::Mark_Owner_Dirty( void )
 {
-	if ( Owner != NULL ) {
+	if ( Owner != nullptr ) {
 		Owner->Set_Object_Dirty_Bit( NetworkObjectClass::BIT_OCCASIONAL, true );
 	}
 }

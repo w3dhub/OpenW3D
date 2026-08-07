@@ -75,17 +75,17 @@ static void Trackball_Camera (HWND hwnd, CameraClass &camera, const Vector3 &cen
 // ZoneEditDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-ZoneEditDialogClass::ZoneEditDialogClass(CWnd* pParent /*=NULL*/)
+ZoneEditDialogClass::ZoneEditDialogClass(CWnd* pParent /*=nullptr*/)
 	:	m_LookAtDist (0),
-		m_Camera (NULL),
-		m_Scene (NULL),
-		m_RenderObj (NULL),
-		m_PhysObj (NULL),
-		m_Zone (NULL),
+		m_Camera (nullptr),
+		m_Scene (nullptr),
+		m_RenderObj (nullptr),
+		m_PhysObj (nullptr),
+		m_Zone (nullptr),
 		m_TimerID (0),
 		m_IsEditingZone (true),
 		m_IsSizingZone (false),
-		m_SwapChain (NULL),
+		m_SwapChain (nullptr),
 		m_Initialized (false),
 		CDialog(ZoneEditDialogClass::IDD, pParent)
 {
@@ -201,7 +201,7 @@ ZoneEditDialogClass::OnInitDialog (void)
 	//	Enable/disable the animation controls
 	//
 	bool has_animation = false;
-	if (m_PhysObj != NULL && m_PhysObj->As_StaticAnimPhysClass () != NULL) {
+	if (m_PhysObj != nullptr && m_PhysObj->As_StaticAnimPhysClass () != nullptr) {
 		has_animation = true;
 		OnFirstFrame ();
 	}
@@ -266,9 +266,9 @@ ZoneEditDialogClass::OnDestroy (void)
 	//
 	//	Free our swap chain
 	//
-	if (m_SwapChain != NULL) {
+	if (m_SwapChain != nullptr) {
 		m_SwapChain->Release ();
-		m_SwapChain = NULL;
+		m_SwapChain = nullptr;
 	}
 
 	CLevelEditView::Allow_Repaint (true);
@@ -323,12 +323,12 @@ ZoneEditDialogClass::Render_View (void)
 		//
 		//	Blit the frame to the client area of the window
 		//
-		m_SwapChain->Present (NULL, NULL, NULL, NULL, 0);
+		m_SwapChain->Present (nullptr, nullptr, nullptr, nullptr, 0);
 
 		//
 		//	Restore the render target
 		//
-		DX8Wrapper::Set_Render_Target ((LPDIRECT3DSURFACE9)NULL);
+		DX8Wrapper::Set_Render_Target ((LPDIRECT3DSURFACE9)nullptr);
 
 		//
 		//	Cleanup
@@ -357,9 +357,9 @@ ZoneEditDialogClass::fnUpdateTimer
 )
 {
 	HWND hwnd = (HWND)user_data;
-	if (hwnd != NULL) {
+	if (hwnd != nullptr) {
 
-        if ((GetProp (hwnd, "WaitingToProcess") == NULL)) {
+        if ((GetProp (hwnd, "WaitingToProcess") == nullptr)) {
             SetProp (hwnd, "WaitingToProcess", (HANDLE)1);
 
             // Send the message to the view so it will be in the
@@ -497,7 +497,7 @@ ZoneEditDialogClass::Load_Object (void)
 	//	Add a grid render object to the world to act as a floor
 	//
 	RenderObjClass *floor = ::Create_Render_Obj ("GRID");
-	if (floor != NULL) {
+	if (floor != nullptr) {
 		floor->Set_Transform (Matrix3D(1));
 		m_Scene->Add_Render_Object (floor);
 		floor->Release_Ref ();
@@ -553,7 +553,7 @@ ZoneEditDialogClass::Set_Phys_Obj (PhysClass *phys_obj)
 	//	Extract the model from the physics object
 	//
 	MEMBER_RELEASE (m_RenderObj);
-	if (m_PhysObj != NULL) {
+	if (m_PhysObj != nullptr) {
 		m_RenderObj = m_PhysObj->Peek_Model ();
 		m_RenderObj->Add_Ref ();
 	}
@@ -773,15 +773,15 @@ ZoneEditDialogClass::fn3DWindow
 )
 {
 	if (message == WM_LBUTTONDOWN) {
-		ZoneEditDialogClass *dialog = NULL;
+		ZoneEditDialogClass *dialog = nullptr;
 		dialog = (ZoneEditDialogClass *)::GetProp (hwnd, "ZONE_DIALOG");
 		dialog->Handle_LBUTTON_DOWN (wparam, lparam);
 	} else if (message == WM_LBUTTONUP) {
-		ZoneEditDialogClass *dialog = NULL;
+		ZoneEditDialogClass *dialog = nullptr;
 		dialog = (ZoneEditDialogClass *)::GetProp (hwnd, "ZONE_DIALOG");
 		dialog->Handle_LBUTTON_UP (wparam, lparam);
 	} else if (message == WM_MOUSEMOVE) {
-		ZoneEditDialogClass *dialog = NULL;
+		ZoneEditDialogClass *dialog = nullptr;
 		dialog = (ZoneEditDialogClass *)::GetProp (hwnd, "ZONE_DIALOG");
 		dialog->Handle_MOUSEMOVE (wparam, lparam);
 	}
@@ -835,7 +835,7 @@ ZoneEditDialogClass::Handle_MOUSEMOVE (WPARAM wparam, LPARAM lparam)
 	}
 
 	POINT point = { LOWORD (lparam), HIWORD (lparam) };
-	WWASSERT (m_Camera != NULL);
+	WWASSERT (m_Camera != nullptr);
 
 	if ((wparam & MK_LBUTTON) && (wparam & MK_RBUTTON)) {
 		float delta_x = float(m_LastPoint.x - point.x) / 32;
@@ -997,7 +997,7 @@ ZoneEditDialogClass::OnLastFrame (void)
 	SendDlgItemMessage (IDC_FIRST_FRAME, BM_SETCHECK, (WPARAM)false);
 	SendDlgItemMessage (IDC_LAST_FRAME, BM_SETCHECK, (WPARAM)true);
 
-	if (m_PhysObj == NULL) {
+	if (m_PhysObj == nullptr) {
 		return ;
 	}
 
@@ -1005,14 +1005,14 @@ ZoneEditDialogClass::OnLastFrame (void)
 	//	Make sure this object can be animated...
 	//
 	StaticAnimPhysClass *anim_obj = m_PhysObj->As_StaticAnimPhysClass ();
-	if (anim_obj != NULL) {
+	if (anim_obj != nullptr) {
 		AnimCollisionManagerClass &anim_mgr = anim_obj->Get_Animation_Manager ();
 
 		//
 		//	Pop the animation to its last frame
 		//
 		HAnimClass *animation = anim_mgr.Peek_Animation ();
-		if (animation != NULL) {
+		if (animation != nullptr) {
 			m_RenderObj->Set_Animation (animation, float(animation->Get_Num_Frames () - 1));
 		}
 	}
@@ -1032,7 +1032,7 @@ ZoneEditDialogClass::OnFirstFrame (void)
 	SendDlgItemMessage (IDC_FIRST_FRAME, BM_SETCHECK, (WPARAM)true);
 	SendDlgItemMessage (IDC_LAST_FRAME, BM_SETCHECK, (WPARAM)false);
 
-	if (m_PhysObj == NULL) {
+	if (m_PhysObj == nullptr) {
 		return ;
 	}
 
@@ -1040,14 +1040,14 @@ ZoneEditDialogClass::OnFirstFrame (void)
 	//	Make sure this object can be animated...
 	//
 	StaticAnimPhysClass *anim_obj = m_PhysObj->As_StaticAnimPhysClass ();
-	if (anim_obj != NULL) {
+	if (anim_obj != nullptr) {
 		AnimCollisionManagerClass &anim_mgr = anim_obj->Get_Animation_Manager ();
 
 		//
 		//	Pop the animation to its first frame
 		//
 		HAnimClass *animation = anim_mgr.Peek_Animation ();
-		if (animation != NULL) {
+		if (animation != nullptr) {
 			m_RenderObj->Set_Animation (animation, 0);
 		}
 	}

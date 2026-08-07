@@ -57,7 +57,7 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death, "Drop_Object=:string,Drop_Height=0.25:f
 			doit = random < probability;
 		}
 
-		if ((obj_name != NULL) && (doit)) {
+		if ((obj_name != nullptr) && (doit)) {
 			Vector3 spawn_location = Commands->Get_Position ( obj );
 			spawn_location.Z = spawn_location.Z + Get_Float_Parameter("Drop_Height");
 			Commands->Create_Object ( obj_name, spawn_location );
@@ -119,7 +119,7 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Obj
 			doit = random < probability;
 		}
 
-		if ((obj_name != NULL) && (doit)) {
+		if ((obj_name != nullptr) && (doit)) {
 
 			Vector3 spawn_location = Commands->Get_Position ( obj );
 			spawn_location.Z = spawn_location.Z + Get_Float_Parameter("Drop_Height");
@@ -239,7 +239,7 @@ protected:
 		const char * obj_name = Get_Parameter("Create_Object");
 		Vector3 obj_pos = Get_Vector3_Parameter("Position");
 
-		if (obj_name != NULL) {
+		if (obj_name != nullptr) {
 
 			GTH_DEBUG_INT( 0, obj_name );
 			GTH_DEBUG_INT( obj_pos.X, " x: %f, " );
@@ -296,7 +296,7 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 	}
 
 
-	void	( * Set_Animation )( GameObject * obj, const char * anim_name, bool looping, const char * sub_obj_name = NULL, float start_frame = 0.0F, float end_frame = -1.0F, bool is_blended = false );
+	void	( * Set_Animation )( GameObject * obj, const char * anim_name, bool looping, const char * sub_obj_name = nullptr, float start_frame = 0.0F, float end_frame = -1.0F, bool is_blended = false );
 
 
 	void Timer_Expired( GameObject * obj, int timer_id ) override
@@ -340,7 +340,7 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 		// This function plugs in the animation depending on the current state
 		if (new_state != cur_state) {
 			cur_state = new_state;
-			const char * anim = NULL;
+			const char * anim = nullptr;
 			switch( cur_state )
 			{
 			case STOPPED:
@@ -360,7 +360,7 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 				break;
 			};
 
-			if (anim != NULL) {
+			if (anim != nullptr) {
 				Commands->Set_Animation( obj, anim, true );
 			}
 		}
@@ -499,7 +499,7 @@ DECLARE_SCRIPT(GTH_Create_Objective,"Creation_Type=0:int,Objective_ID=0:int,Obje
 		int short_desc_id = Get_Int_Parameter("Short_Desc_ID");
 		int long_desc_id = Get_Int_Parameter("Long_Desc_ID");
 
-		Commands->Add_Objective(id,type,OBJECTIVE_STATUS_PENDING,short_desc_id, NULL, long_desc_id );
+		Commands->Add_Objective(id,type,OBJECTIVE_STATUS_PENDING,short_desc_id, nullptr, long_desc_id );
 
 		// set up the radar blip
 		Vector3 objective_pos = Get_Vector3_Parameter("Position");
@@ -950,7 +950,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 					// Play flag returned sound
 					int cust_id = Get_Int_Parameter("Flag_Returned_Event_ID");
 					GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Returned_Object_ID"));
-					if (event_obj == NULL) event_obj = obj;
+					if (event_obj == nullptr) event_obj = obj;
 					Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 				}
 				return;
@@ -967,7 +967,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 		// Play picked up sound
 		int cust_id = Get_Int_Parameter("Flag_Stolen_Event_ID");
 		GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Stolen_Object_ID"));
-		if (event_obj == NULL) event_obj = obj;
+		if (event_obj == nullptr) event_obj = obj;
 		Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 	}
 
@@ -997,28 +997,28 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 				// Play Win Sound!
 				int cust_id = Get_Int_Parameter("Captures_Exceeded_Event_ID");
 				GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Captures_Exceeded_Object_ID"));
-				if (event_obj == NULL) event_obj = obj;
+				if (event_obj == nullptr) event_obj = obj;
 				Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 
 				// win!
 				GameObject * win_obj = Commands->Find_Object(Get_Int_Parameter("Win_Object_To_Kill0"));
-				if (win_obj != NULL) {
+				if (win_obj != nullptr) {
 					Commands->Destroy_Object( win_obj );
 				}
 				win_obj = Commands->Find_Object(Get_Int_Parameter("Win_Object_To_Kill1"));
-				if (win_obj != NULL) {
+				if (win_obj != nullptr) {
 					Commands->Destroy_Object( win_obj );
 				}
 				win_obj = Commands->Find_Object(Get_Int_Parameter("Win_Object_To_Kill2"));
-				if (win_obj != NULL) {
+				if (win_obj != nullptr) {
 					Commands->Destroy_Object( win_obj );
 				}
 				win_obj = Commands->Find_Object(Get_Int_Parameter("Win_Object_To_Kill3"));
-				if (win_obj != NULL) {
+				if (win_obj != nullptr) {
 					Commands->Destroy_Object( win_obj );
 				}
 				win_obj = Commands->Find_Object(Get_Int_Parameter("Win_Object_To_Kill4"));
-				if (win_obj != NULL) {
+				if (win_obj != nullptr) {
 					Commands->Destroy_Object( win_obj );
 				}
 
@@ -1036,14 +1036,14 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 				// Increment the capture count, detatch from our carrier and warp home
 				capture_count++;
 				captured_by_id = 0;
-				Commands->Attach_To_Object_Bone(obj,NULL,NULL);
+				Commands->Attach_To_Object_Bone(obj,nullptr,nullptr);
 				Commands->Set_Position(obj,home_position);
 				GTH_DEBUG_INT(capture_count,"Flag stolen, counter now %d, returning to home!\n");
 
 				// Play flag capture sound
 				int cust_id = Get_Int_Parameter("Flag_Lost_Event_ID");
 				GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Lost_Object_ID"));
-				if (event_obj == NULL) event_obj = obj;
+				if (event_obj == nullptr) event_obj = obj;
 				Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 			}
 
@@ -1051,7 +1051,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 			if (captured_by_id != 0) {
 				GameObject * capturer = Commands->Find_Object(captured_by_id);
 
-				if (capturer != NULL) {
+				if (capturer != nullptr) {
 
 					// Don't do this cause we're using the attach to bone method!
 					//Vector3 cap_position = Commands->Get_Position(capturer);
@@ -1062,13 +1062,13 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 					captured_by_id = 0;
 					// start the flag respawn timer.
 					capture_timer = (((float)Commands->Get_Sync_Time()) / 1000.0f);
-					Commands->Attach_To_Object_Bone(obj,NULL,NULL);
+					Commands->Attach_To_Object_Bone(obj,nullptr,nullptr);
 					GTH_DEBUG_INT(0,"Capturer killed!\n");
 
 					// Play flag saved sound
 					int cust_id = Get_Int_Parameter("Flag_Saved_Event_ID");
 					GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Saved_Object_ID"));
-					if (event_obj == NULL) event_obj = obj;
+					if (event_obj == nullptr) event_obj = obj;
 					Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 				}
 			}
@@ -1092,7 +1092,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 						// Play flag returned sound
 						int cust_id = Get_Int_Parameter("Flag_Returned_Event_ID");
 						GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Returned_Object_ID"));
-						if (event_obj == NULL) event_obj = obj;
+						if (event_obj == nullptr) event_obj = obj;
 						Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 					}
 				}

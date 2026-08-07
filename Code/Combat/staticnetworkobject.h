@@ -107,9 +107,9 @@ public:
 	//
 	// Type identification
 	//
-	virtual DoorNetworkObjectClass *			As_Door_Network_Object_Class( void ) 	{ return NULL; }
-	virtual ElevatorNetworkObjectClass *	As_Elevator_Network_Object_Class( void ) { return NULL; }
-	virtual DSAPONetworkObjectClass *		As_DSAPO_Network_Object_Class( void ) 		{ return NULL; }
+	virtual DoorNetworkObjectClass *			As_Door_Network_Object_Class( void ) 	{ return nullptr; }
+	virtual ElevatorNetworkObjectClass *	As_Elevator_Network_Object_Class( void ) { return nullptr; }
+	virtual DSAPONetworkObjectClass *		As_DSAPO_Network_Object_Class( void ) 		{ return nullptr; }
 
 	//
 	//	Diagnostics

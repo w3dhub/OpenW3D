@@ -100,7 +100,7 @@ public:
 		SurfaceEffectsManager::Apply_Effect(event.CollisionResult->SurfaceType,
 														SurfaceEffectsManager::HITTER_TYPE_EJECT_CASING,
 														Matrix3D(event.CollisionResult->ContactPoint),
-														event.OtherObj, NULL, false);
+														event.OtherObj, nullptr, false);
 */
 		return COLLISION_REACTION_DEFAULT;
 	}
@@ -118,10 +118,10 @@ static EjectCasingObserverClass _TheEjectCasingObserver;
 **
 */
 WeaponClass::WeaponClass( const WeaponDefinitionClass *def ) :
-	Definition( NULL ),
-	PrimaryAmmoDefinition( NULL ),
-	SecondaryAmmoDefinition( NULL ),
-	Model( NULL ),
+	Definition( nullptr ),
+	PrimaryAmmoDefinition( nullptr ),
+	SecondaryAmmoDefinition( nullptr ),
+	Model( nullptr ),
 	State( STATE_IDLE ),
 	StateTimer( 0.0f ),
 	UpdateModel( WEAPON_MODEL_UPDATE_IS_NEEDED ),
@@ -139,24 +139,24 @@ WeaponClass::WeaponClass( const WeaponDefinitionClass *def ) :
 	BulletBumpTime( 0 ),
 	DidFire( false ),
 	ContinuousEmitters( ),
-	ContinuousSound( NULL ),
+	ContinuousSound( nullptr ),
 	C4DetonationMode( 1 ),
 	Target( 0, 0, 0 ),
-	FiringSound( NULL ),
+	FiringSound( nullptr ),
 	FiringSoundDefID( 0 ),
 	WeaponExists( true ),
 	SafetySet( false ),
 	LockTriggers( false ),
 	EmptySoundTimer( 0 )
 {
-	if ( def != NULL ) {
+	if ( def != nullptr ) {
 		Init( def );
 	}
 }
 
 WeaponClass::~WeaponClass( void )
 {
-	if (FiringSound != NULL) {
+	if (FiringSound != nullptr) {
 		FiringSound->Remove_From_Scene ();
 		FiringSoundDefID = 0;
 	}
@@ -169,9 +169,9 @@ WeaponClass::~WeaponClass( void )
 
 void	WeaponClass::Init( const WeaponDefinitionClass *weapon_def )
 {
-	WWASSERT( Definition == NULL );
+	WWASSERT( Definition == nullptr );
 	Definition = weapon_def;
-	WWASSERT( Definition != NULL );
+	WWASSERT( Definition != nullptr );
 
 	// Setup the ammo defs
 	WWASSERT( Definition->PrimaryAmmoDefID != 0 );
@@ -261,13 +261,13 @@ bool	WeaponClass::Save( ChunkSaveClass & csave )
 
 	csave.End_Chunk();
 
-	if ( Owner != NULL ) {
+	if ( Owner != nullptr ) {
 		csave.Begin_Chunk( CHUNKID_OWNER_REF );
 		Owner.Save( csave );
 		csave.End_Chunk();
 	}
 
-	if ( TargetObject != NULL ) {
+	if ( TargetObject != nullptr ) {
 		csave.Begin_Chunk( CHUNKID_TARGET_OBJECT );
 		TargetObject.Save( csave );
 		csave.End_Chunk();
@@ -315,7 +315,7 @@ bool	WeaponClass::Load( ChunkLoadClass &cload )
 #if 0
 						case XXX_MICROCHUNKID_MODEL_NAME:
 						{
-							WWASSERT( Model == NULL );
+							WWASSERT( Model == nullptr );
 							char	model_name[80];
 							cload.Read( model_name, cload.Cur_Micro_Chunk_Length() );
 							RenderObjClass * robj = WW3DAssetManager::Get_Instance()->Create_Render_Obj( model_name );
@@ -325,7 +325,7 @@ bool	WeaponClass::Load( ChunkLoadClass &cload )
 							cload.Close_Micro_Chunk();
 							cload.Open_Micro_Chunk();
 							WWASSERT( cload.Cur_Micro_Chunk_ID() == MICROCHUNKID_MODEL_PTR );
-							void * old_ptr = NULL;
+							void * old_ptr = nullptr;
 							cload.Read( &old_ptr, sizeof( uint32 ) );
 							SaveLoadSystemClass::Register_Pointer( old_ptr, robj );
 							REF_PTR_RELEASE( robj );
@@ -363,7 +363,7 @@ bool	WeaponClass::Load( ChunkLoadClass &cload )
 		cload.Close_Chunk();
 	}
 
-	if (Model != NULL) {
+	if (Model != nullptr) {
 		REQUEST_REF_COUNTED_POINTER_REMAP ((RefCountClass **)&Model);
 	}
 
@@ -393,11 +393,11 @@ PhysicalGameObj *	WeaponClass::Get_Target_Object( PhysicalGameObj * /* obj */ )
 
 void	WeaponClass::Set_Model( RenderObjClass *model )
 {
-	if ( Model != NULL ) {
+	if ( Model != nullptr ) {
 		Model->Release_Ref();
 	}
 	Model = model;
-	if ( Model != NULL ) {
+	if ( Model != nullptr ) {
 		Model->Add_Ref();
 		Init_Muzzle_Flash( Model );
 	}
@@ -462,7 +462,7 @@ void	WeaponClass::Add_Rounds( int num )
 		}
 	}
 
-	if (	CheatMgrClass::Get_Instance () != NULL &&
+	if (	CheatMgrClass::Get_Instance () != nullptr &&
 			CheatMgrClass::Get_Instance ()->Is_Cheat_Enabled( CheatMgrClass::CHEAT_INFINITE_AMMO ) && Owner == COMBAT_STAR )
 	{
 		InventoryRounds = Definition->MaxInventoryRounds ;
@@ -487,7 +487,7 @@ int	WeaponClass::Get_Total_Rounds( void )
 	//
 	//	Check to see if the infinite ammo cheat is enabled
 	//
-	if (	CheatMgrClass::Get_Instance () != NULL &&
+	if (	CheatMgrClass::Get_Instance () != nullptr &&
 			CheatMgrClass::Get_Instance ()->Is_Cheat_Enabled( CheatMgrClass::CHEAT_INFINITE_AMMO ) && Owner == COMBAT_STAR )
 	{
 		return -1;
@@ -498,7 +498,7 @@ int	WeaponClass::Get_Total_Rounds( void )
 
 void	WeaponClass::Set_Total_Rounds( int num )
 {
-	if (	CheatMgrClass::Get_Instance () != NULL &&
+	if (	CheatMgrClass::Get_Instance () != nullptr &&
 			CheatMgrClass::Get_Instance ()->Is_Cheat_Enabled( CheatMgrClass::CHEAT_INFINITE_AMMO ) && Owner == COMBAT_STAR )
 	{
 		InventoryRounds = Definition->MaxInventoryRounds;
@@ -557,7 +557,7 @@ void	WeaponClass::Do_Reload( void )
 	//	Check to see if the infinite ammo cheat is enabled
 	//
 	bool apply_cheat = false;
-	if (	CheatMgrClass::Get_Instance () != NULL &&
+	if (	CheatMgrClass::Get_Instance () != nullptr &&
 			CheatMgrClass::Get_Instance ()->Is_Cheat_Enabled( CheatMgrClass::CHEAT_INFINITE_AMMO ) && Owner == COMBAT_STAR )
 	{
 		apply_cheat = true;
@@ -577,7 +577,7 @@ void	WeaponClass::Do_Reload( void )
 
 float	WeaponClass::Get_Range( void )
 {
-	return ( PrimaryAmmoDefinition != NULL ) ? static_cast<float>(PrimaryAmmoDefinition->Range) : 0.0f;
+	return ( PrimaryAmmoDefinition != nullptr ) ? static_cast<float>(PrimaryAmmoDefinition->Range) : 0.0f;
 }
 
 
@@ -611,7 +611,7 @@ bool	WeaponClass::Fire_Beacon( const AmmoDefinitionClass *ammo_def )
 		//	Create the beacon
 		//
 		BeaconGameObj *beacon = (BeaconGameObj *)ObjectLibraryManager::Create_Object( ammo_def->BeaconDefID );
-		if ( beacon != NULL ) {
+		if ( beacon != nullptr ) {
 
 			//
 			//	Get the position of the owner
@@ -763,7 +763,7 @@ void	WeaponClass::Fire_Bullet( const AmmoDefinitionClass *ammo_def, bool primary
 	}
 
 	Vector3 bullet_target(0,0,0);
-	DamageableGameObj * target_obj = NULL;
+	DamageableGameObj * target_obj = nullptr;
 
 	if ( ammo_def->IsTracking ) {
 		// determine the target
@@ -787,11 +787,11 @@ void	WeaponClass::Fire_Bullet( const AmmoDefinitionClass *ammo_def, bool primary
 		ray.Compute_Point( raytest.Result->Fraction, &end );
 		bullet_target = end;
 
-		if ( raytest.CollidedPhysObj != NULL && raytest.CollidedPhysObj->Get_Observer() != NULL ) {
+		if ( raytest.CollidedPhysObj != nullptr && raytest.CollidedPhysObj->Get_Observer() != nullptr ) {
 			target_obj = ((CombatPhysObserverClass *)raytest.CollidedPhysObj->Get_Observer())->As_DamageableGameObj();
 			// No homing on buildings
-			if ( target_obj->As_BuildingGameObj() != NULL ) {
-				target_obj = NULL;
+			if ( target_obj->As_BuildingGameObj() != nullptr ) {
+				target_obj = nullptr;
 			}
 		}
 	}
@@ -857,9 +857,9 @@ void	WeaponClass::Fire_Bullet( const AmmoDefinitionClass *ammo_def, bool primary
 
 		// Bullets from vehicles belong to the gunner
 		ArmedGameObj * bullet_owner = Get_Owner();
-		if ( bullet_owner != NULL && bullet_owner->As_SmartGameObj() ) {
+		if ( bullet_owner != nullptr && bullet_owner->As_SmartGameObj() ) {
 			VehicleGameObj * vehicle = bullet_owner->As_SmartGameObj()->As_VehicleGameObj();
-			if ( ( vehicle ) && ( vehicle->Get_Actual_Gunner() != NULL ) ) {
+			if ( ( vehicle ) && ( vehicle->Get_Actual_Gunner() != nullptr ) ) {
 				bullet_owner = vehicle->Get_Actual_Gunner();
 			}
 		}
@@ -917,7 +917,7 @@ bool	WeaponClass::Is_Muzzle_Clear()
 	Vector3 end_pt;
 	muzzle.Get_Translation( &end_pt );
 
-	if ( Get_Owner() == NULL ) {
+	if ( Get_Owner() == nullptr ) {
 		return true;
 	}
 
@@ -925,7 +925,7 @@ bool	WeaponClass::Is_Muzzle_Clear()
 		return true;
 	}
 
-	if (Get_Owner()->As_SoldierGameObj() != NULL) {
+	if (Get_Owner()->As_SoldierGameObj() != nullptr) {
 
 		start_pt = Get_Owner()->Get_Bullseye_Position();
 
@@ -970,7 +970,7 @@ void WeaponClass::Compute_Bullet_Start_Point(const Matrix3D & muzzle,Vector3 * s
 	// If this weapon is owned by a vehicle, try to ensure the bullet starts in front
 	// of any dynamic objects that may be between the muzzle point and the body of the vehicle
 	//
-	if (Get_Owner()->As_VehicleGameObj() != NULL) {
+	if (Get_Owner()->As_VehicleGameObj() != nullptr) {
 		Vector3 ray_start;
 		Vector3 ray_end;
 		muzzle.Get_Translation( &ray_end );
@@ -1026,12 +1026,12 @@ void	WeaponClass::Do_Firing_Effects( void )
 		if ( Definition->MuzzleFlashPhysDefID != 0 ) {
 
 			DefinitionClass * def = DefinitionMgrClass::Find_Definition( Definition->MuzzleFlashPhysDefID );
-			if ( def != NULL ) {
+			if ( def != nullptr ) {
 				WWASSERT( ((PhysDefClass *)def)->Is_Type( "TimedDecorationPhysDef" ) );
 				TimedDecorationPhysClass * muzzle_flash = (TimedDecorationPhysClass *)def->Create();
 				if ( muzzle_flash ) {
 					RenderObjClass * model = muzzle_flash->Peek_Model();
-					if ( model != NULL ) {
+					if ( model != nullptr ) {
 //						muzzle.Rotate_X( FreeRandom.Get_Float( DEG_TO_RAD( 360 ) ) );
 						muzzle_flash->Set_Transform( muzzle );
 						COMBAT_SCENE->Add_Dynamic_Object( muzzle_flash );
@@ -1054,7 +1054,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 #endif
 
 		// if this gun is fired by the STAR and they have an eject bone, eject a shell.
-		if ((Get_Owner() == COMBAT_STAR) && (Model != NULL)) {
+		if ((Get_Owner() == COMBAT_STAR) && (Model != nullptr)) {
 			WWPROFILE( "Eject" );
 			int eject_index = Model->Get_Bone_Index( "eject" );
 			if ( eject_index > 0 ) {
@@ -1069,9 +1069,9 @@ void	WeaponClass::Do_Firing_Effects( void )
 	//	Determine which sound to play, the primary or secondary firing sound?
 	//
 	int sound_id = 0;
-	if ( IsPrimaryTriggered && PrimaryAmmoDefinition != NULL ) {
+	if ( IsPrimaryTriggered && PrimaryAmmoDefinition != nullptr ) {
 		sound_id = PrimaryAmmoDefinition->FireSoundDefID;
-	} else if ( IsSecondaryTriggered && SecondaryAmmoDefinition != NULL ) {
+	} else if ( IsSecondaryTriggered && SecondaryAmmoDefinition != nullptr ) {
 		sound_id = SecondaryAmmoDefinition->FireSoundDefID;
 	}
 
@@ -1079,7 +1079,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 	//	Release the old firing sound (if necessary)
 	//
 	bool release_curr_sound = false;
-	if ( sound_id != FiringSoundDefID && FiringSound != NULL ) {
+	if ( sound_id != FiringSoundDefID && FiringSound != nullptr ) {
 		release_curr_sound = true;
 	}
 
@@ -1087,7 +1087,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 	//	For first-person we make the weapon sounds "2D", so check to see
 	// if we need to re-create the sound...
 	//
-	if ( FiringSound != NULL ) {
+	if ( FiringSound != nullptr ) {
 		if ( Get_Owner() == COMBAT_STAR && CombatManager::Is_First_Person() ) {
 
 			//
@@ -1120,7 +1120,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 	//	Do we need to recreate the firing sound object, or can we just
 	// reuse the one we already have?
 	//
-	if ( FiringSound != NULL ) {
+	if ( FiringSound != nullptr ) {
 
 		//
 		// Stop the current sound
@@ -1181,7 +1181,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 			REF_PTR_RELEASE( owner_ref );
 		}
 
-		if ( FiringSound != NULL ) {
+		if ( FiringSound != nullptr ) {
 
 			FiringSoundDefID = sound_id;
 			FiringSound->Set_Transform( muzzle );
@@ -1196,9 +1196,9 @@ void	WeaponClass::Do_Firing_Effects( void )
 	// multiple of the mass of the vehicle.
 	ArmedGameObj * owner = Get_Owner();
 	VehicleGameObj * vehicle_game_obj = owner->As_VehicleGameObj();
-	if (vehicle_game_obj != NULL) {
+	if (vehicle_game_obj != nullptr) {
 		PhysClass * vehicle = vehicle_game_obj->Peek_Physical_Object();
-		if (vehicle->As_TrackedVehicleClass() != NULL) {
+		if (vehicle->As_TrackedVehicleClass() != nullptr) {
 
 			RigidBodyClass * rbody = (RigidBodyClass *)vehicle;
 
@@ -1213,7 +1213,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 	}
 
 	// Play an anim on the human owner
-	if ( owner != NULL && owner->As_SoldierGameObj() ) {
+	if ( owner != nullptr && owner->As_SoldierGameObj() ) {
 		if ( !Definition->HumanFiringAnimation.Is_Empty() ) {
 			owner->As_SoldierGameObj()->Set_Animation( Definition->HumanFiringAnimation, 0, 0 );
 		}
@@ -1224,7 +1224,7 @@ void	WeaponClass::Make_Shell_Eject( const Matrix3D & tm )
 {
 	DefinitionClass * def = DefinitionMgrClass::Find_Definition( Definition->EjectPhysDefID );
 
-	if ((def != NULL) && ((PhysDefClass *)def)->Is_Type( "ProjectileDef" )) {
+	if ((def != nullptr) && ((PhysDefClass *)def)->Is_Type( "ProjectileDef" )) {
 
 		// Create the object
 		ProjectileClass * PhysicalObject = (ProjectileClass *)def->Create();
@@ -1250,22 +1250,22 @@ void	WeaponClass::Do_Continuous_Effects( bool enable )
 	if ( !enable ) {
 
 		for ( int i = 0; i < ContinuousEmitters.Length(); i++ ) {
-			if ( ContinuousEmitters[i] != NULL ) {
+			if ( ContinuousEmitters[i] != nullptr ) {
 				// Check if it is in the scene, it may ahve already been remove by completion
-				if ( ContinuousEmitters[i]->Peek_Scene() != NULL ) {
+				if ( ContinuousEmitters[i]->Peek_Scene() != nullptr ) {
 					PhysicsSceneClass::Get_Instance()->Remove_Render_Object( ContinuousEmitters[i] );
 				}
 				ContinuousEmitters[i]->Stop();
 				ContinuousEmitters[i]->Release_Ref();
-				ContinuousEmitters[i] = NULL;
+				ContinuousEmitters[i] = nullptr;
 			}
 		}
 
-		if ( ContinuousSound != NULL ) {
+		if ( ContinuousSound != nullptr ) {
 			ContinuousSound->Stop();
 			ContinuousSound->Remove_From_Scene();
 			ContinuousSound->Release_Ref();
-			ContinuousSound = NULL;
+			ContinuousSound = nullptr;
 		}
 	}
 
@@ -1287,12 +1287,12 @@ void	WeaponClass::Do_Continuous_Effects( bool enable )
 
 			ContinuousEmitters.Resize( num_muzzles );
 			for ( i = 0; i < ContinuousEmitters.Length(); i++ ) {
-				ContinuousEmitters[i] = NULL;
+				ContinuousEmitters[i] = nullptr;
 			}
 		}
 
 		for ( i = 0; i < ContinuousEmitters.Length(); i++ ) {
-			if ( ContinuousEmitters[i] == NULL && !ammo_def->ContinuousEmitterName.Is_Empty() ) {
+			if ( ContinuousEmitters[i] == nullptr && !ammo_def->ContinuousEmitterName.Is_Empty() ) {
 				RenderObjClass * renderobj = Create_Render_Obj_From_Filename( ammo_def->ContinuousEmitterName );
 				if ( renderobj ) {
 					WWASSERT( renderobj->Class_ID() == RenderObjClass::CLASSID_PARTICLEEMITTER );
@@ -1307,9 +1307,9 @@ void	WeaponClass::Do_Continuous_Effects( bool enable )
 			}
 		}
 
-		if ( ContinuousSound == NULL && ammo_def->ContinuousSoundDefID != 0 ) {
+		if ( ContinuousSound == nullptr && ammo_def->ContinuousSoundDefID != 0 ) {
 			ContinuousSound = WWAudioClass::Get_Instance()->Create_Continuous_Sound( ammo_def->ContinuousSoundDefID );
-			if ( ContinuousSound != NULL ) {
+			if ( ContinuousSound != nullptr ) {
 				ContinuousSound->Add_To_Scene( true );
 			}
 		}
@@ -1322,20 +1322,20 @@ void	WeaponClass::Do_Continuous_Effects( bool enable )
 			muzzle.Obj_Look_At( fp_muzzle_pos, Get_Owner()->Get_Targeting_Pos(), 0 );
 
 			for ( i = 0; i < ContinuousEmitters.Length(); i++ ) {
-				if ( ContinuousEmitters[i] != NULL ) {
+				if ( ContinuousEmitters[i] != nullptr ) {
 					ContinuousEmitters[i]->Set_Transform( muzzle );
 				}
 			}
-			if ( ContinuousSound != NULL ) {
+			if ( ContinuousSound != nullptr ) {
 				ContinuousSound->Set_Transform( muzzle );
 			}
 		} else {
 			for ( i = 0; i < ContinuousEmitters.Length(); i++ ) {
-				if ( ContinuousEmitters[i] != NULL ) {
+				if ( ContinuousEmitters[i] != nullptr ) {
 					ContinuousEmitters[i]->Set_Transform( Get_Muzzle( i ) );
 				}
 			}
-			if ( ContinuousSound != NULL ) {
+			if ( ContinuousSound != nullptr ) {
 				ContinuousSound->Set_Transform( Get_Muzzle() );
 			}
 		}
@@ -1417,7 +1417,7 @@ void	WeaponClass::Update_State( float pending_time )
 								owner_ref->Set_Ptr( Get_Owner() );
 
 								AudibleSoundClass * sound = WWAudioClass::Get_Instance()->Create_Sound( Definition->EmptySoundDefID, owner_ref );
-								if ( sound != NULL ) {
+								if ( sound != nullptr ) {
 									sound->Set_Transform( muzzle );
 									sound->Attach_To_Object( Model );
 									sound->Add_To_Scene( true );
@@ -1510,7 +1510,7 @@ void	WeaponClass::Force_Reload( void )
 			owner_ref->Set_Ptr( Get_Owner() );
 
 			AudibleSoundClass * sound = WWAudioClass::Get_Instance()->Create_Sound( Definition->ReloadSoundDefID, owner_ref );
-			if ( sound != NULL ) {
+			if ( sound != nullptr ) {
 				sound->Set_Transform( muzzle );
 				sound->Attach_To_Object( Model );
 				sound->Add_To_Scene( true );
@@ -1542,7 +1542,7 @@ void	WeaponClass::Update( void )
 		IsSecondaryTriggered = false;
 	}
 
-	WWASSERT( PrimaryAmmoDefinition != NULL );
+	WWASSERT( PrimaryAmmoDefinition != nullptr );
 
 	// Update Burst logic
 	if ( (int)PrimaryAmmoDefinition->BurstMax == 0 ) {	// if not using bursts
@@ -1669,9 +1669,9 @@ PhysicalGameObj * WeaponClass::Cast_Weapon( const Vector3 & target )
 
 //	Debug_Say(( "Weapon Focus %f %f %f\n", bullet_hit_position->X, bullet_hit_position->Y, bullet_hit_position->Z ));
 
-	PhysicalGameObj * hit_obj = NULL;
+	PhysicalGameObj * hit_obj = nullptr;
 	if ( raytest.CollidedPhysObj ) {
-		if ( raytest.CollidedPhysObj->Get_Observer() != NULL ) {
+		if ( raytest.CollidedPhysObj->Get_Observer() != nullptr ) {
 			hit_obj = ((CombatPhysObserverClass *)raytest.CollidedPhysObj->Get_Observer())->As_PhysicalGameObj();
 		}
 	}
@@ -1691,7 +1691,7 @@ WeaponClass::Is_Reload_OK( void )
 	//
 	//	Allow reloads if the infinite ammo cheat is enabled
 	//
-	if (	CheatMgrClass::Get_Instance () != NULL &&
+	if (	CheatMgrClass::Get_Instance () != nullptr &&
 			CheatMgrClass::Get_Instance ()->Is_Cheat_Enabled( CheatMgrClass::CHEAT_INFINITE_AMMO ) && Owner == COMBAT_STAR )
 	{
 		retval = true;
@@ -1703,7 +1703,7 @@ WeaponClass::Is_Reload_OK( void )
 
 void	WeaponClass::Stop_Firing_Sound( void )
 {
-	if ( FiringSound == NULL ) {
+	if ( FiringSound == nullptr ) {
 		return ;
 	}
 
@@ -1763,17 +1763,17 @@ void	WeaponClass::Display_Targeting( void )
 
 //	Debug_Say(( "Weapon Focus %f %f %f\n", bullet_hit_position->X, bullet_hit_position->Y, bullet_hit_position->Z ));
 
-	if ( raytest.CollidedPhysObj && raytest.CollidedPhysObj->Get_Observer() != NULL ) {
+	if ( raytest.CollidedPhysObj && raytest.CollidedPhysObj->Get_Observer() != nullptr ) {
 		DamageableGameObj * obj = ((CombatPhysObserverClass *)raytest.CollidedPhysObj->Get_Observer())->As_DamageableGameObj();
 
 		if ( obj->Is_Targetable() == false ) {
-			obj = NULL;
+			obj = nullptr;
 		}
 
 		// if stealthed and enemy, it's not targetable
 		if ( obj && obj->As_SmartGameObj() && obj->As_SmartGameObj()->Is_Stealthed() &&
 				COMBAT_STAR && obj->Is_Enemy( COMBAT_STAR ) ) {
-			obj = NULL;
+			obj = nullptr;
 		}
 
 		HUDInfo::Set_Weapon_Target_Object( obj );
@@ -1781,7 +1781,7 @@ void	WeaponClass::Display_Targeting( void )
 		// We have a problem here with a building here clearing the PT, so dont set
 		// buildings here, assume they will be set from the ccamera
 		// Mo, try pulling back the cast above
-		if ( obj == NULL || obj->As_BuildingGameObj() == NULL ) {
+		if ( obj == nullptr || obj->As_BuildingGameObj() == nullptr ) {
 			HUDInfo::Set_Info_Object( obj );
 		}
 	}
@@ -1809,14 +1809,14 @@ void	WeaponClass::Display_Targeting( void )
 			}
 		}
 
-		IsAquired = (target != NULL) &&
+		IsAquired = (target != nullptr) &&
 						(AquireTimer >= AmmoDefinition->AquireTime);
 	}
 #endif
 
 const Matrix3D & WeaponClass::Get_Muzzle( int index )
 {
-	WWASSERT( Get_Owner() != NULL );
+	WWASSERT( Get_Owner() != nullptr );
 
 	// Star's weapon in first person fires from the camera
 	if ( Get_Owner() == COMBAT_STAR && CombatManager::Is_First_Person() ) {
@@ -1831,13 +1831,13 @@ const Matrix3D & WeaponClass::Get_Muzzle( int index )
 
 void	WeaponClass::Ignore_Owner( void )
 {
-	if ( Get_Owner() != NULL ) {
-		if ( Get_Owner()->Peek_Physical_Object() != NULL ) {
+	if ( Get_Owner() != nullptr ) {
+		if ( Get_Owner()->Peek_Physical_Object() != nullptr ) {
 			Get_Owner()->Peek_Physical_Object()->Inc_Ignore_Counter();
 		}
 
 		// If Owner is a vehicle, inc all the occupants
-		if ( Get_Owner()->As_VehicleGameObj() != NULL ) {
+		if ( Get_Owner()->As_VehicleGameObj() != nullptr ) {
 			Get_Owner()->As_VehicleGameObj()->Ignore_Occupants();
 		}
 	}
@@ -1845,12 +1845,12 @@ void	WeaponClass::Ignore_Owner( void )
 
 void	WeaponClass::Unignore_Owner( void )
 {
-	if ( Get_Owner() != NULL ) {
-		if ( Get_Owner()->Peek_Physical_Object() != NULL ) {
+	if ( Get_Owner() != nullptr ) {
+		if ( Get_Owner()->Peek_Physical_Object() != nullptr ) {
 			Get_Owner()->Peek_Physical_Object()->Dec_Ignore_Counter();
 		}
 
-		if ( Get_Owner()->As_VehicleGameObj() != NULL ) {
+		if ( Get_Owner()->As_VehicleGameObj() != nullptr ) {
 			Get_Owner()->As_VehicleGameObj()->Unignore_Occupants();
 		}
 	}
@@ -1879,7 +1879,7 @@ void	MuzzleFlashClass::Init( RenderObjClass * model )
 {
 	REF_PTR_SET( Model, model );
 
-	if ( model != NULL ) {
+	if ( model != nullptr ) {
 
 		// Find the muzzle bone ( for rotation )
 		MuzzleA0Bone = model->Get_Bone_Index( "muzzlea0" );
@@ -1903,7 +1903,7 @@ void	MuzzleFlashClass::Update( bool flashA0, bool flashA1 )
 		flashA1 = false;
 	}
 
-	if ( Model != NULL ) {
+	if ( Model != nullptr ) {
 		if (( MuzzleA0Bone > 0 ) && (LastFlashA0 != flashA0)) {
 			LastFlashA0 = flashA0;
 	#if 0

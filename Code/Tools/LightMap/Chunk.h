@@ -46,7 +46,7 @@ class ChunkClass : public ChunkHeader
 	public:
 
 		 ChunkClass (ChunkLoadClass &loadchunk);
-		~ChunkClass() {if (Data != NULL) delete [] Data;}
+		~ChunkClass() {if (Data != nullptr) delete [] Data;}
 
 		void *Get_Data() const {return (Data);}
 

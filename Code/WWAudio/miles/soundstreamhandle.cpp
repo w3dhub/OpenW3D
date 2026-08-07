@@ -73,7 +73,7 @@ SoundStreamHandleClass::Initialize (SoundBufferClass *buffer)
 {
 	SoundHandleClass::Initialize (buffer);
 
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		//
 		//	Create a stream from the sample handle
 		//
@@ -280,11 +280,11 @@ SoundStreamHandleClass::Get_Sample_MS_Position (int *len, int *pos)
 		S32 current_ms;
 		::AIL_stream_ms_position (StreamHandle, &total_ms, &current_ms);
 
-		if (len != NULL) {
+		if (len != nullptr) {
 			*len = int(total_ms);
 		}
 
-		if (pos != NULL) {
+		if (pos != nullptr) {
 			*pos = int(current_ms);
 		}
 	}
@@ -387,7 +387,7 @@ SoundStreamHandleClass::Initialize_Reverb ()
 	//
 	HPROVIDER filter;
 	HPROENUM next = HPROENUM_FIRST;
-	char *name = NULL;
+	char *name = nullptr;
 	if (::AIL_enumerate_filters (&next, &filter, &name) == 0) {
 		//
 		//	Pass the filter onto the sample

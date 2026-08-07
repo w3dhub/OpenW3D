@@ -117,7 +117,7 @@ public:
 			HierarchySaveClass *		htree,
 			TimeValue					curtime,
 			Progress_Meter_Class &	meter,
-			WorldInfoClass *			world_info = NULL
+			WorldInfoClass *			world_info = nullptr
 			);
 
 	~MeshSaveClass(void);

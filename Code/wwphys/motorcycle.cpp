@@ -93,7 +93,7 @@ void MotorcycleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque)
 		// Read the controller inputs
 		// Accept either strafe or turn as a turn command
 		float turn_left = 0.0f;
-		if (Get_Controller() != NULL) {
+		if (Get_Controller() != nullptr) {
 			if (WWMath::Fabs(Controller->Get_Turn_Left()) > WWMath::Fabs(Controller->Get_Move_Left())) {
 				turn_left = Controller->Get_Turn_Left();
 			} else {

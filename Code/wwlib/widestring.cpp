@@ -66,10 +66,10 @@ unichar_t *	WideStringClass::m_FreeTempPtr[MAX_TEMP_STRING] = {
 };
 
 unichar_t *	WideStringClass::m_ResTempPtr[MAX_TEMP_STRING] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr
 };
 
 
@@ -85,7 +85,7 @@ WideStringClass::Get_String (size_t length, bool is_temp)
 		m_Buffer = m_EmptyString;
 	} else {
 
-		unichar_t *string = NULL;
+		unichar_t *string = nullptr;
 
 		//
 		//	Should we attempt to use a temp buffer for this string?
@@ -102,14 +102,14 @@ WideStringClass::Get_String (size_t length, bool is_temp)
 			//	Try to find an available temporary buffer
 			//
 			for (int index = 0; index < MAX_TEMP_STRING; index ++) {
-				if (m_FreeTempPtr[index] != NULL) {
+				if (m_FreeTempPtr[index] != nullptr) {
 
 					//
 					//	Grab this unused buffer for our string
 					//
 					string					= m_FreeTempPtr[index];
 					m_ResTempPtr[index]	= m_FreeTempPtr[index];
-					m_FreeTempPtr[index]	= NULL;
+					m_FreeTempPtr[index]	= nullptr;
 					Set_Buffer_And_Allocated_Length (string, static_cast<size_t>(MAX_TEMP_LEN));
 
 					//
@@ -121,7 +121,7 @@ WideStringClass::Get_String (size_t length, bool is_temp)
 			}
 		}
 
-		if (string == NULL) {
+		if (string == nullptr) {
 			Set_Buffer_And_Allocated_Length (Allocate_Buffer (length), length);
 		}
 	}
@@ -244,7 +244,7 @@ WideStringClass::Free_String (void)
 int
 WideStringClass::Format_Args (const unichar_t *format, va_list arg_list )
 {
-	if (format == NULL) {
+	if (format == nullptr) {
 		return 0;
 	}
 
@@ -282,7 +282,7 @@ WideStringClass::Format_Args (const unichar_t *format, va_list arg_list )
 int
 WideStringClass::Format (const unichar_t *format, ...)
 {
-	if (format == NULL) {
+	if (format == nullptr) {
 		return 0;
 	}
 
@@ -360,7 +360,7 @@ WideStringClass::Release_Resources (void)
 ///////////////////////////////////////////////////////////////////
 bool WideStringClass::Convert_From (const char *text)
 {
-	if (text != NULL) {
+	if (text != nullptr) {
 		size_t length = u_mbtows(nullptr, text, 0);
 
 		if (length > 0 && length != size_t(-1)) {

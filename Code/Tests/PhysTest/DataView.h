@@ -40,7 +40,7 @@ class ItemInfoClass
 public:
 	enum { MODEL = 0, INSTANCE };
 
-	ItemInfoClass(const char * name,int type) : Instance(NULL) { Name = strdup(name); Type = type; }
+	ItemInfoClass(const char * name,int type) : Instance(nullptr) { Name = strdup(name); Type = type; }
 	~ItemInfoClass(void) { if (Name) free(Name); }
 
 	char *		Name;

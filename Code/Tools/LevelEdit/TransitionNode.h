@@ -64,7 +64,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	TransitionNodeClass (PresetClass *preset = NULL);
+	TransitionNodeClass (PresetClass *preset = nullptr);
 	TransitionNodeClass (const TransitionNodeClass &src);
 	~TransitionNodeClass (void);
 
@@ -148,7 +148,7 @@ TransitionNodeClass::Peek_Physics_Obj (void) const
 inline void
 TransitionNodeClass::On_Rotate (void)
 {
-	if (m_TransitionObj != NULL) {
+	if (m_TransitionObj != nullptr) {
 		m_TransitionObj->Set_Transform (m_Transform);
 		m_TransitionObj->Update_Transitions ();
 	}
@@ -163,7 +163,7 @@ TransitionNodeClass::On_Rotate (void)
 inline void
 TransitionNodeClass::On_Translate (void)
 {
-	if (m_TransitionObj != NULL) {
+	if (m_TransitionObj != nullptr) {
 		m_TransitionObj->Set_Transform (m_Transform);
 		m_TransitionObj->Update_Transitions ();
 	}
@@ -178,7 +178,7 @@ TransitionNodeClass::On_Translate (void)
 inline void
 TransitionNodeClass::On_Transform (void)
 {
-	if (m_TransitionObj != NULL) {
+	if (m_TransitionObj != nullptr) {
 		m_TransitionObj->Set_Transform (m_Transform);
 		m_TransitionObj->Update_Transitions ();
 	}
@@ -194,7 +194,7 @@ inline int
 TransitionNodeClass::Get_Transition_Count (void) const
 {
 	int count = 0;
-	if (m_TransitionObj != NULL) {
+	if (m_TransitionObj != nullptr) {
 		count = m_TransitionObj->Get_Transition_Count ();
 	}
 
@@ -207,9 +207,9 @@ TransitionNodeClass::Get_Transition_Count (void) const
 inline TransitionInstanceClass *
 TransitionNodeClass::Get_Transition (int index)
 {
-	TransitionInstanceClass *transition = NULL;
+	TransitionInstanceClass *transition = nullptr;
 
-	if (	m_TransitionObj != NULL &&
+	if (	m_TransitionObj != nullptr &&
 			index >= 0 &&
 			index < Get_Transition_Count ())
 	{

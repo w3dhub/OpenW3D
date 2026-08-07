@@ -78,7 +78,7 @@ class ResourceFileClass final : public FileClass
 		int Create(void) override											{ return false; }
 		int Delete(void) override											{ return false; }
 		bool Is_Available(int /*forced=false*/) override				{ return Is_Open (); }
-		bool Is_Open(void) const override									{ return (FileBytes != NULL); }
+		bool Is_Open(void) const override									{ return (FileBytes != nullptr); }
 
 		int Open(char const * /*fname*/, int /*rights=READ*/) override	{ return Is_Open(); }
 		int Open(int /*rights=READ*/) override							{ return Is_Open(); }
@@ -88,7 +88,7 @@ class ResourceFileClass final : public FileClass
 		int Size(void) override;
 		int Write(void const * /*buffer*/, int /*size*/) override	{ return 0; }
 		void Close(void) override											{ }
-		void Error(int error, int canretry = false, char const * filename=NULL) override;
+		void Error(int error, int canretry = false, char const * filename=nullptr) override;
 		void Bias(int /* start */, int /* length */=-1) override {}
 
 		virtual const unsigned char *Peek_Data(void) const					{ return FileBytes; }

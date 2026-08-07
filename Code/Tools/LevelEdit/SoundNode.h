@@ -68,7 +68,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	SoundNodeClass (PresetClass *preset = NULL);
+	SoundNodeClass (PresetClass *preset = nullptr);
 	SoundNodeClass (const SoundNodeClass &src);
 	~SoundNodeClass (void);
 
@@ -111,7 +111,7 @@ public:
 	void			Set_ID (uint32 id);
 	bool			Show_Settings_Dialog (void);
 
-	bool			Is_Attenuation_Sphere_Shown (void)	{ return (Sphere != NULL); }
+	bool			Is_Attenuation_Sphere_Shown (void)	{ return (Sphere != nullptr); }
 	void			Show_Attenuation_Spheres (bool onoff);
 	float			Get_Attenuation_Radius (void);
 	void			Set_Attenuation_Radius (float radius);
@@ -161,11 +161,11 @@ protected:
 inline void
 SoundNodeClass::On_Rotate (void)
 {
-	if (SoundObj != NULL) {
+	if (SoundObj != nullptr) {
 		SoundObj->Set_Transform (m_Transform);
 	}
 
-	if (Sphere != NULL) {
+	if (Sphere != nullptr) {
 		Sphere->Set_Transform (m_Transform);
 	}
 
@@ -180,11 +180,11 @@ SoundNodeClass::On_Rotate (void)
 inline void
 SoundNodeClass::On_Translate (void)
 {
-	if (SoundObj != NULL) {
+	if (SoundObj != nullptr) {
 		SoundObj->Set_Transform (m_Transform);
 	}
 
-	if (Sphere != NULL) {
+	if (Sphere != nullptr) {
 		Sphere->Set_Transform (m_Transform);
 	}
 
@@ -199,11 +199,11 @@ SoundNodeClass::On_Translate (void)
 inline void
 SoundNodeClass::On_Transform (void)
 {
-	if (SoundObj != NULL) {
+	if (SoundObj != nullptr) {
 		SoundObj->Set_Transform (m_Transform);
 	}
 
-	if (Sphere != NULL) {
+	if (Sphere != nullptr) {
 		Sphere->Set_Transform (m_Transform);
 	}
 

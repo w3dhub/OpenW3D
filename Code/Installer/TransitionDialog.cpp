@@ -77,7 +77,7 @@ TransitionDialogClass::TransitionDialogClass()
 
 	// Null materials.
 	for (unsigned mesh = 0; mesh < MESH_COUNT; mesh++) {
-		Materials [mesh] = NULL;
+		Materials [mesh] = nullptr;
 	}
 }
 

@@ -36,9 +36,9 @@ static char THIS_FILE[] = __FILE__;
 extern void RegisterColorPicker (HINSTANCE hinst);
 extern void RegisterColorBar (HINSTANCE hinst);
 
-HINSTANCE _hinstance = NULL;
+HINSTANCE _hinstance = nullptr;
 
-static AFX_EXTENSION_MODULE WWCtrlDLL = { NULL, NULL };
+static AFX_EXTENSION_MODULE WWCtrlDLL = { nullptr, nullptr };
 
 /////////////////////////////////////////////////////////////
 //

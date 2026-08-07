@@ -74,7 +74,7 @@ public:
 	// Function to update the camera's parameters each frame.
 	virtual void	Update();
 
-	bool				Is_In_Cinematic( void )					{ return HostModel != NULL; }
+	bool				Is_In_Cinematic( void )					{ return HostModel != nullptr; }
 
 	bool				Is_Valid( void )							{ return IsValid; }
 
@@ -99,7 +99,7 @@ public:
 	bool				Is_Lerping( void )						{ return LerpTimeTotal != 0; }
 
 	void				Set_Host_Model( RenderObjClass * host );
-	bool				Is_Using_Host_Model( void )			{ return (HostModel != NULL); }
+	bool				Is_Using_Host_Model( void )			{ return (HostModel != nullptr); }
 
 	void				Enable_2D_Targeting( bool on_off )	{ Enable2DTargeting = on_off; }
 	bool				Is_2D_Targeting( void )					{ return Enable2DTargeting; }

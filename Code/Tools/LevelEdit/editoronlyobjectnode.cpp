@@ -73,7 +73,7 @@ SimplePersistFactoryClass<EditorOnlyObjectNodeClass, CHUNKID_EDITOR_ONLY_OBJECTS
 //
 //////////////////////////////////////////////////////////////////////////////
 EditorOnlyObjectNodeClass::EditorOnlyObjectNodeClass (PresetClass *preset)
-	:	DisplayObj (NULL),
+	:	DisplayObj (nullptr),
 		NodeClass (preset)
 {
 	return ;
@@ -86,8 +86,8 @@ EditorOnlyObjectNodeClass::EditorOnlyObjectNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 EditorOnlyObjectNodeClass::EditorOnlyObjectNodeClass (const EditorOnlyObjectNodeClass &src)
-	:	DisplayObj (NULL),
-		NodeClass (NULL)
+	:	DisplayObj (nullptr),
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -119,7 +119,7 @@ void
 EditorOnlyObjectNodeClass::Initialize (void)
 {
 	EditorOnlyDefinitionClass *definition = static_cast<EditorOnlyDefinitionClass *> (m_Preset->Get_Definition ());
-	if (definition != NULL) {
+	if (definition != nullptr) {
 		MEMBER_RELEASE (DisplayObj);
 
 		//
@@ -133,7 +133,7 @@ EditorOnlyObjectNodeClass::Initialize (void)
 		DisplayObj						= new DecorationPhysClass;
 		CString render_obj_name		= ::Asset_Name_From_Filename (definition->Get_Model_Name ());
 		RenderObjClass *render_obj	= ::Create_Render_Obj (render_obj_name);
-		if (render_obj != NULL) {
+		if (render_obj != nullptr) {
 			DisplayObj->Set_Model (render_obj);
 			MEMBER_RELEASE (render_obj);
 
@@ -190,7 +190,7 @@ EditorOnlyObjectNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (DisplayObj != NULL && m_IsInScene) {
+	if (DisplayObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (DisplayObj);
 	}
 	return ;
@@ -208,7 +208,7 @@ EditorOnlyObjectNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (DisplayObj != NULL && m_IsInScene) {
+	if (DisplayObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (DisplayObj);
 	}
 	Release_Ref ();

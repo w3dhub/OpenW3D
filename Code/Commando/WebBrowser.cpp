@@ -51,7 +51,7 @@
 
 #include <shellapi.h>
 
-WebBrowser* WebBrowser::_mInstance = NULL;
+WebBrowser* WebBrowser::_mInstance = nullptr;
 
 /******************************************************************************
 *
@@ -75,7 +75,7 @@ bool WebBrowser::InstallPrerequisites(void)
 	// the WOLBrowser class object. If we can get the class object then the
 	// component is already registered.
 	CComPtr<IClassFactory> factory;
-	HRESULT hr = CoGetClassObject(CLSID_WOLBrowser, CLSCTX_INPROC_SERVER, NULL,
+	HRESULT hr = CoGetClassObject(CLSID_WOLBrowser, CLSCTX_INPROC_SERVER, nullptr,
 			IID_IClassFactory, (void**)&factory);
 
 	// If the component isn't registered then check for it in the run directory
@@ -121,8 +121,8 @@ bool WebBrowser::InstallPrerequisites(void)
 				"Renegade Warning!");
 
 		// Attempt to create the key.
-		result = RegCreateKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_URL, 0, NULL,
-			REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &key, NULL);
+		result = RegCreateKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_URL, 0, nullptr,
+			REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &key, nullptr);
 
 		if (ERROR_SUCCESS != result)
 			{
@@ -152,7 +152,7 @@ bool WebBrowser::InstallPrerequisites(void)
 			{"NewsX", "http://battleclans.westwood.com/cgi-bin/cgiclient?rosetta&request=do_news&LANGCODE=0&SKU=3072"},
 			{"Signup", "http://games2.westwood.com/cgi-bin/cgiclient?ren_reg2&request=expand_template&Template=newreg_menu.html&LANGCODE=0&embedded=1&SKU=3072"},
 			{"SignupX", "http://games2.westwood.com/cgi-bin/cgiclient?ren_reg2&request=expand_template&Template=newreg_menu.html&LANGCODE=0"},
-			{NULL, NULL}
+			{nullptr, nullptr}
 			};
 
 		const char* valueName = urls[0].Name;
@@ -163,14 +163,14 @@ bool WebBrowser::InstallPrerequisites(void)
 			DWORD type;
 			char data[512];
 			DWORD size = sizeof(data);
-			result = RegQueryValueExA(key, valueName, NULL, &type, (LPBYTE)&data, &size);
+			result = RegQueryValueExA(key, valueName, nullptr, &type, (LPBYTE)&data, &size);
 
 			// If the URL value is not found then add it.
 			const char* valueData = urls[index].Data;
 
 			if (ERROR_SUCCESS != result || (strcmp(valueData, data) != 0))
 				{
-				result = RegSetValueExA(key, valueName, NULL, REG_SZ, (CONST BYTE*)valueData,
+				result = RegSetValueExA(key, valueName, nullptr, REG_SZ, (CONST BYTE*)valueData,
 					(strlen(valueData) + 1));
 
 				if (ERROR_SUCCESS != result)
@@ -189,7 +189,7 @@ bool WebBrowser::InstallPrerequisites(void)
 			}
 
 		RegCloseKey(key);
-		return (valueName == NULL);
+		return (valueName == nullptr);
 		}
 
 	RegCloseKey(key);
@@ -241,7 +241,7 @@ WebBrowser* WebBrowser::CreateInstance(HWND window)
 	{
 	if (_mInstance)
 		{
-		return NULL;
+		return nullptr;
 		}
 
 	WebBrowser* object = new WebBrowser;
@@ -254,7 +254,7 @@ WebBrowser* WebBrowser::CreateInstance(HWND window)
 			{
 			WWDEBUG_SAY(("WebBrowser: Failed to initialize!\n"));
 			object->Release();
-			object = NULL;
+			object = nullptr;
 			}
 		}
 
@@ -309,7 +309,7 @@ WebBrowser::~WebBrowser()
 	{
 	WWDEBUG_SAY(("WebBrowser: Destructing\n"));
 
-	_mInstance = NULL;
+	_mInstance = nullptr;
 
 	if (mWOLBrowser)
 		{
@@ -358,7 +358,7 @@ bool WebBrowser::FinalizeCreate(HWND window)
 			// Create the embedded browser component.
 			WWDEBUG_SAY(("WebBrowser: Creating WOLBrowser component\n"));
 
-			HRESULT hr = CoCreateInstance(CLSID_WOLBrowser, NULL, CLSCTX_INPROC_SERVER,
+			HRESULT hr = CoCreateInstance(CLSID_WOLBrowser, nullptr, CLSCTX_INPROC_SERVER,
 					IID_IWOLBrowser, (void**)&mWOLBrowser);
 
 			if (FAILED(hr))
@@ -444,7 +444,7 @@ bool WebBrowser::ShowWebPage(const char* page)
 				mbstowcs(framePage, path, MAX_PATH);
 				wcscat(framePage, L"frame.htm");
 
-				HRESULT hr = mWOLBrowser->Navigate(framePage, 0 , NULL);
+				HRESULT hr = mWOLBrowser->Navigate(framePage, 0 , nullptr);
 
 				if (SUCCEEDED(hr))
 					{
@@ -543,14 +543,14 @@ bool WebBrowser::RetrievePageURL(const char* page, char* url, int size)
 		char valueName[64];
 		strcpy(valueName, page);
 
-		if (mWOLBrowser == NULL)
+		if (mWOLBrowser == nullptr)
 			{
 			strcat(valueName, "X");
 			}
 
 		DWORD type;
 		DWORD sizeOfBuffer = size;
-		result = RegQueryValueExA(key, valueName, NULL, &type, (unsigned char*)url,
+		result = RegQueryValueExA(key, valueName, nullptr, &type, (unsigned char*)url,
 				&sizeOfBuffer);
 
 		RegCloseKey(key);
@@ -619,7 +619,7 @@ bool WebBrowser::RetrieveHTMLPath(char* path, int size)
 
 STDMETHODIMP WebBrowser::QueryInterface(REFIID iid, void** ppv)
 	{
-	*ppv = NULL;
+	*ppv = nullptr;
 
 	if ((iid == IID_IUnknown) || (iid == IID_IWOLBrowserEvent))
 		{
@@ -1071,8 +1071,8 @@ bool WebBrowser::LaunchExternal(const char* url)
 	char* extPtr = strrchr(filename, '.');
 	strcpy(extPtr, ".htm");
 
-	HANDLE file = CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
-			FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE file = CreateFileA(filename, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
+			FILE_ATTRIBUTE_NORMAL, nullptr);
 
 	WWASSERT(INVALID_HANDLE_VALUE != file && "Failed to create temporary HTML file.");
 
@@ -1086,12 +1086,12 @@ bool WebBrowser::LaunchExternal(const char* url)
 	DWORD written;
 	const size_t content_length = ::strlen(contents);
 	WWASSERT(content_length <= std::numeric_limits<DWORD>::max());
-	WriteFile(file, contents, static_cast<DWORD>(content_length), &written, NULL);
+	WriteFile(file, contents, static_cast<DWORD>(content_length), &written, nullptr);
 	CloseHandle(file);
 
 	// Find the executable that can launch this file
 	char exeName[MAX_PATH];
-	HINSTANCE hInst = FindExecutableA(filename, NULL, exeName);
+	HINSTANCE hInst = FindExecutableA(filename, nullptr, exeName);
 	WWASSERT(((uintptr_t)hInst > 32) && "Unable to find executable that will display HTML files.");
 
 	// Delete temporary file
@@ -1112,8 +1112,8 @@ bool WebBrowser::LaunchExternal(const char* url)
 
 	memset(&mProcessInfo, 0, sizeof(mProcessInfo));
 
-	bool createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, false,
-			0, NULL, NULL, &startupInfo, &mProcessInfo) != 0;
+	bool createSuccess = CreateProcessA(exeName, commandLine, nullptr, nullptr, false,
+			0, nullptr, nullptr, &startupInfo, &mProcessInfo) != 0;
 
 	WWASSERT(createSuccess && "Failed to launch external WebBrowser.");
 

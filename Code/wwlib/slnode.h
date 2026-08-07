@@ -44,10 +44,6 @@
 
 #include "mempool.h"
 
-#ifndef NULL
-#define NULL 0
-#endif
-
 //	Forward references for friend	classes
 template	<class T> class SList;
 

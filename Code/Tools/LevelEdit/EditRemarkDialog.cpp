@@ -51,8 +51,8 @@ enum
 // EditRemarkDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-EditRemarkDialogClass::EditRemarkDialogClass(CWnd* pParent /*=NULL*/)
-	:	m_Remark (NULL),
+EditRemarkDialogClass::EditRemarkDialogClass(CWnd* pParent /*=nullptr*/)
+	:	m_Remark (nullptr),
 		CDialog(EditRemarkDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(EditRemarkDialogClass)
@@ -93,7 +93,7 @@ BOOL
 EditRemarkDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	ASSERT (m_Remark != NULL);
+	ASSERT (m_Remark != nullptr);
 
 	//
 	//	Calculate the rectangle where we are to display the string picker
@@ -107,7 +107,7 @@ EditRemarkDialogClass::OnInitDialog (void)
 	//
 	StringPicker.Set_Selection (m_Remark->Get_Text_ID ());
 	StringPicker.Create (this);
-	StringPicker.SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
+	StringPicker.SetWindowPos (nullptr, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
 	StringPicker.ShowWindow (SW_SHOW);
 
 	//

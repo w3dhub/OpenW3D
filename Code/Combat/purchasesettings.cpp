@@ -186,7 +186,7 @@ PurchaseSettingsDefClass::~PurchaseSettingsDefClass (void)
 	//	Remove this entry from the static array
 	//
 	if (Type < TYPE_COUNT && Team < TEAM_COUNT) {
-		DefinitionArray[Type][Team] = NULL;
+		DefinitionArray[Type][Team] = nullptr;
 	}
 	return ;
 }
@@ -225,7 +225,7 @@ PersistClass *
 PurchaseSettingsDefClass::Create (void) const
 {
 	WWASSERT (0);
-	return NULL;
+	return nullptr;
 }
 
 
@@ -392,7 +392,7 @@ PurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 const unichar_t *
 PurchaseSettingsDefClass::Get_Name (int index)
 {
-	const unichar_t *retval = NULL;
+	const unichar_t *retval = nullptr;
 
 	//
 	//	Return the translated string...
@@ -415,7 +415,7 @@ PurchaseSettingsDefClass::Find_Definition (TYPE type, TEAM team)
 {
 	PurchaseSettingsDefClass *retval = DefinitionArray[type][team];
 
-	if (retval == NULL) {
+	if (retval == nullptr) {
 
 		//
 		// If the type is "secret classes" try the base classes

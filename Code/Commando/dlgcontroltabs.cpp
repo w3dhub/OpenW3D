@@ -199,7 +199,7 @@ ControlsLookTabClass::On_Init_Dialog (void)
 	//	Configure the mouse sensivity slider
 	//
 	SliderCtrlClass *slider_ctrl = (SliderCtrlClass *)Get_Dlg_Item (IDC_MOUSE_SENSITIVITY_SLIDER);
-	if (slider_ctrl != NULL) {
+	if (slider_ctrl != nullptr) {
 		slider_ctrl->Set_Range (0, 100);
 	}
 
@@ -207,7 +207,7 @@ ControlsLookTabClass::On_Init_Dialog (void)
 	//	Configure the steering mode combobox
 	//
 //	ComboBoxCtrlClass *combo_box = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_STEERING_MODE_COMBO);
-//	if (combo_box != NULL) {
+//	if (combo_box != nullptr) {
 //		combo_box->Add_String (TRANSLATE (IDS_STEERING_MODE_NORMAL));
 //		combo_box->Add_String (TRANSLATE (IDS_STEERING_MODE_TARGET));
 //		combo_box->Set_Curr_Sel (1);
@@ -232,7 +232,7 @@ ControlsLookTabClass::On_Apply (void)
 	//	Read the data from the slider
 	//
 	SliderCtrlClass *slider_ctrl = (SliderCtrlClass *)Get_Dlg_Item (IDC_MOUSE_SENSITIVITY_SLIDER);
-	if (slider_ctrl != NULL) {
+	if (slider_ctrl != nullptr) {
 		Input::Set_Mouse_Sensitivity (slider_ctrl->Get_Pos () / 100.0F);
 	}
 
@@ -243,7 +243,7 @@ ControlsLookTabClass::On_Apply (void)
 	// Always keyboard steer
 	VehicleGameObj::Set_Target_Steering (false);
 //	ComboBoxCtrlClass *combo_box = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_STEERING_MODE_COMBO);
-//	if (combo_box != NULL) {
+//	if (combo_box != nullptr) {
 //		VehicleGameObj::Set_Target_Steering ((combo_box->Get_Curr_Sel () == 1));
 //	}
 
@@ -275,7 +275,7 @@ ControlsLookTabClass::Load_Controls (void)
 	//	Configure the mouse sensivity slider
 	//
 	SliderCtrlClass *slider_ctrl = (SliderCtrlClass *)Get_Dlg_Item (IDC_MOUSE_SENSITIVITY_SLIDER);
-	if (slider_ctrl != NULL) {
+	if (slider_ctrl != nullptr) {
 		slider_ctrl->Set_Pos (int(Input::Get_Mouse_Sensitivity () * 100));
 	}
 
@@ -283,7 +283,7 @@ ControlsLookTabClass::Load_Controls (void)
 	//	Load the steering mode setting
 	//
 //	ComboBoxCtrlClass *combo_box = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_STEERING_MODE_COMBO);
-//	if (combo_box != NULL) {
+//	if (combo_box != nullptr) {
 //		combo_box->Set_Curr_Sel (VehicleGameObj::Is_Target_Steering ());
 //	}
 

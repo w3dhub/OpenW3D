@@ -60,7 +60,7 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
 	CDVerifyDialogClass (void)	:
-		Object (NULL),
+		Object (nullptr),
 		PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CDVERIFY)) {}
 
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
@@ -103,7 +103,7 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 			//
 			char volume_name[256] = { 0 };
 			if (::GetVolumeInformationA (drive_root_name, volume_name, sizeof (volume_name),
-						NULL, NULL, NULL, NULL, 0))
+						nullptr, nullptr, nullptr, nullptr, 0))
 			{
 				size_t cmp_len = ::strlen (volume_name);
 				cmp_len = std::max<size_t> (cmp_len, static_cast<size_t>(11));

@@ -741,11 +741,11 @@ ScrollBarCtrlClass::Set_Pos (int pos, bool send_notify)
 		//	Notify the advise sink(s)
 		//
 		if (send_notify) {
-			if (Parent != NULL) {
+			if (Parent != nullptr) {
 				Parent->On_VScroll (this, Get_ID (), CurrPos);
 			}
 
-			if (AdviseSink != NULL) {
+			if (AdviseSink != nullptr) {
 				AdviseSink->On_VScroll (this, Get_ID (), CurrPos);
 			}
 		}

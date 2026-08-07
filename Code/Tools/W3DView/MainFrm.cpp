@@ -465,7 +465,7 @@ CMainFrame::Restore_Window_State (void)
 		if (is_max) {
 			::ShowWindow (m_hWnd, SW_MAXIMIZE);
 		} else {
-			::SetWindowPos (m_hWnd, NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
+			::SetWindowPos (m_hWnd, nullptr, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
 		}
 	}
 
@@ -482,7 +482,7 @@ void
 CMainFrame::RestoreOriginalSize (void)
 {
 	// Resize the window so its the same size it was when the application loaded
-	SetWindowPos (NULL, 0, 0, m_OrigRect.right-m_OrigRect.left, m_OrigRect.bottom-m_OrigRect.top, SWP_NOMOVE | SWP_NOZORDER);
+	SetWindowPos (nullptr, 0, 0, m_OrigRect.right-m_OrigRect.left, m_OrigRect.bottom-m_OrigRect.top, SWP_NOMOVE | SWP_NOZORDER);
 	return ;
 }
 
@@ -532,14 +532,14 @@ CMainFrame::OnCreateClient
 
 			// Get a pointer to the 'graphic' pane's window
 			CGraphicView *pCGraphicView = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-			BOOL bReturn2 = (pCGraphicView != NULL);
+			BOOL bReturn2 = (pCGraphicView != nullptr);
 
 			// Were we successful in view's getting the pointer?
 			ASSERT (pCGraphicView);
 			if (pCGraphicView) {
 
 				TCHAR szFileName[MAX_PATH];
-				::GetModuleFileName (NULL, szFileName, sizeof (szFileName));
+				::GetModuleFileName (nullptr, szFileName, sizeof (szFileName));
 				LPTSTR pszPath = ::strrchr (szFileName, '\\');
 				if (pszPath) {
 					pszPath[0] = 0;
@@ -655,7 +655,7 @@ CMainFrame::WindowProc
 
 		// We're closing the application so cleanup resources
 		CW3DViewDoc *pdoc = (CW3DViewDoc *)GetActiveDocument ();
-		if (pdoc != NULL) {
+		if (pdoc != nullptr) {
 
 			// Ask the Doc to free its resources
 			pdoc->CleanupResources ();
@@ -678,11 +678,11 @@ CMainFrame::WindowProc
 
 				// Get the directory where this executable was run from
 				TCHAR filename[MAX_PATH];
-				::GetModuleFileName (NULL, filename, sizeof (filename));
+				::GetModuleFileName (nullptr, filename, sizeof (filename));
 
 				// Strip the filename from the path
 				LPTSTR ppath = ::strrchr (filename, '\\');
-				if (ppath != NULL) {
+				if (ppath != nullptr) {
 					ppath[0] = 0;
 				}
 
@@ -696,7 +696,7 @@ CMainFrame::WindowProc
 
 					// Ask the document to load the settings from this data file
 					CW3DViewDoc *pdoc = (CW3DViewDoc *)GetActiveDocument ();
-					if (pdoc != NULL) {
+					if (pdoc != nullptr) {
 						pdoc->LoadSettings (full_path);
 					}
 				}
@@ -812,7 +812,7 @@ CMainFrame::OnUpdateObjectProperties (CCmdUI* pCmdUI)
     if (pCDataTreeView)
     {
         // Get the name of the currently selected object
-        pCmdUI->Enable (pCDataTreeView->GetCurrentSelectionName () != NULL);
+        pCmdUI->Enable (pCDataTreeView->GetCurrentSelectionName () != nullptr);
     }
 
     return ;
@@ -985,8 +985,8 @@ CMainFrame::OnLodGenerate (void)
 	CDataTreeView *ptree_view = (CDataTreeView *)m_wndSplitter.GetPane (0, 0);
 
 	// Were we successful in view's getting the pointer?
-	ASSERT (ptree_view != NULL);
-	if ((ptree_view != NULL) &&
+	ASSERT (ptree_view != nullptr);
+	if ((ptree_view != nullptr) &&
 		 ptree_view->GetCurrentSelectionName ()) {
 
 		// Get the name of the currently selected hierarchy
@@ -1007,13 +1007,13 @@ CMainFrame::OnLodGenerate (void)
 
 			// Get a pointer to the document so we can create an LOD
 			CW3DViewDoc *pdoc = (CW3DViewDoc *)GetActiveDocument ();
-			ASSERT (pdoc != NULL);
-			if (pdoc != NULL) {
+			ASSERT (pdoc != nullptr);
+			if (pdoc != nullptr) {
 
 				// Attempt to generate an LOD from the name of the
 				// currently selected hierarchy
 				HLodPrototypeClass *plod_prototype = pdoc->GenerateLOD (stringName, type);
-				if (plod_prototype != NULL) {
+				if (plod_prototype != nullptr) {
 
 					// Add this prototype to the asset manager
 					WW3DAssetManager::Get_Instance ()->Add_Prototype (plod_prototype);
@@ -1101,7 +1101,7 @@ CMainFrame::Update_Frame_Time (DWORD clocks)
 
 	// Update the resolution display
 	CGraphicView *pCGraphicView = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	if (pCGraphicView != NULL) {
+	if (pCGraphicView != nullptr) {
 
 		CRect rect;
 		pCGraphicView->GetWindowRect(&rect);
@@ -1194,13 +1194,13 @@ void
 CMainFrame::OnFileOpen (void)
 {
 	CW3DViewDoc *doc = (CW3DViewDoc *)GetActiveDocument ();
-	if (doc == NULL) {
+	if (doc == nullptr) {
 		return ;
 	}
 
     CFileDialog openFileDialog (true,
                                 ".w3d",
-                                NULL,
+                                nullptr,
                                 OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT | OFN_EXPLORER,
                                 "Westwood 3D Files (*.w3d)|*.w3d||",
                                 this);
@@ -1214,11 +1214,11 @@ CMainFrame::OnFileOpen (void)
     if (openFileDialog.DoModal () == IDOK)
     {
         // Show the wait cursor while we load assets
-        SetCursor (::LoadCursor (NULL, IDC_WAIT));
+        SetCursor (::LoadCursor (nullptr, IDC_WAIT));
 
          // Loop through all the selected files
          POSITION pPos = openFileDialog.GetStartPosition ();
-         while (pPos != NULL)
+         while (pPos != nullptr)
          {
              // Ask the doc to load the assets from this file into memory
              CString stringFileName = openFileDialog.GetNextPathName (pPos);
@@ -1236,7 +1236,7 @@ CMainFrame::OnFileOpen (void)
         }
 
         // Restore the arrow cursor
-        SetCursor (::LoadCursor (NULL, IDC_ARROW));
+        SetCursor (::LoadCursor (nullptr, IDC_ARROW));
     }
 
     return ;
@@ -1709,7 +1709,7 @@ CMainFrame::OnLoadSettings (void)
     {
         CFileDialog openFileDialog (true,
                                     ".dat",
-                                    NULL,
+                                    nullptr,
                                     OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
                                     "Settings data files (*.dat)|*.dat||",
                                     this);
@@ -1752,7 +1752,7 @@ CMainFrame::OnLODSave (void)
 	// Get the controlling doc object so we can have it save the
 	// LOD for us.
 	CW3DViewDoc *pdoc = (CW3DViewDoc *)GetActiveDocument ();
-	if (pdoc != NULL) {
+	if (pdoc != nullptr) {
 		pdoc->Save_Selected_LOD ();
 	}
 
@@ -2215,18 +2215,18 @@ CMainFrame::Select_Device (bool show_dlg)
 					//
 					//	Check to ensure the drivers are valid if the user choose glide
 					//
-					if (::strstr (driver_name, "glide2") != NULL) {
+					if (::strstr (driver_name, "glide2") != nullptr) {
 
 						// Is this glide driver an acceptable version?
-						float driver_version = ::strtof (string_version, NULL);
-						bool is_voodoo2 = (::strstr (chipset , "VOODOO2") != NULL);
+						float driver_version = ::strtof (string_version, nullptr);
+						bool is_voodoo2 = (::strstr (chipset , "VOODOO2") != nullptr);
 						if ((is_voodoo2 && (driver_version < 2.54F)) ||
 							 ((is_voodoo2 == false) && (driver_version < 2.46F))) {
 
 							// Let the user know we can't use these drivers
 							CString message;
 							message.LoadString (IDS_UNACCEPTABLE_GLIDE_MSG);
-							::MessageBox (NULL, message, "Invalid Device", MB_OK | MB_ICONEXCLAMATION | MB_SETFOREGROUND);
+							::MessageBox (nullptr, message, "Invalid Device", MB_OK | MB_ICONEXCLAMATION | MB_SETFOREGROUND);
 
 							// Force the user to choose a new device
 							Select_Device (true);
@@ -2331,11 +2331,11 @@ CMainFrame::OnCreateEmitter (void)
 	// Clear the current display
 	CW3DViewDoc *pdoc = (CW3DViewDoc *)GetActiveDocument ();
 	if (pdoc) {
-		pdoc->DisplayObject ((RenderObjClass *)NULL);
+		pdoc->DisplayObject ((RenderObjClass *)nullptr);
 	}
 
 	// Display the emitter property sheet
-	EmitterPropertySheetClass prop_sheet (NULL,
+	EmitterPropertySheetClass prop_sheet (nullptr,
 													  IDS_EMITTER_PROP_TITLE,
 													  this);
 	prop_sheet.DoModal ();
@@ -2353,7 +2353,7 @@ CMainFrame::OnEditEmitter (void)
 {
 	// Get a pointer to the doc object
 	CW3DViewDoc *pdoc = (CW3DViewDoc *)GetActiveDocument ();
-	if (pdoc != NULL) {
+	if (pdoc != nullptr) {
 
 		//
 		// Make a list of emitters containing the currently displayed emitter
@@ -2396,7 +2396,7 @@ CMainFrame::OnScaleEmitter (void)
 {
 	// Get a pointer to the doc object
 	CW3DViewDoc *pdoc = (CW3DViewDoc *)GetActiveDocument ();
-	if (pdoc != NULL) {
+	if (pdoc != nullptr) {
 
 		//
 		// Display a dialog that allows the user to choose the scaling factor
@@ -2605,8 +2605,8 @@ void
 CMainFrame::OnObjectRotateYBack (void)
 {
 	CGraphicView *pgraphic_view = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	ASSERT (pgraphic_view != NULL);
-	if (pgraphic_view != NULL) {
+	ASSERT (pgraphic_view != nullptr);
+	if (pgraphic_view != nullptr) {
 
 		// Start or stop the rotation around Y
 		int rotation = (pgraphic_view->GetObjectRotation () ^ (CGraphicView::RotateYBack));
@@ -2627,8 +2627,8 @@ void
 CMainFrame::OnObjectRotateZBack (void)
 {
 	CGraphicView *pgraphic_view = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	ASSERT (pgraphic_view != NULL);
-	if (pgraphic_view != NULL) {
+	ASSERT (pgraphic_view != nullptr);
+	if (pgraphic_view != nullptr) {
 
 		// Start or stop the rotation around Z
 		int rotation = (pgraphic_view->GetObjectRotation () ^ (CGraphicView::RotateZBack));
@@ -2649,8 +2649,8 @@ void
 CMainFrame::OnLightRotateY (void)
 {
 	CGraphicView *pgraphic_view = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	ASSERT (pgraphic_view != NULL);
-	if (pgraphic_view != NULL) {
+	ASSERT (pgraphic_view != nullptr);
+	if (pgraphic_view != nullptr) {
 
 		// Start or stop the rotation around Y
 		int rotation = (pgraphic_view->Get_Light_Rotation () ^ (CGraphicView::RotateY));
@@ -2671,8 +2671,8 @@ void
 CMainFrame::OnLightRotateYBack (void)
 {
 	CGraphicView *pgraphic_view = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	ASSERT (pgraphic_view != NULL);
-	if (pgraphic_view != NULL) {
+	ASSERT (pgraphic_view != nullptr);
+	if (pgraphic_view != nullptr) {
 
 		// Start or stop the rotation around Y
 		int rotation = (pgraphic_view->Get_Light_Rotation () ^ (CGraphicView::RotateYBack));
@@ -2693,8 +2693,8 @@ void
 CMainFrame::OnLightRotateZ (void)
 {
 	CGraphicView *pgraphic_view = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	ASSERT (pgraphic_view != NULL);
-	if (pgraphic_view != NULL) {
+	ASSERT (pgraphic_view != nullptr);
+	if (pgraphic_view != nullptr) {
 
 		// Start or stop the rotation around Z
 		int rotation = (pgraphic_view->Get_Light_Rotation () ^ (CGraphicView::RotateZ));
@@ -2715,8 +2715,8 @@ void
 CMainFrame::OnLightRotateZBack (void)
 {
 	CGraphicView *pgraphic_view = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	ASSERT (pgraphic_view != NULL);
-	if (pgraphic_view != NULL) {
+	ASSERT (pgraphic_view != nullptr);
+	if (pgraphic_view != nullptr) {
 
 		// Start or stop the rotation around Y
 		int rotation = (pgraphic_view->Get_Light_Rotation () ^ (CGraphicView::RotateZBack));
@@ -2775,7 +2775,7 @@ CMainFrame::OnDecLight (void)
 {
 	CW3DViewDoc *pdoc = ::GetCurrentDocument ();
 	LightClass *plight = pdoc->GetSceneLight ();
-	if (plight != NULL) {
+	if (plight != nullptr) {
 
 		// Get the current light settings
 		Vector3 diffuse;
@@ -2804,7 +2804,7 @@ CMainFrame::OnIncLight (void)
 {
 	CW3DViewDoc *pdoc = ::GetCurrentDocument ();
 	LightClass *plight = pdoc->GetSceneLight ();
-	if (plight != NULL) {
+	if (plight != nullptr) {
 
 		// Get the current light settings
 		Vector3 diffuse;
@@ -2832,7 +2832,7 @@ void
 CMainFrame::OnDecAmbientLight (void)
 {
 	CW3DViewDoc *pdoc = ::GetCurrentDocument ();
-	if (pdoc->GetScene () != NULL) {
+	if (pdoc->GetScene () != nullptr) {
 
 		// Get the current ambient light settings
 		Vector3 color = pdoc->GetScene ()->Get_Ambient_Light ();
@@ -2855,7 +2855,7 @@ void
 CMainFrame::OnIncAmbientLight (void)
 {
 	CW3DViewDoc *pdoc = ::GetCurrentDocument ();
-	if (pdoc->GetScene () != NULL) {
+	if (pdoc->GetScene () != nullptr) {
 
 		// Get the current ambient light settings
 		Vector3 color = pdoc->GetScene ()->Get_Ambient_Light ();
@@ -2894,7 +2894,7 @@ CMainFrame::OnMakeAggregate (void)
 
 		CDataTreeView *pdata_tree = (CDataTreeView *)m_wndSplitter.GetPane (0, 0);
 		RenderObjClass *prender_obj = ::GetCurrentDocument ()->GetDisplayedObject ();
-		if (prender_obj != NULL) {
+		if (prender_obj != nullptr) {
 
 			// Build a definition object from the hierarchy
 			AggregateDefClass *pdefinition = new AggregateDefClass (*prender_obj);
@@ -2924,7 +2924,7 @@ CMainFrame::OnRenameAggregate (void)
 {
 	// Get a pointer to the current aggregate
 	RenderObjClass *prender_obj = (::GetCurrentDocument ())->GetDisplayedObject ();
-	if (prender_obj != NULL) {
+	if (prender_obj != nullptr) {
 
 		// Show the rename dialog to the user
 		const char *old_name = prender_obj->Get_Name ();
@@ -3004,7 +3004,7 @@ CMainFrame::OnCmdMsg
 	// Hack to get MFC to enable the 'Editable Emitters List' submenu...
 	if (nCode == CN_UPDATE_COMMAND_UI) {
 		CCmdUI *pCmdUI = (CCmdUI *)pExtra;
-		if (pCmdUI != NULL && (pCmdUI->m_nID >= 1000) && (pCmdUI->m_nID < 1100)) {
+		if (pCmdUI != nullptr && (pCmdUI->m_nID >= 1000) && (pCmdUI->m_nID < 1100)) {
 			pCmdUI->Enable (true);
 			return true;
 		}
@@ -3040,7 +3040,7 @@ CMainFrame::OnLODRecordScreenArea (void)
 {
 	// Make sure the current object is an LOD
 	RenderObjClass *prender_obj = ::GetCurrentDocument ()->GetDisplayedObject ();
-	if ((prender_obj != NULL) &&
+	if ((prender_obj != nullptr) &&
 		 (prender_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
 
 		CGraphicView *graphic_view = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
@@ -3074,10 +3074,10 @@ CMainFrame::OnLODIncludeNull (void)
 {
 	// Make sure the current object is an LOD
 	RenderObjClass *prender_obj = ::GetCurrentDocument ()->GetDisplayedObject ();
-	if ((prender_obj != NULL) &&
+	if ((prender_obj != nullptr) &&
 		 (prender_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
 
-		// Toggle the NULL lod
+		// Toggle the nullptr lod
 		bool include = ((HLodClass *)prender_obj)->Is_NULL_Lod_Included ();
 		((HLodClass *)prender_obj)->Include_NULL_Lod (!include);
 
@@ -3099,7 +3099,7 @@ CMainFrame::OnUpdateLODIncludeNull (CCmdUI *pCmdUI)
 {
 	// Make sure the current object is an LOD
 	RenderObjClass *prender_obj = (::GetCurrentDocument ())->GetDisplayedObject ();
-	if ((prender_obj != NULL) &&
+	if ((prender_obj != nullptr) &&
 		 (prender_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
 
 		// Check or uncheck the menu option depending on the state of the LOD
@@ -3134,7 +3134,7 @@ CMainFrame::OnUpdateLodPrevLevel (CCmdUI *pCmdUI)
 {
 	// Make sure the current object is an LOD
 	RenderObjClass *prender_obj = (::GetCurrentDocument ())->GetDisplayedObject ();
-	if ((prender_obj != NULL) &&
+	if ((prender_obj != nullptr) &&
 		 (prender_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
 
 		// Enable the menu option if there is a previous lod to display
@@ -3169,7 +3169,7 @@ CMainFrame::OnUpdateLodNextLevel (CCmdUI *pCmdUI)
 {
 	// Make sure the current object is an LOD
 	RenderObjClass *prender_obj = (::GetCurrentDocument ())->GetDisplayedObject ();
-	if ((prender_obj != NULL) &&
+	if ((prender_obj != nullptr) &&
 		 (prender_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
 
 		// Enable the menu option if there is another lod to display
@@ -3257,13 +3257,13 @@ CMainFrame::OnSaveScreenshot (void)
 {
 	// Get the directory where this executable was run from
 	TCHAR filename[MAX_PATH];
-	::GetModuleFileName (NULL, filename, sizeof (filename));
+	::GetModuleFileName (nullptr, filename, sizeof (filename));
 
 	//
 	// Strip the filename from the path
 	//
 	LPTSTR ppath = ::strrchr (filename, '\\');
-	if (ppath != NULL) {
+	if (ppath != nullptr) {
 		ppath[0] = 0;
 	}
 
@@ -3301,7 +3301,7 @@ CMainFrame::Update_Emitters_List (void)
 	}
 	RenderObjClass *prender_obj = GetCurrentDocument ()->GetDisplayedObject ();
 
-	if (prender_obj != NULL) {
+	if (prender_obj != nullptr) {
 		DynamicVectorClass<CString> list;
 		Build_Emitter_List (*prender_obj, list);
 
@@ -3328,7 +3328,7 @@ void
 CMainFrame::OnSlideshowDown (void)
 {
 	CDataTreeView *data_tree = (CDataTreeView *)m_wndSplitter.GetPane (0, 0);
-	if (data_tree != NULL) {
+	if (data_tree != nullptr) {
 		data_tree->Select_Next ();
 	}
 
@@ -3345,7 +3345,7 @@ void
 CMainFrame::OnSlideshowUp (void)
 {
 	CDataTreeView *data_tree = (CDataTreeView *)m_wndSplitter.GetPane (0, 0);
-	if (data_tree != NULL) {
+	if (data_tree != nullptr) {
 		data_tree->Select_Prev ();
 	}
 
@@ -3475,13 +3475,13 @@ void
 CMainFrame::OnCopyAssets (void)
 {
 	CString path;
-	if (::Browse_For_Folder (m_hWnd, NULL, path)) {
+	if (::Browse_For_Folder (m_hWnd, nullptr, path)) {
 
 		//
 		//	Copy all dependent asset files to the selected directory
 		//
 		CW3DViewDoc *doc = ::GetCurrentDocument ();
-		if (doc != NULL) {
+		if (doc != nullptr) {
 			doc->Copy_Assets_To_Dir (path);
 		}
 	}
@@ -3499,12 +3499,12 @@ void
 CMainFrame::OnUpdateCopyAssets (CCmdUI *pCmdUI)
 {
 	CW3DViewDoc *doc = ::GetCurrentDocument ();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 
 		//
 		//	Only enable this option if we are viewing an object
 		//
-		pCmdUI->Enable (doc->GetDisplayedObject () != NULL);
+		pCmdUI->Enable (doc->GetDisplayedObject () != nullptr);
 	}
 
 	return ;
@@ -3554,13 +3554,13 @@ CMainFrame::OnCreateSphere (void)
 	// Clear the current display
 	CW3DViewDoc *doc = (CW3DViewDoc *)GetActiveDocument ();
 	if (doc) {
-		doc->DisplayObject ((RenderObjClass *)NULL);
+		doc->DisplayObject ((RenderObjClass *)nullptr);
 	}
 
 	//
 	// Display the sphere property sheet
 	//
-	SpherePropertySheetClass dialog (NULL, IDS_SPHERE_PROP_TITLE, this);
+	SpherePropertySheetClass dialog (nullptr, IDS_SPHERE_PROP_TITLE, this);
 	dialog.DoModal ();
 	return ;
 }
@@ -3577,13 +3577,13 @@ CMainFrame::OnCreateRing (void)
 	// Clear the current display
 	CW3DViewDoc *doc = (CW3DViewDoc *)GetActiveDocument ();
 	if (doc) {
-		doc->DisplayObject ((RenderObjClass *)NULL);
+		doc->DisplayObject ((RenderObjClass *)nullptr);
 	}
 
 	//
 	// Display the ring property sheet
 	//
-	RingPropertySheetClass dialog (NULL, IDS_RING_PROP_TITLE, this);
+	RingPropertySheetClass dialog (nullptr, IDS_RING_PROP_TITLE, this);
 	dialog.DoModal ();
 	return ;
 }
@@ -3599,14 +3599,14 @@ CMainFrame::OnEditPrimitive (void)
 {
 	// Get a pointer to the doc object
 	CW3DViewDoc *doc = (CW3DViewDoc *)GetActiveDocument ();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 
 		//
 		// Make a list of emitters containing the currently displayed emitter
 		//
 		RenderObjClass *render_obj = doc->GetDisplayedObject ();
 
-		if (render_obj != NULL) {
+		if (render_obj != nullptr) {
 			if (render_obj->Class_ID () == RenderObjClass::CLASSID_SPHERE) {
 
 				//
@@ -3638,7 +3638,7 @@ void
 CMainFrame::OnUpdateEditPrimitive (CCmdUI *pCmdUI)
 {
 	CDataTreeView *data_tree = (CDataTreeView *)m_wndSplitter.GetPane (0, 0);
-	if (data_tree != NULL && data_tree->GetCurrentSelectionType () == TypePrimitives) {
+	if (data_tree != nullptr && data_tree->GetCurrentSelectionType () == TypePrimitives) {
 		pCmdUI->Enable (true);
 	} else {
 		pCmdUI->Enable (false);
@@ -3684,7 +3684,7 @@ void CMainFrame::OnKillSceneLight()
 	CW3DViewDoc *pdoc	  = ::GetCurrentDocument();
 	LightClass	*plight = pdoc->GetSceneLight ();
 
-	if (plight != NULL) {
+	if (plight != nullptr) {
 
 		const Vector3 black (0.0f, 0.0f, 0.0f);
 
@@ -3832,7 +3832,7 @@ CMainFrame::OnAddToLineup (void)
 	// that the objects we add in this manner are stacked in a horizontal
 	// row, just like a lineup.
 	CW3DViewDoc *pDoc = (CW3DViewDoc*)GetActiveDocument();
-	ViewerSceneClass *pScene = NULL;
+	ViewerSceneClass *pScene = nullptr;
 	if (pDoc)
 		pScene = pDoc->GetScene();
 	CAddToLineupDialog dlg(pScene, this);
@@ -3901,12 +3901,12 @@ CMainFrame::OnImportFacialAnims (void)
 	//
 	CW3DViewDoc *doc			= ::GetCurrentDocument ();
 	const HTreeClass *htree = 	doc->Get_Current_HTree ();
-	ASSERT (htree != NULL);
-	if (htree != NULL) {
+	ASSERT (htree != nullptr);
+	if (htree != nullptr) {
 
 		CFileDialog dialog (	true,
 									".txt",
-									NULL,
+									nullptr,
 									OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT | OFN_EXPLORER,
 									"Animation Description (*.txt)|*.txt||",
 									this);
@@ -3926,7 +3926,7 @@ CMainFrame::OnImportFacialAnims (void)
 			// Loop over all the selected files
 			//
 			POSITION pos = dialog.GetStartPosition ();
-			while (pos != NULL) {
+			while (pos != nullptr) {
 
 				// Ask the doc to load the assets from this file into memory
 				CString filename = dialog.GetNextPathName (pos);
@@ -3937,7 +3937,7 @@ CMainFrame::OnImportFacialAnims (void)
 			// Re-load the data list to include all new assets
 			//
 			CDataTreeView *data_tree = doc->GetDataTreeView ();
-			if (data_tree != NULL) {
+			if (data_tree != nullptr) {
 				data_tree->LoadAssetsIntoTree ();
 			}
 		}
@@ -3956,14 +3956,14 @@ void
 CMainFrame::OnUpdateImportFacialAnims (CCmdUI *pCmdUI)
 {
 	CW3DViewDoc *doc = ::GetCurrentDocument ();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 
 		//
 		// Enable this command only if the user has an htree
 		// currently selected
 		//
 		const HTreeClass *htree = doc->Get_Current_HTree ();
-		pCmdUI->Enable (htree != NULL);
+		pCmdUI->Enable (htree != nullptr);
 	}
 
 	return ;
@@ -3979,7 +3979,7 @@ void
 CMainFrame::OnRestrictAnims (void)
 {
 	CDataTreeView *data_tree = ::GetCurrentDocument ()->GetDataTreeView ();
-	if (data_tree != NULL) {
+	if (data_tree != nullptr) {
 		bool enabled = data_tree->Are_Anims_Restricted ();
 		data_tree->Restrict_Anims (!enabled);
 	}
@@ -3999,7 +3999,7 @@ CMainFrame::OnUpdateRestrictAnims (CCmdUI *pCmdUI)
 	bool check = true;
 
 	CDataTreeView *data_tree = ::GetCurrentDocument ()->GetDataTreeView ();
-	if (data_tree != NULL) {
+	if (data_tree != nullptr) {
 		check = data_tree->Are_Anims_Restricted ();
 	}
 
@@ -4017,7 +4017,7 @@ void
 CMainFrame::OnBindSubobjectLod (void)
 {
 	CW3DViewDoc *doc = (CW3DViewDoc *)GetActiveDocument ();
-	if (doc != NULL && doc->GetDisplayedObject () != NULL) {
+	if (doc != nullptr && doc->GetDisplayedObject () != nullptr) {
 
 		//
 		//	Toggle the state of the currently displayed object
@@ -4041,7 +4041,7 @@ void
 CMainFrame::OnUpdateBindSubobjectLod (CCmdUI *pCmdUI)
 {
 	CW3DViewDoc *doc = (CW3DViewDoc *)GetActiveDocument ();
-	if (doc != NULL && doc->GetDisplayedObject () != NULL) {
+	if (doc != nullptr && doc->GetDisplayedObject () != nullptr) {
 
 		//
 		//	Set the check if we are currenly forcing sub object matching
@@ -4108,13 +4108,13 @@ CMainFrame::OnEditSoundObject (void)
 	// Get a pointer to the doc object
 	//
 	CW3DViewDoc *doc = (CW3DViewDoc *)GetActiveDocument ();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 
 		//
 		//	Get a pointer to the currently displayed sound object
 		//
 		SoundRenderObjClass *sound_obj = (SoundRenderObjClass *)doc->GetDisplayedObject ();
-		if (sound_obj != NULL) {
+		if (sound_obj != nullptr) {
 
 			//
 			//	Display the sound edit dialog
@@ -4236,7 +4236,7 @@ void
 CMainFrame::OnCameraBonePosX()
 {
    CGraphicView *pCGraphicView = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	if (pCGraphicView != NULL) {
+	if (pCGraphicView != nullptr) {
 		pCGraphicView->Set_Camera_Bone_Pos_X(!pCGraphicView->Is_Camera_Bone_Pos_X());
 	}
 }
@@ -4251,7 +4251,7 @@ void
 CMainFrame::OnUpdateCameraBonePosX(CCmdUI* pCmdUI)
 {
    CGraphicView *pCGraphicView = (CGraphicView *)m_wndSplitter.GetPane (0, 1);
-	if (pCGraphicView != NULL) {
+	if (pCGraphicView != nullptr) {
 		pCmdUI->SetCheck(pCGraphicView->Is_Camera_Bone_Pos_X());
 	}
 }

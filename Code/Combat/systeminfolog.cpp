@@ -295,11 +295,11 @@ void PlayerInfoLog::Append_To_Log(PlayerDataClass* data)
 	tmp+="\r\n";
 
 	DWORD written;
-	HANDLE file = CreateFileA("history.txt", GENERIC_WRITE, 0, NULL, OPEN_ALWAYS,
-			FILE_ATTRIBUTE_NORMAL, NULL);
+	HANDLE file = CreateFileA("history.txt", GENERIC_WRITE, 0, nullptr, OPEN_ALWAYS,
+			FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (INVALID_HANDLE_VALUE != file) {
-		SetFilePointer(file, 0, NULL, FILE_END);
-		WriteFile(file, tmp, strlen(tmp), &written, NULL);
+		SetFilePointer(file, 0, nullptr, FILE_END);
+		WriteFile(file, tmp, strlen(tmp), &written, nullptr);
 		CloseHandle(file);
 	}
 #endif // WWDEBUG

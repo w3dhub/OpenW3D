@@ -32,7 +32,7 @@ class TranslationExportDialogClass : public CDialog
 {
 // Construction
 public:
-	TranslationExportDialogClass(CWnd* pParent = NULL);   // standard constructor
+	TranslationExportDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(TranslationExportDialogClass)

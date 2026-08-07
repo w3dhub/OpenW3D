@@ -104,7 +104,7 @@ void WheeledVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * tor
 		WWPROFILE("WheeledVehicleClass::Compute_Force_And_Torque");
 
 		const WheeledVehicleDefClass * def = Get_WheeledVehicleDef();
-		WWASSERT(def != NULL);
+		WWASSERT(def != nullptr);
 
 		/*
 		** Compute the steering angle for normal vehicles

@@ -75,7 +75,7 @@ MPWolLocaleNagDialogClass::On_Init_Dialog (void)
 	//	Fill the combobox with all the locales
 	//
 	ComboBoxCtrlClass *ctrl = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_LOCALE_COMBO);
-	if (ctrl != NULL) {
+	if (ctrl != nullptr) {
 		WolLocaleMgrClass::Configure_Locale_Combobox (ctrl);
 	}
 
@@ -98,7 +98,7 @@ MPWolLocaleNagDialogClass::On_Command (int ctrl_id, int message_id, unsigned int
 		//	Get the selected locale from the combobox
 		//
 		ComboBoxCtrlClass *ctrl = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_LOCALE_COMBO);
-		if (ctrl != NULL) {
+		if (ctrl != nullptr) {
 			WOL::Locale locale = (WOL::Locale)ctrl->Get_Curr_Sel ();
 
 			//

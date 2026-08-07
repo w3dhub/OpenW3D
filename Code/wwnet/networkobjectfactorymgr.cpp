@@ -101,7 +101,7 @@ NetworkObjectFactoryMgrClass::Get_Next (NetworkObjectFactoryClass *curr_factory)
 	//
 	//	Simply return the next factory in the chain
 	//
-	if (curr_factory != NULL) {
+	if (curr_factory != nullptr) {
 		factory = curr_factory->NextFactory;
 	}
 

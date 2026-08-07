@@ -96,8 +96,8 @@ void Null3DObjClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 NullPrototypeClass::NullPrototypeClass (void)
 {
 	// Note that the other members of the definition are uninitialized..
-	// So don't rely on them if the name is "NULL".
-	strcpy(Definition.Name, "NULL");
+	// So don't rely on them if the name is "nullptr".
+	strcpy(Definition.Name, "nullptr");
 }
 
 NullPrototypeClass::NullPrototypeClass (const W3dNullObjectStruct &null)

@@ -123,7 +123,7 @@ const unichar_t *cBandwidth::Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM 
 //-----------------------------------------------------------------------------
 BANDWIDTH_TYPE_ENUM cBandwidth::Get_Bandwidth_Type_From_String(const char *bandwidth_string)
 {
-	WWASSERT(bandwidth_string != NULL);
+	WWASSERT(bandwidth_string != nullptr);
 
    if (cMiscUtil::Is_String_Same(bandwidth_string, "BANDWIDTH_MODEM_288")) {
       return BANDWIDTH_MODEM_288;

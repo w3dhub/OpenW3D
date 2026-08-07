@@ -70,7 +70,7 @@ PresetLoggerClass::Log_Created (PresetClass *preset)
 		//
 		StringClass type_name;
 		DefinitionFactoryClass *factory = DefinitionFactoryMgrClass::Find_Factory (preset->Get_Class_ID ());
-		if (factory != NULL) {
+		if (factory != nullptr) {
 			type_name = factory->Get_Name ();
 		}
 
@@ -114,7 +114,7 @@ PresetLoggerClass::Log_Moved (PresetClass *preset, const char *new_parent_name)
 		//	Determine what the parent's name should be
 		//
 		CString real_parent_name = new_parent_name;
-		if (new_parent_name == NULL) {
+		if (new_parent_name == nullptr) {
 			real_parent_name = "Root";
 		}
 
@@ -282,10 +282,10 @@ PresetLoggerClass::Open_Log_File ([[maybe_unused]] TextFileClass &file_obj)
 		file = ::CreateFile (	"\\\\mobius\\project7\\projects\\renegade\\asset management\\logs\\presets.log",
 										GENERIC_WRITE,
 										FILE_SHARE_READ,
-										NULL,
+										nullptr,
 										OPEN_ALWAYS,
 										0L,
-										NULL);
+										nullptr);
 
 		//
 		//	If we succeeded then break out of the loop

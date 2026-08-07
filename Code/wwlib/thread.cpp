@@ -90,7 +90,7 @@ void ThreadClass::Execute()
 
 #if defined(OPENW3D_WIN32)
 	DWORD threadId;
-	mHandle = CreateThread(NULL, 0, Internal_Thread_Function, this, CREATE_SUSPENDED, &threadId);
+	mHandle = CreateThread(nullptr, 0, Internal_Thread_Function, this, CREATE_SUSPENDED, &threadId);
 	mThreadID = threadId;
 	SetThreadPriority(mHandle, THREAD_PRIORITY_NORMAL + mThread_priority);
 	wchar_t wideThreadName[64];
@@ -130,12 +130,12 @@ void ThreadClass::Stop()
 		WaitForSingleObjectEx(mHandle, INFINITE, FALSE);
 		CloseHandle(mHandle);
 #elif defined(OPENW3D_SDL3)
-		SDL_WaitThread(mHandle, NULL);
+		SDL_WaitThread(mHandle, nullptr);
 #else
 		assert(0);
 #endif
 	}
-	mHandle = NULL;
+	mHandle = nullptr;
 	mThreadID = 0;
 }
 

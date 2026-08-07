@@ -39,7 +39,7 @@ class CWWConfigDlg : public CDialog
 {
 // Construction
 public:
-	CWWConfigDlg(CWnd* pParent = NULL);	// standard constructor
+	CWWConfigDlg(CWnd* pParent = nullptr);	// standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CWWConfigDlg)

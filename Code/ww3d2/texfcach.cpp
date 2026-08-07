@@ -79,7 +79,7 @@
 #define FILE_HEADER_NAME	"Texture File Cache Header"
 
 
-char  *TextureFileCache::_FileNamePtr = NULL;
+char  *TextureFileCache::_FileNamePtr = nullptr;
 static int Instances=0;
 
 static CriticalSectionClass mutex(0);
@@ -118,11 +118,11 @@ static void Verify_Compression_Buffer()
  *=============================================================================================*/
 TextureFileCache::TextureFileCache(const char *fileprefix):
 	File(_Create_File_Name(fileprefix)),
-	CurrentTexture(NULL),
-	TextureHandle(NULL),
+	CurrentTexture(nullptr),
+	TextureHandle(nullptr),
 	Header(),
 	CachedSurfaces(),
-	Offsets(NULL),
+	Offsets(nullptr),
 	NumCachedTextures(0)
 {
 	WWASSERT(!Instances);
@@ -130,7 +130,7 @@ TextureFileCache::TextureFileCache(const char *fileprefix):
 
 	// This was allocated by _Create_File_Name() and need to go away now.
 	delete _FileNamePtr;
-	_FileNamePtr = NULL;
+	_FileNamePtr = nullptr;
 
 	memset(CachedSurfaces, 0, sizeof(CachedSurfaces));
 
@@ -289,7 +289,7 @@ bool TextureFileCache::Save_Texture(const char *texturename, srTextureIFace::Mul
 	origsurface.getPixelFormat(Header.SourcePixelFormat);
 
 	_TheFileFactory->Return_File(asset);
-	asset=NULL;
+	asset=nullptr;
 
 	// Write it out.
 	TextureHandle->Write(&Header, sizeof(Header));
@@ -368,7 +368,7 @@ srColorSurfaceIFace *TextureFileCache::Load_Original_Texture_Surface(const char 
 		srColorSurfaceIFace *surface = new srColorSurface(Header.SourcePixelFormat, Header.SourceWidth, Header.SourceHeight);
 		return(surface);
 	}
-	return(NULL);
+	return(nullptr);
 }
 
 /***********************************************************************************************
@@ -511,7 +511,7 @@ bool TextureFileCache::Load_Texture(const char *texturename, srTextureIFace::Mul
 	unsigned lastlod = lod - 1;
 
 	// largest surface loaded.
-	srColorSurfaceIFace *surface = NULL;
+	srColorSurfaceIFace *surface = nullptr;
 	if (firstlod < lastlod) {
 		surface = mreq.levels[firstlod];
 		surface->addReference();
@@ -678,7 +678,7 @@ bool TextureFileCache::Open_Texture_Handle(const char *fname)
 		if (Header.FileTime != asset->Get_Date_Time()) {
 
 			delete TextureHandle;
-			TextureHandle = NULL;
+			TextureHandle = nullptr;
 
 			Reset_File();
 			return(false);
@@ -710,11 +710,11 @@ void TextureFileCache::Close_Texture_Handle()
 {
 	if (CurrentTexture) {
 		free(CurrentTexture);
-		CurrentTexture = NULL;
+		CurrentTexture = nullptr;
 
 		if (TextureHandle) {
 			delete TextureHandle;
-			TextureHandle = NULL;
+			TextureHandle = nullptr;
 		}
 		while (NumCachedTextures--) {
 			assert(CachedSurfaces[NumCachedTextures]);
@@ -725,7 +725,7 @@ void TextureFileCache::Close_Texture_Handle()
 
 		if (Offsets) {
 			delete[] Offsets;
-			Offsets = NULL;
+			Offsets = nullptr;
 		}
 	} else {
 		assert(!CurrentTexture);
@@ -752,7 +752,7 @@ srColorSurface *TextureFileCache::Find_Cached_Surface(int size)
 			return(CachedSurfaces[idx]);
 		}
 	}
-	return(NULL);
+	return(nullptr);
 }
 
 /***********************************************************************************************

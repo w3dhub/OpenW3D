@@ -267,7 +267,7 @@ AirStripGameObj::AirStripGameObj (void)	:
 	ClearDropoffZoneTimer (UNITIALIZED_TIMER),
 	DisplayVehicleTimer (UNITIALIZED_TIMER),
 	IsCinematicStarted (false),
-	CinematicObject (NULL)
+	CinematicObject (nullptr)
 {
 	return ;
 }
@@ -456,7 +456,7 @@ AirStripGameObj::Think (void)
 				//
 				//	Display the vehicle
 				//
-				if (Vehicle != NULL) {
+				if (Vehicle != nullptr) {
 					PhysicalGameObj *physical_obj = Vehicle.Get_Ptr ()->As_PhysicalGameObj ();
 					physical_obj->Peek_Model ()->Set_Hidden (false);
 					physical_obj->Set_Object_Dirty_Bit (NetworkObjectClass::BIT_RARE, true);
@@ -516,12 +516,12 @@ AirStripGameObj::Start_Cinematic (void)
 	//	Create the vehicle
 	//
 	VehicleGameObj *vehicle = Create_Vehicle ();
-	if (vehicle != NULL) {
+	if (vehicle != nullptr) {
 
 		//
 		//	Hide the vehicle until later
 		//
-		if (vehicle->Peek_Model () != NULL) {
+		if (vehicle->Peek_Model () != nullptr) {
 			vehicle->Peek_Model ()->Set_Hidden (true);
 			vehicle->Set_Object_Dirty_Bit (NetworkObjectClass::BIT_RARE, true);
 		}
@@ -529,7 +529,7 @@ AirStripGameObj::Start_Cinematic (void)
 		//
 		// Lock the vehicle
 		//
-		if (Purchaser != NULL) {
+		if (Purchaser != nullptr) {
 			vehicle->Lock_Vehicle(Purchaser,VEHICLE_LOCK_TIME);
 		}
 
@@ -537,7 +537,7 @@ AirStripGameObj::Start_Cinematic (void)
 		//	Create the cinematic controller
 		//
 		CinematicObject = ObjectLibraryManager::Create_Object (Get_Definition ().CinematicDefID);
-		if (CinematicObject != NULL) {
+		if (CinematicObject != nullptr) {
 			CinematicObject->Start_Observers ();
 
 			//

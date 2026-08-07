@@ -150,16 +150,16 @@ cConnection::cConnection() :
 	ServiceCount(0),
 	ThisFrameTimeMs(TIMEGETTIME()),
 	IsDestroy(false),
-	PRHost(NULL),
-	AcceptHandler(NULL),
-	RefusalHandler(NULL),
-	ServerBrokenConnectionHandler(NULL),
-	ClientBrokenConnectionHandler(NULL),
-	EvictionHandler(NULL),
-	ConnHandler(NULL),
-	ApplicationAcceptanceHandler(NULL),
-	ServerPacketHandler(NULL),
-	ClientPacketHandler(NULL),
+	PRHost(nullptr),
+	AcceptHandler(nullptr),
+	RefusalHandler(nullptr),
+	ServerBrokenConnectionHandler(nullptr),
+	ClientBrokenConnectionHandler(nullptr),
+	EvictionHandler(nullptr),
+	ConnHandler(nullptr),
+	ApplicationAcceptanceHandler(nullptr),
+	ServerPacketHandler(nullptr),
+	ClientPacketHandler(nullptr),
 	IsBadConnection(false),
 	ExtraTimeoutTime(0),
 	ExtraTimeoutTimeStarted(0),
@@ -189,14 +189,14 @@ cConnection::cConnection() :
 
    /*
 	for (int rhost_id = 0; rhost_id < MAX_RHOSTS; rhost_id++) {
-      PRHost[rhost_id] = NULL;
+      PRHost[rhost_id] = nullptr;
    }
 	*/
 
 	//Init_Stats();
 
 	PStatList = new cMsgStatList;
-	WWASSERT(PStatList != NULL);
+	WWASSERT(PStatList != nullptr);
 	PStatList->Init(PACKETTYPE_COUNT);
 	for (int i = 0; i < PStatList->Get_Num_Stats(); i++) {
 		//PStatList->Set_Name(i, Type_Translation(i));
@@ -224,16 +224,16 @@ cConnection::~cConnection()
    //for (int rhost_id = 0; rhost_id < MAX_RHOSTS; rhost_id++) {
    //for (int rhost_id = 0; rhost_id < MaxRHost; rhost_id++) {
    for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-      if (PRHost[rhost_id] != NULL) {
+      if (PRHost[rhost_id] != nullptr) {
          Destroy_Connection(rhost_id);
 		}
    }
 
 	delete [] PRHost;
-	PRHost = NULL;
+	PRHost = nullptr;
 
 	delete PStatList;
-	PStatList = NULL;
+	PStatList = nullptr;
 
 #ifdef WWDEBUG
 	while (LaggedPackets.Count()) {
@@ -251,7 +251,7 @@ void cConnection::Init_Stats()
    AveragedStats.Init_Net_Stats();
 
 	for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-		if (PRHost[rhost_id] != NULL) {
+		if (PRHost[rhost_id] != nullptr) {
          PRHost[rhost_id]->Init_Stats();
       }
    }
@@ -262,7 +262,7 @@ void cConnection::Init_Stats()
 //------------------------------------------------------------------------------------
 void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned short my_port)
 {
-   WWASSERT(p_server_address != NULL);
+   WWASSERT(p_server_address != nullptr);
    WWASSERT(!InitDone);
 
    IsServer = false;
@@ -289,10 +289,10 @@ void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned 
 
 	typedef cRemoteHost * PcRemoteHost;
 	PRHost = new PcRemoteHost[1];
-	WWASSERT(PRHost != NULL);
+	WWASSERT(PRHost != nullptr);
 
 	PRHost[0] = new cRemoteHost();
-   WWASSERT(PRHost[0] != NULL);
+   WWASSERT(PRHost[0] != nullptr);
 	PRHost[0]->Set_Id(0);//TSS2001
    NumRHosts++;
    WWASSERT(NumRHosts == 1);
@@ -344,10 +344,10 @@ void cConnection::Init_As_Server(USHORT server_port, int max_players,
 
 	typedef cRemoteHost * PcRemoteHost;
 	PRHost = new PcRemoteHost[max_players + 1];
-	WWASSERT(PRHost != NULL);
+	WWASSERT(PRHost != nullptr);
 	//memset(PRHost, 0, sizeof(PRHost));
 	for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-      PRHost[rhost_id] = NULL;
+      PRHost[rhost_id] = nullptr;
    }
 
  	Init_Stats();
@@ -460,7 +460,7 @@ bool cConnection::Sender_Id_Tests(cPacket & packet)
 		return(false);
 	}
 
-   if (PRHost[sender_id] == NULL) {
+   if (PRHost[sender_id] == nullptr) {
 		//
 		// This can happen when the connection is broken... packets in-the-air
 		// may still arrive
@@ -611,16 +611,16 @@ int cConnection::Single_Player_recvfrom(char * data)
 	} else {
 		p_packet_list = cSinglePlayerData::Get_Input_Packet_List(CLIENT_LIST);
 	}
-	WWASSERT(p_packet_list != NULL);
+	WWASSERT(p_packet_list != nullptr);
 
    SLNode<cPacket> * objnode = p_packet_list->Head();
-   if (objnode == NULL) {
+   if (objnode == nullptr) {
       wwnet::SocketSetLastError(WSAEWOULDBLOCK);
       ret_code = SOCKET_ERROR; // no data received
    } else {
 
       cPacket * p_packet = objnode->Data();
-      WWASSERT(p_packet != NULL);
+      WWASSERT(p_packet != nullptr);
       memcpy(data, p_packet->Get_Data(), p_packet->Get_Max_Size());
 
 		ret_code = p_packet->Get_Compressed_Size_Bytes();
@@ -763,13 +763,13 @@ bool cConnection::Receive_Packet()
 	const int packet_id = packet.Get_Id();
 	const int sender_id = packet.Get_Sender_Id();
 	struct sockaddr_in * p_from_address = &packet.Get_From_Address_Wrapper()->FromAddress;
-	WWASSERT(p_from_address != NULL);
-	cRemoteHost * p_sender_rhost = NULL;
+	WWASSERT(p_from_address != nullptr);
+	cRemoteHost * p_sender_rhost = nullptr;
 	if (sender_id != cPacket::UNDEFINED_ID) {
 		p_sender_rhost = PRHost[sender_id];
 
-		//WWASSERT(p_sender_rhost != NULL);
-      if (p_sender_rhost == NULL) {
+		//WWASSERT(p_sender_rhost != nullptr);
+      if (p_sender_rhost == nullptr) {
 			packet.Flush();
 			WWDEBUG_SAY(("Packet from null rhost (%d) discarded.\n", sender_id));
 			return true;
@@ -803,7 +803,7 @@ bool cConnection::Receive_Packet()
 
 				float packetloss_pc = packet.Get(packetloss_pc);
 
-				WWASSERT(p_sender_rhost != NULL);
+				WWASSERT(p_sender_rhost != nullptr);
 				cNetStats & sender_stats = p_sender_rhost->Get_Stats();
             sender_stats.Set_Pc_Packetloss_Sent(packetloss_pc);
 
@@ -848,7 +848,7 @@ bool cConnection::Receive_Packet()
 			// Refresh the stored address with the endpoint that actually replied so Sender_Id_Tests
 			// does not reject follow-up packets.
 			//
-			if (!cSinglePlayerData::Is_Single_Player() && p_sender_rhost != NULL) {
+			if (!cSinglePlayerData::Is_Single_Player() && p_sender_rhost != nullptr) {
 				if (!cNetUtil::Is_Same_Address(&(p_sender_rhost->Get_Address()), p_from_address)) {
 					p_sender_rhost->Set_Address(*p_from_address);
 				}
@@ -874,7 +874,7 @@ bool cConnection::Receive_Packet()
                // Now, client may do something if he wants
                //
                //Accept_Handler();
-					WWASSERT(AcceptHandler != NULL);
+					WWASSERT(AcceptHandler != nullptr);
 					AcceptHandler();
 
                //
@@ -884,7 +884,7 @@ bool cConnection::Receive_Packet()
                //
 					WWASSERT(packet.Is_Flushed());
 
-					WWASSERT(p_sender_rhost != NULL);
+					WWASSERT(p_sender_rhost != nullptr);
                p_sender_rhost->Add_Packet(packet, RELIABLE_RCV_LIST);
             }
 
@@ -905,7 +905,7 @@ bool cConnection::Receive_Packet()
 
 						int refusal_code = packet.Get(refusal_code);
 				      //Refusal_Handler(refusal_code);
-						WWASSERT(RefusalHandler != NULL);
+						WWASSERT(RefusalHandler != nullptr);
 						RefusalHandler((REFUSAL_CODE)refusal_code);
 						IsDestroy = true;
                } else {
@@ -950,7 +950,7 @@ bool cConnection::Receive_Packet()
 				//
 				// Discard out-of-date data.
             //
-				WWASSERT(p_sender_rhost != NULL);
+				WWASSERT(p_sender_rhost != nullptr);
 				if (packet_id < p_sender_rhost->Get_Unreliable_Packet_Rcv_Id()) {
                packet.Flush();
 					//WWDEBUG_SAY(("Unreliable packet flushed due to being out-of-date.\n"));
@@ -1008,7 +1008,7 @@ bool cConnection::Receive_Packet()
 			   // Keep track of how many of each packet is received
 			   //
 
-				WWASSERT(p_sender_rhost != NULL);
+				WWASSERT(p_sender_rhost != nullptr);
 				cNetStats & sender_stats = p_sender_rhost->Get_Stats();
    			sender_stats.StatSample[STAT_MsgRcv]++;
             sender_stats.StatSample[STAT_RPktRcv]++;
@@ -1027,7 +1027,7 @@ bool cConnection::Receive_Packet()
                return true;
             }
 
-            WWASSERT(p_sender_rhost != NULL);
+            WWASSERT(p_sender_rhost != nullptr);
 				cNetStats & sender_stats = p_sender_rhost->Get_Stats();
             sender_stats.StatSample[STAT_AckCountRcv]++;
 
@@ -1059,7 +1059,7 @@ void cConnection::Process_Connection_Request(cPacket & packet)
    // Make sure we don't already know him, and find him a slot
    //
    for (int player_id = MinRHost; player_id <= MaxRHost; player_id++) {
-		if (PRHost[player_id] != NULL) {
+		if (PRHost[player_id] != nullptr) {
          if (!cSinglePlayerData::Is_Single_Player() &&
             cNetUtil::Is_Same_Address(&(PRHost[player_id]->Get_Address()),
             p_address)) {
@@ -1080,7 +1080,7 @@ void cConnection::Process_Connection_Request(cPacket & packet)
 
 	} else {
 
-		WWASSERT(ApplicationAcceptanceHandler != NULL);
+		WWASSERT(ApplicationAcceptanceHandler != nullptr);
 		REFUSAL_CODE refusal = ApplicationAcceptanceHandler(packet);
 
 		if (refusal != REFUSAL_CLIENT_ACCEPTED) {
@@ -1095,9 +1095,9 @@ void cConnection::Process_Connection_Request(cPacket & packet)
 		int bbo = packet.Get(bbo);
 		WWDEBUG_SAY(("New clients BBO is %d\n", bbo));
 
-      WWASSERT(PRHost[new_rhost_id] == NULL);
+      WWASSERT(PRHost[new_rhost_id] == nullptr);
 	   PRHost[new_rhost_id] = new cRemoteHost();
-      WWASSERT(PRHost[new_rhost_id] != NULL);
+      WWASSERT(PRHost[new_rhost_id] != nullptr);
 		PRHost[new_rhost_id]->Set_Id(new_rhost_id);//TSS2001
       NumRHosts++;
       WWASSERT(NumRHosts <= MaxRHost - MinRHost + 1);
@@ -1107,7 +1107,7 @@ void cConnection::Process_Connection_Request(cPacket & packet)
       Send_Accept_Sc(new_rhost_id);
 
       //Connection_Handler(new_rhost_id);
-		WWASSERT(ConnHandler != NULL);
+		WWASSERT(ConnHandler != nullptr);
 		ConnHandler(new_rhost_id);
 
 		//
@@ -1132,10 +1132,10 @@ int cConnection::Single_Player_sendto(cPacket & packet)
 	} else {
 		p_packet_list = cSinglePlayerData::Get_Input_Packet_List(SERVER_LIST);
 	}
-	WWASSERT(p_packet_list != NULL);
+	WWASSERT(p_packet_list != nullptr);
 
    cPacket * p_packet = new cPacket;
-   WWASSERT(p_packet != NULL);
+   WWASSERT(p_packet != nullptr);
    *p_packet = packet;
    p_packet_list->Add_Tail(p_packet);
 
@@ -1145,7 +1145,7 @@ int cConnection::Single_Player_sendto(cPacket & packet)
 //------------------------------------------------------------------------------------
 int cConnection::Address_To_Rhostid(const struct sockaddr_in* p_address)
 {
-   WWASSERT(p_address != NULL);
+   WWASSERT(p_address != nullptr);
 
    if (cSinglePlayerData::Is_Single_Player()) {
       return INVALID_RHOST_ID;
@@ -1155,7 +1155,7 @@ int cConnection::Address_To_Rhostid(const struct sockaddr_in* p_address)
    // TSS - this searching is very inefficient.
    //
    for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-      if (PRHost[rhost_id] != NULL &&
+      if (PRHost[rhost_id] != nullptr &&
          cNetUtil::Is_Same_Address(&(PRHost[rhost_id]->Get_Address()), p_address)) {
          return rhost_id;
       }
@@ -1174,7 +1174,7 @@ int cConnection::Address_To_Rhostid(const struct sockaddr_in* p_address)
 //------------------------------------------------------------------------------------
 int cConnection::Low_Level_Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address)
 {
-	WWASSERT(p_address != NULL);
+	WWASSERT(p_address != nullptr);
 
    int ret_code = 0;
 
@@ -1233,7 +1233,7 @@ memcpy(last_packet, packet.Get_Data(), last_packet_len);
 //------------------------------------------------------------------------------------
 int cConnection::Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address)
 {
-   WWASSERT(p_address != NULL);
+   WWASSERT(p_address != nullptr);
 
 	cPacket full_packet;
 	cPacket::Construct_Full_Packet(full_packet, packet);
@@ -1267,7 +1267,7 @@ int cConnection::Send_Wrapper(cPacket & packet, int addressee)
 {
 	WWASSERT(addressee >= 0);
    WWASSERT(addressee != ID_UNKNOWN);
-   WWASSERT(PRHost[addressee] != NULL);
+   WWASSERT(PRHost[addressee] != nullptr);
    return Send_Wrapper(packet, &(PRHost[addressee]->Get_Address()));//, addressee);
 }
 
@@ -1311,7 +1311,7 @@ int cConnection::Low_Level_Receive_Wrapper(cPacket & packet)
 					//
 					if (CanProcess) {
 
-						WWASSERT(ServerBrokenConnectionHandler != NULL);
+						WWASSERT(ServerBrokenConnectionHandler != nullptr);
 
 						for (int i=MinRHost ; i<MaxRHost ; i++) {
 							cRemoteHost *rhost_ptr = PRHost[i];
@@ -1414,7 +1414,7 @@ int cConnection::Receive_Wrapper(cPacket & packet)
 void cConnection::Handle_Send_Resource_Failure(int rhost_id)
 {
    if (rhost_id != INVALID_RHOST_ID) {
-		WWASSERT(PRHost[rhost_id] != NULL);
+		WWASSERT(PRHost[rhost_id] != nullptr);
 		PRHost[rhost_id]->Get_Stats().StatSample[STAT_SendFailureCount]++;
    }
 
@@ -1487,14 +1487,14 @@ void cConnection::Handle_Send_Resource_Failure(int rhost_id)
 //------------------------------------------------------------------------------------
 void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p_address)
 {
-   WWASSERT(p_address != NULL);
+   WWASSERT(p_address != nullptr);
 
    WWASSERT(InitDone);
 
 	// TSS - need reverse lookup of addressee from address
    int rhost_id = Address_To_Rhostid(p_address);
    if (rhost_id != INVALID_RHOST_ID) {
-      WWASSERT(PRHost[rhost_id] != NULL);
+      WWASSERT(PRHost[rhost_id] != nullptr);
    }
 
 	if (rand() < SimulatedPacketDuplicationPerRANDMAX) {
@@ -1542,7 +1542,7 @@ void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p
 //------------------------------------------------------------------------------------
 void cConnection::Set_R_And_U_Packet_Id(cPacket & packet, int addressee, BYTE send_type)
 {
-	WWASSERT(PRHost[addressee] != NULL);
+	WWASSERT(PRHost[addressee] != nullptr);
 
    if (send_type == PACKETTYPE_RELIABLE) {
 		packet.Set_Id(PRHost[addressee]->Get_Reliable_Packet_Send_Id());
@@ -1560,7 +1560,7 @@ void cConnection::R_And_U_Send(
 	cPacket & packet,
 	int addressee)
 {
-	WWASSERT(PRHost[addressee] != NULL);
+	WWASSERT(PRHost[addressee] != nullptr);
 
    if (packet.Get_Type() == PACKETTYPE_RELIABLE) {
       PRHost[addressee]->Add_Packet(packet, RELIABLE_SEND_LIST);
@@ -1580,7 +1580,7 @@ void cConnection::Send_Packet_To_Individual(cPacket & packet, int addressee, BYT
    //
    WWASSERT(packet.Get_Compressed_Size_Bytes() > 0);
    WWASSERT(addressee >= MinRHost && addressee <= MaxRHost);
-   WWASSERT(PRHost[addressee] != NULL);
+   WWASSERT(PRHost[addressee] != nullptr);
    WWASSERT(
       send_flags == SEND_RELIABLE ||
       send_flags == SEND_UNRELIABLE ||
@@ -1632,7 +1632,7 @@ void cConnection::Send_Packet_To_All(cPacket & packet, BYTE send_flags)
 	//int num_sends = 0;
 
    for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-      if (PRHost[rhost_id] != NULL) {
+      if (PRHost[rhost_id] != nullptr) {
 			//if (IsServer && !PRHost[rhost_id]->Is_Ready_For_All_Data()) {
          //   continue;
          //}
@@ -1651,7 +1651,7 @@ bool cConnection::Is_Established() const
 {
 	bool is_established = true;
 	if (!IsServer) {
-		is_established = (LocalId != ID_UNKNOWN) && (PRHost[SERVER_RHOST_ID] != NULL);
+		is_established = (LocalId != ID_UNKNOWN) && (PRHost[SERVER_RHOST_ID] != nullptr);
 	}
 
 	return is_established;
@@ -1662,7 +1662,7 @@ void cConnection::Connect_Cs(cPacket & packet)
 {
    WWASSERT(InitDone);
    WWASSERT(!IsServer);
-   WWASSERT(PRHost[SERVER_RHOST_ID] != NULL);
+   WWASSERT(PRHost[SERVER_RHOST_ID] != nullptr);
    WWASSERT(LocalId == ID_UNKNOWN);
 
    //WWDEBUG_SAY(("Connect_Cs at time %s\n", cMiscUtil::Get_Text_Time()));
@@ -1709,7 +1709,7 @@ void cConnection::Send_Accept_Sc(int new_rhost_id)
 //-----------------------------------------------------------------------------
 void cConnection::Send_Refusal_Sc(struct sockaddr_in* p_address, REFUSAL_CODE refusal_code)
 {
-   WWASSERT(p_address != NULL);
+   WWASSERT(p_address != nullptr);
 
    //
    // This is a refusal originating from the wwnet layer
@@ -1743,7 +1743,7 @@ void cConnection::Send_Refusal_Sc(struct sockaddr_in* p_address, REFUSAL_CODE re
 //-----------------------------------------------------------------------------
 void cConnection::Send_Ack(struct sockaddr_in* p_address, int packet_id)
 {
-   WWASSERT(p_address != NULL);
+   WWASSERT(p_address != nullptr);
    WWASSERT(InitDone);
    WWASSERT(packet_id >= 0);
    WWASSERT(LocalId != ID_UNKNOWN); //TSS - bug - asserted here when 50% packet loss or crc failures
@@ -1763,7 +1763,7 @@ void cConnection::Send_Ack(struct sockaddr_in* p_address, int packet_id)
 
    int addressee = Address_To_Rhostid(p_address);
    if (addressee != INVALID_RHOST_ID) {
-      WWASSERT(PRHost[addressee] != NULL);
+      WWASSERT(PRHost[addressee] != nullptr);
       PRHost[addressee]->Get_Stats().StatSample[STAT_AckCountSent]++;
       PRHost[addressee]->Get_Stats().StatSample[STAT_UPktSent]++;
       PRHost[addressee]->Get_Stats().StatSample[STAT_UByteSent] += packet.Get_Compressed_Size_Bytes();
@@ -1782,9 +1782,9 @@ void cConnection::Destroy_Connection(int rhost_id)
 
    WWASSERT(InitDone);
    WWASSERT(rhost_id >= MinRHost && rhost_id <= MaxRHost);
-   if (PRHost[rhost_id] != NULL) {
+   if (PRHost[rhost_id] != nullptr) {
 		delete PRHost[rhost_id];
-		PRHost[rhost_id] = NULL;
+		PRHost[rhost_id] = nullptr;
 		NumRHosts--;
       WWASSERT(NumRHosts >= 0);
 	}
@@ -1801,7 +1801,7 @@ void cConnection::Send_Keepalives()
 
    if (LocalId != ID_UNKNOWN) {
       for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-		   if (PRHost[rhost_id] != NULL && ThisFrameTimeMs -
+		   if (PRHost[rhost_id] != nullptr && ThisFrameTimeMs -
 				PRHost[rhost_id]->Get_Last_Keepalive_Time_Ms() > cNetUtil::KEEPALIVE_TIMEOUT_MS) {
 
 				int service_rate = (int)(1000 *
@@ -1838,7 +1838,7 @@ void cConnection::Send_Keepalives()
 double cConnection::Get_Threshold_Priority(int rhost_id)
 {
 	WWASSERT(rhost_id >= 0);
-   WWASSERT(PRHost[rhost_id] != NULL);
+   WWASSERT(PRHost[rhost_id] != nullptr);
    return PRHost[rhost_id]->Get_Threshold_Priority();
 }
 
@@ -1856,26 +1856,26 @@ void cConnection::Set_Max_Acceptable_Packetloss_Pc(double max_packetloss_pc)
 //-----------------------------------------------------------------------------
 bool cConnection::Demultiplex_R_Or_U_Packet(cPacket * p_packet, int rhost_id)
 {
-   WWASSERT(p_packet != NULL);
+   WWASSERT(p_packet != nullptr);
 	WWASSERT(rhost_id >= 0);
 
    bool is_aborted;
 
-   WWASSERT(PRHost[rhost_id] != NULL);
+   WWASSERT(PRHost[rhost_id] != nullptr);
 
    if (IsServer) {
 		//WWPROFILE("cConnection::Server_Packet_Handler");
 		//Server_Packet_Handler(*p_packet, rhost_id);
-		WWASSERT(ServerPacketHandler != NULL);
+		WWASSERT(ServerPacketHandler != nullptr);
 		ServerPacketHandler(*p_packet, rhost_id);
 	} else {
 		//WWPROFILE("cConnection::Client_Packet_Handler");
 		//Client_Packet_Handler(*p_packet);
-		WWASSERT(ClientPacketHandler != NULL);
+		WWASSERT(ClientPacketHandler != nullptr);
 		ClientPacketHandler(*p_packet);
 	}
 
-   if (PRHost[rhost_id] == NULL) {
+   if (PRHost[rhost_id] == nullptr) {
       is_aborted = true;
    } else {
       //WWASSERT(p_packet->Is_Flushed());
@@ -1945,14 +1945,14 @@ void cConnection::Service_Read()
 	WWPROFILE("Process R Packets");
 
 	for (rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-		if (PRHost[rhost_id] != NULL) {
+		if (PRHost[rhost_id] != nullptr) {
          PRHost[rhost_id]->Compute_List_Max(RELIABLE_RCV_LIST);
 
 	      for (SLNode<cPacket> * objnode = PRHost[rhost_id]->Get_Packet_List(RELIABLE_RCV_LIST).Head();
-            objnode != NULL;) {
+            objnode != nullptr;) {
 
             cPacket * p_packet = objnode->Data();
-            WWASSERT(p_packet != NULL);
+            WWASSERT(p_packet != nullptr);
             objnode = objnode->Next();
 
 				int comparison = p_packet->Get_Id() - PRHost[rhost_id]->Get_Reliable_Packet_Rcv_Id();
@@ -2053,7 +2053,7 @@ void cConnection::Service_Read()
 	WWPROFILE("Process U Packets");
 
 	for (rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-		if (PRHost[rhost_id] != NULL) {
+		if (PRHost[rhost_id] != nullptr) {
 
          PRHost[rhost_id]->Compute_List_Max(UNRELIABLE_RCV_LIST);
 
@@ -2062,10 +2062,10 @@ void cConnection::Service_Read()
 			unsigned int list_processing_start = TIMEGETTIME();
 
 	      for (SLNode<cPacket> * objnode = PRHost[rhost_id]->Get_Packet_List(UNRELIABLE_RCV_LIST).Head();
-            objnode != NULL; objnode = objnode->Next()) {
+            objnode != nullptr; objnode = objnode->Next()) {
 
             cPacket * p_packet = objnode->Data();
-            WWASSERT(p_packet != NULL);
+            WWASSERT(p_packet != nullptr);
             WWASSERT(p_packet->Get_Id() >= 0);
 
 				if (p_packet->Get_Id() < PRHost[rhost_id]->Get_Unreliable_Packet_Rcv_Id()) {
@@ -2095,19 +2095,19 @@ void cConnection::Service_Read()
 				}
 			}
 
-         if (PRHost[rhost_id] != NULL) {
+         if (PRHost[rhost_id] != nullptr) {
 				PRHost[rhost_id]->Set_List_Processing_Time(UNRELIABLE_RCV_LIST, TIMEGETTIME() - list_processing_start);
 			}
 
-         if (PRHost[rhost_id] != NULL) {
+         if (PRHost[rhost_id] != nullptr) {
 				//
 				// Destroy list
 				//
 				for (SLNode<cPacket> * objnode = PRHost[rhost_id]->Get_Packet_List(UNRELIABLE_RCV_LIST).Head();
-					objnode != NULL; objnode = objnode->Next()) {
+					objnode != nullptr; objnode = objnode->Next()) {
 					cPacket * p_packet = objnode->Data();
 					p_packet->Flush();
-					WWASSERT(p_packet != NULL);
+					WWASSERT(p_packet != nullptr);
 					delete p_packet;
 				}
 
@@ -2133,10 +2133,10 @@ void cConnection::Service_Read()
 		//
 		for (rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
 
-			if (PRHost[rhost_id] != NULL && PRHost[rhost_id]->Must_Evict()) {
+			if (PRHost[rhost_id] != nullptr && PRHost[rhost_id]->Must_Evict()) {
 				PRHost[rhost_id]->Set_Must_Evict(false);
 				//Eviction_Handler(rhost_id);
-				WWASSERT(EvictionHandler != NULL);
+				WWASSERT(EvictionHandler != nullptr);
 				EvictionHandler(rhost_id);
 			}
 		}
@@ -2171,13 +2171,13 @@ void cConnection::Clear_Resend_Counts()
    SLNode<cPacket> * objnode;
 	cPacket * p_packet;
 	for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-		if (PRHost[rhost_id] != NULL) {
+		if (PRHost[rhost_id] != nullptr) {
 
 			for (objnode = PRHost[rhost_id]->Get_Packet_List(RELIABLE_SEND_LIST).Head();
-            objnode != NULL; objnode = objnode->Next()) {
+            objnode != nullptr; objnode = objnode->Next()) {
 
             p_packet = objnode->Data();
-            WWASSERT(p_packet != NULL);
+            WWASSERT(p_packet != nullptr);
             if (p_packet->Get_Resend_Count() > 0) {
 					p_packet->Clear_Resend_Count();
 				}
@@ -2216,7 +2216,7 @@ void cConnection::Service_Send(bool is_urgent)
 	int num_real_remote_hosts = NumRHosts;
 	if (IsServer && !IsDedicatedServer) {
 		num_real_remote_hosts--;
-		if (PRHost[1] != NULL) {
+		if (PRHost[1] != nullptr) {
 			PRHost[1]->Set_Target_Bps(10000000);//TSS - won't this just be overwritten below???
 		}
 	}
@@ -2230,7 +2230,7 @@ void cConnection::Service_Send(bool is_urgent)
 			ULONG bps_per_rhost = (ULONG) (BandwidthBudgetOut / (float) num_real_remote_hosts);
 
 			for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-				if (PRHost[rhost_id] != NULL) {
+				if (PRHost[rhost_id] != nullptr) {
 
 					//
 					// Do not exceed the max bps set by the client.
@@ -2258,7 +2258,7 @@ void cConnection::Service_Send(bool is_urgent)
 
 		cRemoteHost * p_rhost = PRHost[rhost_id];
 
-		if (p_rhost != NULL) {
+		if (p_rhost != nullptr) {
 
          p_rhost->Compute_List_Max(RELIABLE_SEND_LIST);
 
@@ -2267,11 +2267,11 @@ void cConnection::Service_Send(bool is_urgent)
          // Send any reliable combined-packet
          //
          cPacket * & p_packet_rs = p_rhost->Get_P_Comb_Rel_Packet();
-         if (p_packet_rs != NULL) {
+         if (p_packet_rs != nullptr) {
             Internal_Send_Packet_To_Individual(*p_packet_rs, rhost_id, PACKETTYPE_RELIABLE);
             p_packet_rs->Flush();
             delete p_packet_rs;
-            p_packet_rs = NULL;
+            p_packet_rs = nullptr;
          }
 			*/
 
@@ -2281,11 +2281,11 @@ void cConnection::Service_Send(bool is_urgent)
          // Send any appropriate reliable queued packets
          //
 	      for (SLNode<cPacket> * objnode = p_rhost->Get_Packet_List(RELIABLE_SEND_LIST).Head();
-            objnode != NULL;) {
+            objnode != nullptr;) {
 
             cPacket * p_packet = objnode->Data();
             objnode = objnode->Next();
-            WWASSERT(p_packet != NULL);
+            WWASSERT(p_packet != nullptr);
 
 				if (p_packet->Get_Resend_Count() > 1) {
 					resent_packets++;
@@ -2363,11 +2363,11 @@ void cConnection::Service_Send(bool is_urgent)
 
                   if (IsServer) {
                      //Server_Broken_Connection_Handler(rhost_id); // Inform app level of this disaster
-							WWASSERT(ServerBrokenConnectionHandler != NULL);
+							WWASSERT(ServerBrokenConnectionHandler != nullptr);
 							ServerBrokenConnectionHandler(rhost_id);
                   } else {
                      //Client_Broken_Connection_Handler(); // Inform app level of this disaster
-							WWASSERT(ClientBrokenConnectionHandler != NULL);
+							WWASSERT(ClientBrokenConnectionHandler != nullptr);
 							ClientBrokenConnectionHandler();
                   }
                   break;
@@ -2390,7 +2390,7 @@ void cConnection::Service_Send(bool is_urgent)
 
 		cRemoteHost * p_rhost = PRHost[rhost_id];
 
-		if (p_rhost != NULL) {
+		if (p_rhost != nullptr) {
 
          p_rhost->Compute_List_Max(UNRELIABLE_SEND_LIST);
 
@@ -2399,11 +2399,11 @@ void cConnection::Service_Send(bool is_urgent)
          // Send any unreliable combined-packet
          //
          cPacket * & p_packet_u = p_rhost->Get_P_Comb_Unrel_Packet();
-         if (p_packet_u != NULL) {
+         if (p_packet_u != nullptr) {
             Internal_Send_Packet_To_Individual(*p_packet_u, rhost_id, PACKETTYPE_UNRELIABLE);
             p_packet_u->Flush();
             delete p_packet_u;
-            p_packet_u = NULL;
+            p_packet_u = nullptr;
          }
 			*/
 
@@ -2412,10 +2412,10 @@ void cConnection::Service_Send(bool is_urgent)
          //
 		 SLNode<cPacket> * objnode;
 	      for (objnode = p_rhost->Get_Packet_List(UNRELIABLE_SEND_LIST).Head();
-            objnode != NULL; objnode = objnode->Next()) {
+            objnode != nullptr; objnode = objnode->Next()) {
 
             cPacket * p_packet = objnode->Data();
-            WWASSERT(p_packet != NULL);
+            WWASSERT(p_packet != nullptr);
 
             p_rhost->Get_Stats().StatSample[STAT_UPktSent]++;
 				p_rhost->Get_Stats().StatSample[STAT_UByteSent] += p_packet->Get_Compressed_Size_Bytes();
@@ -2428,10 +2428,10 @@ void cConnection::Service_Send(bool is_urgent)
 
 	      // destroy all
 			for (objnode = p_rhost->Get_Packet_List(UNRELIABLE_SEND_LIST).Head();
-            objnode != NULL; objnode = objnode->Next()) {
+            objnode != nullptr; objnode = objnode->Next()) {
 
             cPacket * p_packet = objnode->Data();
-            WWASSERT(p_packet != NULL);
+            WWASSERT(p_packet != nullptr);
 				p_packet->Flush();
 				delete p_packet;
          }
@@ -2455,7 +2455,7 @@ void cConnection::Service_Send(bool is_urgent)
 
       for (int statistic = 0; statistic < STAT_COUNT; statistic++) {
 	      for (rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-		      if (PRHost[rhost_id] != NULL) {
+		      if (PRHost[rhost_id] != nullptr) {
                CombinedStats.StatSample[statistic] += PRHost[rhost_id]->Get_Stats().StatSnapshot[statistic];
             }
          }
@@ -2470,7 +2470,7 @@ void cConnection::Service_Send(bool is_urgent)
    CombinedStats.Update_If_Sample_Done(ThisFrameTimeMs);
 
 	for (rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
-		if (PRHost[rhost_id] != NULL) {
+		if (PRHost[rhost_id] != nullptr) {
 			bool is_updated = PRHost[rhost_id]->Get_Stats().Update_If_Sample_Done(
             ThisFrameTimeMs, false);
 
@@ -2490,7 +2490,7 @@ void cConnection::Service_Send(bool is_urgent)
 //-----------------------------------------------------------------------------
 void cConnection::Install_Accept_Handler(Accept_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	AcceptHandler = handler;
 }
@@ -2498,7 +2498,7 @@ void cConnection::Install_Accept_Handler(Accept_Handler handler)
 //-----------------------------------------------------------------------------
 void cConnection::Install_Refusal_Handler(Refusal_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	RefusalHandler = handler;
 }
@@ -2506,7 +2506,7 @@ void cConnection::Install_Refusal_Handler(Refusal_Handler handler)
 //-----------------------------------------------------------------------------
 void cConnection::Install_Server_Broken_Connection_Handler(Server_Broken_Connection_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	ServerBrokenConnectionHandler = handler;
 }
@@ -2514,7 +2514,7 @@ void cConnection::Install_Server_Broken_Connection_Handler(Server_Broken_Connect
 //-----------------------------------------------------------------------------
 void cConnection::Install_Client_Broken_Connection_Handler(Client_Broken_Connection_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	ClientBrokenConnectionHandler = handler;
 }
@@ -2522,7 +2522,7 @@ void cConnection::Install_Client_Broken_Connection_Handler(Client_Broken_Connect
 //-----------------------------------------------------------------------------
 void cConnection::Install_Eviction_Handler(Eviction_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	EvictionHandler = handler;
 }
@@ -2530,7 +2530,7 @@ void cConnection::Install_Eviction_Handler(Eviction_Handler handler)
 //-----------------------------------------------------------------------------
 void cConnection::Install_Conn_Handler(Conn_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	ConnHandler = handler;
 }
@@ -2538,7 +2538,7 @@ void cConnection::Install_Conn_Handler(Conn_Handler handler)
 //-----------------------------------------------------------------------------
 void cConnection::Install_Application_Acceptance_Handler(Application_Acceptance_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	ApplicationAcceptanceHandler = handler;
 }
@@ -2546,7 +2546,7 @@ void cConnection::Install_Application_Acceptance_Handler(Application_Acceptance_
 //-----------------------------------------------------------------------------
 void cConnection::Install_Server_Packet_Handler(Server_Packet_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	ServerPacketHandler = handler;
 }
@@ -2554,7 +2554,7 @@ void cConnection::Install_Server_Packet_Handler(Server_Packet_Handler handler)
 //-----------------------------------------------------------------------------
 void cConnection::Install_Client_Packet_Handler(Client_Packet_Handler handler)
 {
-	WWASSERT(handler != NULL);
+	WWASSERT(handler != nullptr);
 
 	ClientPacketHandler = handler;
 }

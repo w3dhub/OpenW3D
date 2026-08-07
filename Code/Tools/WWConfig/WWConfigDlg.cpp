@@ -153,9 +153,9 @@ CWWConfigDlg::OnInitDialog (void)
 	AudioConfigDialogClass			*audio_page = new AudioConfigDialogClass (this);
 	PerformanceConfigDialogClass	*performance_page = new PerformanceConfigDialogClass (this);
 
-	video_page->SetWindowPos		( NULL, tab_rect.left, tab_rect.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
-	audio_page->SetWindowPos		( NULL, tab_rect.left, tab_rect.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
-	performance_page->SetWindowPos	( NULL, tab_rect.left, tab_rect.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+	video_page->SetWindowPos		( nullptr, tab_rect.left, tab_rect.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+	audio_page->SetWindowPos		( nullptr, tab_rect.left, tab_rect.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+	performance_page->SetWindowPos	( nullptr, tab_rect.left, tab_rect.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 
 	ConfigPages.Add ( video_page );
 	ConfigPages.Add ( audio_page );
@@ -259,14 +259,14 @@ CWWConfigDlg::OnSelchangeTabCtrl
 		//
 		// Hide the old tab
 		//
-		if (CurrentTab < ConfigPages.Count () && ConfigPages[CurrentTab] != NULL) {
+		if (CurrentTab < ConfigPages.Count () && ConfigPages[CurrentTab] != nullptr) {
 			ConfigPages[CurrentTab]->ShowWindow (SW_HIDE);
 		}
 
 		//
 		// Show the new tab
 		//
-		if (ConfigPages[newtab] != NULL) {
+		if (ConfigPages[newtab] != nullptr) {
 			ConfigPages[newtab]->ShowWindow (SW_SHOW);
 		}
 

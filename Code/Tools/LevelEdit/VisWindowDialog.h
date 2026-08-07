@@ -41,7 +41,7 @@ class VisWindowDialogClass : public CDialog
 {
 // Construction
 public:
-	VisWindowDialogClass (CWnd* pParent = NULL);
+	VisWindowDialogClass (CWnd* pParent = nullptr);
 	~VisWindowDialogClass (void);
 
 // Dialog Data

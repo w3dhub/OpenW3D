@@ -72,9 +72,9 @@ MeshClass *				Mesh;
 LightClass *			Light;
 LightClass *			Light2;
 
-HModelClass *			TestModel = NULL;
-HAnimClass *			TestAnim = NULL;
-HAnimClass *			CameraAnim = NULL;
+HModelClass *			TestModel = nullptr;
+HAnimClass *			TestAnim = nullptr;
+HAnimClass *			CameraAnim = nullptr;
 
 Quaternion				ViewOrientation(1);
 Quaternion				ViewMotion(1);
@@ -194,10 +194,10 @@ void	Create_Objects(void)
 */
 void Destroy_Scene(void)
 {
-//	TheWorld.Set_Camera(NULL);
+//	TheWorld.Set_Camera(nullptr);
 //	TheWorld.Shutdown_Scene();
 	delete TheScene;
-	TheScene = NULL;
+	TheScene = nullptr;
 }
 
 
@@ -208,30 +208,30 @@ void	Destroy_Objects(void)
 {
 	if (Mesh) {
 		Mesh->Release_Ref();
-		Mesh = NULL;
+		Mesh = nullptr;
 	}
 
 	if (TestModel) {
 		TestModel->Remove();
 		TestModel->Release_Ref();
-		TestModel = NULL;
+		TestModel = nullptr;
 	}
 
 	if (Camera) {
 		Camera->Release_Ref();
-		Camera = NULL;
+		Camera = nullptr;
 	}
 
 	if (Light) {
 		Light->Remove();
 		Light->Release_Ref();
-		Light = NULL;
+		Light = nullptr;
 	}
 
 	if (Light2) {
 		Light2->Remove();
 		Light2->Release_Ref();
-		Light2 = NULL;
+		Light2 = nullptr;
 	}
 }
 
@@ -306,9 +306,9 @@ void	Shutdown_Debug(void)
 	** Remove message handler functions for the WWDebug messages
 	** and assertion failures.
 	*/
-	WWDebug_Install_Message_Handler(NULL);
-	WWDebug_Install_Assert_Handler(NULL);
-	WWDebug_Install_Trigger_Handler(NULL);
+	WWDebug_Install_Message_Handler(nullptr);
+	WWDebug_Install_Assert_Handler(nullptr);
+	WWDebug_Install_Trigger_Handler(nullptr);
 }
 
 void wwdebug_message_handler(const char * message)
@@ -344,7 +344,7 @@ void Debug_Refs(void)
 
 	if (RefCountClass::Total_Refs() > 0) {
 		sprintf(buf,"Main Looop End %d refs\n", RefCountClass::Total_Refs());
-		MessageBox(NULL,buf,"Ref Debugging",MB_OK);
+		MessageBox(nullptr,buf,"Ref Debugging",MB_OK);
 	}
 
 	SList<ActiveRefStruct> * reflist = RefCountClass::Get_Active_Ref_List();
@@ -356,7 +356,7 @@ void Debug_Refs(void)
 		ActiveRefStruct * ref = objnode->Data();
 
 		sprintf(buf,"Active Ref: %s Line: %d Pointer: %p\n", ref->File,ref->Line,ref->Object);
-		if (MessageBox(NULL,buf,"Ref Debugging",MB_OKCANCEL) == IDCANCEL) {
+		if (MessageBox(nullptr,buf,"Ref Debugging",MB_OKCANCEL) == IDCANCEL) {
 			break;
 		}
 	}

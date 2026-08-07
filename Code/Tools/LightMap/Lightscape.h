@@ -304,7 +304,7 @@ class LightscapeSolve : public LightmapPacker
 		const char										*LightExclusionString;			// Do not add lights that contain this string.
 
 		// Static data.
-		static LightscapeSolve *_ActiveImporter;	// Object currently importing (reading a solution file) (otherwise NULL).
+		static LightscapeSolve *_ActiveImporter;	// Object currently importing (reading a solution file) (otherwise nullptr).
 };
 
 

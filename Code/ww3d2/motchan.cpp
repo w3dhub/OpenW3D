@@ -96,10 +96,10 @@ MotionChannelClass::MotionChannelClass(void) :
 	PivotIdx(0),
 	Type(0),
 	VectorLen(0),
-	Data(NULL),
+	Data(nullptr),
 	FirstFrame(-1),
 	LastFrame(-1),
-	CompressedData(NULL),
+	CompressedData(nullptr),
 	ValueScale(0.0f),
 	ValueOffset(0.0f)
 {
@@ -138,11 +138,11 @@ void MotionChannelClass::Free(void)
 {
 	if (CompressedData) {
 		delete[] CompressedData;
-		CompressedData=NULL;
+		CompressedData=nullptr;
 	}
 	if (Data) {
 		delete[] Data;
-		Data = NULL;
+		Data = nullptr;
 	}
 }
 
@@ -215,7 +215,7 @@ BitChannelClass::BitChannelClass(void) :
 	DefaultVal(0),
 	FirstFrame(-1),
 	LastFrame(-1),
-	Bits(NULL)
+	Bits(nullptr)
 {
 }
 
@@ -252,9 +252,9 @@ BitChannelClass::~BitChannelClass(void)
  *=============================================================================================*/
 void BitChannelClass::Free(void)
 {
-	if (Bits != NULL) {
+	if (Bits != nullptr) {
 		delete[] Bits;
-		Bits = NULL;
+		Bits = nullptr;
 	}
 }
 
@@ -327,7 +327,7 @@ TimeCodedMotionChannelClass::TimeCodedMotionChannelClass(void) :
 	Type(0),
 	VectorLen(0),
 	PacketSize(0),
-	Data(NULL),
+	Data(nullptr),
 	NumTimeCodes(0),
 	LastTimeCodeIdx(0),	// absolute index to last time code
 	CachedIdx(0)			// Last Index Used
@@ -367,7 +367,7 @@ void TimeCodedMotionChannelClass::Free(void)
 {
 	if (Data) {
 		delete[] Data;
-		Data = NULL;
+		Data = nullptr;
 	}
 }
 
@@ -694,7 +694,7 @@ TimeCodedBitChannelClass::TimeCodedBitChannelClass(void) :
 	PivotIdx(0),
 	Type(0),
 	DefaultVal(0),
-	Bits(NULL),
+	Bits(nullptr),
 	CachedIdx(0)
 {
 }
@@ -732,9 +732,9 @@ TimeCodedBitChannelClass::~TimeCodedBitChannelClass(void)
  *=============================================================================================*/
 void TimeCodedBitChannelClass::Free(void)
 {
-	if (Bits != NULL) {
+	if (Bits != nullptr) {
 		delete[] Bits;
-		Bits = NULL;
+		Bits = nullptr;
 	}
 }
 
@@ -856,9 +856,9 @@ AdaptiveDeltaMotionChannelClass::AdaptiveDeltaMotionChannelClass(void) :
 	PivotIdx(0),
 	Type(0),
 	VectorLen(0),
-	Data(NULL),
+	Data(nullptr),
 	NumFrames(0),
-	CacheData(NULL),
+	CacheData(nullptr),
 	Scale(0.0f)
 {
 
@@ -914,12 +914,12 @@ void AdaptiveDeltaMotionChannelClass::Free(void)
 {
 	if (Data) {
 		delete[] Data;
-		Data = NULL;
+		Data = nullptr;
 	}
 
 	if (CacheData) {
 		delete CacheData;
-		CacheData = NULL;
+		CacheData = nullptr;
 	}
 
 }	// Free

@@ -60,7 +60,7 @@ namespace WWOnline {
 
 NetUtilObserver::NetUtilObserver() :
 		mRefCount(1),
-		mOuter(NULL)
+		mOuter(nullptr)
 	{
 	WWDEBUG_SAY(("WOL: NetUtilObserver Instantiated\n"));
 	}
@@ -131,7 +131,7 @@ STDMETHODIMP NetUtilObserver::QueryInterface(const IID& iid, void** ppv)
 		}
 	else
 		{
-		*ppv = NULL;
+		*ppv = nullptr;
 		return E_NOINTERFACE;
 		}
 
@@ -209,7 +209,7 @@ ULONG STDMETHODCALLTYPE NetUtilObserver::Release(void)
 
 STDMETHODIMP NetUtilObserver::OnPing(HRESULT result, int time, unsigned int ip, int handle)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -284,14 +284,14 @@ STDMETHODIMP NetUtilObserver::OnPing(HRESULT result, int time, unsigned int ip, 
 STDMETHODIMP NetUtilObserver::OnLadderList(HRESULT result, WOL::Ladder* list,
 			int /* rungCount */, int timeStamp, int keyRung)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
 		return S_OK;
 		}
 
-	if (FAILED(result) || (list == NULL))
+	if (FAILED(result) || (list == nullptr))
 		{
 		WWDEBUG_SAY(("WOLERROR: OnLadderList '%s'\n", GetNetUtilErrorString(result)));
 
@@ -397,7 +397,7 @@ void NetUtilObserver::ProcessLadderListResults(WOL::Ladder* list, int timeStamp)
 			{
 			// Get the name of the user we requested information for.
 			const unichar_t* requestName = u_strchr(*request, U_CHAR(':'));
-			WWASSERT(requestName != NULL && "Invalid ladder request");
+			WWASSERT(requestName != nullptr && "Invalid ladder request");
 			requestName++;
 
 			unichar_t ladderName[64];
@@ -544,7 +544,7 @@ STDMETHODIMP NetUtilObserver::OnGameresSent(HRESULT)
 
 STDMETHODIMP NetUtilObserver::OnNewNick(HRESULT result, LPCSTR message, LPCSTR nickname, LPCSTR password)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -586,7 +586,7 @@ STDMETHODIMP NetUtilObserver::OnNewNick(HRESULT result, LPCSTR message, LPCSTR n
 
 STDMETHODIMP NetUtilObserver::OnAgeCheck(HRESULT result, int years, int consent)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");

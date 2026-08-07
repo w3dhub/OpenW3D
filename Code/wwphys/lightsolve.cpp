@@ -122,9 +122,9 @@ void VertexSolveClass::Light_Mesh(LightSolveContextClass & context,MeshClass * m
 	**			- else, point the emissive source to the new light solve color array,
 	**			  make the diffuse and ambient use the material settings.
 	*/
-	unsigned * dcg = NULL;
+	unsigned * dcg = nullptr;
 	for (int pi=0; pi<model->Get_Pass_Count(); pi++) {
-		if (model->Get_DCG_Array(pi) != NULL) {
+		if (model->Get_DCG_Array(pi) != nullptr) {
 			dcg = model->Get_DCG_Array(pi);
 		}
 	}
@@ -134,8 +134,8 @@ void VertexSolveClass::Light_Mesh(LightSolveContextClass & context,MeshClass * m
 		bool use_array = false;
 		for (int pi=0; pi<model->Get_Pass_Count(); pi++) {
 			VertexMaterialClass * pass_mtl = model->Peek_Material(vi,pi);
-			if (	(pass_mtl != NULL) &&
-					(dcg != NULL) &&
+			if (	(pass_mtl != nullptr) &&
+					(dcg != nullptr) &&
 					(pass_mtl->Get_Diffuse_Color_Source() == VertexMaterialClass::COLOR1) )
 			{
 				use_array = true;
@@ -148,7 +148,7 @@ void VertexSolveClass::Light_Mesh(LightSolveContextClass & context,MeshClass * m
 		VertexMaterialClass * vmtl = model->Peek_Material(vi,0);
 		if (use_array) {
 			MeshAmbient[vi] = DX8Wrapper::Convert_Color(dcg[vi]);
-		} else if (vmtl != NULL) {
+		} else if (vmtl != nullptr) {
 			Vector3 ambient;
 			vmtl->Get_Ambient(&ambient);
 			MeshAmbient[vi] = Vector4(ambient.X,ambient.Y,ambient.Z,1.0f);
@@ -161,7 +161,7 @@ void VertexSolveClass::Light_Mesh(LightSolveContextClass & context,MeshClass * m
 		*/
 		if (use_array) {
 			MeshDiffuse[vi] = DX8Wrapper::Convert_Color(dcg[vi]);
-		} else if (vmtl != NULL) {
+		} else if (vmtl != nullptr) {
 			Vector3 diffuse;
 			vmtl->Get_Diffuse(&diffuse);
 			MeshDiffuse[vi] = Vector4(diffuse.X,diffuse.Y,diffuse.Z,1.0f);
@@ -443,7 +443,7 @@ void LightSolveClass::Generate_Static_Light_Solve(LightSolveContextClass & conte
 	RefPhysListClass solve_list;
 	while (!it.Is_Done()) {
 		StaticPhysClass * obj = it.Peek_Obj()->As_StaticPhysClass();
-		if ((obj != NULL) && (Does_Obj_Get_Static_Light_Solve(obj))) {
+		if ((obj != nullptr) && (Does_Obj_Get_Static_Light_Solve(obj))) {
 			solve_list.Add(obj);
 		}
 		it.Next();
@@ -466,7 +466,7 @@ void LightSolveClass::Generate_Static_Light_Solve(LightSolveContextClass & conte
 	RefPhysListIterator it(&input_list);
 	while (!it.Is_Done()) {
 		StaticPhysClass * obj = it.Peek_Obj()->As_StaticPhysClass();
-		if ((obj != NULL) && (Does_Obj_Get_Static_Light_Solve(obj))) {
+		if ((obj != nullptr) && (Does_Obj_Get_Static_Light_Solve(obj))) {
 			solve_list.Add(obj);
 		}
 		it.Next();
@@ -499,7 +499,7 @@ void LightSolveClass::Compute_Solve(LightSolveContextClass & context,RefPhysList
 	it.First();
 	while (!it.Is_Done() && !context.Get_Progress().Is_Cancel_Requested()) {
 		StaticPhysClass * obj = it.Peek_Obj()->As_StaticPhysClass();
-		if (obj != NULL) {
+		if (obj != nullptr) {
 			Compute_Solve(context,obj);
 			context.Get_Progress().Increment_Processed_Object_Count();
 		}
@@ -514,7 +514,7 @@ void LightSolveClass::Compute_Solve(LightSolveContextClass & context,RefPhysList
 
 void LightSolveClass::Compute_Solve(LightSolveContextClass & context,StaticPhysClass * obj)
 {
-	WWASSERT(obj != NULL);
+	WWASSERT(obj != nullptr);
 	if (context.Get_Progress().Get_Object_Count() == 0) {
 		context.Get_Progress().Set_Object_Count(1);
 	}
@@ -539,10 +539,10 @@ void LightSolveClass::Compute_Solve(LightSolveContextClass & context,RenderObjCl
 	/*
 	** Recurse through all sub-objects
 	*/
-	WWASSERT(obj != NULL);
+	WWASSERT(obj != nullptr);
 	for (int i=0; i<obj->Get_Num_Sub_Objects(); i++) {
 		RenderObjClass * sub_obj = obj->Get_Sub_Object(i);
-		if (sub_obj != NULL) {
+		if (sub_obj != nullptr) {
 			Compute_Solve(context,sub_obj,light_list);
 			REF_PTR_RELEASE(sub_obj);
 		}
@@ -571,7 +571,7 @@ bool LightSolveClass::Does_Obj_Get_Static_Light_Solve(StaticPhysClass * obj)
 
 bool LightSolveClass::Does_Model_Get_Static_Light_Solve(RenderObjClass * model)
 {
-	if (model == NULL) {
+	if (model == nullptr) {
 		return false;
 	}
 
@@ -583,7 +583,7 @@ bool LightSolveClass::Does_Model_Get_Static_Light_Solve(RenderObjClass * model)
 		bool any_sub_objs_visible = false;
 		for (int i=0; i<model->Get_Num_Sub_Objects(); i++) {
 			RenderObjClass * sub_obj = model->Get_Sub_Object(i);
-			if (sub_obj != NULL) {
+			if (sub_obj != nullptr) {
 				if (sub_obj->Is_Not_Hidden_At_All()) {
 					any_sub_objs_visible = true;
 				}

@@ -98,7 +98,7 @@ cGameSpyCsChallengeResponseEvent::Act
    WWASSERT(cNetwork::I_Am_Server());
 
 	cPlayer * p_player = cPlayerManager::Find_Player(ClientId);
-	if (p_player != NULL)
+	if (p_player != nullptr)
 	{
 		WWDEBUG_SAY(("  Validating client %d against validation server.\n", ClientId));
 

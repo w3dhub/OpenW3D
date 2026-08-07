@@ -56,7 +56,7 @@
 StringBuilder::StringBuilder (unsigned buffersize)
 {
 	Buffer = new char [buffersize];
-	ASSERT (Buffer != NULL);
+	ASSERT (Buffer != nullptr);
 	Buffer [0] = '\0';
 	BufferAllocated = true;
 	BufferSize = buffersize;
@@ -122,7 +122,7 @@ char *StringBuilder::Copy (const char *controlstring, ...)
 	// Allocate a workspace buffer.
 	messagebufferlength = BufferSize;
 	messagebuffer = new char [messagebufferlength];
-	ASSERT (messagebuffer != NULL);
+	ASSERT (messagebuffer != nullptr);
 
 	va_list args;
 
@@ -162,7 +162,7 @@ char *StringBuilder::Concatenate (const char *controlstring, ...)
 	// Allocate a workspace buffer.
 	messagebufferlength = BufferSize;
 	messagebuffer = new char [messagebufferlength];
-	ASSERT (messagebuffer != NULL);
+	ASSERT (messagebuffer != nullptr);
 
 	va_list args;
 

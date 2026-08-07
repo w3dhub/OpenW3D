@@ -144,7 +144,7 @@ UnitCoordinationZoneMgr::Detect_Elevator_Zones (void)
 	//
 	for (iterator.First (); iterator.Is_Done () == false; iterator.Next ()) {
 		StaticAnimPhysClass *phys_obj = (StaticAnimPhysClass *)iterator.Peek_Obj ();
-		if (phys_obj != NULL && phys_obj->As_ElevatorPhysClass () != NULL) {
+		if (phys_obj != nullptr && phys_obj->As_ElevatorPhysClass () != nullptr) {
 
 			//
 			//	Dig out the definition for this elevator

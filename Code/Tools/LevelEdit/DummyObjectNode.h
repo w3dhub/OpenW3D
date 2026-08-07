@@ -63,7 +63,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	DummyObjectNodeClass (PresetClass *preset = NULL);
+	DummyObjectNodeClass (PresetClass *preset = nullptr);
 	DummyObjectNodeClass (const DummyObjectNodeClass &src);
 	~DummyObjectNodeClass (void);
 
@@ -140,7 +140,7 @@ DummyObjectNodeClass::Peek_Physics_Obj (void) const
 inline void
 DummyObjectNodeClass::On_Rotate (void)
 {
-	if (m_RealObj != NULL) {
+	if (m_RealObj != nullptr) {
 		m_RealObj->Set_Transform (m_Transform);
 		Handle_Emitter_Transform ();
 	}
@@ -155,7 +155,7 @@ DummyObjectNodeClass::On_Rotate (void)
 inline void
 DummyObjectNodeClass::On_Translate (void)
 {
-	if (m_RealObj != NULL) {
+	if (m_RealObj != nullptr) {
 		m_RealObj->Set_Transform (m_Transform);
 		Handle_Emitter_Transform ();
 	}
@@ -170,7 +170,7 @@ DummyObjectNodeClass::On_Translate (void)
 inline void
 DummyObjectNodeClass::On_Transform (void)
 {
-	if (m_RealObj != NULL) {
+	if (m_RealObj != nullptr) {
 		m_RealObj->Set_Transform (m_Transform);
 		Handle_Emitter_Transform ();
 	}

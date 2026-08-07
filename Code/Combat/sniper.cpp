@@ -121,12 +121,12 @@ void 	SniperHUDClass::Shutdown( void )
 {
 	if ( _Sniper2DBaseRenderer ) {
 		delete _Sniper2DBaseRenderer;
-		_Sniper2DBaseRenderer = NULL;
+		_Sniper2DBaseRenderer = nullptr;
 	}
 
 	if ( _Sniper2DRenderer ) {
 		delete _Sniper2DRenderer;
-		_Sniper2DRenderer = NULL;
+		_Sniper2DRenderer = nullptr;
 	}
 
 //	Info_Editor_Shutdown();
@@ -135,7 +135,7 @@ void 	SniperHUDClass::Shutdown( void )
 
 void  SniperHUDClass::Build_Base( void )
 {
-	if ( _Sniper2DBaseRenderer == NULL ) {
+	if ( _Sniper2DBaseRenderer == nullptr ) {
 		return;
 	}
 
@@ -254,7 +254,7 @@ void 	SniperHUDClass::Update( void )
 {
 //	Info_Editor_Update();
 
-	if ( _Sniper2DRenderer == NULL ) {
+	if ( _Sniper2DRenderer == nullptr ) {
 		return;
 	}
 

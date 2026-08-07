@@ -37,7 +37,7 @@ class Vector3DialogClass : public CDialog
 {
 public:
 
-	Vector3DialogClass (CWnd *parent = NULL);
+	Vector3DialogClass (CWnd *parent = nullptr);
 
 // Dialog Data
 	//{{AFX_DATA(Vector3DialogClass)
@@ -79,7 +79,7 @@ public:
 	//
 	//	Creation
 	//
-	void			Create (CWnd *parent = NULL);
+	void			Create (CWnd *parent = nullptr);
 
 	//
 	//	Data access

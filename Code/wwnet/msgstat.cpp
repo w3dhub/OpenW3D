@@ -108,7 +108,7 @@ unsigned int cMsgStat::Compute_Avg_Num_Byte_Recd(void) const
 //---------------- --------------------------------------------------------------------
 void cMsgStat::Set_Name(const char *name)
 {
-	WWASSERT(name != NULL);
+	WWASSERT(name != nullptr);
 	WWASSERT(::strlen(name) < sizeof(Name));
 
 	::strcpy(Name, name);

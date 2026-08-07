@@ -101,7 +101,7 @@ void OctBoxClass::Update_Contact_Parameters(void)
 
 void OctBoxClass::Get_Outer_Bounds(AABoxClass * set_bounds)
 {
-	WWASSERT(set_bounds != NULL);
+	WWASSERT(set_bounds != nullptr);
 	OBBoxClass wrld_outer_box;
 	wrld_outer_box = WrldInnerBox;
 	wrld_outer_box.Extent += Vector3(Thickness,Thickness,Thickness);
@@ -113,7 +113,7 @@ void OctBoxClass::Get_Outer_Bounds(AABoxClass * set_bounds)
 bool OctBoxClass::Is_Intersecting(NonRefPhysListClass * result_list,bool check_static_objs,bool check_dyn_objs)
 {
 	[[maybe_unused]] PhysicsSceneClass * the_scene = PhysicsSceneClass::Get_Instance();
-	WWASSERT(the_scene != NULL);
+	WWASSERT(the_scene != nullptr);
 
 	/*
 	** Test inner box for intersection
@@ -135,7 +135,7 @@ bool OctBoxClass::Is_Intersecting(NonRefPhysListClass * result_list,bool check_s
 bool OctBoxClass::Is_In_Contact_Zone(void)
 {
 	PhysicsSceneClass * the_scene = PhysicsSceneClass::Get_Instance();
-	WWASSERT(the_scene != NULL);
+	WWASSERT(the_scene != nullptr);
 
 	/*
 	** Test outer box for intersection
@@ -172,7 +172,7 @@ OctBoxClass::Internal_Compute_Contacts(bool lock_to_centroids)
 	**   - Sweep the octant along the diagonal and record the contact point (if any)
 	*/
 	PhysicsSceneClass * the_scene = PhysicsSceneClass::Get_Instance();
-	WWASSERT(the_scene != NULL);
+	WWASSERT(the_scene != nullptr);
 	Reset_Contacts();
 
 	/*
@@ -287,7 +287,7 @@ void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 	/*
 	** Wake up any vehicle in contact with us
 	*/
-	if ((boxtest.CollidedPhysObj != NULL) && (boxtest.CollidedPhysObj->As_RigidBodyClass() != NULL)) {
+	if ((boxtest.CollidedPhysObj != nullptr) && (boxtest.CollidedPhysObj->As_RigidBodyClass() != nullptr)) {
 		boxtest.CollidedPhysObj->Force_Awake();
 	}
 

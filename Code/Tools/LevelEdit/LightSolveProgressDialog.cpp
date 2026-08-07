@@ -59,7 +59,7 @@ public:
 // LightSolveProgressDialog dialog
 
 
-LightSolveProgressDialog::LightSolveProgressDialog(LightSolveContextClass & context,CWnd* pParent /*=NULL*/)
+LightSolveProgressDialog::LightSolveProgressDialog(LightSolveContextClass & context,CWnd* pParent /*=nullptr*/)
 	:	m_Cancelled(false),
 		m_SolveContext(context),
 		CDialog(LightSolveProgressDialog::IDD, pParent)
@@ -100,7 +100,7 @@ LightSolveProgressDialog::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	m_ProgressBar.SetRange (0, 100);
-	SetTimer (777, 250, NULL);
+	SetTimer (777, 250, nullptr);
 	ShowWindow (SW_SHOW);
 
 	PostMessage (WM_USER+101);

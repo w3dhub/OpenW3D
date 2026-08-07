@@ -130,7 +130,7 @@ void
 EditScriptClass::Set_Composite_Values (LPCTSTR values)
 {
 	// Build a list of values from the composite string
-	CString *value_list = NULL;
+	CString *value_list = nullptr;
 	int count = ::Build_List_From_String (values, ",", &value_list);
 
 	// Pass these values onto our list
@@ -182,7 +182,7 @@ EditScriptClass::Update_Data (void)
 	m_ParamValues.Delete_All ();
 
 	// Build a list of parameters from the description string
-	CString *param_list = NULL;
+	CString *param_list = nullptr;
 	int count = ::Build_List_From_String (m_ParamDescription, ",", &param_list);
 
 	// Loop through the paramter descriptions
@@ -264,7 +264,7 @@ EditScriptClass::Create_Script (void)
 	//	Create the new script
 	//
 	ScriptClass	*script = ScriptManager::Create_Script (m_Name);
-	if (script != NULL) {
+	if (script != nullptr) {
 
 		//
 		//	Convert our params to a string and pass them
@@ -390,7 +390,7 @@ EditScriptClass::Lookup_Param_Description (void)
 	//	Try to find the default instance of the script
 	//
 	EditScriptClass *current_version = ScriptMgrClass::Find_Script (m_Name);
-	if (current_version != NULL) {
+	if (current_version != nullptr) {
 		m_ParamDescription = current_version->m_ParamDescription;
 	} else {
 		m_ParamDescription = "";

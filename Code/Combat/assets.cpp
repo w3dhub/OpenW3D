@@ -44,7 +44,7 @@
 */
 INIClass *	Get_INI( const char * filename )
 {
-	INIClass * ini = NULL;
+	INIClass * ini = nullptr;
 
 	FileClass * INIfile = _TheFileFactory->Get_File( filename );
 	if ( INIfile ) {
@@ -59,11 +59,11 @@ INIClass *	Get_INI( const char * filename )
 
 void Save_INI( INIClass * p_ini, const char * filename )
 {
-	WWASSERT(p_ini != NULL);
-	WWASSERT(filename != NULL);
+	WWASSERT(p_ini != nullptr);
+	WWASSERT(filename != nullptr);
 
 	FileClass * p_INIfile = _TheWritingFileFactory->Get_File(filename);
-	if (p_INIfile != NULL && p_INIfile->Is_Available()) {
+	if (p_INIfile != nullptr && p_INIfile->Is_Available()) {
 		p_ini->Save(*p_INIfile);
 		_TheWritingFileFactory->Return_File(p_INIfile);
 	}
@@ -104,7 +104,7 @@ RenderObjClass * Create_Render_Obj_From_Filename( const char * filename )
 	render_obj_name.Erase( render_obj_name.Get_Length() - 4, 4 );
 
 	RenderObjClass *model = WW3DAssetManager::Get_Instance()->Create_Render_Obj( render_obj_name );
-	if ( model == NULL ) {
+	if ( model == nullptr ) {
 		Debug_Say(( "Failed to create \"%s\" from \"%s\"\n", (const char *)render_obj_name, filename ));
 	}
 	return model;

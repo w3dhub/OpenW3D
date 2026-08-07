@@ -217,7 +217,7 @@ float VehiclePhysClass::Compute_Approximate_Ride_Height(void)
 {
 	float val = 0.0f;
 
-	if (ContactBox != NULL) {
+	if (ContactBox != nullptr) {
 
 		OBBoxClass box;
 		ContactBox->Get_Inner_Box(&box,Quaternion(1),Vector3(0,0,0));
@@ -252,7 +252,7 @@ void VehiclePhysClass::Timestep(float dt)
 #if 0
 	int contact_count=0;
 	for (i=0; i<Wheels.Length(); i++) {
-		if ((Wheels[i] != NULL) && (Wheels[i]->Get_Flag(SuspensionElementClass::INCONTACT) == true)) {
+		if ((Wheels[i] != nullptr) && (Wheels[i]->Get_Flag(SuspensionElementClass::INCONTACT) == true)) {
 			contact_count++;
 		}
 	}
@@ -267,7 +267,7 @@ void VehiclePhysClass::Timestep(float dt)
 	*/
 	bool wheels_touching_ground = false;
 	for (i=0; i<Wheels.Length(); i++) {
-		if ((Wheels[i] != NULL) && (Wheels[i]->Get_Flag(SuspensionElementClass::INCONTACT) == true)) {
+		if ((Wheels[i] != nullptr) && (Wheels[i]->Get_Flag(SuspensionElementClass::INCONTACT) == true)) {
 			wheels_touching_ground = true;
 		}
 	}
@@ -339,7 +339,7 @@ bool VehiclePhysClass::Can_Go_To_Sleep(float dt)
 	** Vehicles go to sleep if at least three wheels are in contact and their
 	** velocities are below some thresh-hold and their controller isn't doing anything.
 	*/
-	if ((Controller != NULL) && (Controller->Is_Inactive() != true)) {
+	if ((Controller != nullptr) && (Controller->Is_Inactive() != true)) {
 		GoToSleepTimer = RBODY_SLEEP_DELAY;
 		return false;
 	}
@@ -389,7 +389,7 @@ bool VehiclePhysClass::Can_Go_To_Sleep(float dt)
 
 void VehiclePhysClass::Update_Cached_Model_Parameters(void)
 {
-	if (Model == NULL) return;
+	if (Model == nullptr) return;
 
 	// capture the wheels
 	Release_Wheels();
@@ -430,7 +430,7 @@ void VehiclePhysClass::Release_Wheels(void)
 	// release the bones we "captured" and destroy the wheels
 	for (int i=0; i<Wheels.Length(); i++) {
 		delete Wheels[i];
-		Wheels[i] = NULL;
+		Wheels[i] = nullptr;
 	}
 	Wheels.Resize(0);
 	DriveWheelCount = 0;
@@ -440,10 +440,10 @@ void VehiclePhysClass::Release_Wheels(void)
 void VehiclePhysClass::Create_Wheels(void)
 {
 	RenderObjClass * model = Peek_Model();
-	if (model == NULL) return;
+	if (model == nullptr) return;
 
 	const VehiclePhysDefClass * def = Get_VehiclePhysDef();
-	WWASSERT(def != NULL);
+	WWASSERT(def != nullptr);
 
 	int ibone;
 	int wheelcount = 0;
@@ -465,7 +465,7 @@ void VehiclePhysClass::Create_Wheels(void)
 	// Allocate the array of pointers for the wheels
 	Wheels.Resize(wheelcount);
 	for (int i=0; i<Wheels.Length(); i++) {
-		Wheels[i] = NULL;
+		Wheels[i] = nullptr;
 	}
 
 	int curwheel = 0;
@@ -580,7 +580,7 @@ int VehiclePhysClass::Find_Translation_Bone(RenderObjClass * model,const char * 
 void VehiclePhysClass::Release_Auxiliary_Bones(void)
 {
 	// release any bones that we currently have captured
-	if (Model != NULL) {
+	if (Model != nullptr) {
 		for (int i=0;i<MAX_CAPTURED_BONE_COUNT; i++) {
 			if (EngineFlameBones[i] != -1) {
 				Model->Release_Bone(EngineFlameBones[i]);
@@ -613,7 +613,7 @@ void VehiclePhysClass::Release_Dazzles(void)
 	// delete the dazzle controllers
 	for (int i=0; i<Dazzles.Length(); i++) {
 		delete Dazzles[i];
-		Dazzles[i] = NULL;
+		Dazzles[i] = nullptr;
 	}
 	Dazzles.Resize(0);
 }
@@ -621,10 +621,10 @@ void VehiclePhysClass::Release_Dazzles(void)
 void VehiclePhysClass::Capture_Dazzles(void)
 {
 	RenderObjClass * model = Peek_Model();
-	if (model == NULL) return;
+	if (model == nullptr) return;
 
 	[[maybe_unused]] const VehiclePhysDefClass * def = Get_VehiclePhysDef();
-	WWASSERT(def != NULL);
+	WWASSERT(def != nullptr);
 
 	int imodel;
 	int dazzlecount = 0;
@@ -634,7 +634,7 @@ void VehiclePhysClass::Capture_Dazzles(void)
 
 		// Search for dazzle render objects whose name starts with _HLight, _TLight, or _BLight
 		RenderObjClass * subobj = model->Get_Sub_Object(imodel);
-		if ((subobj != NULL) && (subobj->Class_ID() == RenderObjClass::CLASSID_DAZZLE)) {
+		if ((subobj != nullptr) && (subobj->Class_ID() == RenderObjClass::CLASSID_DAZZLE)) {
 			if (VehicleDazzleClass::Is_Vehicle_Dazzle(subobj)) {
 				dazzlecount++;
 			}
@@ -650,7 +650,7 @@ void VehiclePhysClass::Capture_Dazzles(void)
 	// Allocate the array of pointers for the wheels
 	Dazzles.Resize(dazzlecount);
 	for (int i=0; i<Dazzles.Length(); i++) {
-		Dazzles[i] = NULL;
+		Dazzles[i] = nullptr;
 	}
 
 	// Create dazzle controllers

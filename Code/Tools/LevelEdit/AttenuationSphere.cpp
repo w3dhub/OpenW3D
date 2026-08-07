@@ -78,7 +78,7 @@ void
 AttenuationSphereClass::Display_Around_Node (const NodeClass &node)
 {
 	RenderObjClass *render_obj = node.Peek_Render_Obj ();
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 		Display_Around_Node (*render_obj);
 	}
 
@@ -98,7 +98,7 @@ AttenuationSphereClass::Display_Around_Node (const RenderObjClass &render_obj)
 	//	Make sure we have a sphere object
 	//
 	SphereRenderObjClass *sphere = (SphereRenderObjClass *)Peek_Model ();
-	if (sphere == NULL) {
+	if (sphere == nullptr) {
 		sphere = new SphereRenderObjClass;
 		sphere->Set_Flag (SphereRenderObjClass::USE_ALPHA_VECTOR, false);
 		Set_Model (sphere);
@@ -156,7 +156,7 @@ void
 AttenuationSphereClass::Set_Color (const Vector3 &color)
 {
 	SphereRenderObjClass *sphere = (SphereRenderObjClass *)Peek_Model ();
-	SANITY_CHECK (sphere != NULL) {
+	SANITY_CHECK (sphere != nullptr) {
 		return ;
 	}
 
@@ -175,7 +175,7 @@ void
 AttenuationSphereClass::Set_Radius (float radius)
 {
 	SphereRenderObjClass *sphere = (SphereRenderObjClass *)Peek_Model ();
-	SANITY_CHECK (sphere != NULL) {
+	SANITY_CHECK (sphere != nullptr) {
 		return ;
 	}
 
@@ -196,7 +196,7 @@ void
 AttenuationSphereClass::Set_Opacity (float opacity)
 {
 	SphereRenderObjClass *sphere = (SphereRenderObjClass *)Peek_Model ();
-	SANITY_CHECK (sphere != NULL) {
+	SANITY_CHECK (sphere != nullptr) {
 		return ;
 	}
 

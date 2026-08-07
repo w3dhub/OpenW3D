@@ -62,7 +62,7 @@ extern "C" void Wait_Vert_Blank(void);
 
 #include	"palette.h"
 
-void Set_Palette(PaletteClass const & pal, int time = 0, void (*callback)() = NULL);
+void Set_Palette(PaletteClass const & pal, int time = 0, void (*callback)() = nullptr);
 void Set_Palette(void const * palette);
 
 /*

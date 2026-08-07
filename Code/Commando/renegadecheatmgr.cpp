@@ -121,7 +121,7 @@ RenegadeCheatMgrClass::Enable_Cheat (int /* cheat */, bool /* onoff */)
 			//	Make the current player invulnerable or not
 			//
 			cPlayer *player = cPlayerManager::Find_Player (cNetwork::Get_My_Id ());
-			if (player != NULL) {
+			if (player != nullptr) {
 				player->Invulnerable.Set (onoff);
 				player->Mark_As_Modified();
 			}
@@ -132,7 +132,7 @@ RenegadeCheatMgrClass::Enable_Cheat (int /* cheat */, bool /* onoff */)
 		//
 		// Grant all weapons to the player
 		//
-		if (onoff && IS_SOLOPLAY && COMBAT_STAR != NULL) {
+		if (onoff && IS_SOLOPLAY && COMBAT_STAR != nullptr) {
 			COMBAT_STAR->Give_All_Weapons ();
 		}
 	}

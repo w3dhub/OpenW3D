@@ -42,7 +42,7 @@ class EditRemarkDialogClass : public CDialog
 {
 // Construction
 public:
-	EditRemarkDialogClass(CWnd* pParent = NULL);   // standard constructor
+	EditRemarkDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(EditRemarkDialogClass)

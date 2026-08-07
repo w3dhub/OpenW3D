@@ -76,8 +76,8 @@ SimplePersistFactoryClass<DummyObjectNodeClass, CHUNKID_DUMMY_OBJECT> _DummyNode
 //
 //////////////////////////////////////////////////////////////////////////////
 DummyObjectNodeClass::DummyObjectNodeClass (PresetClass *preset)
-	:	m_DisplayObj (NULL),
-		m_RealObj (NULL),
+	:	m_DisplayObj (nullptr),
+		m_RealObj (nullptr),
 		NodeClass (preset)
 {
 	return ;
@@ -90,9 +90,9 @@ DummyObjectNodeClass::DummyObjectNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 DummyObjectNodeClass::DummyObjectNodeClass (const DummyObjectNodeClass &src)
-	:	m_DisplayObj (NULL),
-		m_RealObj (NULL),
-		NodeClass (NULL)
+	:	m_DisplayObj (nullptr),
+		m_RealObj (nullptr),
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -129,7 +129,7 @@ DummyObjectNodeClass::Initialize (void)
 	// This is usefull for things like emitters which do not have anything
 	// to 'grab'...
 	//
-	if (m_DisplayObj == NULL) {
+	if (m_DisplayObj == nullptr) {
 		m_DisplayObj = new DecorationPhysClass;
 		m_DisplayObj->Set_Model_By_Name ("DUMMY");
 		m_DisplayObj->Set_Collision_Group (EDITOR_COLLISION_GROUP);
@@ -138,7 +138,7 @@ DummyObjectNodeClass::Initialize (void)
 	}
 
 	DummyObjectDefinitionClass *definition = static_cast<DummyObjectDefinitionClass *> (m_Preset->Get_Definition ());
-	if (definition != NULL) {
+	if (definition != nullptr) {
 		MEMBER_RELEASE (m_RealObj);
 
 		//
@@ -152,7 +152,7 @@ DummyObjectNodeClass::Initialize (void)
 		m_RealObj						= new DecorationPhysClass;
 		CString render_obj_name		= ::Asset_Name_From_Filename (definition->Get_Model_Name ());
 		RenderObjClass *render_obj	= ::Create_Render_Obj (render_obj_name);
-		if (render_obj != NULL) {
+		if (render_obj != nullptr) {
 
 			//
 			//	Start the emitter if necessary
@@ -214,7 +214,7 @@ DummyObjectNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (m_DisplayObj != NULL && m_IsInScene) {
+	if (m_DisplayObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (m_DisplayObj);
 	}
 	return ;
@@ -232,7 +232,7 @@ DummyObjectNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (m_DisplayObj != NULL && m_IsInScene) {
+	if (m_DisplayObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (m_DisplayObj);
 	}
 	Release_Ref ();
@@ -248,11 +248,11 @@ DummyObjectNodeClass::Post_Export (void)
 void
 DummyObjectNodeClass::Add_To_Scene (void)
 {
-	if (m_RealObj == NULL) {
+	if (m_RealObj == nullptr) {
 		Initialize ();
 	}
 
-	if (m_RealObj != NULL && m_RealObj->Peek_Model ()->Peek_Scene () == NULL) {
+	if (m_RealObj != nullptr && m_RealObj->Peek_Model ()->Peek_Scene () == nullptr) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (m_RealObj);
 		::Get_Scene_Editor ()->Add_To_Dirty_Cull_List (m_RealObj);
 	}
@@ -270,7 +270,7 @@ DummyObjectNodeClass::Add_To_Scene (void)
 void
 DummyObjectNodeClass::Remove_From_Scene (void)
 {
-	if (m_RealObj != NULL && m_RealObj->Peek_Model ()->Peek_Scene () != NULL) {
+	if (m_RealObj != nullptr && m_RealObj->Peek_Model ()->Peek_Scene () != nullptr) {
 
 		//
 		//	If this is a particle emitter, then be sure to remove the buffer as well
@@ -297,7 +297,7 @@ DummyObjectNodeClass::Remove_From_Scene (void)
 void
 DummyObjectNodeClass::Handle_Emitter_Transform (void)
 {
-	if (m_RealObj != NULL && m_RealObj->Peek_Model () != NULL) {
+	if (m_RealObj != nullptr && m_RealObj->Peek_Model () != nullptr) {
 
 		//
 		//	If this is a particle emitter, then be sure to move the buffer as well
@@ -305,7 +305,7 @@ DummyObjectNodeClass::Handle_Emitter_Transform (void)
 		RenderObjClass *render_obj = m_RealObj->Peek_Model ();
 		if (render_obj->Class_ID () == RenderObjClass::CLASSID_PARTICLEEMITTER) {
 			ParticleBufferClass *buffer = ((ParticleEmitterClass *)render_obj)->Peek_Buffer ();
-			if (buffer != NULL) {
+			if (buffer != nullptr) {
 				buffer->Set_Transform (m_Transform);
 			}
 		}
@@ -329,7 +329,7 @@ Remove_Particle_Buffers (RenderObjClass *render_obj)
 	//
 	for (int index = 0; index < render_obj->Get_Num_Sub_Objects (); index ++) {
 		RenderObjClass *sub_obj = render_obj->Get_Sub_Object (index);
-		if (sub_obj != NULL) {
+		if (sub_obj != nullptr) {
 			Remove_Particle_Buffers (sub_obj);
 		}
 		MEMBER_RELEASE (sub_obj);
@@ -338,11 +338,11 @@ Remove_Particle_Buffers (RenderObjClass *render_obj)
 	//
 	// Is this the emitter we are requesting?
 	//
-	if ((render_obj != NULL) &&
+	if ((render_obj != nullptr) &&
 		 (render_obj->Class_ID () == RenderObjClass::CLASSID_PARTICLEEMITTER))
 	{
 		ParticleBufferClass *buffer = ((ParticleEmitterClass *)render_obj)->Peek_Buffer ();
-		if (buffer != NULL && buffer->Peek_Scene () != NULL) {
+		if (buffer != nullptr && buffer->Peek_Scene () != nullptr) {
 			::Get_Scene_Editor ()->Remove_Render_Object (buffer);
 		}
 	}

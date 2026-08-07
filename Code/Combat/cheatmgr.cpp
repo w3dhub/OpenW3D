@@ -41,7 +41,7 @@
 //////////////////////////////////////////////////////////////////////
 //	Static member initialization
 //////////////////////////////////////////////////////////////////////
-CheatMgrClass *	CheatMgrClass::_TheInstance	 = NULL;
+CheatMgrClass *	CheatMgrClass::_TheInstance	 = nullptr;
 
 
 
@@ -66,7 +66,7 @@ CheatMgrClass::CheatMgrClass (void)	:
 //////////////////////////////////////////////////////////////////////
 CheatMgrClass::~CheatMgrClass (void)
 {
-	_TheInstance = NULL;
+	_TheInstance = nullptr;
 	return ;
 }
 

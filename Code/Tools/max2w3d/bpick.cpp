@@ -64,7 +64,7 @@ BonePickerClass TheBonePicker;
  *=============================================================================================*/
 BOOL BonePickerClass::Filter(INode *node)
 {
-	if (BoneList == NULL) {
+	if (BoneList == nullptr) {
 		ObjectState os  = node->EvalWorldState(0);
 		if (os.obj) {
 			return true;
@@ -124,8 +124,8 @@ BOOL BonePickerClass::Pick(IObjParam *ip,ViewExp *vpt)
 		*/
 		assert(User);
 		User->User_Picked_Bone(node);
-		User = NULL;
-		BoneList = NULL;
+		User = nullptr;
+		BoneList = nullptr;
 		//Moumine 2/21/2002    12:11:24 PM
 		MessageBeep(MB_ICONHAND);
 		//End Moumine
@@ -142,10 +142,10 @@ BOOL BonePickerClass::filter(INode * inode)
 
 void BonePickerClass::proc(INodeTab & nodetab)
 {
-	assert(User != NULL);
+	assert(User != nullptr);
 	User->User_Picked_Bones(nodetab);
-	User = NULL;
-	BoneList = NULL;
+	User = nullptr;
+	BoneList = nullptr;
 }
 
 TCHAR * BonePickerClass::dialogTitle(void)

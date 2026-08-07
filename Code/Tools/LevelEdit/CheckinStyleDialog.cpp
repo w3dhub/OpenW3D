@@ -45,7 +45,7 @@ const TCHAR * const REG_LATER				= TEXT ("Later");
 //
 // CheckinStyleDialogClass
 //
-CheckinStyleDialogClass::CheckinStyleDialogClass(CWnd* pParent /*=NULL*/)
+CheckinStyleDialogClass::CheckinStyleDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(CheckinStyleDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CheckinStyleDialogClass)

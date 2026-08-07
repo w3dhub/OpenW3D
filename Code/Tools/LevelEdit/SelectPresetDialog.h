@@ -42,7 +42,7 @@ class SelectPresetDialogClass : public CDialog
 {
 // Construction
 public:
-	SelectPresetDialogClass(CWnd* pParent = NULL);   // standard constructor
+	SelectPresetDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(SelectPresetDialogClass)

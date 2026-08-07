@@ -86,9 +86,9 @@ MultiLineTextCtrlClass::MultiLineTextCtrlClass (void)	:
 //////////////////////////////////////////////////////////////////////
 MultiLineTextCtrlClass::~MultiLineTextCtrlClass (void)
 {
-	ScrollBarCtrl.Set_Advise_Sink (NULL);
+	ScrollBarCtrl.Set_Advise_Sink (nullptr);
 
-	if (Parent != NULL) {
+	if (Parent != nullptr) {
 		Parent->Remove_Control (&ScrollBarCtrl);
 	}
 	return ;
@@ -143,7 +143,7 @@ MultiLineTextCtrlClass::Create_Text_Renderer (void)
 	//	Handy macro
 	//
 	#define COPY_LINE(dest,	src_start, src_end)	\
-			if (src_end == NULL) {						\
+			if (src_end == nullptr) {						\
 				dest = src_start;							\
 			} else {											\
 				size_t bytes	= ((char *)src_end - (char *)src_start);	\
@@ -159,7 +159,7 @@ MultiLineTextCtrlClass::Create_Text_Renderer (void)
 	//
 	const unichar_t *text_start = TextRenderer.Find_Row_Start (Title, ScrollPos);
 	const unichar_t *text_end	= TextRenderer.Find_Row_Start (Title, ScrollPos+RowsPerPage);
-	if (text_start != NULL) {
+	if (text_start != nullptr) {
 
 		//
 		//	Should we draw the text centered?
@@ -190,7 +190,7 @@ MultiLineTextCtrlClass::Create_Text_Renderer (void)
 				text_rect.Top = WWMath::Trunc (text_rect.Top + char_height);
 				TextRenderer.Set_Wrapping_Width (ClientRect.Width ());
 
-				if (line_end == NULL) {
+				if (line_end == nullptr) {
 					break;
 				}
 
@@ -326,7 +326,7 @@ MultiLineTextCtrlClass::Update_Scroll_Bar_Visibility (void)
 		if (needs_scrollbar) {
 			new_right = ScrollBarCtrl.Get_Window_Rect ().Left;
 			IsScrollBarDisplayed = true;
-		} else if (Parent != NULL) {
+		} else if (Parent != nullptr) {
 			new_right = ScrollBarCtrl.Get_Window_Rect ().Right;
 			IsScrollBarDisplayed = false;
 		}

@@ -155,7 +155,7 @@ void CMainFrame::OnCurveCardinal()
 void CMainFrame::OnUpdateCurveCardinal(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 		pCmdUI->SetCheck(doc->Get_Curve_Type() == CSplineTestDoc::CARDINAL);
 	}
 }
@@ -171,7 +171,7 @@ void CMainFrame::OnCurveCatmullRom()
 void CMainFrame::OnUpdateCurveCatmullRom(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 		pCmdUI->SetCheck(doc->Get_Curve_Type() == CSplineTestDoc::CATMULL_ROM);
 	}
 }
@@ -187,7 +187,7 @@ void CMainFrame::OnCurveLinear()
 void CMainFrame::OnUpdateCurveLinear(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 		pCmdUI->SetCheck(doc->Get_Curve_Type() == CSplineTestDoc::LINEAR);
 	}
 }
@@ -203,7 +203,7 @@ void CMainFrame::OnCurveTcb()
 void CMainFrame::OnUpdateCurveTcb(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 		pCmdUI->SetCheck(doc->Get_Curve_Type() == CSplineTestDoc::TCB);
 	}
 }
@@ -211,7 +211,7 @@ void CMainFrame::OnUpdateCurveTcb(CCmdUI* pCmdUI)
 void CMainFrame::OnCurveReset()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 		doc->Reset_Curve();
 	}
 }
@@ -235,19 +235,19 @@ void CMainFrame::OnUpdateCurveDrawTangents(CCmdUI* pCmdUI)
 void CMainFrame::OnCurveLoop()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 		Curve3DClass * curve = doc->Get_Curve();
 		if (curve) {
 			curve->Set_Looping(!curve->Is_Looping());
 		}
-		doc->UpdateAllViews(NULL);
+		doc->UpdateAllViews(nullptr);
 	}
 }
 
 void CMainFrame::OnUpdateCurveLoop(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 		Curve3DClass * curve = doc->Get_Curve();
 		if (curve) {
 			pCmdUI->SetCheck(curve->Is_Looping());
@@ -266,7 +266,7 @@ void CMainFrame::OnVehicleCurve()
 void CMainFrame::OnUpdateVehicleCurve(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
-	if (doc != NULL) {
+	if (doc != nullptr) {
 		pCmdUI->SetCheck(doc->Get_Curve_Type() == CSplineTestDoc::VEHICLE);
 	}
 }

@@ -59,10 +59,6 @@
 
 #include "slnode.h"
 
-#ifndef NULL
-#define NULL 0L
-#endif
-
 template <class T>
 class SList {
   private:
@@ -77,8 +73,8 @@ class SList {
 		//
 		SList(void)
 		{
-			HeadNode = NULL;
-			TailNode = NULL;
+			HeadNode = nullptr;
+			TailNode = nullptr;
 		};
 
 		virtual ~SList(void) { Remove_All(); };
@@ -101,13 +97,13 @@ class SList {
 		virtual bool Remove(T *element);          // remove an individual element
 		virtual void Remove_All(void);            // Remove all  nodes from list
 
-		// Insert before oldnode, if oldnode is NULL then before head node
-		virtual bool Insert_Before(T *newnode, T *oldnode =   NULL);
+		// Insert before oldnode, if oldnode is nullptr then before head node
+		virtual bool Insert_Before(T *newnode, T *oldnode =   nullptr);
 
 		// Could possibly implement an InsertBefore that operates on a whole list
 
-		// Insert after oldnode, if oldnode is NULL then insert at head
-		virtual bool Insert_After(T   *newnode, T *oldnode = NULL);
+		// Insert after oldnode, if oldnode is nullptr then insert at head
+		virtual bool Insert_After(T   *newnode, T *oldnode = nullptr);
 
 		// Could possibly implement an InsertAfter that operates on a whole list
 		virtual bool Is_Empty(void)   const;      // True if list is empty
@@ -135,11 +131,11 @@ template<class T>
 bool SList<T>::Insert_Before(T *newnode, T   *oldnode)
 {
 	// if not adding anything then just skip the add.
-	if (newnode == NULL)
+	if (newnode == nullptr)
 		return false;
 
 	// if there is no head to the list then add it to head
-	if (oldnode == NULL || HeadNode == NULL || HeadNode->Data() == oldnode) {
+	if (oldnode == nullptr || HeadNode == nullptr || HeadNode->Data() == oldnode) {
 		return(Add_Head(newnode));
 	}
 
@@ -152,7 +148,7 @@ bool SList<T>::Insert_Before(T *newnode, T   *oldnode)
 	// Verify that we found the entry as it might not have been in the list.
 	// Note: Cur will be valid because it wont be assigned unless Next is
 	//  valid.
-	if (cur->Next() != NULL && cur->Next()->Data() == oldnode) {
+	if (cur->Next() != nullptr && cur->Next()->Data() == oldnode) {
 		SLNode<T> *temp	= new SLNode<T> (newnode);
 		temp->Set_Next(cur->Next());
 		cur->Set_Next(temp);
@@ -181,10 +177,10 @@ bool SList<T>::Insert_Before(T *newnode, T   *oldnode)
 template<class T>
 bool SList<T>::Insert_After(T *newnode, T *oldnode)
 {
-	if (newnode == NULL)
+	if (newnode == nullptr)
 		return false;
 
-	if (oldnode == NULL || HeadNode == NULL)  {
+	if (oldnode == nullptr || HeadNode == nullptr)  {
 		return(Add_Head(newnode));
 	}
 
@@ -193,7 +189,7 @@ bool SList<T>::Insert_After(T *newnode, T *oldnode)
 	for (cur = HeadNode; cur && cur->Data() != oldnode; cur = cur->Next()) {}
 
 	// Did we find the data we want to insert after?
-	if (cur != NULL  && cur->Data() == oldnode) {
+	if (cur != nullptr  && cur->Data() == oldnode) {
 		if (cur == TailNode) {        // Inserting after tail
 			return(Add_Tail(newnode));
 		}
@@ -225,7 +221,7 @@ void SList<T>::Remove_All(void)
 		next = cur->Next();
 		delete cur;
 	}
-	HeadNode = TailNode = NULL;
+	HeadNode = TailNode = nullptr;
 }
 
 /**************************************************************************
@@ -244,12 +240,12 @@ template<class T>
 bool SList<T>::Remove(T *element)
 {
 	// if not adding anything then just skip the add.
-	if (element == NULL || HeadNode == NULL)
+	if (element == nullptr || HeadNode == nullptr)
 		return false;
 
 	// if the head is the element in question remove it
 	if (HeadNode->Data() == element) {
-		return(Remove_Head() != NULL ? true : false);
+		return(Remove_Head() != nullptr ? true : false);
 	}
 
 	// now we need to walk the list in an attempt to add the
@@ -261,7 +257,7 @@ bool SList<T>::Remove(T *element)
 	// Verify that we found the entry as it might not have been in the list.
 	// Note: Cur will be valid because it wont be assigned unless Next is
 	//  valid.
-	if (cur->Next() != NULL && cur->Next()->Data() == element) {
+	if (cur->Next() != nullptr && cur->Next()->Data() == element) {
 		SLNode<T> *temp	= cur->Next();
 		cur->Set_Next(temp->Next());
 		if (temp == TailNode) TailNode = cur;
@@ -286,14 +282,14 @@ bool SList<T>::Remove(T *element)
 template<class T>
 T *SList<T>::Remove_Head(void)
 {
-	if (HeadNode == NULL)      // Should make an assertion here instead!
-		return ((T* )NULL);
+	if (HeadNode == nullptr)      // Should make an assertion here instead!
+		return ((T* )nullptr);
 
 	SLNode<T> *temp = HeadNode;
 	HeadNode = HeadNode->Next();
 
-	if (HeadNode == NULL)     // Do we have empty list now?
-		TailNode = NULL;
+	if (HeadNode == nullptr)     // Do we have empty list now?
+		TailNode = nullptr;
 
 	T *data = temp->Data();
 	delete temp;
@@ -324,11 +320,11 @@ T *SList<T>::Remove_Head(void)
 template<class T>
 T *SList<T>::Remove_Tail(void)
 {
-	if (HeadNode == NULL)     // Should make an assertion here instead!
-		return ((T *)NULL);
+	if (HeadNode == nullptr)     // Should make an assertion here instead!
+		return ((T *)nullptr);
 
 	T* data = TailNode->Data();
-	return (Remove(data) ? data : (T*)NULL);
+	return (Remove(data) ? data : (T*)nullptr);
 }
 
 
@@ -405,7 +401,7 @@ inline SLNode<T> *SList<T>::Tail(void) const
 template<class T>
 inline bool SList<T>::Is_Empty(void) const
 {
-	return( HeadNode == NULL ? true : false);
+	return( HeadNode == nullptr ? true : false);
 }
 
 
@@ -450,10 +446,10 @@ bool SList<T>::Add_Head(T *data)
 template<class T>
 bool SList<T>::Add_Head(SList<T>& list)
 {
-	if (list.HeadNode == NULL) return false;
+	if (list.HeadNode == nullptr) return false;
 
 	// Save point for initial add of element.
-	SLNode<T> *addpoint = NULL;
+	SLNode<T> *addpoint = nullptr;
 
 	// We traverse list backwards so nodes are added in right order.
 	for (SLNode<T> *cur = list.HeadNode; cur; cur = cur->Next())
@@ -484,11 +480,11 @@ bool SList<T>::Add_Head(SList<T>& list)
 template<class T>
 bool SList<T>::Add_Tail(T *data)
 {
-	if (data == NULL) return false;
+	if (data == nullptr) return false;
 
 	SLNode<T> *temp = new SLNode<T> (data);
 
-	if (HeadNode == NULL) {				// empty list
+	if (HeadNode == nullptr) {				// empty list
 		HeadNode = TailNode	= temp;
 	} else {									// non-empty list
 		TailNode->Set_Next(temp);
@@ -512,7 +508,7 @@ bool SList<T>::Add_Tail(T *data)
 template<class T>
 bool SList<T>::Add_Tail(SList<T>& list)
 {
-	if (list.HeadNode == NULL) return false;
+	if (list.HeadNode == nullptr) return false;
 
 	for (SLNode<T> *cur = list.HeadNode; cur; cur = cur->Next())
 		Add_Tail(cur->Data());

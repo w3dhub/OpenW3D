@@ -27,7 +27,7 @@
 
 DECLARE_FORCE_LINK(CNCModeSettings)
 
-CNCModeSettingsDef* CNCModeSettingsDef::_mInstance = NULL;
+CNCModeSettingsDef* CNCModeSettingsDef::_mInstance = nullptr;
 
 // Factories
 SimplePersistFactoryClass<CNCModeSettingsDef, CHUNKID_GLOBAL_SETTINGS_DEF_CNCMODE> _CNCModeSettingsDefPersistFactory;
@@ -37,7 +37,7 @@ DECLARE_DEFINITION_FACTORY(CNCModeSettingsDef, CLASSID_GLOBAL_SETTINGS_DEF_CNCMO
 CNCModeSettingsDef::CNCModeSettingsDef(void) :
 		AnnouncementInterval(30)
 	{
-	//WWASSERT(_mInstance == NULL);
+	//WWASSERT(_mInstance == nullptr);
 	_mInstance = this;
 
 	for (int team = 0; team < NUM_TEAMS; ++team)
@@ -156,7 +156,7 @@ CNCModeSettingsDef::CNCModeSettingsDef(void) :
 
 CNCModeSettingsDef::~CNCModeSettingsDef(void)
 	{
-	_mInstance = NULL;
+	_mInstance = nullptr;
 	}
 
 
@@ -175,7 +175,7 @@ const PersistFactoryClass& CNCModeSettingsDef::Get_Factory(void) const
 PersistClass* CNCModeSettingsDef::Create(void) const
 	{
 	WWASSERT (0);
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -573,7 +573,7 @@ int CNCModeSettingsDef::Get_Radio_Command(int num) const
 
 const char *CNCModeSettingsDef::Get_Radio_Command_Emot_Icon(int num) const
 	{
-	const char *retval = NULL;
+	const char *retval = nullptr;
 	if (num >= 0 && num < 30)
 		{
 		retval = mRadioCmdIcons[num];

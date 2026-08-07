@@ -106,19 +106,19 @@ protected:
 
 inline bool PhysAABTreeCullClass::Cast_Ray(PhysRayCollisionTestClass & raytest)
 {
-	WWASSERT(RootNode != NULL);
+	WWASSERT(RootNode != nullptr);
 	return Cast_Ray_Recursive(RootNode,raytest);
 }
 
 inline bool PhysAABTreeCullClass::Cast_AABox(PhysAABoxCollisionTestClass & boxtest)
 {
-	WWASSERT(RootNode != NULL);
+	WWASSERT(RootNode != nullptr);
 	return Cast_AABox_Recursive(RootNode,boxtest);
 }
 
 inline bool PhysAABTreeCullClass::Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest)
 {
-	WWASSERT(RootNode != NULL);
+	WWASSERT(RootNode != nullptr);
 	return Cast_OBBox_Recursive(RootNode,boxtest);
 }
 

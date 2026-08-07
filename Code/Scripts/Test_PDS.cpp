@@ -52,7 +52,7 @@ DECLARE_SCRIPT(PDS_Generic_Test, "")
 	{
 		if (timer_id == 777) {
 			GameObject *star = Commands->Get_The_Star ();
-			if (star != NULL) {
+			if (star != nullptr) {
 				Vector3 pos = Commands->Get_Position (star);
 				pos.Z = Commands->Get_Safe_Flight_Height (pos.X, pos.Y);
 				Commands->Set_Position (game_obj, pos);
@@ -156,7 +156,7 @@ DECLARE_SCRIPT(PDS_Test_Dock, "DockDestObjID=:int,DockEntranceObjID=:int")
 		//
 		GameObject *dest_obj			= Commands->Find_Object (Get_Int_Parameter (0));
 		GameObject *entrance_obj	= Commands->Find_Object (Get_Int_Parameter (1));
-		if (dest_obj != NULL && entrance_obj != NULL) {
+		if (dest_obj != nullptr && entrance_obj != nullptr) {
 
 			//
 			//	Start the vehicle's engine
@@ -205,7 +205,7 @@ DECLARE_SCRIPT(PDS_Test_Conversation, "Conversation Name=:string,Soldier1_ID=0:i
 		//	Just for kicks, make the unit crouch
 		//
 		if (action_id == 778) {
-			Commands->Set_Animation (game_obj, "S_A_HUMAN.H_A_A0A0_L08", true, NULL, 0.0f, -1.0f, false);
+			Commands->Set_Animation (game_obj, "S_A_HUMAN.H_A_A0A0_L08", true, nullptr, 0.0f, -1.0f, false);
 		}
 
 		return ;
@@ -258,26 +258,26 @@ DECLARE_SCRIPT(PDS_Test_Conversation, "Conversation Name=:string,Soldier1_ID=0:i
 
 			if (soldier1_id == -1) {
 				GameObject *soldier = Commands->Get_The_Star ();
-				if (soldier != NULL) {
+				if (soldier != nullptr) {
 					Commands->Join_Conversation (soldier, conv_id, true, true, true);
 				}
 			} else if (soldier1_id != 0) {
 				GameObject *soldier = Commands->Find_Object (soldier1_id);
-				if (soldier != NULL) {
+				if (soldier != nullptr) {
 					Commands->Join_Conversation (soldier, conv_id, true, true, true);
 				}
 			}
 
 			if (soldier2_id != 0) {
 				GameObject *soldier = Commands->Find_Object (soldier2_id);
-				if (soldier != NULL) {
+				if (soldier != nullptr) {
 					Commands->Join_Conversation (soldier, conv_id, true, true, true);
 				}
 			}
 
 			if (soldier3_id != 0) {
 				GameObject *soldier = Commands->Find_Object (soldier3_id);
-				if (soldier != NULL) {
+				if (soldier != nullptr) {
 					Commands->Join_Conversation (soldier, conv_id, true, true, true);
 				}
 			}
@@ -310,7 +310,7 @@ DECLARE_SCRIPT(PDS_Get_In_Vehicle_Do_Waypath, "VehicleID=:int,WaypathID=:int,V3T
 		//
 		m_StartedWaypath = false;
 		GameObject *dest_obj = Commands->Find_Object (Get_Int_Parameter (0));
-		if (dest_obj != NULL) {
+		if (dest_obj != nullptr) {
 
 			//
 			// Instruct our game object to goto the driver's side of the destination vehicle
@@ -417,7 +417,7 @@ DECLARE_SCRIPT(PDS_Test_Goto_Loc, "ObjDestID=:int")
 		//	Find the destination 'object'
 		//
 		GameObject* dest_obj = Commands->Find_Object(Get_Int_Parameter(0));
-		if (dest_obj != NULL) {
+		if (dest_obj != nullptr) {
 
 			//
 			// Instruct our game object to goto the location of the destination object
@@ -677,7 +677,7 @@ DECLARE_SCRIPT(PDS_Test_Harvester, "TiberiumID=:int,DriveToID=:int,EntranceID=:i
 		//	Find the destination object
 		//
 		GameObject* dest_obj = Commands->Find_Object (obj_id);
-		if (dest_obj != NULL) {
+		if (dest_obj != nullptr) {
 
 			//
 			// Instruct our game object to goto the location of the destination object
@@ -760,7 +760,7 @@ DECLARE_SCRIPT(PDS_Test_Inventory, "")
 	{
 		if (event == CUSTOM_HAS_MEDKIT) {
 			int *retval = (int *)param;
-			if (retval != NULL) {
+			if (retval != nullptr) {
 				(*retval) = 0;
 
 				//
@@ -850,7 +850,7 @@ DECLARE_SCRIPT(PDS_Test_Controller, "")
 	{
 		if (timer_id == 777) {
 			GameObject *the_player = Commands->Get_The_Star ();
-			if (the_player != NULL) {
+			if (the_player != nullptr) {
 				Commands->Attach_Script (the_player, "PDS_Test_Inventory", "");
 			}
 		}
@@ -953,7 +953,7 @@ DECLARE_SCRIPT(PDS_Test_Gunboat, "")
 	{
 		if (timer_id == TIMER_ATTACK) {
 			GameObject *the_player = Commands->Get_The_Star ();
-			if (the_player != NULL) {
+			if (the_player != nullptr) {
 
 				Vector3 pos = Commands->Get_Position (the_player);
 				//pos.X += Commands->Get_Random (-1.0F, 1.0F) * Commands->Get_Random (6.0F, 10.0F);

@@ -80,7 +80,7 @@ MPWolIgnoreListPopupClass::On_Init_Dialog (void)
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_BUDDY_LIST_CTRL);
 
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 		//	Configure the columns
 		list_ctrl->Add_Column(U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 
@@ -102,7 +102,7 @@ MPWolIgnoreListPopupClass::On_Command (int ctrl_id, int message_id, unsigned int
 {
 	switch (ctrl_id) {
 		case IDC_ADD_BUTTON:
-			MPWolAddIgnoreEntry::DoDialog(NULL);
+			MPWolAddIgnoreEntry::DoDialog(nullptr);
 			break;
 
 		case IDC_REMOVE_BUTTON: {
@@ -136,7 +136,7 @@ MPWolIgnoreListPopupClass::Refresh_List (void)
 {
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_BUDDY_LIST_CTRL);
 
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 

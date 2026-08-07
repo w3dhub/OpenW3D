@@ -68,9 +68,9 @@ enum
 //
 ////////////////////////////////////////////////////////////////
 RenegadeTerrainMaterialPassClass::RenegadeTerrainMaterialPassClass (void)	:
-	VertexAlpha (NULL),
-	GridUVs (NULL),
-	Material (NULL),
+	VertexAlpha (nullptr),
+	GridUVs (nullptr),
+	Material (nullptr),
 	VertexCount (0)
 {
 	::memset (VertexIndexMap, 0, sizeof (VertexIndexMap));
@@ -101,26 +101,26 @@ RenegadeTerrainMaterialPassClass::~RenegadeTerrainMaterialPassClass (void)
 	//
 	//	Free the UV array
 	//
-	if (GridUVs != NULL) {
+	if (GridUVs != nullptr) {
 		delete [] GridUVs;
-		GridUVs = NULL;
+		GridUVs = nullptr;
 	}
 
 	//
 	//	Free the vertex alpha array
 	//
-	if (VertexAlpha != NULL) {
+	if (VertexAlpha != nullptr) {
 		delete [] VertexAlpha;
-		VertexAlpha = NULL;
+		VertexAlpha = nullptr;
 	}
 
 	//
 	//	Free the vertex index arrays
 	//
 	for (int index = 0; index < PASS_COUNT; index ++) {
-		if (VertexIndexMap[index] != NULL) {
+		if (VertexIndexMap[index] != nullptr) {
 			delete [] VertexIndexMap[index];
-			VertexIndexMap[index] = NULL;
+			VertexIndexMap[index] = nullptr;
 		}
 
 		//

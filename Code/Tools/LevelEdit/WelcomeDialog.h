@@ -32,7 +32,7 @@ class WelcomeDialogClass : public CDialog
 {
 // Construction
 public:
-	WelcomeDialogClass(CWnd* pParent = NULL);   // standard constructor
+	WelcomeDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(WelcomeDialogClass)

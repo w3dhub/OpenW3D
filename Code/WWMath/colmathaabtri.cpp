@@ -836,8 +836,8 @@ exit:
 struct AABTIntersectStruct
 {
 	AABTIntersectStruct(void) :
-		Box(NULL),
-		Tri(NULL)
+		Box(nullptr),
+		Tri(nullptr)
 	{
 	}
 

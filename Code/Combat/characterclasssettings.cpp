@@ -49,7 +49,7 @@ DECLARE_FORCE_LINK (CharClassSettings)
 ///////////////////////////////////////////////////////////////////////////////////////////
 //	Static member initialization
 ///////////////////////////////////////////////////////////////////////////////////////////
-CharacterClassSettingsDefClass *		CharacterClassSettingsDefClass::GlobalInstance = NULL;
+CharacterClassSettingsDefClass *		CharacterClassSettingsDefClass::GlobalInstance = nullptr;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -255,7 +255,7 @@ CharacterClassSettingsDefClass::CharacterClassSettingsDefClass (void)
 ///////////////////////////////////////////////////////////////////////////////////////////
 CharacterClassSettingsDefClass::~CharacterClassSettingsDefClass (void)
 {
-	GlobalInstance = NULL;
+	GlobalInstance = nullptr;
 	return ;
 }
 
@@ -293,7 +293,7 @@ PersistClass *
 CharacterClassSettingsDefClass::Create (void) const
 {
 	WWASSERT (0);
-	return NULL;
+	return nullptr;
 }
 
 

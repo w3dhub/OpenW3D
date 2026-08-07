@@ -44,26 +44,26 @@
 
 #include <wtypes.h>	// for SYSTEMTIME
 
-FileClass * _DiagLogFile = NULL;
+FileClass * _DiagLogFile = nullptr;
 
 /*
 **
 */
 void	DiagLogClass::Init( void )
 {
-	FileClass * file = NULL;
+	FileClass * file = nullptr;
 	for ( int i = 0; i < 100; i++ ) {
 		StringClass	filename;
 		filename.Format( "DIAGLOG%03d.TXT", i );
 		file = _TheWritingFileFactory->Get_File( filename );
-		if ( file == NULL || !file->Is_Available() ) {
+		if ( file == nullptr || !file->Is_Available() ) {
 			break;
 		}
 		_TheWritingFileFactory->Return_File( file );
-		file = NULL;
+		file = nullptr;
 	}
 
-	if ( file != NULL ) {
+	if ( file != nullptr ) {
 		file->Close();
 		file->Open(FileClass::WRITE);
 		_DiagLogFile = file;
@@ -78,7 +78,7 @@ void	DiagLogClass::Init( void )
 
 void	DiagLogClass::Shutdown( void )
 {
-	if ( _DiagLogFile != NULL ) {
+	if ( _DiagLogFile != nullptr ) {
 		SYSTEMTIME dt;
 		::GetSystemTime( &dt );
 		StringClass dt_string;
@@ -87,13 +87,13 @@ void	DiagLogClass::Shutdown( void )
 
 		_DiagLogFile->Close();
 		_TheWritingFileFactory->Return_File( _DiagLogFile );
-		_DiagLogFile = NULL;
+		_DiagLogFile = nullptr;
 	}
 }
 
 void	DiagLogClass::Log_Timed( const char * type, const char * format, ... )
 {
-	if ( _DiagLogFile != NULL ) {
+	if ( _DiagLogFile != nullptr ) {
 
 		va_list arg_list;
 		va_start (arg_list, format);

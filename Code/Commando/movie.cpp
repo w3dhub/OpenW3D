@@ -162,7 +162,7 @@ void	MovieGameModeClass::Start_Movie( const char * filename )
 		//
 		StringClass filename_only( filename, true );
 		const char *delimiter = ::strrchr( filename, '\\' );
-		if ( delimiter != NULL ) {
+		if ( delimiter != nullptr ) {
 			filename_only = delimiter + 1;
 		}
 

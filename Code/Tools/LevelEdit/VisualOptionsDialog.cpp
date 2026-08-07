@@ -44,7 +44,7 @@ const int MAX_REDUCTION		= 5;
 //	VisualOptionsDialogClass
 //
 //////////////////////////////////////////////////////////////
-VisualOptionsDialogClass::VisualOptionsDialogClass(CWnd* pParent /*=NULL*/)
+VisualOptionsDialogClass::VisualOptionsDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(VisualOptionsDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(VisualOptionsDialogClass)

@@ -108,15 +108,15 @@ class RenegadeGameRes
 {
 public:
 	// METHODS
-	RenegadeGameRes(const char* host = NULL, int port = 0) :
-					    _host(NULL), _port(0),
+	RenegadeGameRes(const char* host = nullptr, int port = 0) :
+					    _host(nullptr), _port(0),
 						_myplayercount(0), _game_id(0), _player_count(0), _clan_game(0),
-						_duration(0), _map_name(NULL), _sku(0), _style(GR_DEATHMATCH),
-						_num_clans(0), _start_time(0), _tournament(0), _logins(NULL),
-						_scores(NULL), _clan_ids(NULL), _durations(NULL), _ips(NULL),
-						_deaths(NULL), _kills(NULL), _selfkills(NULL), _damagepoints(NULL)
+						_duration(0), _map_name(nullptr), _sku(0), _style(GR_DEATHMATCH),
+						_num_clans(0), _start_time(0), _tournament(0), _logins(nullptr),
+						_scores(nullptr), _clan_ids(nullptr), _durations(nullptr), _ips(nullptr),
+						_deaths(nullptr), _kills(nullptr), _selfkills(nullptr), _damagepoints(nullptr)
 	{
-		if( host != NULL )
+		if( host != nullptr )
 		{
 			setHost(host);
 			setPort(port);
@@ -128,7 +128,7 @@ public:
 
 	void setHost(const char* host)
 	{
-		if( _host != NULL )
+		if( _host != nullptr )
 			delete[] _host;
 		_host = new char[strlen(host)+1];
 		strcpy(_host, host);
@@ -170,7 +170,7 @@ private:
 	unsigned char		_player_count;
 	unsigned char		_clan_game;				// Boolean
 	int unsigned int	_duration;				// Secs since epoch
-	char*				_map_name;				// Must be NULL terminated
+	char*				_map_name;				// Must be nullptr terminated
 	int unsigned int	_sku;
 	unsigned char		_style;					// Will be converted to an unsigned char
 	unsigned char		_num_clans;
@@ -178,7 +178,7 @@ private:
 	unsigned char		_tournament;			// Boolean
 
 	// Player Specific  (These are all arrays)
-	char**				_logins;				// Must be NULL terminated
+	char**				_logins;				// Must be nullptr terminated
 	int unsigned int*	_scores;
 	int unsigned int*	_clan_ids;
 	int unsigned int*	_durations;				// Secs since epoch

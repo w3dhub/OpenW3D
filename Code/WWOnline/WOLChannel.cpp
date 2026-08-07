@@ -88,7 +88,7 @@ RefPtr<ChannelData> ChannelData::Create(const unichar_t* name, const unichar_t* 
 		return new ChannelData(name, password, type);
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -112,7 +112,7 @@ ChannelData::ChannelData(const WOL::Channel& channel) :
 		mChannelName((char*)channel.name)
 	{
 	memcpy(&mData, &channel, sizeof(mData));
-	mData.next = NULL;
+	mData.next = nullptr;
 	}
 
 
@@ -140,7 +140,7 @@ ChannelData::ChannelData(const unichar_t* name, const unichar_t* password, int t
 	memset(&mData, 0, sizeof(mData));
 	mData.type = type;
 
-	WWASSERT(name && "NULL channel name");
+	WWASSERT(name && "nullptr channel name");
 	u_wstomb((char*)mData.name, name, sizeof(mData.name));
 	mData.name[sizeof(mData.name) - 1] = 0;
 
@@ -200,7 +200,7 @@ void ChannelData::UpdateData(const WOL::Channel& wolChannel)
 	if (isValid)
 		{
 		memcpy(&mData, &wolChannel, sizeof(mData));
-		mData.next = NULL;
+		mData.next = nullptr;
 		}
 	}
 
@@ -453,7 +453,7 @@ const unichar_t* GetChannelStatusDescription(ChannelStatus status)
 // Find the channel node by name
 ChannelList::iterator FindChannelNode(ChannelList& list, const char* name)
 	{
-	if (name == NULL)
+	if (name == nullptr)
 		{
 		return list.end();
 		}
@@ -496,7 +496,7 @@ RefPtr<ChannelData> FindChannelInList(ChannelList& list, const char* name)
 			}
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -520,7 +520,7 @@ RefPtr<ChannelData> FindChannelInList(ChannelList& list, const unichar_t* name)
 			}
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 } // namespace WWOnline

@@ -67,9 +67,9 @@ class PathNodeClass : public RefCountClass, public HeapNodeClass<float>, public 
 		// Public constructors/destructors
 		/////////////////////////////////////////////////////////////////////////
 		PathNodeClass (void)
-			:	m_Sector (NULL),
-				m_ParentNode (NULL),
-				m_Portal (NULL),
+			:	m_Sector (nullptr),
+				m_ParentNode (nullptr),
+				m_Portal (nullptr),
 				m_TotalCost (0),
 				m_HeuristicCost (0),
 				m_TraversalCost (0),
@@ -220,7 +220,7 @@ PathNodeClass::Set_Heap_Location (uint32 location)
 {
 	m_HeapLocation = location;
 
-	if (m_Portal != NULL) {
+	if (m_Portal != nullptr) {
 		m_Portal->Set_Heap_Location (location);
 	}
 
@@ -248,9 +248,9 @@ PathNodeClass::Is_In_Closed_List (void) const
 inline void
 PathNodeClass::Disconnect_From_Portal (void)
 {
-	WWASSERT (m_Portal != NULL);
+	WWASSERT (m_Portal != nullptr);
 
-	m_Portal->m_ClosedListPtr = NULL;
+	m_Portal->m_ClosedListPtr = nullptr;
 	m_Portal->Set_Heap_Location (0);
 	return ;
 }
@@ -258,7 +258,7 @@ PathNodeClass::Disconnect_From_Portal (void)
 inline void
 PathNodeClass::Reconnect_To_Portal (void)
 {
-	if (m_Portal != NULL) {
+	if (m_Portal != nullptr) {
 		if (m_InClosedList) {
 			m_Portal->m_ClosedListPtr = this;
 		} else {

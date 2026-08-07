@@ -131,7 +131,7 @@ public:
 	WWINLINE PhysClass *	Peek_Physical_Object( void ) const { return PhysObj; }
 
 	void					Attach_To_Object_Bone( PhysicalGameObj * host, const char * bone_name );
-	bool					Is_Attached_To_An_Object( void ) { return (HostGameObj.Get_Ptr () != NULL); }
+	bool					Is_Attached_To_An_Object( void ) { return (HostGameObj.Get_Ptr () != nullptr); }
 	void					Teleport_To_Host_Bone( void );
 
 	void					Set_Transform(const Matrix3D & tm);
@@ -158,7 +158,7 @@ public:
 	// Damage
 	virtual	void	Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 ) override;
    virtual	void	Apply_Damage_Extended( const OffenseObjectClass & offense, float scale = 1.0f,
-			const	Vector3 & direction = Vector3( 0,0,0 ), const char * collision_box_name = NULL );
+			const	Vector3 & direction = Vector3( 0,0,0 ), const char * collision_box_name = nullptr );
 	virtual	void	Completely_Damaged( const OffenseObjectClass & damager ) override;
 	bool	Is_Soft( void );
 	virtual	bool	Takes_Explosion_Damage( void )						{ return true; }
@@ -176,14 +176,14 @@ public:
 	// Type identification
 	virtual	PhysicalGameObj		*As_PhysicalGameObj( void )	override { return this; }
 	virtual	DamageableGameObj		*As_DamageableGameObj( void ) override	{ return this; }		// Re-implement for CombatPhysObserverClass
-	virtual	SoldierGameObj			*As_SoldierGameObj( void ) override		{ return (SoldierGameObj *)NULL; }
-	virtual	PowerUpGameObj			*As_PowerUpGameObj( void )		{ return (PowerUpGameObj *)NULL; }
-	virtual  VehicleGameObj		   *As_VehicleGameObj( void ) override		{ return (VehicleGameObj *)NULL; }
-	virtual  C4GameObj		      *As_C4GameObj( void )	      { return (C4GameObj *)NULL; }
-	virtual	BeaconGameObj			*As_BeaconGameObj (void)		{ return (BeaconGameObj *)NULL; }
-	virtual	ArmedGameObj			*As_ArmedGameObj( void )		{ return (ArmedGameObj *)NULL; }
-	virtual	CinematicGameObj		*As_CinematicGameObj( void )	{ return NULL; }
-	virtual	SimpleGameObj			*As_SimpleGameObj( void )		{ return NULL; }
+	virtual	SoldierGameObj			*As_SoldierGameObj( void ) override		{ return (SoldierGameObj *)nullptr; }
+	virtual	PowerUpGameObj			*As_PowerUpGameObj( void )		{ return (PowerUpGameObj *)nullptr; }
+	virtual  VehicleGameObj		   *As_VehicleGameObj( void ) override		{ return (VehicleGameObj *)nullptr; }
+	virtual  C4GameObj		      *As_C4GameObj( void )	      { return (C4GameObj *)nullptr; }
+	virtual	BeaconGameObj			*As_BeaconGameObj (void)		{ return (BeaconGameObj *)nullptr; }
+	virtual	ArmedGameObj			*As_ArmedGameObj( void )		{ return (ArmedGameObj *)nullptr; }
+	virtual	CinematicGameObj		*As_CinematicGameObj( void )	{ return nullptr; }
+	virtual	SimpleGameObj			*As_SimpleGameObj( void )		{ return nullptr; }
 
 	// Network diagnostics
 	BYTE		Get_Server_Skips(void) {return ServerUpdateSkips;}
@@ -231,7 +231,7 @@ public:
 	//
 	bool				Are_Innate_Conversations_Enabled( void )				{ return Get_Definition().AllowInnateConversations && IsInnateConversationsEnabled; }
 	void				Enable_Innate_Conversations( bool enable )				{ IsInnateConversationsEnabled = enable; }
-	bool				Is_In_Conversation( void ) const							{ return ActiveConversation != NULL; }
+	bool				Is_In_Conversation( void ) const							{ return ActiveConversation != nullptr; }
 	void				Set_Conversation( ActiveConversationClass *conversation );
 
 	void				Hide_Muzzle_Flashes( bool hide = true );

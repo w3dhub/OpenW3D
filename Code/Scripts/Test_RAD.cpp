@@ -844,8 +844,8 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * debris = Commands->Find_Object (MX0_A02_BLOCKAGE_ID);
 				if (debris)
 				{
-					Commands->Create_Explosion ("Ground Explosion 01 - Harmless", Vector3(-71.233f, -41.517f, 0.181f), NULL);
-					Commands->Set_Animation (debris, "AG_L0_BLOCKAGE1.AG_L0_BLOCKAGE1", false, NULL, 0.0f, -1.0f, false);
+					Commands->Create_Explosion ("Ground Explosion 01 - Harmless", Vector3(-71.233f, -41.517f, 0.181f), nullptr);
+					Commands->Set_Animation (debris, "AG_L0_BLOCKAGE1.AG_L0_BLOCKAGE1", false, nullptr, 0.0f, -1.0f, false);
 					Commands->Start_Timer (obj, this, 2.0f, MX0_A02_TIMER_DESTROY_RUBBLE);
 				}
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[1]);
@@ -893,7 +893,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 			{
 				if (pre_ambient_on)
 				{
-					GameObject * soldier = NULL;
+					GameObject * soldier = nullptr;
 					switch (pre_ambient_count)
 					{
 					case (1):
@@ -2314,7 +2314,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 					}
 				case (MX0_A02_ACTION_RETREAT_MOVE):
 					{
-						Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", NULL);
+						Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", nullptr);
 						break;
 					}
 				case (MX0_A02_ACTION_ENGINEER_01_MEDTANK):
@@ -3069,7 +3069,7 @@ DECLARE_SCRIPT (MX0_A02_HELICOPTER, "ActorID=0:int")
 	{
 		if (timer_id == MX0_A02_TIMER_DESTROY_HELI_02)
 		{
-			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", NULL);
+			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", nullptr);
 		}
 	}
 };
@@ -3216,7 +3216,7 @@ DECLARE_SCRIPT (M00_Test_Sound_RAD, "")
 	{
 		int id = Commands->Create_Conversation("M00_TEST_CONVERSATION", 100, 300, true);
 		Commands->Stop_All_Conversations (); /// <--- This cancels the following conversation!
-		Commands->Join_Conversation(NULL, id, true, true, true);
+		Commands->Join_Conversation(nullptr, id, true, true, true);
 		Commands->Join_Conversation (STAR, id, true, false, false);
 		Commands->Start_Conversation(id, 0);
 	}

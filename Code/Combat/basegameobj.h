@@ -109,10 +109,10 @@ public:
 	//bool								Is_Damage_Destroyed()			{ return (DestroyType == DESTROY_DAMAGED); }
 
 	// Type identification
-	virtual	PhysicalGameObj	*As_PhysicalGameObj( void )	{ return (PhysicalGameObj*)NULL; };
-	virtual  VehicleGameObj		*As_VehicleGameObj( void )		{ return (VehicleGameObj *)NULL; }
-	virtual	SmartGameObj		*As_SmartGameObj( void )		{ return (SmartGameObj*)NULL; };
-	virtual	ScriptableGameObj	*As_ScriptableGameObj( void )	{ return (ScriptableGameObj*)NULL; };
+	virtual	PhysicalGameObj	*As_PhysicalGameObj( void )	{ return (PhysicalGameObj*)nullptr; };
+	virtual  VehicleGameObj		*As_VehicleGameObj( void )		{ return (VehicleGameObj *)nullptr; }
+	virtual	SmartGameObj		*As_SmartGameObj( void )		{ return (SmartGameObj*)nullptr; };
+	virtual	ScriptableGameObj	*As_ScriptableGameObj( void )	{ return (ScriptableGameObj*)nullptr; };
 
 	// Network support
 	virtual uint32					Get_Network_Class_ID( void ) const override		{ return NETCLASSID_GAMEOBJ; }

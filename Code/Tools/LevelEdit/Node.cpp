@@ -94,17 +94,17 @@ enum
 //
 //////////////////////////////////////////////////////////////////////
 NodeClass::NodeClass (PresetClass *preset)
-	:	m_Preset (NULL),
+	:	m_Preset (nullptr),
 		m_PresetID (0),
 		m_ID (0),
-		m_SelectionBox (NULL),
+		m_SelectionBox (nullptr),
 		m_IsLocked (false),
 		m_RotationRestricted (false),
 		m_Orientation (true),
 		m_IsInScene (false),
 		m_SelColor (SEL_COLOR_NORMAL),
-		m_NextNode (NULL),
-		m_PrevNode (NULL),
+		m_NextNode (nullptr),
+		m_PrevNode (nullptr),
 		m_HitTestInfo (this),
 		m_NeedsSave (true),
 		m_IsProxied (false),
@@ -123,17 +123,17 @@ NodeClass::NodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////
 NodeClass::NodeClass (const NodeClass &src)
-	:	m_Preset (NULL),
+	:	m_Preset (nullptr),
 		m_PresetID (0),
 		m_ID (0),
-		m_SelectionBox (NULL),
+		m_SelectionBox (nullptr),
 		m_IsLocked (false),
 		m_RotationRestricted (false),
 		m_Orientation (true),
 		m_IsInScene (false),
 		m_SelColor (SEL_COLOR_NORMAL),
-		m_NextNode (NULL),
-		m_PrevNode (NULL),
+		m_NextNode (nullptr),
+		m_PrevNode (nullptr),
 		m_HitTestInfo (this),
 		m_NeedsSave (true),
 		m_IsProxied (false),
@@ -167,7 +167,7 @@ void
 NodeClass::Add_To_Scene (void)
 {
 	PhysClass *phys_obj = Peek_Physics_Obj ();
-	if (phys_obj != NULL && phys_obj->Get_Culling_System () == NULL) {
+	if (phys_obj != nullptr && phys_obj->Get_Culling_System () == nullptr) {
 
 		//
 		//	Add the object to either the static or dynamic culling system
@@ -194,7 +194,7 @@ void
 NodeClass::Remove_From_Scene (void)
 {
 	PhysClass *phys_obj = Peek_Physics_Obj ();
-	if (phys_obj != NULL && phys_obj->Get_Culling_System () != NULL) {
+	if (phys_obj != nullptr && phys_obj->Get_Culling_System () != nullptr) {
 
 		//
 		//	Record the cull-link index (if necessary)
@@ -229,19 +229,19 @@ NodeClass::Update_Cached_Cull_Link (void)
 	//	We can only do this if the physics object is currently in the scene
 	//
 	PhysClass *phys_obj = Peek_Physics_Obj ();
-	if (phys_obj != NULL && phys_obj->Get_Culling_System () != NULL) {
+	if (phys_obj != nullptr && phys_obj->Get_Culling_System () != nullptr) {
 
 		//
 		//	Make sure this is a static physics object
 		//
 		StaticPhysClass *static_phys_obj = phys_obj->As_StaticPhysClass ();
-		if (static_phys_obj != NULL) {
+		if (static_phys_obj != nullptr) {
 
 			//
 			//	Dig the cull link out from the culling system structure
 			//
 			AABTreeLinkClass *link = (AABTreeLinkClass *)static_phys_obj->Get_Cull_Link ();
-			if (link != NULL) {
+			if (link != nullptr) {
 				m_CullLink = link->Node->Index;
 			}
 		}
@@ -259,9 +259,9 @@ NodeClass::Update_Cached_Cull_Link (void)
 RenderObjClass *
 NodeClass::Peek_Render_Obj (void) const
 {
-	RenderObjClass *render_obj	= NULL;
+	RenderObjClass *render_obj	= nullptr;
 	PhysClass *phys_obj			= Peek_Physics_Obj ();
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 		render_obj = phys_obj->Peek_Model ();
 	}
 
@@ -278,7 +278,7 @@ void
 NodeClass::Hide (bool hide)
 {
 	RenderObjClass *render_obj	= Peek_Render_Obj ();
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 		render_obj->Set_Hidden (hide);
 	}
 
@@ -297,7 +297,7 @@ NodeClass::Is_Hidden (void) const
 	bool is_hidden = false;
 
 	RenderObjClass *render_obj	= Peek_Render_Obj ();
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 		is_hidden = (render_obj->Is_Not_Hidden_At_All () == false);
 	}
 
@@ -318,7 +318,7 @@ NodeClass::Show_Selection_Box (bool show)
 		//
 		//	Create the selection box if necessary
 		//
-		if (m_SelectionBox == NULL) {
+		if (m_SelectionBox == nullptr) {
 			m_SelectionBox = new SelectionBoxClass;
 		}
 		Update_Selection_Color ();
@@ -329,7 +329,7 @@ NodeClass::Show_Selection_Box (bool show)
 		//
 		//	Hide and destroy the selection box
 		//
-		if (m_SelectionBox != NULL) {
+		if (m_SelectionBox != nullptr) {
 			m_SelectionBox->Remove_From_Scene ();
 			SAFE_DELETE (m_SelectionBox);
 		}
@@ -353,7 +353,7 @@ NodeClass::Update_Selection_Color (void)
 	// Only perform the bounding box check if we have a valid phys obj pointer
 	//
 	PhysClass *collision_obj = Peek_Collision_Obj ();
-	if (collision_obj != NULL) {
+	if (collision_obj != nullptr) {
 
 		AABoxClass aabox;
 		OBBoxClass obbox;
@@ -395,7 +395,7 @@ NodeClass::Update_Selection_Color (void)
 	//
 	//	Update the selection box if it exists
 	//
-	if (m_SelectionBox != NULL) {
+	if (m_SelectionBox != nullptr) {
 		m_SelectionBox->Set_Color (m_SelColor);
 	}
 
@@ -414,7 +414,7 @@ NodeClass::Update_Selection_Box (void)
 	//
 	// If we have a selection box, then update its color and position
 	//
-	if (m_SelectionBox != NULL) {
+	if (m_SelectionBox != nullptr) {
 		Update_Selection_Color ();
 		m_SelectionBox->Display_Around_Node (*this);
 	}
@@ -529,7 +529,7 @@ NodeClass::Save (ChunkSaveClass &csave)
 	//
 	//	Update the preset-id
 	//
-	if (m_Preset != NULL) {
+	if (m_Preset != nullptr) {
 		m_PresetID = m_Preset->Get_ID ();
 	}
 
@@ -564,9 +564,9 @@ NodeClass::Save (ChunkSaveClass &csave)
 		//	Save the node's vis ID (if it has one)
 		//
 		PhysClass *phys_obj = Peek_Physics_Obj ();
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 			StaticPhysClass *static_phys_obj = phys_obj->As_StaticPhysClass ();
-			if (static_phys_obj != NULL) {
+			if (static_phys_obj != nullptr) {
 				uint32 vis_id = static_phys_obj->Get_Vis_Object_ID ();
 				WRITE_MICRO_CHUNK (csave, VARID_VISID, vis_id);
 				vis_id = static_phys_obj->Get_Vis_Sector_ID();
@@ -618,7 +618,7 @@ NodeClass::Load (ChunkLoadClass &cload)
 bool
 NodeClass::Load_Variables (ChunkLoadClass &cload)
 {
-	PresetClass *old_this_ptr = NULL;
+	PresetClass *old_this_ptr = nullptr;
 
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
@@ -645,9 +645,9 @@ NodeClass::Load_Variables (ChunkLoadClass &cload)
 				//	Pass the vis-object-id onto the physics object (if it needs one)
 				//
 				PhysClass *phys_obj = Peek_Physics_Obj ();
-				if (phys_obj != NULL) {
+				if (phys_obj != nullptr) {
 					StaticPhysClass *static_phys_obj = phys_obj->As_StaticPhysClass ();
-					if (static_phys_obj != NULL) {
+					if (static_phys_obj != nullptr) {
 						static_phys_obj->Set_Vis_Object_ID (vis_id);
 					}
 				}
@@ -662,9 +662,9 @@ NodeClass::Load_Variables (ChunkLoadClass &cload)
 				//	Pass the vis-sector-id onto the physics object (if it needs one)
 				//
 				PhysClass *phys_obj = Peek_Physics_Obj ();
-				if (phys_obj != NULL) {
+				if (phys_obj != nullptr) {
 					StaticPhysClass *static_phys_obj = phys_obj->As_StaticPhysClass ();
-					if (static_phys_obj != NULL) {
+					if (static_phys_obj != nullptr) {
 						static_phys_obj->Set_Vis_Sector_ID (vis_id);
 					}
 				}
@@ -678,7 +678,7 @@ NodeClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Handle pointer remapping
 	//
-	WWASSERT (old_this_ptr != NULL);
+	WWASSERT (old_this_ptr != nullptr);
 	SaveLoadSystemClass::Register_Pointer (old_this_ptr, this);
 
 	//
@@ -702,11 +702,11 @@ NodeClass::Has_Vis_Sectors (RenderObjClass *render_obj)
 	//
 	//	Start with the parent render obj if none is supplied.
 	//
-	if (render_obj == NULL) {
+	if (render_obj == nullptr) {
 		render_obj = Peek_Render_Obj ();
 	}
 
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 
 		//
 		// Loop through all the render objects sub-objects
@@ -716,7 +716,7 @@ NodeClass::Has_Vis_Sectors (RenderObjClass *render_obj)
 
 			// Get a pointer to this subobject
 			RenderObjClass *sub_object = render_obj->Get_Sub_Object (index);
-			if (sub_object != NULL) {
+			if (sub_object != nullptr) {
 
 				retval |= Has_Vis_Sectors (sub_object);
 				MEMBER_RELEASE (sub_object);
@@ -757,7 +757,7 @@ NodeClass::Add_Vis_Points
 	//
 	//	Start with the parent render obj if none is supplied.
 	//
-	if (render_obj == NULL) {
+	if (render_obj == nullptr) {
 		render_obj = Peek_Render_Obj ();
 	}
 
@@ -769,7 +769,7 @@ NodeClass::Add_Vis_Points
 
 		// Get a pointer to this subobject
 		RenderObjClass *sub_object = render_obj->Get_Sub_Object (index);
-		if (sub_object != NULL) {
+		if (sub_object != nullptr) {
 
 			Add_Vis_Points (generator, sub_object);
 			MEMBER_RELEASE (sub_object);
@@ -902,9 +902,9 @@ NodeClass::Set_ID (uint32 id)
 LPCTSTR
 NodeClass::Get_Model_Name (void) const
 {
-	LPCTSTR name = NULL;
+	LPCTSTR name = nullptr;
 	RenderObjClass *render_obj = Peek_Render_Obj ();
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 		name = render_obj->Get_Name ();
 	}
 

@@ -79,16 +79,16 @@ static void Trackball_Camera (HWND hwnd, CameraClass &camera, const Vector3 &cen
 // TransitionEditDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-TransitionEditDialogClass::TransitionEditDialogClass(CWnd* pParent /*=NULL*/)
+TransitionEditDialogClass::TransitionEditDialogClass(CWnd* pParent /*=nullptr*/)
 	:	m_LookAtDist (0),
-		m_Camera (NULL),
-		m_Scene (NULL),
-		m_RenderObj (NULL),
-		m_Transition (NULL),
-		m_Zone (NULL),
-		m_CharacterObj (NULL),
-		m_Animation (NULL),
-		m_SwapChain (NULL),
+		m_Camera (nullptr),
+		m_Scene (nullptr),
+		m_RenderObj (nullptr),
+		m_Transition (nullptr),
+		m_Zone (nullptr),
+		m_CharacterObj (nullptr),
+		m_Animation (nullptr),
+		m_SwapChain (nullptr),
 		m_TimerID (0),
 		m_CurrFrame (0),
 		m_LastAnimUpdate (0),
@@ -183,7 +183,7 @@ TransitionEditDialogClass::OnInitDialog (void)
 	m_Toolbar.GetToolBarCtrl ().GetMaxSize (&size);
 	::GetWindowRect (::GetDlgItem (m_hWnd, IDC_TOOLBAR), &rect);
 	ScreenToClient (&rect);
-	m_Toolbar.SetWindowPos (NULL,
+	m_Toolbar.SetWindowPos (nullptr,
 									rect.left + (rect.Width () >> 1) - (size.cx >> 1),
 									rect.top + (rect.Height () >> 1) - (size.cy >> 1),
 									rect.Width (),
@@ -320,9 +320,9 @@ TransitionEditDialogClass::OnDestroy (void)
 	//
 	//	Free our swap chain
 	//
-	if (m_SwapChain != NULL) {
+	if (m_SwapChain != nullptr) {
 		m_SwapChain->Release ();
-		m_SwapChain = NULL;
+		m_SwapChain = nullptr;
 	}
 
 	CLevelEditView::Allow_Repaint (true);
@@ -346,7 +346,7 @@ TransitionEditDialogClass::OnDestroy (void)
 	int count = m_AnimationList.GetCount ();
 	for (int index = 0; index < count; index ++) {
 		LPTSTR data = (LPTSTR)m_AnimationList.GetItemData (index);
-		if (data != NULL) {
+		if (data != nullptr) {
 			::free (data);
 		}
 	}
@@ -396,12 +396,12 @@ TransitionEditDialogClass::Render_View (void)
 		//
 		//	Blit the frame to the client area of the window
 		//
-		m_SwapChain->Present (NULL, NULL, NULL, NULL, 0);
+		m_SwapChain->Present (nullptr, nullptr, nullptr, nullptr, 0);
 
 		//
 		//	Restore the render target
 		//
-		DX8Wrapper::Set_Render_Target ((LPDIRECT3DSURFACE9)NULL);
+		DX8Wrapper::Set_Render_Target ((LPDIRECT3DSURFACE9)nullptr);
 
 		//
 		//	Cleanup
@@ -430,9 +430,9 @@ TransitionEditDialogClass::fnUpdateTimer
 )
 {
 	HWND hwnd = (HWND)user_data;
-	if (hwnd != NULL) {
+	if (hwnd != nullptr) {
 
-        if ((GetProp (hwnd, "WaitingToProcess") == NULL)) {
+        if ((GetProp (hwnd, "WaitingToProcess") == nullptr)) {
             SetProp (hwnd, "WaitingToProcess", (HANDLE)1);
 
             // Send the message to the view so it will be in the
@@ -570,7 +570,7 @@ TransitionEditDialogClass::Load_Object (void)
 	//	Add a grid render object to the world to act as a floor
 	//
 	RenderObjClass *floor = ::Create_Render_Obj ("GRID");
-	if (floor != NULL) {
+	if (floor != nullptr) {
 		floor->Set_Transform (Matrix3D(1));
 		m_Scene->Add_Render_Object (floor);
 		floor->Release_Ref ();
@@ -930,7 +930,7 @@ TransitionEditDialogClass::Fill_Animation_List (void)
 			CString name = m_Transition->Get_Animation_Name ();
 			CString real_name = name;
 			LPCTSTR suffix = ::strstr (name, ".");
-			if (suffix != NULL) {
+			if (suffix != nullptr) {
 				real_name = suffix + 1;
 			}
 			if (::lstrcmpi (animation_name, real_name) == 0) {
@@ -992,7 +992,7 @@ TransitionEditDialogClass::Load_Animation (void)
 		//
 		//	Load the animation from the file
 		//
-		if (filename != NULL) {
+		if (filename != nullptr) {
 			Load_Animation (filename);
 		}
 	}
@@ -1022,7 +1022,7 @@ TransitionEditDialogClass::Load_Animation (LPCTSTR filename)
 	CString asset_name	= CString ("S_A_HUMAN.") + ::Asset_Name_From_Filename (filename);
 	::Set_Current_Directory (path);
 	m_Animation = WW3DAssetManager::Get_Instance ()->Get_HAnim (asset_name);
-	ASSERT (m_Animation != NULL);
+	ASSERT (m_Animation != nullptr);
 
 	//
 	//	Pass the new animation onto the character
@@ -1041,13 +1041,13 @@ TransitionEditDialogClass::Load_Animation (LPCTSTR filename)
 void
 TransitionEditDialogClass::Load_Character (void)
 {
-	if (m_CharacterObj == NULL) {
+	if (m_CharacterObj == nullptr) {
 
 		//
 		//	Create the character's render object
 		//
 		SoldierGameObjDef *definition = (SoldierGameObjDef *)DefinitionMgrClass::Find_Typed_Definition ("Commando", CLASSID_GAME_OBJECT_DEF_SOLDIER, false);
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			SoldierGameObj *game_obj = new SoldierGameObj;
 			game_obj->Init (*definition);
 			REF_PTR_SET (m_CharacterObj, game_obj->Peek_Model ());
@@ -1100,15 +1100,15 @@ TransitionEditDialogClass::fn3DWindow
 )
 {
 	if (message == WM_LBUTTONDOWN) {
-		TransitionEditDialogClass *dialog = NULL;
+		TransitionEditDialogClass *dialog = nullptr;
 		dialog = (TransitionEditDialogClass *)::GetProp (hwnd, "TRANSITION_DIALOG");
 		dialog->Handle_LBUTTON_DOWN (wparam, lparam);
 	} else if (message == WM_LBUTTONUP) {
-		TransitionEditDialogClass *dialog = NULL;
+		TransitionEditDialogClass *dialog = nullptr;
 		dialog = (TransitionEditDialogClass *)::GetProp (hwnd, "TRANSITION_DIALOG");
 		dialog->Handle_LBUTTON_UP (wparam, lparam);
 	} else if (message == WM_MOUSEMOVE) {
-		TransitionEditDialogClass *dialog = NULL;
+		TransitionEditDialogClass *dialog = nullptr;
 		dialog = (TransitionEditDialogClass *)::GetProp (hwnd, "TRANSITION_DIALOG");
 		dialog->Handle_MOUSEMOVE (wparam, lparam);
 	}
@@ -1154,7 +1154,7 @@ void
 TransitionEditDialogClass::Handle_MOUSEMOVE (WPARAM wparam, LPARAM lparam)
 {
 	POINT point = { LOWORD (lparam), HIWORD (lparam) };
-	WWASSERT (m_Camera != NULL);
+	WWASSERT (m_Camera != nullptr);
 
 	if ((wparam & MK_LBUTTON) && (wparam & MK_RBUTTON)) {
 		float delta_x = float(m_LastPoint.x - point.x) / 32;

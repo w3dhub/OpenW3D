@@ -56,8 +56,8 @@ class ScriptNode
 		// Set next node
 		inline void SetNext(ScriptNode* link)
 		{
-			if (mNext != NULL) {
-				assert(link != NULL);
+			if (mNext != nullptr) {
+				assert(link != nullptr);
 				link->SetNext(mNext);
 			}
 
@@ -65,7 +65,7 @@ class ScriptNode
 		}
 
 		// Can only be derived
-		ScriptNode() : mNext(NULL) {}
+		ScriptNode() : mNext(nullptr) {}
 
 	private:
 		ScriptNode* mNext;
@@ -75,14 +75,14 @@ class ScriptNode
 class ScriptList
 {
 	public:
-		ScriptList() : mHead(NULL) {DebugPrint("ScriptList\n");}
+		ScriptList() : mHead(nullptr) {DebugPrint("ScriptList\n");}
 
 		virtual ~ScriptList() {}
 
 		// Add a node to this list
 		void AddNode(ScriptNode* node)
 		{
-			if ((node != NULL) && !HasNode(node)) {
+			if ((node != nullptr) && !HasNode(node)) {
 				node->SetNext(mHead);
 				mHead = node;
 			}
@@ -91,15 +91,15 @@ class ScriptList
 		// Remove a node from the list
 		bool RemoveNode(ScriptNode* node)
 		{
-			ScriptNode* previous = NULL;
+			ScriptNode* previous = nullptr;
 			ScriptNode* current = mHead;
 
-			while (current != NULL) {
+			while (current != nullptr) {
 				ScriptNode* next = current->GetNext();
 
 				if (current == node) {
 					// Handle head of list condition
-					if (previous == NULL) {
+					if (previous == nullptr) {
 						mHead = next;
 					} else {
 						previous->SetNext(next);
@@ -122,7 +122,7 @@ class ScriptList
 			ScriptNode* node = mHead;
 			int count = 0;
 
-			while (node != NULL) {
+			while (node != nullptr) {
 				count++;
 				node = node->GetNext();
 			}
@@ -135,7 +135,7 @@ class ScriptList
 		{
 			ScriptNode* current = mHead;
 
-			while (current != NULL) {
+			while (current != nullptr) {
 				if (current == node) {
 					return true;
 				}
@@ -149,7 +149,7 @@ class ScriptList
 		// Clear the list
 		void Clear(void)
 		{
-			mHead = NULL;
+			mHead = nullptr;
 		}
 
 	private:
@@ -188,7 +188,7 @@ class ScriptListIter
 		// Test if at end of list
 		inline bool AtEnd(void)
 		{
-			return (mCurrent->GetNext() == NULL);
+			return (mCurrent->GetNext() == nullptr);
 		}
 
 	private:

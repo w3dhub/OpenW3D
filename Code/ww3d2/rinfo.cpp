@@ -84,7 +84,7 @@ void RenderInfoClass::Pop_Material_Pass(void)
 		WWASSERT(AdditionalMaterialPassCount>0);
 		AdditionalMaterialPassCount--;
 		MaterialPassClass * mpass = AdditionalMaterialPassArray[AdditionalMaterialPassCount];
-		if (mpass != NULL) {
+		if (mpass != nullptr) {
 			mpass->Release_Ref();
 		}
 	} else {
@@ -132,8 +132,8 @@ RenderInfoClass::RINFO_OVERRIDE_FLAGS & RenderInfoClass::Current_Override_Flags(
 SpecialRenderInfoClass::SpecialRenderInfoClass(CameraClass & cam,int render_type) :
 	RenderInfoClass(cam),
 	RenderType(render_type),
-	VisRasterizer(NULL),
-	BWRenderer(NULL)
+	VisRasterizer(nullptr),
+	BWRenderer(nullptr)
 {
 }
 

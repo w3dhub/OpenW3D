@@ -52,7 +52,7 @@ class DirectoryBrowserClass;
 class DirectoryDialogClass : public InstallMenuDialogClass
 {
 	public:
-		DirectoryDialogClass() : InstallMenuDialogClass (IDD_DIALOG_DIRECTORY), Browser (NULL), OverwriteDialog (NULL), DriveLetter ('\0') {}
+		DirectoryDialogClass() : InstallMenuDialogClass (IDD_DIALOG_DIRECTORY), Browser (nullptr), OverwriteDialog (nullptr), DriveLetter ('\0') {}
 
 		// RTTI.
 		void *As_DirectoryDialogClass()		{return (this);}

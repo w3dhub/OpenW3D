@@ -68,7 +68,7 @@ void ChunkTableClass::NewType(int ID, const char *name, void (*callback)(ChunkIt
 }
 void ChunkTableClass::AddItem(CListCtrl *List, int &Counter, const char *Name, const char *Value, const char *Type) {
 
-	if (List != NULL) {
+	if (List != nullptr) {
 		int list_item = List->InsertItem(Counter++, Name);
 		List->SetItemText(list_item, 1, Type);
 		List->SetItemText(list_item, 2, Value);

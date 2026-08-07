@@ -49,7 +49,7 @@ namespace
 	{
 		std::vector<std::string> args;
 
-		if (command_line == NULL) {
+		if (command_line == nullptr) {
 			return args;
 		}
 
@@ -95,7 +95,7 @@ namespace
 
 	std::filesystem::path Make_Absolute_Path(const char *path)
 	{
-		if (path == NULL || path[0] == '\0') {
+		if (path == nullptr || path[0] == '\0') {
 			return std::filesystem::path();
 		}
 
@@ -111,13 +111,13 @@ namespace
 	{
 #if defined(OPENW3D_WIN32)
 		char path[32768] = { 0 };
-		DWORD length = GetModuleFileNameA(NULL, path, ARRAY_SIZE(path));
+		DWORD length = GetModuleFileNameA(nullptr, path, ARRAY_SIZE(path));
 		if (length > 0 && length < ARRAY_SIZE(path)) {
 			return std::filesystem::path(path).parent_path();
 		}
 #elif defined(OPENW3D_SDL3)
 		const char *base_path = SDL_GetBasePath();
-		if (base_path != NULL && base_path[0] != '\0') {
+		if (base_path != nullptr && base_path[0] != '\0') {
 			return std::filesystem::path(base_path);
 		}
 #endif
@@ -129,19 +129,19 @@ namespace
 	{
 #if defined(OPENW3D_WIN32)
 		const char *appdata = std::getenv("APPDATA");
-		if (appdata != NULL && appdata[0] != '\0') {
+		if (appdata != nullptr && appdata[0] != '\0') {
 			return Make_Absolute_Path(appdata) / CONFIG_ORGANIZATION / CONFIG_APPLICATION;
 		}
 
 		std::filesystem::path appdata_path;
 		HMODULE shfolder = LoadLibraryA("shfolder.dll");
-		if (shfolder != NULL) {
+		if (shfolder != nullptr) {
 			typedef HRESULT(__stdcall *SHGetFolderPathAType)(HWND, int, HANDLE, DWORD, LPSTR);
 			SHGetFolderPathAType get_folder_path =
 				(SHGetFolderPathAType)GetProcAddress(shfolder, "SHGetFolderPathA");
-			if (get_folder_path != NULL) {
+			if (get_folder_path != nullptr) {
 				char path[MAX_PATH] = { 0 };
-				if (get_folder_path(NULL, CSIDL_APPDATA, NULL, 0, path) == S_OK) {
+				if (get_folder_path(nullptr, CSIDL_APPDATA, nullptr, 0, path) == S_OK) {
 					appdata_path = std::filesystem::path(path);
 				}
 			}
@@ -151,7 +151,7 @@ namespace
 		return appdata_path.empty() ? std::filesystem::path() : appdata_path / CONFIG_ORGANIZATION / CONFIG_APPLICATION;
 #elif defined(OPENW3D_SDL3)
 		char *pref_path = SDL_GetPrefPath(CONFIG_ORGANIZATION, CONFIG_APPLICATION);
-		if (pref_path != NULL && pref_path[0] != '\0') {
+		if (pref_path != nullptr && pref_path[0] != '\0') {
 			const std::filesystem::path config_path(pref_path);
 			SDL_free(pref_path);
 			return config_path;
@@ -167,10 +167,10 @@ namespace
 	std::filesystem::path Get_Default_Config_File_Path()
 	{
 		const char *config_override = std::getenv("OPENW3D_CONFIG_INI");
-		if (config_override == NULL || config_override[0] == '\0') {
+		if (config_override == nullptr || config_override[0] == '\0') {
 			config_override = std::getenv("RENEGADE_CONFIG_INI");
 		}
-		if (config_override != NULL && config_override[0] != '\0') {
+		if (config_override != nullptr && config_override[0] != '\0') {
 			return Make_Absolute_Path(config_override);
 		}
 
@@ -225,7 +225,7 @@ bool OpenW3D::Set_Config_File_Path_From_Command_Line(int argc, char *argv[])
 		}
 
 		++index;
-		if (index >= argc || argv[index] == NULL || argv[index][0] == '\0') {
+		if (index >= argc || argv[index] == nullptr || argv[index][0] == '\0') {
 			return false;
 		}
 

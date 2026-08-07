@@ -76,7 +76,7 @@ enum
 //
 //////////////////////////////////////////////////////////////////////////////
 TileNodeClass::TileNodeClass (PresetClass *preset)
-	:	m_PhysObj (NULL),
+	:	m_PhysObj (nullptr),
 		m_VisObjectID (0),	// (gth) init this to zero, ("always visible")
 		m_VisSectorID (uint32(-1)),	// (gth) init this to -1, ("no-sector")
 		NodeClass (preset)
@@ -92,10 +92,10 @@ TileNodeClass::TileNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 TileNodeClass::TileNodeClass (const TileNodeClass &src)
-	:	m_PhysObj (NULL),
+	:	m_PhysObj (nullptr),
 		m_VisObjectID (0),
 		m_VisSectorID (uint32(-1)),
-		NodeClass (NULL)
+		NodeClass (nullptr)
 {
 	Restrict_Rotation (true);
 	(*this) = src;
@@ -135,7 +135,7 @@ TileNodeClass::Initialize (void)
 	MEMBER_RELEASE (m_PhysObj);
 
 	TileDefinitionClass *definition = static_cast<TileDefinitionClass *> (m_Preset->Get_Definition ());
-	if (definition != NULL) {
+	if (definition != nullptr) {
 
 		//
 		//	Make sure all assets are loaded into memory before this tile is created...
@@ -147,22 +147,22 @@ TileNodeClass::Initialize (void)
 		//
 		int def_id = definition->Get_Phys_Def_ID ();
 		DefinitionClass *phys_def = DefinitionMgrClass::Find_Definition (def_id, false);
-		if (phys_def != NULL) {
+		if (phys_def != nullptr) {
 
 			//
 			//	Create an instance of the physics object from its definition
 			//
 			PhysClass *phys_obj	= (PhysClass *)phys_def->Create ();
-			ASSERT (phys_obj != NULL);
-			if (phys_obj != NULL && phys_obj->Peek_Model () != NULL) {
+			ASSERT (phys_obj != nullptr);
+			if (phys_obj != nullptr && phys_obj->Peek_Model () != nullptr) {
 				m_PhysObj = phys_obj->As_StaticPhysClass ();
-				ASSERT (m_PhysObj != NULL);
-				ASSERT (m_PhysObj->Peek_Model() != NULL);
+				ASSERT (m_PhysObj != nullptr);
+				ASSERT (m_PhysObj->Peek_Model() != nullptr);
 
 				//
 				//	Configure the physics object
 				//
-				if (m_PhysObj != NULL) {
+				if (m_PhysObj != nullptr) {
 					m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 					m_PhysObj->Set_Transform (m_Transform);
 					m_PhysObj->Set_Collision_Group (GAME_COLLISION_GROUP);
@@ -222,7 +222,7 @@ TileNodeClass::Save (ChunkSaveClass &csave)
 		//
 		//	Save the tile's vis-id to the chunk
 		//
-		if (m_PhysObj != NULL) {
+		if (m_PhysObj != nullptr) {
 			uint32 vis_id = ((StaticPhysClass *)m_PhysObj)->Get_Vis_Object_ID ();
 			WRITE_MICRO_CHUNK (csave, VARID_VISOBJECTID, vis_id);
 			vis_id = ((StaticPhysClass *)m_PhysObj)->Get_Vis_Sector_ID ();
@@ -290,7 +290,7 @@ TileNodeClass::Load_Variables (ChunkLoadClass &cload)
 void
 TileNodeClass::Update_Cached_Vis_IDs (void)
 {
-	if (m_PhysObj != NULL) {
+	if (m_PhysObj != nullptr) {
 		m_VisObjectID = m_PhysObj->Get_Vis_Object_ID ();
 		m_VisSectorID = m_PhysObj->Get_Vis_Object_ID ();
 	}
@@ -311,7 +311,7 @@ TileNodeClass::Pre_Export (void)
 	//	Change our collision group the collision group that the
 	// game is expecting
 	//
-	if (m_PhysObj != NULL) {
+	if (m_PhysObj != nullptr) {
 		m_PhysObj->Set_Collision_Group (15);
 	}
 	return ;
@@ -329,7 +329,7 @@ TileNodeClass::Post_Export (void)
 	//
 	//	Restore our collision group
 	//
-	if (m_PhysObj != NULL) {
+	if (m_PhysObj != nullptr) {
 		m_PhysObj->Set_Collision_Group (GAME_COLLISION_GROUP);
 	}
 

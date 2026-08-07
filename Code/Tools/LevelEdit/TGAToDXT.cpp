@@ -51,8 +51,8 @@ TGAToDXTClass _TGAToDXTConverter;
 //
 ///////////////////////////////////////////////////////////////////////////////
 TGAToDXTClass::TGAToDXTClass()
-	: WriteTimePtr (NULL),
-		Buffer(NULL),
+	: WriteTimePtr (nullptr),
+		Buffer(nullptr),
 	  BufferSize (1024),
 	  BufferCount (0)
 {
@@ -122,7 +122,7 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 				Buffer = static_cast<unsigned char *>(output_file_data);
 				BufferCount = output_file_size;
 				Write (outputpathname);
-				Buffer = NULL;
+				Buffer = nullptr;
 				crn_free_block(output_file_data);
 				success = true;
 			}
@@ -147,15 +147,15 @@ void TGAToDXTClass::Write (const char *outputpathname)
 	HANDLE hfile;
 	DWORD  bytecountwritten;
 
-	hfile = ::CreateFileA (outputpathname, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, 0L, NULL);
+	hfile = ::CreateFileA (outputpathname, GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, 0L, nullptr);
 	if (hfile != INVALID_HANDLE_VALUE) {
       LockFile (hfile, 0, 0, BufferCount, 0);
-      WriteFile (hfile, Buffer, BufferCount, &bytecountwritten, NULL);
+      WriteFile (hfile, Buffer, BufferCount, &bytecountwritten, nullptr);
       UnlockFile (hfile, 0, 0, BufferCount, 0);
 
 		// Stamp the write time (if one has been supplied).
-		if (WriteTimePtr != NULL) {
-			SetFileTime (hfile, NULL, NULL, WriteTimePtr);
+		if (WriteTimePtr != nullptr) {
+			SetFileTime (hfile, nullptr, nullptr, WriteTimePtr);
 		}
 
 		CloseHandle (hfile);
@@ -193,7 +193,7 @@ void WriteDTXnFile (DWORD datacount, void *data)
 
 		newbuffersize = MAX (_TGAToDXTConverter.BufferSize * 2, _TGAToDXTConverter.BufferCount + datacount);
 		newbuffer	  = new unsigned char [newbuffersize];
-		ASSERT (newbuffer != NULL);
+		ASSERT (newbuffer != nullptr);
 		memcpy (newbuffer, _TGAToDXTConverter.Buffer, _TGAToDXTConverter.BufferCount);
 		delete [] _TGAToDXTConverter.Buffer;
 		_TGAToDXTConverter.Buffer = newbuffer;

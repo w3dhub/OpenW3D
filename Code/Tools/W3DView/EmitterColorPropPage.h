@@ -42,7 +42,7 @@ class EmitterColorPropPageClass : public CPropertyPage
 
 // Construction
 public:
-	EmitterColorPropPageClass (EmitterInstanceListClass *pemitter_list = NULL);
+	EmitterColorPropPageClass (EmitterInstanceListClass *pemitter_list = nullptr);
 	~EmitterColorPropPageClass ();
 
 // Dialog Data

@@ -79,7 +79,7 @@ protected:
 		//
 		//	Public Methods
 		//
-		BOOL				Create (CWnd *pCParentWnd, UINT uiID)	{ return Create (NULL, NULL, WS_CHILD | WS_VISIBLE, CRect (0, 0, 100, 100), pCParentWnd, uiID, NULL); }
+		BOOL				Create (CWnd *pCParentWnd, UINT uiID)	{ return Create (nullptr, nullptr, WS_CHILD | WS_VISIBLE, CRect (0, 0, 100, 100), pCParentWnd, uiID, nullptr); }
 		virtual void	HandleInitDialog (void) {}
 		virtual bool	Apply_Changes (void) { return true; }
 		virtual void	Discard_Changes (void) {}

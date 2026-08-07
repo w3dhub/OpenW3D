@@ -34,7 +34,7 @@ static char THIS_FILE[] = __FILE__;
 // StringsCategoryNameDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-StringsCategoryNameDialogClass::StringsCategoryNameDialogClass(CWnd* pParent /*=NULL*/)
+StringsCategoryNameDialogClass::StringsCategoryNameDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(StringsCategoryNameDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(StringsCategoryNameDialogClass)

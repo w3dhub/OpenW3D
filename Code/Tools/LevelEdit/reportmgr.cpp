@@ -74,11 +74,11 @@ ReportMgrClass::Export_File_Usage_Report (const char *filename)
 		//	Loop over all the nodes in the current level
 		//
 		for (	NodeClass *node = NodeMgrClass::Get_First ();
-				node != NULL;
+				node != nullptr;
 				node = NodeMgrClass::Get_Next (node))
 		{
 			PresetClass *preset = node->Get_Preset ();
-			if (preset != NULL) {
+			if (preset != nullptr) {
 
 				//
 				//	Build a list of definitions this preset depends on
@@ -166,7 +166,7 @@ ReportMgrClass::Export_File_Usage_Report (const char *filename)
 void
 ReportMgrClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING_LIST &list)
 {
-	if (definition == NULL) {
+	if (definition == nullptr) {
 		return ;
 	}
 
@@ -205,10 +205,10 @@ ReportMgrClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING
 			//
 			//	If this is param references a physics-definition, then add all its dependencies as well..
 			//
-			DefinitionClass *phys_def = NULL;
+			DefinitionClass *phys_def = nullptr;
 			phys_def = DefinitionMgrClass::Find_Definition (((ModelDefParameterClass *)parameter)->Get_Value (), false);
 			Add_Definition_Dependencies (phys_def, list);
-		} else if (parameter->As_DefParameterClass () != NULL) {
+		} else if (parameter->As_DefParameterClass () != nullptr) {
 			DefinitionClass *sub_def = DefinitionMgrClass::Find_Definition (parameter->As_DefParameterClass ()->Get_Value (), false);
 			Add_Definition_Dependencies (sub_def, list);
 		}
@@ -243,8 +243,8 @@ ReportMgrClass::Export_Missing_Translation_Report (const char *filename, int lan
 			//	Does this string contain the necessary translation?
 			//
 			TDBObjClass *object = TranslateDBClass::Get_Object (index);
-			if (	object != NULL &&
-					object->As_StringTwiddlerClass () == NULL &&
+			if (	object != nullptr &&
+					object->As_StringTwiddlerClass () == nullptr &&
 					object->Contains_Translation (lang_id) == false)
 			{
 				file.Write_Line (object->Get_ID_Desc ());

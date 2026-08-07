@@ -78,7 +78,7 @@ class MultiListObjectClass
 {
 public:
 
-	MultiListObjectClass(void) : ListNode(NULL)								{ }
+	MultiListObjectClass(void) : ListNode(nullptr)								{ }
 	virtual ~MultiListObjectClass(void);
 
 	MultiListNodeClass *		Get_List_Node() const							{ return ListNode; }
@@ -265,7 +265,7 @@ public:
 
 	void				Reset_List()
 	{
-		while (Get_Head() != NULL) {
+		while (Get_Head() != nullptr) {
 			Remove_Head();
 		}
 	}
@@ -308,7 +308,7 @@ public:
 	void				Remove_Current_Object(void)
 	{
 		ObjectType * obj = Peek_Obj();
-		if (obj != NULL) {
+		if (obj != nullptr) {
 			Next();
 			((MultiListClass<ObjectType> *)List)->Remove(obj);
 		}
@@ -423,7 +423,7 @@ public:
 
 	void				Reset_List()
 	{
-		while (Peek_Head() != NULL) {
+		while (Peek_Head() != nullptr) {
 			Release_Head();
 		}
 	}
@@ -449,7 +449,7 @@ public:
 	ObjectType *	Get_Obj(void)
 	{
 		ObjectType * obj = (ObjectType*)Current_Object();
-		if (obj != NULL) {
+		if (obj != nullptr) {
 			obj->Add_Ref();
 		}
 		return obj;
@@ -463,7 +463,7 @@ public:
 	void				Remove_Current_Object(void)
 	{
 		ObjectType * obj = Peek_Obj();
-		if (obj != NULL) {
+		if (obj != nullptr) {
 			Next();
 			((RefMultiListClass<ObjectType> *)List)->Remove(obj);
 		}
@@ -486,7 +486,7 @@ class PriorityMultiListIterator : public MultiListIterator<ObjectType>
 {
 public:
 	PriorityMultiListIterator(MultiListClass<ObjectType> *list)
-		:	OriginalHead (NULL),
+		:	OriginalHead (nullptr),
             MultiListIterator<ObjectType>(list)			{ this->First (); }
 
 	bool
@@ -496,8 +496,8 @@ public:
 
 		//	Check to ensure we don't wrap around the list (stop after iterating
 		// the list once).
-        if (this->CurNode != NULL && this->CurNode->Object != NULL && OriginalHead != this->CurNode) {
-            OriginalHead		= (OriginalHead == NULL) ? this->CurNode : OriginalHead;
+        if (this->CurNode != nullptr && this->CurNode->Object != nullptr && OriginalHead != this->CurNode) {
+            OriginalHead		= (OriginalHead == nullptr) ? this->CurNode : OriginalHead;
             (*object)			= (ObjectType *)this->CurNode->Object;
 
 

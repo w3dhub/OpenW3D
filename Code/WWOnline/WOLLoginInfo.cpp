@@ -82,8 +82,8 @@ const LoginInfoList& LoginInfo::GetList(void)
 
 			for (int index = 1; index <= MAX_NICKNAMES; ++index)
 				{
-				const char* nickname = NULL;
-				const char* password = NULL;
+				const char* nickname = nullptr;
+				const char* password = nullptr;
 				chat->GetNick(index, &nickname, &password);
 
 				if (nickname && (strlen(nickname) > 0))
@@ -167,7 +167,7 @@ RefPtr<LoginInfo> LoginInfo::Find(const unichar_t* name)
 			}
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -204,7 +204,7 @@ RefPtr<LoginInfo> LoginInfo::Create(const unichar_t* nickname, const unichar_t* 
 		return new LoginInfo(nickname, password, isEncrypted);
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -221,7 +221,7 @@ RefPtr<LoginInfo> LoginInfo::Create(const char* nickname, const char* password, 
 		return new LoginInfo(name, pass, isEncrypted);
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -298,7 +298,7 @@ LoginInfo::~LoginInfo()
 
 void LoginInfo::SetPassword(const unichar_t* password, bool isEncrypted)
 	{
-	if (password != NULL)
+	if (password != nullptr)
 		{
 		mPassword = password;
 		mIsPasswordEncrypted = isEncrypted;
@@ -527,8 +527,8 @@ int LoginInfo::IndexOf(const unichar_t* nick)
 
 		for (int index  = 1; index <= MAX_NICKNAMES; ++index)
 			{
-			const char* nickname = NULL;
-			const char* password = NULL;
+			const char* nickname = nullptr;
+			const char* password = nullptr;
 			HRESULT result = chat->GetNick(index, &nickname, &password);
 
 			if (SUCCEEDED(result))
@@ -597,11 +597,11 @@ void LoginInfo::StoreLogin(const char* nickname, const char* password,
 		int index;
 		for (index = 1; index <= MAX_NICKNAMES; ++index)
 			{
-			const char* slotNick = NULL;
-			const char* slotPass = NULL;
+			const char* slotNick = nullptr;
+			const char* slotPass = nullptr;
 			chat->GetNick(index, &slotNick, &slotPass);
 
-			if ((slotNick == NULL) || strlen(slotNick) == 0)
+			if ((slotNick == nullptr) || strlen(slotNick) == 0)
 				{
 				break;
 				}

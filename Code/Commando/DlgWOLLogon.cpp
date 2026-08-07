@@ -84,7 +84,7 @@ bool DlgWOLLogon::DoDialog(const unichar_t* login, Observer<DlgWOLLogonEvent>* o
 		dialog->Release_Ref();
 		}
 
-	return (dialog != NULL);
+	return (dialog != nullptr);
 	}
 
 
@@ -249,7 +249,7 @@ void DlgWOLLogon::On_Command(int ctrl, int message, unsigned int param)
 
 			// Refresh the UI
 			UpdatePersonas();
-			SelectPersona(NULL);
+			SelectPersona(nullptr);
 			}
 			break;
 

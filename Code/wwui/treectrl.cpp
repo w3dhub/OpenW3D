@@ -57,8 +57,8 @@ static const RectClass MINUS_RECT	= RectClass (16, 0, 32, 16);
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
 ////////////////////////////////////////////////////////////////
-TREECTRL_SORT_CALLBACK	TreeCtrlClass::CurrentSortCallback	= NULL;
-TreeCtrlClass *			TreeCtrlClass::CurrentSorter			= NULL;
+TREECTRL_SORT_CALLBACK	TreeCtrlClass::CurrentSortCallback	= nullptr;
+TreeCtrlClass *			TreeCtrlClass::CurrentSorter			= nullptr;
 uint32						TreeCtrlClass::CurrentSortUserData	= 0;
 const char *				TreeCtrlClass::ICON_FOLDER				= "if_treefld.tga";
 const char *				TreeCtrlClass::ICON_FOLDER_OPEN		= "if_treefld_open.tga";
@@ -70,7 +70,7 @@ const char *				TreeCtrlClass::ICON_FOLDER_OPEN		= "if_treefld_open.tga";
 //
 ////////////////////////////////////////////////////////////////
 TreeCtrlClass::TreeCtrlClass (void)	:
-	SelectedItem (NULL),
+	SelectedItem (nullptr),
 	ScrollPos (0),
 	RowHeight (0),
 	RowsPerPage (0),
@@ -90,7 +90,7 @@ TreeCtrlClass::TreeCtrlClass (void)	:
 	//	Load the "plus" texture
 	//
 	TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (PLUS_IMAGE, TextureClass::MIP_LEVELS_1);
-	if (texture != NULL) {
+	if (texture != nullptr) {
 		PlusRenderer.Set_Texture (texture);
 		REF_PTR_RELEASE (texture);
 	}
@@ -114,9 +114,9 @@ TreeCtrlClass::TreeCtrlClass (void)	:
 ////////////////////////////////////////////////////////////////
 TreeCtrlClass::~TreeCtrlClass (void)
 {
-	ScrollBarCtrl.Set_Advise_Sink (NULL);
+	ScrollBarCtrl.Set_Advise_Sink (nullptr);
 
-	if (Parent != NULL) {
+	if (Parent != nullptr) {
 		Parent->Remove_Control (&ScrollBarCtrl);
 	}
 
@@ -170,7 +170,7 @@ bool
 TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int &row_index, int level)
 {
 	bool retval = true;
-	if (item == NULL) {
+	if (item == nullptr) {
 		return false;
 	}
 
@@ -249,7 +249,7 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 		if (SelectedItem == item) {
 			icon_name = item->Get_Selected_Icon ();
 		}
-		if (icon_name != NULL && icon_name[0] != 0) {
+		if (icon_name != nullptr && icon_name[0] != 0) {
 			IconMgr.Render_Icon (icon_rect, icon_name);
 		}
 
@@ -401,7 +401,7 @@ TreeCtrlClass::Count_Visible_Rows (void)
 int
 TreeCtrlClass::Count_Visible_Rows (TreeItemClass *item)
 {
-	if (item == NULL) {
+	if (item == nullptr) {
 		return 0;
 	}
 
@@ -600,7 +600,7 @@ TreeCtrlClass::Sort_Children (TreeItemClass *parent, TREECTRL_SORT_CALLBACK sort
 	CurrentSorter			= this;
 	CurrentSortUserData	= user_data;
 
-	if (parent == NULL) {
+	if (parent == nullptr) {
 
 		//
 		//	Sort the root-level entries
@@ -634,8 +634,8 @@ TreeCtrlClass::Sort_Children (TreeItemClass *parent, TREECTRL_SORT_CALLBACK sort
 int 
 TreeCtrlClass::Sort_Callback (const void *elem1, const void *elem2)
 {
-   WWASSERT (elem1 != NULL);
-   WWASSERT (elem2 != NULL);
+   WWASSERT (elem1 != nullptr);
+   WWASSERT (elem2 != nullptr);
    TreeItemClass *item1 = *((TreeItemClass **)elem1);
    TreeItemClass *item2 = *((TreeItemClass **)elem2);
 
@@ -686,13 +686,13 @@ TreeCtrlClass::Alphabetic_Sort_Callback
 TreeItemClass *
 TreeCtrlClass::Find_Top_Item (void)
 {
-	TreeItemClass *retval = NULL;
+	TreeItemClass *retval = nullptr;
 
 	//
 	//	Count visible items until we've hit the current scroll position
 	//
-	retval = ItemList.Count () > 0 ? ItemList[0] : NULL;
-	for (int index = 0; retval != NULL && index < ScrollPos; index ++) {
+	retval = ItemList.Count () > 0 ? ItemList[0] : nullptr;
+	for (int index = 0; retval != nullptr && index < ScrollPos; index ++) {
 		retval = Find_Next_Visible (retval);
 	}
 
@@ -711,7 +711,7 @@ TreeCtrlClass::Find_Last_Visible_Item (void)
 	//
 	//	Determine where to start...
 	//
-	TreeItemClass *curr_item = NULL;
+	TreeItemClass *curr_item = nullptr;
 	if (ItemList.Count () > 0) {
 		curr_item = ItemList[ItemList.Count () - 1];
 	}
@@ -719,7 +719,7 @@ TreeCtrlClass::Find_Last_Visible_Item (void)
 	//
 	//	Keep searching until we stop finding new visible items...
 	//
-	while (curr_item != NULL) {
+	while (curr_item != nullptr) {
 		TreeItemClass *next_item = Find_Next_Visible (curr_item);
 		if (next_item == curr_item) {
 			break;
@@ -739,13 +739,13 @@ TreeCtrlClass::Find_Last_Visible_Item (void)
 TreeItemClass *
 TreeCtrlClass::Hit_Test (const Vector2 &mouse_pos, HITTYPE &type)
 {
-	TreeItemClass *retval = NULL;
+	TreeItemClass *retval = nullptr;
 
 	//
 	//	Attempt to locate the first visible item
 	//
 	TreeItemClass *hit_item = Find_Top_Item ();
-	if (hit_item != NULL) {
+	if (hit_item != nullptr) {
 
 		//
 		//	Determine on which row of the screen the user clicked
@@ -755,7 +755,7 @@ TreeCtrlClass::Hit_Test (const Vector2 &mouse_pos, HITTYPE &type)
 		//
 		//	Now move down that number of items...
 		//
-		for (int index = 0; hit_item != NULL && index < row_index; index ++) {
+		for (int index = 0; hit_item != nullptr && index < row_index; index ++) {
 			hit_item = Find_Next_Visible (hit_item);
 		}
 
@@ -766,7 +766,7 @@ TreeCtrlClass::Hit_Test (const Vector2 &mouse_pos, HITTYPE &type)
 		//
 		//	Now determine on what part of the item the user clicked...
 		//
-		if (hit_item != NULL) {
+		if (hit_item != nullptr) {
 			int level = hit_item->Get_Indent_Level ();
 			float icon_left = ClientRect.Left + LINE_START + int(level * LINE_SPACING);
 			float plus_left = icon_left - LINE_SPACING;
@@ -805,7 +805,7 @@ TreeCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 	//
 	HITTYPE type;
 	TreeItemClass *tree_item = Hit_Test (mouse_pos, type);
-	if (tree_item != NULL) {
+	if (tree_item != nullptr) {
 		SelectedItem = tree_item;
 
 		//
@@ -835,7 +835,7 @@ TreeCtrlClass::On_LButton_DblClk (const Vector2 &mouse_pos)
 	//
 	HITTYPE type;
 	TreeItemClass *tree_item = Hit_Test (mouse_pos, type);
-	if (tree_item != NULL) {
+	if (tree_item != nullptr) {
 		SelectedItem = tree_item;
 
 		//
@@ -951,13 +951,13 @@ TreeCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 			break;
 
 		case VK_RIGHT:
-			if (SelectedItem != NULL) {
+			if (SelectedItem != nullptr) {
 				SelectedItem->Expand (true);
 			}
 			break;
 
 		case VK_LEFT:
-			if (SelectedItem != NULL) {
+			if (SelectedItem != nullptr) {
 				SelectedItem->Expand (false);
 			}
 			break;
@@ -995,7 +995,7 @@ TreeCtrlClass::On_Create (void)
 void
 TreeCtrlClass::Ensure_Visible (TreeItemClass *item_to_find)
 {
-	if (item_to_find == NULL) {
+	if (item_to_find == nullptr) {
 		Set_Scroll_Pos (0);
 		Set_Dirty ();
 		return ;
@@ -1005,8 +1005,8 @@ TreeCtrlClass::Ensure_Visible (TreeItemClass *item_to_find)
 	//	Start at the first visible item and keep going until we've found the
 	// item we're looking for
 	//
-	TreeItemClass *item = ItemList.Count () > 0 ? ItemList[0] : NULL;
-	for (int row_index = 0; item != NULL; row_index ++) {
+	TreeItemClass *item = ItemList.Count () > 0 ? ItemList[0] : nullptr;
+	for (int row_index = 0; item != nullptr; row_index ++) {
 
 		if (item == item_to_find) {
 
@@ -1058,7 +1058,7 @@ TreeCtrlClass::Insert_Item
 	//
 	//	Now insert this item into the tree
 	//
-	if (parent != NULL) {
+	if (parent != nullptr) {
 		parent->Add_Child (retval);
 		retval->Set_Parent (parent);
 	} else {
@@ -1089,7 +1089,7 @@ TreeCtrlClass::Insert_Item
 void
 TreeCtrlClass::Delete_Item (TreeItemClass *item)
 {
-	if (item == NULL) {
+	if (item == nullptr) {
 		return ;
 	}
 
@@ -1097,7 +1097,7 @@ TreeCtrlClass::Delete_Item (TreeItemClass *item)
 	//	Remove the selected item if necessary
 	//
 	if (SelectedItem == item) {
-		SelectedItem = NULL;
+		SelectedItem = nullptr;
 	}
 
 	//
@@ -1119,7 +1119,7 @@ TreeCtrlClass::Delete_Item (TreeItemClass *item)
 	//	Now unlink this child from its parent (or the root list)
 	//
 	TreeItemClass *parent = item->Get_Parent ();
-	if (parent != NULL) {
+	if (parent != nullptr) {
 		parent->Remove_Child (item);
 	} else {
 
@@ -1136,7 +1136,7 @@ TreeCtrlClass::Delete_Item (TreeItemClass *item)
 	//	Free this item
 	//
 	delete item;
-	item = NULL;
+	item = nullptr;
 
 	//
 	//	Ensure the scroll bar is correctly displayed
@@ -1169,7 +1169,7 @@ TreeCtrlClass::Delete_All_Items (void)
 	//	Ensure the scroll bar is correctly displayed
 	//
 	ScrollPos		= 0;
-	SelectedItem	= NULL;
+	SelectedItem	= nullptr;
 	Update_Scroll_Bar_Visibility ();
 	return ;
 }
@@ -1214,16 +1214,16 @@ TreeCtrlClass::Get_Selected_Item (void)
 TreeItemClass *
 TreeCtrlClass::Get_Next_Sibling (TreeItemClass *item)
 {
-	TreeItemClass *retval = NULL;
-	if (item == NULL) {
-		return NULL;
+	TreeItemClass *retval = nullptr;
+	if (item == nullptr) {
+		return nullptr;
 	}
 
 	//
 	//	If this item has a parent, then ask it for the sibling...
 	//
 	TreeItemClass *parent = item->Get_Parent ();
-	if (parent != NULL) {
+	if (parent != nullptr) {
 		retval = parent->Get_Next_Child (item);
 	} else {
 
@@ -1248,16 +1248,16 @@ TreeCtrlClass::Get_Next_Sibling (TreeItemClass *item)
 TreeItemClass *
 TreeCtrlClass::Get_Prev_Sibling (TreeItemClass *item)
 {
-	TreeItemClass *retval = NULL;
-	if (item == NULL) {
-		return NULL;
+	TreeItemClass *retval = nullptr;
+	if (item == nullptr) {
+		return nullptr;
 	}
 
 	//
 	//	If this item has a parent, then ask it for the sibling...
 	//
 	TreeItemClass *parent = item->Get_Parent ();
-	if (parent != NULL) {
+	if (parent != nullptr) {
 		retval = parent->Get_Prev_Child (item);
 	} else {
 
@@ -1282,12 +1282,12 @@ TreeCtrlClass::Get_Prev_Sibling (TreeItemClass *item)
 TreeItemClass *
 TreeCtrlClass::Find_Prev_Visible (TreeItemClass *item)
 {
-	TreeItemClass *retval = NULL;
-	if (item == NULL) {
+	TreeItemClass *retval = nullptr;
+	if (item == nullptr) {
 		if (ItemList.Count () > 0) {
 			return ItemList[0];
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	//
@@ -1295,7 +1295,7 @@ TreeCtrlClass::Find_Prev_Visible (TreeItemClass *item)
 	//	If you can't find the sibling, then return its parent
 	//
 	retval = Get_Prev_Sibling (item);
-	if (retval == NULL) {
+	if (retval == nullptr) {
 		retval = item->Get_Parent ();
 	} else {
 
@@ -1305,7 +1305,7 @@ TreeCtrlClass::Find_Prev_Visible (TreeItemClass *item)
 			//	Find the last child for this given item
 			//
 			TreeItemClass *curr_item = retval->Get_Last_Child ();
-			if (curr_item != NULL) {
+			if (curr_item != nullptr) {
 				retval = curr_item;
 			} else {
 				break;
@@ -1317,7 +1317,7 @@ TreeCtrlClass::Find_Prev_Visible (TreeItemClass *item)
 	//	If we didn't find a previous visible entry, then
 	// simply return the item we were given
 	//
-	if (retval == NULL) {
+	if (retval == nullptr) {
 		retval = item;
 	}
 
@@ -1333,12 +1333,12 @@ TreeCtrlClass::Find_Prev_Visible (TreeItemClass *item)
 TreeItemClass *
 TreeCtrlClass::Find_Next_Visible (TreeItemClass *item)
 {
-	TreeItemClass *retval = NULL;
-	if (item == NULL) {
+	TreeItemClass *retval = nullptr;
+	if (item == nullptr) {
 		if (ItemList.Count () > 0) {
 			return ItemList[0];
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	//
@@ -1348,23 +1348,23 @@ TreeCtrlClass::Find_Next_Visible (TreeItemClass *item)
 		retval = item->Get_Child (0);
 	}
 
-	if (retval == NULL) {
+	if (retval == nullptr) {
 
 		//
 		//	Try to find this item's next sibling...
 		//
 		retval = Get_Next_Sibling (item);
-		if (retval == NULL) {
+		if (retval == nullptr) {
 
 			//
 			//	Loop outwards through each parent until
 			// we can find the next sibling of any parent...
 			//
 			TreeItemClass *curr_item = item;
-			while (curr_item != NULL && retval == NULL) {
+			while (curr_item != nullptr && retval == nullptr) {
 
 				curr_item = curr_item->Get_Parent ();
-				if (curr_item != NULL) {
+				if (curr_item != nullptr) {
 					retval = Get_Next_Sibling (curr_item);
 				}
 			}
@@ -1375,7 +1375,7 @@ TreeCtrlClass::Find_Next_Visible (TreeItemClass *item)
 	//	If we didn't find a previous visible entry, then
 	// simply return the item we were given
 	//
-	if (retval == NULL) {
+	if (retval == nullptr) {
 		retval = item;
 	}
 
@@ -1408,7 +1408,7 @@ TreeCtrlClass::Update_Scroll_Bar_Visibility (void)
 		if (needs_scrollbar) {
 			new_right = ScrollBarCtrl.Get_Window_Rect ().Left;
 			IsScrollBarDisplayed = true;
-		} else if (Parent != NULL) {
+		} else if (Parent != nullptr) {
 			new_right = ScrollBarCtrl.Get_Window_Rect ().Right;
 			IsScrollBarDisplayed = false;
 		}
@@ -1460,7 +1460,7 @@ TreeCtrlClass::On_Expanded (TreeItemClass *item)
 	//	Check to see if this item needs its children filled in.  If so,
 	// then notify the advise sinks
 	//
-	if (item != NULL && item->Is_Expanded () && item->Needs_Children ()) {
+	if (item != nullptr && item->Is_Expanded () && item->Needs_Children ()) {
 		ADVISE_NOTIFY (On_TreeCtrl_Needs_Children (this, Get_ID (), item));
 	}
 
@@ -1536,7 +1536,7 @@ TreeItemClass::Set_Icon (const char *texture_name)
 	//
 	//	Add this icon to our manager
 	//
-	if (texture_name != NULL) {
+	if (texture_name != nullptr) {
 		TreeCtrl->IconMgr.Add_Icon (texture_name);
 	}
 
@@ -1558,7 +1558,7 @@ TreeItemClass::Set_Selected_Icon (const char *texture_name)
 	//
 	//	Add this icon to our manager
 	//
-	if (texture_name != NULL) {
+	if (texture_name != nullptr) {
 		TreeCtrl->IconMgr.Add_Icon (texture_name);
 	}
 
@@ -1575,9 +1575,9 @@ TreeItemClass::Set_Selected_Icon (const char *texture_name)
 TreeItemClass *
 TreeItemClass::Get_Prev_Child (TreeItemClass *child)
 {
-	TreeItemClass *retval = NULL;
-	if (child == NULL) {
-		return NULL;
+	TreeItemClass *retval = nullptr;
+	if (child == nullptr) {
+		return nullptr;
 	}
 
 	//
@@ -1600,9 +1600,9 @@ TreeItemClass::Get_Prev_Child (TreeItemClass *child)
 TreeItemClass *
 TreeItemClass::Get_Next_Child (TreeItemClass *child)
 {
-	TreeItemClass *retval = NULL;
-	if (child == NULL) {
-		return NULL;
+	TreeItemClass *retval = nullptr;
+	if (child == nullptr) {
+		return nullptr;
 	}
 
 	//
@@ -1631,7 +1631,7 @@ TreeItemClass::Get_Indent_Level (void)
 	//	Count the number of parents this item has
 	//
 	TreeItemClass *curr_item = this;
-	while ((curr_item = curr_item->Get_Parent ()) != NULL) {
+	while ((curr_item = curr_item->Get_Parent ()) != nullptr) {
 		retval ++;
 	}
 
@@ -1647,7 +1647,7 @@ TreeItemClass::Get_Indent_Level (void)
 TreeItemClass *
 TreeItemClass::Get_Last_Child (void)
 {
-	TreeItemClass *retval = NULL;
+	TreeItemClass *retval = nullptr;
 
 	if (ChildList.Count () > 0) {
 		retval = ChildList[ChildList.Count () - 1];

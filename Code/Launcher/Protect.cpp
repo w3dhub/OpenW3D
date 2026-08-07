@@ -69,14 +69,14 @@ const char* const LAUNCHER_GUID = "48BC11BD-C4D7-466b-8A31-C6ABBAD47B3E";
 ******************************************************************************/
 
 Protect::Protect()
-	: mLauncherMutex(NULL),
-	  mMappedFile(NULL)
+	: mLauncherMutex(nullptr),
+	  mMappedFile(nullptr)
 	{
 	// Secure launcher mutex
-	mLauncherMutex = CreateMutexA(NULL, false, LAUNCHER_GUID);
+	mLauncherMutex = CreateMutexA(nullptr, false, LAUNCHER_GUID);
 
-	if ((mLauncherMutex == NULL) ||
-			((mLauncherMutex != NULL) && (GetLastError() == ERROR_ALREADY_EXISTS)))
+	if ((mLauncherMutex == nullptr) ||
+			((mLauncherMutex != nullptr) && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
 		return;
 		}
@@ -93,36 +93,36 @@ Protect::Protect()
 
 	SECURITY_ATTRIBUTES security;
 	security.nLength = sizeof(security);
-	security.lpSecurityDescriptor = NULL;
+	security.lpSecurityDescriptor = nullptr;
 	security.bInheritHandle = true;
 
 	mMappedFile = CreateFileMappingA(INVALID_HANDLE_VALUE, &security,
-		PAGE_READWRITE, 0, fileSize, NULL);
+		PAGE_READWRITE, 0, fileSize, nullptr);
 
-	if ((mMappedFile == NULL) ||
-			((mMappedFile != NULL) && (GetLastError() == ERROR_ALREADY_EXISTS)))
+	if ((mMappedFile == nullptr) ||
+			((mMappedFile != nullptr) && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
 		PrintWin32Error("***** CreateFileMappingA() Failed!");
 	  CloseHandle(mMappedFile);
-		mMappedFile = NULL;
+		mMappedFile = nullptr;
 		return;
 		}
 
 	// Map file to programs address space
-	LPVOID mapAddress = MapViewOfFileEx(mMappedFile, FILE_MAP_ALL_ACCESS, 0, 0, 0, NULL);
+	LPVOID mapAddress = MapViewOfFileEx(mMappedFile, FILE_MAP_ALL_ACCESS, 0, 0, 0, nullptr);
 
-	if (mapAddress == NULL)
+	if (mapAddress == nullptr)
 		{
 		PrintWin32Error("***** MapViewOfFileEx() Failed!");
 		return;
 		}
 
 	// Decrypt protected file contents to mapping file
-	void* buffer = NULL;
+	void* buffer = nullptr;
 	UInt32 bufferSize = 0;
 	file.Load(buffer, bufferSize);
 
-	if ((buffer != NULL) && (bufferSize > 0))
+	if ((buffer != nullptr) && (bufferSize > 0))
 		{
 	 	// Retrieve protection key
 		RefPtr<UString> passKey = GetPassKey();
@@ -158,16 +158,16 @@ Protect::Protect()
 
 Protect::~Protect()
 	{
-	if (mMappedFile != NULL)
+	if (mMappedFile != nullptr)
 		{
 		CloseHandle(mMappedFile);
-		mMappedFile = NULL;
+		mMappedFile = nullptr;
 		}
 
-	if (mLauncherMutex != NULL)
+	if (mLauncherMutex != nullptr)
 		{
 		CloseHandle(mLauncherMutex);
-		mLauncherMutex = NULL;
+		mLauncherMutex = nullptr;
 		}
 	}
 
@@ -195,9 +195,9 @@ void Protect::SendMappedFileHandle(HANDLE process, DWORD threadID) const
 
 	DebugPrint("Creating running notification event.\n");
 	const char* const protectGUID = "D6E7FC97-64F9-4d28-B52C-754EDF721C6F";
-	HANDLE event = CreateEventA(NULL, false, false, protectGUID);
+	HANDLE event = CreateEventA(nullptr, false, false, protectGUID);
 
-	if ((event == NULL) || ((event != NULL) && (GetLastError() == ERROR_ALREADY_EXISTS)))
+	if ((event == nullptr) || ((event != nullptr) && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
 		PrintWin32Error("CreateEventA() Failed!");
 		return;
@@ -222,7 +222,7 @@ void Protect::SendMappedFileHandle(HANDLE process, DWORD threadID) const
 
 	if (waitResult == WAIT_OBJECT_0)
 		{
-		if (mMappedFile != NULL)
+		if (mMappedFile != nullptr)
 			{
 			DebugPrint("Sending game the beef. (%lx)\n", mMappedFile);
 			BOOL sent = PostThreadMessage(threadID, 0xBEEF, 0, (LPARAM)mMappedFile);
@@ -292,7 +292,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 			// Retrieve install path
 			DWORD type;
 			DWORD sizeOfBuffer = sizeof(installPath);
-			result = RegQueryValueExA(hKey, "InstallPath", NULL, &type, installPath, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "InstallPath", nullptr, &type, installPath, &sizeOfBuffer);
 
 			if (result != ERROR_SUCCESS)
 				{
@@ -309,14 +309,14 @@ RefPtr<UString> Protect::GetPassKey(void) const
 
 			// Retrieve Hard drive S/N
 			char drive[8];
-			_splitpath((const char*)installPath, drive, NULL, NULL, NULL);
+			_splitpath((const char*)installPath, drive, nullptr, nullptr, nullptr);
 			strcat(drive, "\\");
 
 			DWORD volumeSerialNumber = 0;
 			DWORD maxComponentLength;
 			DWORD fileSystemFlags;
-			BOOL volInfoSuccess = GetVolumeInformationA((const char*)drive, NULL, 0,
-				&volumeSerialNumber, &maxComponentLength, &fileSystemFlags, NULL, 0);
+			BOOL volInfoSuccess = GetVolumeInformationA((const char*)drive, nullptr, 0,
+				&volumeSerialNumber, &maxComponentLength, &fileSystemFlags, nullptr, 0);
 
 			if (volInfoSuccess == false)
 				{
@@ -334,7 +334,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 			unsigned char gameSerialNumber[64];
 			gameSerialNumber[0] = '\0';
 			sizeOfBuffer = sizeof(gameSerialNumber);
-			result = RegQueryValueExA(hKey, "Serial", NULL, &type, gameSerialNumber, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "Serial", nullptr, &type, gameSerialNumber, &sizeOfBuffer);
 
 			if (result != ERROR_SUCCESS)
 				{
@@ -373,7 +373,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 
 			DWORD type;
 			DWORD sizeOfBuffer = sizeof(winProductID);
-			result = RegQueryValueExA(hKey, "ProductID", NULL, &type, winProductID, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "ProductID", nullptr, &type, winProductID, &sizeOfBuffer);
 
 			if (result != ERROR_SUCCESS)
 				{
@@ -402,8 +402,8 @@ RefPtr<UString> Protect::GetPassKey(void) const
 
 #else
 
-HANDLE mLauncherMutex = NULL;
-HANDLE mMappedFile = NULL;
+HANDLE mLauncherMutex = nullptr;
+HANDLE mMappedFile = nullptr;
 
 void InitializeProtect(void)
 	{
@@ -411,13 +411,13 @@ void InitializeProtect(void)
 
 	DebugPrint("Initializing protection\n");
 
-	mLauncherMutex = NULL;
-	mMappedFile = NULL;
+	mLauncherMutex = nullptr;
+	mMappedFile = nullptr;
 
 	// Secure launcher mutex
-	mLauncherMutex = CreateMutexA(NULL, false, LAUNCHER_GUID);
+	mLauncherMutex = CreateMutexA(nullptr, false, LAUNCHER_GUID);
 
-	if ((mLauncherMutex == NULL) || (mLauncherMutex && (GetLastError() == ERROR_ALREADY_EXISTS)))
+	if ((mLauncherMutex == nullptr) || (mLauncherMutex && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
 		DebugPrint("***** Failed to create launcher mutex\n");
 		return;
@@ -436,16 +436,16 @@ void InitializeProtect(void)
 
 	SECURITY_ATTRIBUTES security;
 	security.nLength = sizeof(security);
-	security.lpSecurityDescriptor = NULL;
+	security.lpSecurityDescriptor = nullptr;
 	security.bInheritHandle = true;
 
-	mMappedFile = CreateFileMappingA(INVALID_HANDLE_VALUE, &security, PAGE_READWRITE, 0, fileSize, NULL);
+	mMappedFile = CreateFileMappingA(INVALID_HANDLE_VALUE, &security, PAGE_READWRITE, 0, fileSize, nullptr);
 
-	if ((mMappedFile == NULL) || (mMappedFile && (GetLastError() == ERROR_ALREADY_EXISTS)))
+	if ((mMappedFile == nullptr) || (mMappedFile && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
 		PrintWin32Error("***** CreateFileMappingA() Failed!");
 	  CloseHandle(mMappedFile);
-		mMappedFile = NULL;
+		mMappedFile = nullptr;
 		return;
 		}
 	}
@@ -466,15 +466,15 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 		}
 
 	// Map file to programs address space
-	LPVOID mapAddress = MapViewOfFileEx(mMappedFile, FILE_MAP_ALL_ACCESS, 0, 0, 0, NULL);
+	LPVOID mapAddress = MapViewOfFileEx(mMappedFile, FILE_MAP_ALL_ACCESS, 0, 0, 0, nullptr);
 
-	if (mapAddress == NULL)
+	if (mapAddress == nullptr)
 		{
 		PrintWin32Error("***** MapViewOfFileEx() Failed!");
 		return;
 		}
 
-	void* buffer = NULL;
+	void* buffer = nullptr;
 	UInt32 bufferSize = 0;
 	file.Load(buffer, bufferSize);
 
@@ -515,7 +515,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			unsigned char installPath[MAX_PATH];
 			DWORD type;
 			DWORD sizeOfBuffer = sizeof(installPath);
-			result = RegQueryValueExA(hKey, "InstallPath", NULL, &type, installPath, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "InstallPath", nullptr, &type, installPath, &sizeOfBuffer);
 
 			assert((result == ERROR_SUCCESS) && "Failed to obtain game install path!");
 			assert((strlen((const char*)installPath) > 0) && "Game install path invalid!");
@@ -523,14 +523,14 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 			// Retrieve Hard drive S/N
 			char drive[8];
-			_splitpath((const char*)installPath, drive, NULL, NULL, NULL);
+			_splitpath((const char*)installPath, drive, nullptr, nullptr, nullptr);
 			strcat(drive, "\\");
 
 			DWORD volumeSerialNumber = 0;
 			DWORD maxComponentLength;
 			DWORD fileSystemFlags;
-			BOOL volInfoSuccess = GetVolumeInformationA((const char*)drive, NULL, 0,
-					&volumeSerialNumber, &maxComponentLength, &fileSystemFlags, NULL, 0);
+			BOOL volInfoSuccess = GetVolumeInformationA((const char*)drive, nullptr, 0,
+					&volumeSerialNumber, &maxComponentLength, &fileSystemFlags, nullptr, 0);
 
 			if (volInfoSuccess == false)
 				{
@@ -548,7 +548,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			unsigned char gameSerialNumber[64];
 			gameSerialNumber[0] = '\0';
 			sizeOfBuffer = sizeof(gameSerialNumber);
-			result = RegQueryValueExA(hKey, "Serial", NULL, &type, gameSerialNumber, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "Serial", nullptr, &type, gameSerialNumber, &sizeOfBuffer);
 
 			assert((result == ERROR_SUCCESS) && "Failed to obtain windows serial number!");
 			assert((strlen((const char*)gameSerialNumber) > 0) && "Game serial number invalid!");
@@ -572,7 +572,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 			DWORD type;
 			DWORD sizeOfBuffer = sizeof(winProductID);
-			result = RegQueryValueExA(hKey, "ProductID", NULL, &type, winProductID, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "ProductID", nullptr, &type, winProductID, &sizeOfBuffer);
 
 			assert((result == ERROR_SUCCESS) && "Failed to obtain windows product ID!");
 			assert((strlen((const char*)winProductID) > 0) && "Invalid windows product ID");
@@ -607,9 +607,9 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 	DebugPrint("Creating running notification event.\n");
 	const char* const protectGUID = "D6E7FC97-64F9-4d28-B52C-754EDF721C6F";
-	HANDLE event = CreateEventA(NULL, false, false, protectGUID);
+	HANDLE event = CreateEventA(nullptr, false, false, protectGUID);
 
-	if ((event == NULL) || (event && (GetLastError() == ERROR_ALREADY_EXISTS)))
+	if ((event == nullptr) || (event && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
 		PrintWin32Error("***** CreateEventA() Failed!");
 		return;
@@ -634,7 +634,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 	if (waitResult == WAIT_OBJECT_0)
 		{
-		if (mMappedFile != NULL)
+		if (mMappedFile != nullptr)
 			{
 			DebugPrint("Sending game the beef. (%lx)\n", mMappedFile);
 			BOOL sent = PostThreadMessage(threadID, 0xBEEF, 0, (LPARAM)mMappedFile);
@@ -660,13 +660,13 @@ void ShutdownProtect(void)
 	if (mMappedFile)
 		{
 		CloseHandle(mMappedFile);
-		mMappedFile = NULL;
+		mMappedFile = nullptr;
 		}
 
 	if (mLauncherMutex)
 		{
 		CloseHandle(mLauncherMutex);
-		mLauncherMutex = NULL;
+		mLauncherMutex = nullptr;
 		}
 	}
 

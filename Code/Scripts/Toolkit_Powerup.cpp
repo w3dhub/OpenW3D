@@ -135,7 +135,7 @@ DECLARE_SCRIPT(M00_Soldier_Powerup_Grant, "")
 			Vector3 spawn_spot = Commands->Get_Position ( obj );
 			spawn_spot.Z += 0.75f;	// Bump it up a bit
 
-			GameObject * powerup = NULL;
+			GameObject * powerup = nullptr;
 
 			// If star's health < 25%, drop health
 			if ( star_health_percent < 0.25f ) {
@@ -144,31 +144,31 @@ DECLARE_SCRIPT(M00_Soldier_Powerup_Grant, "")
 			}
 
 			// If star's shield < 25%, drop shield
-			if ( powerup == NULL && star_shield_percent < 0.25f ) {
+			if ( powerup == nullptr && star_shield_percent < 0.25f ) {
 				Commands->Debug_Message( "Soldier_Powerup_Grant: Star's Shield < 25%%.  Dropping Sheild\n" );
 				powerup = Commands->Create_Object ( "tw_POW00_Armor", spawn_spot );
 			}
 
 			// If star's health > 75%, drop weapon
-			if ( powerup == NULL && star_health_percent > 0.75f ) {
+			if ( powerup == nullptr && star_health_percent > 0.75f ) {
 				const char * weapon_powerup = Soldier_Powerup_Table[index][1];
-				if ( weapon_powerup != NULL && weapon_powerup[0] != 0 ) {
+				if ( weapon_powerup != nullptr && weapon_powerup[0] != 0 ) {
 					Commands->Debug_Message( "Soldier_Powerup_Grant: Star's Health > 75%%.  Dropping soldier's weapon %s\n", weapon_powerup );
 					powerup = Commands->Create_Object ( weapon_powerup, spawn_spot );
 				}
 			}
 
 			// Drop soldier's twiddler
-			if ( powerup == NULL ) {
+			if ( powerup == nullptr ) {
 				const char * twiddler = Soldier_Powerup_Table[index][2];
-				if ( twiddler != NULL && twiddler[0] != 0 ) {
+				if ( twiddler != nullptr && twiddler[0] != 0 ) {
 					Commands->Debug_Message( "Soldier_Powerup_Grant: Dropping twiddler %s\n", twiddler );
 					powerup = Commands->Create_Object ( twiddler, spawn_spot );
 				}
 			}
 
 			// It we created a powerup, give it the powerup script
-			if ( powerup != NULL ) {
+			if ( powerup != nullptr ) {
 				Commands->Attach_Script( powerup, "M00_Powerup_Destroy", "");
 			}
 		}
@@ -418,7 +418,7 @@ DECLARE_SCRIPT (M00_Death_Powerup, "")
 	{
 		if ((type == CUSTOM_EVENT_POWERUP_GRANTED) && (sender))
 		{
-			Commands->Apply_Damage (sender, 10000.0f, "Death", NULL);
+			Commands->Apply_Damage (sender, 10000.0f, "Death", nullptr);
 		}
 	}
 };

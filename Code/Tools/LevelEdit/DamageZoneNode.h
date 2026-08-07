@@ -67,7 +67,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	DamageZoneNodeClass (PresetClass *preset = NULL);
+	DamageZoneNodeClass (PresetClass *preset = nullptr);
 	DamageZoneNodeClass (const DamageZoneNodeClass &src);
 	~DamageZoneNodeClass (void);
 
@@ -214,8 +214,8 @@ DamageZoneNodeClass::On_Transform (void)
 inline Box3DClass *
 DamageZoneNodeClass::Get_Box (void)
 {
-	Box3DClass *box = NULL;
-	if (m_PhysObj != NULL) {
+	Box3DClass *box = nullptr;
+	if (m_PhysObj != nullptr) {
 		box = m_PhysObj->Get_Box ();
 	}
 

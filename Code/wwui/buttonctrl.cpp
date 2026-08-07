@@ -675,7 +675,7 @@ ButtonCtrlClass::Set_Bitmap (const char *texture_up_name, const char *texture_dn
 	//
 	//	Configure the down bitmap
 	//
-	if (texture_dn_name != NULL && texture_dn_name[0] != 0) {
+	if (texture_dn_name != nullptr && texture_dn_name[0] != 0) {
 		TextureClass *texture_dn = WW3DAssetManager::Get_Instance ()->Get_Texture (texture_dn_name, TextureClass::MIP_LEVELS_1);
 		ButtonRenderers[1].Set_Texture (texture_dn);
 		REF_PTR_RELEASE (texture_dn);

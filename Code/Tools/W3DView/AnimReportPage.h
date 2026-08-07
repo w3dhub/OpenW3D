@@ -37,7 +37,7 @@ class CAnimReportPage : public CPropertyPage
 
 // Construction
 public:
-	CAnimReportPage(CAdvancedAnimSheet *sheet = NULL);
+	CAnimReportPage(CAdvancedAnimSheet *sheet = nullptr);
 	~CAnimReportPage();
 
 // Dialog Data

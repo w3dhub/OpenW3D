@@ -40,7 +40,7 @@ class EditConversationListDialogClass : public CDialog
 {
 // Construction
 public:
-	EditConversationListDialogClass(CWnd* pParent = NULL);   // standard constructor
+	EditConversationListDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(EditConversationListDialogClass)

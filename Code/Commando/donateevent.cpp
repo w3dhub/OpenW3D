@@ -96,8 +96,8 @@ cDonateEvent::Act(void)
 	cPlayer * p_donor = cPlayerManager::Find_Player(SenderId);
 	cPlayer * p_recipient = cPlayerManager::Find_Player(RecipientId);
 
-	if (p_donor != NULL &&
-		 p_recipient != NULL &&
+	if (p_donor != nullptr &&
+		 p_recipient != nullptr &&
 		 Amount >= cDonateEvent::Get_Minimum_Acceptable_Donation() &&
 		 (p_donor->Get_Player_Type() == p_recipient->Get_Player_Type()) &&
 		 p_donor->Get_Money() >= Amount) {

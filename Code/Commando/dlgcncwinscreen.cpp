@@ -59,7 +59,7 @@
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
 ////////////////////////////////////////////////////////////////
-CNCWinScreenMenuClass *	CNCWinScreenMenuClass::_TheInstance		= NULL;
+CNCWinScreenMenuClass *	CNCWinScreenMenuClass::_TheInstance		= nullptr;
 const float					CNCWinScreenMenuClass::UpdateIntervalS	= 0.2f;
 
 
@@ -82,7 +82,7 @@ enum
 //
 ////////////////////////////////////////////////////////////////
 CNCWinScreenMenuClass::CNCWinScreenMenuClass (void)	:
-	HeaderModel (NULL),
+	HeaderModel (nullptr),
 	UpdateTimer (UpdateIntervalS),
 	ShowLadderPoints(false),
 	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CNC_WINSCREEN))
@@ -107,8 +107,8 @@ CNCWinScreenMenuClass::CNCWinScreenMenuClass (void)	:
 	//
 	// Should we show ladder points?
 	//
-	WWASSERT(GameModeManager::Find("WOL") != NULL);
-	WWASSERT(The_Game() != NULL);
+	WWASSERT(GameModeManager::Find("WOL") != nullptr);
+	WWASSERT(The_Game() != nullptr);
 	if (GameModeManager::Find("WOL")->Is_Active() && The_Game()->IsLaddered.Is_True()) {
 		ShowLadderPoints = true;
 	}
@@ -125,12 +125,12 @@ CNCWinScreenMenuClass::CNCWinScreenMenuClass (void)	:
 ////////////////////////////////////////////////////////////////
 CNCWinScreenMenuClass::~CNCWinScreenMenuClass (void)
 {
-	if (HeaderModel != NULL) {
+	if (HeaderModel != nullptr) {
 		HeaderModel->Remove ();
 		REF_PTR_RELEASE (HeaderModel);
 	}
 
-	_TheInstance = NULL;
+	_TheInstance = nullptr;
 	return ;
 }
 
@@ -147,7 +147,7 @@ CNCWinScreenMenuClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_WIN1_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the columns
@@ -162,7 +162,7 @@ CNCWinScreenMenuClass::On_Init_Dialog (void)
 	}
 
 	list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOSE1_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the columns
@@ -464,14 +464,14 @@ CNCWinScreenMenuClass::On_Command (int ctrl_id, int message_id, unsigned int par
 void
 CNCWinScreenMenuClass::On_Menu_Activate (bool onoff)
 {
-	if (HeaderModel != NULL) {
+	if (HeaderModel != nullptr) {
 
 		//
 		//	Either add or remove the header from the scene
 		//
 		if (onoff) {
 
-			if (HeaderModel->Peek_Scene () == NULL) {
+			if (HeaderModel->Peek_Scene () == nullptr) {
 				WinScreenBackdrop.Peek_Scene ()->Add_Render_Object (HeaderModel);
 			}
 
@@ -493,7 +493,7 @@ CNCWinScreenMenuClass::On_Menu_Activate (bool onoff)
 void
 CNCWinScreenMenuClass::Close_Dialog (void)
 {
-	if (_TheInstance != NULL) {
+	if (_TheInstance != nullptr) {
 		_TheInstance->End_Dialog ();
 	}
 
@@ -513,7 +513,7 @@ CNCWinScreenMenuClass::Populate_Player_Lists (int team_id, int list_ctrl1_id)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (list_ctrl1_id);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -524,11 +524,11 @@ CNCWinScreenMenuClass::Populate_Player_Lists (int team_id, int list_ctrl1_id)
 	//
 	int index = 0;
 	for (	SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ();
-			player_node != NULL;
+			player_node != nullptr;
 			player_node = player_node->Next ())
 	{
 		cPlayer *player = player_node->Data ();
-		WWASSERT (player != NULL);
+		WWASSERT (player != nullptr);
 
 		if (player->Get_Is_Active().Is_False ()) {
 			continue;
@@ -621,8 +621,8 @@ CNCWinScreenMenuClass::ListSortCallback
 	const void *elem2
 )
 {
-   WWASSERT (elem1 != NULL);
-   WWASSERT (elem2 != NULL);
+   WWASSERT (elem1 != nullptr);
+   WWASSERT (elem2 != nullptr);
    cPlayer *player1 = *((cPlayer **)elem1);
    cPlayer *player2 = *((cPlayer **)elem2);
 

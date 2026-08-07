@@ -65,8 +65,8 @@ ServerControlClass ServerControl;
  *=============================================================================================*/
 ServerControlClass::ServerControlClass(void)
 {
-	AppRequestCallback = NULL;
-	AppResponseCallback = NULL;
+	AppRequestCallback = nullptr;
+	AppResponseCallback = nullptr;
 	LocalPort = 63999;
 	strcpy(Password, "");
 	Listening = false;
@@ -249,7 +249,7 @@ void ServerControlClass::Parse_Message(void *buffer, [[maybe_unused]] int len, u
 {
 	ControlMessageStruct *message = (ControlMessageStruct*) buffer;
 	assert(len <= sizeof(ControlMessageStruct));
-	assert(message != NULL);
+	assert(message != nullptr);
 
 	/*
 	** This line prevents external control by only accepting messages from the loopback address.
@@ -351,7 +351,7 @@ void ServerControlClass::Add_Remote_Control(unsigned int ip, unsigned short port
 {
 	RemoteControlStruct *control = Get_Controller(ip, port);
 
-	if (control == NULL) {
+	if (control == nullptr) {
 		control = new RemoteControlStruct;
 		RemoteControllers.Add(control);
 	}
@@ -442,7 +442,7 @@ ServerControlClass::RemoteControlStruct *ServerControlClass::Get_Controller(unsi
 			return(control);
 		}
 	}
-	return(NULL);
+	return(nullptr);
 }
 
 

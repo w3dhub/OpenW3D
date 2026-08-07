@@ -78,7 +78,7 @@ bool	PersistentGameObjObserverClass::Save( ChunkSaveClass & csave )
 
 bool	PersistentGameObjObserverClass::Load( ChunkLoadClass &cload )
 {
-	void * old_observer_ptr = NULL;
+	void * old_observer_ptr = nullptr;
 
 	while (cload.Open_Chunk()) {
 		switch(cload.Cur_Chunk_ID()) {
@@ -109,8 +109,8 @@ bool	PersistentGameObjObserverClass::Load( ChunkLoadClass &cload )
 		cload.Close_Chunk();
 	}
 
-	WWASSERT( old_observer_ptr != NULL );
-	if ( old_observer_ptr != NULL ) {
+	WWASSERT( old_observer_ptr != nullptr );
+	if ( old_observer_ptr != nullptr ) {
 		SaveLoadSystemClass::Register_Pointer( old_observer_ptr, (GameObjObserverClass*)this );
 	}
 

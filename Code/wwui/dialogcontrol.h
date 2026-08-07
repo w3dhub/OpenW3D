@@ -73,8 +73,8 @@ class ShortcutBarCtrlClass;
 //	Useful macros
 ////////////////////////////////////////////////////////////////
 #define ADVISE_NOTIFY(fn)									\
-		if (Parent != NULL)		{ Parent->fn; }		\
-		if (AdviseSink != NULL)	{ AdviseSink->fn;	}
+		if (Parent != nullptr)		{ Parent->fn; }		\
+		if (AdviseSink != nullptr)	{ AdviseSink->fn;	}
 
 
 ////////////////////////////////////////////////////////////////
@@ -105,20 +105,20 @@ public:
 	//
 	//	RTTI
 	//
-	virtual CheckBoxCtrlClass *		As_CheckBoxCtrlClass (void)	{ return NULL; }
-	virtual EditCtrlClass *				As_EditCtrlClass (void)			{ return NULL; }
-	virtual ListCtrlClass *				As_ListCtrlClass (void)			{ return NULL; }
-	virtual TabCtrlClass *				As_TabCtrlClass (void)			{ return NULL; }
-	virtual DialogTextClass *			As_DialogTextClass (void)		{ return NULL; }
-	virtual InputCtrlClass *			As_InputCtrlClass (void)		{ return NULL; }
-	virtual ButtonCtrlClass *			As_ButtonCtrlClass (void)		{ return NULL; }
-	virtual MenuEntryCtrlClass *		As_MenuEntryCtrlClass (void)	{ return NULL; }
-	virtual ComboBoxCtrlClass *		As_ComboBoxCtrlClass (void)	{ return NULL; }
-	virtual ScrollBarCtrlClass *		As_ScrollBarCtrlClass (void)	{ return NULL; }
-	virtual SliderCtrlClass *			As_SliderCtrlClass (void)		{ return NULL; }
-	virtual ViewerCtrlClass *			As_ViewerCtrlClass (void)		{ return NULL; }
-	virtual ShortcutBarCtrlClass *	As_ShortcutBarCtrlClass (void){ return NULL; }
-	virtual TreeCtrlClass *				As_TreeCtrlClass (void)			{ return NULL; }
+	virtual CheckBoxCtrlClass *		As_CheckBoxCtrlClass (void)	{ return nullptr; }
+	virtual EditCtrlClass *				As_EditCtrlClass (void)			{ return nullptr; }
+	virtual ListCtrlClass *				As_ListCtrlClass (void)			{ return nullptr; }
+	virtual TabCtrlClass *				As_TabCtrlClass (void)			{ return nullptr; }
+	virtual DialogTextClass *			As_DialogTextClass (void)		{ return nullptr; }
+	virtual InputCtrlClass *			As_InputCtrlClass (void)		{ return nullptr; }
+	virtual ButtonCtrlClass *			As_ButtonCtrlClass (void)		{ return nullptr; }
+	virtual MenuEntryCtrlClass *		As_MenuEntryCtrlClass (void)	{ return nullptr; }
+	virtual ComboBoxCtrlClass *		As_ComboBoxCtrlClass (void)	{ return nullptr; }
+	virtual ScrollBarCtrlClass *		As_ScrollBarCtrlClass (void)	{ return nullptr; }
+	virtual SliderCtrlClass *			As_SliderCtrlClass (void)		{ return nullptr; }
+	virtual ViewerCtrlClass *			As_ViewerCtrlClass (void)		{ return nullptr; }
+	virtual ShortcutBarCtrlClass *	As_ShortcutBarCtrlClass (void){ return nullptr; }
+	virtual TreeCtrlClass *				As_TreeCtrlClass (void)			{ return nullptr; }
 
 	//
 	//	Simple property access

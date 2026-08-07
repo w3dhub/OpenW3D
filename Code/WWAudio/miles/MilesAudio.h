@@ -223,7 +223,7 @@ protected:
 	bool						Free_Cache_Space (int bytes);
 
 private:
-	DRIVER_TYPE_2D		Open_2D_Device (WAVEFORMAT *format = NULL);
+	DRIVER_TYPE_2D		Open_2D_Device (WAVEFORMAT *format = nullptr);
 
 	//////////////////////////////////////////////////////////////////////
 	//	Registry settings
@@ -253,7 +253,7 @@ private:
 		SoundBufferClass *	buffer;
 
 		_CACHE_ENTRY_STRUCT (void)
-			: string_id (0), buffer (NULL) {}
+			: string_id (0), buffer (nullptr) {}
 
 		_CACHE_ENTRY_STRUCT &operator= (const _CACHE_ENTRY_STRUCT &src) { string_id = ::strdup (src.string_id); REF_PTR_SET (buffer, src.buffer); return *this; }
 		bool operator== (const _CACHE_ENTRY_STRUCT &/* src*/) { return false; }

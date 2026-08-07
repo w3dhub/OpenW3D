@@ -77,13 +77,13 @@ bool LightSolveSaveSystemClass::Contains_Data(void) const
 bool LightSolveSaveSystemClass::Save(ChunkSaveClass &csave)
 {
 	SceneEditorClass * scene = ::Get_Scene_Editor();
-	WWASSERT(scene != NULL);
+	WWASSERT(scene != nullptr);
 
 	RefPhysListIterator it = scene->Get_Static_Object_Iterator();
 	while (!it.Is_Done()) {
 		StaticPhysClass * pobj = it.Peek_Obj()->As_StaticPhysClass();
-		if (	(pobj != NULL) &&
-				(pobj->Peek_Model() != NULL) &&
+		if (	(pobj != nullptr) &&
+				(pobj->Peek_Model() != nullptr) &&
 				(pobj->Peek_Model()->Has_User_Lighting()) )
 		{
 			csave.Begin_Chunk(LSS_CHUNKID_OBJECT_LIGHT_SOLVE);
@@ -171,10 +171,10 @@ bool LightSolveSaveSystemClass::Load_Lighting_For_Object(ChunkLoadClass & cload)
 	*/
 	StaticPhysClass * obj = PhysicsSceneClass::Get_Instance()->Get_Static_Object_By_ID(id);
 
-	if (obj != NULL) {
+	if (obj != nullptr) {
 
 		RenderObjClass * model = obj->Peek_Model();
-		if (	(model != NULL) &&
+		if (	(model != nullptr) &&
 				(obj->Get_ID() == id) &&
 				(model->Class_ID() == (int)classid) &&
 				(model->Get_Num_Sub_Objects() == (int)subobjcount) )

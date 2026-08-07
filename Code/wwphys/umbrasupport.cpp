@@ -53,10 +53,10 @@ class UmbraCommanderClass;
 /*
 ** Static Variables
 */
-static Umbra::Model *					_DummySphere = NULL;
-static Umbra::Cell *						_TheCell = NULL;
-static Umbra::Camera *					_TheCamera = NULL;
-static UmbraCommanderClass *			_TheCommander = NULL;
+static Umbra::Model *					_DummySphere = nullptr;
+static Umbra::Cell *						_TheCell = nullptr;
+static Umbra::Camera *					_TheCamera = nullptr;
+static UmbraCommanderClass *			_TheCommander = nullptr;
 static bool									_UmbraEnabled = true;
 
 static Umbra::Vector3					_umbra_box_verts[8];
@@ -203,7 +203,7 @@ class UmbraCommanderClass : public Umbra::Commander
 {
 public:
 
-	UmbraCommanderClass(void) : VisObjList(NULL)
+	UmbraCommanderClass(void) : VisObjList(nullptr)
 	{
 	}
 
@@ -214,11 +214,11 @@ public:
 
 	virtual void command(Command cmd)
 	{
-		WWASSERT(VisObjList != NULL);
+		WWASSERT(VisObjList != nullptr);
 		if (cmd == Umbra::Commander::INSTANCE_VISIBLE)
 		{
 			const Umbra::Object * obj = getInstance()->getObject();
-			if (obj != NULL) {
+			if (obj != nullptr) {
 				VisObjList->Add((PhysClass *)(obj->getUserPointer()));
 			}
 		}
@@ -277,16 +277,16 @@ void UmbraSupport::Shutdown(void)
 	** Release everything
 	*/
 	delete _TheCommander;
-	_TheCommander = NULL;
+	_TheCommander = nullptr;
 
 	_TheCamera->release();
-	_TheCamera = NULL;
+	_TheCamera = nullptr;
 
 	_TheCell->release();
-	_TheCell = NULL;
+	_TheCell = nullptr;
 
 	_DummySphere->release();
-	_DummySphere = NULL;
+	_DummySphere = nullptr;
 
 	/*
 	** UMBRA shutdown
@@ -340,9 +340,9 @@ Umbra::Model * UmbraSupport::Create_Box_Model(const AABoxClass & inputbox)
 Umbra::Model * UmbraSupport::Create_Mesh_Model(MeshClass & mesh)
 {
 	MeshModelClass * mdl = mesh.Get_Model();
-	Umbra::Model * new_model = NULL;
+	Umbra::Model * new_model = nullptr;
 
-	if (mdl != NULL) {
+	if (mdl != nullptr) {
 		int vcount = mdl->Get_Vertex_Count();
 		int fcount = mdl->Get_Polygon_Count();
 
@@ -371,7 +371,7 @@ Umbra::Model * UmbraSupport::Create_Mesh_Model(MeshClass & mesh)
 		REF_PTR_RELEASE(mdl);
 	}
 
-	if (new_model != NULL) {
+	if (new_model != nullptr) {
 		return new_model;
 	} else {
 		return Peek_Dummy_Sphere();
@@ -413,7 +413,7 @@ void UmbraSupport::Install_Umbra_Object(PhysClass * obj)
 
 void UmbraSupport::Remove_Umbra_Object(PhysClass * obj)
 {
-	obj->Peek_Umbra_Object()->setCell(NULL);
+	obj->Peek_Umbra_Object()->setCell(nullptr);
 }
 
 #endif //UMBRASUPPORT

@@ -95,11 +95,11 @@ FirewallHelperClass::FirewallHelperClass(void)
 	ThreadActive = false;
 	ThreadState = THREAD_IDLE;
 	ThreadEvent = INVALID_HANDLE_VALUE;
-	NATThreadMutex = CreateMutexA(NULL, false, NULL);
-	NATDataMutex = CreateMutexA(NULL, false, NULL);
+	NATThreadMutex = CreateMutexA(nullptr, false, nullptr);
+	NATDataMutex = CreateMutexA(nullptr, false, nullptr);
 	ThreadHandle = INVALID_HANDLE_VALUE;
-	QueueNotifyPtr = NULL;
-	SuccessFlagPtr = NULL;
+	QueueNotifyPtr = nullptr;
+	SuccessFlagPtr = nullptr;
 	CancelPlayer[0] = 0;
 	SendDelay = false;
 	Confidence = 0;
@@ -131,9 +131,9 @@ void FirewallHelperClass::Startup(void)
 	ThreadState = THREAD_IDLE;
 	ThreadEvent = INVALID_HANDLE_VALUE;
 	ThreadActive = true;
-	//ThreadHandle = CreateThread(NULL, 128*1024, &NAT_Thread_Start, this, 0, &ThreadID);
-	ThreadHandle = (HANDLE)_beginthreadex(NULL, 128*1024, &NAT_Thread_Start, this, 0, (unsigned int*)&ThreadID);
-	fw_assert(ThreadHandle != NULL);
+	//ThreadHandle = CreateThread(nullptr, 128*1024, &NAT_Thread_Start, this, 0, &ThreadID);
+	ThreadHandle = (HANDLE)_beginthreadex(nullptr, 128*1024, &NAT_Thread_Start, this, 0, (unsigned int*)&ThreadID);
+	fw_assert(ThreadHandle != nullptr);
 }
 
 
@@ -685,7 +685,7 @@ unsigned short FirewallHelperClass::Get_Mangler_Response(unsigned int packet_id,
 	/*
 	** Asserts.
 	*/
-	fw_assert(socket_handler != NULL);
+	fw_assert(socket_handler != nullptr);
 
 	if (time) {
 		timeout += (unsigned int) time;
@@ -1080,7 +1080,7 @@ FirewallHelperClass::FirewallBehaviorType FirewallHelperClass::Detect_Firewall_B
 				for (int j=0 ; j<i ; j++) {
 					if (port_sockets[j]) {
 						delete port_sockets[j];
-						port_sockets[j] = NULL;
+						port_sockets[j] = nullptr;
 					}
 				}
 				WWDEBUG_SAY(("FirewallHelper: Unable to open all source ports for allocation pattern test - returning default behavior\n"));
@@ -1121,7 +1121,7 @@ FirewallHelperClass::FirewallBehaviorType FirewallHelperClass::Detect_Firewall_B
 		for (int j=0 ; j<i ; j++) {
 			if (port_sockets[j]) {
 				delete port_sockets[j];
-				port_sockets[j] = NULL;
+				port_sockets[j] = nullptr;
 			}
 		}
 
@@ -1840,13 +1840,13 @@ int FirewallHelperClass::Build_Mangler_Packet(unsigned char *buffer, unsigned sh
 	/*
 	** Asserts.
 	*/
-	fw_assert(buffer != NULL);
+	fw_assert(buffer != nullptr);
 	fw_assert(blitzme == false);
 
 	/*
 	** Need the buffer to exist.
 	*/
-	if (buffer == NULL) {
+	if (buffer == nullptr) {
 		return(0);
 	}
 
@@ -1966,7 +1966,7 @@ void FirewallHelperClass::Talk_To_New_Player(WOL::User *user)
 	*/
 	//ThreadLockClass locker(this);
 
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 
 	/*
 	** Fill in an invitation options packet to send to the guest.
@@ -2352,7 +2352,7 @@ bool FirewallHelperClass::Remove_Player_From_Negotiation_Queue(char *player_name
 		return(false);
 	}
 	ThreadLockClass locker(this);
-	ClientStruct *clientptr = NULL;
+	ClientStruct *clientptr = nullptr;
 	bool retcode = false;
 
 	for (int i=0 ; i<ClientQueue.Count() ; i++) {
@@ -2493,7 +2493,7 @@ void FirewallHelperClass::Send_Queue_States(void)
 			for (int i=0 ; i<ClientQueue.Count() ; i++) {
 				sprintf(options.OptionData.QueueState.Position, "%02x", i);
 				ClientStruct *client = ClientQueue[i];
-				fw_assert(client != NULL);
+				fw_assert(client != nullptr);
 
 				if (client) {
 					/*
@@ -2560,11 +2560,11 @@ void FirewallHelperClass::Set_Client_Success(int success)
 		if (SuccessFlagPtr) {
 			*SuccessFlagPtr = success;
 		}
-		SuccessFlagPtr = NULL;
+		SuccessFlagPtr = nullptr;
 		if (QueueNotifyPtr) {
 			*QueueNotifyPtr = 0;
 		}
-		QueueNotifyPtr = NULL;
+		QueueNotifyPtr = nullptr;
 		if (ClientConnectEvent != INVALID_HANDLE_VALUE) {
 			SetEvent(ClientConnectEvent);
 		}
@@ -2703,7 +2703,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 	int result;
 	IPAddressClass address;
 	bool gotit = false;
-	SocketHandlerClass *socket = NULL;
+	SocketHandlerClass *socket = nullptr;
 	char receive_packet[512];
 
 	char my_name[256];
@@ -2785,7 +2785,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 				*/
 				if (Client_Cancelled()) {
 					Send_Cancel_Notification();
-					WOLNATInterface.Set_Service_Socket_Handler(NULL);
+					WOLNATInterface.Set_Service_Socket_Handler(nullptr);
 					delete socket;
 					return(FW_RESULT_CANCELLED);
 				}
@@ -2798,7 +2798,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 			** This should never happen right....?
 			*/
 			if (socket) {
-				WOLNATInterface.Set_Service_Socket_Handler(NULL);
+				WOLNATInterface.Set_Service_Socket_Handler(nullptr);
 				delete socket;
 			}
 			return(FW_RESULT_FAILED);
@@ -2817,7 +2817,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 			*/
 			if (Client_Cancelled()) {
 				Send_Cancel_Notification();
-				WOLNATInterface.Set_Service_Socket_Handler(NULL);
+				WOLNATInterface.Set_Service_Socket_Handler(nullptr);
 				delete socket;
 				return(FW_RESULT_CANCELLED);
 			}
@@ -2873,7 +2873,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 		*/
 		if (Client_Cancelled()) {
 			Send_Cancel_Notification();
-			WOLNATInterface.Set_Service_Socket_Handler(NULL);
+			WOLNATInterface.Set_Service_Socket_Handler(nullptr);
 			delete socket;
 			return(FW_RESULT_CANCELLED);
 		}
@@ -2951,7 +2951,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 					** Client only. Roll onto the next port and try that.
 					*/
 					if (trying > 0) {
-						WOLNATInterface.Set_Service_Socket_Handler(NULL);
+						WOLNATInterface.Set_Service_Socket_Handler(nullptr);
 						Sleep(100);
 						socket->Close();
 						for (int cp=0 ; cp < 2048 ; cp++) {
@@ -3004,7 +3004,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 			*/
 			if (Client_Cancelled()) {
 				Send_Cancel_Notification();
-				WOLNATInterface.Set_Service_Socket_Handler(NULL);
+				WOLNATInterface.Set_Service_Socket_Handler(nullptr);
 				delete socket;
 				return(FW_RESULT_CANCELLED);
 			}
@@ -3079,7 +3079,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 				*/
 				if (Client_Cancelled()) {
 					Send_Cancel_Notification();
-					WOLNATInterface.Set_Service_Socket_Handler(NULL);
+					WOLNATInterface.Set_Service_Socket_Handler(nullptr);
 					delete socket;
 					return(FW_RESULT_CANCELLED);
 				}
@@ -3170,7 +3170,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 	} while(true);
 
 	if (socket) {
-		WOLNATInterface.Set_Service_Socket_Handler(NULL);
+		WOLNATInterface.Set_Service_Socket_Handler(nullptr);
 		delete socket;
 	}
 
@@ -3388,7 +3388,7 @@ bool FirewallHelperClass::Get_Local_Chat_Connection_Address(void)
 	WWDEBUG_SAY(("FirewallHelper - About to load INETMIB1.DLL\n"));
 
 	HINSTANCE mib_ii_dll = LoadLibraryA("inetmib1.dll");
-	if (mib_ii_dll == NULL) {
+	if (mib_ii_dll == nullptr) {
 		WWDEBUG_SAY(("FirewallHelper - Failed to load INETMIB1.DLL\n"));
 		return(false);
 	}
@@ -3396,7 +3396,7 @@ bool FirewallHelperClass::Get_Local_Chat_Connection_Address(void)
 	WWDEBUG_SAY(("FirewallHelper - About to load SNMPAPI.DLL\n"));
 
 	HINSTANCE snmpapi_dll = LoadLibraryA("snmpapi.dll");
-	if (snmpapi_dll == NULL) {
+	if (snmpapi_dll == nullptr) {
 		WWDEBUG_SAY(("FirewallHelper - Failed to load SNMPAPI.DLL\n"));
 		FreeLibrary(mib_ii_dll);
 		return(false);
@@ -3409,7 +3409,7 @@ bool FirewallHelperClass::Get_Local_Chat_Connection_Address(void)
 	SnmpExtensionQueryPtr = (BOOL (__stdcall *)(BYTE,SnmpVarBindList *,AsnInteger32 *,AsnInteger32 *)) GetProcAddress(mib_ii_dll, "SnmpExtensionQuery");
 	SnmpUtilMemAllocPtr = (void *(__stdcall *)(DWORD)) GetProcAddress(snmpapi_dll, "SnmpUtilMemAlloc");
 	SnmpUtilMemFreePtr = (void (__stdcall *)(void *)) GetProcAddress(snmpapi_dll, "SnmpUtilMemFree");
-	if (SnmpExtensionInitPtr == NULL || SnmpExtensionQueryPtr == NULL || SnmpUtilMemAllocPtr == NULL || SnmpUtilMemFreePtr == NULL) {
+	if (SnmpExtensionInitPtr == nullptr || SnmpExtensionQueryPtr == nullptr || SnmpUtilMemAllocPtr == nullptr || SnmpUtilMemFreePtr == nullptr) {
 		WWDEBUG_SAY(("FirewallHelper - Failed to get proc addresses for linked functions\n"));
 		FreeLibrary(snmpapi_dll);
 		FreeLibrary(mib_ii_dll);

@@ -85,7 +85,7 @@ public:
 	//
 	//	RTTI
 	//
-	virtual StringTwiddlerClass *	As_StringTwiddlerClass (void)		{ return NULL; }
+	virtual StringTwiddlerClass *	As_StringTwiddlerClass (void)		{ return nullptr; }
 
 	//
 	// From PersistClass

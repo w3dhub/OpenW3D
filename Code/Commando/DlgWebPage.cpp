@@ -66,7 +66,7 @@ void DlgWebPage::DoDialog(const char* page)
 	{
 	WWASSERT_PRINT(page && (strlen(page) > 0), "Invalid parameter.\n");
 
-	if ((page == NULL) || (strlen(page) == 0))
+	if ((page == nullptr) || (strlen(page) == 0))
 		{
 		return;
 		}
@@ -262,14 +262,14 @@ void DlgWebPage::On_Frame_Update(void)
 		if (!usingEmbedded)
 			{
 			bool externalRunning = mBrowser->IsExternalBrowserRunning();
-			bool gameActivated = (GameInFocus || (GetTopWindow(NULL) == MainWindow)
+			bool gameActivated = (GameInFocus || (GetTopWindow(nullptr) == MainWindow)
 					|| (GetForegroundWindow() == MainWindow));
 
 			if (!externalRunning || gameActivated)
 				{
 				WWDEBUG_SAY(("***** Reactivating Game *****\n"));
 
-				HWND topWindow = GetTopWindow(NULL);
+				HWND topWindow = GetTopWindow(nullptr);
 
         if (topWindow != MainWindow)
 					{

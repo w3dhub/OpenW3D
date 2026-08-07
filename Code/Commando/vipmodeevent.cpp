@@ -93,7 +93,7 @@ cVipModeEvent::Act(void)
 
 	cPlayer * p_player = cPlayerManager::Find_Player(SenderId);
 
-	if (p_player != NULL) {
+	if (p_player != nullptr) {
 		//
 		// It's a toggle
 		//

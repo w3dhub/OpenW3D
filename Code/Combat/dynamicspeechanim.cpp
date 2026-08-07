@@ -91,7 +91,7 @@ DynamicSpeechAnimClass::DynamicSpeechAnimClass (const char *skeleton_name)
 	//
 	StringClass upper_skel_name = skeleton_name;
     upper_skel_name.To_Upper();
-	if (::strstr (upper_skel_name, "S_A_") != NULL) {
+	if (::strstr (upper_skel_name, "S_A_") != nullptr) {
 		anim0_name.Format ("%s.S_A_MOUTH",			skeleton_name);
 		anim1_name.Format ("%s.S_A_EXPRESSION",	skeleton_name);
 	} else {
@@ -111,7 +111,7 @@ DynamicSpeechAnimClass::DynamicSpeechAnimClass (const char *skeleton_name)
 	//
 	bool is_valid = true;
 	for (int index = 0; index < CHANNEL_MAX; index ++) {
-		if (animations[index] == NULL) {
+		if (animations[index] == nullptr) {
 			is_valid = false;
 			break;
 		}

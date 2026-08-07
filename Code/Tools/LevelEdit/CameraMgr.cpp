@@ -99,7 +99,7 @@ CameraMgr::UPDATE_CAMERA_FN CameraMgr::_pfnUpdateMethods[CAMERA_MODE::MODE_COUNT
 
 
 bool CameraMgr::_pKeyboardState[256] = { 0 };
-HHOOK CameraMgr::_hHook = NULL;
+HHOOK CameraMgr::_hHook = nullptr;
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -107,12 +107,12 @@ HHOOK CameraMgr::_hHook = NULL;
 //
 ////////////////////////////////////////////////////////////////////////////
 CameraMgr::CameraMgr (void)
-	:	m_pCamera (NULL),
+	:	m_pCamera (nullptr),
 		m_bAutoLevel (false),
 		m_CameraMode (MODE_MOVE_PLANE),
 		m_SpeedModifier (6.0F),
-		m_WalkThruObj (NULL),
-		m_WalkThruDef (NULL)
+		m_WalkThruObj (nullptr),
+		m_WalkThruDef (nullptr)
 {
 	Init_Camera ();
 	return ;
@@ -128,13 +128,13 @@ CameraMgr::~CameraMgr (void)
 {
 	MEMBER_RELEASE (m_pCamera);
 
-	if (m_WalkThruObj != NULL) {
+	if (m_WalkThruObj != nullptr) {
 		m_WalkThruObj->Set_Delete_Pending ();
-		m_WalkThruObj = NULL;
+		m_WalkThruObj = nullptr;
 		Input::Shutdown ();
 	}
 
-	if (m_WalkThruDef != NULL) {
+	if (m_WalkThruDef != nullptr) {
 		delete m_WalkThruDef;
 	}
 
@@ -142,9 +142,9 @@ CameraMgr::~CameraMgr (void)
 	//MEMBER_RELEASE (m_pWalkThroughPhys);
 
 	// Remove our hook procedure from the chain
-	if (_hHook != NULL) {
+	if (_hHook != nullptr) {
 		::UnhookWindowsHookEx (_hHook);
-		_hHook = NULL;
+		_hHook = nullptr;
 	}
 
 	return ;
@@ -184,13 +184,13 @@ fnCameraKeyboardHook
 void
 CameraMgr::Init_Camera (void)
 {
-	if (m_pCamera == NULL) {
+	if (m_pCamera == nullptr) {
 		// Create a new camera object
 		m_pCamera = new CameraClass;
 	}
 
 	// Were we able to create a new object?
-	ASSERT (m_pCamera!= NULL);
+	ASSERT (m_pCamera!= nullptr);
 	if (m_pCamera) {
 
 		// Create a transformation matrix
@@ -205,7 +205,7 @@ CameraMgr::Init_Camera (void)
 	}
 
 	// Install a windows hook procedure so we know when keys are pressed
-	if (_hHook == NULL) {
+	if (_hHook == nullptr) {
 		::memset (_pKeyboardState, 0, sizeof (_pKeyboardState));
 		_hHook = ::SetWindowsHookEx (WH_KEYBOARD,
 												fnCameraKeyboardHook,
@@ -233,10 +233,10 @@ CameraMgr::Set_Camera_Mode (CAMERA_MODE new_mode)
 	if (new_mode != m_CameraMode) {
 
 		if (new_mode == MODE_WALK_THROUGH) {
-			::Get_Scene_Editor ()->Set_Selection (NULL);
+			::Get_Scene_Editor ()->Set_Selection (nullptr);
 
 			GameInFocus = true;
-			if (m_WalkThruObj == NULL) {
+			if (m_WalkThruObj == nullptr) {
 				Input::Init ();
 				Input::Load_Configuration (DEFAULT_INPUT_FILENAME);
 				Input::Set_Mouse_Invert (true);
@@ -262,7 +262,7 @@ CameraMgr::Set_Camera_Mode (CAMERA_MODE new_mode)
 			//	Give the physics object an initial transform
 			//
 			PhysClass *phys_obj = m_WalkThruObj->Peek_Physical_Object ();
-			if (phys_obj != NULL) {
+			if (phys_obj != nullptr) {
 				Matrix3D transform = m_pCamera->Get_Transform ();
 
 				Matrix3D cam_to_world (Vector3 (0, 0, -1), Vector3 (-1, 0, 0), Vector3 (0, 1, 0), Vector3 (0, 0, 0));
@@ -271,10 +271,10 @@ CameraMgr::Set_Camera_Mode (CAMERA_MODE new_mode)
 			}
 
 
-		} else if (m_WalkThruObj != NULL) {
+		} else if (m_WalkThruObj != nullptr) {
 
 			m_WalkThruObj->Set_Delete_Pending ();
-			m_WalkThruObj = NULL;
+			m_WalkThruObj = nullptr;
 			Input::Shutdown ();
 		}
 
@@ -298,8 +298,8 @@ CameraMgr::Update_Camera
 )
 {
 	// State OK?
-	ASSERT (m_pCamera != NULL);
-	if (m_pCamera != NULL) {
+	ASSERT (m_pCamera != nullptr);
+	if (m_pCamera != nullptr) {
 
 		// Call into the state table to perform the update
 		_pfnUpdateMethods[m_CameraMode] (*m_pCamera, deltax, deltay);
@@ -564,7 +564,7 @@ CameraMgr::On_Frame (void)
 
 	// Are we currently in 'walk-thru' mode?
 	if (m_CameraMode == MODE_WALK_THROUGH) {
-		if (m_WalkThruObj != NULL) {
+		if (m_WalkThruObj != nullptr) {
 
 			if (::GetAsyncKeyState (VK_ESCAPE) < 0 || ::GetAsyncKeyState (VK_F6) < 0) {
 				::Get_Mouse_Mgr ()->Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);
@@ -603,13 +603,13 @@ CameraMgr::On_Frame (void)
 				m_WalkThruObj->Generate_Control ();
 				m_WalkThruObj->Think ();
 				PhysClass *phys_obj = m_WalkThruObj->Peek_Physical_Object ();
-				if (phys_obj != NULL) {
+				if (phys_obj != nullptr) {
 					phys_obj->Timestep (TimeManager::Get_Frame_Seconds ());
 				}
 				m_WalkThruObj->Post_Think ();
 
 				CCameraClass *game_camera = CombatManager::Get_Camera ();
-				if (game_camera != NULL) {
+				if (game_camera != nullptr) {
 
 					//
 					//	Update the game camera
@@ -776,7 +776,7 @@ CameraMgr::Update_Camera_WALK_THROUGH
 
 	// Get the camera's current transformation matrix
 	//CamaraCharPhys *pcharacter = ::Get_Camera_Mgr ()->Get_Walkthru_Character ();
-	if (0) {//pcharacter != NULL) {
+	if (0) {//pcharacter != nullptr) {
 
 		/*Matrix3D transform = pcharacter->Get_Transform ();
 		transform.Rotate_Z (deltax * 2.0F);
@@ -1068,7 +1068,7 @@ void
 CameraMgr::Goto_Node (NodeClass *node)
 {
 	RenderObjClass *render_obj = node->Peek_Render_Obj ();
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 
 		//
 		// Get the node's position
@@ -1113,7 +1113,7 @@ void
 CameraMgr::Goto_Group (GroupMgrClass *group)
 {
 	// State OK?
-	if (group != NULL) {
+	if (group != nullptr) {
 
 		// Get the node's position
 		SphereClass sp = group->Get_Bounding_Sphere ();
@@ -1144,7 +1144,7 @@ CameraMgr::Goto_Group (GroupMgrClass *group)
 void
 CameraMgr::Set_Transform (const Matrix3D &transform)
 {
-	if (m_pCamera != NULL) {
+	if (m_pCamera != nullptr) {
 
 		// Set the camera's new location and orientation
 		m_pCamera->Set_Transform (transform);
@@ -1157,7 +1157,7 @@ CameraMgr::Set_Transform (const Matrix3D &transform)
 		/*FormToolbarClass &toolbar = ((CMainFrame *)::AfxGetMainWnd ())->Get_Camera_Toolbar ();
 		if (::IsWindow (toolbar) && toolbar.IsVisible ()) {
 			CameraSettingsFormClass *pform = (CameraSettingsFormClass *)toolbar.Get_Form ();
-			if (pform != NULL) {
+			if (pform != nullptr) {
 				pform->Update_Controls ();
 			}
 		}*/
@@ -1175,7 +1175,7 @@ CameraMgr::Set_Transform (const Matrix3D &transform)
 void
 CameraMgr::Set_Position (const Vector3 &position)
 {
-	if (m_pCamera != NULL) {
+	if (m_pCamera != nullptr) {
 
 		// Set the camera's new location and orientation
 		m_pCamera->Set_Position (position);
@@ -1188,7 +1188,7 @@ CameraMgr::Set_Position (const Vector3 &position)
 		/*FormToolbarClass &toolbar = ((CMainFrame *)::AfxGetMainWnd ())->Get_Camera_Toolbar ();
 		if (::IsWindow (toolbar) && toolbar.IsVisible ()) {
 			CameraSettingsFormClass *pform = (CameraSettingsFormClass *)toolbar.Get_Form ();
-			if (pform != NULL) {
+			if (pform != nullptr) {
 				pform->Update_Controls ();
 			}
 		}*/
@@ -1301,7 +1301,7 @@ CameraMgr::Get_Character_TM (void)
 {
 	Matrix3D tm (1);
 
-	if (m_WalkThruObj != NULL) {
+	if (m_WalkThruObj != nullptr) {
 		tm = m_WalkThruObj->Get_Transform ();
 	} else {
 		tm = m_pCamera->Get_Transform ();

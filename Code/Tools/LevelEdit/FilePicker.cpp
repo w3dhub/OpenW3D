@@ -69,7 +69,7 @@ FilePickerClass::On_Pick (void)
 	DWORD attribs = ::GetFileAttributes (full_path);
 	if ((attribs != 0xFFFFFFFF) && !(attribs & FILE_ATTRIBUTE_DIRECTORY)) {
 		path = ::Strip_Filename_From_Path (full_path);
-	} else if ((attribs == 0xFFFFFFFF) && (::strchr (filename, '*') != NULL)) {
+	} else if ((attribs == 0xFFFFFFFF) && (::strchr (filename, '*') != nullptr)) {
 		path = ::Strip_Filename_From_Path (full_path);
 	} else if ((attribs == 0xFFFFFFFF) && m_AssetTreeOnly) {
 		path = ::Get_File_Mgr ()->Get_Base_Path ();

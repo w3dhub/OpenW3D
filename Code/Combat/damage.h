@@ -139,10 +139,10 @@ class OffenseObjectClass {
 public:
 
 	// Constructors & Destructor
-	OffenseObjectClass( float damage = DEFAULT_DAMAGE, WarheadType warhead = 0, ArmedGameObj *owner = NULL ) : \
+	OffenseObjectClass( float damage = DEFAULT_DAMAGE, WarheadType warhead = 0, ArmedGameObj *owner = nullptr ) : \
 							Damage( damage ), Warhead( warhead ), ForceServerDamage( false ), EnableClientDamage( false ) { Set_Owner( owner ); }
 	OffenseObjectClass( const OffenseObjectClass & base );
-	~OffenseObjectClass() { Set_Owner( NULL ); };
+	~OffenseObjectClass() { Set_Owner( nullptr ); };
 
 	bool				Save( ChunkSaveClass & csave );
 	bool				Load( ChunkLoadClass & cload );

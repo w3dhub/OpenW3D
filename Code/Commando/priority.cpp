@@ -76,7 +76,7 @@ cPriority::Compute_Object_Priority
 {
 	WWPROFILE("ObjPri");
 	WWASSERT(client_id > 0);
-	WWASSERT(p_netobject != NULL);
+	WWASSERT(p_netobject != nullptr);
 
 	//
 	// Compute the priority of this object to the given client at his given position.
@@ -148,18 +148,18 @@ cPriority::Compute_Facing_Factor
 )
 {
 	WWASSERT(client_id > 0);
-	WWASSERT(p_netobject != NULL);
+	WWASSERT(p_netobject != nullptr);
 
 	float facing_factor = 1;
 
 	SoldierGameObj * p_soldier = client_soldier;
-	if (p_soldier == NULL) {
+	if (p_soldier == nullptr) {
 		p_soldier = GameObjManager::Find_Soldier_Of_Client_ID(client_id);
 	}
 
-	if (p_soldier != NULL)
+	if (p_soldier != nullptr)
 	{
-		WWASSERT(p_soldier->Peek_Human_Phys() != NULL);
+		WWASSERT(p_soldier->Peek_Human_Phys() != nullptr);
 		float client_facing = p_soldier->Peek_Human_Phys()->Get_Heading();
 
 		Vector3 subject_position;
@@ -190,7 +190,7 @@ cPriority::Get_Object_Distance
 	NetworkObjectClass *		p_netobject
 )
 {
-	WWASSERT(p_netobject != NULL);
+	WWASSERT(p_netobject != nullptr);
 
 	//
 	// Objects without a physical location will return a distance of zero.
@@ -257,7 +257,7 @@ cPriority::Compute_Relevance_Factor
 	SoldierGameObj *client_soldier
 )
 {
-	WWASSERT(p_netobject != NULL);
+	WWASSERT(p_netobject != nullptr);
 
 	//
 	// This bumps the priority of objects that you are shooting or that are
@@ -269,22 +269,22 @@ cPriority::Compute_Relevance_Factor
 	int id = p_netobject->Get_Network_ID();
 
 	SoldierGameObj * p_my_soldier = client_soldier;
-	if (p_my_soldier == NULL) {
+	if (p_my_soldier == nullptr) {
 		p_my_soldier = GameObjManager::Find_Soldier_Of_Client_ID(client_id);
 	}
-	VehicleGameObj * p_my_vehicle = NULL;
-	if (p_my_soldier != NULL) {
+	VehicleGameObj * p_my_vehicle = nullptr;
+	if (p_my_soldier != nullptr) {
 		p_my_vehicle = GameObjManager::Find_Vehicle_Occupied_By(p_my_soldier);
 	}
 
-	if (p_my_soldier != NULL &&
+	if (p_my_soldier != nullptr &&
 		(p_my_soldier->Get_Last_Object_Id_I_Damaged() == id ||
 		 p_my_soldier->Get_Last_Object_Id_I_Got_Damaged_By() == id)) {
 
 		is_relevant = true;
 	}
 
-	if (p_my_vehicle != NULL &&
+	if (p_my_vehicle != nullptr &&
 		(p_my_vehicle->Get_Last_Object_Id_I_Damaged() == id ||
 		 p_my_vehicle->Get_Last_Object_Id_I_Got_Damaged_By() == id)) {
 
@@ -341,7 +341,7 @@ cPriority::Compute_Object_Priority_2
 {
 	WWPROFILE("ObjPri");
 	WWASSERT(client_id > 0);
-	WWASSERT(p_netobject != NULL);
+	WWASSERT(p_netobject != nullptr);
 
 	//
 	// Compute the priority of this object to the given client at his given position.
@@ -397,19 +397,19 @@ cPriority::Compute_Facing_Factor_2
 )
 {
 	WWASSERT(client_id > 0);
-	WWASSERT(p_netobject != NULL);
+	WWASSERT(p_netobject != nullptr);
 
 	float facing_factor = 1;
 
 	SoldierGameObj * p_soldier = client_soldier;
-	if (p_soldier == NULL) {
+	if (p_soldier == nullptr) {
 		p_soldier = GameObjManager::Find_Soldier_Of_Client_ID(client_id);
 	}
 
-	if (p_soldier != NULL)
+	if (p_soldier != nullptr)
 	{
 		HumanPhysClass *hphys = p_soldier->Peek_Human_Phys();
-		WWASSERT(hphys != NULL);
+		WWASSERT(hphys != nullptr);
 		float client_facing = hphys->Get_Heading();
 
 		Vector3 subject_position;
@@ -440,7 +440,7 @@ cPriority::Get_Object_Distance_2
 	NetworkObjectClass *		p_netobject
 )
 {
-	WWASSERT(p_netobject != NULL);
+	WWASSERT(p_netobject != nullptr);
 
 	//
 	// Objects without a physical location will return a distance of zero.
@@ -524,7 +524,7 @@ cPriority::Compute_Relevance_Factor_2
 	SoldierGameObj *client_soldier
 )
 {
-	WWASSERT(p_netobject != NULL);
+	WWASSERT(p_netobject != nullptr);
 
 	//
 	// This bumps the priority of objects that you are shooting or that are
@@ -536,12 +536,12 @@ cPriority::Compute_Relevance_Factor_2
 	int id = p_netobject->Get_Network_ID();
 
 	SoldierGameObj * p_my_soldier = client_soldier;
-	VehicleGameObj * p_my_vehicle = NULL;
+	VehicleGameObj * p_my_vehicle = nullptr;
 
-	if (p_my_soldier == NULL) {
+	if (p_my_soldier == nullptr) {
 		p_my_soldier = GameObjManager::Find_Soldier_Of_Client_ID(client_id);
 	}
-	if (p_my_soldier != NULL) {
+	if (p_my_soldier != nullptr) {
 		if (p_my_soldier->Is_In_Vehicle()) {
 			p_my_vehicle = GameObjManager::Find_Vehicle_Occupied_By(p_my_soldier);
 		}
@@ -552,7 +552,7 @@ cPriority::Compute_Relevance_Factor_2
 		}
 	}
 
-	if (p_my_vehicle != NULL &&
+	if (p_my_vehicle != nullptr &&
 		(p_my_vehicle->Get_Last_Object_Id_I_Damaged() == id ||
 		 p_my_vehicle->Get_Last_Object_Id_I_Got_Damaged_By() == id)) {
 

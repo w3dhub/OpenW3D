@@ -51,7 +51,7 @@ END_MESSAGE_MAP()
 // CSimpleGraphDoc construction/destruction
 
 CSimpleGraphDoc::CSimpleGraphDoc() :
-	m_Spline(NULL)
+	m_Spline(nullptr)
 {
 	// TODO: add one-time construction code here
 	m_Spline = new CatmullRomSpline1DClass;
@@ -78,7 +78,7 @@ BOOL CSimpleGraphDoc::OnNewDocument()
 	POSITION pos = GetFirstViewPosition ();
 	CSimpleGraphView *view = (CSimpleGraphView *)GetNextView (pos);
 	view->Set_Ranges (Vector2 (0, 0), Vector2 (100, 100));
-	view->InvalidateRect (NULL, true);
+	view->InvalidateRect (nullptr, true);
 	view->UpdateWindow ();
 
 	return true;
@@ -114,13 +114,13 @@ void CSimpleGraphDoc::Serialize(CArchive& ar)
 
 		// Load the curve from the file
 		Vector2 range_min,range_max;
-		Curve1DClass * curve = NULL;
+		Curve1DClass * curve = nullptr;
 		_TheLookupTableManager.Load_Table_Desc (cload, &curve, &range_min, &range_max);
 		view->Set_Ranges(range_min,range_max);
 
 		// If we successfully loaded a new curve, delete the old one
 		// and install this one.
-		WWASSERT(m_Spline != NULL);
+		WWASSERT(m_Spline != nullptr);
 		delete m_Spline;
 		m_Spline = curve;
 

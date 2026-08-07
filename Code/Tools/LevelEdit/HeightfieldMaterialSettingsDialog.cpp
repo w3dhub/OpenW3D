@@ -89,7 +89,7 @@ HeightfieldMaterialSettingsDialogClass::OnInitDialog (void)
 	//	Lookup the material we're editing
 	//
 	TerrainMaterialClass *material = HeightfieldEditorClass::Peek_Material (MaterialIndex);
-	if (material != NULL) {
+	if (material != nullptr) {
 
 		//
 		//	Fill in the controls
@@ -139,7 +139,7 @@ HeightfieldMaterialSettingsDialogClass::OnOK (void)
 		//	Get (or create) the material we're editing
 		//
 		TerrainMaterialClass *material = HeightfieldEditorClass::Peek_Material (MaterialIndex);
-		if (material == NULL) {
+		if (material == nullptr) {
 
 			//
 			//	Create the material and add it to the manager

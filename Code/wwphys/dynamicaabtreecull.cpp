@@ -88,13 +88,13 @@ inline PhysClass * get_next_object(PhysClass * tile)
 DynamicAABTreeCullClass::DynamicAABTreeCullClass(PhysicsSceneClass * pscene) :
 	PhysAABTreeCullClass(pscene),
 	MaxObjRadius(DEFUALT_MAXOBJRADIUS),
-	RenderBox(NULL),
+	RenderBox(nullptr),
 	DebugIterator(this)
 {
 	/*
 	** Modify the root node so that any object can be added into the tree
 	*/
-	WWASSERT(RootNode != NULL);
+	WWASSERT(RootNode != nullptr);
 	RootNode->Box.Extent.Set(FLT_MAX/4.0f,FLT_MAX/4.0f,FLT_MAX/4.0f);
 }
 
@@ -152,7 +152,7 @@ uint32 DynamicAABTreeCullClass::Get_Dynamic_Object_Vis_ID(const AABoxClass & obj
 	AABTreeNodeClass * start_node = RootNode;
 
 #if 0 // Disabling coherency because characters are getting stuck in local minima in the tree...
-	if ((node_id != NULL) && (*node_id >= 0) && (*node_id < NodeCount)) {
+	if ((node_id != nullptr) && (*node_id >= 0) && (*node_id < NodeCount)) {
 		start_node = IndexedNodes[*node_id];
 	}
 
@@ -199,7 +199,7 @@ uint32 DynamicAABTreeCullClass::Get_Dynamic_Object_Vis_ID(const AABoxClass & obj
 	/*
 	** Step 3: return the results to the user!
 	*/
-	if (node_id != NULL) {
+	if (node_id != nullptr) {
 		*node_id = node_index;
 	}
 	return IndexedNodes[node_index]->UserData;
@@ -270,7 +270,7 @@ void DynamicAABTreeCullClass::Re_Partition
 	Vector3 boxmin,boxmax;
 	AABoxClass box;
 
-	if ((seed_boxes != NULL) && (seed_boxes->Count() > 0)) {
+	if ((seed_boxes != nullptr) && (seed_boxes->Count() > 0)) {
 
 		/*
 		** Add in the seed_boxes
@@ -344,9 +344,9 @@ void DynamicAABTreeCullClass::Collect_Visible_Objects
 	RefPhysListClass & visobjlist
 )
 {
-	WWASSERT(RootNode != NULL);
+	WWASSERT(RootNode != nullptr);
 
-	if (pvs != NULL) {
+	if (pvs != nullptr) {
 
 		/*
 		** Recursively collect objects directly into the specified list.
@@ -371,7 +371,7 @@ void DynamicAABTreeCullClass::Collect_Visible_Objects
 		*/
 		PhysClass * obj;
 		for (	obj = Get_First_Collected_Object();
-				obj != NULL;
+				obj != nullptr;
 				obj = Get_Next_Collected_Object(obj))
 		{
 			visobjlist.Add(obj);
@@ -401,7 +401,7 @@ void DynamicAABTreeCullClass::Assign_Vis_IDs(void)
 
 void DynamicAABTreeCullClass::Evaluate_Non_Occluder_Visibility(VisRenderContextClass & context)
 {
-	WWASSERT(context.VisRasterizer != NULL);
+	WWASSERT(context.VisRasterizer != nullptr);
 
 	context.VisRasterizer->Set_Render_Mode(IDBufferClass::NON_OCCLUDER_MODE);
 	evaluate_non_occluder_visibility_recursive(RootNode,context);
@@ -507,11 +507,11 @@ void DynamicAABTreeCullClass::evaluate_non_occluder_visibility_recursive
 	*/
 	if (box_is_visible) {
 
-		if (node->Front != NULL) {
+		if (node->Front != nullptr) {
 			evaluate_non_occluder_visibility_recursive(node->Front,context);
 		}
 
-		if (node->Back != NULL) {
+		if (node->Back != nullptr) {
 			evaluate_non_occluder_visibility_recursive(node->Back,context);
 		}
 	}
@@ -536,7 +536,7 @@ void DynamicAABTreeCullClass::set_tree_visibility
 	bool onoff
 )
 {
-	if (node == NULL) return;
+	if (node == nullptr) return;
 	context.VisTable.Set_Bit(node->UserData,onoff);
 	set_tree_visibility(node->Front,context,onoff);
 	set_tree_visibility(node->Back,context,onoff);
@@ -544,11 +544,11 @@ void DynamicAABTreeCullClass::set_tree_visibility
 
 AABoxRenderObjClass * DynamicAABTreeCullClass::get_render_box(void)
 {
-	if (RenderBox == NULL) {
+	if (RenderBox == nullptr) {
 		RenderBox = NEW_REF(AABoxRenderObjClass,());
 	}
 
-	WWASSERT(RenderBox != NULL);
+	WWASSERT(RenderBox != nullptr);
 	RenderBox->Add_Ref();
 	return RenderBox;
 }
@@ -770,7 +770,7 @@ void DynamicAABTreeCullClass::render_visible_cells_recursive
 	*/
 	int visid = node->UserData;
 	if (	(CollisionMath::Overlap_Test(rinfo.Camera.Get_Frustum(),node->Box) == CollisionMath::OUTSIDE) ||
-			(!Scene->Is_Vis_Inverted() && (pvs != NULL) && (pvs->Get_Bit(visid) == 0)) )
+			(!Scene->Is_Vis_Inverted() && (pvs != nullptr) && (pvs->Get_Bit(visid) == 0)) )
 	{
 		return;
 	}
@@ -779,14 +779,14 @@ void DynamicAABTreeCullClass::render_visible_cells_recursive
 	** If we're in a leaf or node with one child that is visible, draw a translucent box
 	*/
 	int child_count = 0;
-	if (node->Front != NULL) child_count++;
-	if (node->Back != NULL) child_count++;
+	if (node->Front != nullptr) child_count++;
+	if (node->Back != nullptr) child_count++;
 
 	if ((child_count <= 1) || (mode == DISPLAY_OCCUPIED)) {
 
-		if ((pvs == NULL) || (pvs->Get_Bit(visid))) {
+		if ((pvs == nullptr) || (pvs->Get_Bit(visid))) {
 
-			if ((mode != DISPLAY_OCCUPIED) || (node->Object != NULL)) {
+			if ((mode != DISPLAY_OCCUPIED) || (node->Object != nullptr)) {
 
 				// force boxes to get rendered (yuck)
 				int oldmask = WW3D::Get_Collision_Box_Display_Mask();
@@ -875,9 +875,9 @@ void DynamicAABTreeCullClass::prune_child
 )
 {
 	/*
-	** If the child node is NULL just return
+	** If the child node is nullptr just return
 	*/
-	if ((parent == NULL) || (child == NULL)) {
+	if ((parent == nullptr) || (child == nullptr)) {
 		return;
 	}
 
@@ -885,7 +885,7 @@ void DynamicAABTreeCullClass::prune_child
 	** If the child is a leaf node and its VIS matches the parent vis, delete the
 	** child, fixup the vis tables and ID's, and re-insert the child's objects into the tree.
 	*/
-	if ((child->Front == NULL) && (child->Back == NULL)) {
+	if ((child->Front == nullptr) && (child->Back == nullptr)) {
 
 		int parent_object_id = parent->UserData;
 		int child_object_id = child->UserData;
@@ -898,10 +898,10 @@ void DynamicAABTreeCullClass::prune_child
 			** unlink the node from its parent so that subsequent calls back into the tree will not see it.
 			*/
 			if (parent->Front == child) {
-				parent->Front = NULL;
+				parent->Front = nullptr;
 			}
 			if (parent->Back == child) {
-				parent->Back = NULL;
+				parent->Back = nullptr;
 			}
 
 			/*

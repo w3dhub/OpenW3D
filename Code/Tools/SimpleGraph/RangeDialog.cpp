@@ -102,7 +102,7 @@ fnEditToFloatProc
 			result = ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);
 		}
 
-	} else if (old_proc != NULL) {
+	} else if (old_proc != nullptr) {
 		result = ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);
 	}
 
@@ -172,7 +172,7 @@ GetDlgItemFloat
 // CRangeDialog
 //
 /////////////////////////////////////////////////////////////////////////////
-CRangeDialog::CRangeDialog(CWnd* pParent /*=NULL*/)
+CRangeDialog::CRangeDialog(CWnd* pParent /*=nullptr*/)
 	: CDialog(CRangeDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CRangeDialog)
@@ -245,7 +245,7 @@ CRangeDialog::OnOK (void)
 
 	CSimpleGraphView *view = (CSimpleGraphView *)((CMainFrame *)::AfxGetMainWnd ())->GetActiveView ();
 	view->Set_Ranges (range_min, range_max);
-	view->InvalidateRect (NULL, true);
+	view->InvalidateRect (nullptr, true);
 	view->UpdateWindow ();
 
 

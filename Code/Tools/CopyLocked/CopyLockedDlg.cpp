@@ -32,7 +32,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CCopyLockedDlg dialog
 
-CCopyLockedDlg::CCopyLockedDlg(CWnd* pParent /*=NULL*/)
+CCopyLockedDlg::CCopyLockedDlg(CWnd* pParent /*=nullptr*/)
 	: CDialog(CCopyLockedDlg::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CCopyLockedDlg)
@@ -136,7 +136,7 @@ CCopyLockedDlg::OnOK()
 		HRSRC hresource = ::FindResource (::AfxGetInstanceHandle (), _filenames[index], "FILE");
 		HGLOBAL hglobal = ::LoadResource (::AfxGetInstanceHandle (), hresource);
 		LPVOID pbuffer = ::LockResource (hglobal);
-		if(pbuffer != NULL) {
+		if(pbuffer != nullptr) {
 
 			CString full_path = CString (temp_path);
 			if (temp_path[::lstrlen (temp_path)-1] != '\\') {
@@ -144,11 +144,11 @@ CCopyLockedDlg::OnOK()
 			}
 			full_path += CString (_filenames[index]);
 
-			HANDLE hfile = ::CreateFile (full_path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
+			HANDLE hfile = ::CreateFile (full_path, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, 0, nullptr);
 			if (hfile != INVALID_HANDLE_VALUE) {
 				DWORD dwbyteswritten = 0L;
 				DWORD dwsizeofres = ::SizeofResource (::AfxGetInstanceHandle (), hresource);
-				::WriteFile (hfile, pbuffer, dwsizeofres, &dwbyteswritten, NULL);
+				::WriteFile (hfile, pbuffer, dwsizeofres, &dwbyteswritten, nullptr);
 				::CloseHandle (hfile);
 
 				if (dwbyteswritten == dwsizeofres) {
@@ -162,7 +162,7 @@ CCopyLockedDlg::OnOK()
 					new_path += CString (_filenames[index]);
 
 					::MoveFileEx (full_path, new_path, MOVEFILE_DELAY_UNTIL_REBOOT | MOVEFILE_REPLACE_EXISTING);
-					::MoveFileEx (full_path, NULL, MOVEFILE_DELAY_UNTIL_REBOOT);
+					::MoveFileEx (full_path, nullptr, MOVEFILE_DELAY_UNTIL_REBOOT);
 				}
 			}
 		}

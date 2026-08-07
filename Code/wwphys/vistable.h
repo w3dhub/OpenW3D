@@ -152,7 +152,7 @@ protected:
 
 inline int VisTableClass::Get_Bit(int i) const
 {
-	WWASSERT(Buffer != NULL);
+	WWASSERT(Buffer != nullptr);
 	WWASSERT(i < BitCount);
 
 	return (Buffer[i>>5] & (0x80000000u >> (i & 0x1F)));
@@ -160,7 +160,7 @@ inline int VisTableClass::Get_Bit(int i) const
 
 inline void VisTableClass::Set_Bit(int i,bool onoff)
 {
-	WWASSERT(Buffer != NULL);
+	WWASSERT(Buffer != nullptr);
 	WWASSERT(i < BitCount);
 
 	if (onoff) {

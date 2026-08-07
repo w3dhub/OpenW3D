@@ -35,7 +35,7 @@ class CW3DUpdateDlg : public CDialog
 public:
 	void RegisterViewer(int index);
 	void RegisterShellExt();
-	CW3DUpdateDlg(CWnd* pParent = NULL);	// standard constructor
+	CW3DUpdateDlg(CWnd* pParent = nullptr);	// standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CW3DUpdateDlg)

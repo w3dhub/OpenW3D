@@ -161,7 +161,7 @@ protected:
 	struct PathDataStruct
 	{
 		PathDataStruct (void)
-			:	m_Portal (NULL), m_Point (0, 0, 0)	{ }
+			:	m_Portal (nullptr), m_Point (0, 0, 0)	{ }
 
 		PathDataStruct (PathfindPortalClass *portal, const Vector3 &point)
 			:	m_Portal (portal), m_Point (point)	{ }

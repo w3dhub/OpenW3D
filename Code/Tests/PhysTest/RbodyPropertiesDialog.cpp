@@ -58,7 +58,7 @@ CRbodyPropertiesDialog::CRbodyPropertiesDialog(CWnd* pParent,MoveablePhysClass *
 {
 	//{{AFX_DATA_INIT(CRbodyPropertiesDialog)
 	//}}AFX_DATA_INIT
-	ASSERT(Object != NULL);
+	ASSERT(Object != nullptr);
 }
 
 
@@ -108,7 +108,7 @@ void CRbodyPropertiesDialog::OnOK()
 
 BOOL CRbodyPropertiesDialog::OnInitDialog()
 {
-	ASSERT(Object != NULL);
+	ASSERT(Object != nullptr);
 	CDialog::OnInitDialog();
 
 	m_MassSpin.SetRange(MIN_MASS * 100,MAX_MASS * 100);

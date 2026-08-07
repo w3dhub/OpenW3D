@@ -340,8 +340,8 @@ public:
 	** Internal_Link_Rider - an object is being attached to you, move him when you move
 	** Internal_Unlink_Rider - stop moving this object when you move.
 	*/
-	virtual void					Link_To_Carrier(PhysClass * /* carrier */,RenderObjClass * /* carrier_sub_obj */ = NULL)	{ }
-	virtual RenderObjClass *	Peek_Carrier_Sub_Object(void)											{ return NULL; }
+	virtual void					Link_To_Carrier(PhysClass * /* carrier */,RenderObjClass * /* carrier_sub_obj */ = nullptr)	{ }
+	virtual RenderObjClass *	Peek_Carrier_Sub_Object(void)											{ return nullptr; }
 	virtual bool					Push(const Vector3 & /* move */)												{ return false; }
 
 	virtual bool					Internal_Link_Rider(PhysClass * /* rider */)								{ return false; }
@@ -545,7 +545,7 @@ public:
 	** involving this object.  One way to do this is to derive your game objects from
 	** CollisionObserverClass so that they can be directly installed here.  Currently, there
 	** can only be one observer for any physics object.  You are responsible for removing
-	** the observer before this phys object is destroyed: Set_Observer(NULL)
+	** the observer before this phys object is destroyed: Set_Observer(nullptr)
 	*/
 	void								Set_Observer(PhysObserverClass * o)						{ Observer = o; }
 	PhysObserverClass *			Get_Observer(void)											{ return Observer; }
@@ -560,29 +560,29 @@ public:
 	/*
 	** Physics RTTI.
 	*/
-	virtual DynamicPhysClass *		As_DynamicPhysClass(void)								{ return NULL; }
-	virtual MoveablePhysClass *	As_MoveablePhysClass(void)								{ return NULL; }
-	virtual Phys3Class *				As_Phys3Class(void)										{ return NULL; }
-	virtual HumanPhysClass *		As_HumanPhysClass(void)									{ return NULL; }
-	virtual RigidBodyClass *		As_RigidBodyClass(void)									{ return NULL; }
-	virtual VehiclePhysClass *		As_VehiclePhysClass(void)								{ return NULL;	}
-	virtual MotorVehicleClass *	As_MotorVehicleClass(void)								{ return NULL; }
-	virtual WheeledVehicleClass *	As_WheeledVehicleClass(void)							{ return NULL;	}
-	virtual MotorcycleClass *		As_MotorcycleClass(void)								{ return NULL; }
-	virtual TrackedVehicleClass *	As_TrackedVehicleClass(void)							{ return NULL; }
-	virtual VTOLVehicleClass *		As_VTOLVehicleClass(void)								{ return NULL; }
-	virtual StaticPhysClass *		As_StaticPhysClass(void)								{ return NULL; }
-	virtual StaticAnimPhysClass *	As_StaticAnimPhysClass(void)							{ return NULL; }
-	virtual ElevatorPhysClass *	As_ElevatorPhysClass(void)								{ return NULL; }
-	virtual DamageableStaticPhysClass *	As_DamageableStaticPhysClass (void)			{ return NULL; }
-	virtual DoorPhysClass *			As_DoorPhysClass(void)									{ return NULL; }
-	virtual DecorationPhysClass *	As_DecorationPhysClass(void)							{ return NULL; }
-	virtual TimedDecorationPhysClass * As_TimedDecorationPhysClass(void)				{ return NULL; }
-	virtual DynamicAnimPhysClass *As_DynamicAnimPhysClass(void)							{ return NULL; }
-	virtual LightPhysClass *		As_LightPhysClass(void)									{ return NULL; }
-	virtual RenderObjPhysClass *	As_RenderObjPhysClass(void)							{ return NULL; }
-	virtual ProjectileClass *		As_ProjectileClass(void)								{ return NULL; }
-	virtual AccessiblePhysClass *	As_AccessiblePhysClass(void)							{ return NULL; }
+	virtual DynamicPhysClass *		As_DynamicPhysClass(void)								{ return nullptr; }
+	virtual MoveablePhysClass *	As_MoveablePhysClass(void)								{ return nullptr; }
+	virtual Phys3Class *				As_Phys3Class(void)										{ return nullptr; }
+	virtual HumanPhysClass *		As_HumanPhysClass(void)									{ return nullptr; }
+	virtual RigidBodyClass *		As_RigidBodyClass(void)									{ return nullptr; }
+	virtual VehiclePhysClass *		As_VehiclePhysClass(void)								{ return nullptr;	}
+	virtual MotorVehicleClass *	As_MotorVehicleClass(void)								{ return nullptr; }
+	virtual WheeledVehicleClass *	As_WheeledVehicleClass(void)							{ return nullptr;	}
+	virtual MotorcycleClass *		As_MotorcycleClass(void)								{ return nullptr; }
+	virtual TrackedVehicleClass *	As_TrackedVehicleClass(void)							{ return nullptr; }
+	virtual VTOLVehicleClass *		As_VTOLVehicleClass(void)								{ return nullptr; }
+	virtual StaticPhysClass *		As_StaticPhysClass(void)								{ return nullptr; }
+	virtual StaticAnimPhysClass *	As_StaticAnimPhysClass(void)							{ return nullptr; }
+	virtual ElevatorPhysClass *	As_ElevatorPhysClass(void)								{ return nullptr; }
+	virtual DamageableStaticPhysClass *	As_DamageableStaticPhysClass (void)			{ return nullptr; }
+	virtual DoorPhysClass *			As_DoorPhysClass(void)									{ return nullptr; }
+	virtual DecorationPhysClass *	As_DecorationPhysClass(void)							{ return nullptr; }
+	virtual TimedDecorationPhysClass * As_TimedDecorationPhysClass(void)				{ return nullptr; }
+	virtual DynamicAnimPhysClass *As_DynamicAnimPhysClass(void)							{ return nullptr; }
+	virtual LightPhysClass *		As_LightPhysClass(void)									{ return nullptr; }
+	virtual RenderObjPhysClass *	As_RenderObjPhysClass(void)							{ return nullptr; }
+	virtual ProjectileClass *		As_ProjectileClass(void)								{ return nullptr; }
+	virtual AccessiblePhysClass *	As_AccessiblePhysClass(void)							{ return nullptr; }
 
 	/*
 	** Persistant object save/load system
@@ -764,13 +764,13 @@ inline void PhysClass::Update_Cull_Box(void)
 
 inline void PhysClass::Add_Effect_To_Me(MaterialEffectClass * effect)
 {
-	WWASSERT(effect != NULL);
+	WWASSERT(effect != nullptr);
 	MaterialEffectsOnMe.Add(effect);
 }
 
 inline void PhysClass::Remove_Effect_From_Me(MaterialEffectClass * effect)
 {
-	WWASSERT(effect != NULL);
+	WWASSERT(effect != nullptr);
 	MaterialEffectsOnMe.Remove(effect);
 }
 

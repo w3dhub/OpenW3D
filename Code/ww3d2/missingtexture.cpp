@@ -29,7 +29,7 @@ static unsigned missing_image_run_count=7331;
 extern unsigned char missing_image_run_lengths[];
 extern unsigned missing_image_color_values[];
 
-static IDirect3DTexture9 * _MissingTexture = NULL;
+static IDirect3DTexture9 * _MissingTexture = nullptr;
 
 IDirect3DTexture9* MissingTexture::_Get_Missing_Texture()
 {
@@ -40,21 +40,21 @@ IDirect3DTexture9* MissingTexture::_Get_Missing_Texture()
 
 IDirect3DSurface9* MissingTexture::_Create_Missing_Surface()
 {
-	IDirect3DSurface9 *texture_surface = NULL;
+	IDirect3DSurface9 *texture_surface = nullptr;
 	DX8_ErrorCode(_MissingTexture->GetSurfaceLevel(0, &texture_surface));
 	D3DSURFACE_DESC texture_surface_desc;
 	memset(&texture_surface_desc, 0, sizeof(D3DSURFACE_DESC));
 	DX8_ErrorCode(texture_surface->GetDesc(&texture_surface_desc));
 
-	IDirect3DSurface9 *surface = NULL;
+	IDirect3DSurface9 *surface = nullptr;
 	DX8CALL(CreateOffscreenPlainSurface(
 		texture_surface_desc.Width,
 		texture_surface_desc.Height,
 		texture_surface_desc.Format,
 		D3DPOOL_SCRATCH,
 		&surface,
-		NULL));
-	DX8CALL(UpdateSurface(texture_surface, NULL, surface, NULL));
+		nullptr));
+	DX8CALL(UpdateSurface(texture_surface, nullptr, surface, nullptr));
 	texture_surface->Release();
 	return surface;
 }
@@ -111,11 +111,11 @@ void MissingTexture::_Init()
 
 		DX8_ErrorCode(D3DXLoadSurfaceFromSurface(
 			dst,
-			NULL,	// palette
-			NULL,	// rect
+			nullptr,	// palette
+			nullptr,	// rect
 			src,
-			NULL,	// palette
-			NULL,	// rect
+			nullptr,	// palette
+			nullptr,	// rect
 			D3DX_FILTER_BOX,	// box is good for 2:1 filtering
 			0));
 

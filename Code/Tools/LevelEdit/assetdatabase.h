@@ -83,13 +83,13 @@ public:
 		//
 		//	Database methods
 		//
-		virtual bool				Open_Database (LPCTSTR ini_filename, LPCTSTR username = NULL, LPCTSTR password = NULL) = 0;
+		virtual bool				Open_Database (LPCTSTR ini_filename, LPCTSTR username = nullptr, LPCTSTR password = nullptr) = 0;
 
 		//
 		//	File manipulation methods
 		//
-		virtual bool				Add_File (LPCTSTR local_filename, LPCTSTR comment = NULL) = 0;
-		virtual bool				Check_In (LPCTSTR local_filename, LPCTSTR comment = NULL) = 0;
+		virtual bool				Add_File (LPCTSTR local_filename, LPCTSTR comment = nullptr) = 0;
+		virtual bool				Check_In (LPCTSTR local_filename, LPCTSTR comment = nullptr) = 0;
 		virtual bool				Check_Out (LPCTSTR local_filename, bool get_locally = true) = 0;
 		virtual bool				Undo_Check_Out (LPCTSTR local_filename) = 0;
 		virtual bool				Get (LPCTSTR local_filename) = 0;
@@ -114,7 +114,7 @@ public:
 		//	File information methods
 		//
 
-		virtual FILE_STATUS		Get_File_Status (LPCTSTR local_filename, StringClass *checked_out_user_name = NULL) = 0;
+		virtual FILE_STATUS		Get_File_Status (LPCTSTR local_filename, StringClass *checked_out_user_name = nullptr) = 0;
 		virtual bool				Is_File_Different (LPCTSTR local_filename) = 0;
 		virtual bool				Does_File_Exist (LPCTSTR local_filename) = 0;
 

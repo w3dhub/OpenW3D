@@ -62,7 +62,7 @@
 #define	NULL_HANDLE		INVALID_HANDLE_VALUE
 #define	HANDLE_TYPE		HANDLE
 #elif defined(OPENW3D_SDL3)
-#define	NULL_HANDLE	 	NULL
+#define	NULL_HANDLE	 	nullptr
 #define	HANDLE_TYPE		struct SDL_IOStream*
 #else
 #error "Not implemented"

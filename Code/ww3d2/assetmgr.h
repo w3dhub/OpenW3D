@@ -202,7 +202,7 @@ public:
 	**	WW3DAssetManager::Get_Instance();
 	*/
 	static WW3DAssetManager *		Get_Instance(void) { return TheInstance; }
-	static void							Delete_This(void) { if (TheInstance) delete TheInstance; TheInstance=NULL; }
+	static void							Delete_This(void) { if (TheInstance) delete TheInstance; TheInstance=nullptr; }
 
 	/*
 	** Load data from any type of w3d file
@@ -383,7 +383,7 @@ protected:
 
 	/*
 	** When enabled, this handles all the caching for the texture class.
-	** If NULL then textures are not being cached.
+	** If nullptr then textures are not being cached.
 	*/
 	TextureFileCache *				TextureCache;
 

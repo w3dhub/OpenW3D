@@ -129,7 +129,7 @@ void CChunkDataView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	list.DeleteAllItems();
 
 	// Rebuild the list view
-	if (chunk != NULL) {
+	if (chunk != nullptr) {
 		Display_Chunk(chunk);
 	}
 }
@@ -139,7 +139,7 @@ void CChunkDataView::Display_Chunk(const ChunkImageClass * chunk)
 	CListCtrl &list = GetListCtrl();
 	CChunkViewDoc * doc= (CChunkViewDoc *)GetDocument();
 
-	if (chunk->Get_Data() == NULL) {
+	if (chunk->Get_Data() == nullptr) {
 
 		Display_Chunk_Sub_Chunks(chunk);
 
@@ -188,7 +188,7 @@ void CChunkDataView::Display_Chunk_Hex(const ChunkImageClass * chunk)
 	list.InsertColumn(0, &HexColumn);
 
 	HexToStringClass * hexconverter = Create_Hex_Converter(chunk->Get_Data(),chunk->Get_Length());
-	assert(hexconverter != NULL);
+	assert(hexconverter != nullptr);
 
 	int rowcounter = 0;
 	while (!hexconverter->Is_Done()) {
@@ -256,7 +256,7 @@ void CChunkDataView::Reset_Columns(void)
 
 HexToStringClass * CChunkDataView::Create_Hex_Converter(const uint8 * data,const uint32 size)
 {
-	HexToStringClass * hexconv = NULL;
+	HexToStringClass * hexconv = nullptr;
 
 	switch(WordSize) {
 		case WORD_SIZE_LONG:
@@ -274,6 +274,6 @@ HexToStringClass * CChunkDataView::Create_Hex_Converter(const uint8 * data,const
 
 void CChunkDataView::Destroy_Hex_Converter(HexToStringClass * hexconv)
 {
-	assert(hexconv != NULL);
+	assert(hexconv != nullptr);
 	delete hexconv;
 }

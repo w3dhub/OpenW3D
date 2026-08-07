@@ -96,7 +96,7 @@ void DynamicAnimPhysClass::Set_Model(RenderObjClass * model)
 	** Nuke strike uses a linear offset mapper to fade out, have to reset it so I'm
 	** just resetting any mappers in any model used by a DynamicAnimPhys... hacky, oh well.
 	*/
-	if (Model != NULL) {
+	if (Model != nullptr) {
 		Reset_Mappers(Model);
 	}
 }
@@ -118,10 +118,10 @@ void DynamicAnimPhysClass::Update_Cached_Model_Parameters(void)
 
 void DynamicAnimPhysClass::Reset_Mappers(RenderObjClass * model)
 {
-	if (model != NULL) {
+	if (model != nullptr) {
 
 		MaterialInfoClass * matinfo = model->Get_Material_Info();
-		if (matinfo != NULL) {
+		if (matinfo != nullptr) {
 			matinfo->Reset_Texture_Mappers();
 		}
 		REF_PTR_RELEASE(matinfo);

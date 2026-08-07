@@ -215,7 +215,7 @@ void PhysicsSceneClass::Get_Sun_Light_Orientation(float * set_yaw,float * set_pi
  *=============================================================================================*/
 void PhysicsSceneClass::Get_Sun_Light_Vector(Vector3 * set_vector)
 {
-	WWASSERT(set_vector != NULL);
+	WWASSERT(set_vector != nullptr);
 	const Matrix3D & tm = SunLight->Get_Transform();
 	*set_vector = tm * Vector3(0,0,1);
 }
@@ -266,7 +266,7 @@ void PhysicsSceneClass::Compute_Static_Lighting
 	int vis_object_id
 )
 {
-	WWASSERT(light_env != NULL);
+	WWASSERT(light_env != nullptr);
 	light_env->Reset(obj_center,Get_Ambient_Light());
 
 	/*
@@ -282,7 +282,7 @@ void PhysicsSceneClass::Compute_Static_Lighting
 	StaticLightingSystem->Reset_Collection();
 	StaticLightingSystem->Collect_Objects(obj_center);
 	LightPhysClass * light = StaticLightingSystem->Get_First_Collected_Object();
-	while (light != NULL) {
+	while (light != nullptr) {
 
 		if ((light->Is_Disabled() == false) && (light->Is_Vis_Object_Visible(vis_object_id))) {
 

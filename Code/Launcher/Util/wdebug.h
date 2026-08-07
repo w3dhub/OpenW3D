@@ -67,7 +67,7 @@ extern Sem4 DebugLibSemaphore;
 #define INFMSG(X)\
 {\
   char     timebuf[40]; \
-  time_t   clock=time(NULL); \
+  time_t   clock=time(nullptr); \
   cftime(timebuf,"%D %T",&clock); \
   DebugLibSemaphore.Wait(); \
   if (MsgManager::infoStream()) \
@@ -80,7 +80,7 @@ extern Sem4 DebugLibSemaphore;
 #define WRNMSG(X)\
 {\
   char     timebuf[40]; \
-  time_t   clock=time(NULL); \
+  time_t   clock=time(nullptr); \
   cftime(timebuf,"%D %T",&clock); \
   DebugLibSemaphore.Wait(); \
   if (MsgManager::warnStream()) \
@@ -93,7 +93,7 @@ extern Sem4 DebugLibSemaphore;
 #define ERRMSG(X)\
 {\
   char     timebuf[40]; \
-  time_t   clock=time(NULL); \
+  time_t   clock=time(nullptr); \
   cftime(timebuf,"%D %T",&clock); \
   DebugLibSemaphore.Wait(); \
   if (MsgManager::errorStream()) \

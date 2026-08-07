@@ -63,9 +63,9 @@ GridEffectClass::GridEffectClass(void) :
 	LastRenderTime(0),
 	RenderBaseMaterial(true),
 	RenderGridMaterial(false),
-	Stage0Mapper(NULL),
-	Stage1Mapper(NULL),
-	MaterialPass(NULL)
+	Stage0Mapper(nullptr),
+	Stage1Mapper(nullptr),
+	MaterialPass(nullptr)
 {
 	LastRenderTime = WW3D::Get_Sync_Time();
 

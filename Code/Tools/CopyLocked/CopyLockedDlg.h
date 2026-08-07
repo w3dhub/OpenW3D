@@ -33,7 +33,7 @@ class CCopyLockedDlg : public CDialog
 {
 // Construction
 public:
-	CCopyLockedDlg(CWnd* pParent = NULL);	// standard constructor
+	CCopyLockedDlg(CWnd* pParent = nullptr);	// standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CCopyLockedDlg)

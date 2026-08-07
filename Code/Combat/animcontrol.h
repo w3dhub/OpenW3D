@@ -100,7 +100,7 @@ public:
 	// Set Mode
 	void			Set_Mode( AnimMode mode, float frame = -1 );
 	AnimMode		Get_Mode( void )					{ return Mode; }
-	bool			Is_Complete( void )				{ return (Animation == NULL) || ((Mode == ANIM_MODE_ONCE) && (Frame == NumFrames-1)) || ((Mode == ANIM_MODE_TARGET) && (Frame == TargetFrame)); }
+	bool			Is_Complete( void )				{ return (Animation == nullptr) || ((Mode == ANIM_MODE_ONCE) && (Frame == NumFrames-1)) || ((Mode == ANIM_MODE_TARGET) && (Frame == TargetFrame)); }
 	const char *Get_Animation_Name( void )		{ return Animation ? Animation->Get_Name() : ""; }
 
 	// Frame
@@ -204,7 +204,7 @@ public:
 	virtual	float	Get_Target_Frame( void )												= 0;
 	virtual	float	Get_Current_Frame( void )												= 0;
 
-	virtual HAnimClass *	Peek_Animation( void ) { return NULL; }
+	virtual HAnimClass *	Peek_Animation( void ) { return nullptr; }
 
 	// Update the animation
 	virtual	void	Update( float dtime )													= 0;

@@ -63,7 +63,7 @@ DynamicVectorClass<AnimatedSoundMgrClass::ANIM_SOUND_LIST *>					AnimatedSoundMg
 static WWINLINE INIClass *
 Get_INI (const char *filename)
 {
-	INIClass *ini = NULL;
+	INIClass *ini = nullptr;
 
 	//
 	//	Get the file from our filefactory
@@ -97,12 +97,12 @@ Build_List_From_String
 {
 	int count = 0;
 
-	WWASSERT (buffer != NULL);
-	WWASSERT (delimiter != NULL);
-	WWASSERT (string_list != NULL);
-	if ((buffer != NULL) &&
-		 (delimiter != NULL) &&
-		 (string_list != NULL))
+	WWASSERT (buffer != nullptr);
+	WWASSERT (delimiter != nullptr);
+	WWASSERT (string_list != nullptr);
+	if ((buffer != nullptr) &&
+		 (delimiter != nullptr) &&
+		 (string_list != nullptr))
 	{
 		size_t delim_len = ::strlen (delimiter);
 
@@ -111,7 +111,7 @@ Build_List_From_String
 		//
 		const char *entry;
 		for (entry = buffer;
-			  (entry != NULL) && (entry[1] != 0);
+			  (entry != nullptr) && (entry[1] != 0);
 			  entry = ::strstr (entry, delimiter))
 		{
 
@@ -138,7 +138,7 @@ Build_List_From_String
 			//
 			count = 0;
 			for (entry = buffer;
-				  (entry != NULL) && (entry[1] != 0);
+				  (entry != nullptr) && (entry[1] != 0);
 				  entry = ::strstr (entry, delimiter))
 			{
 
@@ -154,7 +154,7 @@ Build_List_From_String
 				//
 				StringClass entry_string = entry;
 				char *delim_start = (char *)::strstr (entry_string, delimiter);
-				if (delim_start != NULL) {
+				if (delim_start != nullptr) {
 					delim_start[0] = 0;
 				}
 
@@ -202,7 +202,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 	//	Determine which filename to use
 	//
 	const char *filename_to_use = ini_filename;
-	if (filename_to_use == NULL) {
+	if (filename_to_use == nullptr) {
 		filename_to_use = DEFAULT_INI_FILENAME;
 	}
 
@@ -210,14 +210,14 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 	//	Get the INI file which contains the data for this viewer
 	//
 	INIClass *ini_file = ::Get_INI (filename_to_use);
-	if (ini_file != NULL) {
+	if (ini_file != nullptr) {
 
 		//
 		//	Loop over all the sections in the INI
 		//
 		List<INISection *> &section_list = ini_file->Get_Section_List ();
 		for (	INISection *section = section_list.First ();
-				section != NULL && section->Is_Valid ();
+				section != nullptr && section->Is_Valid ();
 				section = section->Next_Valid ())
 		{
 			//
@@ -254,7 +254,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 				//
 				//	Separate the parameters into an easy-to-handle data structure
 				//
-				StringClass *param_list = NULL;
+				StringClass *param_list = nullptr;
 				int param_count = ::Build_List_From_String (value, ",", &param_list);
 				if (param_count == 2) {
 					frame_start			= ::atoi (param_list[0]);
@@ -266,7 +266,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 					//	Find this sound definition
 					//
 					DefinitionClass *definition = DefinitionMgrClass::Find_Typed_Definition (definition_name, CLASSID_SOUND);
-					if (definition != NULL) {
+					if (definition != nullptr) {
 
 						//
 						//	Tie the relevant information together and store it
@@ -334,7 +334,7 @@ AnimatedSoundMgrClass::Shutdown (void)
 bool
 AnimatedSoundMgrClass::Does_Animation_Have_Embedded_Sounds (HAnimClass *anim)
 {
-	return (Find_Sound_List (anim) != NULL);
+	return (Find_Sound_List (anim) != nullptr);
 }
 
 
@@ -379,7 +379,7 @@ AnimatedSoundMgrClass::Trigger_Sound
 	const Matrix3D &	tm
 )
 {
-	if (anim == NULL) {
+	if (anim == nullptr) {
 		return old_frame;
 	}
 
@@ -389,7 +389,7 @@ AnimatedSoundMgrClass::Trigger_Sound
 	//	Lookup the sound list for this animation
 	//
 	ANIM_SOUND_LIST *sound_list = Find_Sound_List (anim);
-	if (sound_list != NULL) {
+	if (sound_list != nullptr) {
 
 		for (int index = 0; index < sound_list->Count (); index ++) {
 			int frame = (*sound_list)[index].Frame;

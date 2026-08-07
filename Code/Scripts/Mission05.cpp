@@ -90,7 +90,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Contact Gunner
 		case 501:
 			{
-				Commands->Add_Objective(501, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_02, NULL, IDS_Enc_Obj_Primary_M05_02);
+				Commands->Add_Objective(501, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_02, nullptr, IDS_Enc_Obj_Primary_M05_02);
 				object = Commands->Find_Object(100003);
 				if(object)
 				{
@@ -103,7 +103,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Contact Deadeye
 		case 502:
 			{
-				Commands->Add_Objective(502, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_03, NULL, IDS_Enc_Obj_Primary_M05_03);
+				Commands->Add_Objective(502, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_03, nullptr, IDS_Enc_Obj_Primary_M05_03);
 				object = Commands->Find_Object(100004);
 				if(object)
 				{
@@ -116,7 +116,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Rescue Hotwire
 		case 503:
 			{
-				Commands->Add_Objective(503, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_01, NULL, IDS_Enc_Obj_Primary_M05_01);
+				Commands->Add_Objective(503, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_01, nullptr, IDS_Enc_Obj_Primary_M05_01);
 				object = Commands->Find_Object(100002);
 				if(object)
 				{
@@ -129,7 +129,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Contact Patch
 		case 504:
 			{
-				Commands->Add_Objective(504, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_04, NULL, IDS_Enc_Obj_Primary_M05_04);
+				Commands->Add_Objective(504, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_04, nullptr, IDS_Enc_Obj_Primary_M05_04);
 				object = Commands->Find_Object(100006);
 				if(object)
 				{
@@ -141,7 +141,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Eliminate Black Hand
 		case 506:
 			{
-				Commands->Add_Objective(506, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_05, NULL, IDS_Enc_Obj_Primary_M05_05);
+				Commands->Add_Objective(506, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_05, nullptr, IDS_Enc_Obj_Primary_M05_05);
 				object = Commands->Find_Object(100287);
 				if(object)
 				{
@@ -153,7 +153,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Secure Town Square
 		case 507:
 			{
-				Commands->Add_Objective(507, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_01, NULL, IDS_Enc_Obj_Secondary_M05_01);
+				Commands->Add_Objective(507, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_01, nullptr, IDS_Enc_Obj_Secondary_M05_01);
 				object = Commands->Find_Object(100112);
 				if(object)
 				{
@@ -165,7 +165,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Escort Resistance
 		case 508:
 			{
-				Commands->Add_Objective(508, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_02, NULL, IDS_Enc_Obj_Secondary_M05_02);
+				Commands->Add_Objective(508, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_02, nullptr, IDS_Enc_Obj_Secondary_M05_02);
 				object = Commands->Find_Object(101261);
 				if(object)
 				{
@@ -177,7 +177,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Contact Escapee
 		case 509:
 			{
-				Commands->Add_Objective(509, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_03, NULL, IDS_Enc_Obj_Secondary_M05_03);
+				Commands->Add_Objective(509, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_03, nullptr, IDS_Enc_Obj_Secondary_M05_03);
 				object = Commands->Find_Object(100038);
 				if(object)
 				{
@@ -189,7 +189,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Contact Babushka
 		case 510:
 			{
-				Commands->Add_Objective(510, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_05, NULL, IDS_Enc_Obj_Secondary_M05_05);
+				Commands->Add_Objective(510, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_05, nullptr, IDS_Enc_Obj_Secondary_M05_05);
 				object = Commands->Find_Object(100050);
 				if(object)
 				{
@@ -201,7 +201,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		// Eliminate Engineers
 		case 512:
 			{
-				Commands->Add_Objective(512, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_04, NULL, IDS_Enc_Obj_Secondary_M05_04);
+				Commands->Add_Objective(512, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_04, nullptr, IDS_Enc_Obj_Secondary_M05_04);
 				object = Commands->Find_Object(100632);
 				if(object)
 				{
@@ -361,7 +361,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			// Hotwire here, I can't rendezvous at your position, I've got tons of armor pounding my location in the southwest quarter.\n
 			const char *conv_name = ("M05_CON001");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300503);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -433,7 +433,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_501, "")
 			// This is Gunner, I'm pinned down under heavy fire on the south side of the village, requesting backup!\n
 			const char *conv_name = ("M05_CON003");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300501);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -479,7 +479,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_502, "")
 			// This is Deadeye - I'm held up in the Fancy Inn on the east side with some local resistance fighters. Need further assistance.\n
 			const char *conv_name = ("M05_CON004");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f)), conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -536,7 +536,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_504, "")
 			// Havoc, this is Patch.  I'm at the Cathedral. Nod's gathering for major bloodletting. Get up here.\n
 			const char *conv_name = ("M05_CON005");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300504);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -594,7 +594,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_507, "")
 			// Attention GDI forces, this is Resistance Radio. Nod is assaulting the Town Square, on the south side of village. Requesting assistance.\n
 			const char *conv_name = ("M05_CON006");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300507);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -657,7 +657,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_508, "")
 			// This is Nod supply helo Delta-12, possible rooftop sighting of terrorists in quadrant 4.  Are those rocket launchers? Evasive- <explosion and static>\n
 			const char *conv_name = ("M05_CON007");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300501);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -736,7 +736,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_509, "")
 			// GDI forces, this is Resistance Radio. Communications indicate an escapee from the Chateau is in our custody on the northern side of the village. He has valuable information, make contact if needed.\n
 			const char *conv_name = ("M05_CON038");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300509);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -798,7 +798,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_510, "")
 			// How's this work? Okay... Attention, this is Resistance Radio. Rumours are true, our leader Babushka is kidnapped. Is anybody around to help? Hello? Is this on?
 			const char *conv_name = ("M05_CON008");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f)), conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300510);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -1008,7 +1008,7 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier2, "")
 		}
 		if(Commands->Get_Health(obj) < (.3 * Commands->Get_Max_Health(obj)))
 		{
-			Commands->Apply_Damage( obj, -10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage( obj, -10000.0f, "STEEL", nullptr );
 		}
 
 	}
@@ -1331,7 +1331,7 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 			}
 			if(Commands->Get_Health(obj) < (.3 * Commands->Get_Max_Health(obj)))
 			{
-				Commands->Apply_Damage( obj, -10000.0f, "STEEL", NULL );
+				Commands->Apply_Damage( obj, -10000.0f, "STEEL", nullptr );
 			}
 		}
 	}
@@ -2273,7 +2273,7 @@ DECLARE_SCRIPT(M05_Chateau_Escapee, "")
 		ActionParamsStruct params;
 
 		Commands->Innate_Disable(obj);
-		Commands->Set_Animation ( obj, "S_A_HUMAN.H_A_601A", true, NULL, 0.0f, -1.0f, false );
+		Commands->Set_Animation ( obj, "S_A_HUMAN.H_A_601A", true, nullptr, 0.0f, -1.0f, false );
 		Commands->Set_Player_Type(obj, SCRIPT_PLAYERTYPE_GDI );
 	}
 
@@ -2281,7 +2281,7 @@ DECLARE_SCRIPT(M05_Chateau_Escapee, "")
 	{
 		if (type == M05_CUSTOM_ACTIVATE)
 		{
-			Commands->Set_Animation ( obj, "S_A_HUMAN.H_A_7002", true, NULL, 0.0f, -1.0f, false );
+			Commands->Set_Animation ( obj, "S_A_HUMAN.H_A_7002", true, nullptr, 0.0f, -1.0f, false );
 
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Object ( "Visceroid", myPosition );
@@ -2297,7 +2297,7 @@ DECLARE_SCRIPT(M05_Chateau_Escapee, "")
 
 		if(timer_id == DESTROY_SELF)
 		{
-			Commands->Apply_Damage( obj, 10000, "STEEL", NULL );
+			Commands->Apply_Damage( obj, 10000, "STEEL", nullptr );
 		}
 
 	}
@@ -2453,7 +2453,7 @@ DECLARE_SCRIPT(M05_Escapee_Windows, "")
 		params.Set_Attack (window1, 250.0f, 0.0f, 1);
 		params.AttackCheckBlocked = false;
 		Commands->Action_Attack( obj, params );
-		Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(window1), NULL);
+		Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(window1), nullptr);
 
 		Commands->Start_Timer (obj, this, 1.0f, DESTROY_WINDOWS);
 		Commands->Start_Timer (obj, this, 3.0f, DESTROY_SELF);
@@ -2472,7 +2472,7 @@ DECLARE_SCRIPT(M05_Escapee_Windows, "")
 			params.AttackCheckBlocked = false;
 			Commands->Modify_Action (obj, DESTROY_WINDOWS, params, true, true);
 
-			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(window2), NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(window2), nullptr);
 		}
 
 		if(timer_id == DESTROY_SELF)
@@ -2555,13 +2555,13 @@ DECLARE_SCRIPT(M05_Heal_Dead6, "")
 		if(timer_id == HEAL_DEAD6)
 		{
 			// Gunner
-			Commands->Apply_Damage(Commands->Find_Object(100048), -10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage(Commands->Find_Object(100048), -10000.0f, "STEEL", nullptr );
 			// Deadeye
-			Commands->Apply_Damage(Commands->Find_Object(100004), -10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage(Commands->Find_Object(100004), -10000.0f, "STEEL", nullptr );
 			// Hotwire
-			Commands->Apply_Damage(Commands->Find_Object(100047), -10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage(Commands->Find_Object(100047), -10000.0f, "STEEL", nullptr );
 			// Patch
-			Commands->Apply_Damage(Commands->Find_Object(100006), -10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage(Commands->Find_Object(100006), -10000.0f, "STEEL", nullptr );
 
 			Commands->Start_Timer (obj, this, 12.0f, HEAL_DEAD6);
 		}
@@ -2723,7 +2723,7 @@ DECLARE_SCRIPT(M05_Babushka, "")
 		}
 	/*	if(Commands->Get_Health(obj) < (.3 * Commands->Get_Max_Health(obj)))
 		{
-			Commands->Apply_Damage( obj, -10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage( obj, -10000.0f, "STEEL", nullptr );
 		}*/
 
 	}
@@ -2823,7 +2823,7 @@ DECLARE_SCRIPT (M05_Park_Activate, "")
 			// Attention GDI forces, this is Resistance Radio. Nod is completing construction of an Obelisk in the Park, on the northwestern side. If anyone is near the area, eliminate all Nod Engineers to stop construction.\n
 			const char *conv_name = ("M05_CON037");
 			int conv_id = Commands->Create_Conversation(conv_name, 0, 0, true);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300512);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -2941,15 +2941,15 @@ DECLARE_SCRIPT (M05_Park_Controller, "")
 		}
 		if(type == CUSTOM_EVENT_SOUND_ENDED && param == artillery_sound1)
 		{
-			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc1, NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc1, nullptr);
 		}
 		if(type == CUSTOM_EVENT_SOUND_ENDED && param == artillery_sound2)
 		{
-			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc2, NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc2, nullptr);
 		}
 		if(type == CUSTOM_EVENT_SOUND_ENDED && param == artillery_sound3)
 		{
-			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc3, NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc3, nullptr);
 		}
 
 
@@ -5647,8 +5647,8 @@ DECLARE_SCRIPT(M05_Activate_Surprise_Tank, "")
 	{
 		if(timer_id == EXPLODE_BLOCK)
 		{
-			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(105382)), NULL);
-			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(101865)), NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(105382)), nullptr);
+			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(101865)), nullptr);
 
 
 			Commands->Destroy_Object(Commands->Find_Object(105382));
@@ -6376,7 +6376,7 @@ DECLARE_SCRIPT(M05_Vehicle_Dec, "")
 			attacking = false;
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, ATTACKING );
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			Commands->Modify_Action (obj, ATTACKING, params, true, true);
 
 		}
@@ -6551,8 +6551,8 @@ DECLARE_SCRIPT(M05_Activate_Roadblock_Tank, "")
 
 		if(timer_id == EXPLODE_BLOCK)
 		{
-			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(101858)), NULL);
-			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(101859)), NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(101858)), nullptr);
+			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(101859)), nullptr);
 			Commands->Destroy_Object(Commands->Find_Object(101858));
 			Commands->Destroy_Object(Commands->Find_Object(101859));
 		}
@@ -6593,7 +6593,7 @@ DECLARE_SCRIPT(M05_Building_Debris, "")
 
 	void Killed(GameObject * obj, GameObject * /* killer */ ) override
 	{
-		Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(obj), NULL);
+		Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(obj), nullptr);
 		GameObject * explode_debris = Commands->Create_Object("M05_X5A_AG_DExplode", Vector3(0,0,0));
 		Commands->Attach_Script(explode_debris, "M05_Explode_Debris", "");
 		Commands->Destroy_Object(obj);
@@ -6619,7 +6619,7 @@ DECLARE_SCRIPT(M05_Explode_Debris, "")
 	//	params.Set_Basic(this, 100, 10);
 	//	params.Set_Animation("X5A_Debris.X5A_Debris_Boom", true);
 	//	Commands->Action_Play_Animation(obj, params);
-		Commands->Set_Animation(obj, "X5A_Debris.X5A_Debris_Boom", false, NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation(obj, "X5A_Debris.X5A_Debris_Boom", false, nullptr, 0.0f, -1.0f, false);
 
 		Commands->Start_Timer (obj, this, 1.0f, 10);
 		Commands->Create_Sound("Medium Explosion Sound Twiddler", Commands->Get_Position(obj), obj);
@@ -6720,7 +6720,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						// I need help!  Where's the second insertion team?! Backup needed at the Town Square!\n
 						const char *conv_name = ("M05_CON039");
 						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-						Commands->Join_Conversation(NULL, conv_id, false, true, true);
+						Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100003);
 
 					}
@@ -6734,7 +6734,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						// Hotwire here - I'm losing ground.  I need support or my own body bag!\n
 						const char *conv_name = ("M05_CON040");
 						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-						Commands->Join_Conversation(NULL, conv_id, false, true, true);
+						Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100002);
 
 					}
@@ -6748,7 +6748,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						// Havoc, this is Deadeye. Nod pressure increasing.  Need backup immediately!\n
 						const char *conv_name = ("M05_CON041");
 						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-						Commands->Join_Conversation(NULL, conv_id, false, true, true);
+						Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100650);
 
 					}
@@ -6764,7 +6764,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						// This is Hotwire, I can't hold this position! Requesting - oh great! <gunfire and static>\n
 						const char *conv_name = ("M05_CON043");
 						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-						Commands->Join_Conversation(NULL, conv_id, false, true, true);
+						Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100002);
 						Commands->Monitor_Conversation (obj, conv_id);
 					}
@@ -6775,7 +6775,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						// This is Gunner, too many Nod reinforcements... <gunfire> <static>\n
 						const char *conv_name = ("M05_CON042");
 						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-						Commands->Join_Conversation(NULL, conv_id, false, true, true);
+						Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100003);
 						Commands->Monitor_Conversation (obj, conv_id);
 					}
@@ -6786,7 +6786,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						// This is Deadeye, I'm being overrun - <exchanges of gunfire - static>\n
 						const char *conv_name = ("M05_CON044");
 						int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-						Commands->Join_Conversation(NULL, conv_id, false, true, true);
+						Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100652);
 						Commands->Monitor_Conversation (obj, conv_id);
 					}
@@ -6870,7 +6870,7 @@ DECLARE_SCRIPT(M05_Hotwire_Conversation, "")
 			// Havoc? Bust me outta here?\n
 			const char *conv_name = ("M05_CON036");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300503);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -6955,7 +6955,7 @@ DECLARE_SCRIPT(M05_Surprise_Unit, "")
 
 		if(timer_id == DIE_SURPRISE)
 		{
-			Commands->Apply_Damage( obj, 100000, "STEEL", NULL );
+			Commands->Apply_Damage( obj, 100000, "STEEL", nullptr );
 			Vector3 obj_pos = Commands->Get_Position(obj);
 			Vector3 shot_pos;
 			shot_pos.X = obj_pos.X + 4.0f;
@@ -7067,15 +7067,15 @@ DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int
 	{
 		if(type == CUSTOM_EVENT_SOUND_ENDED && param == artillery_sound1)
 		{
-			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc1, NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc1, nullptr);
 		}
 		if(type == CUSTOM_EVENT_SOUND_ENDED && param == artillery_sound2)
 		{
-			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc2, NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc2, nullptr);
 		}
 		if(type == CUSTOM_EVENT_SOUND_ENDED && param == artillery_sound3)
 		{
-			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc3, NULL);
+			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc3, nullptr);
 		}
 	}
 
@@ -7409,13 +7409,13 @@ DECLARE_SCRIPT(M05_Barrel_Explosion, "")
 	void Destroyed(GameObject * obj) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
-		Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, NULL );
+		Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, nullptr );
 	}
 
 /*	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
-		Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, NULL );
+		Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, nullptr );
 	}*/
 
 };
@@ -7444,7 +7444,7 @@ DECLARE_SCRIPT(M05_APC_Deploy, "Preset:string, Soldier_Qty=0:int, Fire_Gun=1:int
 
 	void Deploy_Soldiers(GameObject * obj)
 	{
-		Commands->Set_Animation(obj, "V_NOD_APC.V_NOD_APC", 0, NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation(obj, "V_NOD_APC.V_NOD_APC", 0, nullptr, 0.0f, -1.0f, false);
 		int soldier_qty = Get_Int_Parameter("Soldier_Qty");
 		if(soldier_qty > 0)
 		{
@@ -7522,7 +7522,7 @@ DECLARE_SCRIPT(M05_APC_Deploy_Soldier, "APC_ID=0:int")
 
 	void Created (GameObject * obj) override
 	{
-		Commands->Set_Animation(obj, "S_A_Human.H_A_XG_NAPC_OUT", 0, NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation(obj, "S_A_Human.H_A_XG_NAPC_OUT", 0, nullptr, 0.0f, -1.0f, false);
 		Commands->Enable_Hibernation (obj, false);
 	}
 
@@ -7531,7 +7531,7 @@ DECLARE_SCRIPT(M05_APC_Deploy_Soldier, "APC_ID=0:int")
 		if (stricmp(anim, "S_A_Human.H_A_XG_NAPC_OUT") == 0)
 		{
 			GameObject * apc = Commands->Find_Object(Get_Int_Parameter("APC_ID"));
-			Commands->Attach_To_Object_Bone(obj, NULL, NULL);
+			Commands->Attach_To_Object_Bone(obj, nullptr, nullptr);
 
 			Vector3 pos = Commands->Get_Position(apc);
 			float facing = Commands->Get_Facing(apc);

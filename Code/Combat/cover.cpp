@@ -107,7 +107,7 @@ bool	CoverManager::Load( ChunkLoadClass & cload )
 */
 void	CoverManager::Add_Entry( CoverEntryClass * entry )
 {
-	if ( entry != NULL ) {
+	if ( entry != nullptr ) {
 		entry->Add_Ref();
 		CoverPositions.Add( entry );
 	}
@@ -115,7 +115,7 @@ void	CoverManager::Add_Entry( CoverEntryClass * entry )
 
 void	CoverManager::Remove_Entry( CoverEntryClass * entry )
 {
-	if ( entry != NULL ) {
+	if ( entry != nullptr ) {
 		CoverPositions.Delete( entry );
 		entry->Release_Ref();
 	}
@@ -172,7 +172,7 @@ CoverEntryClass * CoverManager::Request_Cover( const Vector3 & cur_pos, const Ve
 		return CoverPositions[best_index];
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void	CoverManager::Release_Cover( CoverEntryClass * entry )
@@ -228,7 +228,7 @@ bool	CoverEntryClass::Load( ChunkLoadClass & cload )
 {
 	WWASSERT( AttackPositionList.Count() == 0 );
 
-	CoverEntryClass * old_me = NULL;
+	CoverEntryClass * old_me = nullptr;
 
 	while (cload.Open_Chunk()) {
 		switch(cload.Cur_Chunk_ID()) {
@@ -269,8 +269,8 @@ bool	CoverEntryClass::Load( ChunkLoadClass & cload )
 	}
 
 	// publish my remap pair
-	WWASSERT(old_me != NULL);
-	if (old_me != NULL) {
+	WWASSERT(old_me != nullptr);
+	if (old_me != nullptr) {
 		SaveLoadSystemClass::Register_Pointer( old_me, this );
 	}
 

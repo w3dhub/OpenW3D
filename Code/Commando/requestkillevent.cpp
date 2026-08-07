@@ -80,7 +80,7 @@ cRequestKillEvent::Act(void)
    WWASSERT(cNetwork::I_Am_Server());
 
 	NetworkObjectClass *	p_object = NetworkObjectMgrClass::Find_Object(ObjectId);
-	if (p_object != NULL) {
+	if (p_object != nullptr) {
 		p_object->Set_Delete_Pending();
 		WWDEBUG_SAY(("* cRequestKillEvent::Act: killing object id %d\n", ObjectId));
 	}

@@ -57,7 +57,7 @@
  *=============================================================================================*/
 PivotClass::PivotClass(void) :
 	Index(0),
-	Parent(NULL),
+	Parent(nullptr),
 	BaseTransform(1),
 	Transform(1),
 	IsVisible(true),

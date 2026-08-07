@@ -76,7 +76,7 @@ class ReferenceableClass {
 
 	public:
 		friend class ReferencerClass;
-		ReferenceableClass( T *reference_data ) : ReferenceData( reference_data ), ReferencerListHead( NULL ) {}
+		ReferenceableClass( T *reference_data ) : ReferenceData( reference_data ), ReferencerListHead( nullptr ) {}
 		~ReferenceableClass( void );
 
 		bool	Save( ChunkSaveClass & csave );
@@ -99,9 +99,9 @@ class ReferencerClass : public PostLoadableClass {
 
 	public:
 		friend class ReferenceableClass<ScriptableGameObj>;
-		ReferencerClass( void ) : ReferenceTarget( NULL ), TargetReferencerListNext( NULL ) {}
-		ReferencerClass( const ScriptableGameObj * target ) : ReferenceTarget( NULL ), TargetReferencerListNext( NULL ) { *this = target; }
-		virtual ~ReferencerClass( void ) { operator = ((const ScriptableGameObj*)NULL); }
+		ReferencerClass( void ) : ReferenceTarget( nullptr ), TargetReferencerListNext( nullptr ) {}
+		ReferencerClass( const ScriptableGameObj * target ) : ReferenceTarget( nullptr ), TargetReferencerListNext( nullptr ) { *this = target; }
+		virtual ~ReferencerClass( void ) { operator = ((const ScriptableGameObj*)nullptr); }
 
 		virtual void	On_Post_Load(void) override;
 
@@ -112,7 +112,7 @@ class ReferencerClass : public PostLoadableClass {
 		const ReferencerClass & operator = ( const ScriptableGameObj * reference_target );
 
 		void	Set_Ptr (const ScriptableGameObj * reference_target) { *this = reference_target; }
-		ScriptableGameObj *	Get_Ptr (void) const { return ReferenceTarget ? ReferenceTarget->Get_Data() : NULL; }
+		ScriptableGameObj *	Get_Ptr (void) const { return ReferenceTarget ? ReferenceTarget->Get_Data() : nullptr; }
 		operator	ScriptableGameObj * (void) const { return Get_Ptr(); }
 
 	protected:
@@ -127,12 +127,12 @@ class ReferencerClass : public PostLoadableClass {
 template<class T>
 ReferenceableClass<T>::~ReferenceableClass( void )
 {
-	while ( ReferencerListHead != NULL ) {	// clear each reference to me
+	while ( ReferencerListHead != nullptr ) {	// clear each reference to me
 		ReferencerClass *referencer = ReferencerListHead;
 		WWASSERT( referencer->ReferenceTarget == this );
 		ReferencerListHead = referencer->TargetReferencerListNext;
-		referencer->ReferenceTarget = NULL;
-		referencer->TargetReferencerListNext = NULL;
+		referencer->ReferenceTarget = nullptr;
+		referencer->TargetReferencerListNext = nullptr;
 	}
 }
 
@@ -168,7 +168,7 @@ bool	ReferenceableClass<T>::Load( ChunkLoadClass & cload )
 	cload.Open_Chunk();
 	WWASSERT( cload.Cur_Chunk_ID() == CHUNKID_REF_VARIABLES );
 
-	WWASSERT( ReferencerListHead == NULL );
+	WWASSERT( ReferencerListHead == nullptr );
 
 	while (cload.Open_Micro_Chunk()) {
 		switch(cload.Cur_Micro_Chunk_ID()) {

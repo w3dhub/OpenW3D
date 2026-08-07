@@ -101,7 +101,7 @@ void CombatNetworkReceiverInstanceClass::Server_Send_Delete_Notifications(void)
 		player_node = player_node->Next()) {
 
 		cPlayer * p_player = player_node->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 
       int client_id = p_player->Get_Id();
 
@@ -172,7 +172,7 @@ bool CombatNetworkReceiverInstanceClass::Server_Update_Dynamic_Objects(bool is_u
 		player_node = player_node->Next()) {
 
 		cPlayer * p_player = player_node->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 
       int client_id = p_player->Get_Id();
 
@@ -219,7 +219,7 @@ bool CombatNetworkReceiverInstanceClass::Server_Update_Dynamic_Objects(bool is_u
       SmartGameObj * p_soldier = GameObjManager::Find_Soldier_Of_Client_ID(client_id);
 
 		Vector3 dest_pos;
-      if (p_soldier == NULL) {
+      if (p_soldier == nullptr) {
 			//
 			// Act like the guy is far, far away.
 			// He'll only receive priority 1 messages.
@@ -256,7 +256,7 @@ bool CombatNetworkReceiverInstanceClass::Client_Update_Dynamic_Objects(bool is_u
 	DWORD time_elapsed_ms = time_now_ms - last_update_time_ms;
 
 	int max_updates_per_second = cUserOptions::NetUpdateRate.Get();
-	WWASSERT(cServerFps::Get_Instance() != NULL);
+	WWASSERT(cServerFps::Get_Instance() != nullptr);
 	int server_fps = cServerFps::Get_Instance()->Get_Fps();
 	if (server_fps > 0 && server_fps < cUserOptions::NetUpdateRate.Get()) {
 		max_updates_per_second = server_fps;

@@ -57,7 +57,7 @@ bool	  Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace
 int64_t Cluster_Padding (unsigned filecount);
 bool	  Validate_Path (const WideStringClass &path, int &errorcode);
 bool	  Valid_Install_Drive (const char *drive);
-bool	  Create_Directory (const WideStringClass &path, DynamicVectorClass <StringClass> *log = NULL);
+bool	  Create_Directory (const WideStringClass &path, DynamicVectorClass <StringClass> *log = nullptr);
 bool	  Is_Same_Path (const WideStringClass &path0, const WideStringClass &path1, bool standardize = true);
 bool	  Is_Sub_Path (const WideStringClass &path0, const WideStringClass &path1, bool standardize = true);
 wchar_t  *Remove_Trailing_Name (WideStringClass &path);

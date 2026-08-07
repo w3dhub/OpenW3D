@@ -74,7 +74,7 @@ const char *	BLINKLIGHT_NAME_PREFIX					= "REN_BLINKLIGHT";
  *=============================================================================================*/
 VehicleDazzleClass::VehicleDazzleClass(void) :
 	Type(HEADLIGHT_TYPE),
-	Model(NULL),
+	Model(nullptr),
 	BlinkRate(0.0f),
 	CreationTime(0)
 {
@@ -114,7 +114,7 @@ VehicleDazzleClass::~VehicleDazzleClass(void)
 void VehicleDazzleClass::Set_Model(DazzleRenderObjClass * model)
 {
 	REF_PTR_SET(Model,model);
-	if (Model != NULL) {
+	if (Model != nullptr) {
 		Type = Determine_Type(model);
 		CreationTime = WW3D::Get_Sync_Time();
 	}
@@ -152,8 +152,8 @@ void VehicleDazzleClass::Set_Time_Of_Day(float /* time */)
  *=============================================================================================*/
 void VehicleDazzleClass::Pre_Render_Update(VehiclePhysClass * parent)
 {
-	WWASSERT(parent != NULL);
-	if (Model != NULL) {
+	WWASSERT(parent != nullptr);
+	if (Model != nullptr) {
 
 		switch (Type)
 		{
@@ -176,7 +176,7 @@ void VehicleDazzleClass::Pre_Render_Update(VehiclePhysClass * parent)
 				Vector3 velocity;
 				parent->Get_Velocity(&velocity);
 				float forward_vel = Vector3::Dot_Product(parent->Get_Transform().Get_X_Vector(),velocity);
-				bool controller_back = ((parent->Get_Controller() != NULL) && (parent->Get_Controller()->Get_Move_Forward() < 0.0f));
+				bool controller_back = ((parent->Get_Controller() != nullptr) && (parent->Get_Controller()->Get_Move_Forward() < 0.0f));
 				bool is_braking = ((forward_vel > 0.0f) && (controller_back));
 
 				float intensity = (parent->Is_Engine_Enabled() ? 1.0f : 0.0f);
@@ -231,7 +231,7 @@ bool VehicleDazzleClass::Is_Vehicle_Dazzle(RenderObjClass * obj)
  *=============================================================================================*/
 int VehicleDazzleClass::Determine_Type(RenderObjClass * obj)
 {
-	if ((obj != NULL) && (obj->Class_ID() == RenderObjClass::CLASSID_DAZZLE)) {
+	if ((obj != nullptr) && (obj->Class_ID() == RenderObjClass::CLASSID_DAZZLE)) {
 
 		DazzleRenderObjClass * dazzle = (DazzleRenderObjClass *)obj;
 		const char * type_name = DazzleRenderObjClass::Get_Type_Name(dazzle->Get_Dazzle_Type());

@@ -100,7 +100,7 @@ class RawFileClass : public FileClass
 		virtual void Close(void) override;
 		virtual unsigned int Get_Date_Time(void) override;
 		virtual bool Set_Date_Time(unsigned int datetime) override;
-		virtual void Error(int error, int canretry = false, char const * filename=NULL) override;
+		virtual void Error(int error, int canretry = false, char const * filename=nullptr) override;
 		virtual void Bias(int start, int length=-1) override;
 		virtual HANDLE_TYPE Get_File_Handle(void) override { return Handle;  }
 
@@ -155,11 +155,11 @@ class RawFileClass : public FileClass
  * RawFileClass::File_Name -- Returns with the filename associate with the file object.        *
  *                                                                                             *
  *    Use this routine to determine what filename is associated with this file object. If no   *
- *    filename has yet been assigned, then this routing will return NULL.                      *
+ *    filename has yet been assigned, then this routing will return nullptr.                      *
  *                                                                                             *
  * INPUT:   none                                                                               *
  *                                                                                             *
- * OUTPUT:  Returns with a pointer to the file name associated with this file object or NULL   *
+ * OUTPUT:  Returns with a pointer to the file name associated with this file object or nullptr   *
  *          if one doesn't exist.                                                              *
  *                                                                                             *
  * WARNINGS:   none                                                                            *

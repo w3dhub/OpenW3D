@@ -187,11 +187,11 @@ PacketManagerClass::~PacketManagerClass(void)
 {
 	if (SendBuffers) {
 		delete [] SendBuffers;
-		SendBuffers = NULL;
+		SendBuffers = nullptr;
 	}
 	if (ReceiveBuffers) {
 		delete [] ReceiveBuffers;
-		ReceiveBuffers = NULL;
+		ReceiveBuffers = nullptr;
 	}
 }
 
@@ -292,9 +292,9 @@ int PacketManagerClass::Build_Delta_Packet_Patch(unsigned char *base_packet, uns
 	/*
 	** Parameter asserts.
 	*/
-	pm_assert(base_packet != NULL);
-	pm_assert(add_packet != NULL);
-	pm_assert(delta_packet != NULL);
+	pm_assert(base_packet != nullptr);
+	pm_assert(add_packet != nullptr);
+	pm_assert(delta_packet != nullptr);
 	pm_assert(base_packet_size == add_packet_size);
 	pm_assert(base_packet_size < sizeof(diff_bytes));
 
@@ -432,17 +432,17 @@ int PacketManagerClass::Build_Delta_Packet_Patch(unsigned char *base_packet, uns
  *=============================================================================================*/
 int PacketManagerClass::Reconstruct_From_Delta(unsigned char *base_packet, unsigned char *reconstructed_packet, unsigned char *delta_packet, int base_packet_size, int &delta_size)
 {
-	if (base_packet == NULL) {
+	if (base_packet == nullptr) {
 		WWDEBUG_SAY(("*** WARNING: MALFORMED PACKET - PacketManagerClass::Reconstruct_From_Delta -- Bad base packet\n"));
 		return(0);
 	}
 
-	if (reconstructed_packet == NULL) {
+	if (reconstructed_packet == nullptr) {
 		WWDEBUG_SAY(("*** WARNING: MALFORMED PACKET - PacketManagerClass::Reconstruct_From_Delta -- Bad reconstructed packet\n"));
 		return(0);
 	}
 
-	if (delta_packet == NULL) {
+	if (delta_packet == nullptr) {
 		WWDEBUG_SAY(("*** WARNING: MALFORMED PACKET - PacketManagerClass::Reconstruct_From_Delta -- Bad delta packet\n"));
 		return(0);
 	}
@@ -453,9 +453,9 @@ int PacketManagerClass::Reconstruct_From_Delta(unsigned char *base_packet, unsig
 	}
 
 
-	pm_assert(base_packet != NULL);
-	pm_assert(reconstructed_packet != NULL);
-	pm_assert(delta_packet != NULL);
+	pm_assert(base_packet != nullptr);
+	pm_assert(reconstructed_packet != nullptr);
+	pm_assert(delta_packet != nullptr);
 	int patch_list[1024];
 	int num_patches = 0;
 	int read_bit_pos = 0;
@@ -654,10 +654,10 @@ WWPROFILE("PMgr Flush");
 
 	int base_index = -1;
 	int length = 0;
-	unsigned char *base_packet = NULL;
+	unsigned char *base_packet = nullptr;
 	int new_length = 0;
 	PacketPackHeaderStruct *header = (PacketPackHeaderStruct*) BuildPacket;
-	unsigned char *next_packet_pos = NULL;
+	unsigned char *next_packet_pos = nullptr;
 	int index = 0;
 	int i;
 	SOCKET socket = INVALID_SOCKET;

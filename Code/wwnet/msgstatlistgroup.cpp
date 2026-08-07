@@ -42,9 +42,9 @@ cMsgStatListGroup::cMsgStatListGroup(void) :
 //------------------------------------------------------------------------------------
 cMsgStatListGroup::~cMsgStatListGroup(void)
 {
-	if (PStatList != NULL) {
+	if (PStatList != nullptr) {
 		delete [] PStatList;
-		PStatList = NULL;
+		PStatList = nullptr;
 	}
 }
 
@@ -55,7 +55,7 @@ void cMsgStatListGroup::Init(int num_lists, int num_stats)
 
 	NumLists = num_lists;
 	PStatList = new cMsgStatList[NumLists + 1];
-	WWASSERT(PStatList != NULL);
+	WWASSERT(PStatList != nullptr);
 
 	for (int i = 0; i < NumLists + 1; i++) {
 		PStatList[i].Init(num_stats);

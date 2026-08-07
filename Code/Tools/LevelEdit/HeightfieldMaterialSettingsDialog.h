@@ -32,7 +32,7 @@ class HeightfieldMaterialSettingsDialogClass : public CDialog
 {
 // Construction
 public:
-	HeightfieldMaterialSettingsDialogClass(CWnd* pParent = NULL);   // standard constructor
+	HeightfieldMaterialSettingsDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(HeightfieldMaterialSettingsDialogClass)

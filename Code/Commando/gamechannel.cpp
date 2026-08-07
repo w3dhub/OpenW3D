@@ -32,7 +32,7 @@
 //-----------------------------------------------------------------------------
 cGameChannel::cGameChannel(cGameData * p_game_data, const RefPtr<WWOnline::ChannelData>& channel)
 {
-	WWASSERT(p_game_data != NULL);
+	WWASSERT(p_game_data != nullptr);
 	PGameData = p_game_data;
 	WolChannel = channel;
 }

@@ -268,8 +268,8 @@ bool cNetUtil::Is_Same_Address(struct sockaddr_in* p_address1, const struct sock
 	//
 
    WWASSERT(!cSinglePlayerData::Is_Single_Player());
-   WWASSERT(p_address1 != NULL);
-	WWASSERT(p_address2 != NULL);
+   WWASSERT(p_address1 != nullptr);
+	WWASSERT(p_address2 != nullptr);
 
    return
       p_address1->sin_addr.s_addr	== p_address2->sin_addr.s_addr &&
@@ -280,8 +280,8 @@ bool cNetUtil::Is_Same_Address(struct sockaddr_in* p_address1, const struct sock
 void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[maybe_unused]] UINT len,
    USHORT & port)
 {
-	WWASSERT(p_address != NULL);
-   WWASSERT(str != NULL);
+	WWASSERT(p_address != nullptr);
+   WWASSERT(str != nullptr);
 
 	char temp_str[1000];
 
@@ -298,7 +298,7 @@ LPCSTR cNetUtil::Address_To_String(ULONG ip)
 	IN_ADDR in_addr;
 	in_addr.s_addr = ip;
 	char * p = ::inet_ntoa(in_addr);
-	if (p == NULL) {
+	if (p == nullptr) {
 		::sprintf(WorkingAddressBuffer, "Invalid ip (%lu)", ip);
 	} else {
 		::strcpy(WorkingAddressBuffer, p);
@@ -310,7 +310,7 @@ LPCSTR cNetUtil::Address_To_String(ULONG ip)
 //-------------------------------------------------------------------------------
 void cNetUtil::String_To_Address(struct sockaddr_in* p_address, LPCSTR str, USHORT port)
 {
-	WWASSERT(p_address != NULL);
+	WWASSERT(p_address != nullptr);
 	std::memset(p_address, 0, sizeof(struct sockaddr_in));
 
    p_address->sin_family			= AF_INET;
@@ -457,7 +457,7 @@ void cNetUtil::Onetime_Init()
 {
 	FileClass * p_ini_file = _TheFileFactory->Get_File("netparams.ini");
 
-	if (p_ini_file != NULL) {
+	if (p_ini_file != nullptr) {
 
 		INIClass netparams_ini(*p_ini_file);
 
@@ -591,7 +591,7 @@ void cNetUtil::Broadcast(SOCKET & sock, USHORT port, cPacket & packet)
 void cNetUtil::Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address,
    USHORT port)
 {
-   WWASSERT(p_broadcast_address != NULL);
+   WWASSERT(p_broadcast_address != nullptr);
    std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
 
 	p_broadcast_address->sin_family			= AF_INET;
@@ -602,7 +602,7 @@ void cNetUtil::Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address,
 //-------------------------------------------------------------------------------
 void cNetUtil::Create_Local_Address(struct sockaddr_in* p_local_address, USHORT port)
 {
-   WWASSERT(p_local_address != NULL);
+   WWASSERT(p_local_address != nullptr);
    std::memset(p_local_address, 0, sizeof(struct sockaddr_in));
 
 	p_local_address->sin_family			= AF_INET;
@@ -613,7 +613,7 @@ void cNetUtil::Create_Local_Address(struct sockaddr_in* p_local_address, USHORT 
 //-------------------------------------------------------------------------------
 bool cNetUtil::Get_Local_Address(struct sockaddr_in* p_local_address)
 {
-	WWASSERT(p_local_address != NULL);
+	WWASSERT(p_local_address != nullptr);
 
 	/*
 	const USHORT MAX_ADDRESSES = 1;

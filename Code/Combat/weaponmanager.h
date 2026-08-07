@@ -65,7 +65,7 @@ public:
 	WeaponDefinitionClass( void );
 
 	virtual uint32								Get_Class_ID( void ) const override;
-	virtual PersistClass *					Create( void ) const override					{ WWASSERT( 0 ); return NULL; }
+	virtual PersistClass *					Create( void ) const override					{ WWASSERT( 0 ); return nullptr; }
 	virtual bool								Save( ChunkSaveClass &csave ) override;
 	virtual bool								Load( ChunkLoadClass &cload ) override;
 	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
@@ -128,7 +128,7 @@ public:
 	AmmoDefinitionClass( void );
 
 	virtual uint32								Get_Class_ID( void ) const override;
-	virtual PersistClass *					Create( void ) const override					{ WWASSERT( 0 ); return NULL; }
+	virtual PersistClass *					Create( void ) const override					{ WWASSERT( 0 ); return nullptr; }
 	virtual bool								Save( ChunkSaveClass &csave ) override;
 	virtual bool								Load( ChunkLoadClass &cload ) override;
 	virtual const PersistFactoryClass &	Get_Factory( void ) const override;

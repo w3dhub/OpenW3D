@@ -63,8 +63,8 @@ const int COL_PARAMS		= 1;
 //
 /////////////////////////////////////////////////////////////////////////////
 NodeScriptsPropPage::NodeScriptsPropPage (void)
-	:	m_ScriptList (NULL),
-		m_ScriptListParam (NULL),
+	:	m_ScriptList (nullptr),
+		m_ScriptListParam (nullptr),
 		DockableFormClass (NodeScriptsPropPage::IDD)
 {
 	//{{AFX_DATA_INIT(NodeScriptsPropPage)
@@ -80,7 +80,7 @@ NodeScriptsPropPage::NodeScriptsPropPage (void)
 /////////////////////////////////////////////////////////////////////////////
 NodeScriptsPropPage::NodeScriptsPropPage (SCRIPT_LIST *script_list)
 	:	m_ScriptList (script_list),
-		m_ScriptListParam (NULL),
+		m_ScriptListParam (nullptr),
 		DockableFormClass (NodeScriptsPropPage::IDD)
 {
 	return ;
@@ -153,7 +153,7 @@ NodeScriptsPropPage::Build_Script_List (void)
 	//	If we are dealing with a script list parameter, then convert
 	// it into a list of editable scripts
 	//
-	if (m_ScriptListParam != NULL) {
+	if (m_ScriptListParam != nullptr) {
 		m_ScriptList = new SCRIPT_LIST;
 
 		DynamicVectorClass<StringClass> &name_list = m_ScriptListParam->Get_Name_List ();
@@ -203,7 +203,7 @@ NodeScriptsPropPage::HandleInitDialog (void)
 	//
 	for (int index = 0; index < m_ScriptList->Count (); index ++) {
 		EditScriptClass *script = (*m_ScriptList)[index];
-		if (script != NULL) {
+		if (script != nullptr) {
 
 			//
 			// Put this script into the list control
@@ -244,7 +244,7 @@ NodeScriptsPropPage::OnItemChangedScriptList
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 
 	// Did the selection state change?
-	if ((pNMListView != NULL) &&
+	if ((pNMListView != nullptr) &&
 		 (pNMListView->uChanged & LVIF_STATE) &&
 		 ((pNMListView->uNewState & LVIS_SELECTED) || (pNMListView->uOldState & LVIS_SELECTED)))
 	{
@@ -284,7 +284,7 @@ NodeScriptsPropPage::OnModify (void)
 
 		// Get a pointer to the script
 		EditScriptClass *script = (EditScriptClass *)m_ListCtrl.GetItemData (index);
-		if (script != NULL) {
+		if (script != nullptr) {
 
 			//
 			//	Show the dialog that allows the user to edit this script's settings
@@ -378,20 +378,20 @@ NodeScriptsPropPage::Apply_Changes (void)
 	index = -1;
 	while ((index = m_ListCtrl.GetNextItem (index, LVNI_ALL)) != -1) {
 		EditScriptClass *script = (EditScriptClass *)m_ListCtrl.GetItemData (index);
-		if (script != NULL) {
+		if (script != nullptr) {
 
 			//
 			//	Add this script to the script list and remove it from the list control
 			//
 			m_ScriptList->Add (script);
-			m_ListCtrl.SetItemData (index, NULL);
+			m_ListCtrl.SetItemData (index, 0);
 		}
 	}
 
 	//
 	//	Do we need to convert the script list to a script list param object?
 	//
-	if (m_ScriptListParam != NULL) {
+	if (m_ScriptListParam != nullptr) {
 
 		//
 		//	Reset the contents of the script parameter's lists
@@ -437,14 +437,14 @@ NodeScriptsPropPage::OnDeleteItemScriptList
 )
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
-	if (pNMListView != NULL) {
+	if (pNMListView != nullptr) {
 
 		// Free the associated script
 		EditScriptClass *script = (EditScriptClass *)m_ListCtrl.GetItemData (pNMListView->iItem);
 		SAFE_DELETE (script);
 
 		// Reset the associated data for this item
-		m_ListCtrl.SetItemData (pNMListView->iItem, NULL);
+		m_ListCtrl.SetItemData (pNMListView->iItem, 0);
 	}
 
 	*pResult = 0;

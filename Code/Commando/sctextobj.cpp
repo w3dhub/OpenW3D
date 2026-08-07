@@ -103,7 +103,7 @@ cScTextObj::Init
 			WWASSERT(SenderId >= 0);
 
 			cPlayer * p_sender = cPlayerManager::Find_Player(SenderId);
-			WWASSERT(p_sender != NULL);
+			WWASSERT(p_sender != nullptr);
 			WWASSERT(p_sender->Is_Team_Player());
 
 			int team = p_sender->Get_Player_Type();
@@ -155,7 +155,7 @@ cScTextObj::Init
 			//	Lookup the player that's sending the message
 			//
 			cPlayer *p_sender = cPlayerManager::Find_Player (SenderId);
-			if (p_sender != NULL && p_sender->Is_Team_Player () && COMBAT_STAR != NULL) {
+			if (p_sender != nullptr && p_sender->Is_Team_Player () && COMBAT_STAR != nullptr) {
 
 				//
 				//	Is the player on the same team as the local player?
@@ -192,11 +192,11 @@ cScTextObj::Set_Dirty_Bit_For_Team(DIRTY_BIT bit, int team)
 
 	for (
 		SLNode<cPlayer> * player_node = cPlayerManager::Get_Player_Object_List()->Head();
-		player_node != NULL;
+		player_node != nullptr;
 		player_node = player_node->Next())
 	{
 		cPlayer * p_player = player_node->Data();
-		WWASSERT(p_player != NULL);
+		WWASSERT(p_player != nullptr);
 
 		if (p_player->Get_Is_Active().Is_True() &&
 			 p_player->Get_Player_Type() == team)
@@ -230,7 +230,7 @@ cScTextObj::Act(void)
 		else
 		{
 				cPlayer * p_sender = cPlayerManager::Find_Player(SenderId);
-				if (p_sender != NULL)
+				if (p_sender != nullptr)
 			{
 				sender_name = p_sender->Get_Name();
 				sender_color = p_sender->Get_Color();
@@ -247,7 +247,7 @@ cScTextObj::Act(void)
 		else
 		{
 				cPlayer * p_recipient = cPlayerManager::Find_Player(RecipientId);
-				if (p_recipient != NULL)
+				if (p_recipient != nullptr)
 			{
 				recipient_name = p_recipient->Get_Name();
 			}
@@ -279,7 +279,7 @@ cScTextObj::Act(void)
 					DIE;
 			}
 
-			WWASSERT(WWAudioClass::Get_Instance() != NULL);
+			WWASSERT(WWAudioClass::Get_Instance() != nullptr);
 			WWAudioClass::Get_Instance()->Create_Instant_Sound(sound_name, Matrix3D(1));
 
 			WideStringClass formatted_text;
@@ -299,7 +299,7 @@ cScTextObj::Act(void)
 			//	Display the message...
 			//
 			/*
-			WWASSERT(Get_Text_Display() != NULL);
+			WWASSERT(Get_Text_Display() != nullptr);
 			Get_Text_Display()->Print(formatted_text, sender_color);
 			formatted_text.Format(U_CHAR("%s\n"), Text);
 			Get_Text_Display()->Print(formatted_text, text_color);
@@ -325,7 +325,7 @@ cScTextObj::Act(void)
 				WideStringClass message;
 				message.Format(U_CHAR("%s\n"), Text.Peek_Buffer());
 				formatted_text += message;
-				if (CombatManager::Get_Message_Window() != NULL) {
+				if (CombatManager::Get_Message_Window() != nullptr) {
 					CombatManager::Get_Message_Window()->Add_Message(formatted_text, text_color);
 				}
 
@@ -393,7 +393,7 @@ cScTextObj::Import_Creation(BitStreamClass & packet)
 		//
 		if (cNetwork::I_Am_Client()) {
 			cPlayer * p_my_player = cNetwork::Get_My_Player_Object();
-			if (p_my_player != NULL) {
+			if (p_my_player != nullptr) {
 				StringClass text;
 				Text.Convert_To(text);
 				StringClass name;

@@ -50,21 +50,21 @@ class InstallMenuDialogClass : public CallbackMenuDialogClass
 		~InstallMenuDialogClass();
 
 		// RTTI.
-		virtual void *As_CopyDialogClass()					{return (NULL);}
-		virtual void *As_DirectoryDialogClass()			{return (NULL);}
-		virtual void *As_FinalDialogClass()					{return (NULL);}
-		virtual void *As_GameFolderDialogClass()			{return (NULL);}
-		virtual void *As_GameDirectoryDialogClass()		{return (NULL);}
-		virtual void *As_LicenseDialogClass()				{return (NULL);}
-		virtual void *As_NDADialogClass()					{return (NULL);}
-		virtual void *As_WOLDirectoryDialogClass()		{return (NULL);}
-		virtual void *As_WOLFolderDialogClass()			{return (NULL);}
-		virtual void *As_ReviewDialogClass()				{return (NULL);}
-		virtual void *As_SerialDialogClass()				{return (NULL);}
-		virtual void *As_WelcomeDialogClass()				{return (NULL);}
-		virtual void *As_WhatToInstallDialogClass()		{return (NULL);}
-		virtual void *As_WOL1DialogClass()					{return (NULL);}
-		virtual void *As_WOL2DialogClass()					{return (NULL);}
+		virtual void *As_CopyDialogClass()					{return (nullptr);}
+		virtual void *As_DirectoryDialogClass()			{return (nullptr);}
+		virtual void *As_FinalDialogClass()					{return (nullptr);}
+		virtual void *As_GameFolderDialogClass()			{return (nullptr);}
+		virtual void *As_GameDirectoryDialogClass()		{return (nullptr);}
+		virtual void *As_LicenseDialogClass()				{return (nullptr);}
+		virtual void *As_NDADialogClass()					{return (nullptr);}
+		virtual void *As_WOLDirectoryDialogClass()		{return (nullptr);}
+		virtual void *As_WOLFolderDialogClass()			{return (nullptr);}
+		virtual void *As_ReviewDialogClass()				{return (nullptr);}
+		virtual void *As_SerialDialogClass()				{return (nullptr);}
+		virtual void *As_WelcomeDialogClass()				{return (nullptr);}
+		virtual void *As_WhatToInstallDialogClass()		{return (nullptr);}
+		virtual void *As_WOL1DialogClass()					{return (nullptr);}
+		virtual void *As_WOL2DialogClass()					{return (nullptr);}
 
 		void On_Command (int ctrl_id, int message_id, DWORD param);
 };

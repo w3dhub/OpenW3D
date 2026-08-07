@@ -63,7 +63,7 @@ PhysDecalSysClass::PhysDecalSysClass(PhysicsSceneClass * parent_scene) :
 	ParentScene(parent_scene),
 	CreatePermanentDecals(false),
 	NextTempDecalIndex(0),
-	DecalMaterial(NULL),
+	DecalMaterial(nullptr),
 	DecalShader(0)
 {
 	allocate_resources();
@@ -100,7 +100,7 @@ int PhysDecalSysClass::Create_Decal
 	*/
 	CreatePermanentDecals = is_permanent;
 	DecalGeneratorClass * gen = Lock_Decal_Generator();
-	WWASSERT(gen != NULL);
+	WWASSERT(gen != nullptr);
 
 	/*
 	** Set up the transform, projection, and bounding volume parameters
@@ -145,7 +145,7 @@ int PhysDecalSysClass::Create_Decal
 	** Collect objects to apply the decal to
 	*/
 	NonRefPhysListClass list;
-	if (only_this_obj == NULL) {
+	if (only_this_obj == nullptr) {
 		ParentScene->Collect_Objects(gen->Get_Bounding_Volume(),true,false,&list);
 	} else {
 		list.Add(only_this_obj);
@@ -174,7 +174,7 @@ int PhysDecalSysClass::Create_Decal
 
 bool PhysDecalSysClass::Remove_Decal(uint32 id)
 {
-	return internal_remove_decal(id,NULL);
+	return internal_remove_decal(id,nullptr);
 }
 
 void PhysDecalSysClass::Unlock_Decal_Generator(DecalGeneratorClass * generator)
@@ -276,7 +276,7 @@ bool PhysDecalSysClass::is_decal_id_permanent(uint32 id)
 
 void PhysDecalSysClass::allocate_resources(void)
 {
-	WWASSERT(DecalMaterial == NULL);
+	WWASSERT(DecalMaterial == nullptr);
 	DecalMaterial = NEW_REF(VertexMaterialClass,());
 	DecalMaterial->Set_Ambient(0,0,0);
 	DecalMaterial->Set_Diffuse(0,0,0);
@@ -312,7 +312,7 @@ bool PhysDecalSysClass::internal_remove_decal(uint32 id,MeshClass * deleted_mesh
 				** Just remove the deleted mesh from our list.  We don't need to delete
 				** its decals since it is telling us that it has been deleted already.
 				*/
-				if (deleted_mesh != NULL) {
+				if (deleted_mesh != nullptr) {
 					decal->Meshes.Delete(deleted_mesh);
 				}
 
@@ -335,7 +335,7 @@ bool PhysDecalSysClass::internal_remove_decal(uint32 id,MeshClass * deleted_mesh
 		WWASSERT(id >= 0);
 		WWASSERT(id < (uint32)TempDecals.Length());
 
-		if (deleted_mesh != NULL) {
+		if (deleted_mesh != nullptr) {
 			TempDecals[id].Meshes.Delete(deleted_mesh);
 		}
 

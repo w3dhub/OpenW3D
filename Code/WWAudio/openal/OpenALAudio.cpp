@@ -73,7 +73,7 @@ OpenALAudioClass::~OpenALAudioClass()
 	//
 	//	Stop the background music
 	//
-	Set_Background_Music (NULL);
+	Set_Background_Music (nullptr);
 
 	//
 	//	Make sure the delayed-release thread is terminated
@@ -118,13 +118,13 @@ void OpenALAudioClass::Shutdown()
 	//
 	//	Stop the background music
 	//
-	Set_Background_Music(NULL);
+	Set_Background_Music(nullptr);
 
 	//
 	// Stop all sounds from playing
 	//
 	Flush_Playlist();
-	if (m_SoundScene != NULL) {
+	if (m_SoundScene != nullptr) {
 		m_SoundScene->Flush_Scene();
 	}
 
@@ -350,7 +350,7 @@ void OpenALAudioClass::Remove_Handles()
 			// Get a pointer to the object that is currently using this sample
 			//
 			AudibleSoundClass *sound_obj = OpenALHandleClass::Get_Sample_User(sample);
-			if (sound_obj != NULL) {
+			if (sound_obj != nullptr) {
 				sound_obj->Free_Miles_Handle ();
 			}
 		}
@@ -363,7 +363,7 @@ void OpenALAudioClass::Remove_Handles()
 
 		if (alGetError() == AL_NO_ERROR) {
 			AudibleSoundClass *sound_obj = OpenALHandleClass::Get_Sample_User(sample);
-			if (sound_obj != NULL) {
+			if (sound_obj != nullptr) {
 				sound_obj->Free_Miles_Handle ();
 			}
 		}
@@ -387,10 +387,10 @@ void OpenALAudioClass::Flush_Cache()
 AudibleSoundClass *OpenALAudioClass::Peek_2D_Sample (int index)
 {
 	if (index < 0 || index > m_2DSampleHandles.Count ()) {
-		return NULL;
+		return nullptr;
 	}
 
-	AudibleSoundClass *retval = NULL;
+	AudibleSoundClass *retval = nullptr;
 
 	//
 	// Try to get the sound object associated with this handle
@@ -408,10 +408,10 @@ AudibleSoundClass *OpenALAudioClass::Peek_2D_Sample (int index)
 AudibleSoundClass *OpenALAudioClass::Peek_3D_Sample (int index)
 {
 	if (index < 0 || index > m_3DSampleHandles.Count ()) {
-		return NULL;
+		return nullptr;
 	}
 
-	AudibleSoundClass *retval = NULL;
+	AudibleSoundClass *retval = nullptr;
 
 	//
 	// Try to get the sound object associated with this handle
@@ -429,12 +429,12 @@ AudibleSoundClass *OpenALAudioClass::Peek_3D_Sample (int index)
 SoundHandleClass *OpenALAudioClass::Get_2D_Handle (const AudibleSoundClass &sound_obj, bool /* streaming */)
 {
 	if (!WWAudioClass::Is_OK_To_Give_Handle(sound_obj)) {
-		return NULL;
+		return nullptr;
 	}
 
 	float lowest_priority = sound_obj.Get_Priority ();
 	float lowest_runtime_priority = sound_obj.Get_Runtime_Priority ();
-	AudibleSoundClass *lowest_pri_sound = NULL;
+	AudibleSoundClass *lowest_pri_sound = nullptr;
 	ALuint lowest_pri_sample = OpenALHandleClass::INVALID_OAL_HANDLE;
 	ALuint free_sample = OpenALHandleClass::INVALID_OAL_HANDLE;
 
@@ -450,7 +450,7 @@ SoundHandleClass *OpenALAudioClass::Get_2D_Handle (const AudibleSoundClass &soun
 			// Get a pointer to the object that is currently using this sample
 			AudibleSoundClass *sample_obj = OpenALHandleClass::Get_Sample_User(sample);
 
-			if (sample_obj == NULL) {
+			if (sample_obj == nullptr) {
 				// Return this sample handle to the caller
 				free_sample = sample;
 				found = true;
@@ -474,13 +474,13 @@ SoundHandleClass *OpenALAudioClass::Get_2D_Handle (const AudibleSoundClass &soun
 
 	// Steal the sample handle from the lower priority
 	// sound and return the handle to the caller.
-	if ((!found) && (lowest_pri_sound != NULL)) {
+	if ((!found) && (lowest_pri_sound != nullptr)) {
 		lowest_pri_sound->Free_Miles_Handle ();
 		free_sample = lowest_pri_sample;
 	}
 
 	if (free_sample == OpenALHandleClass::INVALID_OAL_HANDLE) {
-		return NULL;
+		return nullptr;
 	}
 
 	SoundHandleClass *retval = new OpenALHandleClass;
@@ -493,12 +493,12 @@ SoundHandleClass *OpenALAudioClass::Get_2D_Handle (const AudibleSoundClass &soun
 SoundHandleClass *OpenALAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj)
 {
 	if (!WWAudioClass::Is_OK_To_Give_Handle(sound_obj)) {
-		return NULL;
+		return nullptr;
 	}
 
 	float lowest_priority = sound_obj.Get_Priority ();
 	float lowest_runtime_priority = sound_obj.Get_Runtime_Priority ();
-	AudibleSoundClass *lowest_pri_sound = NULL;
+	AudibleSoundClass *lowest_pri_sound = nullptr;
 	ALuint lowest_pri_sample = OpenALHandleClass::INVALID_OAL_HANDLE;
 	ALuint free_sample = OpenALHandleClass::INVALID_OAL_HANDLE;
 
@@ -514,7 +514,7 @@ SoundHandleClass *OpenALAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj
 		if (alGetError() == AL_NO_ERROR && state != AL_PLAYING) {
 			// Get a pointer to the object that is currently using this sample
 			AudibleSoundClass *sample_obj = OpenALHandleClass::Get_Sample_User(sample);
-			if (sample_obj == NULL) {
+			if (sample_obj == nullptr) {
 				// Return this sample handle to the caller
 				free_sample = sample;
 				found = true;
@@ -538,13 +538,13 @@ SoundHandleClass *OpenALAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj
 
 	// Steal the sample handle from the lower priority
 	// sound and return the handle to the caller.
-	if ((!found) && (lowest_pri_sound != NULL)) {
+	if ((!found) && (lowest_pri_sound != nullptr)) {
 		lowest_pri_sound->Free_Miles_Handle ();
 		free_sample = lowest_pri_sample;
 	}
 
 	if (free_sample == OpenALHandleClass::INVALID_OAL_HANDLE) {
-		return NULL;
+		return nullptr;
 	}
 
 	SoundHandleClass *retval = new OpenALHandleClass;
@@ -595,7 +595,7 @@ SoundBufferClass *OpenALAudioClass::Get_Sound_Buffer (const char *filename, bool
 	WWASSERT (success);
 
 	// If we were successful in creating the sound buffer, then
-	// return it, otherwise free the buffer and return NULL.
+	// return it, otherwise free the buffer and return nullptr.
 	if (success && !streaming) {
 		Cache_Buffer(sound_buffer, filename);
 	} else if (!success) {

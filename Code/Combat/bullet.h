@@ -62,7 +62,7 @@ public:
 	static	bool	Load( ChunkLoadClass &cload );
 
 	static	void	Create_Bullet( const AmmoDefinitionClass * def, const Vector3 & position,
-					const Vector3 & velocity, const ArmedGameObj * owner, float progress_time, const Vector3 & target, DamageableGameObj * target_object = NULL );
+					const Vector3 & velocity, const ArmedGameObj * owner, float progress_time, const Vector3 & target, DamageableGameObj * target_object = nullptr );
 };
 
 

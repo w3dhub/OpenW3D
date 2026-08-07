@@ -90,8 +90,8 @@ enum
 //
 //////////////////////////////////////////////////////////////////////////////
 SpawnerNodeClass::SpawnerNodeClass (PresetClass *preset)
-	:	m_PhysObj (NULL),
-		m_SpawnerObj (NULL),
+	:	m_PhysObj (nullptr),
+		m_SpawnerObj (nullptr),
 		NodeClass (preset)
 {
 	return ;
@@ -104,9 +104,9 @@ SpawnerNodeClass::SpawnerNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 SpawnerNodeClass::SpawnerNodeClass (const SpawnerNodeClass &src)
-	:	m_PhysObj (NULL),
-		m_SpawnerObj (NULL),
-		NodeClass (NULL)
+	:	m_PhysObj (nullptr),
+		m_SpawnerObj (nullptr),
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -144,7 +144,7 @@ SpawnerNodeClass::Initialize (void)
 	SAFE_DELETE (m_SpawnerObj);
 
 	SpawnerDefClass *definition = static_cast<SpawnerDefClass *> (m_Preset->Get_Definition ());
-	if (definition != NULL) {
+	if (definition != nullptr) {
 
 		//
 		//	Create the spawner object object
@@ -157,7 +157,7 @@ SpawnerNodeClass::Initialize (void)
 		//	Get a model to represet the spawner with
 		//
 		RenderObjClass *model = Get_Spawned_Model ();
-		if (model != NULL) {
+		if (model != nullptr) {
 
 			//
 			//	Create our own physics object around the visual representation
@@ -226,7 +226,7 @@ SpawnerNodeClass::Save (ChunkSaveClass &csave)
 		//
 		for (index = 0; index < m_SpawnPointNodes.Count (); index ++) {
 			SpawnPointNodeClass *spawn_point = m_SpawnPointNodes[index];
-			if (spawn_point != NULL) {
+			if (spawn_point != nullptr) {
 				Matrix3D tm = spawn_point->Get_Transform ();
 				WRITE_MICRO_CHUNK (csave, VARID_SPAWN_POINT, tm);
 			}
@@ -289,7 +289,7 @@ SpawnerNodeClass::On_Post_Load (void)
 	//
 	//	If the spawner isn't valid, then remove it from the system
 	//
-	if (m_Preset == NULL) {
+	if (m_Preset == nullptr) {
 		::Get_Scene_Editor ()->Delete_Node (this, false);
 	} else {
 
@@ -356,15 +356,15 @@ SpawnerNodeClass::Load_Variables (ChunkLoadClass &cload)
 RenderObjClass *
 SpawnerNodeClass::Get_Spawned_Model (void)
 {
-	RenderObjClass *model = NULL;
+	RenderObjClass *model = nullptr;
 
-	if (m_SpawnerObj != NULL) {
+	if (m_SpawnerObj != nullptr) {
 
 		//
 		//	Spawn an object
 		//
 		PhysicalGameObj *game_obj = m_SpawnerObj->Create_Spawned_Object ();
-		if (game_obj != NULL) {
+		if (game_obj != nullptr) {
 
 			//
 			//	Dig the render object out of the game object
@@ -397,9 +397,9 @@ SpawnerNodeClass::Get_Spawned_Model (void)
 void
 SpawnerNodeClass::Load_Assets (void)
 {
-	if (m_Preset != NULL) {
+	if (m_Preset != nullptr) {
 		SpawnerDefClass *definition = static_cast<SpawnerDefClass *> (m_Preset->Get_Definition ());
-		if (definition != NULL) {
+		if (definition != nullptr) {
 
 			//
 			//	Loop over all the possible spawned objects and make sure to load their assets
@@ -407,7 +407,7 @@ SpawnerNodeClass::Load_Assets (void)
 			const DynamicVectorClass<int> &list = definition->Get_Spawn_Definition_ID_List ();
 			for (int index = 0; index < list.Count (); index ++) {
 				PresetClass *preset = PresetMgrClass::Find_Preset (list[index]);
-				if (preset != NULL) {
+				if (preset != nullptr) {
 					preset->Load_All_Assets ();
 				}
 			}
@@ -428,9 +428,9 @@ SpawnerNodeClass::Get_Spawned_Definition_ID (void)
 {
 	uint32 id = 0;
 
-	if (m_Preset != NULL) {
+	if (m_Preset != nullptr) {
 		SpawnerDefClass *definition = static_cast<SpawnerDefClass *> (m_Preset->Get_Definition ());
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			const DynamicVectorClass<int> &list = definition->Get_Spawn_Definition_ID_List ();
 			if (list.Count () > 0) {
 				id = list[0];
@@ -465,7 +465,7 @@ SpawnerNodeClass::operator= (const SpawnerNodeClass &src)
 	Free_Spawn_Points ();
 	for (int index = 0; index < src.m_SpawnPointNodes.Count (); index ++) {
 		SpawnPointNodeClass *spawn_point = src.m_SpawnPointNodes[index];
-		if (spawn_point != NULL) {
+		if (spawn_point != nullptr) {
 			Add_Spawn_Point (spawn_point->Get_Transform ());
 		}
 	}
@@ -492,7 +492,7 @@ SpawnerNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		SceneEditorClass *scene = ::Get_Scene_Editor ();
 		scene->Remove_Object (m_PhysObj);
 
@@ -536,7 +536,7 @@ SpawnerNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		SceneEditorClass *scene = ::Get_Scene_Editor ();
 		scene->Add_Dynamic_Object (m_PhysObj);
 
@@ -595,7 +595,7 @@ SpawnerNodeClass::Remove_From_Scene (void)
 	SAFE_DELETE (m_SpawnerObj);
 
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
-	if (scene != NULL && m_IsInScene) {
+	if (scene != nullptr && m_IsInScene) {
 
 		//
 		//	Remove all the spawn points from the scene
@@ -621,13 +621,13 @@ SpawnerNodeClass::Remove_From_Scene (void)
 void
 SpawnerNodeClass::Create_Spawner_Obj (void)
 {
-	if (m_SpawnerObj == NULL) {
+	if (m_SpawnerObj == nullptr) {
 
 		// Recreate the spawner object
 		SpawnerDefClass *definition = static_cast<SpawnerDefClass *> (m_Preset->Get_Definition ());
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			m_SpawnerObj = (SpawnerClass *)::Instance_Definition (definition);
-			if (m_SpawnerObj != NULL) {
+			if (m_SpawnerObj != nullptr) {
 				m_SpawnerObj->Set_TM (m_Transform);
 				m_SpawnerObj->Set_ID (m_ID);
 			}
@@ -649,7 +649,7 @@ void
 SpawnerNodeClass::Set_ID (uint32 id)
 {
 	NodeClass::Set_ID (id);
-	if (m_SpawnerObj != NULL) {
+	if (m_SpawnerObj != nullptr) {
 		m_SpawnerObj->Set_ID (m_ID);
 	}
 
@@ -856,7 +856,7 @@ SpawnerNodeClass::Copy_Scripts (const SpawnerNodeClass &src)
 	//
 	for (int index = 0; index < src.m_Scripts.Count (); index ++) {
 		EditScriptClass *script = src.m_Scripts[index];
-		if (script != NULL) {
+		if (script != nullptr) {
 
 			//
 			//	Make ourselves a copy of the script
@@ -896,7 +896,7 @@ SpawnerNodeClass::Free_Scripts (void)
 void
 SpawnerNodeClass::Assign_Scripts (void)
 {
-	if (m_SpawnerObj != NULL) {
+	if (m_SpawnerObj != nullptr) {
 		for (int index = 0; index < m_Scripts.Count (); index ++) {
 			EditScriptClass *script	= m_Scripts[index];
 

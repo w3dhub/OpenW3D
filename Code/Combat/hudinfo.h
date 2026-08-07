@@ -71,7 +71,7 @@ public:
 	static	DamageableGameObj *	Get_Info_Object( void )					{ return (DamageableGameObj*)InfoObject.Get_Ptr(); }
 	static	bool					Get_Info_Object_Is_MCT( void )			{ return IsMCT; }
 
-	static	void	Clear_Info_Object( void )									{ InfoObject = NULL; }
+	static	void	Clear_Info_Object( void )									{ InfoObject = nullptr; }
 	static	void	Update_Info_Object( void );
 
 	// Should we display the action statusbar, and what is it currently at?

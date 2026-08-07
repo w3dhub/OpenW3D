@@ -74,7 +74,7 @@ Sound3DHandleClass::Initialize (SoundBufferClass *buffer)
 
 	SoundHandleClass::Initialize (buffer);
 
-	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE && Buffer != NULL) {
+	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE && Buffer != nullptr) {
 
 		//
 		//	Configure the 3D sample
@@ -256,7 +256,7 @@ Sound3DHandleClass::Set_Sample_MS_Position (unsigned ms)
 {
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 
-		WWASSERT (Buffer != NULL);
+		WWASSERT (Buffer != nullptr);
 		unsigned bytes_per_sec = (Buffer->Get_Rate () * Buffer->Get_Bits ()) >> 3;
 		unsigned bytes = (ms * bytes_per_sec) / 1000;
 		bytes += (bytes & 1);
@@ -276,15 +276,15 @@ Sound3DHandleClass::Get_Sample_MS_Position (int *len, int *pos)
 {
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 
-		WWASSERT (Buffer != NULL);
-		if (pos != NULL) {
+		WWASSERT (Buffer != nullptr);
+		if (pos != nullptr) {
 			unsigned bytes = ::AIL_3D_sample_offset (SampleHandle);
 			unsigned bytes_per_sec = (Buffer->Get_Rate () * Buffer->Get_Bits ()) >> 3;
 			unsigned ms = (bytes * 1000) / bytes_per_sec;
 			(*pos) = ms;
 		}
 
-		if (len != NULL) {
+		if (len != nullptr) {
 			unsigned bytes = ::AIL_3D_sample_length (SampleHandle);
 			unsigned bytes_per_sec = (Buffer->Get_Rate () * Buffer->Get_Bits ()) >> 3;
 			unsigned ms = (bytes * 1000) / bytes_per_sec;

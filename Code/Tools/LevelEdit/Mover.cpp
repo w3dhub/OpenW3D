@@ -298,7 +298,7 @@ MoverClass::Position_Nodes_Along_Ray
 	int index;
 	for (index = 0; index < list.Count (); index ++) {
 		PhysClass *phys_obj = list[index]->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 			phys_obj->Inc_Ignore_Counter();
 		}
 	}
@@ -307,7 +307,7 @@ MoverClass::Position_Nodes_Along_Ray
 	// Cast the ray into the world so we can stop the objects at whatever it hits
 	//
 	CastResultStruct res;
-	if (Cast_Ray (res, start, end, GAME_COLLISION_GROUP) != NULL) {
+	if (Cast_Ray (res, start, end, GAME_COLLISION_GROUP) != nullptr) {
 		position = start + (end - start) * res.Fraction;
 	}
 
@@ -321,7 +321,7 @@ MoverClass::Position_Nodes_Along_Ray
 		NodeClass *node = list[index];
 
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 
 			//
 			//	Move the node and turn collision back on
@@ -352,7 +352,7 @@ MoverClass::Position_Node_Along_Ray
 	Vector3 position (0, 0, 0);
 
 	PhysClass *phys_obj = node->Peek_Physics_Obj ();
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 
 		position = node->Get_Transform ().Get_Translation ();
 
@@ -363,7 +363,7 @@ MoverClass::Position_Node_Along_Ray
 		// Cast the ray into the world so we can stop the object at whatever it hits
 		//
 		CastResultStruct res;
-		if (Cast_Ray (res, start, end, GAME_COLLISION_GROUP) != NULL) {
+		if (Cast_Ray (res, start, end, GAME_COLLISION_GROUP) != nullptr) {
 
 			//
 			// Determine the new position based on whether or not the
@@ -377,7 +377,7 @@ MoverClass::Position_Node_Along_Ray
 			AABoxClass box;
 			RenderObjClass *model = phys_obj->Peek_Model ();
 			RenderObjClass *world_box = model->Get_Sub_Object_By_Name ("WORLDBOX");
-			if (world_box != NULL) {
+			if (world_box != nullptr) {
 				world_box->Get_Obj_Space_Bounding_Box (box);
 				MEMBER_RELEASE (world_box);
 			} else {
@@ -696,7 +696,7 @@ MoverClass::Move_Nodes (NODE_LIST &list, const Vector3 &tracking_point)
 		//
 		// Move the node
 		//
-		if (node != NULL) {
+		if (node != nullptr) {
 			node->Translate (new_pos - tracking_point);
 		}
 	}
@@ -732,7 +732,7 @@ MoverClass::Calc_New_Position
 	//
 	CPoint point;
 
-	if (mouse_pos == NULL) {
+	if (mouse_pos == nullptr) {
 		::GetCursorPos (&point);
 		::Get_Main_View()->ScreenToClient (&point);
 	} else {
@@ -1168,7 +1168,7 @@ MoverClass::Translate_Node (NodeClass *node, const Vector3 &vector)
 		//phys_obj->Set_Position (tm.Get_Translation () + vector);
 
 		/*Phys3Class *phys3_obj = phys_obj->As_Phys3Class ();
-		if (phys3_obj != NULL) {
+		if (phys3_obj != nullptr) {
 			phys3_obj->Set_Velocity (vector);
 		}*/
 

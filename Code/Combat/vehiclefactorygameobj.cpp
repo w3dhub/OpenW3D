@@ -432,9 +432,9 @@ VehicleFactoryGameObj::CnC_Initialize (BaseControllerClass *base)
 	//
 	//	Find the closest vehicle construction zone to the building
 	//
-	ScriptZoneGameObj *zone = NULL;
+	ScriptZoneGameObj *zone = nullptr;
 	zone = ScriptZoneGameObj::Find_Closest_Zone (pos, ZoneConstants::TYPE_VEHICLE_CONSTRUCTION);
-	if (zone != NULL) {
+	if (zone != nullptr) {
 		GeneratingRegion = zone->Get_Bounding_Box ();
 
 		//
@@ -448,7 +448,7 @@ VehicleFactoryGameObj::CnC_Initialize (BaseControllerClass *base)
 	//
 	//	Let the base know it can generate vehicles
 	//
-	if (BaseController != NULL) {
+	if (BaseController != nullptr) {
 		BaseController->Set_Can_Generate_Vehicles (true);
 	}
 
@@ -512,9 +512,9 @@ VehicleFactoryGameObj::Get_Team_Vehicle_Count(void) const
 {
 	int team_vehicle_count = 0;
 
-	VehicleGameObj * harvy = NULL;
+	VehicleGameObj * harvy = nullptr;
 	BaseControllerClass * base = BaseControllerClass::Find_Base(Get_Player_Type());
-	if (base != NULL) {
+	if (base != nullptr) {
 		harvy = base->Get_Harvester_Vehicle();
 	}
 
@@ -522,10 +522,10 @@ VehicleFactoryGameObj::Get_Team_Vehicle_Count(void) const
 	for (smart_objnode = GameObjManager::Get_Smart_Game_Obj_List()->Head(); smart_objnode; smart_objnode = smart_objnode->Next()) {
 		VehicleGameObj * obj = smart_objnode->Data()->As_VehicleGameObj();
 
-		if (	(obj != NULL) &&
+		if (	(obj != nullptr) &&
 				(obj != harvy) &&
-				(obj->Peek_Physical_Object() != NULL) &&
-				(obj->Peek_Physical_Object()->As_VehiclePhysClass() != NULL) )
+				(obj->Peek_Physical_Object() != nullptr) &&
+				(obj->Peek_Physical_Object()->As_VehiclePhysClass() != nullptr) )
 		{
 			if (obj->Get_Definition().Get_Default_Player_Type() == Get_Player_Type()) {
 				team_vehicle_count++;
@@ -546,16 +546,16 @@ VehicleFactoryGameObj::On_Generation_Complete (void)
 	//
 	//	Notify the base that we just created a vehicle
 	//
-	if (Vehicle != NULL) {
+	if (Vehicle != nullptr) {
 
 		//
 		// Shut off the action making the vehicle drive off the pad.
 		// (if it didn't make it by now, give up anyway)
 		//
 		VehicleGameObj * vehicle_obj = Vehicle.Get_Ptr ()->As_VehicleGameObj();
-		if (vehicle_obj != NULL) {
+		if (vehicle_obj != nullptr) {
 			ActionClass * action = vehicle_obj->Get_Action();
-			if (action != NULL) {
+			if (action != nullptr) {
 
 				// Change the arrived distance so the vehicles think
 				// they've arrived at their destination (complete the action)
@@ -589,7 +589,7 @@ VehicleFactoryGameObj::On_Destroyed (void)
 	//
 	//	Switch off the ability to build vehicles
 	//
-	if (BaseController != NULL && CombatManager::I_Am_Server ()) {
+	if (BaseController != nullptr && CombatManager::I_Am_Server ()) {
 		BaseController->Set_Can_Generate_Vehicles (false);
 	}
 
@@ -648,19 +648,19 @@ VehicleFactoryGameObj::Destroy_Blocking_Objects (void)
 	//
 	NonRefPhysListIterator it (&objs_to_kill);
 	for (it.First (); !it.Is_Done (); it.Next ()) {
-		PhysicalGameObj *gameobj = NULL;
+		PhysicalGameObj *gameobj = nullptr;
 
 		//
 		//	Get the game object from this physics object
 		//
-		if (it.Peek_Obj()->Get_Observer () != NULL) {
+		if (it.Peek_Obj()->Get_Observer () != nullptr) {
 			gameobj = ((CombatPhysObserverClass *)it.Peek_Obj()->Get_Observer())->As_PhysicalGameObj();
 		}
 
 		//
 		//	Kill the object
 		//
-		if (gameobj != NULL && gameobj != Vehicle && gameobj->As_ArmedGameObj () != NULL) {
+		if (gameobj != nullptr && gameobj != Vehicle && gameobj->As_ArmedGameObj () != nullptr) {
 
 			//
 			//	Destroy the object
@@ -691,18 +691,18 @@ VehicleFactoryGameObj::Deliver_Vehicle(void)
 	box.Center = GeneratingRegion.Center;
 	box.Extent = GeneratingRegion.Extent;
 
-	if (pathfind != NULL) {
+	if (pathfind != nullptr) {
 
 		WaypathClass * path = pathfind->Get_Waypath_Starting_In_Box(box,LastDeliveryPath);
 
-		if (path != NULL) {
+		if (path != nullptr) {
 
 			LastDeliveryPath = (LastDeliveryPath + 1) % pathfind->Count_Waypaths_Starting_In_Box(box);
 
-			if ((Vehicle.Get_Ptr() != NULL) && (Vehicle.Get_Ptr()->As_VehicleGameObj() != NULL)) {
+			if ((Vehicle.Get_Ptr() != nullptr) && (Vehicle.Get_Ptr()->As_VehicleGameObj() != nullptr)) {
 				VehicleGameObj * vehicle = Vehicle.Get_Ptr ()->As_VehicleGameObj();
 				ActionClass * action = vehicle->Get_Action();
-				if (action != NULL) {
+				if (action != nullptr) {
 
 					ActionParamsStruct parameters;
 					parameters.Priority = 1;
@@ -732,10 +732,10 @@ VehicleGameObj *
 VehicleFactoryGameObj::Create_Vehicle (void)
 {
 	if (CombatManager::I_Am_Server () == false) {
-		return NULL;
+		return nullptr;
 	}
 
-	VehicleGameObj *vehicle = NULL;
+	VehicleGameObj *vehicle = nullptr;
 
 	if (GeneratingVehicleID != 0) {
 
@@ -747,21 +747,21 @@ VehicleFactoryGameObj::Create_Vehicle (void)
 		//
 		// If this is a VTOL vehicle, see if we should let them have it...
 		//
-		if ((physical_obj != NULL) && (physical_obj->Peek_Physical_Object() != NULL)) {
+		if ((physical_obj != nullptr) && (physical_obj->Peek_Physical_Object() != nullptr)) {
 
 			if (	(MapMgrClass::Are_VTOL_Vehicles_Enabled() == false) &&
-					(physical_obj->Peek_Physical_Object()->As_VTOLVehicleClass() != NULL)
+					(physical_obj->Peek_Physical_Object()->As_VTOLVehicleClass() != nullptr)
 				)
 			{
 				physical_obj->Set_Delete_Pending();
-				physical_obj = NULL;
+				physical_obj = nullptr;
 			}
 		}
 
 		//
 		// If everything is ok, proceed
 		//
-		if (physical_obj != NULL && physical_obj->As_VehicleGameObj () != NULL) {
+		if (physical_obj != nullptr && physical_obj->As_VehicleGameObj () != nullptr) {
 			vehicle = physical_obj->As_VehicleGameObj ();
 			vehicle->Start_Observers();
 

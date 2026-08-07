@@ -118,7 +118,7 @@ LightmapPacker::LightmapPacker()
 	strcpy (pathname, theApp.Working_Path());
 	strcat (pathname, "Placeholder.tga");
 	PlaceholderTextureNameNodePtr = new TextureNameNode (pathname);
-	ASSERT (PlaceholderTextureNameNodePtr != NULL);
+	ASSERT (PlaceholderTextureNameNodePtr != nullptr);
 }
 
 
@@ -152,7 +152,7 @@ LightmapPacker::Finish()
 		strcpy (pagepathname, theApp.Working_Path());
 		strcat (pagepathname, Lightmap_Pathname (pageindex));
 		errormessage = PagePtrs [pageindex]->Save (pagepathname);
-		if (errormessage != NULL) throw (errormessage);
+		if (errormessage != nullptr) throw (errormessage);
 	}
 
 	_BasePageIndex += PagePtrs.Count();
@@ -203,10 +203,10 @@ void LightmapPacker::Submit (PackingTriangle *principaltriangleptr, const Dynami
 
 	TrianglePacker *trianglepackerptr, *mergedpackerptr;
 
-	ASSERT (principaltriangleptr != NULL);
+	ASSERT (principaltriangleptr != nullptr);
 
 	// Is there an associated texture?
-	if (principaltriangleptr->TextureNameNodePtr == NULL) {
+	if (principaltriangleptr->TextureNameNodePtr == nullptr) {
 
 		static const float _placeholderuvs [Triangle::VERTICES_COUNT][2] =
 		{
@@ -227,16 +227,16 @@ void LightmapPacker::Submit (PackingTriangle *principaltriangleptr, const Dynami
 		// Create a triangle packer from the modified principal triangle with no adjacent triangles.
 		// NOTE: Use a 'placeholder group' ID to indicate to the triangle packer that it should not be merged with non-placeholder triangles.
 		trianglepackerptr = new TrianglePacker (principaltriangleptr, noadjtriangles, placeholdergroupid, EDGE_BLEND_THICKNESS, SampleRate, FillColor);
-		ASSERT (trianglepackerptr != NULL);
+		ASSERT (trianglepackerptr != nullptr);
 
 	} else {
 
 		// Create a triangle packer from the principal and adjacent triangles.
 		trianglepackerptr = new TrianglePacker (principaltriangleptr, adjtriangles, normalgroupid, EDGE_BLEND_THICKNESS, SampleRate, FillColor);
-		ASSERT (trianglepackerptr != NULL);
+		ASSERT (trianglepackerptr != nullptr);
 	}
 
-	while (trianglepackerptr != NULL) {
+	while (trianglepackerptr != nullptr) {
 		mergedpackerptr	= trianglepackerptr;
 		trianglepackerptr = Merge (mergedpackerptr);
 	}
@@ -265,13 +265,13 @@ TrianglePacker *LightmapPacker::Merge (TrianglePacker *trianglepackerptr)
 	TrianglePacker *resultantpackerptr;
 
 	// See if the triangle packer can be merged with an existing triangle packer.
-	resultantpackerptr = NULL;
+	resultantpackerptr = nullptr;
 	for (int t = 0; t < TrianglePackerPtrs.Count(); t++) {
 
 		TrianglePacker *mergedpackerptr;
 
 		mergedpackerptr = TrianglePackerPtrs [t]->Merge (*trianglepackerptr);
-		if (mergedpackerptr != NULL) {
+		if (mergedpackerptr != nullptr) {
 
 			// Does the merged packer fit within the maximum page size?
 			if ((mergedpackerptr->Width() <= PAGE_WIDTH) && (mergedpackerptr->Height() <= PAGE_HEIGHT)) {
@@ -433,7 +433,7 @@ TargaLoader::~TargaLoader()
 {
 	// Delete the targas in the clean-up list.
 	for (int c = 0; c < CleanupList.Count(); c++) {
-		ASSERT (CleanupList [c] != NULL);
+		ASSERT (CleanupList [c] != nullptr);
 		delete CleanupList [c];
 	}
 }
@@ -459,7 +459,7 @@ TrueColorTarga *TargaLoader::Load (const Triangle &triangle)
 	index = Index (triangle.TextureID);
 
 	// Is there a cache miss?
-	if ((Cache [index].Ptr == NULL) || (Cache [index].ID != triangle.TextureID)) {
+	if ((Cache [index].Ptr == nullptr) || (Cache [index].ID != triangle.TextureID)) {
 
 		char				 *errormessage;
 		TextureNameNode *pathnamenodeptr;
@@ -469,26 +469,26 @@ TrueColorTarga *TargaLoader::Load (const Triangle &triangle)
 
 		// There must be a texture pathname.
 		pathnamenodeptr = triangle.TextureNameNodePtr;
-		ASSERT (pathnamenodeptr != NULL);
+		ASSERT (pathnamenodeptr != nullptr);
 
 		targaptr = new TrueColorTarga;
-		ASSERT (targaptr != NULL);
+		ASSERT (targaptr != nullptr);
 
 		// Read the first targa asset file. Report any error.
 		errormessage = targaptr->Load (pathnamenodeptr->TextureName);
-		if (errormessage != NULL) throw (errormessage);
+		if (errormessage != nullptr) throw (errormessage);
 
 		// Replace fill texel with padding. If the targa is all fill color substitute the replacement targa.
 		targaptr->Fill (FillColor);
 
 		// Read all remaining targa asset files and add them to the first.
 		pathnamenodeptr = pathnamenodeptr->Next;
-		while (pathnamenodeptr != NULL) {
+		while (pathnamenodeptr != nullptr) {
 
 			TrueColorTarga additivetarga;
 
 			errormessage = additivetarga.Load (pathnamenodeptr->TextureName);
-			if (errormessage != NULL) throw (errormessage);
+			if (errormessage != nullptr) throw (errormessage);
 
 			// Replace fill texel with padding.
 			additivetarga.Fill (FillColor);
@@ -521,7 +521,7 @@ TrueColorTarga *TargaLoader::Load (const Triangle &triangle)
 
 		// Add the existing targa to the clean-up list for removal later (in the destructor).
 		// NOTE: It cannot be deleted yet because another object may be referencing it.
-		if (Cache [index].Ptr != NULL) {
+		if (Cache [index].Ptr != nullptr) {
 			CleanupList.Add (Cache [index].Ptr);
 		}
 
@@ -589,7 +589,7 @@ void LightmapPacker::Pack (TrueColorTarga &targa, DynamicVectorClass <PackingTri
 			Page *pageptr;
 
 			pageptr = new Page (PageBitDepth, FillColor);
-			ASSERT (pageptr != NULL);
+			ASSERT (pageptr != nullptr);
 			PagePtrs.Add (pageptr);
 			packed = pageptr->Pack (targa, packingerror, triangleptrs);
 
@@ -767,7 +767,7 @@ void LightmapPacker::Copy_Assets (const char *pathname)
 	if (handle != -1) {
 
 		// Now we know that there are assets so create the save directory.
-		_splitpath (pathname, savedrivename, savedirectoryname, savefilename, NULL);
+		_splitpath (pathname, savedrivename, savedirectoryname, savefilename, nullptr);
 		strcpy (savepath, savedrivename);
 		strcat (savepath, savedirectoryname);
 		strcat (savepath, Asset_Directory (savefilename));
@@ -1064,7 +1064,7 @@ TrianglePacker *TrianglePacker::Merge (const TrianglePacker &trianglepacker)
 {
 	TrianglePacker *mergedpackerptr;
 
-	mergedpackerptr = NULL;
+	mergedpackerptr = nullptr;
 
 	// Do both triangle packers have the same projection, group ID, edge blend thickness, sample rate, and fill color?
 	// If not, then they are not compatible packers and cannot be merged.
@@ -1085,15 +1085,15 @@ TrianglePacker *TrianglePacker::Merge (const TrianglePacker &trianglepacker)
 
 					// Copy this.
 				 	mergedpackerptr = new TrianglePacker (*this);
-					ASSERT (mergedpackerptr != NULL);
+					ASSERT (mergedpackerptr != nullptr);
 					break;
 				}
 			}
 
-			if (mergedpackerptr != NULL) break;
+			if (mergedpackerptr != nullptr) break;
 		}
 
-		if (mergedpackerptr != NULL)  {
+		if (mergedpackerptr != nullptr)  {
 
 			// For each principal triangle in triangle packer...
 			for (int p = 0; p < trianglepacker.PrincipalTriangles.Count(); p++) {
@@ -1301,11 +1301,11 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 
 	// Allocate a sample surface to store destination->source (backward) samples.
 	backwardsurfaceptr = new SampleSurface (width, height, proceduraltexture);
-	ASSERT (backwardsurfaceptr != NULL);
+	ASSERT (backwardsurfaceptr != nullptr);
 
 	// Allocate enough projection triangles to cover the principal triangles and those triangles that can be projected.
 	projectiontriangles = new ProjectionTriangle [PrincipalTriangles.Count() + AdjacentTriangles [ADJACENT_PROJECTION_COMMON].Count() + AdjacentTriangles [ADJACENT_PROJECTION_VALID].Count()];
-	ASSERT (projectiontriangles != NULL);
+	ASSERT (projectiontriangles != nullptr);
 
 	// For each principal triangle...
 	projectiontrianglecount = PrincipalTriangles.Count();
@@ -1392,12 +1392,12 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 	}
 
 	// If less than 50% of the texels were sampled in the backward rasterization prepare a forward rasterization.
-	forwardsurfaceptr = NULL;
+	forwardsurfaceptr = nullptr;
 	if (backwardsurfaceptr->Sampling_Ratio() < 0.5f) {
 
 		// Allocate a sample surface to store source->destination (forward) samples.
 		forwardsurfaceptr = new SampleSurface (width, height, proceduraltexture);
-		ASSERT (forwardsurfaceptr != NULL);
+		ASSERT (forwardsurfaceptr != nullptr);
 
 		for (t = 0; t < PrincipalTriangles.Count(); t++) {
 
@@ -1462,7 +1462,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 						inrangeofprincipal = true;
 						break;
 					}
-					if (forwardsurfaceptr != NULL) {
+					if (forwardsurfaceptr != nullptr) {
 						if (forwardsurfaceptr->Priority (a, b) >= principalpriority) {
 							inrangeofprincipal = true;
 							break;
@@ -1479,7 +1479,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 				if (backwardsurfaceptr->Get_Color (x, y, color)) {
 					rasterizedtarga.Set_Color (x, y, color);
 				} else {
-					if (forwardsurfaceptr != NULL) {
+					if (forwardsurfaceptr != nullptr) {
 						if (forwardsurfaceptr->Get_Color (x, y, color)) {
 							rasterizedtarga.Set_Color (x, y, color);
 						} else {
@@ -1514,7 +1514,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 	}
 
 	// Clean-up.
-	if (forwardsurfaceptr != NULL) delete forwardsurfaceptr;
+	if (forwardsurfaceptr != nullptr) delete forwardsurfaceptr;
 	delete [] projectiontriangles;
 	delete backwardsurfaceptr;
 }
@@ -1657,7 +1657,7 @@ void TrueColorTarga::Reformat (unsigned width, unsigned height, unsigned pixelde
 
 		// NOTE: Use malloc() or realloc() here because destructor will use free().
 		mImage = (char*) realloc (mImage, size);
-		ASSERT (mImage != NULL);
+		ASSERT (mImage != nullptr);
 	}
 }
 
@@ -1789,7 +1789,7 @@ char *TrueColorTarga::Load (const char *pathname)
 	}
 
 	// No error message.
-	return (NULL);
+	return (nullptr);
 }
 
 
@@ -1821,7 +1821,7 @@ char *TrueColorTarga::Save (const char *pathname)
 	}
 
 	// No error message.
-	return (NULL);
+	return (nullptr);
 }
 
 
@@ -1849,8 +1849,8 @@ void TrueColorTarga::Blit (TrueColorTarga &destination, unsigned x, unsigned y)
 	// Currently, a true color targa cannot blit to itself.
 	ASSERT (this != &destination);
 
-	ASSERT (GetImage() != NULL);
-	ASSERT (destination.GetImage() != NULL);
+	ASSERT (GetImage() != nullptr);
+	ASSERT (destination.GetImage() != nullptr);
 
 	// Sanity checks.
 	if ((x >= destination.Width()) || (y >= destination.Height())) return;
@@ -1906,7 +1906,7 @@ void TrueColorTarga::Scale (TrueColorTarga &destination, unsigned width, unsigne
 	SRBOOL		 success;
 
 	// Image data must exist.
-	ASSERT (GetImage() != NULL);
+	ASSERT (GetImage() != nullptr);
 
 	// Currently, source and destination pixel depths must match.
 	ASSERT (Pixel_Depth() == destination.Pixel_Depth());
@@ -1985,7 +1985,7 @@ void TrueColorTarga::Scale (TrueColorTarga &destination, float error)
 	dimension = AVERAGE (maxdimension, mindimension);
 	for (attempt = 0; attempt < attemptcount; attempt++) {
 		scaledtargaptr = new TrueColorTarga (dimension, Height(), Pixel_Depth());
-		ASSERT (scaledtargaptr != NULL);
+		ASSERT (scaledtargaptr != nullptr);
 		Scale (*scaledtargaptr);
 		result = Compare (*scaledtargaptr, error);
 		delete scaledtargaptr;
@@ -2000,7 +2000,7 @@ void TrueColorTarga::Scale (TrueColorTarga &destination, float error)
 	dimension = AVERAGE (maxdimension, mindimension);
 	for (attempt = 0; attempt < attemptcount; attempt++) {
 		scaledtargaptr = new TrueColorTarga (Width(), dimension, Pixel_Depth());
-		ASSERT (scaledtargaptr != NULL);
+		ASSERT (scaledtargaptr != nullptr);
 		Scale (*scaledtargaptr);
 		result = Compare (*scaledtargaptr, error);
 		delete scaledtargaptr;
@@ -2035,7 +2035,7 @@ void TrueColorTarga::Transpose (TrueColorTarga &destination)
 	unsigned char *sourceptr, *destinationptr, *stagingbuffer;
 
 	// Image data must exist.
-	ASSERT (GetImage() != NULL);
+	ASSERT (GetImage() != nullptr);
 
 	// Currently, source and destination pixel depths must match.
 	ASSERT (Pixel_Depth() == destination.Pixel_Depth());
@@ -2044,7 +2044,7 @@ void TrueColorTarga::Transpose (TrueColorTarga &destination)
 	size = Width() * Height() * bytespertexel;
 
 	stagingbuffer = new unsigned char [size];
-	ASSERT (stagingbuffer != NULL);
+	ASSERT (stagingbuffer != nullptr);
 
 	// Write transposed image data to staging buffer.
 	sourcestride	= Width() * bytespertexel;
@@ -2242,7 +2242,7 @@ bool TrueColorTarga::Fill (const W3dRGBStruct &fillcolor)
 
 	// Allocate dynamic arrays and initialize.
 	fourconnectedarrays = new DynamicVectorClass <PointStruct> [2];
-	ASSERT (fourconnectedarrays != NULL);
+	ASSERT (fourconnectedarrays != nullptr);
 	fourconnectedarrays [0].Set_Growth_Step (growthstep);
 	fourconnectedarrays [1].Set_Growth_Step (growthstep);
 
@@ -2303,7 +2303,7 @@ bool TrueColorTarga::Fill_Four_Connected (unsigned x, unsigned y, const Unpacked
 
 	// Is texel (x, y) the fill color (ie. not already filled)?
 	texelptr = Get_Texel (x, y);
-	ASSERT (texelptr != NULL);
+	ASSERT (texelptr != nullptr);
 	Unpack_Texel (texelptr, bytespertexel, unpackedtexel);
 	if (unpackedtexel == filltexel) {
 
@@ -2325,7 +2325,7 @@ bool TrueColorTarga::Fill_Four_Connected (unsigned x, unsigned y, const Unpacked
 			adjx = ((int) x) + offsetx [adj];
 			adjy = ((int) y) + offsety [adj];
 			adjtexelptr	= Get_Texel (adjx, adjy);
-			if (adjtexelptr != NULL) {
+			if (adjtexelptr != nullptr) {
 				Unpack_Texel (adjtexelptr, bytespertexel, unpackedtexel);
 				if (unpackedtexel == filltexel) {
 					fourconnected [adj] = true;
@@ -2500,7 +2500,7 @@ void TrueColorTarga::Rasterize (TrueColorTarga &destination, const W3dRGBStruct 
 
 	// Define colors that correspond to each vertex;
 	for (n = 0; n < vertexcount; n++) {
-		if (vertexcolors != NULL) {
+		if (vertexcolors != nullptr) {
 			colors [n] = vertexcolors [(n + longestedge) % edgecount];
 		} else {
 			colors [n] = fillcolor;
@@ -2731,7 +2731,7 @@ TrianglePacker::SampleSurface::SampleSurface (unsigned width, unsigned height, P
 	SampledTexelCount = 0;
 
 	Surface = new SampleStruct [width * height];
-	ASSERT (Surface != NULL);
+	ASSERT (Surface != nullptr);
 
 	// Initialize surface.
 	sampleptr = Surface;
@@ -2802,7 +2802,7 @@ bool TrianglePacker::SampleSurface::Sample (const Vector2 &samplepoint, const Pr
 		if (!projectiontriangle.SourceTargaPtr->Get_Color (uv, color)) return (false);
 
 		// Should the texel color be blended with a procedural texture?
-		if (BlendTexture != NULL) {
+		if (BlendTexture != nullptr) {
 
 			Vector3 p;
 			float	  v;
@@ -2864,7 +2864,7 @@ bool TrianglePacker::SampleSurface::Sample (float alpha, float beta, const Proje
 	if (!projectiontriangle.SourceTargaPtr->Get_Color (uv, color)) return (false);
 
 	// Should the texel color be blended with a procedural texture?
-	if (BlendTexture != NULL) {
+	if (BlendTexture != nullptr) {
 
 		Vector3 p;
 		float	  v;
@@ -2913,7 +2913,7 @@ Page::Page (unsigned bitdepth, const W3dRGBStruct &clearcolor)
 
 	// Create a single region for the entire page.
 	regionptr = new Region;
-	ASSERT (regionptr != NULL);
+	ASSERT (regionptr != nullptr);
 	regionptr->Set (0, 0, PAGE_WIDTH - 1, PAGE_HEIGHT - 1);
 	VacantRegionList.Add_Head (regionptr);
 
@@ -2995,7 +2995,7 @@ bool Page::Pack (TrueColorTarga &targa, float epsilon, DynamicVectorClass <Packi
 
 	// Create a transposed version of the targa.
 	targaptr [TRANSPOSED] = new TrueColorTarga (targaptr [UNTRANSPOSED]->Width(), targaptr [UNTRANSPOSED]->Height(), targaptr [UNTRANSPOSED]->Pixel_Depth());
-	ASSERT (targaptr [TRANSPOSED] != NULL);
+	ASSERT (targaptr [TRANSPOSED] != nullptr);
 	targaptr [UNTRANSPOSED]->Blit (*targaptr [TRANSPOSED], 0, 0);
 	targaptr [TRANSPOSED]->Transpose();
 
@@ -3125,7 +3125,7 @@ bool Page::Replica_Region (TrueColorTarga &targa, float epsilon, Region &replica
 	// Iterate over all used regions to see if one matches the targa to within tolerance.
 	replica = false;
 	regionptr = (Region*) UsedRegionList.First_Valid();
-	while (regionptr != NULL) {
+	while (regionptr != nullptr) {
 
 		regionwidth  = regionptr->X1 - regionptr->X0 + 1;
 		regionheight = regionptr->Y1 - regionptr->Y0 + 1;
@@ -3174,7 +3174,7 @@ bool Page::Lowest_Cost_Region (TrueColorTarga &targa, unsigned &lowestcost, Regi
 	packed = false;
 	mintotalsubregioncount = UINT_MAX;
 	regionptr = (Region*) VacantRegionList.First_Valid();
-	while (regionptr != NULL) {
+	while (regionptr != nullptr) {
 
 		Region candidateregion;
 
@@ -3186,7 +3186,7 @@ bool Page::Lowest_Cost_Region (TrueColorTarga &targa, unsigned &lowestcost, Regi
 
 			fragmentregionptr = (Region*) VacantRegionList.First_Valid();
 			totalsubregioncount = 0;
-			while (fragmentregionptr != NULL) {
+			while (fragmentregionptr != nullptr) {
 
 				// Calculate the fragmentation count for the fragment region.
 				if (fragmentregionptr->Intersects (candidateregion, subregioncount, &subregions)) {
@@ -3234,13 +3234,13 @@ void Page::Insert_Region (const Region &insertionregion)
 
 	// First, add the insertion region to the used region list.
 	regionptr = new Region (insertionregion);
-	ASSERT (regionptr != NULL);
+	ASSERT (regionptr != nullptr);
 	UsedRegionList.Add_Head (regionptr);
 
 	// Walk down the vacant list. If any region intersects the target region, fragment it into
 	// 0 to 4 sub-regions, depending on the relative location of the clipped region.
 	regionptr = (Region*) VacantRegionList.First_Valid();
-	while (regionptr != NULL) {
+	while (regionptr != nullptr) {
 
 		unsigned  subregioncount;
 		Region	*subregions, *removalptr;
@@ -3263,7 +3263,7 @@ void Page::Insert_Region (const Region &insertionregion)
 					Region *newregionptr;
 
 					newregionptr = new Region (subregions [s]);
-					ASSERT (newregionptr != NULL);
+					ASSERT (newregionptr != nullptr);
 					VacantRegionList.Add_Head (newregionptr);
 				}
 			}
@@ -3372,7 +3372,7 @@ bool Page::Contains (const Region &testregion)
 
 	// Step down the vacant list until a region is found that contains the test region or end of list.
 	regionptr = (Region*) VacantRegionList.First_Valid();
-	while (regionptr != NULL) {
+	while (regionptr != nullptr) {
 		if ((testregion.X0 >= regionptr->X0) && (testregion.X1 <= regionptr->X1) && (testregion.Y0 >= regionptr->Y0) && (testregion.Y1 <= regionptr->Y1)) {
 
 			// Test region is contained by a region in the list.

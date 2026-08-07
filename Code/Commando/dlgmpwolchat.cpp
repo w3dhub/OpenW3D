@@ -65,7 +65,7 @@ static const Vector3	SYSOP_COLOR			(1.0F, 1.0F, 1.0F);
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
 ////////////////////////////////////////////////////////////////
-MPWolChatMenuClass* MPWolChatMenuClass::_TheInstance = NULL;
+MPWolChatMenuClass* MPWolChatMenuClass::_TheInstance = nullptr;
 
 
 ////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ MPWolChatMenuClass* MPWolChatMenuClass::_TheInstance = NULL;
 ////////////////////////////////////////////////////////////////
 MPWolChatMenuClass::MPWolChatMenuClass (void)	:
 	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_CHAT)),
-	mChatMgr(NULL),
+	mChatMgr(nullptr),
 	mLobbyListChanged(false),
 	mLobbyChanged(false),
 	mUserInListChanged(false),
@@ -83,7 +83,7 @@ MPWolChatMenuClass::MPWolChatMenuClass (void)	:
 	mMessageListChanged(false)
 {
 	WWDEBUG_SAY(("MPWolChatMenuClass instantiated\n"));
-	WWASSERT (_TheInstance == NULL);
+	WWASSERT (_TheInstance == nullptr);
 	_TheInstance = this;
 }
 
@@ -96,7 +96,7 @@ MPWolChatMenuClass::MPWolChatMenuClass (void)	:
 MPWolChatMenuClass::~MPWolChatMenuClass (void)
 {
 	WWDEBUG_SAY(("MPWolChatMenuClass destroyed\n"));
-	_TheInstance = NULL;
+	_TheInstance = nullptr;
 }
 
 
@@ -225,7 +225,7 @@ void MPWolChatMenuClass::On_Destroy(void)
 	if (mChatMgr) {
 		mChatMgr->Stop();
 		mChatMgr->Release_Ref();
-		mChatMgr = NULL;
+		mChatMgr = nullptr;
 	}
 
 	MenuDialogClass::On_Destroy ();
@@ -668,7 +668,7 @@ void MPWolChatMenuClass::Update_Message_Color(void)
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_PLAYERS_LIST_CTRL);
 	EditCtrlClass *edit_ctrl = (EditCtrlClass *)Get_Dlg_Item (IDC_CHAT_EDIT);
 
-	if (list_ctrl == NULL || edit_ctrl == NULL) {
+	if (list_ctrl == nullptr || edit_ctrl == nullptr) {
 		return ;
 	}
 
@@ -816,7 +816,7 @@ void MPWolChatMenuClass::Update_Current_Channel(void)
 
 	ListCtrlClass* list_ctrl = (ListCtrlClass*)Get_Dlg_Item (IDC_PLAYERS_LIST_CTRL);
 
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -837,7 +837,7 @@ void MPWolChatMenuClass::Update_Current_Channel(void)
 void MPWolChatMenuClass::DoDialog(const RefPtr<ChannelData>& channel)
 {
 	//	Create the dialog if necessary, otherwise simply bring it to the front
-	if (_TheInstance == NULL) {
+	if (_TheInstance == nullptr) {
 		MPWolChatMenuClass* dialog = new MPWolChatMenuClass;
 
 		if (dialog) {

@@ -165,7 +165,7 @@ Create_Static_Text_Controls
 	//
 	//	Do we need to create a 'units' control?
 	//
-	if (right_text != NULL) {
+	if (right_text != nullptr) {
 
 		//
 		//	Calculate the width of the units string
@@ -228,8 +228,8 @@ Resize_Controls
 	//	Resize the middle control and reposition the right control
 	//
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH + old_rect3.Width () + SPACE_WIDTH);
-	middle_wnd.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
-	right_wnd.SetWindowPos (NULL, old_rect2.left + new_width + SPACE_WIDTH, old_rect3.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+	middle_wnd.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	right_wnd.SetWindowPos (nullptr, old_rect2.left + new_width + SPACE_WIDTH, old_rect3.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 	return ;
 }
 
@@ -312,8 +312,8 @@ FileParameterCtrlClass::Resize (const CRect &rect)
 	m_StaticText.GetWindowRect (&old_rect1);
 	m_FilePicker.GetWindowRect (&old_rect2);
 
-	m_StaticText.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect1.Height (), SWP_NOZORDER | SWP_NOMOVE);
-	m_FilePicker.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_StaticText.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect1.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_FilePicker.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -328,7 +328,7 @@ FileParameterCtrlClass::Is_Modified (void) const
 {
 	bool retval = false;
 
-	if (m_Parameter != NULL) {
+	if (m_Parameter != nullptr) {
 
 		//
 		//	Simply compare the current and original values
@@ -455,8 +455,8 @@ StringsDBEntryParameterCtrlClass::Resize (const CRect &rect)
 	m_StaticText.GetWindowRect (&old_rect1);
 	m_StringPicker.GetWindowRect (&old_rect2);
 
-	m_StaticText.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect1.Height (), SWP_NOZORDER | SWP_NOMOVE);
-	m_StringPicker.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_StaticText.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect1.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_StringPicker.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -574,8 +574,8 @@ StringParameterCtrlClass::Resize (const CRect &rect)
 	m_StaticText.GetWindowRect (&old_rect1);
 	m_EditCtrl.GetWindowRect (&old_rect2);
 
-	m_StaticText.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect1.Height (), SWP_NOZORDER | SWP_NOMOVE);
-	m_EditCtrl.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_StaticText.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect1.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_EditCtrl.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -939,7 +939,7 @@ BoolParameterCtrlClass::Resize (const CRect &rect)
 	m_CheckBoxCtrl.GetWindowRect (&old_rect);
 
 	//int new_width = rect.Width () - (old_rect.Width () + SPACE_WIDTH);
-	m_CheckBoxCtrl.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_CheckBoxCtrl.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -1055,7 +1055,7 @@ Vector3ParameterCtrlClass::Resize (const CRect &rect)
 	m_GroupBox.GetClientRect (&group_rect);
 	group_rect.left	= 0;
 	group_rect.right	= rect.Width ();
-	m_GroupBox.SetWindowPos (NULL, 0, 0, group_rect.Width (), group_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_GroupBox.SetWindowPos (nullptr, 0, 0, group_rect.Width (), group_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 
 
 	//
@@ -1080,10 +1080,10 @@ Vector3ParameterCtrlClass::Resize (const CRect &rect)
 	for (int index = 0; index < 3; index ++) {
 
 		int y = edit_rect.top + (edit_rect.Height () >> 1) - (text_size.cy >> 1);
-		m_TextCtrls[index].SetWindowPos (NULL, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
+		m_TextCtrls[index].SetWindowPos (nullptr, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
 
 		edit_rect.left	+= text_size.cx;
-		m_EditCtrls[index].SetWindowPos (NULL, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
+		m_EditCtrls[index].SetWindowPos (nullptr, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
 		m_SpinCtrls[index].SetBuddy (&m_EditCtrls[index]);
 
 		edit_rect.left		+= width;
@@ -1205,7 +1205,7 @@ Vector2ParameterCtrlClass::Resize (const CRect &rect)
 	m_GroupBox.GetClientRect (&group_rect);
 	group_rect.left	= 0;
 	group_rect.right	= rect.Width ();
-	m_GroupBox.SetWindowPos (NULL, 0, 0, group_rect.Width (), group_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_GroupBox.SetWindowPos (nullptr, 0, 0, group_rect.Width (), group_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 
 
 	//
@@ -1230,10 +1230,10 @@ Vector2ParameterCtrlClass::Resize (const CRect &rect)
 	for (int index = 0; index < 2; index ++) {
 
 		int y = edit_rect.top + (edit_rect.Height () >> 1) - (text_size.cy >> 1);
-		m_TextCtrls[index].SetWindowPos (NULL, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
+		m_TextCtrls[index].SetWindowPos (nullptr, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
 
 		edit_rect.left	+= text_size.cx;
-		m_EditCtrls[index].SetWindowPos (NULL, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
+		m_EditCtrls[index].SetWindowPos (nullptr, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
 		m_SpinCtrls[index].SetBuddy (&m_EditCtrls[index]);
 
 		edit_rect.left		+= width;
@@ -1369,7 +1369,7 @@ RectParameterCtrlClass::Resize (const CRect &rect)
 	m_GroupBox.GetClientRect (&group_rect);
 	group_rect.left	= 0;
 	group_rect.right	= rect.Width ();
-	m_GroupBox.SetWindowPos (NULL, 0, 0, group_rect.Width (), group_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_GroupBox.SetWindowPos (nullptr, 0, 0, group_rect.Width (), group_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 
 
 	//
@@ -1394,10 +1394,10 @@ RectParameterCtrlClass::Resize (const CRect &rect)
 	for (int index = 0; index < 4; index ++) {
 
 		int y = edit_rect.top + (edit_rect.Height () >> 1) - (text_size.cy >> 1);
-		m_TextCtrls[index].SetWindowPos (NULL, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
+		m_TextCtrls[index].SetWindowPos (nullptr, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
 
 		edit_rect.left	+= text_size.cx;
-		m_EditCtrls[index].SetWindowPos (NULL, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
+		m_EditCtrls[index].SetWindowPos (nullptr, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
 		m_SpinCtrls[index].SetBuddy (&m_EditCtrls[index]);
 
 		edit_rect.left		+= width + BORDER_WIDTH;
@@ -1571,7 +1571,7 @@ EnumParameterCtrlClass::Resize (const CRect &rect)
 	m_ComboBox.GetWindowRect (&old_rect2);
 
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH);
-	m_ComboBox.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_ComboBox.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -1678,7 +1678,7 @@ ColorParameterCtrlClass::Resize (const CRect &rect)
 	m_Button.GetWindowRect (&old_rect2);
 
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH);
-	m_Button.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_Button.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -1734,7 +1734,7 @@ ColorParameterCtrlClass::On_Command
 			color.Z = ((float)blue) / 255.0F;
 			m_Parameter->Set_Value (color);
 
-			::InvalidateRect (::GetDlgItem (parent_wnd, m_ButtonID), NULL, true);
+			::InvalidateRect (::GetDlgItem (parent_wnd, m_ButtonID), nullptr, true);
 			::UpdateWindow (::GetDlgItem (parent_wnd, m_ButtonID));
 		}
 
@@ -1881,7 +1881,7 @@ PhysDefParameterCtrlClass::Resize (const CRect &rect)
 	m_Button.GetWindowRect (&old_rect2);
 
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH);
-	m_Button.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_Button.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -2033,7 +2033,7 @@ DefParameterCtrlClass::Resize (const CRect &rect)
 	m_PresetPicker.GetWindowRect (&old_rect2);
 
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH);
-	m_PresetPicker.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_PresetPicker.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -2059,7 +2059,7 @@ void
 DefParameterCtrlClass::Read_Data (HWND /*parent_wnd*/)
 {
 	PresetClass *preset = (PresetClass *)m_PresetPicker.Get_Preset ();
-	if (preset != NULL) {
+	if (preset != nullptr) {
 		m_Parameter->Set_Value (preset->Get_ID ());
 	} else {
 		m_Parameter->Set_Value (0);
@@ -2160,7 +2160,7 @@ ScriptParameterCtrlClass::Resize (const CRect &rect)
 	m_Button.GetWindowRect (&old_rect2);
 
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH);
-	m_Button.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_Button.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -2212,7 +2212,7 @@ ScriptParameterCtrlClass::On_Command
 		//	Initialize the dialog with the current script settings
 		//
 		EditScriptClass *template_script = ScriptMgrClass::Find_Script (m_Parameter->Get_Script_Name ());
-		if (template_script != NULL) {
+		if (template_script != nullptr) {
 			EditScriptClass temp_script = *template_script;
 			temp_script.Set_Composite_Values (m_Parameter->Get_Params ());
 			dialog.Set_Script (temp_script);
@@ -2341,7 +2341,7 @@ DefIDListParameterCtrlClass::Resize (const CRect &rect)
 	m_Button.GetWindowRect (&old_rect2);
 
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH);
-	m_Button.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_Button.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -2387,7 +2387,7 @@ DefIDListParameterCtrlClass::On_Command
 		uint32 root_class_id			= m_Parameter->Get_Class_ID ();
 		uint32 selected_class_id	= 0;
 		uint32 *class_id_ptr			= m_Parameter->Get_Selected_Class_ID ();
-		if (class_id_ptr != NULL) {
+		if (class_id_ptr != nullptr) {
 			selected_class_id = (*class_id_ptr);
 		}
 
@@ -2398,13 +2398,13 @@ DefIDListParameterCtrlClass::On_Command
 		dialog.Set_Preset_List (&list);
 		dialog.Set_Class_ID (root_class_id);
 		dialog.Set_Selected_Class_ID (selected_class_id);
-		dialog.Enable_Type_Selection (class_id_ptr != NULL);
+		dialog.Enable_Type_Selection (class_id_ptr != nullptr);
 
 		//
 		//	Display the dialog
 		//
 		if (dialog.DoModal () == IDOK) {
-			if (class_id_ptr != NULL) {
+			if (class_id_ptr != nullptr) {
 				(*class_id_ptr) = dialog.Get_Selected_Class_ID ();
 				m_Parameter->Set_Modified ();
 			}
@@ -2503,7 +2503,7 @@ ZoneParameterCtrlClass::Resize (const CRect &rect)
 	m_Button.GetWindowRect (&old_rect2);
 
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH);
-	m_Button.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_Button.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -2624,7 +2624,7 @@ FilenameListParameterCtrlClass::Resize (const CRect &rect)
 	m_Button.GetWindowRect (&old_rect2);
 
 	int new_width = rect.Width () - (old_rect1.Width () + SPACE_WIDTH);
-	m_Button.SetWindowPos (NULL, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_Button.SetWindowPos (nullptr, 0, 0, new_width, old_rect2.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 
@@ -2758,10 +2758,10 @@ SeparatorParameterCtrlClass::Resize (const CRect &rect)
 	CRect old_rect;
 
 	m_FrameCtrl.GetWindowRect (&old_rect);
-	m_FrameCtrl.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	m_FrameCtrl.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 
 	//m_TextCtrl.GetWindowRect (&old_rect);
-	//m_TextCtrl.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
+	//m_TextCtrl.SetWindowPos (nullptr, 0, 0, rect.Width (), old_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	return ;
 }
 

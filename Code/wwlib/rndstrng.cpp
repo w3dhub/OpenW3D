@@ -48,7 +48,7 @@ void RandomStringClass::Add_String( const char * str )
 const char * RandomStringClass::Get_String( void )
 {
 	if ( Strings.Count() == 0 ) {
-		return NULL;
+		return nullptr;
 	}
 	unsigned int index = Randomizer();
 	index %= Strings.Count();

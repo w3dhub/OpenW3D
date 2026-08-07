@@ -146,7 +146,7 @@ public:
 	//
 	// Damage
 	//
-   virtual	void						Apply_Damage_Extended (const OffenseObjectClass &offense, float scale = 1.0f, const	Vector3 & direction = Vector3 (0, 0, 0), const char *collision_box_name = NULL) override;
+   virtual	void						Apply_Damage_Extended (const OffenseObjectClass &offense, float scale = 1.0f, const	Vector3 & direction = Vector3 (0, 0, 0), const char *collision_box_name = nullptr) override;
 
 protected:
 

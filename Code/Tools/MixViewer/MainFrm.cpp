@@ -151,7 +151,7 @@ Get_Filename_From_Path (LPCTSTR path)
 {
 	// Find the last occurance of the directory deliminator
 	LPCTSTR filename = ::strrchr (path, '\\');
-	if (filename != NULL) {
+	if (filename != nullptr) {
 		// Increment past the directory deliminator
 		filename ++;
 	} else {
@@ -177,7 +177,7 @@ Strip_Filename_From_Path (LPCTSTR path)
 
 	// Find the last occurance of the directory deliminator
 	LPTSTR filename = ::strrchr (temp_path, '\\');
-	if (filename != NULL) {
+	if (filename != nullptr) {
 
 		// Strip off the filename
 		filename[0] = 0;
@@ -283,7 +283,7 @@ CMainFrame::OnExportFiles (void)
 	StringClass	current_filename;
 
 	CDocument * doc = GetActiveDocument();
-	if ( doc != NULL ) {
+	if ( doc != nullptr ) {
 		current_filename = doc->GetPathName();
 	}
 
@@ -296,7 +296,7 @@ CMainFrame::OnExportFiles (void)
 			// Make the destination folder
 			StringClass export_path = current_filename;
 			export_path += " Files";
-			int result = (int)::CreateDirectory( export_path, NULL );
+			int result = (int)::CreateDirectory( export_path, nullptr );
 			int error = ::GetLastError();
 			if ( result != 0 || error == ERROR_ALREADY_EXISTS ) {
 
@@ -311,11 +311,11 @@ CMainFrame::OnExportFiles (void)
 					dest_name += filenames[index];
 
 					// If the filename contains a /, create the directory
-					if ( ::strchr( filenames[index], '\\' ) != NULL ) {
+					if ( ::strchr( filenames[index], '\\' ) != nullptr ) {
 						StringClass dest_folder = dest_name;
 						int length = ::strrchr( dest_folder, '\\' ) - dest_folder;
 						dest_folder.Erase( length, dest_folder.Get_Length() - length );
-						result = (int)::CreateDirectory( dest_folder, NULL );
+						result = (int)::CreateDirectory( dest_folder, nullptr );
 						error = ::GetLastError();
 						if ( result == 0 && error != ERROR_ALREADY_EXISTS ) {
 							StringClass message;
@@ -367,10 +367,10 @@ CMainFrame::OnExportFiles (void)
 
 					}
 
-					if ( source_file != NULL ) {
+					if ( source_file != nullptr ) {
 						mix_factory.Return_File( source_file );
 					}
-					if ( dest_file != NULL ) {
+					if ( dest_file != nullptr ) {
 						_TheFileFactory->Return_File( dest_file );
 					}
 
@@ -423,7 +423,7 @@ CMainFrame::OnExportFiles (void)
 void
 CMainFrame::OnRemoveAVAssets (void)
 {
-	CFileDialog dialog(true, ".mix", NULL, OFN_ALLOWMULTISELECT | OFN_HIDEREADONLY | OFN_EXPLORER, "Mix File (*.dat, *.mix)|*.dat;*.mix||", this);
+	CFileDialog dialog(true, ".mix", nullptr, OFN_ALLOWMULTISELECT | OFN_HIDEREADONLY | OFN_EXPLORER, "Mix File (*.dat, *.mix)|*.dat;*.mix||", this);
 	dialog.m_ofn.lpstrTitle = "Pick Mix Files";
 
 	char *file_name_buffer = new char [65536];
@@ -439,7 +439,7 @@ CMainFrame::OnRemoveAVAssets (void)
 		//
 		POSITION pos = dialog.GetStartPosition();
 
-		while (pos != NULL) {
+		while (pos != nullptr) {
 			StringClass file_name = static_cast<const char *>(dialog.GetNextPathName(pos));
 
 			//
@@ -456,8 +456,8 @@ CMainFrame::OnRemoveAVAssets (void)
 			// Make sure the temp directory exists.
 			//
 			strcat(dir, "temp\\");
-			_makepath(path, drive, dir, NULL, NULL);
-			CreateDirectory(path, NULL);
+			_makepath(path, drive, dir, nullptr, nullptr);
+			CreateDirectory(path, nullptr);
 
 			//
 			// Make the output file name.
@@ -484,7 +484,7 @@ CMainFrame::OnMakeMixPatch(void)
 	//
 	// Ask for the name of the old source mix file.
 	//
-	CFileDialog dialog(true, ".mix", NULL, OFN_HIDEREADONLY | OFN_EXPLORER, "Mix File (*.dat, *.mix)|*.dat;*.mix||", this);
+	CFileDialog dialog(true, ".mix", nullptr, OFN_HIDEREADONLY | OFN_EXPLORER, "Mix File (*.dat, *.mix)|*.dat;*.mix||", this);
 	dialog.m_ofn.lpstrTitle = "Pick Old Source Mix File";
 
 	char file_name_buffer[1024];
@@ -504,7 +504,7 @@ CMainFrame::OnMakeMixPatch(void)
 		//
 		// Ask for the name of the new source mix file.
 		//
-		CFileDialog dialog2(true, ".mix", NULL, OFN_HIDEREADONLY | OFN_EXPLORER, "Mix File (*.dat, *.mix)|*.dat;*.mix||", this);
+		CFileDialog dialog2(true, ".mix", nullptr, OFN_HIDEREADONLY | OFN_EXPLORER, "Mix File (*.dat, *.mix)|*.dat;*.mix||", this);
 		dialog2.m_ofn.lpstrTitle = "Pick New Source Mix File";
 
 		file_name_buffer[0] = 0;
@@ -524,7 +524,7 @@ CMainFrame::OnMakeMixPatch(void)
 			//
 			// Ask for the name of the output mix file.
 			//
-			CFileDialog dialog3(true, ".mix", NULL, OFN_HIDEREADONLY | OFN_EXPLORER, "Mix File (*.dat, *.mix)|*.dat;*.mix||", this);
+			CFileDialog dialog3(true, ".mix", nullptr, OFN_HIDEREADONLY | OFN_EXPLORER, "Mix File (*.dat, *.mix)|*.dat;*.mix||", this);
 			dialog3.m_ofn.lpstrTitle = "Pick Output Patch Mix File";
 
 			file_name_buffer[0] = 0;
@@ -545,12 +545,12 @@ CMainFrame::OnMakeMixPatch(void)
 				//
 				char old_path[_MAX_PATH + 256];
 				BROWSEINFO old_binfo;
-				old_binfo.hwndOwner = NULL;
-				old_binfo.pidlRoot = NULL;
+				old_binfo.hwndOwner = nullptr;
+				old_binfo.pidlRoot = nullptr;
 				old_binfo.pszDisplayName = old_path;
     			old_binfo.lpszTitle = "Select Old Source Art Directory";
 				old_binfo.ulFlags = 0;
-				old_binfo.lpfn = NULL;
+				old_binfo.lpfn = nullptr;
 				old_binfo.lParam = 0;
 				old_binfo.iImage = 0;
 
@@ -567,12 +567,12 @@ CMainFrame::OnMakeMixPatch(void)
 						//
 						char new_path[_MAX_PATH + 256];
 						BROWSEINFO new_binfo;
-						new_binfo.hwndOwner = NULL;
-						new_binfo.pidlRoot = NULL;
+						new_binfo.hwndOwner = nullptr;
+						new_binfo.pidlRoot = nullptr;
 						new_binfo.pszDisplayName = new_path;
     					new_binfo.lpszTitle = "Select New Source Art Directory";
 						new_binfo.ulFlags = 0;
-						new_binfo.lpfn = NULL;
+						new_binfo.lpfn = nullptr;
 						new_binfo.lParam = 0;
 						new_binfo.iImage = 0;
 
@@ -620,12 +620,12 @@ CMainFrame::OnDropFiles (HDROP hDropInfo)
 	SetActiveWindow ();
 
 	CWinApp *win_app = AfxGetApp ();
-	ASSERT (win_app != NULL);
+	ASSERT (win_app != nullptr);
 
 	//
 	//	Get the count of files from the drop query
 	//
-	int file_count = (int)::DragQueryFile (hDropInfo, (UINT)-1, NULL, 0);
+	int file_count = (int)::DragQueryFile (hDropInfo, (UINT)-1, nullptr, 0);
 	if (file_count > 0) {
 
 		CMixViewerDoc *doc = (CMixViewerDoc *)GetActiveDocument ();
@@ -642,7 +642,7 @@ CMainFrame::OnDropFiles (HDROP hDropInfo)
 			//	Get the extension from the filename
 			//
 			char extension[_MAX_EXT] = { 0 };
-			::_splitpath (filename, NULL, NULL, NULL, extension);
+			::_splitpath (filename, nullptr, nullptr, nullptr, extension);
 
 			//
 			//	Is this a mix file, or should we be adding this file to the mix?
@@ -743,6 +743,6 @@ CMainFrame::Add_To_Mix_File (const char *mix_filename, DynamicVectorClass<String
 	//	Free the mix factory
 	//
 	delete mix_factory;
-	mix_factory = NULL;
+	mix_factory = nullptr;
 	return ;
 }

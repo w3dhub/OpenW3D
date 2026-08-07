@@ -134,7 +134,7 @@ StringLibraryDialogClass::OnInitDialog (void)
 		//	Lookup this category
 		//
 		TDBCategoryClass *category = TranslateDBClass::Get_Category (index);
-		if (category != NULL) {
+		if (category != nullptr) {
 			Add_Category_Page (category);
 		}
 	}
@@ -210,7 +210,7 @@ StringLibraryDialogClass::Resize_Controls (void)
 	//
 	//	Resize the tab control
 	//
-	m_TabCtrl.SetWindowPos (NULL, BORDER_X, BORDER_Y, tab_width, tab_height, SWP_NOZORDER | SWP_NOCOPYBITS);
+	m_TabCtrl.SetWindowPos (nullptr, BORDER_X, BORDER_Y, tab_width, tab_height, SWP_NOZORDER | SWP_NOCOPYBITS);
 
 	//
 	// Get the display rectangle of the tab control
@@ -224,18 +224,18 @@ StringLibraryDialogClass::Resize_Controls (void)
 	//	Resize all the category page controls
 	//
 	for (int index = 0; index < CategoryPages.Count (); index ++) {
-		CategoryPages[index]->SetWindowPos (NULL, tab_rect.left + BORDER_X, tab_rect.top + BORDER_Y,
+		CategoryPages[index]->SetWindowPos (nullptr, tab_rect.left + BORDER_X, tab_rect.top + BORDER_Y,
 			tab_rect.Width () - BORDER_X * 2, tab_rect.Height () - BORDER_Y * 2, SWP_NOZORDER | SWP_NOCOPYBITS | SWP_NOACTIVATE);
 	}
 
 	//
 	//	Reposition the buttons
 	//
-	::SetWindowPos (::GetDlgItem (m_hWnd, IDOK), NULL, button_x_pos, button_y_pos,
+	::SetWindowPos (::GetDlgItem (m_hWnd, IDOK), nullptr, button_x_pos, button_y_pos,
 		0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOCOPYBITS | SWP_NOACTIVATE);
 	button_x_pos += button_width + SPACING_X;
 
-	::SetWindowPos (::GetDlgItem (m_hWnd, IDCANCEL), NULL, button_x_pos, button_y_pos,
+	::SetWindowPos (::GetDlgItem (m_hWnd, IDCANCEL), nullptr, button_x_pos, button_y_pos,
 		0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOCOPYBITS | SWP_NOACTIVATE);
 
 	return ;
@@ -312,14 +312,14 @@ StringLibraryDialogClass::Update_Page_Visibility (void)
 		//
 		// Hide the old tab
 		//
-		if (CurrentTab < CategoryPages.Count () && CategoryPages[CurrentTab] != NULL) {
+		if (CurrentTab < CategoryPages.Count () && CategoryPages[CurrentTab] != nullptr) {
 			CategoryPages[CurrentTab]->ShowWindow (SW_HIDE);
 		}
 
 		//
 		// Show the new tab
 		//
-		if (CategoryPages[newtab] != NULL) {
+		if (CategoryPages[newtab] != nullptr) {
 			CategoryPages[newtab]->ShowWindow (SW_SHOW);
 		}
 
@@ -343,9 +343,9 @@ void
 StringLibraryDialogClass::Enable_Buttons (void)
 {
 	CMenu *menu = GetMenu ();
-	if (menu != NULL) {
+	if (menu != nullptr) {
 		CMenu *sub_menu = menu->GetSubMenu (0);
-		if (sub_menu != NULL) {
+		if (sub_menu != nullptr) {
 
 			//
 			//	Update the enable state of these menu entries
@@ -375,7 +375,7 @@ StringLibraryDialogClass::OnAdd (void)
 		//	Create the new category
 		//
 		TDBCategoryClass *category = TranslateDBClass::Add_Category (dialog.Get_Name ());
-		if (category != NULL) {
+		if (category != nullptr) {
 
 			//
 			//	Add some UI for this new category
@@ -407,7 +407,7 @@ StringLibraryDialogClass::OnRemove (void)
 	int index = CurrentTab;
 	if (index > 0) {
 		TDBCategoryClass *category = TranslateDBClass::Get_Category (index);
-		if (category != NULL) {
+		if (category != nullptr) {
 
 			//
 			//	Prompt the user to ensure they really want to remove the category
@@ -540,7 +540,7 @@ StringLibraryDialogClass::OnRename (void)
 	int index = CurrentTab;
 	if (index > 0) {
 		TDBCategoryClass *category = TranslateDBClass::Get_Category (index);
-		if (category != NULL) {
+		if (category != nullptr) {
 
 			//
 			//	Show a dialog to the user where they can enter a new name
@@ -630,9 +630,9 @@ void
 StringLibraryDialogClass::Update_Mode (void)
 {
 	CMenu *menu = GetMenu ();
-	if (menu != NULL) {
+	if (menu != nullptr) {
 		CMenu *sub_menu = menu->GetSubMenu (1);
-		if (sub_menu != NULL) {
+		if (sub_menu != nullptr) {
 
 			//
 			//	Determine which menu entry should get the check

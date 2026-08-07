@@ -473,7 +473,7 @@ void CompositeRenderObjClass::Delete_Decal(uint32 decal_id)
 void CompositeRenderObjClass::Update_Obj_Space_Bounding_Volumes(void)
 {
 	int i;
-	RenderObjClass * robj = NULL;
+	RenderObjClass * robj = nullptr;
 
 	// if we don't have any sub objects, just set default bounds
 	if (Get_Num_Sub_Objects() <= 0) {

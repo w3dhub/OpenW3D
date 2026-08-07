@@ -54,7 +54,7 @@
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
 ////////////////////////////////////////////////////////////////
-MPWolMainMenuClass *	MPWolMainMenuClass::_TheInstance	= NULL;
+MPWolMainMenuClass *	MPWolMainMenuClass::_TheInstance	= nullptr;
 
 
 ////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ MPWolMainMenuClass::MPWolMainMenuClass (void)	:
 ////////////////////////////////////////////////////////////////
 MPWolMainMenuClass::~MPWolMainMenuClass (void)
 {
-	_TheInstance = NULL;
+	_TheInstance = nullptr;
 	return ;
 }
 
@@ -97,7 +97,7 @@ MPWolMainMenuClass::On_Init_Dialog (void)
 	//
 	ShortcutBarCtrlClass *bar = (ShortcutBarCtrlClass *)Get_Dlg_Item (IDC_SHORTCUT_BAR);
 
-	if (bar != NULL) {
+	if (bar != nullptr) {
 		bar->Add_Button(IDC_MP_SHORTCUT_BUDDIES, TRANSLATE(IDS_MP_SHORTCUT_BUDDIES));
 		bar->Add_Button(IDC_MP_SHORTCUT_INTERNET_OPTIONS, TRANSLATE(IDS_INTERNET_OPTIONS));
 
@@ -287,7 +287,7 @@ MPWolMainMenuClass::Display (void)
 	//
 	//	Create the dialog if necessary, otherwise simply bring it to the front
 	//
-	if (_TheInstance == NULL) {
+	if (_TheInstance == nullptr) {
 		START_DIALOG (MPWolMainMenuClass);
 	} else {
 		if (_TheInstance->Is_Active_Menu () == false) {

@@ -46,7 +46,7 @@ class PackingDialog : public CDialog
 {
 // Construction
 public:
-	PackingDialog(CWnd* pParent = NULL);   // standard constructor
+	PackingDialog(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(PackingDialog)

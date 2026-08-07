@@ -43,13 +43,13 @@
 #define SAFE_DELETE(pobject)					\
 			if (pobject) {							\
 				delete pobject;					\
-				pobject = NULL;					\
+				pobject = nullptr;					\
 			}											\
 
 #define SAFE_DELETE_ARRAY(pobject)			\
 			if (pobject) {							\
 				delete [] pobject;				\
-				pobject = NULL;					\
+				pobject = nullptr;					\
 			}											\
 
 #define SAFE_ADD_REF(pobject)					\
@@ -64,7 +64,7 @@
 
 #define MEMBER_RELEASE(pmember)				\
 			SAFE_RELEASE_REF(pmember);			\
-			pmember = NULL;						\
+			pmember = nullptr;						\
 
 
 #define MEMBER_ADD(pmember, pnew)			\
@@ -77,7 +77,7 @@
 			if (pobject) {							\
 				pobject->Release ();				\
 			}											\
-			pobject = NULL;						\
+			pobject = nullptr;						\
 
 #define SAFE_CLOSE(handle)								\
 			if (handle != INVALID_HANDLE_VALUE) {	\
@@ -118,7 +118,7 @@ inline void _class::Set_##_name (_type val)		\
 //
 __inline void Delimit_Path (LPTSTR path)
 {
-	if (path != NULL && path[0] != 0 && path[::lstrlen (path) - 1] != '\\') {
+	if (path != nullptr && path[0] != 0 && path[::lstrlen (path) - 1] != '\\') {
 		::lstrcat (path, "\\");
 	}
 	return ;
@@ -134,8 +134,8 @@ __inline void Delimit_Path (CString &path)
 
 __inline bool Is_Path (LPCTSTR string)
 {
-	bool retval = (::strchr (string, '\\') != NULL);
-	retval |= (::strchr (string, '/') != NULL);
+	bool retval = (::strchr (string, '\\') != nullptr);
+	retval |= (::strchr (string, '/') != nullptr);
 	return retval;
 }
 
@@ -143,14 +143,14 @@ __inline bool Is_W3D_Filename (LPCTSTR filename)
 {
 	CString lower_case = filename;
 	lower_case.MakeLower ();
-	return (::strstr (lower_case, ".w3d") != NULL);
+	return (::strstr (lower_case, ".w3d") != nullptr);
 }
 
 __inline bool Is_Texture_Filename (LPCTSTR filename)
 {
 	CString lower_case = filename;
 	lower_case.MakeLower ();
-	return (::strstr (lower_case, ".tga") != NULL);
+	return (::strstr (lower_case, ".tga") != nullptr);
 }
 
 __inline bool Is_Full_Path (LPCTSTR string)
@@ -176,7 +176,7 @@ __inline CString Make_Path (LPCTSTR path, LPCTSTR filename)
 __inline void Create_Dir_If_Necessary (LPCTSTR path)
 {
 	if (::GetFileAttributes (path) == 0xFFFFFFFF) {
-		::CreateDirectory (path, NULL);
+		::CreateDirectory (path, nullptr);
 	}
 
 	return ;
@@ -265,8 +265,8 @@ PersistClass *					Instance_Definition (DefinitionClass *definition);
 LRESULT CALLBACK				CheckBoxSubclassProc (HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 void								Paint_Gradient (HWND hwnd, BYTE base_red, BYTE base_green, BYTE base_blue);
 void								Constrain_Point_To_Aspect_Ratio (float &xpos, float &ypos);
-void								Fill_Node_Instance_Combo (HWND hcombobox, NodeClass *pdefault = NULL);
-void								Fill_Group_Combo (HWND hcombobox, GroupMgrClass *pdefault = NULL);
+void								Fill_Node_Instance_Combo (HWND hcombobox, NodeClass *pdefault = nullptr);
+void								Fill_Group_Combo (HWND hcombobox, GroupMgrClass *pdefault = nullptr);
 int								Type_To_Icon (NODE_TYPE type, bool btemp = false);
 
 //
@@ -320,11 +320,11 @@ void								Kill_VSS_Update_Dialog (HWND hdlg);
 //	File routines
 //
 DWORD								Get_File_Size (LPCTSTR path);
-bool								Get_File_Time (LPCTSTR path, LPFILETIME pcreation_time = NULL, LPFILETIME paccess_time = NULL, LPFILETIME pwrite_time = NULL);
+bool								Get_File_Time (LPCTSTR path, LPFILETIME pcreation_time = nullptr, LPFILETIME paccess_time = nullptr, LPFILETIME pwrite_time = nullptr);
 bool								Is_Path_Relative (LPCTSTR path);
 bool								Find_File (LPCTSTR filename, LPCTSTR start_dir, CString &full_path);
 int								Quick_Compare_Files (LPCTSTR file1, LPCTSTR file2);
-int								Get_LOD_File_Count (LPCTSTR first_lod_filename, CString *pbase_filename = NULL);
+int								Get_LOD_File_Count (LPCTSTR first_lod_filename, CString *pbase_filename = nullptr);
 bool								Browse_For_Folder (CString &folder, HWND hparentwnd, LPCTSTR default_path, LPCTSTR title, UINT flags = BIF_RETURNONLYFSDIRS);
 bool								Copy_File (LPCTSTR existing_filename, LPCTSTR new_filename, bool bforce_copy = false);
 

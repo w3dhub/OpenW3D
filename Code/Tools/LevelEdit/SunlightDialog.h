@@ -37,7 +37,7 @@ class SunlightDialogClass : public CDialog
 {
 // Construction
 public:
-	SunlightDialogClass(CWnd* pParent = NULL);   // standard constructor
+	SunlightDialogClass(CWnd* pParent = nullptr);   // standard constructor
 	~SunlightDialogClass (void);
 
 // Dialog Data

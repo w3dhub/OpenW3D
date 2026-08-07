@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 // GenerateVisDialogClass dialog
 
 
-GenerateVisDialogClass::GenerateVisDialogClass(CWnd* pParent /*=NULL*/)
+GenerateVisDialogClass::GenerateVisDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(GenerateVisDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(GenerateVisDialogClass)

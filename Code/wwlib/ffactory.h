@@ -158,7 +158,7 @@ protected:
 ** extra interface functions are needed (TheFileFactory is created as an
 ** object of type SimpleFileFactoryClass by default. If this changes to some
 ** other class which is not a derivative of SimpleFileFactoryClass then
-** TheSimpleFileFactory should be set to NULL).
+** TheSimpleFileFactory should be set to nullptr).
 */
 extern FileFactoryClass	*	_TheFileFactory;
 extern FileFactoryClass	*	_TheWritingFileFactory;

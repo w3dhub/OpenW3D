@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 //
 /////////////////////////////////////////////////////////////////////////////
 WaypathInfoPageClass::WaypathInfoPageClass (void)
-	:	m_Waypoint (NULL),
+	:	m_Waypoint (nullptr),
 		DockableFormClass (WaypathInfoPageClass::IDD)
 {
 	//{{AFX_DATA_INIT(WaypathInfoPageClass)
@@ -103,7 +103,7 @@ END_MESSAGE_MAP()
 void
 WaypathInfoPageClass::HandleInitDialog (void)
 {
-	ASSERT (m_Waypoint != NULL);
+	ASSERT (m_Waypoint != nullptr);
 	WaypathNodeClass *path = m_Waypoint->Peek_Waypath ();
 
 	//

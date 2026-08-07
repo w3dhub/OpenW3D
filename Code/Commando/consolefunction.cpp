@@ -341,7 +341,7 @@ public:
 #ifdef WW3D_DX8
 		int id,state;
 		int cnt=sscanf(input, "%d %d", &id, &state);
-		TextureFileClass* tfc=NULL;
+		TextureFileClass* tfc=nullptr;
 		if (cnt>=1) tfc=TextureFileClass::Get_Texture(id);
 		if (tfc) {
 			if (cnt==1) {
@@ -724,7 +724,7 @@ class ShadowIntensityConsoleFunctionClass : public ConsoleFunctionClass
 	virtual	void Activate( const char * input ) override
 	{
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
-		scene->Set_Shadow_Normal_Intensity(strtof(input, NULL));
+		scene->Set_Shadow_Normal_Intensity(strtof(input, nullptr));
 		Print("shadow intensity set to: %f\n",scene->Get_Shadow_Normal_Intensity());
 	}
 };
@@ -751,7 +751,7 @@ class ShadowResolutionConsoleFunctionClass : public ConsoleFunctionClass
 	virtual	void Activate( const char * input ) override
 	{
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
-		scene->Set_Shadow_Resolution(int(strtof(input, NULL)));
+		scene->Set_Shadow_Resolution(int(strtof(input, nullptr)));
 		Print("shadow resolution set to: %f\n",scene->Get_Shadow_Resolution());
 	}
 };
@@ -763,7 +763,7 @@ class ShadowCountConsoleFunctionClass : public ConsoleFunctionClass
 	virtual	void Activate( const char * input ) override
 	{
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
-		scene->Set_Max_Simultaneous_Shadows(int(strtof(input, NULL)));
+		scene->Set_Max_Simultaneous_Shadows(int(strtof(input, nullptr)));
 		Print("simultaneous shadow count set to: %f\n",scene->Get_Max_Simultaneous_Shadows());
 	}
 };
@@ -1057,7 +1057,7 @@ public:
 		// Set max scroll lines
 		//
 		if (Get_Text_Display()) {
-			WWASSERT(Get_Text_Display() != NULL);
+			WWASSERT(Get_Text_Display() != nullptr);
 			Get_Text_Display()->Set_Max_Scroll_Lines(10);
 		}
 
@@ -1216,7 +1216,7 @@ public:
       if (!cNetwork::I_Am_Server()) {
 			Print("Only the server can toggle free-weapons.\n");
       } else {
-			WWASSERT(PTheGameData != NULL);
+			WWASSERT(PTheGameData != nullptr);
 			bool on = The_Game()->IsFreeWeapons.Toggle();
          Print("Free weapons is %s.\n", on ? "ON" : "OFF");
 
@@ -1227,8 +1227,8 @@ public:
 				SLNode<SmartGameObj> * objnode;
 				for (objnode = GameObjManager::Get_Smart_Game_Obj_List()->Head(); objnode; objnode = objnode->Next()) {
 					SmartGameObj * p_smart_obj = objnode->Data();
-					WWASSERT(p_smart_obj != NULL);
-					if (p_smart_obj->As_SoldierGameObj() != NULL &&
+					WWASSERT(p_smart_obj != nullptr);
+					if (p_smart_obj->As_SoldierGameObj() != nullptr &&
 						p_smart_obj->Get_Player_Type() != PLAYERTYPE_NEUTRAL) {
 						p_smart_obj->As_SoldierGameObj()->Give_All_Weapons();
 					}
@@ -1359,7 +1359,7 @@ public:
 		bool success = false;
 
 		DefinitionClass *definition = DefinitionMgrClass::Find_Typed_Definition( input, CLASSID_GAME_OBJECT_DEF_SOLDIER );
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			SoldierGameObjDef *soldier_def = reinterpret_cast<SoldierGameObjDef *> (definition);
 			COMBAT_STAR->Re_Init( *soldier_def );
 			COMBAT_STAR->Post_Re_Init();
@@ -1380,7 +1380,7 @@ public:
    virtual	const char * Get_Alias( void ) override { return "rm"; }
 	virtual	const char * Get_Help( void ) override	{ return "RENDER_MODE [0 fill | 1 lines | 2 points] - set the current render mode."; }
 	virtual	void Activate( const char * input ) override {
-		if (COMBAT_SCENE != NULL) {
+		if (COMBAT_SCENE != nullptr) {
 			if ((stricmp(input,"points") == 0) || (stricmp(input,"2") == 0)) {
 				COMBAT_SCENE->Set_Polygon_Mode(SceneClass::POINT);
 				Print("Polygon mode set to POINT\n");
@@ -1401,7 +1401,7 @@ public:
    virtual	const char * Get_Alias( void ) override { return "rm"; }
 	virtual	const char * Get_Help( void ) override	{ return "RENDER_MODE_EXTRA_PASS [0 disable | 1 lines | 2 zbuffered]"; }
 	virtual	void Activate( const char * input ) override {
-		if (COMBAT_SCENE != NULL) {
+		if (COMBAT_SCENE != nullptr) {
 			if ((stricmp(input,"disable") == 0) || (stricmp(input,"0") == 0)) {
 				COMBAT_SCENE->Set_Extra_Pass_Polygon_Mode(SceneClass::EXTRA_PASS_DISABLE);
 				Print("Extra pass polygon mode set to DISABLE\n");
@@ -1493,7 +1493,7 @@ public:
 
       //ConsoleFunctionManager::Parse_Input("Mesh_Draw_Mode 0");
 
-		if (COMBAT_SCENE != NULL) {
+		if (COMBAT_SCENE != nullptr) {
 			COMBAT_SCENE->Enable_Dynamic_Projectors(false);
 			Print("Dynamic Projectors disabled.\n");
 			COMBAT_SCENE->Enable_Static_Projectors(false);
@@ -1506,7 +1506,7 @@ public:
 		ConsoleGameModeClass::Save_Registry_Keys();
 
 		if (Get_Text_Display()) {
-			WWASSERT(Get_Text_Display() != NULL);
+			WWASSERT(Get_Text_Display() != nullptr);
 			Get_Text_Display()->Set_Max_Scroll_Lines(3);
 			Print("Set_Max_Scroll_Lines(3)\n");
 		}
@@ -1540,7 +1540,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "ammo"; }
 	virtual	const char * Get_Help( void ) override	{ return "AMMO <count> - sets the players weapon's ammo count."; }
 	virtual	void Activate( const char * input ) override {
-		if ( COMBAT_STAR != NULL ) {
+		if ( COMBAT_STAR != nullptr ) {
 			WeaponClass * weapon = COMBAT_STAR->Get_Weapon();
 			if ( weapon ) {
 				int amount = atoi( input );
@@ -1651,7 +1651,7 @@ public:
 
 		cPlayer * p_player = cNetwork::Get_My_Player_Object();
 
-		if (p_player != NULL && p_player->Invulnerable.Is_True()) {
+		if (p_player != nullptr && p_player->Invulnerable.Is_True()) {
 			cChangeTeamEvent * p_event = new cChangeTeamEvent;
 			p_event->Init();
 		} else {
@@ -1762,9 +1762,9 @@ public:
 	virtual	const char * Get_Alias( void ) override{ return "mfp"; }
 	virtual	const char * Get_Help( void ) override	{ return "MAX_FACING_PENALTY - set the max facing penalty. Server only. Float. Use zero to disable."; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
 		if (cNetwork::I_Am_Server()) {
-			float f = ::strtof(input, NULL);
+			float f = ::strtof(input, nullptr);
 			cUserOptions::MaxFacingPenalty.Set(f);
          Print( "MaxFacingPenalty set to %5.2f.", f);
 		} else {
@@ -1780,9 +1780,9 @@ public:
 	//virtual	const char * Get_Alias( void ) override{ return ""; }
 	virtual	const char * Get_Help( void ) override	{ return "IRRELEVANCE_PENALTY - set the irrelevance penalty. Server only. Float. Use zero to disable."; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
 		if (cNetwork::I_Am_Server()) {
-			float f = ::strtof(input, NULL);
+			float f = ::strtof(input, nullptr);
 			cUserOptions::IrrelevancePenalty.Set(f);
          Print( "IrrelevancePenalty set to %5.2f.", f);
 		} else {
@@ -1863,7 +1863,7 @@ public:
 	virtual	const char * Get_Alias( void ) override	{ return "spl"; }
 	virtual	const char * Get_Help( void ) override	{ return "SET_PACKET_LOSS <percentage> - simulate packetloss at given percentage"; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
       double percentage;
       percentage = atof(input);
       if (percentage > -WWMATH_EPSILON && percentage < 100 + WWMATH_EPSILON) {
@@ -1900,7 +1900,7 @@ public:
 	virtual	const char * Get_Help( void ) override		{ return "send_freqency <delay> - set delay between packet sends."; }
 
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
       int delay = atoi(input);
 		PacketManager.Set_Flush_Frequency((unsigned int) delay);
 		if (delay) {
@@ -1954,7 +1954,7 @@ public:
 	virtual	const char * Get_Help( void ) override		{ return "packet_opt <state> - enable low level packet optimizations."; }
 
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
       int on = atoi(input);
 
 		if (on) {
@@ -1991,7 +1991,7 @@ public:
 	virtual	const char * Get_Help( void ) override		{ return "latency <low,high> - set simulated latency on packets."; }
 
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
 		int low,high,current;
 		int fields = sscanf(input, "%d,%d", &low, &high);
 		if (fields == 1) {
@@ -2051,7 +2051,7 @@ public:
 	virtual	const char * Get_Alias( void ) override	{ return "sds"; }
 	virtual	const char * Get_Help( void ) override	{ return "SET_DESIRED_SLEEP <sleep_ms> - sleep this many ms per frame."; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
       int desired_sleep = atoi(input);
 		if (desired_sleep >= 0) {
          cNetwork::Set_Desired_Frame_Sleep_Ms(desired_sleep);
@@ -2068,7 +2068,7 @@ public:
 	//virtual	const char * Get_Alias( void ) override	{ return "spd"; }
 	virtual	const char * Get_Help( void ) override	{ return "SET_PACKET_DUPLICATION <percentage> - simulate packet duplication at given percentage"; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
       double percentage = atof(input);
       if (percentage > -WWMATH_EPSILON && percentage < 100 + WWMATH_EPSILON) {
          cNetwork::Set_Simulated_Packet_Duplication_Pc((int)percentage);
@@ -2086,7 +2086,7 @@ public:
 	virtual	const char * Get_Alias( void ) override	{ return "latency"; }
 	virtual	const char * Get_Help( void ) override	{ return "SET_PACKET_LATENCY_RANGE <min> <max> - sets a range for simulated latency (in ms)"; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
       int min_latency_ms;
       int max_latency_ms;
       int num_args = sscanf(input, "%d %d", &min_latency_ms, &max_latency_ms);
@@ -2107,7 +2107,7 @@ public:
 	virtual	const char * Get_Alias( void ) override	{ return "ssc"; }
 	virtual	const char * Get_Help( void ) override	{ return "SET_SPAM_COUNT <count> - S->C state packet is sent this many extra times."; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
       int spam_count = atoi(input);
 		if (spam_count >= 0) {
          cNetwork::Set_Spam_Count(spam_count);
@@ -2129,11 +2129,11 @@ public:
 		   NetworkObjectMgrClass::Reset_Import_State_Counts();
 		} else if (cMiscUtil::Is_String_Same(input, "netstats") ||
 			cMiscUtil::Is_String_Same(input, "ns")) {
-		   if (cNetwork::PClientConnection != NULL) {
+		   if (cNetwork::PClientConnection != nullptr) {
 			   cNetwork::PClientConnection->Init_Stats();
 			   Print("Network stats for client connection reset.\n");
 		   }
-		   if (cNetwork::PServerConnection != NULL) {
+		   if (cNetwork::PServerConnection != nullptr) {
 			   cNetwork::PServerConnection->Init_Stats();
 			   Print("Network stats for server connection reset.\n");
 		   }
@@ -2168,9 +2168,9 @@ public:
 	virtual	const char * Get_Alias( void ) override{ return "chf"; }
 	virtual	const char * Get_Help( void ) override	{ return "CLIENT_HINT_FACTOR - set the client hint factor (worst:average). Client only. Float. Use zero to disable."; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
 		if (cNetwork::I_Am_Only_Client()) {
-			float chf = ::strtof(input, NULL);
+			float chf = ::strtof(input, nullptr);
 			cUserOptions::ClientHintFactor.Set(chf);
          Print( "ClientHintFactor set to %5.2f.", chf);
 		} else {
@@ -2198,7 +2198,7 @@ public:
 				num_bots = 20;
 			}
 			for (int i = 0; i < num_bots; i++) {
-				WWASSERT(PTheGameData != NULL);
+				WWASSERT(PTheGameData != nullptr);
 				if (cPlayerManager::Count() < The_Game()->Get_Max_Players()) {
 					cGod::Create_Ai_Player();
 				}
@@ -2228,7 +2228,7 @@ public:
 				num_grunts = 20;
 			}
 
-			if (COMBAT_STAR != NULL) {
+			if (COMBAT_STAR != nullptr) {
 				Vector3 star_pos;
 				COMBAT_STAR->Get_Position(&star_pos);
 				Vector3 star_target_pos = COMBAT_STAR->Get_Targeting_Pos();
@@ -2260,8 +2260,8 @@ public:
 	virtual	void Activate( const char * input ) override {
       if (COMBAT_STAR && cNetwork::I_Am_Server()) {
          PhysicalGameObj * obj = ObjectLibraryManager::Create_Object(input);
-			//if (obj != NULL && obj->As_SmartGameObj() != NULL) {
-	      if (obj != NULL) {
+			//if (obj != nullptr && obj->As_SmartGameObj() != nullptr) {
+	      if (obj != nullptr) {
             Vector3 position;
             COMBAT_STAR->Get_Position(&position);
 	         position.X += 4;
@@ -2323,7 +2323,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "CRASH - crash execution. Do not use this just for fun."; }
 	virtual	void Activate( const char * /* input */ ) override {
 		Print("Bang....\n");
-		char *zero = NULL;
+		char *zero = nullptr;
 		*zero = 0;
 	}
 };
@@ -2396,7 +2396,7 @@ public:
 					player_node = player_node->Next()) {
 
 					cPlayer * p_player = player_node->Data();
-					WWASSERT(p_player != NULL);
+					WWASSERT(p_player != nullptr);
 
 					if (p_player->Invulnerable.Is_True()) {
 						p_player->Invulnerable.Set(false);
@@ -2428,7 +2428,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "fly_star"; }
 	virtual	const char * Get_Help( void ) override	{ return "FLY_STAR - toggles fly mode for the commando."; }
 	virtual	void Activate( const char * /* input */ ) override {
-		if ( COMBAT_STAR != NULL && (IS_SOLOPLAY || cNetwork::I_Am_God() )) {
+		if ( COMBAT_STAR != nullptr && (IS_SOLOPLAY || cNetwork::I_Am_God() )) {
 			COMBAT_STAR->Toggle_Fly_Mode();
 		}
 	}
@@ -2440,7 +2440,7 @@ public:
 	//virtual	const char * Get_Alias( void ) override	{ return "w"; }
 	virtual	const char * Get_Help( void ) override	{ return "WATCH <object> - show debug output of specified type."; }
    static   void         Get_Verbose_Help(char * buffer, int bufsize) {
-      WWASSERT(buffer != NULL);
+      WWASSERT(buffer != nullptr);
       WWASSERT(bufsize >= 1000);
 
       buffer[0] = 0;
@@ -2778,15 +2778,15 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "SWAP_TEAMS - switch everyone to the opposite team (server only)."; }
 	virtual	void Activate( const char * /* input */ ) override {
 		if (cNetwork::I_Am_Server()) {
-			//if (The_Game() != NULL && The_Game()->Is_Team_Game()) {
-			if (The_Game() != NULL) {
+			//if (The_Game() != nullptr && The_Game()->Is_Team_Game()) {
+			if (The_Game() != nullptr) {
 				for (
 					SLNode<cPlayer> * player_node = cPlayerManager::Get_Player_Object_List()->Head();
 					player_node;
 					player_node = player_node->Next()) {
 
 					cPlayer * p_player = player_node->Data();
-					WWASSERT(p_player != NULL);
+					WWASSERT(p_player != nullptr);
 
 					int team = p_player->Get_Player_Type();
 
@@ -2805,7 +2805,7 @@ public:
 					p_player->Set_Player_Type(new_team);
 
 					SoldierGameObj * p_soldier = GameObjManager::Find_Soldier_Of_Client_ID(p_player->Get_Id());
-					if (p_soldier != NULL)
+					if (p_soldier != nullptr)
 					{
 						p_soldier->Set_Delete_Pending();
 					}
@@ -2828,9 +2828,9 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "SET_STAR_HEALTH <strength> - sets the strength of the star."; }
 	virtual	void Activate( const char * input ) override {
 		if ( COMBAT_STAR ) {
-			float health = strtof( input, NULL );
+			float health = strtof( input, nullptr );
 			DefenseObjectClass * defense = COMBAT_STAR->Get_Defense_Object();
-			WWASSERT(defense != NULL);
+			WWASSERT(defense != nullptr);
 			if (health > defense->Get_Health_Max()) {
 				defense->Set_Health_Max( health );
 			}
@@ -2860,7 +2860,7 @@ public:
 	virtual	void Activate( const char * input ) override {
 		if ( COMBAT_STAR ) {
 			DefenseObjectClass * defense = COMBAT_STAR->Get_Defense_Object();
-			defense->Set_Shield_Strength( strtof( input, NULL ) );
+			defense->Set_Shield_Strength( strtof( input, nullptr ) );
 			Print( "Star Shield Strength set to %1.1f\n", defense->Get_Shield_Strength() );
 		}
 	}
@@ -2889,7 +2889,7 @@ public:
 		if ( COMBAT_STAR ) {
 			COMBAT_STAR->Get_Position( &star_pos );
 		}
-		float min_dist = strtof( input, NULL );
+		float min_dist = strtof( input, nullptr );
 
 		int count = 0;
 		SLNode<SmartGameObj> *objnode;
@@ -2929,7 +2929,7 @@ public:
 			// C & S can both use id=xxxxxx format
 			//
 			const char * p_id = ::strstr(input, "id=");
-			if (p_id != NULL) {
+			if (p_id != nullptr) {
 				int id = -1;
 				::sscanf(p_id, "id=%d", &id);
 				if (cNetwork::I_Am_Client()) {
@@ -2937,7 +2937,7 @@ public:
 					p_event->Init(id);
 				} else {
 					NetworkObjectClass *	p_object = NetworkObjectMgrClass::Find_Object(id);
-					if (p_object != NULL) {
+					if (p_object != nullptr) {
 						p_object->Set_Delete_Pending();
 					}
 				}
@@ -2953,7 +2953,7 @@ public:
 
 			const char * p_pc = strstr(input, "percent=");
 			int percent = 100;
-			if (p_pc != NULL) {
+			if (p_pc != nullptr) {
 				sscanf(p_pc, "percent=%d", &percent);
 				if (percent < 0) {
 					percent = 0;
@@ -2963,25 +2963,25 @@ public:
 			}
 
 			int count = 0;
-			PhysicalGameObj * p_object = NULL;
-			for (SLNode<BaseGameObj> * objnode = GameObjManager::Get_Game_Obj_List()->Head(); objnode != NULL; objnode = objnode->Next()) {
+			PhysicalGameObj * p_object = nullptr;
+			for (SLNode<BaseGameObj> * objnode = GameObjManager::Get_Game_Obj_List()->Head(); objnode != nullptr; objnode = objnode->Next()) {
 
 				p_object = objnode->Data()->As_PhysicalGameObj();
-				if (p_object == NULL) {
+				if (p_object == nullptr) {
 					continue;
 				}
 
-				if (p_object->As_SmartGameObj() != NULL && p_object == COMBAT_STAR) {
+				if (p_object->As_SmartGameObj() != nullptr && p_object == COMBAT_STAR) {
 					continue;
 				}
 
-				if ((strstr(input, "vehicles")	&& p_object->As_VehicleGameObj()		!= NULL) ||
-					 (strstr(input, "soldiers")	&& p_object->As_SoldierGameObj()		!= NULL) ||
-//					 (strstr(input, "commandos")	&& p_object->As_CommandoGameObj()	!= NULL) ||
-					 (strstr(input, "powerups")	&& p_object->As_PowerUpGameObj()		!= NULL) ||
-					 (strstr(input, "c4s")			&& p_object->As_C4GameObj()			!= NULL) ||
-					 (strstr(input, "armeds")		&& p_object->As_ArmedGameObj()		!= NULL) ||
-					 (strstr(input, "smarts")		&& p_object->As_SmartGameObj()		!= NULL) ||
+				if ((strstr(input, "vehicles")	&& p_object->As_VehicleGameObj()		!= nullptr) ||
+					 (strstr(input, "soldiers")	&& p_object->As_SoldierGameObj()		!= nullptr) ||
+//					 (strstr(input, "commandos")	&& p_object->As_CommandoGameObj()	!= nullptr) ||
+					 (strstr(input, "powerups")	&& p_object->As_PowerUpGameObj()		!= nullptr) ||
+					 (strstr(input, "c4s")			&& p_object->As_C4GameObj()			!= nullptr) ||
+					 (strstr(input, "armeds")		&& p_object->As_ArmedGameObj()		!= nullptr) ||
+					 (strstr(input, "smarts")		&& p_object->As_SmartGameObj()		!= nullptr) ||
 					 (strstr(input, "all")) ||
 					 (strstr(input, "-9"))) {
 
@@ -3098,7 +3098,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "stealth"; }
 	virtual	const char * Get_Help( void ) override	{ return "STEALTH - toggle stealth ability on star (client only)."; }
 	virtual	void Activate( const char * input ) override {
-		//if (COMBAT_STAR != NULL) {
+		//if (COMBAT_STAR != nullptr) {
 		//	COMBAT_STAR->Toggle_Stealth();
 		//	Print("Star %s stealth ability\n", COMBAT_STAR->Is_Stealth_Enabled() ? "has" : "does NOT have");
 		//}
@@ -3106,7 +3106,7 @@ public:
 
 			cPlayer * p_player = cNetwork::Get_My_Player_Object();
 
-			if (p_player == NULL) {
+			if (p_player == nullptr) {
 				Print("Error: you don't have a player object.");
 			} else {
 
@@ -3189,7 +3189,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "SET_THE_STAR <id> - set the star to a different object."; }
 	virtual	void Activate( const char * input ) override {
 		SmartGameObj * star = GameObjManager::Find_SmartGameObj( atoi( input ) );
-		if ( star != NULL && star->As_SoldierGameObj() != NULL ) {
+		if ( star != nullptr && star->As_SoldierGameObj() != nullptr ) {
 			CombatManager::Set_The_Star( star->As_SoldierGameObj() );
 		}
 	}
@@ -3219,7 +3219,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "SCALE_TIME < factor > - scale time (SP only)."; }
 	virtual	void Activate( const char * input ) override {
 		if (IS_SOLOPLAY) {
-			float scale = strtof( input, NULL );
+			float scale = strtof( input, nullptr );
 			if ( scale <= 0 ) {
 				scale = 1;
 			}
@@ -3315,7 +3315,7 @@ public:
 	virtual	const char * Get_Help( void ) override		{ return "SET_BW_BUDGET_OUT <bps> - set total bps budget out."; }
 
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
       ULONG bbo = (ULONG) ::atol(input);
 		if (bbo > 0) {
 
@@ -3337,11 +3337,11 @@ public:
 			bw_scale = (bw_scale / 1000) * 1000;
 			cBandwidthGraph::Set_Scale(bw_scale);
 
-		   if (cNetwork::PClientConnection != NULL) {
+		   if (cNetwork::PClientConnection != nullptr) {
 			   cNetwork::PClientConnection->Init_Stats();
 			   Print("Network stats for client connection reset.\n");
 		   }
-		   if (cNetwork::PServerConnection != NULL) {
+		   if (cNetwork::PServerConnection != nullptr) {
 			   cNetwork::PServerConnection->Init_Stats();
 			   Print("Network stats for server connection reset.\n");
 		   }
@@ -3489,7 +3489,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return
 		"ADMIN_MESSAGE <message> - sends an admin message to all clients. Host only."; }
 	virtual	void Activate( const char * input ) override {
-		WWASSERT(input != NULL);
+		WWASSERT(input != nullptr);
 		if (cNetwork::I_Am_Server() && ::strlen(input) > 0) {
 			WideStringClass widestring;
 			widestring.Convert_From(input);
@@ -3510,7 +3510,7 @@ public:
    const char * Get_Alias( void ) override { return "msg"; }
 	virtual	const char * Get_Help( void ) override	{ return "MESSAGE <message> - sends a chat message to all clients. Host only."; }
 	virtual	void Activate( const char * input ) override {
-		WWASSERT(input != NULL);
+		WWASSERT(input != nullptr);
 		if (cNetwork::I_Am_Server() && ::strlen(input) > 0) {
 			WideStringClass widestring(input, true);
 			cScTextObj *event_obj = new cScTextObj;
@@ -3677,8 +3677,8 @@ public:
 		cPlayer * p_me = cNetwork::Get_My_Player_Object();
 		cPlayer * p_recipient = cPlayerManager::Find_Player(recipient);
 
-		if (p_me != NULL &&
-			 p_recipient != NULL &&
+		if (p_me != nullptr &&
+			 p_recipient != nullptr &&
 			 amount >= cDonateEvent::Get_Minimum_Acceptable_Donation() &&
 			(p_me->Get_Player_Type() == p_recipient->Get_Player_Type()) &&
 			 p_me->Get_Money() >= amount) {
@@ -3737,7 +3737,7 @@ public:
 */
 
 		cPlayer * p_player = cPlayerManager::Find_Player(input);
-		if (p_player != NULL) {
+		if (p_player != nullptr) {
 			int id = p_player->Get_Id();
 			cNetwork::Server_Kill_Connection(id);
 			cNetwork::Cleanup_After_Client(id);
@@ -3841,7 +3841,7 @@ public:
 	virtual	const char * Get_Alias( void ) override{ return "nur"; }
 	virtual	const char * Get_Help( void ) override	{ return "NET_UPDATE_RATE - set the max. net update think rate (times per second)."; }
 	virtual	void Activate( const char * input ) override {
-      WWASSERT(input != NULL);
+      WWASSERT(input != nullptr);
 		int rate = ::atoi(input);
 #ifdef WWDEBUG
 		if (rate > 0) {
@@ -3883,8 +3883,8 @@ public:
 					if (FileTimeToLocalFileTime(&creation, &local)) {
 						SYSTEMTIME time;
 						if (FileTimeToSystemTime(&local, &time)) {
-							GetDateFormatA(LOCALE_SYSTEM_DEFAULT, 0, &time, NULL, upstring, 256);
-							GetTimeFormatA(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT, &time, NULL, timestr, 256);
+							GetDateFormatA(LOCALE_SYSTEM_DEFAULT, 0, &time, nullptr, upstring, 256);
+							GetTimeFormatA(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT, &time, nullptr, timestr, 256);
 							strcat(upstring, " - ");
 							strcat(upstring, timestr);
 						}
@@ -3966,7 +3966,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "PLAYER_INFO - Print info about players in the game to the console box"; }
 	virtual	void Activate(const char *) override {
 
-		if (cNetwork::I_Am_Server() && The_Game() && The_Game()->IsDedicated.Is_True() && cNetwork::PServerConnection != NULL) {
+		if (cNetwork::I_Am_Server() && The_Game() && The_Game()->IsDedicated.Is_True() && cNetwork::PServerConnection != nullptr) {
 
 			unsigned int time = TIMEGETTIME();
 			unsigned int bw = 0;
@@ -4077,13 +4077,13 @@ public:
 	}
 	bool KickGameSpyUser(const WideStringClass & user_name) {
 		if (cGameSpyAdmin::Is_Gamespy_Game()) {
-			cPlayer *player = NULL;
+			cPlayer *player = nullptr;
 
 			for (SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ()
-				; player_node != NULL; player_node = player_node->Next ()) {
+				; player_node != nullptr; player_node = player_node->Next ()) {
 
 				player = player_node->Data ();
-				WWASSERT (player != NULL);
+				WWASSERT (player != nullptr);
 
 				if (player->Get_Is_Active().Is_False() || !player->Is_Human()) {
 					continue;
@@ -4111,9 +4111,9 @@ public:
 				// make sure this is a decimal number since atoi returns 0 on error
 				// and we don't want to kick player 0 unless they really mean to
 				const char *t = input;
-				if (!(*t)) t = NULL;
+				if (!(*t)) t = nullptr;
 				while (t && *t) {
-					if (!isdigit(*t)) t = NULL;
+					if (!isdigit(*t)) t = nullptr;
 					else t++;
 				}
 				if (t) {
@@ -4144,14 +4144,14 @@ public:
 		if ((cGameSpyAdmin::Is_Gamespy_Game() || is_wol) && cNetwork::I_Am_Server()) {
 
 			if (!input || !(*input)) return;
-			cPlayer *player = NULL;
+			cPlayer *player = nullptr;
 
 			SLNode<cPlayer> *player_node;
 			for (player_node = cPlayerManager::Get_Player_Object_List ()->Head ()
-				; player_node != NULL; player_node = player_node->Next ()) {
+				; player_node != nullptr; player_node = player_node->Next ()) {
 
 				player = player_node->Data ();
-				WWASSERT (player != NULL);
+				WWASSERT (player != nullptr);
 
 				if (player->Get_Is_Active().Is_False() || !player->Is_Human()) {
 					continue;
@@ -4169,13 +4169,13 @@ public:
 					break;
 				}
 			}
-			if (player_node == NULL) {
+			if (player_node == nullptr) {
 				// make sure this is a decimal number since atoi returns 0 on error
 				// and we don't want to kick player 0 unless they really mean to
 				const char *t = input;
-				if (!(*t)) t = NULL;
+				if (!(*t)) t = nullptr;
 				while (t && *t) {
-					if (!isdigit(*t)) t = NULL;
+					if (!isdigit(*t)) t = nullptr;
 					else t++;
 				}
 				if (t) {
@@ -4363,7 +4363,7 @@ public:
 	virtual	const char * Get_Help (void) override	{return ("TIME_OF_DAY <hours [0..23]> <minutes [0..59]> - sets the time of day for the background.");}
 	virtual	void Activate (const char *input) override {
 
-		if (COMBAT_SCENE != NULL) {
+		if (COMBAT_SCENE != nullptr) {
 
 			unsigned hours, minutes;
 
@@ -4691,14 +4691,14 @@ public:
 	virtual	void Activate (const char *input) override {
 		cPlayer * p_player = cPlayerManager::Find_Player(input);
 
-		if (!cNetwork::I_Am_Server() || p_player == NULL) {
+		if (!cNetwork::I_Am_Server() || p_player == nullptr) {
 		   Print(Get_Help());
 		} else {
 
 			ULONG ip = p_player->Get_Ip_Address();
 			HOSTENT * p_host = ::gethostbyaddr((char *) &ip, sizeof(ip), AF_INET);
 			char resolved_ip[100] = "";
-			if (p_host != NULL) {
+			if (p_host != nullptr) {
 				::sprintf(resolved_ip, "(%s)", p_host->h_name);
 			}
 
@@ -4870,16 +4870,16 @@ public:
 	virtual	void Activate (const char * /* input */) override
 	{
 		// Only do this in single player or 1-player multiplay games
-      if (IS_SOLOPLAY || ((PTheGameData != NULL) && (PTheGameData->Get_Max_Players() == 1)) )
+      if (IS_SOLOPLAY || ((PTheGameData != nullptr) && (PTheGameData->Get_Max_Players() == 1)) )
 		{
 			VehicleGameObj * vehicle = COMBAT_STAR->Get_Vehicle();
-			if ((vehicle != NULL) && (vehicle->Peek_Vehicle_Phys() != NULL)) {
+			if ((vehicle != nullptr) && (vehicle->Peek_Vehicle_Phys() != nullptr)) {
 				VehiclePhysClass * pobj = vehicle->Peek_Vehicle_Phys();
 
 				TrackedVehicleClass * tv = pobj->As_TrackedVehicleClass();
 				WheeledVehicleClass * wv = pobj->As_WheeledVehicleClass();
 
-				if (tv != NULL) {
+				if (tv != nullptr) {
 
 					float wheel_radius = 0.0f;
 					for (int i=0; i<tv->Get_Wheel_Count(); i++) {
@@ -4895,7 +4895,7 @@ public:
 					popup->Start_Dialog();
 					popup->Release_Ref();
 
-				} else if (wv != NULL) {
+				} else if (wv != nullptr) {
 
 					float wheel_radius = 0.0f;
 					for (int i=0; i<wv->Get_Wheel_Count(); i++) {
@@ -5226,7 +5226,7 @@ void	ConsoleFunctionManager::Help(	const char * function_name )
 		function_name++;
 	}
 
-	if ( ( function_name == NULL ) || ( function_name[0] == 0 ) ) {
+	if ( ( function_name == nullptr ) || ( function_name[0] == 0 ) ) {
 		// Show name of each function...
       Print( "------ Available commands -------\n" );
 		*string = 0;
@@ -5274,9 +5274,9 @@ void ConsoleFunctionManager::Verbose_Help_File(void)
 		fwrite(buffer, 1, strlen(buffer), file);
 		for (	int index = 0; index < FunctionList.Count(); index++) {
 			ConsoleFunctionClass * function = FunctionList[index];
-			WWASSERT(function != NULL);
+			WWASSERT(function != nullptr);
 			sprintf(buffer, "%s", function->Get_Help());
-			if (function->Get_Alias() != NULL) {
+			if (function->Get_Alias() != nullptr) {
 				char alias_string[100];
 				sprintf(alias_string, " (%s)", function->Get_Alias());
 				strcat(buffer, alias_string);
@@ -5314,7 +5314,7 @@ void ConsoleFunctionManager::Next_Verbose_Help_Screen(void)
 			int per_page = 57;
 			if (floor(command_number / per_page) == page_number) {
 				ConsoleFunctionClass * function = FunctionList[index];
-				WWASSERT(function != NULL);
+				WWASSERT(function != nullptr);
 				strcat( buffer, function->Get_Help() );
 				strcat( buffer, "\n" );
 
@@ -5369,7 +5369,7 @@ void	ConsoleFunctionManager::Parse_Input( const char * string )
          // There has to be a space (or nothing) following the alias for
          // it to match
          //
-         if (function->Get_Alias() != NULL &&
+         if (function->Get_Alias() != nullptr &&
             strlen(function->Get_Alias()) > 0) {
             char alias[100];
             WWASSERT(strlen(function->Get_Alias()) < sizeof(alias));
@@ -5404,7 +5404,7 @@ bool ConsoleFunctionManager::Get_Command_Suggestion
 	int				len						// don't copy more than this many characters.
 )
 {
-	ConsoleFunctionClass * function = NULL;
+	ConsoleFunctionClass * function = nullptr;
 	int	node_index = 0;
 
 	/*
@@ -5412,7 +5412,7 @@ bool ConsoleFunctionManager::Get_Command_Suggestion
 	** function in the list and search past it.  If we don't find a suggestion, we
 	** will drop through and search from the head of the list.
 	*/
-	if (cur_suggestion != NULL) {
+	if (cur_suggestion != nullptr) {
 
 		node_index = Find_Function_Node(cur_suggestion);
 
@@ -5427,7 +5427,7 @@ bool ConsoleFunctionManager::Get_Command_Suggestion
 	/*
 	** Find a suggestion starting at the head of the list
 	*/
-	if (function == NULL) {
+	if (function == nullptr) {
 		function = Find_Command_Suggestion(input,0);
 	}
 
@@ -5435,11 +5435,11 @@ bool ConsoleFunctionManager::Get_Command_Suggestion
 	** If we found a suggestion, copy its command into 'set_suggestion' and its help
 	** into 'set_help'
 	*/
-	if (function != NULL) {
-		if (set_suggestion != NULL) {
+	if (function != nullptr) {
+		if (set_suggestion != nullptr) {
 			strncpy(set_suggestion,function->Get_Name(),len);
 		}
-		if (set_help != NULL) {
+		if (set_help != nullptr) {
 			strncpy(set_help,function->Get_Help(),len);
 		}
 		return true;
@@ -5470,7 +5470,7 @@ ConsoleFunctionClass * ConsoleFunctionManager::Find_Command_Suggestion
 			return function;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void	ConsoleFunctionManager::Print( const char *format, ... )

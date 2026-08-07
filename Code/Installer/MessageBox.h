@@ -60,7 +60,7 @@ class MessageBoxClass : public PopupDialogClass
 		MessageBoxClass (int res_id, CallbackMenuDialogClass *callbackobject) : PopupDialogClass (res_id), CallbackObject (callbackobject) {}
 
 		static MessageBoxClass *Create_Dialog (const wchar_t *title, const wchar_t *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject);
-		static void					Do_Dialog (const wchar_t *title, const wchar_t *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject = NULL);
+		static void					Do_Dialog (const wchar_t *title, const wchar_t *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject = nullptr);
 
 		void On_Command (int ctrl_id, int message_id, DWORD param);
 

@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 // CCardinalDialog dialog
 
 
-CCardinalDialog::CCardinalDialog(CWnd* pParent /*=NULL*/,CardinalSpline3DClass * curve,int key)
+CCardinalDialog::CCardinalDialog(CWnd* pParent /*=nullptr*/,CardinalSpline3DClass * curve,int key)
 	: CDialog(CCardinalDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CCardinalDialog)

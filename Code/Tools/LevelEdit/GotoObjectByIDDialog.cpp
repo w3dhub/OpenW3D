@@ -40,7 +40,7 @@ static char THIS_FILE[] = __FILE__;
 // GotoObjectByIDDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-GotoObjectByIDDialogClass::GotoObjectByIDDialogClass(CWnd* pParent /*=NULL*/)
+GotoObjectByIDDialogClass::GotoObjectByIDDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(GotoObjectByIDDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(GotoObjectByIDDialogClass)
@@ -85,7 +85,7 @@ GotoObjectByIDDialogClass::OnOK (void)
 	//	Try to find the object that the user entered
 	//
 	NodeClass *node = NodeMgrClass::Find_Node (obj_id);
-	if (node == NULL) {
+	if (node == nullptr) {
 
 		//
 		//	Warn the user

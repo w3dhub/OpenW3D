@@ -370,7 +370,7 @@ ComCenterGameObj::On_Destroyed (void)
 	//
 	//	Switch off the radar for each player on this team
 	//
-	if (BaseController != NULL && CombatManager::I_Am_Server ()) {
+	if (BaseController != nullptr && CombatManager::I_Am_Server ()) {
 		BaseController->Check_Radar ();
 	}
 

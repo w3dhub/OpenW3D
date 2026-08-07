@@ -78,7 +78,7 @@ enum
 //
 //////////////////////////////////////////////////////////////////////////////
 ObjectNodeClass::ObjectNodeClass (PresetClass *preset)
-	:	m_GameObj (NULL),
+	:	m_GameObj (nullptr),
 		NodeClass (preset)
 {
 
@@ -92,8 +92,8 @@ ObjectNodeClass::ObjectNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 ObjectNodeClass::ObjectNodeClass (const ObjectNodeClass &src)
-	:	m_GameObj (NULL),
-		NodeClass (NULL)
+	:	m_GameObj (nullptr),
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -127,7 +127,7 @@ ObjectNodeClass::Initialize (void)
 {
 	Destroy_Game_Obj ();
 
-	if (m_Preset != NULL) {
+	if (m_Preset != nullptr) {
 		m_Preset->Load_All_Assets ();
 		Create_Game_Obj ();
 	}
@@ -272,7 +272,7 @@ ObjectNodeClass::Free_Scripts (void)
 void
 ObjectNodeClass::Assign_Scripts (void)
 {
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		for (int index = 0; index < m_Scripts.Count (); index ++) {
 			EditScriptClass *script	= m_Scripts[index];
 
@@ -280,7 +280,7 @@ ObjectNodeClass::Assign_Scripts (void)
 			//	Create the game script and pass it onto the game obj
 			//
 			ScriptClass *game_script	= script->Create_Script ();
-			if (game_script != NULL) {
+			if (game_script != nullptr) {
 				m_GameObj->Add_Observer (game_script);
 			}
 		}
@@ -305,7 +305,7 @@ ObjectNodeClass::Copy_Scripts (const ObjectNodeClass &src)
 	//
 	for (int index = 0; index < src.m_Scripts.Count (); index ++) {
 		EditScriptClass *script = src.m_Scripts[index];
-		if (script != NULL) {
+		if (script != nullptr) {
 
 			//
 			//	Make ourselves a copy of the script
@@ -374,9 +374,9 @@ ObjectNodeClass::Remove_From_Scene (void)
 void
 ObjectNodeClass::Create_Game_Obj (void)
 {
-	if (m_GameObj == NULL) {
+	if (m_GameObj == nullptr) {
 		DefinitionClass *definition = m_Preset->Get_Definition ();
-		if (definition != NULL) {
+		if (definition != nullptr) {
 
 			//
 			//	Create the game object
@@ -386,10 +386,10 @@ ObjectNodeClass::Create_Game_Obj (void)
 			//
 			//	Assign 'hit-test' information to this game object
 			//
-			if (m_GameObj != NULL) {
+			if (m_GameObj != nullptr) {
 				PhysClass *phys_obj			= Peek_Physics_Obj ();
 				RenderObjClass *render_obj	= phys_obj->Peek_Model ();
-				if (render_obj != NULL) {
+				if (render_obj != nullptr) {
 					render_obj->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 					::Set_Model_Collision_Type (render_obj, COLLISION_TYPE_6);
 				}
@@ -401,14 +401,14 @@ ObjectNodeClass::Create_Game_Obj (void)
 				m_GameObj->Set_ID (m_ID);
 
 				PhysicalGameObj *game_obj = Peek_Game_Obj ();
-				if (game_obj != NULL) {
+				if (game_obj != nullptr) {
 					game_obj->Startup ();
 				}
 
 				//
 				//	Make sure we don't put the object into the scene prematurely
 				//
-				if (phys_obj->Get_Culling_System () != NULL) {
+				if (phys_obj->Get_Culling_System () != nullptr) {
 					::Get_Scene_Editor ()->Remove_Object (phys_obj);
 				}
 			}
@@ -429,9 +429,9 @@ ObjectNodeClass::Create_Game_Obj (void)
 void
 ObjectNodeClass::Destroy_Game_Obj (void)
 {
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		m_GameObj->Set_Delete_Pending ();
-		m_GameObj = NULL;
+		m_GameObj = nullptr;
 	}
 
 	return ;
@@ -447,7 +447,7 @@ void
 ObjectNodeClass::Set_ID (uint32 id)
 {
 	NodeClass::Set_ID (id);
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		m_GameObj->Set_ID (m_ID);
 	}
 

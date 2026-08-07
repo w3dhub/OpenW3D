@@ -59,7 +59,7 @@ public:
 	~SubTitleManagerClass();
 
 	// Check if there are subtitles.
-	bool Has_Sub_Titles(void) const { return (mSubTitles != NULL); }
+	bool Has_Sub_Titles(void) const { return (mSubTitles != nullptr); }
 
 	// Reset subtitles to start
 	void Reset(void);

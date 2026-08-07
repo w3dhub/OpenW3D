@@ -43,7 +43,7 @@
 LightSolveContextClass::LightSolveContextClass(void) :
 	OcclusionEnabled(true),
 	FilteringEnabled(true),
-	Observer(NULL)
+	Observer(nullptr)
 {
 }
 

@@ -233,7 +233,7 @@ public:
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
 	PresetListNode (void)
-		:	m_Preset (NULL)				{ }
+		:	m_Preset (nullptr)				{ }
 
 	virtual ~PresetListNode (void)	{ Reset (); }
 

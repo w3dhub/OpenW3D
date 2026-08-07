@@ -77,7 +77,7 @@ AssetDependencyManager::Save_Always_Dependencies (const char *path, ASSET_LIST &
 	//
 	StringClass filename(path + StringClass ("/", true) + StringClass (ALWAYS_FILENAME),true);
 	FileClass * file		= _TheWritingFileFactory->Get_File (filename);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		//
 		//	Open or create the file
@@ -113,7 +113,7 @@ AssetDependencyManager::Save_Level_Dependencies (const char *full_path, ASSET_LI
 	//	Get a pointer to the file object
 	//
 	FileClass * file = _TheWritingFileFactory->Get_File (full_path);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		//
 		//	Open or create the file
@@ -173,7 +173,7 @@ AssetDependencyManager::Load_Level_Assets (const char *level_name)
 	//
 	StringClass base_name(level_name,true);
 	const char *extension = ::strrchr (base_name, '.');
-	if (extension != NULL && base_name.Get_Length () > 4) {
+	if (extension != nullptr && base_name.Get_Length () > 4) {
 		base_name.Erase (base_name.Get_Length () - 4, 4);
 	}
 
@@ -214,7 +214,7 @@ AssetDependencyManager::Load_Assets (const char *filename)
 	//	Get a pointer to the file object
 	//
 	FileClass * file	= _TheFileFactory->Get_File (filename);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		if ( file->Is_Available() ) {
 			//
@@ -327,7 +327,7 @@ void Asset_Name_From_Filename (StringClass& asset_name, const char *filename)
 
 	// Find and strip off the extension (if it exists)
 	char *extension = (char *)::strrchr (asset_name, '.');
-	if (extension != NULL) {
+	if (extension != nullptr) {
 		extension[0] = 0;
 	}
 }

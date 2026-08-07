@@ -153,7 +153,7 @@ EditorLineClass::Reset_End (const Vector3 &end)
 inline void
 EditorLineClass::Hide (bool onoff)
 {
-	if (Line != NULL) {
+	if (Line != nullptr) {
 		Line->Set_Hidden (onoff);
 	}
 	return ;

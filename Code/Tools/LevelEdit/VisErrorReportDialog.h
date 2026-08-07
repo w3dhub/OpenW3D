@@ -42,7 +42,7 @@ class VisErrorReportDialogClass : public CDialog
 {
 // Construction
 public:
-	VisErrorReportDialogClass(CWnd* pParent = NULL);   // standard constructor
+	VisErrorReportDialogClass(CWnd* pParent = nullptr);   // standard constructor
 	~VisErrorReportDialogClass(void);
 
 // Dialog Data

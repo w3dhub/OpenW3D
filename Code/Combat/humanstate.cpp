@@ -84,9 +84,9 @@ HumanStateClass::HumanStateClass( void ) :
 	StateTimer( 0 ),
 	SubState( 0 ),
 	StateLocked( false ),
-	AnimControl( NULL ),
+	AnimControl( nullptr ),
 	WeaponHoldStyle(WEAPON_HOLD_STYLE_EMPTY_HANDS),
-	HumanPhys( NULL ),
+	HumanPhys( nullptr ),
 	TurnVelocity( 0 ),
 	AimingTilt( 0 ),
 	AimingTurn( 0 ),
@@ -97,8 +97,8 @@ HumanStateClass::HumanStateClass( void ) :
 	LegRotation( 0 ),
 	WeaponHoldTimer( 0 ),
 	NoAnimBlend( false ),
-	HumanAnimOverride( NULL ),
-	HumanLoiterCollection( NULL ),
+	HumanAnimOverride( nullptr ),
+	HumanLoiterCollection( nullptr ),
 	WeaponFired( false )
 {
 	Reset_Loiter_Delay();
@@ -106,16 +106,16 @@ HumanStateClass::HumanStateClass( void ) :
 
 HumanStateClass::~HumanStateClass( void )
 {
-	if ( HumanPhys != NULL ) {
+	if ( HumanPhys != nullptr ) {
 		HumanPhys->Release_Ref();
-		HumanPhys = NULL;
+		HumanPhys = nullptr;
 	}
 }
 
 void	HumanStateClass::Init( HumanPhysClass	* human_phys )
 {
-	WWASSERT( HumanPhys == NULL );
-	WWASSERT( human_phys != NULL );
+	WWASSERT( HumanPhys == nullptr );
+	WWASSERT( human_phys != nullptr );
 
 	HumanPhys = human_phys;
 	HumanPhys->Add_Ref();
@@ -133,8 +133,8 @@ void	HumanStateClass::Reset( void )
 
 void	HumanStateClass::Set_Anim_Control( HumanAnimControlClass * anim_control )
 {
-	WWASSERT( AnimControl == NULL || AnimControl == anim_control );
-	WWASSERT( anim_control != NULL );
+	WWASSERT( AnimControl == nullptr || AnimControl == anim_control );
+	WWASSERT( anim_control != nullptr );
 	AnimControl = anim_control;
 	AnimControl->Set_Model( HumanPhys->Peek_Model() );
 }
@@ -199,12 +199,12 @@ bool	HumanStateClass::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE_TIMER, StateTimer );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_WEAPON_HOLD_TIMER, WeaponHoldTimer );
 
-		if ( HumanAnimOverride != NULL ) {
+		if ( HumanAnimOverride != nullptr ) {
 			int id = HumanAnimOverride->Get_ID();
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_HUMAN_ANIM_OVERRIDE_DEF_ID, id );
 		}
 
-		if ( HumanLoiterCollection != NULL ) {
+		if ( HumanLoiterCollection != nullptr ) {
 			int id = HumanLoiterCollection->Get_ID();
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_HUMAN_LOITER_COLLECTION_DEF_ID, id );
 		}
@@ -221,14 +221,14 @@ bool	HumanStateClass::Load( ChunkLoadClass &cload )
 	int human_anim_override_def_id = 0;
 	int human_loiter_collection_def_id = 0;
 
-	WWASSERT( HumanPhys == NULL );
+	WWASSERT( HumanPhys == nullptr );
 
 	while (cload.Open_Chunk()) {
 		switch(cload.Cur_Chunk_ID()) {
 
 			case CHUNKID_VARIABLES:
 
-				WWASSERT( HumanPhys == NULL );
+				WWASSERT( HumanPhys == nullptr );
 
 				while (cload.Open_Micro_Chunk()) {
 					WWASSERT(SubState >= 0 && SubState <= HIGHEST_HUMAN_SUB_STATE);
@@ -258,9 +258,9 @@ bool	HumanStateClass::Load( ChunkLoadClass &cload )
 					cload.Close_Micro_Chunk();
 				}
 
-				WWASSERT( HumanPhys != NULL );
+				WWASSERT( HumanPhys != nullptr );
 
-				if ( HumanPhys != NULL ) {
+				if ( HumanPhys != nullptr ) {
 					REQUEST_REF_COUNTED_POINTER_REMAP( (RefCountClass **)&HumanPhys );
 				}
 
@@ -359,7 +359,7 @@ void	HumanStateClass::Update_Aiming( float tilt, float turn )
 void HumanStateClass::Update_Recoil(WeaponClass * weapon)
 {
 	// Programatic Recoil System.  This code needs to run once per frame.
-	if ((weapon != NULL) && (weapon->Is_Firing())) {
+	if ((weapon != nullptr) && (weapon->Is_Firing())) {
 
 		// Set our recoil timer and capture all of the necessary bones
 		// I'm copying all necessary data out of the weapon in case the weapon goes
@@ -759,7 +759,7 @@ void	HumanStateClass::Update_Animation( void )
 
 			// See if we have the tilting data
 			HAnimClass * anim = WW3DAssetManager::Get_Instance()->Get_HAnim( anim3_name );
-			if ( anim != NULL ) {
+			if ( anim != nullptr ) {
 				anim->Release_Ref();
 				single_anim = false;
 
@@ -781,7 +781,7 @@ void	HumanStateClass::Update_Animation( void )
 			anim_name.Format( "S_A_HUMAN.H_A_%s%s", torso_anim_name, leg_anim_name );
 
 			// Human Anim Override
-			if ( HumanAnimOverride != NULL ) {
+			if ( HumanAnimOverride != nullptr ) {
 				if ( hold_style == WEAPON_HOLD_STYLE_EMPTY_HANDS ) {
 					if ( leg_style == LEG_STYLE_RUN_FORWARD ) {
 						anim_name = HumanAnimOverride->RunEmptyHands;
@@ -820,7 +820,7 @@ void	HumanStateClass::Update_Animation( void )
 	} else if ( State == DIVE ) {
 
 
-		const char * anim_name = NULL;
+		const char * anim_name = nullptr;
 #if 0
 		if ( SubState & SUB_STATE_LEFT ) 				anim_name = "S_A_HUMAN.H_A_DIV3";
 		if ( SubState & SUB_STATE_RIGHT )				anim_name = "S_A_HUMAN.H_A_DIV4";
@@ -908,7 +908,7 @@ void	HumanStateClass::Update_Animation( void )
 
 	} else {
 		Debug_Say(( "Uncoded Human State %d\n", State ));
-		AnimControl->Set_Animation( (const char *)NULL );
+		AnimControl->Set_Animation( (const char *)nullptr );
 	}
 }
 
@@ -943,7 +943,7 @@ void	HumanStateClass::Update_State( void )
 
 		HumanLoiterGlobalSettingsDef * loiter_def = HumanLoiterCollection;
 
-		if ( loiter_def == NULL ) {
+		if ( loiter_def == nullptr ) {
 			loiter_def = HumanLoiterGlobalSettingsDef::Get_Default_Loiters();
 		}
 
@@ -956,7 +956,7 @@ void	HumanStateClass::Update_State( void )
 		}
 #endif
 
-		if ( loiter_def != NULL ) {
+		if ( loiter_def != nullptr ) {
 			if ( LoiterDelay > loiter_def->Get_Activation_Delay() ) {
 
 				Set_State( LOITER, Get_Sub_State() );
@@ -1293,14 +1293,14 @@ int	HumanStateClass::Get_Ouch_Type( const	Vector3 & direction, const char * coll
 	// Initialize ouch_type to a default value
 	int ouch_type = TORSO_FROM_FRONT;
 
-	const char * base_name = NULL;
-	if ( collision_box_name != NULL ) {
+	const char * base_name = nullptr;
+	if ( collision_box_name != nullptr ) {
 		base_name = ::strchr( collision_box_name, '.' );
 	} else {
 		return ouch_type;
 	}
 
-	if ( base_name != NULL ) {
+	if ( base_name != nullptr ) {
 		base_name++;
 		for ( int i = 0; i < BONE_LIST_COUNT; i++ ) {
 			if ( ::strcmp( _BoneToOuchTypeList[i].bone_name, base_name ) == 0 ) {
@@ -1451,8 +1451,8 @@ void	HumanStateClass::Complete_Jump( void )
 
 		// (gth) don't take damage when falling onto an elevator (because we have
 		// super-fast elevators...)
-		if (	(HumanPhys->Peek_Ground_Object() != NULL) &&
-				(HumanPhys->Peek_Ground_Object()->As_ElevatorPhysClass() != NULL))
+		if (	(HumanPhys->Peek_Ground_Object() != nullptr) &&
+				(HumanPhys->Peek_Ground_Object()->As_ElevatorPhysClass() != nullptr))
 		{
 			Debug_Say(( "Fell onto an elevator, no damage!\n", scale ));
 			scale = 0.0f;
@@ -1461,7 +1461,7 @@ void	HumanStateClass::Complete_Jump( void )
 		Debug_Say(( "Fall Damage Scale %f\n", scale ));
 
 		SoldierGameObj * owner = (SoldierGameObj *)HumanPhys->Get_Observer();
-		if ( owner != NULL ) {
+		if ( owner != nullptr ) {
 			DefenseObjectClass * defense = owner->Get_Defense_Object();
 			float damage = defense->Get_Health_Max();
 
@@ -1469,13 +1469,13 @@ void	HumanStateClass::Complete_Jump( void )
 //			if ( !owner->Is_Human_Controlled() ) {
 				const GameObjObserverList & observer_list = owner->Get_Observers();
 				for( int index = 0; index < observer_list.Count(); index++ ) {
-					observer_list[ index ]->Custom( owner, CUSTOM_EVENT_FALLING_DAMAGE, int(damage*scale), NULL );
+					observer_list[ index ]->Custom( owner, CUSTOM_EVENT_FALLING_DAMAGE, int(damage*scale), nullptr );
 				}
 //			}
 
 			// All get the damage
-			OffenseObjectClass offense( damage, settings->Get_Falling_Damage_Warhead(), NULL );
-			owner->Apply_Damage_Extended( offense, scale, fall, NULL );
+			OffenseObjectClass offense( damage, settings->Get_Falling_Damage_Warhead(), nullptr );
+			owner->Apply_Damage_Extended( offense, scale, fall, nullptr );
 
 		}
 	}
@@ -1488,7 +1488,7 @@ void	HumanStateClass::Complete_Jump( void )
 	PathfindSectorClass *end_sector		= PathfindClass::Get_Instance ()->Find_Sector (curr_pos, 2.0F);
 
 	//	Make a temporary pathfind connection between these sectors (if necessary)
-	if (add_portal && start_sector != NULL && end_sector != NULL && start_sector != end_sector) {
+	if (add_portal && start_sector != nullptr && end_sector != nullptr && start_sector != end_sector) {
 		PathfindClass::Get_Instance ()->Add_Temporary_Portal (start_sector, end_sector, JumpTM.Get_Translation (), curr_pos);
 	}*/
 

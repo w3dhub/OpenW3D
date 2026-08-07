@@ -47,8 +47,8 @@ const int EDIT_ID				= 102;
 //
 ///////////////////////////////////////////////////////////
 PickerClass::PickerClass (void)
-	:	m_BrowseButton (NULL),
-		m_Icon (NULL),
+	:	m_BrowseButton (nullptr),
+		m_Icon (nullptr),
 		CStatic ()
 {
 	//
@@ -195,7 +195,7 @@ PickerClass::Initialize_Control (void)
 											  m_hWnd,
 											  (HMENU)(DWORD_PTR)EDIT_ID,
 											  ::AfxGetInstanceHandle (),
-											  NULL);
+											  nullptr);
 		CRect rect2;
 		GetWindowRect (&rect2);
 
@@ -215,9 +215,9 @@ PickerClass::Initialize_Control (void)
 												 m_hWnd,
 												 (HMENU)(DWORD_PTR)BUTTON_ID,
 												 ::AfxGetInstanceHandle (),
-												 NULL);
+												 nullptr);
 
-	ASSERT (m_BrowseButton != NULL);
+	ASSERT (m_BrowseButton != nullptr);
 	return ;
 }
 
@@ -259,7 +259,7 @@ PickerClass::OnSize
 	// Resize the edit control
 	//
 	::SetWindowPos (	m_EditCtrl,
-							NULL,
+							nullptr,
 							2,
 							(client_rect.Height () >> 1) - ((size.cy) >> 1),
 							client_rect.Width () - BUTTON_WIDTH - 3,
@@ -270,7 +270,7 @@ PickerClass::OnSize
 	// Reposition the file button
 	//
 	::SetWindowPos (	m_BrowseButton,
-							NULL,
+							nullptr,
 							client_rect.Width () - BUTTON_WIDTH,
 							0,
 							BUTTON_WIDTH,
@@ -350,7 +350,7 @@ PickerClass::OnDrawItem
 					  16,
 					  16,
 					  0,
-					  NULL,
+					  nullptr,
 					  DI_NORMAL);
 
 	CStatic::OnDrawItem (nIDCtl, pDrawItemStruct);
@@ -409,8 +409,8 @@ PickerClass::OnPaint (void)
 	//
 	//	Force the child windows to be repainted
 	//
-	::InvalidateRect (m_EditCtrl, NULL, true);
-	::InvalidateRect (m_BrowseButton, NULL, true);
+	::InvalidateRect (m_EditCtrl, nullptr, true);
+	::InvalidateRect (m_BrowseButton, nullptr, true);
 
 	CPaintDC dc (this);
 	return ;

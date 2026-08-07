@@ -70,7 +70,7 @@ static Vector2 HOTSPOTS[MouseMgrClass::CURSOR_COUNT] =
 //	Local constants
 ////////////////////////////////////////////////////////////////
 TextureClass *						MouseMgrClass::Textures[CURSOR_COUNT]	= { 0 };
-ScreenCursorClass *				MouseMgrClass::MouseCursor					= NULL;
+ScreenCursorClass *				MouseMgrClass::MouseCursor					= nullptr;
 MouseMgrClass::CURSOR_TYPE		MouseMgrClass::CursorType					= MouseMgrClass::CURSOR_ARROW;
 unsigned int MouseMgrClass::CursorWaitCount = 0;
 
@@ -124,7 +124,7 @@ MouseMgrClass::Shutdown (void)
 void
 MouseMgrClass::Show_Cursor (bool onoff)
 {
-	if (MouseCursor == NULL && onoff) {
+	if (MouseCursor == nullptr && onoff) {
 
 		//
 		//	Create the mouse cursor
@@ -134,13 +134,13 @@ MouseMgrClass::Show_Cursor (bool onoff)
 		MouseCursor->Set_Hotspot (HOTSPOTS[CursorType]);
 		CursorWaitCount = 0;
 
-	} else if (MouseCursor != NULL && onoff == false) {
+	} else if (MouseCursor != nullptr && onoff == false) {
 
 		//
 		//	Free the mouse cursor
 		//
 		delete MouseCursor;
-		MouseCursor = NULL;
+		MouseCursor = nullptr;
 	}
 
 	return ;
@@ -155,7 +155,7 @@ MouseMgrClass::Show_Cursor (bool onoff)
 void
 MouseMgrClass::Set_Cursor (CURSOR_TYPE type)
 {
-	if (CursorType != type && MouseCursor != NULL && CursorWaitCount == 0) {
+	if (CursorType != type && MouseCursor != nullptr && CursorWaitCount == 0) {
 		MouseCursor->Set_Texture (Textures[type]);
 		MouseCursor->Set_Hotspot (HOTSPOTS[type]);
 		CursorType = type;
@@ -209,7 +209,7 @@ MouseMgrClass::End_Wait_Cursor(void)
 void
 MouseMgrClass::Render (void)
 {
-	if (MouseCursor != NULL) {
+	if (MouseCursor != nullptr) {
 		MouseCursor->Render ();
 	}
 

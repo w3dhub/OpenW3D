@@ -40,7 +40,7 @@ static char THIS_FILE[] = __FILE__;
 // NewHeightfieldDialogClass dialog
 
 
-NewHeightfieldDialogClass::NewHeightfieldDialogClass(CWnd* pParent /*=NULL*/)
+NewHeightfieldDialogClass::NewHeightfieldDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(NewHeightfieldDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(NewHeightfieldDialogClass)

@@ -143,7 +143,7 @@ void EffectRecyclerClass::Spawn_Effect(const char * robj_name,const Matrix3D & t
 	// allocate/recycle the render object
 	RenderObjClass * model = internal_get_model(robj_name,tm);
 
-	if (model != NULL) {
+	if (model != nullptr) {
 
 		// allocate/recycle a TDeco
 		TimedDecorationPhysClass * tdeco = internal_get_tdeco();
@@ -186,14 +186,14 @@ void EffectRecyclerClass::Spawn_Effect(const char * robj_name,const Matrix3D & t
  *=============================================================================================*/
 void EffectRecyclerClass::Object_Removed_From_Scene(PhysClass * observed_obj)
 {
-	WWASSERT(observed_obj != NULL);
-	WWASSERT(observed_obj->As_TimedDecorationPhysClass() != NULL);
-	WWASSERT(observed_obj->Peek_Model() != NULL);
+	WWASSERT(observed_obj != nullptr);
+	WWASSERT(observed_obj->As_TimedDecorationPhysClass() != nullptr);
+	WWASSERT(observed_obj->Peek_Model() != nullptr);
 
 	TimedDecorationPhysClass * tdeco = observed_obj->As_TimedDecorationPhysClass();
 	RenderObjClass * model = tdeco->Peek_Model();
 	ModelRecycler.Return_Render_Object(model);
-	tdeco->Set_Model(NULL);
+	tdeco->Set_Model(nullptr);
 
 	InactiveTDecos.Add(tdeco);
 }
@@ -237,7 +237,7 @@ RenderObjClass * EffectRecyclerClass::internal_get_model(const char * robj_name,
 {
 	RenderObjClass * model = ModelRecycler.Get_Render_Object(robj_name,tm);
 
-	if ((model != NULL) && (model->Get_HTree() != NULL)) {
+	if ((model != nullptr) && (model->Get_HTree() != nullptr)) {
 		/*
 		** Auto play an anim if we find it
 		*/
@@ -245,9 +245,9 @@ RenderObjClass * EffectRecyclerClass::internal_get_model(const char * robj_name,
 		anim_name.Format( "%s.%s",
 			model->Get_HTree()->Get_Name(),
 			model->Get_HTree()->Get_Name() );
-		WWASSERT(WW3DAssetManager::Get_Instance() != NULL);
+		WWASSERT(WW3DAssetManager::Get_Instance() != nullptr);
 		HAnimClass * anim = WW3DAssetManager::Get_Instance()->Get_HAnim( anim_name );
-		if ( anim != NULL ) {
+		if ( anim != nullptr ) {
 			model->Set_Animation( anim, 0, RenderObjClass::ANIM_MODE_ONCE );
 			anim->Release_Ref();
 		}

@@ -32,7 +32,7 @@ class NodeIDStartDialogClass : public CDialog
 {
 // Construction
 public:
-	NodeIDStartDialogClass(CWnd* pParent = NULL);   // standard constructor
+	NodeIDStartDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(NodeIDStartDialogClass)

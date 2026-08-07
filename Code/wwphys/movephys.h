@@ -97,7 +97,7 @@ public:
 	/*
 	** Teleport support
 	*/
-	virtual bool					Can_Teleport(const Matrix3D &/* new_tm */, bool /* check_dyn_only */ = false,NonRefPhysListClass * /* result_list */ = NULL)	{ return false; }
+	virtual bool					Can_Teleport(const Matrix3D &/* new_tm */, bool /* check_dyn_only */ = false,NonRefPhysListClass * /* result_list */ = nullptr)	{ return false; }
 	virtual bool					Can_Teleport_And_Stand(const Matrix3D &new_tm, Matrix3D *out)	{ *out = new_tm; return false; }
 	virtual bool					Find_Teleport_Location(const Vector3 &/* start */, float /* radius */, Vector3 */* out */)			{ return false; }
 	virtual bool					Can_Move_To(const Matrix3D &/* new_tm */) { return false; }
@@ -133,7 +133,7 @@ public:
 	/*
 	** Rider support.  All moveable objects can be riders.
 	*/
-	virtual void					Link_To_Carrier(PhysClass * carrier,RenderObjClass * carrier_sub_obj = NULL) override;
+	virtual void					Link_To_Carrier(PhysClass * carrier,RenderObjClass * carrier_sub_obj = nullptr) override;
 	virtual PhysClass *			Peek_Carrier_Object(void); // TSS added 08-15-01
 	virtual RenderObjClass *	Peek_Carrier_Sub_Object(void) override;
 

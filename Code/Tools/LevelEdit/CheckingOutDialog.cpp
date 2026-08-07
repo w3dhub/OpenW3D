@@ -33,7 +33,7 @@ static char THIS_FILE[] = __FILE__;
 // CheckingOutDialogClass dialog
 
 
-CheckingOutDialogClass::CheckingOutDialogClass(CWnd* pParent /*=NULL*/)
+CheckingOutDialogClass::CheckingOutDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(CheckingOutDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CheckingOutDialogClass)

@@ -100,7 +100,7 @@ static BitCounterClass _TheBitCounter;
 
 VisTableClass::VisTableClass(unsigned bitcount,int id) :
 	BitCount(bitcount),
-	Buffer(NULL),
+	Buffer(nullptr),
 	VisSectorID(id),
 	Timestamp(0)
 {
@@ -109,18 +109,18 @@ VisTableClass::VisTableClass(unsigned bitcount,int id) :
 
 VisTableClass::VisTableClass(CompressedVisTableClass * ctable,int bitcount,int id) :
 	BitCount(bitcount),
-	Buffer(NULL),
+	Buffer(nullptr),
 	VisSectorID(id),
 	Timestamp(0)
 {
-	WWASSERT(ctable != NULL);
+	WWASSERT(ctable != nullptr);
 	Alloc_Buffer(bitcount);
 	ctable->Decompress(Get_Bytes(),Get_Byte_Count());
 }
 
 VisTableClass::VisTableClass(const VisTableClass & that) :
 	BitCount(0),
-	Buffer(NULL),
+	Buffer(nullptr),
 	VisSectorID(0),
 	Timestamp(0)
 {
@@ -140,9 +140,9 @@ VisTableClass & VisTableClass::operator = (const VisTableClass & that)
 
 VisTableClass::~VisTableClass(void)
 {
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		delete[] Buffer;
-		Buffer = NULL;
+		Buffer = nullptr;
 	}
 	BitCount = 0;
 }
@@ -150,9 +150,9 @@ VisTableClass::~VisTableClass(void)
 void VisTableClass::Alloc_Buffer(int bitcount)
 {
 	WWMEMLOG(MEM_VIS);
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		delete[] Buffer;
-		Buffer = NULL;
+		Buffer = nullptr;
 	}
 	BitCount = bitcount;
 	int count = ((bitcount + 31) / 32);
@@ -188,7 +188,7 @@ int VisTableClass::Get_Long_Count(void) const
 
 void VisTableClass::Reset_All(void)
 {
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		memset(Buffer,0x00,Get_Byte_Count());
 	}
 }
@@ -198,7 +198,7 @@ void VisTableClass::Set_All(void)
 	/*
 	** Set the buffer to FF's
 	*/
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		memset((uint8*)Buffer,0xFF,Get_Byte_Count());
 	}
 
@@ -345,29 +345,29 @@ float VisTableClass::Match_Fraction(const VisTableClass & that)
 
 CompressedVisTableClass::CompressedVisTableClass(void) :
 	BufferSize(0),
-	Buffer(NULL)
+	Buffer(nullptr)
 {
 }
 
 CompressedVisTableClass::CompressedVisTableClass(VisTableClass * bits) :
 	BufferSize(0),
-	Buffer(NULL)
+	Buffer(nullptr)
 {
 	WWMEMLOG(MEM_VIS);
-	WWASSERT(bits != NULL);
+	WWASSERT(bits != nullptr);
 	Compress(bits->Get_Bytes(),bits->Get_Byte_Count());
 }
 
 CompressedVisTableClass::CompressedVisTableClass(const CompressedVisTableClass &that) :
 	BufferSize(0),
-	Buffer(NULL)
+	Buffer(nullptr)
 {
 	(*this) = that;
 }
 
 CompressedVisTableClass::~CompressedVisTableClass(void)
 {
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		delete[] Buffer;
 	}
 }
@@ -375,9 +375,9 @@ CompressedVisTableClass::~CompressedVisTableClass(void)
 const CompressedVisTableClass &CompressedVisTableClass::operator= (const CompressedVisTableClass &that)
 {
 	WWMEMLOG(MEM_VIS);
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		delete [] Buffer;
-		Buffer = NULL;
+		Buffer = nullptr;
 	}
 
 	BufferSize = that.BufferSize;
@@ -399,8 +399,8 @@ int CompressedVisTableClass::Get_Byte_Count(void) const
 void CompressedVisTableClass::Load(ChunkLoadClass & cload)
 {
 	WWMEMLOG(MEM_VIS);
-	VisTableClass * old_table = NULL;
-	if (Buffer != NULL) {
+	VisTableClass * old_table = nullptr;
+	if (Buffer != nullptr) {
 		old_table = NEW_REF(VisTableClass,(this,PhysicsSceneClass::Get_Instance()->Get_Vis_Table_Size(),0));
 		delete[] Buffer;
 	}
@@ -445,7 +445,7 @@ void CompressedVisTableClass::Load(ChunkLoadClass & cload)
 	** if we loaded a valid vis table and we had a previous valid table, merge
 	** the two together
 	*/
-	if ((load_error == false) && (old_table != NULL)) {
+	if ((load_error == false) && (old_table != nullptr)) {
 		VisTableClass * new_table = NEW_REF(VisTableClass,(this,PhysicsSceneClass::Get_Instance()->Get_Vis_Table_Size(),0));
 		new_table->Merge(*old_table);
 		Compress(new_table->Get_Bytes(),new_table->Get_Byte_Count());
@@ -472,9 +472,9 @@ void CompressedVisTableClass::Load (void* hfile)
 	/*
 	** Free the buffer
 	*/
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		delete [] Buffer;
-		Buffer = NULL;
+		Buffer = nullptr;
 		BufferSize = 0L;
 	}
 
@@ -484,13 +484,13 @@ void CompressedVisTableClass::Load (void* hfile)
 		** Read the buffer size
 		*/
 		DWORD dwbytes_read = 0;
-		::ReadFile ((HANDLE)hfile, &BufferSize, sizeof (BufferSize), &dwbytes_read, NULL);
+		::ReadFile ((HANDLE)hfile, &BufferSize, sizeof (BufferSize), &dwbytes_read, nullptr);
 
 		/*
 		** Read the buffer
 		*/
 		Buffer = new uint8[BufferSize];
-		::ReadFile ((HANDLE)hfile, Buffer, sizeof (uint8) * BufferSize, &dwbytes_read, NULL);
+		::ReadFile ((HANDLE)hfile, Buffer, sizeof (uint8) * BufferSize, &dwbytes_read, nullptr);
 	}
 
 	return;
@@ -504,12 +504,12 @@ void CompressedVisTableClass::Save (void* hfile)
 		** Write the buffer size
 		*/
 		DWORD dwbytes_written = 0;
-		::WriteFile ((HANDLE)hfile, &BufferSize, sizeof (BufferSize), &dwbytes_written, NULL);
+		::WriteFile ((HANDLE)hfile, &BufferSize, sizeof (BufferSize), &dwbytes_written, nullptr);
 
 		/*
 		** Write the buffer
 		*/
-		::WriteFile ((HANDLE)hfile, Buffer, sizeof (uint8) * BufferSize, &dwbytes_written, NULL);
+		::WriteFile ((HANDLE)hfile, Buffer, sizeof (uint8) * BufferSize, &dwbytes_written, nullptr);
 	}
 
 	return;
@@ -518,9 +518,9 @@ void CompressedVisTableClass::Save (void* hfile)
 void CompressedVisTableClass::Compress(uint8 * src_buffer,int src_size)
 {
 	WWMEMLOG(MEM_VIS);
-	if (Buffer != NULL) {
+	if (Buffer != nullptr) {
 		delete[] Buffer;
-		Buffer = NULL;
+		Buffer = nullptr;
 	}
 
 	uint8 * comp_buffer = new uint8[LZO_BUFFER_SIZE(src_size)];

@@ -73,7 +73,7 @@ static void ShowRanking(ListCtrlClass* list, LadderType type, const LoginProfile
 
 
 bool LoginProfile::_mSaveAllowed = true;
-LoginProfile* LoginProfile::_mCurrentProfile = NULL;
+LoginProfile* LoginProfile::_mCurrentProfile = nullptr;
 
 /******************************************************************************
 *
@@ -111,10 +111,10 @@ void LoginProfile::EnableSaving(bool allowed)
 
 void LoginProfile::SetCurrent(LoginProfile* profile)
 	{
-	if (_mCurrentProfile != NULL)
+	if (_mCurrentProfile != nullptr)
 		{
 		_mCurrentProfile->Release_Ref();
-		_mCurrentProfile = NULL;
+		_mCurrentProfile = nullptr;
 		}
 
 	if (profile)
@@ -164,7 +164,7 @@ LoginProfile* LoginProfile::Get(const unichar_t* loginName, bool createOK)
 			}
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -186,7 +186,7 @@ LoginProfile* LoginProfile::Get(const unichar_t* loginName, bool createOK)
 
 LoginProfile* LoginProfile::Create(const unichar_t* loginName)
 	{
-	LoginProfile* profile = NULL;
+	LoginProfile* profile = nullptr;
 
 	if (loginName && u_strlen(loginName))
 		{
@@ -197,7 +197,7 @@ LoginProfile* LoginProfile::Create(const unichar_t* loginName)
 			if (profile->FinalizeCreate(loginName) == false)
 				{
 				profile->Release_Ref();
-				profile = NULL;
+				profile = nullptr;
 				}
 			}
 		}
@@ -448,7 +448,7 @@ const LoginProfile::Ranking* LoginProfile::GetRanking(LadderType type) const
 		return &mClanRank;
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -758,8 +758,8 @@ void ShowProfileRanking(DialogBaseClass* dialog, const LoginProfile* profile)
 
 void ShowRanking(ListCtrlClass* list, WWOnline::LadderType type, const LoginProfile::Ranking* rank)
 	{
-	WWASSERT(list != NULL);
-	WWASSERT(rank != NULL);
+	WWASSERT(list != nullptr);
+	WWASSERT(rank != nullptr);
 
 	int count = list->Get_Entry_Count();
 

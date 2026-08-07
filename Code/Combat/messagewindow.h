@@ -85,7 +85,7 @@ public:
 	//
 	//	Content control
 	//
-	void				Add_Message (const WideStringClass &message, const Vector3 &color = Vector3 (0, 0.9F, 0.2F), SmartGameObj *game_obj = NULL, float decay_time = 0);
+	void				Add_Message (const WideStringClass &message, const Vector3 &color = Vector3 (0, 0.9F, 0.2F), SmartGameObj *game_obj = nullptr, float decay_time = 0);
 	void				Clear (void);
 
 	//

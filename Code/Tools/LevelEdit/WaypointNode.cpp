@@ -79,9 +79,9 @@ enum
 //
 //////////////////////////////////////////////////////////////////////////////
 WaypointNodeClass::WaypointNodeClass (PresetClass *preset)
-	:	m_PhysObj (NULL),
-		m_Waypath (NULL),
-		m_Flags (NULL),
+	:	m_PhysObj (nullptr),
+		m_Waypath (nullptr),
+		m_Flags (0),
 		m_ModelType (MODEL_MIDDLE_PT),
 		m_Speed (0.6F),
 		NodeClass (preset)
@@ -96,12 +96,12 @@ WaypointNodeClass::WaypointNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 WaypointNodeClass::WaypointNodeClass (const WaypointNodeClass &src)
-	:	m_PhysObj (NULL),
-		m_Waypath (NULL),
-		m_Flags (NULL),
+	:	m_PhysObj (nullptr),
+		m_Waypath (nullptr),
+		m_Flags (0),
 		m_ModelType (MODEL_MIDDLE_PT),
 		m_Speed (0.6F),
-		NodeClass (NULL)
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -166,7 +166,7 @@ WaypointNodeClass::Set_Model (MODEL model)
 void
 WaypointNodeClass::Update_Model (void)
 {
-	if (m_PhysObj == NULL) {
+	if (m_PhysObj == nullptr) {
 		m_PhysObj = new DecorationPhysClass;
 	}
 
@@ -190,8 +190,8 @@ WaypointNodeClass::Update_Model (void)
 	//	Create the appropriate model
 	//
 	RenderObjClass *render_obj = ::Create_Render_Obj (model_name);
-	WWASSERT (render_obj != NULL);
-	if (render_obj != NULL) {
+	WWASSERT (render_obj != nullptr);
+	if (render_obj != nullptr) {
 
 		//
 		//	Pass the model onto the physics object
@@ -310,7 +310,7 @@ WaypointNodeClass::Load_Variables (ChunkLoadClass &cload)
 				//	Read the old pointer from the chunk and submit it
 				// to the remapping system.
 				//
-				WaypointNodeClass *old_ptr = NULL;
+				WaypointNodeClass *old_ptr = nullptr;
 				cload.Read (&old_ptr, sizeof (old_ptr));
 				SaveLoadSystemClass::Register_Pointer (old_ptr, this);
 			}
@@ -345,7 +345,7 @@ WaypointNodeClass::On_Transform (void)
 void
 WaypointNodeClass::On_Translate (void)
 {
-	if (m_Waypath != NULL) {
+	if (m_Waypath != nullptr) {
 
 		//
 		//	Find where we are on the waypath
@@ -373,7 +373,7 @@ WaypointNodeClass::On_Translate (void)
 void
 WaypointNodeClass::On_Delete (void)
 {
-	if (m_Waypath != NULL) {
+	if (m_Waypath != nullptr) {
 
 		//
 		//	Find where we are on the waypath
@@ -422,7 +422,7 @@ WaypointNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (m_PhysObj);
 	}
 	return ;
@@ -440,7 +440,7 @@ WaypointNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (m_PhysObj);
 	}
 	Release_Ref ();
@@ -512,7 +512,7 @@ WaypointNodeClass::Show_Settings_Dialog (void)
 
 	// Show the property sheet
 	UINT ret_code = prop_sheet.DoModal ();
-	if (ret_code == IDOK && m_Waypath != NULL) {
+	if (ret_code == IDOK && m_Waypath != nullptr) {
 		m_Waypath->Update_Line ();
 	}
 
@@ -532,7 +532,7 @@ WaypointNodeClass::Parent_Set_Transform (const Matrix3D &tm)
 	m_Transform = tm;
 
 	PhysClass *phys_obj = Peek_Physics_Obj ();
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 		phys_obj->Set_Transform (tm);
 	}
 
@@ -551,7 +551,7 @@ WaypointNodeClass::Parent_Set_Position (const Vector3 &pos)
 	m_Transform.Set_Translation (pos);
 
 	PhysClass *phys_obj = Peek_Physics_Obj ();
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 		phys_obj->Set_Transform (m_Transform);
 	}
 

@@ -99,7 +99,7 @@ public:
 	//
 	//	Configuration
 	//
-	void				Initialize (TYPE type, PathClass *path, SmartGameObj *game_obj, StaticPhysClass *mechanism = NULL);
+	void				Initialize (TYPE type, PathClass *path, SmartGameObj *game_obj, StaticPhysClass *mechanism = nullptr);
 	void				Set_Ladder_Index (int index)	{ LadderIndex = index; }
 	void				Reset (void);
 

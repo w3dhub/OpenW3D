@@ -92,7 +92,7 @@ class PKStraw : public Straw
 		CryptControl Control;
 
 		/*
-		**	Pointer to the key to use for encryption or decryption. If this pointer is NULL, then
+		**	Pointer to the key to use for encryption or decryption. If this pointer is nullptr, then
 		**	the data passing through this segment will not be modified.
 		*/
 		PKey const * CipherKey;

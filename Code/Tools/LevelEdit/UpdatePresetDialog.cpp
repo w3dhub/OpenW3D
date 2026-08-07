@@ -110,7 +110,7 @@ UpdatePresetDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 
-	SANITY_CHECK (m_Preset != NULL && m_Preset->Get_Definition () != NULL) {
+	SANITY_CHECK (m_Preset != nullptr && m_Preset->Get_Definition () != nullptr) {
 		return true;
 	}
 
@@ -118,7 +118,7 @@ UpdatePresetDialogClass::OnInitDialog (void)
 	//	Lookup the model-definition for this preset
 	//
 	DefinitionClass *definition = ::Find_Physics_Definition (m_Preset->Get_Definition ());
-	if (definition == NULL) {
+	if (definition == nullptr) {
 		definition = m_Preset->Get_Definition ();
 	}
 
@@ -147,7 +147,7 @@ UpdatePresetDialogClass::OnInitDialog (void)
 	int count = m_ParamSheet->Get_Parameter_Count ();
 	for (int index = 0; index < count; index ++) {
 		ParameterClass *parameter = m_ParamSheet->Get_Parameter (index);
-		if (parameter != NULL) {
+		if (parameter != nullptr) {
 			m_LocalFileList.Add (((StringParameterClass *)parameter)->Get_String ());
 		}
 	}
@@ -263,8 +263,8 @@ UpdatePresetDialogClass::Update_INI (LPCTSTR rel_folder)
 		// Get a pointer to the INI file from the asset manager
 		//
 		EditorINIClass *pini = _pThe3DAssetManager->Get_INI (path);
-		ASSERT (pini != NULL);
-		if (pini != NULL) {
+		ASSERT (pini != nullptr);
+		if (pini != nullptr) {
 
 			//
 			// Update the current update ID in the INI file
@@ -295,7 +295,7 @@ UpdatePresetDialogClass::Update_INI (LPCTSTR rel_folder)
 			TCHAR comments[512];
 			GetDlgItemText (IDC_COMMENTS_EDIT, comments, sizeof (comments));
 			for (LPSTR newline = ::strchr (comments, '\r');
-			     newline != NULL;
+			     newline != nullptr;
 				  newline = ::strchr (newline, '\r'))
 			{
 				newline[0] = '|';

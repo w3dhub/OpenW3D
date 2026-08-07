@@ -43,7 +43,7 @@
 //
 // Class statics
 //
-cServerFps *	cServerFps::TheInstance	= NULL;
+cServerFps *	cServerFps::TheInstance	= nullptr;
 
 //-----------------------------------------------------------------------------
 cServerFps::cServerFps(void)
@@ -92,7 +92,7 @@ cServerFps::Create_Instance
 	void
 )
 {
-	WWASSERT(TheInstance == NULL);
+	WWASSERT(TheInstance == nullptr);
 	TheInstance = new cServerFps;
 }
 
@@ -103,9 +103,9 @@ cServerFps::Destroy_Instance
 	void
 )
 {
-	WWASSERT(TheInstance != NULL);
+	WWASSERT(TheInstance != nullptr);
 	delete TheInstance;
-	TheInstance = NULL;
+	TheInstance = nullptr;
 }
 
 //-----------------------------------------------------------------------------

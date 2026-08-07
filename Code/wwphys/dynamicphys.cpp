@@ -96,7 +96,7 @@ void DynamicPhysClass::Set_Model(RenderObjClass * model)
 	PhysClass::Set_Model(model);
 
 #if (UMBRASUPPORT)
-	if (model != NULL) {
+	if (model != nullptr) {
 		/*
 		** Create a new test-model for the bounding box of this object
 		*/

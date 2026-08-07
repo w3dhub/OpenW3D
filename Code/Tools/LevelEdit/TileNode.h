@@ -63,7 +63,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	TileNodeClass (PresetClass *preset = NULL);
+	TileNodeClass (PresetClass *preset = nullptr);
 	TileNodeClass (const TileNodeClass &src);
 	~TileNodeClass (void);
 
@@ -136,7 +136,7 @@ protected:
 inline void
 TileNodeClass::Set_ID (uint32 id)
 {
-	if (m_PhysObj != NULL) {
+	if (m_PhysObj != nullptr) {
 		m_PhysObj->Set_ID (id);
 	}
 
