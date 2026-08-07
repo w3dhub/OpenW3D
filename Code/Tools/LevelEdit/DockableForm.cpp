@@ -74,7 +74,7 @@ DockableFormClass::Create
 	CCreateContext* /* pContext */
 )
 {
-	ASSERT(pParentWnd != NULL);
+	ASSERT(pParentWnd != nullptr);
 
 	// call PreCreateWindow to get prefered extended style
 	CREATESTRUCT cs; memset(&cs, 0, sizeof(CREATESTRUCT));
@@ -101,7 +101,7 @@ DockableFormClass::Create
 	GetWindowRect (m_rectForm);
 
 	// force the size requested
-	SetWindowPos(NULL, rect.left, rect.top,
+	SetWindowPos(nullptr, rect.left, rect.top,
 		rect.right - rect.left, rect.bottom - rect.top,
 		SWP_NOZORDER|SWP_NOACTIVATE);
 

@@ -52,11 +52,11 @@ CSurrenderWnd::CSurrenderWnd(CWnd *cwnd, int driver, int width, int height, int 
 	m_RObj(0),
 	m_FrameRate(60)
 {
-	LPCTSTR str = AfxRegisterWndClass(CS_NOCLOSE, NULL, NULL, NULL);
+	LPCTSTR str = AfxRegisterWndClass(CS_NOCLOSE, nullptr, nullptr, nullptr);
 	if (run_in_window) {
-	   	CreateEx(0, str, "Card Test Window", WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION|WS_VISIBLE, 0,0,640,480, NULL, NULL, NULL);
+	   	CreateEx(0, str, "Card Test Window", WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION|WS_VISIBLE, 0,0,640,480, nullptr, nullptr, nullptr);
 	} else {
-	   	CreateEx(0, str, "Card Test Window", WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION|WS_VISIBLE, 0,0,640,480, NULL, NULL, NULL);
+	   	CreateEx(0, str, "Card Test Window", WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION|WS_VISIBLE, 0,0,640,480, nullptr, nullptr, nullptr);
 	}
 
 	WW3D::Set_Window(GetSafeHwnd());

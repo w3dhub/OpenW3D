@@ -38,23 +38,23 @@
 #include "wwfile.h"
 
 
-FileFactoryListClass * FileFactoryListClass::Instance = NULL;
+FileFactoryListClass * FileFactoryListClass::Instance = nullptr;
 
 /*
 **
 */
 FileFactoryListClass::FileFactoryListClass( void ) :
 	SearchStartIndex( 0 ),
-	TempFactory( NULL )
+	TempFactory( nullptr )
 {
-	WWASSERT( Instance == NULL );
+	WWASSERT( Instance == nullptr );
 	Instance = this;
 }
 
 FileFactoryListClass::~FileFactoryListClass( void )
 {
 	WWASSERT( Instance == this );
-	Instance = NULL;
+	Instance = nullptr;
 }
 
 /*
@@ -97,7 +97,7 @@ void	FileFactoryListClass::Remove_FileFactory( FileFactoryClass * factory )
  *                                                                                             *
  * INPUT:    Nothing                                                                           *
  *                                                                                             *
- * OUTPUT:   Ptr to removed factory. NULL if none in the list                                  *
+ * OUTPUT:   Ptr to removed factory. nullptr if none in the list                                  *
  *                                                                                             *
  * WARNINGS: None                                                                              *
  *                                                                                             *
@@ -106,7 +106,7 @@ void	FileFactoryListClass::Remove_FileFactory( FileFactoryClass * factory )
  *=============================================================================================*/
 FileFactoryClass *FileFactoryListClass::Remove_FileFactory(void)
 {
-	FileFactoryClass *factory = NULL;
+	FileFactoryClass *factory = nullptr;
 
 	if (FactoryList.Count()) {
 		factory = FactoryList[0];
@@ -121,14 +121,14 @@ FileFactoryClass *FileFactoryListClass::Remove_FileFactory(void)
 
 void	FileFactoryListClass::Add_Temp_FileFactory( FileFactoryClass * factory )
 {
-	WWASSERT( TempFactory == NULL );
+	WWASSERT( TempFactory == nullptr );
 	TempFactory = factory;
 }
 
 FileFactoryClass * FileFactoryListClass::Remove_Temp_FileFactory( void )
 {
 	FileFactoryClass * factory = TempFactory;
-	TempFactory = NULL;
+	TempFactory = nullptr;
 	return factory;
 }
 
@@ -140,7 +140,7 @@ FileClass * FileFactoryListClass::Get_File( char const *filename )
 	// Then the temp factory
 	if ( TempFactory ) {
 		FileClass * file = TempFactory->Get_File( filename );
-		if ( file != NULL ) {
+		if ( file != nullptr ) {
 			if ( file->Is_Available() ) {
 				return file;
 			} else {
@@ -152,7 +152,7 @@ FileClass * FileFactoryListClass::Get_File( char const *filename )
 	// Try the first in the list...
 	if ( SearchStartIndex < FactoryList.Count() ) {
 		FileClass * file = FactoryList[SearchStartIndex]->Get_File( filename );
-		if ( file != NULL ) {
+		if ( file != nullptr ) {
 			if ( file->Is_Available() ) {
 				return file;
 			} else {
@@ -165,7 +165,7 @@ FileClass * FileFactoryListClass::Get_File( char const *filename )
 	for ( int i = 0; i < FactoryList.Count(); i++ ) {
 		if (i != SearchStartIndex) {
 			FileClass * file = FactoryList[i]->Get_File( filename );
-			if ( file != NULL ) {
+			if ( file != nullptr ) {
 				if ( file->Is_Available() ) {
 					return file;
 				} else {
@@ -180,12 +180,12 @@ FileClass * FileFactoryListClass::Get_File( char const *filename )
 	// Just use the first and don't check for available
 	if ( FactoryList.Count() > 0 ) {
 		FileClass * file = FactoryList[0]->Get_File( filename );
-		if ( file != NULL ) {
+		if ( file != nullptr ) {
 			return file;
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void FileFactoryListClass::Return_File( FileClass *file )

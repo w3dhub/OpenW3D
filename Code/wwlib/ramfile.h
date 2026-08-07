@@ -61,7 +61,7 @@ class RAMFileClass : public FileClass
 		virtual void Close(void) override;
 		virtual unsigned int Get_Date_Time(void) override {return(0);}
 		virtual bool Set_Date_Time(unsigned int ) override {return(true);}
-		virtual void Error(int , int = false, char const * =NULL) override {}
+		virtual void Error(int , int = false, char const * =nullptr) override {}
 		virtual void Bias(int start, int length=-1) override;
 
 		operator char const * () {return File_Name();}

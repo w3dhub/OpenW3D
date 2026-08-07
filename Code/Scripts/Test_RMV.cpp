@@ -59,7 +59,7 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 
 	void Created( GameObject * obj ) override
 	{
-		Commands->Set_Animation ( obj, "V_NOD_C-130E3.M_cargo-drop", 0 , NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation ( obj, "V_NOD_C-130E3.M_cargo-drop", 0 , nullptr, 0.0f, -1.0f, false);
 		int drop_frame;
 		drop_frame = 460;
 		float drop_time;
@@ -526,8 +526,8 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 		sprintf(traj_anim, "XG_TransprtBone.XG_EV%d_PathA", number);
 		char trans_anim[40];
 		sprintf(trans_anim, "v_%s_trnspt.XG_EV%d_trnsA", (nod == 1) ? "NOD" : "GDI", number);
-		Commands->Set_Animation(traj, traj_anim, false, NULL, 0.0f, -1.0f, false);
-		Commands->Set_Animation(transport, trans_anim, false, NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation(traj, traj_anim, false, nullptr, 0.0f, -1.0f, false);
+		Commands->Set_Animation(transport, trans_anim, false, nullptr, 0.0f, -1.0f, false);
 		Commands->Attach_To_Object_Bone(transport, traj, "BN_Trajectory");
 		Commands->Start_Timer(obj, this, 280.0f / 30.0f, 0);
 
@@ -548,8 +548,8 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 			sprintf(traj_anim, "XG_TransprtBone.XG_EV%d_Pathloop", number);
 			char trans_anim[40];
 			sprintf(trans_anim, "v_%s_trnspt.XG_EV%d_trnsloop",(nod == 1) ? "NOD" : "GDI", number);
-			Commands->Set_Animation(traj, traj_anim, false, NULL, 0.0f, -1.0f, false);
-			Commands->Set_Animation(transport, trans_anim, false, NULL, 0.0f, -1.0f, false);
+			Commands->Set_Animation(traj, traj_anim, false, nullptr, 0.0f, -1.0f, false);
+			Commands->Set_Animation(transport, trans_anim, false, nullptr, 0.0f, -1.0f, false);
 			Commands->Start_Timer(obj, this, 94.0f / 30.0f, 1);
 		}
 		else if (timer_id == 1)
@@ -560,8 +560,8 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 				sprintf(traj_anim, "XG_TransprtBone.XG_EV%d_PathZ", number);
 				char trans_anim[40];
 				sprintf(trans_anim, "v_%s_trnspt.XG_EV%d_trnsz", (nod == 1) ? "NOD" : "GDI", number);
-				Commands->Set_Animation(traj, traj_anim, false, NULL, 0.0f, -1.0f, false);
-				Commands->Set_Animation(transport, trans_anim, false, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation(traj, traj_anim, false, nullptr, 0.0f, -1.0f, false);
+				Commands->Set_Animation(transport, trans_anim, false, nullptr, 0.0f, -1.0f, false);
 				Commands->Start_Timer(obj, this, 231.0f / 30.0f, 2);
 			}
 			else
@@ -570,8 +570,8 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 				sprintf(traj_anim, "XG_TransprtBone.XG_EV%d_Pathloop", number);
 				char trans_anim[40];
 				sprintf(trans_anim, "v_%s_trnspt.XG_EV%d_trnsloop", (nod == 1) ? "NOD" : "GDI", number);
-				Commands->Set_Animation(traj, traj_anim, false, NULL, 0.0f, -1.0f, false);
-				Commands->Set_Animation(transport, trans_anim, false, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation(traj, traj_anim, false, nullptr, 0.0f, -1.0f, false);
+				Commands->Set_Animation(transport, trans_anim, false, nullptr, 0.0f, -1.0f, false);
 				Commands->Start_Timer(obj, this, 94.0f / 30.0f, 1);
 			}
 		}

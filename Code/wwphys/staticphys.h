@@ -113,7 +113,7 @@ public:
 	*/
 	void								Set_Vis_Sector_ID(int new_id);
 	int								Get_Vis_Sector_ID(void) const { return VisSectorID; }
-	bool								Is_Vis_Sector(RenderObjClass * model = NULL) const;
+	bool								Is_Vis_Sector(RenderObjClass * model = nullptr) const;
 
 	/*
 	** Simulation and rendering toggles for all static physics objects
@@ -143,7 +143,7 @@ public:
 	virtual bool								Load (ChunkLoadClass &cload) override;
 	virtual void								On_Post_Load(void) override;
 
-float	Compute_Vis_Mesh_Ram(RenderObjClass * model = NULL);
+float	Compute_Vis_Mesh_Ram(RenderObjClass * model = nullptr);
 
 protected:
 

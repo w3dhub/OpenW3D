@@ -109,7 +109,7 @@ CNCServerInfoDialogClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the columns
@@ -166,7 +166,7 @@ CNCServerInfoDialogClass::On_Init_Dialog (void)
 	//	Activate the menu game mode (if necessary)
 	//
 	GameModeClass *menu_game_mode = GameModeManager::Find ("Menu");
-	if (menu_game_mode != NULL && menu_game_mode->Is_Active () == false) {
+	if (menu_game_mode != nullptr && menu_game_mode->Is_Active () == false) {
 		menu_game_mode->Activate ();
 	}
 

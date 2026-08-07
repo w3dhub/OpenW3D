@@ -63,7 +63,7 @@
 *	Globals
 *****************************************************************************/
 
-HINSTANCE					AppInstance = NULL;
+HINSTANCE					AppInstance = nullptr;
 static int					ControlsInit = false;
 static W3dClassDesc		W3d_Export_Class_Descriptor;
 
@@ -169,7 +169,7 @@ DLLEXPORT ClassDesc * LibClassDesc(int i)
 		case 8:	return Get_PS2_Material_Conversion(); break;
 #endif
 
-		default: return NULL; break;
+		default: return nullptr; break;
 	}
 }
 
@@ -208,8 +208,8 @@ TCHAR * Get_String( int id )
 {
 	static TCHAR buf[256];
 	if (AppInstance)
-		return LoadString(AppInstance, id, buf, sizeof(buf)) ? buf : NULL;
-	return NULL;
+		return LoadString(AppInstance, id, buf, sizeof(buf)) ? buf : nullptr;
+	return nullptr;
 }
 
 

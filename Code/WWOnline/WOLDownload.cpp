@@ -89,14 +89,14 @@ Download::Download(const WOL::Update& update) :
 		mState(DLPending),
 		mStatusCode(DOWNLOADSTATUS_DONE),
 		mErrorCode(0),
-		mErrorText(NULL),
+		mErrorText(nullptr),
 		mBytesRead(0),
 		mTotalSize(0),
 		mTimeElapsed(0),
 		mTimeRemaining(0)
 	{
 	memcpy(&mWOLUpdate, &update, sizeof(mWOLUpdate));
-	mWOLUpdate.next = NULL;
+	mWOLUpdate.next = nullptr;
 
 	WWDEBUG_SAY(("WOL: Download instantiated '%s'\n", GetFilename()));
 	}
@@ -147,8 +147,8 @@ bool Download::CreateDownloadObject(void)
 	//---------------------------------------------------------------------------
 	WWDEBUG_SAY(("WOL: Creating IID_IDownload object\n"));
 
-	WOL::IDownload* downloadObject = NULL;
-	HRESULT hr = CoCreateInstance(WOL::CLSID_Download, NULL, CLSCTX_INPROC_SERVER,
+	WOL::IDownload* downloadObject = nullptr;
+	HRESULT hr = CoCreateInstance(WOL::CLSID_Download, nullptr, CLSCTX_INPROC_SERVER,
 			WOL::IID_IDownload, (void **)&downloadObject);
 
 	if (FAILED(hr))
@@ -253,7 +253,7 @@ bool Download::Start(void)
 
 	// Attempt to create the target path for the download file.
 	const char* localPath = GetLocalPath();
-	int dirCreated = CreateDirectoryA(localPath, NULL);
+	int dirCreated = CreateDirectoryA(localPath, nullptr);
 
 	if (!dirCreated && (ERROR_ALREADY_EXISTS != GetLastError()))
 		{
@@ -571,7 +571,7 @@ STDMETHODIMP Download::QueryInterface(const IID& iid, void** ppv)
 		}
 	else
 		{
-		*ppv = NULL;
+		*ppv = nullptr;
 		return E_NOINTERFACE;
 		}
 
@@ -642,7 +642,7 @@ STDMETHODIMP Download::OnEnd(void)
 	{
 	WWDEBUG_SAY(("WOL: Download End '%s'\n", GetFilename()));
 
-	SetError(0, NULL);
+	SetError(0, nullptr);
 	mState = DLComplete;
 
 	DownloadEvent event(DownloadEvent::DOWNLOAD_END, this);
@@ -811,7 +811,7 @@ RefPtr<DownloadWait> DownloadWait::Create(const DownloadList& files)
 	{
 	if (files.empty())
 		{
-		return NULL;
+		return nullptr;
 		}
 
 	return new DownloadWait(files);
@@ -838,7 +838,7 @@ DownloadWait::DownloadWait(const DownloadList& files) :
 		SingleWait(WOLSTRING("WOL_DOWNLOADING")),
 		mFiles(files),
 		mFileIndex(-1),
-		mCallback(NULL)
+		mCallback(nullptr)
 	{
 	WWDEBUG_SAY(("WOL: DownloadWait Create\n"));
 	}

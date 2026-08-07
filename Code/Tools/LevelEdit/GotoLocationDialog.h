@@ -35,7 +35,7 @@ class GotoLocationDialogClass : public CDialog
 {
 // Construction
 public:
-	GotoLocationDialogClass(CWnd* pParent = NULL);   // standard constructor
+	GotoLocationDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GotoLocationDialogClass)

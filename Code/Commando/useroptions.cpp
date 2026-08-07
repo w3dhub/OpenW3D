@@ -302,9 +302,9 @@ void cUserOptions::Print_Command_Line_Help(bool error)
 	char filesuffix[MAX_PATH];
 	FILE *file = error ? stderr : stdout;
 
-	GetModuleFileNameA(NULL, path, sizeof(path));
-	_splitpath(path, NULL, NULL, filename, filesuffix);
-	_makepath(path, NULL, NULL, filename, filesuffix);
+	GetModuleFileNameA(nullptr, path, sizeof(path));
+	_splitpath(path, nullptr, nullptr, filename, filesuffix);
+	_makepath(path, nullptr, nullptr, filename, filesuffix);
 
 	fprintf(file, "usage: %s [--ip IP] [--multi] [--regmod MOD] [--slave] [--startserver INI]\n", path);
 	fprintf(file, "    [--gamedir PATH]\n");
@@ -430,12 +430,12 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		// All 3 must be specified.
 		// Example: Renegade.exe GAMESPY_IPADDR=192.168.10.100 GAMESPY_PORT=3333 GAMESPY_NICKNAME="Bob 1234"
 		//
-		LPCSTR param = NULL;
-		char * value = NULL;
+		LPCSTR param = nullptr;
+		char * value = nullptr;
 
 		param = "GAMESPY_IPADDR=";
 		value = ::strstr(cmd, param);
-		if (value != NULL) {
+		if (value != nullptr) {
 			value += ::strlen(param);
 			ULONG ip = ::inet_addr(value);
 			cGameSpyAdmin::Set_Game_Host_Ip(ip);
@@ -445,7 +445,7 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 
 		param = "GAMESPY_PORT=";
 		value = ::strstr(cmd, param);
-		if (value != NULL) {
+		if (value != nullptr) {
 			value += ::strlen(param);
 			USHORT port = (USHORT)::atol(value);
 			cGameSpyAdmin::Set_Game_Host_Port(port);
@@ -455,17 +455,17 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 
 		param = "GAMESPY_NICKNAME=";
 		value = ::strstr(cmd, param);
-		if (value != NULL) {
+		if (value != nullptr) {
 			value += ::strlen(param);
 			WideStringClass nickname;
 			char temp[200] = "";
 			char seps[]   = "\"";
 			char * start_token = ::strtok(value, seps);
-			if (start_token != NULL) {
+			if (start_token != nullptr) {
 				start_token++;
 			}
-			char * end_token = ::strtok(NULL, seps);
-			if (end_token != NULL && end_token > start_token) {
+			char * end_token = ::strtok(nullptr, seps);
+			if (end_token != nullptr && end_token > start_token) {
 				::strncpy(temp, start_token, end_token - start_token);
 				temp[end_token - start_token] = 0;
 			}
@@ -490,12 +490,12 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		/*
 		char seps[]   = "\"";
 		char * start_token = ::strtok(nickname_param, seps);
-		if (start_token != NULL) {
+		if (start_token != nullptr) {
 			start_token++;
 		}
-		char * end_token = ::strtok(NULL, seps);
+		char * end_token = ::strtok(nullptr, seps);
 		char nickname2[300] = "";
-		if (end_token != NULL && end_token > start_token) {
+		if (end_token != nullptr && end_token > start_token) {
 			char nickname2[300] = "";
 			::strncpy(nickname2, start_token, end_token - start_token);
 			nickname2[end_token - start_token] = 0;

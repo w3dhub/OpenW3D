@@ -100,7 +100,7 @@ protected:
 
 	struct TrackMapperStruct
 	{
-		TrackMapperStruct(void) : Mapper(NULL), TrackType(LEFT_TRACK) { }
+		TrackMapperStruct(void) : Mapper(nullptr), TrackType(LEFT_TRACK) { }
 		LinearOffsetTextureMapperClass *		Mapper;
 		int											TrackType;
 	};

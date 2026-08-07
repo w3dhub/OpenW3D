@@ -48,7 +48,7 @@ enum
 // MemLogDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-MemLogDialogClass::MemLogDialogClass(CWnd* pParent /*=NULL*/)
+MemLogDialogClass::MemLogDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(MemLogDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(MemLogDialogClass)

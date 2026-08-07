@@ -114,7 +114,7 @@ SpecSheetClass::Is_Filtered (ParameterClass *parameter)
 {
 	bool retval = false;
 
-	if (parameter != NULL) {
+	if (parameter != nullptr) {
 		if (m_ShowFileOnly) {
 
 			int type = parameter->Get_Type ();
@@ -140,7 +140,7 @@ SpecSheetClass::Add_Parameter (ParameterClass *parameter)
 	//
 	//	What type of parameter is this?
 	//
-	ParameterCtrlClass *parameter_ctrl = NULL;
+	ParameterCtrlClass *parameter_ctrl = nullptr;
 	switch (parameter->Get_Type ()) {
 
 		case ParameterClass::TYPE_INT:
@@ -242,7 +242,7 @@ SpecSheetClass::Add_Parameter (ParameterClass *parameter)
 			break;
 	}
 
-	if (parameter_ctrl != NULL) {
+	if (parameter_ctrl != nullptr) {
 		parameter_ctrl->Set_Is_Temp (m_IsTemp);
 		parameter_ctrl->Set_Spec_Sheet (this);
 		m_CtrlList.Add (parameter_ctrl);
@@ -285,7 +285,7 @@ SpecSheetClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 													m_hWnd,
 													(HMENU)878,
 													::AfxGetInstanceHandle (),
-													NULL);
+													nullptr);
 
 	//
 	//	Configure the scrollbar
@@ -371,7 +371,7 @@ SpecSheetClass::Get_Current_Filename_Value (int index, CString &value)
 ParameterClass *
 SpecSheetClass::Get_Parameter (int index)
 {
-	ParameterClass *parameter = NULL;
+	ParameterClass *parameter = nullptr;
 
 	//
 	//	Is the index valid?
@@ -415,7 +415,7 @@ SpecSheetClass::OnVScroll
 	CScrollBar *pScrollBar
 )
 {
-	if (pScrollBar != NULL && GetWindowLong (*pScrollBar, GWL_ID) == 878) {
+	if (pScrollBar != nullptr && GetWindowLong (*pScrollBar, GWL_ID) == 878) {
 		int new_pos = m_ScrollPos;
 
 		CRect client_rect;
@@ -673,7 +673,7 @@ SpecSheetClass::Scroll_Controls (int amount)
 	//
 	HWND child_wnd;
 	for (	child_wnd = ::GetWindow (m_hWnd, GW_CHILD);
-			child_wnd != NULL;
+			child_wnd != nullptr;
 			child_wnd = ::GetWindow (child_wnd, GW_HWNDNEXT))
 	{
 		//
@@ -704,7 +704,7 @@ SpecSheetClass::Scroll_Controls (int amount)
 		//
 		//	Scroll the window
 		//
-		::DeferWindowPos (defer_struct, child_wnd, NULL, rect.left, rect.top + amount, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOREDRAW);
+		::DeferWindowPos (defer_struct, child_wnd, nullptr, rect.left, rect.top + amount, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOREDRAW);
 	}
 
 	//
@@ -717,7 +717,7 @@ SpecSheetClass::Scroll_Controls (int amount)
 	client_rect.right -= ::GetSystemMetrics (SM_CXVSCROLL);
 
 	HDC dc = ::GetDC (m_hWnd);
-	::ScrollDC (dc, 0, amount, &client_rect, &client_rect, NULL, NULL);
+	::ScrollDC (dc, 0, amount, &client_rect, &client_rect, nullptr, nullptr);
 	::ReleaseDC (m_hWnd, dc);
 
 
@@ -761,7 +761,7 @@ SpecSheetClass::OnSize
 	//
 	HWND scrollbar = ::GetDlgItem (m_hWnd, 878);
 	::SetWindowPos (	scrollbar,
-							NULL,
+							nullptr,
 							client_rect.right - ::GetSystemMetrics (SM_CXVSCROLL),
 							0,
 							::GetSystemMetrics (SM_CXVSCROLL),
@@ -822,7 +822,7 @@ SpecSheetClass::Apply (void)
 		//
 		//	Get the control to read its data from the dialog controls
 		//
-		ctrl->Read_Data (NULL);
+		ctrl->Read_Data (nullptr);
 	}
 
 	return ;

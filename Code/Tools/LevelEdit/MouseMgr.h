@@ -390,7 +390,7 @@ public:
 	///////////////////////////////////////////////////
 	MMWaypathEditClass (void)
 		:	m_CurrentPoint (-1),
-			m_Waypath (NULL)
+			m_Waypath (nullptr)
 		{
 			m_LButtonMode		= CameraMgr::MODE_MOVE_PLANE;
 			m_RButtonMode		= CameraMgr::MODE_MOVE_PLANE;
@@ -447,7 +447,7 @@ public:
 	//	Public constructors/destructors
 	///////////////////////////////////////////////////
 	MMGrabHandleDragClass (void)
-		:	m_Node (NULL),
+		:	m_Node (nullptr),
 			m_Vertex (0)
 		{
 			m_LButtonMode = CameraMgr::MODE_MOVE_PLANE;
@@ -471,7 +471,7 @@ public:
 	virtual void					Handle_RButton_Down (UINT /* flags */, CPoint /* point */) {}
 	virtual void					Handle_RButton_Up (UINT /* flags */, CPoint /* point */) {}
 	virtual void					Handle_Mouse_Move (UINT flags, CPoint point);
-	virtual void					On_Mode_Set (void) { m_Node = NULL; }
+	virtual void					On_Mode_Set (void) { m_Node = nullptr; }
 
 	//
 	// Specific methods

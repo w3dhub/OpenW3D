@@ -38,19 +38,19 @@
 cRegistryInt::cRegistryInt(const char *registry_location, const char *key_name, int default_value)
 {
    WWMEMLOG(MEM_GAMEDATA);
-	if (registry_location == NULL) {
+	if (registry_location == nullptr) {
       strcpy(RegistryLocation, "");
       strcpy(KeyName, "");
       Set(default_value);
    } else {
-      WWASSERT(key_name != NULL);
+      WWASSERT(key_name != nullptr);
       WWASSERT(strlen(registry_location) < sizeof(RegistryLocation));
       WWASSERT(strlen(key_name) < sizeof(KeyName));
       strcpy(RegistryLocation, registry_location);
       strcpy(KeyName, key_name);
 
 	   RegistryClass * registry = new RegistryClass(RegistryLocation);
-	   WWASSERT(registry != NULL && registry->Is_Valid());
+	   WWASSERT(registry != nullptr && registry->Is_Valid());
       Value = registry->Get_Int(KeyName, default_value);
    	delete registry;
 
@@ -65,7 +65,7 @@ void cRegistryInt::Set(int value)
 
    if (strcmp(RegistryLocation, "")) {
 	   RegistryClass * registry = new RegistryClass(RegistryLocation);
-	   WWASSERT(registry != NULL && registry->Is_Valid());
+	   WWASSERT(registry != nullptr && registry->Is_Valid());
       registry->Set_Int(KeyName, Value);
    	delete registry;
    }

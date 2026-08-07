@@ -168,7 +168,7 @@ bool GenericMultiListClass::Internal_Add_After(MultiListObjectClass * obj,const 
 		existing_node = existing_node->NextList;
 	}
 
-	if (existing_node == NULL) {
+	if (existing_node == nullptr) {
 		return false;	// he's not in this list!
 	}
 

@@ -46,7 +46,7 @@ static char THIS_FILE[] = __FILE__;
 //
 /////////////////////////////////////////////////////////////////////////////
 PresetListDialogClass::PresetListDialogClass (CWnd *pParent)
-	:	m_List (NULL),
+	:	m_List (nullptr),
 		m_ClassID (0),
 		m_RootClassID (0),
 		m_EnableTypeSel (true),
@@ -101,7 +101,7 @@ BOOL
 PresetListDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	ASSERT (m_List != NULL);
+	ASSERT (m_List != nullptr);
 
 	//
 	//	Configure the preset list control
@@ -165,9 +165,9 @@ PresetListDialogClass::Update_Button_State (void)
 	//	Should the add button be enabled?
 	//
 	HTREEITEM tree_item = m_PresetTreeCtrl.GetSelectedItem ();
-	if (tree_item != NULL) {
+	if (tree_item != nullptr) {
 		PresetClass *preset = (PresetClass *)m_PresetTreeCtrl.GetItemData (tree_item);
-		if (preset != NULL) {
+		if (preset != nullptr) {
 			enable_add = true;
 		}
 	}
@@ -187,7 +187,7 @@ void
 PresetListDialogClass::Sort_Nodes (HTREEITEM root_item, bool recursive)
 {
 	for (	HTREEITEM tree_item = m_PresetTreeCtrl.GetChildItem (root_item);
-			tree_item != NULL;
+			tree_item != nullptr;
 			tree_item = m_PresetTreeCtrl.GetNextSiblingItem (tree_item))
 	{
 		//
@@ -215,7 +215,7 @@ PresetListDialogClass::Sort_Nodes (HTREEITEM root_item, bool recursive)
 void
 PresetListDialogClass::Add_Preset (PresetClass *preset)
 {
-	if (preset != NULL && preset->Get_Definition () != NULL) {
+	if (preset != nullptr && preset->Get_Definition () != nullptr) {
 
 		//
 		//	Insert this preset into the list control
@@ -228,7 +228,7 @@ PresetListDialogClass::Add_Preset (PresetClass *preset)
 			//
 			int class_id							= preset->Get_Definition ()->Get_Class_ID ();
 			DefinitionFactoryClass *factory	= DefinitionFactoryMgrClass::Find_Factory (class_id);
-			if (factory != NULL) {
+			if (factory != nullptr) {
 				LPCTSTR type_name = factory->Get_Name ();
 				m_PresetListCtrl.SetItemText (list_index, 1, type_name);
 			}
@@ -274,13 +274,13 @@ void
 PresetListDialogClass::OnAdd (void)
 {
 	HTREEITEM tree_item = m_PresetTreeCtrl.GetSelectedItem ();
-	if (tree_item != NULL) {
+	if (tree_item != nullptr) {
 
 		//
 		//	Add the preset from the currently selected tree item to the list
 		//
 		PresetClass *preset = (PresetClass *)m_PresetTreeCtrl.GetItemData (tree_item);
-		if (preset != NULL) {
+		if (preset != nullptr) {
 			Add_Preset (preset);
 		}
 	}
@@ -404,7 +404,7 @@ PresetListDialogClass::OnSelchangedPresetTree
 void
 PresetListDialogClass::OnDestroy (void)
 {
-	m_PresetTreeCtrl.SetImageList (NULL, TVSIL_NORMAL);
+	m_PresetTreeCtrl.SetImageList (nullptr, TVSIL_NORMAL);
 	CDialog::OnDestroy ();
 	return ;
 }
@@ -487,11 +487,11 @@ PresetListDialogClass::Add_Factories_To_Combo
 		//	Recurse if necessary
 		//
 		NTreeLeafClass<uint32> *child = leaf->Peek_Child ();
-		if (child != NULL) {
+		if (child != nullptr) {
 			Add_Factories_To_Combo (child, indent + 1, index);
 		}
 
-	} while ((leaf = leaf->Peek_Next ()) != NULL);
+	} while ((leaf = leaf->Peek_Next ()) != nullptr);
 
 	return ;
 }
@@ -514,14 +514,14 @@ PresetListDialogClass::Populate_Preset_Tree (void)
 	//
 	//	Should we add any sub-factories to the tree?
 	//
-	if (DefinitionFactoryMgrClass::Find_Factory (m_ClassID) == NULL) {
+	if (DefinitionFactoryMgrClass::Find_Factory (m_ClassID) == nullptr) {
 
 		//
 		//	Generate the tree from its sub-factories
 		//
-		DefinitionFactoryClass *factory = NULL;
+		DefinitionFactoryClass *factory = nullptr;
 		for (	factory = DefinitionFactoryMgrClass::Get_First (m_ClassID);
-				factory != NULL;
+				factory != nullptr;
 				factory = DefinitionFactoryMgrClass::Get_Next (factory, m_ClassID))
 		{
 			if (factory->Is_Displayed ()) {
@@ -569,18 +569,18 @@ PresetListDialogClass::Fill_Tree (NTreeLeafClass<PresetClass *> *leaf, HTREEITEM
 	//
 	//	Loop over all the presets
 	//
-	for (	; leaf != NULL; leaf = leaf->Peek_Next ()) {
+	for (	; leaf != nullptr; leaf = leaf->Peek_Next ()) {
 		PresetClass *preset = leaf->Get_Value ();
 
-		ASSERT (preset != NULL);
-		if (preset != NULL) {
+		ASSERT (preset != nullptr);
+		if (preset != nullptr) {
 
 			//
 			//	Insert the new preset into the tree
 			//
 			int icon = preset->Get_Icon_Index ();
 			HTREEITEM new_item = m_PresetTreeCtrl.InsertItem (preset->Get_Name (), icon, icon, parent_item);
-			if (new_item != NULL) {
+			if (new_item != nullptr) {
 
 				//
 				//	Associate the preset with its tree entry
@@ -591,7 +591,7 @@ PresetListDialogClass::Fill_Tree (NTreeLeafClass<PresetClass *> *leaf, HTREEITEM
 				//	Recurse if necessary
 				//
 				NTreeLeafClass<PresetClass *> *child = leaf->Peek_Child ();
-				if (child != NULL) {
+				if (child != nullptr) {
 					Fill_Tree (child, new_item);
 					m_PresetTreeCtrl.SortChildren (parent_item);
 				}
@@ -609,9 +609,9 @@ PresetListDialogClass::Fill_Tree (NTreeLeafClass<PresetClass *> *leaf, HTREEITEM
 	//
 	//	Add all the presets (by category) to the tree control
 	//
-	DefinitionFactoryClass *factory = NULL;
+	DefinitionFactoryClass *factory = nullptr;
 	for (	factory = DefinitionFactoryMgrClass::Get_First (m_ClassID);
-			factory != NULL;
+			factory != nullptr;
 			factory = DefinitionFactoryMgrClass::Get_Next (factory, m_ClassID))
 	{
 		//
@@ -622,10 +622,10 @@ PresetListDialogClass::Fill_Tree (NTreeLeafClass<PresetClass *> *leaf, HTREEITEM
 		//
 		//	Add all the folder contents to the tree ctrl
 		//
-		PresetClass *preset = NULL;
+		PresetClass *preset = nullptr;
 		uint32 factory_id = factory->Get_Class_ID ();
 		for (	preset = PresetMgrClass::Get_First (factory_id, PresetMgrClass::ID_CLASS);
-				preset != NULL;
+				preset != nullptr;
 				preset = PresetMgrClass::Get_Next (preset, factory_id, PresetMgrClass::ID_CLASS))
 		{
 			//

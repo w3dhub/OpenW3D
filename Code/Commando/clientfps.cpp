@@ -43,7 +43,7 @@
 #include "apppackettypes.h"
 
 
-CClientFps *		PClientFps = NULL;
+CClientFps *		PClientFps = nullptr;
 
 DECLARE_NETWORKOBJECT_FACTORY(CClientFps, NETCLASSID_CLIENTFPS);
 
@@ -100,7 +100,7 @@ CClientFps::Act(void)
 	WWASSERT(cNetwork::I_Am_Server());
 
 	cPlayer * p_player = cPlayerManager::Find_Player(ClientId);
-	if (p_player != NULL)
+	if (p_player != nullptr)
 	{
 		p_player->Set_Fps(Fps);
 	}

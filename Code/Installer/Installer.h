@@ -215,7 +215,7 @@ class InstallerClass
 		bool Register_COM_Server (const WideStringClass &comdll);
 		void Create_Encryption_File (const WideStringClass &pathname);
 		void Encrypt (const char *number, const WideStringClass &pathname, StringClass &encryptednumber);
-		bool Create_File_Link (const WideStringClass &linkpath, const WideStringClass &title, const WideStringClass &targetpathname, const WideStringClass &iconpathname, const WideStringClass *arguments = NULL);
+		bool Create_File_Link (const WideStringClass &linkpath, const WideStringClass &title, const WideStringClass &targetpathname, const WideStringClass &iconpathname, const WideStringClass *arguments = nullptr);
 		bool Create_URL_Link (const WideStringClass &linkpath, const WideStringClass &title, const WideStringClass &url);
 		bool Has_WOL_Account();
 		void Create_Game_Uninstall_Log();

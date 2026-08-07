@@ -34,10 +34,6 @@
 
 #include "msgstatlist.h"
 
-#ifndef NULL
-#define NULL 0L
-#endif
-
 //-----------------------------------------------------------------------------
 class cMsgStatListGroup
 {

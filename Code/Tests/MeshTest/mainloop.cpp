@@ -74,8 +74,8 @@ CameraClass *			Camera;
 LightClass *			Light;
 LightClass *			Light2;
 
-RenderObjClass *		TestModel = NULL;
-HAnimClass *			TestAnim = NULL;
+RenderObjClass *		TestModel = nullptr;
+HAnimClass *			TestAnim = nullptr;
 
 float						CameraDist = 10.0f;
 float						CameraDir = 0.0f;
@@ -222,7 +222,7 @@ void Create_Objects(void)
 void Destroy_Scene(void)
 {
 	TheScene->Release_Ref();
-	TheScene = NULL;
+	TheScene = nullptr;
 }
 
 
@@ -234,24 +234,24 @@ void	Destroy_Objects(void)
 	if (TestModel) {
 		TestModel->Remove();
 		TestModel->Release_Ref();
-		TestModel = NULL;
+		TestModel = nullptr;
 	}
 
 	if (Camera) {
 		Camera->Release_Ref();
-		Camera = NULL;
+		Camera = nullptr;
 	}
 
 	if (Light) {
 		Light->Remove();
 		Light->Release_Ref();
-		Light = NULL;
+		Light = nullptr;
 	}
 
 	if (Light2) {
 		Light2->Remove();
 		Light2->Release_Ref();
-		Light2 = NULL;
+		Light2 = nullptr;
 	}
 
 	WW3DAssetManager::Get_Instance()->Free_Assets();
@@ -300,7 +300,7 @@ void Time_Step(void)
 
 
 #if 0
-	MeshClass * mesh = NULL;
+	MeshClass * mesh = nullptr;
 	static int _frame = 0;
 
 	if (TestAnim) {
@@ -410,7 +410,7 @@ void Time_Step(void)
 			}
 
 			matinfo->Release_Ref();
-			matinfo = NULL;
+			matinfo = nullptr;
 
 			if (mtl) mtl->Release_Ref();
 		}
@@ -442,9 +442,9 @@ void	Shutdown_Debug(void)
 	** Remove message handler functions for the WWDebug messages
 	** and assertion failures.
 	*/
-	WWDebug_Install_Message_Handler(NULL);
-	WWDebug_Install_Assert_Handler(NULL);
-	WWDebug_Install_Trigger_Handler(NULL);
+	WWDebug_Install_Message_Handler(nullptr);
+	WWDebug_Install_Assert_Handler(nullptr);
+	WWDebug_Install_Trigger_Handler(nullptr);
 }
 
 void wwdebug_message_handler(const char * message)
@@ -480,7 +480,7 @@ void Debug_Refs(void)
 
 	if (RefCountClass::Total_Refs() != 0) {
 		sprintf(buf,"Main Loop End %d refs\n", RefCountClass::Total_Refs() );
-		MessageBox(NULL,buf,"Ref Debugging",MB_OK);
+		MessageBox(nullptr,buf,"Ref Debugging",MB_OK);
 	}
 
 	RefBaseNodeClass * node = RefBaseClass::ActiveRefList.First();
@@ -492,7 +492,7 @@ void Debug_Refs(void)
 		ActiveRefStruct * ref = &(obj->ActiveRefInfo);
 
 		sprintf(buf,"Active Ref: %s\nLine: %d\nPointer %p\n", ref->File,ref->Line,obj);
-		if (MessageBox(NULL,buf,"Ref Debugging",MB_OKCANCEL) == IDCANCEL) {
+		if (MessageBox(nullptr,buf,"Ref Debugging",MB_OKCANCEL) == IDCANCEL) {
 			break;
 		}
 

@@ -82,7 +82,7 @@ ModPackageClass::Set_Package_Filename (const char *name)
 	//
 	StringClass temp_str = name;
 	char *extension		= ::strrchr (temp_str.Peek_Buffer (), '.');
-	if (extension != NULL) {
+	if (extension != nullptr) {
 		extension[0]	= 0;
 		Name				= temp_str;
 	} else {
@@ -175,7 +175,7 @@ ModPackageClass::Compute_CRC (void)
 	//	Get a file object for the package
 	//
 	FileClass *file = _TheFileFactory->Get_File (PackageFilename);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		//
 		//	Open the file

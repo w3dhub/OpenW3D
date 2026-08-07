@@ -57,7 +57,7 @@ enum
 // PresetRemapDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-PresetRemapDialogClass::PresetRemapDialogClass (CWnd* pParent /*=NULL*/)
+PresetRemapDialogClass::PresetRemapDialogClass (CWnd* pParent /*=nullptr*/)
 	: CDialog(PresetRemapDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(PresetRemapDialogClass)
@@ -124,7 +124,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 		//
 		for (int index = 0; index < NodeList.Count (); index ++) {
 			NodeClass *node = NodeList[index];
-			if (node != NULL) {
+			if (node != nullptr) {
 				StringClass name = node->Get_Name ();
 				WWDEBUG_SAY (("Unable to find preset for node: %s\n", (const char *)name));
 			}
@@ -142,7 +142,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 		//
 		for (int index = 0; index < NodeList.Count (); index ++) {
 			NodeClass *node = NodeList[index];
-			if (node != NULL) {
+			if (node != nullptr) {
 				StringClass name = node->Get_Name ();
 
 				//
@@ -156,11 +156,11 @@ PresetRemapDialogClass::OnInitDialog (void)
 					//	Take a best guess at a preset name for the object
 					//
 					char *separator = const_cast<char *>(::strchr (name, '.'));
-					if (separator != NULL) {
+					if (separator != nullptr) {
 						separator[0] = 0;
 						const char *candidate_preset_name = name;
 						PresetClass *candidate_preset = PresetMgrClass::Find_Preset (candidate_preset_name);
-						if (candidate_preset != NULL) {
+						if (candidate_preset != nullptr) {
 
 							//
 							//	Associate the preset with the object
@@ -202,7 +202,7 @@ PresetRemapDialogClass::OnDblclkListCtrl
 		//	Get the node from this item
 		//
 		NodeClass *node = (NodeClass *)m_ListCtrl.GetItemData (item_index);
-		if (node != NULL) {
+		if (node != nullptr) {
 
 			//
 			//	Show a dialog to the user that will enable them to
@@ -232,7 +232,7 @@ PresetRemapDialogClass::OnDblclkListCtrl
 					//
 					for (int index = 0; index < count; index ++) {
 						NodeClass *curr_node = (NodeClass *)m_ListCtrl.GetItemData (index);
-						if (curr_node != NULL && curr_node->Get_Preset_ID () == preset_id_to_change) {
+						if (curr_node != nullptr && curr_node->Get_Preset_ID () == preset_id_to_change) {
 
 							//
 							//	Associate the preset with the object
@@ -300,7 +300,7 @@ PresetRemapDialogClass::OnOK (void)
 	int count = m_ListCtrl.GetItemCount ();
 	for (int index = 0; index < count; index ++) {
 		NodeClass *curr_node = (NodeClass *)m_ListCtrl.GetItemData (index);
-		if (curr_node->Get_Preset () != NULL) {
+		if (curr_node->Get_Preset () != nullptr) {
 
 			//
 			//	Add this node to the world

@@ -75,14 +75,14 @@ void 	OverlayGameModeClass::Shutdown()
 {
 	TextWindowClass::Shutdown();
 
-	if ( Scene != NULL ) {
+	if ( Scene != nullptr ) {
 		Scene->Release_Ref();
-		Scene = NULL;
+		Scene = nullptr;
 	}
 
-	if ( Camera != NULL ) {
+	if ( Camera != nullptr ) {
 		Camera->Release_Ref();
-		Camera = NULL;
+		Camera = nullptr;
 	}
 }
 
@@ -113,34 +113,34 @@ void	Overlay3DGameModeClass::Init()
 	Camera->Set_View_Plane (Vector2 (-0.5f, -0.375f), Vector2 (0.5f, 0.375f));
 	Camera->Set_Clip_Planes (620, 620 * 1000);
 
-	Model = NULL;
+	Model = nullptr;
 }
 
 void 	Overlay3DGameModeClass::Shutdown()
 {
 	Release_Model();
 
-	if ( Scene != NULL ) {
+	if ( Scene != nullptr ) {
 		Scene->Release_Ref();
-		Scene = NULL;
+		Scene = nullptr;
 	}
 
-	if ( Camera != NULL ) {
+	if ( Camera != nullptr ) {
 		Camera->Release_Ref();
-		Camera = NULL;
+		Camera = nullptr;
 	}
 }
 
 void 	Overlay3DGameModeClass::Render()
 {
-	if ( Model != NULL ) {
+	if ( Model != nullptr ) {
 		WW3D::Render( Scene, Camera );
 	}
 }
 
 void 	Overlay3DGameModeClass::Release_Model( void )
 {
-	if (Model != NULL) {
+	if (Model != nullptr) {
 		Model->Remove ();
 	}
 	REF_PTR_RELEASE (Model);
@@ -150,15 +150,15 @@ void 	Overlay3DGameModeClass::Set_Model( const char * name, const char * anim_na
 {
 	Release_Model();
 
-	if ( name != NULL ) {
+	if ( name != nullptr ) {
 		Model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj (name);
 
-		if (Model != NULL) {
+		if (Model != nullptr) {
 			Scene->Add_Render_Object (Model);
 
-			if ( anim_name != NULL ) {
+			if ( anim_name != nullptr ) {
 				HAnimClass *anim = WW3DAssetManager::Get_Instance ()->Get_HAnim (anim_name);
-				if (anim != NULL) {
+				if (anim != nullptr) {
 					Model->Set_Animation (anim, 0, RenderObjClass::ANIM_MODE_ONCE);
 					REF_PTR_RELEASE (anim);
 				}
@@ -169,7 +169,7 @@ void 	Overlay3DGameModeClass::Set_Model( const char * name, const char * anim_na
 
 void 	Overlay3DGameModeClass::Start_Intro( void )
 {
-	Set_Model( "e32001_fade-in", NULL );
+	Set_Model( "e32001_fade-in", nullptr );
 	ModelTimer = 15;
 	EndScreen = false;
 }

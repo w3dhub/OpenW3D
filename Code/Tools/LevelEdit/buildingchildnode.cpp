@@ -72,8 +72,8 @@ enum
 //
 //////////////////////////////////////////////////////////////////////////////
 BuildingChildNodeClass::BuildingChildNodeClass (PresetClass *preset)
-	:	PhysObj (NULL),
-		Building (NULL),
+	:	PhysObj (nullptr),
+		Building (nullptr),
 		NodeClass (preset)
 {
 	return ;
@@ -86,9 +86,9 @@ BuildingChildNodeClass::BuildingChildNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 BuildingChildNodeClass::BuildingChildNodeClass (const BuildingChildNodeClass &src)
-	:	PhysObj (NULL),
-		Building (NULL),
-		NodeClass (NULL)
+	:	PhysObj (nullptr),
+		Building (nullptr),
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -126,8 +126,8 @@ BuildingChildNodeClass::Initialize (void)
 	//	Create the attack-point render object
 	//
 	RenderObjClass *render_obj = ::Create_Render_Obj ("CARMARKER");
-	WWASSERT (render_obj != NULL);
-	if (render_obj != NULL) {
+	WWASSERT (render_obj != nullptr);
+	if (render_obj != nullptr) {
 
 		// Create the new physics object
 		PhysObj = new DecorationPhysClass;
@@ -256,7 +256,7 @@ BuildingChildNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (PhysObj != NULL && m_IsInScene) {
+	if (PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (PhysObj);
 	}
 
@@ -275,7 +275,7 @@ BuildingChildNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (PhysObj != NULL && m_IsInScene) {
+	if (PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (PhysObj);
 	}
 

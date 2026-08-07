@@ -82,18 +82,18 @@ class TextureListNodeClass
 		//
 		//	Public constructors/destructors
 		//
-		TextureListNodeClass (LPCTSTR name = NULL)
-			: m_pTexture (NULL),
+		TextureListNodeClass (LPCTSTR name = nullptr)
+			: m_pTexture (nullptr),
 			  m_Type (TYPE_MESH),
-			  m_pParent (NULL),
+			  m_pParent (nullptr),
 			  m_Name (name),
 			  m_TextureIndex (0),
 			  m_IconIndex (ICON_MESH) {}
 
-		TextureListNodeClass (TextureClass *ptexture, LPCTSTR name = NULL)
-			: m_pTexture (NULL),
+		TextureListNodeClass (TextureClass *ptexture, LPCTSTR name = nullptr)
+			: m_pTexture (nullptr),
 			  m_Type (TYPE_TEXTURE),
-			  m_pParent (NULL),
+			  m_pParent (nullptr),
 			  m_Name (name),
 			  m_TextureIndex (0),
 			  m_IconIndex (ICON_DEF_TEXTURE) { MEMBER_ADD (m_pTexture, ptexture); }
@@ -178,7 +178,7 @@ class TextureMgrDialogClass : public CDialog
 
 // Construction
 public:
-	TextureMgrDialogClass (RenderObjClass *pbase_model, CWnd *pParent = NULL);
+	TextureMgrDialogClass (RenderObjClass *pbase_model, CWnd *pParent = nullptr);
 
 // Dialog Data
 	//{{AFX_DATA(TextureMgrDialogClass)

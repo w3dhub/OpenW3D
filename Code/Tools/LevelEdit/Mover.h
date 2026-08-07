@@ -83,7 +83,7 @@ public:
 	static void			Position_Nodes_Along_Ray (const Vector3 &start, const Vector3 &end);
 	static Vector3		Position_Nodes_Along_Ray (NODE_LIST &list, const Vector3 &tracking_pt, const Vector3 &start, const Vector3 &end);
 
-	static Vector3		Calc_New_Position (const Matrix3D &coord_system, const Vector3 &start_point_in_world_coords, LPPOINT mouse_pos = NULL);
+	static Vector3		Calc_New_Position (const Matrix3D &coord_system, const Vector3 &start_point_in_world_coords, LPPOINT mouse_pos = nullptr);
 
 	//
 	//	Translation functions
@@ -164,7 +164,7 @@ MoverClass::Cast_Ray
 	//	Return a pointer to the collided physics object if the
 	// cast hit something
 	//
-	PhysClass *collided_obj = NULL;
+	PhysClass *collided_obj = nullptr;
 	if (result.Fraction < 1.0F) {
 		collided_obj = raytest.CollidedPhysObj;
 	}
@@ -193,7 +193,7 @@ MoverClass::Cast_Box
 	//	Return a pointer to the collided physics object if the
 	// cast hit something
 	//
-	PhysClass *collided_obj = NULL;
+	PhysClass *collided_obj = nullptr;
 	if (result.Fraction < 1.0F) {
 		collided_obj = boxtest.CollidedPhysObj;
 	}

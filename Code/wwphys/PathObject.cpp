@@ -93,7 +93,7 @@ void
 PathObjectClass::Initialize (PhysClass &phys_obj)
 {
 	RenderObjClass *render_obj = phys_obj.Peek_Model ();
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 
 		//
 		//	Lookup the render object's collision box
@@ -104,12 +104,12 @@ PathObjectClass::Initialize (PhysClass &phys_obj)
 	//
 	//	Everything except for humans rotate their collision boxes
 	//
-	Set_Flag (PathObjectClass::CAN_BOX_ROTATE, (phys_obj.As_HumanPhysClass () == NULL));
+	Set_Flag (PathObjectClass::CAN_BOX_ROTATE, (phys_obj.As_HumanPhysClass () == nullptr));
 
 	//
 	//	By default we will assume the vehicles steering-wheels are located in the front...
 	//
-	if (phys_obj.As_HumanPhysClass () == NULL) {
+	if (phys_obj.As_HumanPhysClass () == nullptr) {
 		Set_Wheel_Offset (m_CollisionBox.Extent.X);
 	}
 
@@ -148,7 +148,7 @@ PathObjectClass::Init_Human (void)
 void
 Get_Collision_Box (RenderObjClass *render_obj, OBBoxClass &bounding_box)
 {
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 
 		//
 		// Try to get the "WorldBox" from the model
@@ -159,14 +159,14 @@ Get_Collision_Box (RenderObjClass *render_obj, OBBoxClass &bounding_box)
 		// The LOD code generates a unique name for the mesh by appending A,B,C, etc to the name.
 		// A is the lowest LOD, B is the next, and so on.  Our worldbox is specified in the highest
 		// LOD so we have to construct the name by appending 'A'+LodCount to the name... icky
-		if ((world_box == NULL) && (render_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
+		if ((world_box == nullptr) && (render_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
 
 			char namebuffer[64];
 			sprintf(namebuffer,"WorldBox%c",'A' + ((HLodClass *)render_obj)->Get_Lod_Count() - 1);
 			world_box = render_obj->Get_Sub_Object_By_Name (namebuffer);
 		}
 
-		if (world_box != NULL && world_box->Class_ID() == RenderObjClass::CLASSID_OBBOX) {
+		if (world_box != nullptr && world_box->Class_ID() == RenderObjClass::CLASSID_OBBOX) {
 			bounding_box = ((OBBoxRenderObjClass *)world_box)->Get_Box ();
 		}
 

@@ -206,8 +206,8 @@ ScriptZoneGameObj::ScriptZoneGameObj( void ) :
 ScriptZoneGameObj::~ScriptZoneGameObj( void )
 {
 	GameObjReference * ref;
-	while (	(ref = InsideList.Remove_Head() ) != NULL ) {
-		*ref = NULL;
+	while (	(ref = InsideList.Remove_Head() ) != nullptr ) {
+		*ref = nullptr;
 		delete ref;
 	}
 }
@@ -264,7 +264,7 @@ bool	ScriptZoneGameObj::Save( ChunkSaveClass & csave )
 	SLNode<GameObjReference> *pobjrefnode;
 	for (	pobjrefnode = InsideList.Head(); pobjrefnode; pobjrefnode = pobjrefnode->Next() ) {
 		GameObjReference *ref = pobjrefnode->Data();
-		if ( *ref != NULL ) {
+		if ( *ref != nullptr ) {
 			csave.Begin_Chunk( CHUNKID_INSIDE_LIST_ENTRY );
 			ref->Save( csave );
 			csave.End_Chunk();
@@ -349,11 +349,11 @@ void	ScriptZoneGameObj::Think()
 
 		SLNode<GameObjReference> * next = pobjrefnode->Next();
 
-		if ( obj == NULL ) {
+		if ( obj == nullptr ) {
 			Debug_Say(( "Object died inside me\n" ));
 			GameObjReference * ref = pobjrefnode->Data();
 			InsideList.Remove( ref );
-			*ref = NULL;
+			*ref = nullptr;
 			delete ref;
 		} else if ( !Inside_Me( obj ) ) {
 
@@ -364,7 +364,7 @@ void	ScriptZoneGameObj::Think()
 
 			GameObjReference * ref = pobjrefnode->Data();
 			InsideList.Remove( ref );
-			*ref = NULL;
+			*ref = nullptr;
 			delete ref;
 		}
 
@@ -391,9 +391,9 @@ void	ScriptZoneGameObj::Think()
 		PhysicsSceneClass::Get_Instance()->Collect_Objects( BoundingBox, false, true, &objs_in_zone );
 		NonRefPhysListIterator it(&objs_in_zone);
 		for (it.First(); !it.Is_Done(); it.Next()) {
-			if ( it.Peek_Obj()->Get_Observer() != NULL ) {
+			if ( it.Peek_Obj()->Get_Observer() != nullptr ) {
 				PhysicalGameObj * gameobj = ((CombatPhysObserverClass *)it.Peek_Obj()->Get_Observer())->As_PhysicalGameObj();
-				if (gameobj != NULL) {
+				if (gameobj != nullptr) {
 					SmartGameObj *obj = gameobj->As_SmartGameObj();
 					if ( obj && Inside_Me( obj ) && !In_List( obj ) ) {
 						Entered( obj );
@@ -426,7 +426,7 @@ void		ScriptZoneGameObj::Entered( SmartGameObj * obj )
 */
 bool	ScriptZoneGameObj::In_List( SmartGameObj * obj )
 {
-	WWASSERT( obj != NULL );
+	WWASSERT( obj != nullptr );
 	SLNode<GameObjReference> *pobjrefnode;
 	for (	pobjrefnode = InsideList.Head(); pobjrefnode; pobjrefnode = pobjrefnode->Next() ) {
 		if ( obj == *pobjrefnode->Data() ) {
@@ -457,21 +457,21 @@ ScriptZoneGameObj *ScriptZoneGameObj::Find_Closest_Zone (const Vector3 &pos, Zon
 {
 	SList<BaseGameObj> *list = GameObjManager::Get_Game_Obj_List ();
 	float closest_dist2					= 999999.0F;
-	ScriptZoneGameObj *closest_zone	= NULL;
+	ScriptZoneGameObj *closest_zone	= nullptr;
 
 	//
 	//	Loop over all the objects looking for zones
 	//
-	SLNode<BaseGameObj> *node = NULL;
-	for (node = list->Head (); node != NULL; node = node->Next ()) {
+	SLNode<BaseGameObj> *node = nullptr;
+	for (node = list->Head (); node != nullptr; node = node->Next ()) {
 		BaseGameObj *game_obj = node->Data ();
 
 		//
 		//	Is this a building on our team?
 		//
-		if (game_obj != NULL && game_obj->As_ScriptableGameObj () != NULL) {
+		if (game_obj != nullptr && game_obj->As_ScriptableGameObj () != nullptr) {
 			ScriptZoneGameObj *zone = game_obj->As_ScriptableGameObj ()->As_ScriptZoneGameObj ();
-			if (zone != NULL) {
+			if (zone != nullptr) {
 
 				//
 				//	Is the type of zone we are looking for?
@@ -555,7 +555,7 @@ bool	ScriptZoneGameObj::Exists_On_Client( void ) const
 */
 
 /*
-	if (Get_Definition().ZoneType == TYPE_CTF && obj->As_SoldierGameObj() != NULL) {
+	if (Get_Definition().ZoneType == TYPE_CTF && obj->As_SoldierGameObj() != nullptr) {
 		CombatManager::Soldier_Enters_Pedestal(obj->As_SoldierGameObj(), Get_Player_Type());
 	}
 	*/

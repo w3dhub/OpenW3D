@@ -86,7 +86,7 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
 		 }
 	 }
 	if (bAppendItems){
-		InsertMenu(hMenu, indexMenu++, MF_SEPARATOR|MF_BYPOSITION, 0, NULL);
+		InsertMenu(hMenu, indexMenu++, MF_SEPARATOR|MF_BYPOSITION, 0, nullptr);
 		InsertMenu(hMenu, indexMenu,MF_STRING|MF_BYPOSITION,idCmd++, szMenuText);
 		return ResultFromShort(idCmd-idCmdFirst); //Must return number of menu items we added.
    }

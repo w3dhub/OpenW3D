@@ -63,13 +63,13 @@ static float Bone_Distance(INode * bone,TimeValue time,const Point3 & vertex);
 /*
 ** Static variables
 */
-HWND					SkinWSMObjectClass::SotHWND = NULL;
-HWND					SkinWSMObjectClass::SkeletonHWND = NULL;
-HWND					SkinWSMObjectClass::BoneListHWND = NULL;
-IObjParam *			SkinWSMObjectClass::InterfacePtr = NULL;
-ICustButton *		SkinWSMObjectClass::AddBonesButton = NULL;
-ICustButton *		SkinWSMObjectClass::RemoveBonesButton = NULL;
-ISpinnerControl *	SkinWSMObjectClass::BasePoseSpin = NULL;
+HWND					SkinWSMObjectClass::SotHWND = nullptr;
+HWND					SkinWSMObjectClass::SkeletonHWND = nullptr;
+HWND					SkinWSMObjectClass::BoneListHWND = nullptr;
+IObjParam *			SkinWSMObjectClass::InterfacePtr = nullptr;
+ICustButton *		SkinWSMObjectClass::AddBonesButton = nullptr;
+ICustButton *		SkinWSMObjectClass::RemoveBonesButton = nullptr;
+ISpinnerControl *	SkinWSMObjectClass::BasePoseSpin = nullptr;
 
 
 /*******************************************************************************
@@ -154,24 +154,24 @@ SkinWSMObjectClass::SkinWSMObjectClass()
 	BoneTab.SetCount(0);
 	BasePoseFrame = 0;
 
-	pblock = NULL;
+	pblock = nullptr;
 }
 
 SkinWSMObjectClass::~SkinWSMObjectClass(void)
 {
 		OutputDebugString("DeletingSkinWSMObjectClass\n");
-	assert(!((InterfacePtr == NULL) && (SotHWND != NULL)));
-	if (SotHWND != NULL) {
+	assert(!((InterfacePtr == nullptr) && (SotHWND != nullptr)));
+	if (SotHWND != nullptr) {
 		InterfacePtr->UnRegisterDlgWnd(SotHWND);
 		InterfacePtr->DeleteRollupPage(SotHWND);
-	  	SotHWND = NULL;
+	  	SotHWND = nullptr;
 	}
 
-	assert(!((InterfacePtr == NULL) && (SkeletonHWND != NULL)));
-	if (SkeletonHWND != NULL) {
+	assert(!((InterfacePtr == nullptr) && (SkeletonHWND != nullptr)));
+	if (SkeletonHWND != nullptr) {
 		InterfacePtr->UnRegisterDlgWnd(SkeletonHWND);
 		InterfacePtr->DeleteRollupPage(SkeletonHWND);
-	  	SkeletonHWND = NULL;
+	  	SkeletonHWND = nullptr;
 	}
 }
 
@@ -189,7 +189,7 @@ void SkinWSMObjectClass::BeginEditParams(IObjParam  *ip, ULONG flags,Animatable 
 	/*
 	** Install the "supports objects of type" rollup
 	*/
-	if (SotHWND == NULL) {
+	if (SotHWND == nullptr) {
 		SotHWND = ip->AddRollupPage(
 					AppInstance,
 					MAKEINTRESOURCE(IDD_SKIN_SOT),
@@ -204,7 +204,7 @@ void SkinWSMObjectClass::BeginEditParams(IObjParam  *ip, ULONG flags,Animatable 
 	/*
 	** Install the skeleton rollup
 	*/
-	if (SkeletonHWND == NULL) {
+	if (SkeletonHWND == nullptr) {
 		SkeletonHWND = InterfacePtr->AddRollupPage(
 					AppInstance,
 					MAKEINTRESOURCE(IDD_SKELETON_PARAMETERS),
@@ -228,26 +228,26 @@ void SkinWSMObjectClass::EndEditParams(IObjParam *ip, ULONG flags,Animatable *ne
 		/*
 		** Remove the Sot rollup
 		*/
-		if (SotHWND != NULL) {
+		if (SotHWND != nullptr) {
 			InterfacePtr->UnRegisterDlgWnd(SotHWND);
 			InterfacePtr->DeleteRollupPage(SotHWND);
-	  		SotHWND = NULL;
+	  		SotHWND = nullptr;
 		}
 
 		/*
 		** Remove the info rollup
 		*/
-		if (SkeletonHWND != NULL) {
+		if (SkeletonHWND != nullptr) {
 			InterfacePtr->UnRegisterDlgWnd(SkeletonHWND);
 			InterfacePtr->DeleteRollupPage(SkeletonHWND);
-	  		SkeletonHWND = NULL;
+	  		SkeletonHWND = nullptr;
 		}
 	}
 
 	/*
 	** get rid of our copy of the interface pointer
 	*/
-	InterfacePtr = NULL;
+	InterfacePtr = nullptr;
 }
 
 RefTargetHandle SkinWSMObjectClass::Clone(RemapDir & remap)
@@ -316,7 +316,7 @@ CreateMouseCallBack * SkinWSMObjectClass::GetCreateMouseCallBack(void)
 	/*
 	** The "CreateMouseCallback" is used when creating the
 	** object.  Since our object doesn't need an interactive
-	** creation phase, we return NULL.
+	** creation phase, we return nullptr.
 	*/
 	return &_SkinCreateCB;
 }
@@ -445,11 +445,11 @@ int SkinWSMObjectClass::Add_Bone(INode * node)
 	}
 
 	/*
-	** Otherwise, look for a NULL bone and we'll re-use
+	** Otherwise, look for a nullptr bone and we'll re-use
 	** its slot.  This happens when a user removes a bone or
 	** a bone in the scene is deleted.
 	*/
-	boneidx = Find_Bone(NULL);
+	boneidx = Find_Bone(nullptr);
 	if (boneidx != -1) {
 		refidx = To_Ref_Index(boneidx);
 		MakeRefByID(FOREVER,refidx,node);
@@ -482,7 +482,7 @@ void SkinWSMObjectClass::Remove_Bone(INode * node)
 {
 	int boneidx = Find_Bone(node);
 	if (boneidx != -1) {
-		BoneTab[boneidx] = NULL;
+		BoneTab[boneidx] = nullptr;
 		DeleteReference(To_Ref_Index(boneidx));
 	}
 }
@@ -501,7 +501,7 @@ void SkinWSMObjectClass::Remove_Bones(INodeTab & nodetab)
 void SkinWSMObjectClass::Update_Bone_List(void)
 {
 	OutputDebugString("SkinWSMObjectClass: Update_Bone_List\n");
-	assert(BoneListHWND != NULL);
+	assert(BoneListHWND != nullptr);
 
 	/*
 	** remove all strings in the bone listbox
@@ -512,7 +512,7 @@ void SkinWSMObjectClass::Update_Bone_List(void)
 	** loop through the bone tab and add the name of each
 	*/
 	for (int i=0; i<BoneTab.Count(); i++) {
-		if (BoneTab[i] != NULL) {
+		if (BoneTab[i] != nullptr) {
 			SendMessage(BoneListHWND,LB_ADDSTRING,0,(LPARAM)BoneTab[i]->GetName());
 		}
 	}
@@ -560,7 +560,7 @@ IOResult SkinWSMObjectClass::Load(ILoad * iload)
 				res = iload->Read(&numbones,sizeof(numbones),&nb);
 				BoneTab.SetCount(numbones);
 				for (int i=0; i<BoneTab.Count(); i++) {
-					BoneTab[i] = NULL;
+					BoneTab[i] = nullptr;
 				}
 			}
 			break;
@@ -584,7 +584,7 @@ int SkinWSMObjectClass::Find_Closest_Bone(const Point3 & vertex)
 
 	for (int boneidx = 0; boneidx < BoneTab.Count(); boneidx++) {
 
-		if (BoneTab[boneidx] == NULL) continue;
+		if (BoneTab[boneidx] == nullptr) continue;
 
 		float bonedist = Bone_Distance(BoneTab[boneidx],basetime,vertex);
 		if (bonedist < mindist) {
@@ -628,15 +628,15 @@ SkinModifierClass::SkinModifierClass(INode * node,SkinWSMObjectClass * skin_obj)
 void SkinModifierClass::Default_Init(void)
 {
 	SubObjSelLevel = VERTEX_SEL_LEVEL;
-	WSMObjectRef = NULL;
-	WSMNodeRef = NULL;
-	InterfacePtr = NULL;
+	WSMObjectRef = nullptr;
+	WSMNodeRef = nullptr;
+	InterfacePtr = nullptr;
 
-	BoneInfluenceHWND = NULL;
-	LinkButton = NULL;
-	LinkByNameButton = NULL;
-	AutoLinkButton = NULL;
-	UnLinkButton = NULL;
+	BoneInfluenceHWND = nullptr;
+	LinkButton = nullptr;
+	LinkByNameButton = nullptr;
+	AutoLinkButton = nullptr;
+	UnLinkButton = nullptr;
 }
 
 
@@ -700,7 +700,7 @@ void SkinModifierClass::EndEditParams(IObjParam *ip, ULONG flags,Animatable *nex
 	*/
 	InterfacePtr->DeleteMode(SelectMode);
 	if (SelectMode ) delete SelectMode;
-	SelectMode = NULL;
+	SelectMode = nullptr;
 
 	/*
 	** Remove the rollup window(s) if needed
@@ -712,7 +712,7 @@ void SkinModifierClass::EndEditParams(IObjParam *ip, ULONG flags,Animatable *nex
 	/*
 	** Make sure we don't hang onto an invalid interface
 	*/
-	InterfacePtr = NULL;
+	InterfacePtr = nullptr;
 }
 
 Interval SkinModifierClass::Get_Validity(TimeValue t)
@@ -742,7 +742,7 @@ RefTargetHandle SkinModifierClass::GetReference(int i)
 	switch (i) {
 		case OBJ_REF:			return WSMObjectRef;
 		case NODE_REF:			return WSMNodeRef;
-		default:					return NULL;
+		default:					return nullptr;
 	}
 }
 
@@ -790,7 +790,7 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 	** If there is no skin data, allocate it
 	** Also, do an initial auto attach.
 	*/
-	if (skindata == NULL) {
+	if (skindata == nullptr) {
 		mc.localData = skindata = new SkinDataClass(&triobj->mesh);
 	}
 
@@ -823,8 +823,8 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 
 		// TODO: Allow multiple bone influences here...
 		// issues - UI to set the weights, rebalance weights whenever
-		// a bone is deleted, should also then never get NULL bones
-		// and remove the need to check for NULL bones in this routine...
+		// a bone is deleted, should also then never get nullptr bones
+		// and remove the need to check for nullptr bones in this routine...
 
 		/*
 		** Get a pointer to the bone that this vertex is attached to
@@ -836,7 +836,7 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 
 			INode * bone = WSMObjectRef->Get_Bone(inf->BoneIdx[0]);
 
-			if (bone == NULL) {
+			if (bone == nullptr) {
 				/*
 				** this bone has gone away for some reason so
 				** clear this vert's bone influence index
@@ -942,7 +942,7 @@ IOResult SkinModifierClass::LoadLocalData(ILoad *iload, LocalModData **pld)
 	/*
 	** Create a new SkinDataClass
 	*/
-	if (*pld==NULL) {
+	if (*pld==nullptr) {
 		*pld = (SkinDataClass *) new SkinDataClass();
 	}
 	SkinDataClass * newskin = (SkinDataClass *)*pld;
@@ -971,7 +971,7 @@ void SkinModifierClass::ActivateSubobjSel(int level, XFormModes & modes)
 			break;
 
 		case VERTEX_SEL_LEVEL: // Modifying Vertices
-			modes = XFormModes(NULL,NULL,NULL,NULL,NULL,SelectMode);
+			modes = XFormModes(nullptr,nullptr,nullptr,nullptr,nullptr,SelectMode);
 			Install_Bone_Influence_Dialog();
 			break;
 	}
@@ -1058,7 +1058,7 @@ int SkinModifierClass::HitTest
 		** Remember that we are always turning on vertex hit testing;
 		** if we were testing for edges, index would be the edge index.
 		*/
-		vpt->LogHit(inode,mc,rec->dist,rec->index,NULL);
+		vpt->LogHit(inode,mc,rec->dist,rec->index,nullptr);
 		rec = rec->Next();
 	}
 
@@ -1076,7 +1076,7 @@ int SkinModifierClass::HitTest
 
 void SkinModifierClass::SelectSubComponent(HitRecord *hitRec, BOOL selected, BOOL all, BOOL invert)
 {
-	SkinDataClass * skindata = NULL;
+	SkinDataClass * skindata = nullptr;
 	int count = 0;
 
 	switch (SubObjSelLevel) {
@@ -1139,7 +1139,7 @@ void SkinModifierClass::ClearSelection(int selLevel)
 
 		SkinDataClass * skindata = (SkinDataClass *)mcList[i]->localData;
 
-		if (skindata==NULL) continue;
+		if (skindata==nullptr) continue;
 
 		ObjectState os = nodes[i]->EvalWorldState(InterfacePtr->GetTime());
 		TriObject * tobj = Get_Tri_Object(InterfacePtr->GetTime(),os,valid,needsdel);
@@ -1195,7 +1195,7 @@ void SkinModifierClass::SelectAll(int selLevel)
 
 		SkinDataClass * skindata = (SkinDataClass *)mclist[i]->localData;
 
-		if (skindata==NULL) continue;
+		if (skindata==nullptr) continue;
 
 		ObjectState os = nodes[i]->EvalWorldState(InterfacePtr->GetTime());
 		TriObject * tobj = Get_Tri_Object(InterfacePtr->GetTime(),os,valid,needsdel);
@@ -1249,7 +1249,7 @@ void SkinModifierClass::InvertSelection(int selLevel)
 
 		SkinDataClass * skindata = (SkinDataClass *)mclist[i]->localData;
 
-		if (skindata==NULL) continue;
+		if (skindata==nullptr) continue;
 
 		ObjectState os = nodes[i]->EvalWorldState(InterfacePtr->GetTime());
 		TriObject * tobj = Get_Tri_Object(InterfacePtr->GetTime(),os,valid,needsdel);
@@ -1293,13 +1293,13 @@ void SkinModifierClass::InvertSelection(int selLevel)
 
 void SkinModifierClass::User_Picked_Bone(INode * node)
 {
-	assert(InterfacePtr != NULL);
+	assert(InterfacePtr != nullptr);
 
 	/*
 	** Get a pointer to the ModContext and SkinData for
 	** the mesh currently being messed with.
 	*/
-	ModContext * mc = NULL;
+	ModContext * mc = nullptr;
 	ModContextList mclist;
 	INodeTab nodelist;
 
@@ -1312,7 +1312,7 @@ void SkinModifierClass::User_Picked_Bone(INode * node)
 	** don't
 	*/
 	mc = mclist[0];
-	assert(mc != NULL);
+	assert(mc != nullptr);
 	SkinDataClass * skindata = (SkinDataClass *)(mc->localData);
 
 	/*
@@ -1351,7 +1351,7 @@ void SkinModifierClass::ActivateSubSelSet(TSTR & setname)
 	ModContextList mclist;
 	INodeTab nodes;
 
-	if (InterfacePtr == NULL) return;
+	if (InterfacePtr == nullptr) return;
 
 	InterfacePtr->GetModContexts(mclist,nodes);
 
@@ -1409,16 +1409,16 @@ void SkinModifierClass::Create_Named_Selection_Sets(void)
 	** This function creates a named selection set of vertices
 	** for each bone in the skeleton.
 	*/
-	if (InterfacePtr == NULL) return;
+	if (InterfacePtr == nullptr) return;
 
 	SkinWSMObjectClass * skinobj = WSMObjectRef;
-	if (skinobj == NULL) return;
+	if (skinobj == nullptr) return;
 
 	ModContextList mclist;
 	INodeTab nodes;
 	InterfacePtr->GetModContexts(mclist,nodes);
 	SkinDataClass * skindata = (SkinDataClass *)mclist[0]->localData;
-	if (skindata == NULL) return;
+	if (skindata == nullptr) return;
 
 	/*
 	** Clear out the old selection sets
@@ -1430,7 +1430,7 @@ void SkinModifierClass::Create_Named_Selection_Sets(void)
 	*/
 	for (int boneidx = 0; boneidx < skinobj->Num_Bones(); boneidx++) {
 
-		if (skinobj->Get_Bone(boneidx) != NULL) {
+		if (skinobj->Get_Bone(boneidx) != nullptr) {
 			BitArray boneverts;
 			boneverts.SetSize(skindata->VertData.Count());
 
@@ -1456,13 +1456,13 @@ void SkinModifierClass::Install_Named_Selection_Sets(void)
 	** If we are in sub-object selection mode add the sets
 	** to the drop down box.
 	*/
-	if ((SubObjSelLevel == VERTEX_SEL_LEVEL) && (InterfacePtr != NULL)) {
+	if ((SubObjSelLevel == VERTEX_SEL_LEVEL) && (InterfacePtr != nullptr)) {
 
 		ModContextList mclist;
 		INodeTab nodes;
 		InterfacePtr->GetModContexts(mclist,nodes);
 		SkinDataClass * skindata = (SkinDataClass *)mclist[0]->localData;
-		if (skindata == NULL) return;
+		if (skindata == nullptr) return;
 
 		InterfacePtr->ClearSubObjectNamedSelSets();
 		for (int i=0; i < skindata->VertSelSets.Count(); i++) {
@@ -1484,13 +1484,13 @@ void SkinModifierClass::Auto_Attach_Verts(BOOL all)
 	INodeTab nodes;
 	InterfacePtr->GetModContexts(mclist,nodes);
 	SkinDataClass * skindata = (SkinDataClass *)mclist[0]->localData;
-	if (skindata == NULL) return;
+	if (skindata == nullptr) return;
 
 	/*
 	** get the skin WSM object.
 	*/
 	SkinWSMObjectClass * skinobj = WSMObjectRef;
-	if (skinobj == NULL) return;
+	if (skinobj == nullptr) return;
 
 	/*
 	** Get a triobject representing the object state in the base pose.
@@ -1547,7 +1547,7 @@ void SkinModifierClass::Unlink_Verts(void)
 	INodeTab nodes;
 	InterfacePtr->GetModContexts(mclist,nodes);
 	SkinDataClass * skindata = (SkinDataClass *)mclist[0]->localData;
-	if (skindata == NULL) return;
+	if (skindata == nullptr) return;
 
 	/*
 	** Unlink each selected vertex (give them bone index -1)
@@ -1584,7 +1584,7 @@ void SkinModifierClass::Unlink_Verts(void)
 
 void SkinModifierClass::Install_Bone_Influence_Dialog(void)
 {
-	if (BoneInfluenceHWND != NULL) return;
+	if (BoneInfluenceHWND != nullptr) return;
 
 	/*
 	** loading resource string for the name of the dialog
@@ -1614,10 +1614,10 @@ void SkinModifierClass::Remove_Bone_Influence_Dialog(void)
 	/*
 	** If it is currently up, remove the bone influences dialog
 	*/
-	if (BoneInfluenceHWND != NULL) {
+	if (BoneInfluenceHWND != nullptr) {
 		InterfacePtr->UnRegisterDlgWnd(BoneInfluenceHWND);
 		InterfacePtr->DeleteRollupPage(BoneInfluenceHWND);
-		BoneInfluenceHWND = NULL;
+		BoneInfluenceHWND = nullptr;
 	}
 }
 
@@ -1703,10 +1703,10 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			ReleaseICustButton(RemoveBonesButton);
 			ReleaseISpinner(BasePoseSpin);
 
-			AddBonesButton = NULL;
-			RemoveBonesButton = NULL;
-			BasePoseSpin = NULL;
-			BoneListHWND = NULL;
+			AddBonesButton = nullptr;
+			RemoveBonesButton = nullptr;
+			BasePoseSpin = nullptr;
+			BoneListHWND = nullptr;
 
 			return false;
 
@@ -1809,10 +1809,10 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 			ReleaseICustButton(AutoLinkButton);
 			ReleaseICustButton(UnLinkButton);
 
-			LinkButton = NULL;
-			LinkByNameButton = NULL;
-			AutoLinkButton = NULL;
-			UnLinkButton = NULL;
+			LinkButton = nullptr;
+			LinkByNameButton = nullptr;
+			AutoLinkButton = nullptr;
+			UnLinkButton = nullptr;
 			return false;
 
 		case WM_LBUTTONDOWN:
@@ -1829,7 +1829,7 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 					/*
 					** user picks a bone out of the scene to link to.
 					*/
-					assert(WSMObjectRef != NULL);
+					assert(WSMObjectRef != nullptr);
 					INodeTab * bonetab = &(WSMObjectRef->Get_Bone_List());
 					TheBonePicker.Set_User(this,true,bonetab);
 					InterfacePtr->SetPickMode(&TheBonePicker);
@@ -1841,7 +1841,7 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 					/*
 					** pop up a bone selection dialog
 					*/
-					assert(WSMObjectRef != NULL);
+					assert(WSMObjectRef != nullptr);
 					INodeTab * bonetab = &(WSMObjectRef->Get_Bone_List());
 					TheBonePicker.Set_User(this,true,bonetab);
 					InterfacePtr->DoHitByNameDialog(&TheBonePicker);
@@ -1881,7 +1881,7 @@ static TriObject * Get_Tri_Object(TimeValue t,ObjectState & os,Interval & valid,
 			return tobj;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 

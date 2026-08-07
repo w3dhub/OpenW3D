@@ -369,7 +369,7 @@ InputConfigMgrClass::Load_Configuration (const InputConfigClass &config)
 	//
 	//	Reload the UI (if necessary)
 	//
-	if (ControlsMenuClass::Get_Instance () != NULL) {
+	if (ControlsMenuClass::Get_Instance () != nullptr) {
 		ControlsMenuClass::Get_Instance ()->Reload ();
 	}
 
@@ -466,8 +466,8 @@ void
 InputConfigMgrClass::Save (void)
 {
 	FileClass *file = _TheFileFactory->Get_File (CFG_DICTIONARY_FILENAME);
-	WWASSERT (file != NULL);
-	if (file == NULL) {
+	WWASSERT (file != nullptr);
+	if (file == nullptr) {
 		return ;
 	}
 
@@ -509,8 +509,8 @@ void
 InputConfigMgrClass::Load (void)
 {
 	FileClass *file = _TheFileFactory->Get_File (CFG_DICTIONARY_FILENAME);
-	WWASSERT (file != NULL);
-	if (file == NULL) {
+	WWASSERT (file != nullptr);
+	if (file == nullptr) {
 		return ;
 	}
 
@@ -693,13 +693,13 @@ InputConfigMgrClass::Get_Config_Path (StringClass &full_path)
 	//	Lookup the path of the executable
 	//
 	char path[MAX_PATH] = { 0 };
-	::GetModuleFileNameA (NULL, path, sizeof (path));
+	::GetModuleFileNameA (nullptr, path, sizeof (path));
 
 	//
 	//	Strip off the filename
 	//
 	char *filename_portion = ::strrchr (path, '\\');
-	if (filename_portion != NULL) {
+	if (filename_portion != nullptr) {
 		filename_portion[0] = 0;
 	}
 

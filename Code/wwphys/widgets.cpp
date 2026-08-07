@@ -57,11 +57,11 @@ struct WidgetDefStruct
 
 static WidgetDefStruct _WidgetDefs[WidgetSystem::NUM_WIDGETS] =
 {
-	{ WidgetSystem::WIDGET_AABOX,	_AABoxBinary,	sizeof(_AABoxBinary),	"AABox.Box",NULL },
-	{ WidgetSystem::WIDGET_OBBOX,	_OBBoxBinary,	sizeof(_OBBoxBinary),	"OBBox.Box",NULL },
-	{ WidgetSystem::WIDGET_VECTOR,_VectorBinary,	sizeof(_VectorBinary),	"Vector",	NULL },
-	{ WidgetSystem::WIDGET_AXES,	_AxesBinary,	sizeof(_AxesBinary),		"Axes",		NULL },
-	{ WidgetSystem::WIDGET_POINT,	_PointBinary,	sizeof(_PointBinary),	"Point",		NULL }
+	{ WidgetSystem::WIDGET_AABOX,	_AABoxBinary,	sizeof(_AABoxBinary),	"AABox.Box",nullptr },
+	{ WidgetSystem::WIDGET_OBBOX,	_OBBoxBinary,	sizeof(_OBBoxBinary),	"OBBox.Box",nullptr },
+	{ WidgetSystem::WIDGET_VECTOR,_VectorBinary,	sizeof(_VectorBinary),	"Vector",	nullptr },
+	{ WidgetSystem::WIDGET_AXES,	_AxesBinary,	sizeof(_AxesBinary),		"Axes",		nullptr },
+	{ WidgetSystem::WIDGET_POINT,	_PointBinary,	sizeof(_PointBinary),	"Point",		nullptr }
 };
 #endif
 
@@ -74,7 +74,7 @@ void WidgetSystem::Init_Debug_Widgets(void)
 
 		WWASSERT(_WidgetDefs[i].Id == i);
 
-		if (_WidgetDefs[i].RObj == NULL) {
+		if (_WidgetDefs[i].RObj == nullptr) {
 			RAMFileClass file((void*)_WidgetDefs[i].Data,_WidgetDefs[i].Size);
 			WW3DAssetManager::Get_Instance()->Load_3D_Assets(file);
 			_WidgetDefs[i].RObj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(_WidgetDefs[i].Name);
@@ -96,12 +96,12 @@ void WidgetSystem::Release_Debug_Widgets(void)
 RenderObjClass * WidgetSystem::Get_Debug_Widget([[maybe_unused]] WidgetType id)
 {
 #ifdef WWDEBUG
-	if (_WidgetDefs[id].RObj != NULL) {
+	if (_WidgetDefs[id].RObj != nullptr) {
 		_WidgetDefs[id].RObj->Add_Ref();
 	}
 	return _WidgetDefs[id].RObj;
 #else
-	return NULL;
+	return nullptr;
 #endif
 
 }

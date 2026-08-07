@@ -347,7 +347,7 @@ void ServerControlSocketClass::Write(void *buffer, int buffer_len, void *address
 	** Create a temporary holding area for the packet.
 	*/
 	WinsockBufferType *packet = (WinsockBufferType*) Get_New_Out_Buffer();
-	fw_assert (packet != NULL);
+	fw_assert (packet != nullptr);
 
 	/*
 	** Copy the packet into the holding buffer.
@@ -414,9 +414,9 @@ int ServerControlSocketClass::Read(void *buffer, int buffer_len, void *address, 
 	}
 
 	WinsockBufferType *packet = InBuffers[packetnum];
-	fw_assert(packet != NULL);
+	fw_assert(packet != nullptr);
 
-	if (packet == NULL) {
+	if (packet == nullptr) {
 		return(0);
 	}
 
@@ -492,9 +492,9 @@ int ServerControlSocketClass::Peek(void *buffer, int buffer_len, void *address, 
 	}
 
 	WinsockBufferType *packet = InBuffers[packetnum];
-	fw_assert(packet != NULL);
+	fw_assert(packet != nullptr);
 
-	if (packet == NULL) {
+	if (packet == nullptr) {
 		return(0);
 	}
 
@@ -624,7 +624,7 @@ bool ServerControlSocketClass::Passes_CRC_Check(WinsockBufferType *packet)
  *=============================================================================================*/
 void *ServerControlSocketClass::Get_New_Out_Buffer(void)
 {
-	WinsockBufferType *buffer = NULL;
+	WinsockBufferType *buffer = nullptr;
 	int pos;
 
 	fw_assert (OutBuffersUsed <= SERVER_CONTROL_MAX_STATIC_BUFFERS);
@@ -656,7 +656,7 @@ void *ServerControlSocketClass::Get_New_Out_Buffer(void)
 		}
 	}
 
-	fw_assert (buffer != NULL);
+	fw_assert (buffer != nullptr);
 	return (buffer);
 }
 
@@ -677,7 +677,7 @@ void *ServerControlSocketClass::Get_New_Out_Buffer(void)
  *=============================================================================================*/
 void *ServerControlSocketClass::Get_New_In_Buffer(void)
 {
-	WinsockBufferType *buffer = NULL;
+	WinsockBufferType *buffer = nullptr;
 	int pos;
 
 	fw_assert (InBuffersUsed <= SERVER_CONTROL_MAX_STATIC_BUFFERS);
@@ -709,7 +709,7 @@ void *ServerControlSocketClass::Get_New_In_Buffer(void)
 		}
 	}
 
-	fw_assert (buffer != NULL);
+	fw_assert (buffer != nullptr);
 	return (buffer);
 }
 
@@ -793,7 +793,7 @@ void ServerControlSocketClass::Service(void)
 					** Create a new holding buffer to store this packet in.
 					*/
 					packet = (WinsockBufferType*) Get_New_In_Buffer();
-					fw_assert (packet != NULL);
+					fw_assert (packet != nullptr);
 
 					/*
 					** Store the packet into the holding buffer.

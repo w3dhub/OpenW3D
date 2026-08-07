@@ -164,7 +164,7 @@ ConversationMgrClass::Reset_All_Other_Conversations (ActiveConversationClass *ac
 	int count = ActiveConversationList.Count ();
 	for (int index = 0; index < count; index ++) {
 		ActiveConversationClass *conversation = ActiveConversationList[index];
-		if (conversation != NULL && conversation != active_conversation) {
+		if (conversation != nullptr && conversation != active_conversation) {
 			conversation->Stop_Conversation (ACTION_COMPLETE_CONVERSATION_INTERRUPTED);
 			REF_PTR_RELEASE (conversation);
 		}
@@ -196,7 +196,7 @@ ConversationMgrClass::Reset_Active_Conversations (void)
 	while (ActiveConversationList.Count () > 0) {
 		ActiveConversationClass *active_conversation = ActiveConversationList[0];
 		ActiveConversationList.Delete (0);
-		if (active_conversation != NULL) {
+		if (active_conversation != nullptr) {
 			active_conversation->Stop_Conversation (ACTION_COMPLETE_CONVERSATION_INTERRUPTED);
 		}
 		REF_PTR_RELEASE (active_conversation);
@@ -278,7 +278,7 @@ ConversationMgrClass::Save (ChunkSaveClass &csave)
 		int index;
 		for (index = 0; index < count; index ++) {
 			ConversationClass *conversation = ConversationList[SaveCategoryID][index];
-			if (conversation != NULL) {
+			if (conversation != nullptr) {
 				csave.Begin_Chunk (CHUNKID_CONVERSATION);
 					conversation->Save (csave);
 				csave.End_Chunk ();
@@ -293,7 +293,7 @@ ConversationMgrClass::Save (ChunkSaveClass &csave)
 	count = ActiveConversationList.Count ();
 	for (index = 0; index < count; index ++) {
 		ActiveConversationClass *active_conversation = ActiveConversationList[index];
-		if (active_conversation != NULL) {
+		if (active_conversation != nullptr) {
 			csave.Begin_Chunk (CHUNKID_ACTIVE_CONVERSATION);
 				active_conversation->Save (csave);
 			csave.End_Chunk ();
@@ -497,16 +497,16 @@ ConversationMgrClass::Build_Buddy_List
 		//	Check to ensure this game object is a orator
 		//
 		CombatPhysObserverClass *phys_observer = reinterpret_cast<CombatPhysObserverClass *>(phys_obj->Get_Observer ());
-		if (phys_observer != NULL) {
+		if (phys_observer != nullptr) {
 			PhysicalGameObj *game_obj = phys_observer->As_PhysicalGameObj();
-			if (game_obj != NULL) {
+			if (game_obj != nullptr) {
 
 				//
 				//	Check to make sure we found a orator who can participate
 				// in this conversation
 				//
 				PhysicalGameObj *other_orator = game_obj->As_PhysicalGameObj ();
-				if (other_orator != NULL && (include_orator || other_orator != orator)) {
+				if (other_orator != nullptr && (include_orator || other_orator != orator)) {
 
 					//
 					//	Can this orator hold a conversation?
@@ -533,7 +533,7 @@ ConversationMgrClass::Build_Buddy_List
 ActiveConversationClass *
 ConversationMgrClass::Find_Active_Conversation (int id)
 {
-	ActiveConversationClass *conversation = NULL;
+	ActiveConversationClass *conversation = nullptr;
 
 	//
 	//	Loop over each entry in the active conversation list, looking for one with
@@ -545,7 +545,7 @@ ConversationMgrClass::Find_Active_Conversation (int id)
 		//
 		//	Is this the conversation we were looking for?
 		//
-		if (curr_conversation != NULL && curr_conversation->Get_ID () == id) {
+		if (curr_conversation != nullptr && curr_conversation->Get_ID () == id) {
 			conversation = curr_conversation;
 			conversation->Add_Ref ();
 			break;
@@ -564,7 +564,7 @@ ConversationMgrClass::Find_Active_Conversation (int id)
 ConversationClass *
 ConversationMgrClass::Find_Conversation (const char *conversation_name)
 {
-	ConversationClass *conversation = NULL;
+	ConversationClass *conversation = nullptr;
 
 	//
 	//	Loop over all the conversation categories
@@ -582,7 +582,7 @@ ConversationMgrClass::Find_Conversation (const char *conversation_name)
 			//
 			//	Is this the conversation we were looking for?
 			//
-			if (	curr_conversation != NULL &&
+			if (	curr_conversation != nullptr &&
 					::strcmpi (curr_conversation->Get_Name (), conversation_name) == 0)
 			{
 				conversation = curr_conversation;
@@ -604,7 +604,7 @@ ConversationMgrClass::Find_Conversation (const char *conversation_name)
 ConversationClass *
 ConversationMgrClass::Find_Conversation (int conversation_id)
 {
-	ConversationClass *conversation = NULL;
+	ConversationClass *conversation = nullptr;
 
 	//
 	//	Loop over all the conversation categories
@@ -622,7 +622,7 @@ ConversationMgrClass::Find_Conversation (int conversation_id)
 			//
 			//	Is this the conversation we were looking for?
 			//
-			if (	(curr_conversation != NULL) &&
+			if (	(curr_conversation != nullptr) &&
 					(curr_conversation->Get_ID () == conversation_id))
 			{
 				conversation = curr_conversation;
@@ -644,13 +644,13 @@ ConversationMgrClass::Find_Conversation (int conversation_id)
 ActiveConversationClass  *
 ConversationMgrClass::Start_Conversation (PhysicalGameObj *orator, int conversation_id, bool force)
 {
-	ActiveConversationClass *active_conversation = NULL;
+	ActiveConversationClass *active_conversation = nullptr;
 
 	//
 	//	Try to find the requested conversation
 	//
 	ConversationClass *conversation = Find_Conversation (conversation_id);
-	if (conversation != NULL) {
+	if (conversation != nullptr) {
 
 		//
 		//	Start the conversation
@@ -676,13 +676,13 @@ ConversationMgrClass::Start_Conversation (PhysicalGameObj *orator, int conversat
 ActiveConversationClass  *
 ConversationMgrClass::Start_Conversation (PhysicalGameObj *orator, const char *conversation_name, bool force)
 {
-	ActiveConversationClass *active_conversation = NULL;
+	ActiveConversationClass *active_conversation = nullptr;
 
 	//
 	//	Try to find the requested conversation
 	//
 	ConversationClass *conversation = Find_Conversation (conversation_name);
-	if (conversation != NULL) {
+	if (conversation != nullptr) {
 
 		//
 		//	Start the conversation
@@ -718,7 +718,7 @@ ConversationMgrClass::Start_Conversation (PhysicalGameObj *orator, ConversationC
 	//	If we have enough people to hold this conversation, then activate
 	// the new conversation.
 	//
-	ActiveConversationClass *active_conversation = NULL;
+	ActiveConversationClass *active_conversation = nullptr;
 	if (Test_Conversation (orator, conversation, buddy_list, force)) {
 		active_conversation = Create_New_Conversation (conversation, buddy_list);
 	}
@@ -796,7 +796,7 @@ ConversationMgrClass::Start_Conversation (PhysicalGameObj *orator)
 	//
 	DynamicVectorClass<PhysicalGameObj *> orator_list;
 	ConversationClass *conversation = Pick_Conversation (orator, available_buddy_list, orator_list);
-	if (conversation != NULL) {
+	if (conversation != nullptr) {
 		ActiveConversationClass *active_conversation = Create_New_Conversation (conversation, orator_list);
 		REF_PTR_RELEASE (active_conversation);
 	}
@@ -839,7 +839,7 @@ ConversationMgrClass::Test_Conversation
 		//
 		bool found = false;
 		if (orator->Is_Invisible ()) {
-			buddy_list.Add (NULL);
+			buddy_list.Add (nullptr);
 			found = true;
 		} else {
 
@@ -923,7 +923,7 @@ ConversationMgrClass::Test_Orator
 		//	Check to see (if its a soldier) if this orator is in the correct state
 		//
 		SoldierGameObj *soldier = game_obj->As_SoldierGameObj ();
-		if (	soldier == NULL ||
+		if (	soldier == nullptr ||
 				soldier->Is_Human_Controlled () ||
 				soldier->Get_AI_State () == conversation->Get_AI_State ())
 		{
@@ -948,7 +948,7 @@ ConversationMgrClass::Pick_Conversation
 	DynamicVectorClass<PhysicalGameObj *> &			orator_list
 )
 {
-	ConversationClass *conversation = NULL;
+	ConversationClass *conversation = nullptr;
 
 	//
 	//	Try to find a conversation that matches the criteria
@@ -970,7 +970,7 @@ ConversationMgrClass::Pick_Conversation
 			//
 			//	Can this conversation be used innately?
 			//
-			if (	curr_conversation != NULL &&
+			if (	curr_conversation != nullptr &&
 					curr_conversation->Is_Innate ())
 			{
 				//
@@ -1002,7 +1002,7 @@ ConversationMgrClass::Pick_Conversation
 	//	If we've found a conversation, decrease its probability so
 	// it will be less likely to be picked next time.
 	//
-	if (conversation != NULL) {
+	if (conversation != nullptr) {
 		float probability = conversation->Get_Probability ();
 		probability			= probability * 0.75F;
 		conversation->Set_Probability (probability);
@@ -1089,7 +1089,7 @@ ConversationMgrClass::Think (void)
 		//	Let this conversation process
 		//
 		bool remove_from_list = true;
-		if (active_conversation != NULL) {
+		if (active_conversation != nullptr) {
 			active_conversation->Think ();
 			remove_from_list = active_conversation->Is_Finished ();
 		}
@@ -1117,8 +1117,8 @@ ConversationMgrClass::Think (void)
 void
 ConversationMgrClass::Add_Conversation (ConversationClass *conversation)
 {
-	WWASSERT (conversation != NULL);
-	if (conversation == NULL) {
+	WWASSERT (conversation != nullptr);
+	if (conversation == nullptr) {
 		return ;
 	}
 
@@ -1151,9 +1151,9 @@ ConversationMgrClass::Add_Conversation (ConversationClass *conversation)
 ActiveConversationClass *
 ConversationMgrClass::Create_New_Conversation (ConversationClass *conversation)
 {
-	ActiveConversationClass *active_conversation = NULL;
+	ActiveConversationClass *active_conversation = nullptr;
 
-	if (conversation != NULL) {
+	if (conversation != nullptr) {
 
 		//
 		//	Allocate the new conversation

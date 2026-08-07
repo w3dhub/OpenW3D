@@ -40,7 +40,7 @@ static char THIS_FILE[] = __FILE__;
 // EditConversationListDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-EditConversationListDialogClass::EditConversationListDialogClass(CWnd* pParent /*=NULL*/)
+EditConversationListDialogClass::EditConversationListDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(EditConversationListDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(EditConversationListDialogClass)
@@ -131,7 +131,7 @@ EditConversationListDialogClass::OnAdd (void)
 		//	Add this new conversation to the list control
 		//
 		ConversationClass *conversation = dialog.Peek_Conversation ();
-		if (conversation != NULL) {
+		if (conversation != nullptr) {
 			Add_Conversation (conversation);
 		}
 	}
@@ -159,7 +159,7 @@ EditConversationListDialogClass::OnOK (void)
 	//
 	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
 		ConversationClass *conversation = (ConversationClass *)m_ListCtrl.GetItemData (index);
-		if (conversation != NULL) {
+		if (conversation != nullptr) {
 			ConversationMgrClass::Add_Conversation (conversation);
 		}
 	}
@@ -178,8 +178,8 @@ EditConversationListDialogClass::OnOK (void)
 void
 EditConversationListDialogClass::Add_Conversation (ConversationClass *conversation)
 {
-	ASSERT (conversation != NULL);
-	if (conversation == NULL) {
+	ASSERT (conversation != nullptr);
+	if (conversation == nullptr) {
 		return ;
 	}
 
@@ -208,7 +208,7 @@ EditConversationListDialogClass::Update_Conversation (int index)
 	//	Update the conversation's name in the list control
 	//
 	ConversationClass *conversation = (ConversationClass *)m_ListCtrl.GetItemData (index);
-	if (conversation != NULL) {
+	if (conversation != nullptr) {
 		m_ListCtrl.SetItemText (index, 0, conversation->Get_Name ());
 	}
 
@@ -237,7 +237,7 @@ EditConversationListDialogClass::OnDblclkConversationList
 	int sel_index = m_ListCtrl.GetNextItem (-1, LVNI_ALL | LVNI_SELECTED);
 	if (sel_index >= 0) {
 		ConversationClass *conversation = (ConversationClass *)m_ListCtrl.GetItemData (sel_index);
-		if (conversation != NULL) {
+		if (conversation != nullptr) {
 
 			//
 			//	Allow the user to edit this entry

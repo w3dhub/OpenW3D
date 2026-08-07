@@ -78,7 +78,7 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		// Escape Prison
 		case 801:
 			{
-				Commands->Add_Objective(801, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M08_01, NULL, IDS_Enc_Obj_Primary_M08_01);
+				Commands->Add_Objective(801, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M08_01, nullptr, IDS_Enc_Obj_Primary_M08_01);
 				object = Commands->Find_Object(108360);
 				if(object)
 				{
@@ -90,7 +90,7 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		// Infiltrate Research Facility
 		case 802:
 			{
-				Commands->Add_Objective(802, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M08_02, NULL, IDS_Enc_Obj_Primary_M08_02);
+				Commands->Add_Objective(802, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M08_02, nullptr, IDS_Enc_Obj_Primary_M08_02);
 				object = Commands->Find_Object(108361);
 				if(object)
 				{
@@ -102,7 +102,7 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		// Rescue Scientists
 		case 803:
 			{
-				Commands->Add_Objective(803, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M08_03, NULL, IDS_Enc_Obj_Primary_M08_03);
+				Commands->Add_Objective(803, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M08_03, nullptr, IDS_Enc_Obj_Primary_M08_03);
 				// Now that Havoc is out of the prison area you must remove lock level 10 so that he cannot open the mutant pens
 				Commands->Grant_Key (STAR, 10, false);
 				object = Commands->Find_Object(108818);
@@ -116,7 +116,7 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		// Destroy Helipad
 		case 804:
 			{
-				Commands->Add_Objective(804, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M08_01, NULL, IDS_Enc_Obj_Secondary_M08_05);
+				Commands->Add_Objective(804, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M08_01, nullptr, IDS_Enc_Obj_Secondary_M08_05);
 				object = Commands->Find_Object(106339);
 				if(object)
 				{
@@ -128,7 +128,7 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		// Eliminate Raveshaw
 		case 805:
 			{
-				Commands->Add_Objective(805, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M08_04, NULL, IDS_Enc_Obj_Primary_M08_04);
+				Commands->Add_Objective(805, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M08_04, nullptr, IDS_Enc_Obj_Primary_M08_04);
 				Commands->Set_Objective_HUD_Info(805, 90.0f, "POG_M08_1_01.tga", IDS_POG_ELIMINATE);
 
 			}
@@ -136,7 +136,7 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		// Disable Research Station Alpha
 		case 806:
 			{
-				Commands->Add_Objective(806, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M08_02, NULL, IDS_Enc_Obj_Secondary_M08_06);
+				Commands->Add_Objective(806, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M08_02, nullptr, IDS_Enc_Obj_Secondary_M08_06);
 				object = Commands->Find_Object(100016);
 				if(object)
 				{
@@ -148,7 +148,7 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		// Disable Research Station Beta
 		case 807:
 			{
-				Commands->Add_Objective(807, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M08_03, NULL, IDS_Enc_Obj_Secondary_M08_07);
+				Commands->Add_Objective(807, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M08_03, nullptr, IDS_Enc_Obj_Secondary_M08_07);
 				object = Commands->Find_Object(100017);
 				if(object)
 				{
@@ -160,13 +160,13 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		// Disable excavation mechanisms at archaeological dig
 		case 808:
 			{
-				Commands->Add_Objective(808, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_Enc_ObjTitle_Hidden_M08_01, NULL, IDS_Enc_Obj_Hidden_M08_01);
+				Commands->Add_Objective(808, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_Enc_ObjTitle_Hidden_M08_01, nullptr, IDS_Enc_Obj_Hidden_M08_01);
 			}
 			break;
 		// Destroy Tiberium cultivation center
 		case 809:
 			{
-				Commands->Add_Objective(809, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_Enc_ObjTitle_Hidden_M08_02, NULL, IDS_Enc_Obj_Hidden_M08_02);
+				Commands->Add_Objective(809, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_Enc_ObjTitle_Hidden_M08_02, nullptr, IDS_Enc_Obj_Hidden_M08_02);
 			}
 			break;
 
@@ -315,7 +315,7 @@ DECLARE_SCRIPT(M08_Havoc_DLS, "")
 			//	Create the Raveshaw Boss character
 			//
 			GameObject *raveshaw = Commands->Create_Object ("Raveshaw", Vector3 (-127.209F, 484.503F, -189.532F));
-			if (raveshaw != NULL) {
+			if (raveshaw != nullptr) {
 				Commands->Set_Facing (raveshaw, 0.0F);
 			}
 
@@ -357,7 +357,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_802, "")
 			// Nick, Those scientists you've been digging for are being held in a Nod Research Facility at the far end of the canyon. Figure'd you might want to know.\n
 			const char *conv_name = ("M08_CON001");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -416,7 +416,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_803, "")
 			// Nick, we're going to lose contact when you head inside, there's no radio communication possible due to jamming signals.\n
 			const char *conv_name = ("M08_CON002");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300803);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -476,7 +476,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_804, "")
 			// Don't know if you care, hon, but there's a Nod Helipad in back of the Prison Facility. Might help if you blow it up.\n
 			const char *conv_name = ("M08_CON003");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300804);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -802,7 +802,7 @@ DECLARE_SCRIPT(M08_Initial_Prisoner, "Reinforcment_ID=0:int")
 		}
 		if((action_id == PUNCH_ENEMY) && (reason == ACTION_COMPLETE_NORMAL))
 		{
-			Commands->Apply_Damage( Commands->Find_Object(enemy_id), 10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage( Commands->Find_Object(enemy_id), 10000.0f, "STEEL", nullptr );
 			Commands->Give_PowerUp(obj, "MG Weapon 1 Clip PowerUp", false);
 			Commands->Give_PowerUp(obj, "MiniGun 2 Clips PU", false);
 		}
@@ -1556,7 +1556,7 @@ DECLARE_SCRIPT(M08_PetraA22_Stealth_Tank, "")
 		if(timer_id == ATTACK_OVER)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN + 5), 1);
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			Commands->Action_Attack (obj, params);
 
 			attacking = false;
@@ -1913,7 +1913,7 @@ DECLARE_SCRIPT(M08_Nod_Light_Tank, "")
 		if(timer_id == ATTACK_OVER)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN + 5), 1);
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			Commands->Action_Attack (obj, params);
 
 			attacking = false;
@@ -1965,7 +1965,7 @@ DECLARE_SCRIPT(M08_Nod_Stealth_Tank, "")
 		if(timer_id == ATTACK_OVER)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN + 5), 1);
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			Commands->Action_Attack (obj, params);
 
 			attacking = false;
@@ -2176,7 +2176,7 @@ DECLARE_SCRIPT(M08_Archaelogical_Site_Buggy, "")
 
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, WAYPATH );
 		params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
-		params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+		params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 		params.WaypathID = 100406;
 		Commands->Action_Attack( obj, params );
 
@@ -2211,7 +2211,7 @@ DECLARE_SCRIPT(M08_Archaelogical_Site_Buggy, "")
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, WAYPATH );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			params.WaypathID = 100406;
 			Commands->Modify_Action (obj, WAYPATH, params, true, true);
 
@@ -2354,7 +2354,7 @@ DECLARE_SCRIPT(M08_PetraA25_Tank, "")
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, WAYPATH );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			params.WaypathID = 100437;
 			params.WaypathSplined = true;
 			Commands->Action_Attack( obj, params );
@@ -2366,7 +2366,7 @@ DECLARE_SCRIPT(M08_PetraA25_Tank, "")
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, WAYPATH );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			params.WaypathID = 100437;
 			params.WaypathSplined = true;
 			Commands->Modify_Action (obj, WAYPATH, params, true, true);
@@ -2480,7 +2480,7 @@ DECLARE_SCRIPT(M08_Tiberium_Cultivation_MCT, "")
 	}
 	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
-		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), NULL);
+		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), nullptr);
 
 		Vector3 myPositon = Commands->Get_Position ( obj );
 		float myFacing  = Commands->Get_Facing ( obj );
@@ -2510,7 +2510,7 @@ DECLARE_SCRIPT(M08_Research_Station_A, "")
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
-		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), NULL);
+		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), nullptr);
 
 		Vector3 myPositon = Commands->Get_Position ( obj );
 		float myFacing  = Commands->Get_Facing ( obj );
@@ -2540,7 +2540,7 @@ DECLARE_SCRIPT(M08_Research_Station_B, "")
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
-		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), NULL);
+		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), nullptr);
 
 		Vector3 myPositon = Commands->Get_Position ( obj );
 		float myFacing  = Commands->Get_Facing ( obj );
@@ -2767,7 +2767,7 @@ DECLARE_SCRIPT(M08_Facility_Tank, "Waypath_ID=0:int")
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, WAYPATH );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			params.WaypathID = waypath_id;
 			params.WaypathSplined = true;
 			Commands->Action_Attack( obj, params );
@@ -2779,7 +2779,7 @@ DECLARE_SCRIPT(M08_Facility_Tank, "Waypath_ID=0:int")
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, WAYPATH );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			params.WaypathID = waypath_id;
 			params.WaypathSplined = true;
 			Commands->Modify_Action (obj, WAYPATH, params, true, true);
@@ -2834,7 +2834,7 @@ DECLARE_SCRIPT(M08_Facility_Vehicle_Dec, "")
 			attacking = false;
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, ATTACKING );
-			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
+			params.Set_Attack (nullptr, 250.0f, 0.0f, 1);
 			Commands->Modify_Action (obj, ATTACKING, params, true, true);
 
 		}
@@ -3028,7 +3028,7 @@ DECLARE_SCRIPT(M08_Encounter_Unit, "Waypath_ID=0:int, Priority=0:int, Suicide=0:
 
 		if(timer_id == DIE_SURPRISE)
 		{
-			Commands->Apply_Damage( obj, 100000, "STEEL", NULL );
+			Commands->Apply_Damage( obj, 100000, "STEEL", nullptr );
 			Vector3 obj_pos = Commands->Get_Position(obj);
 			Vector3 shot_pos;
 			shot_pos.X = obj_pos.X + 4.0f;
@@ -3084,7 +3084,7 @@ DECLARE_SCRIPT(M08_Warden_Announcement1, "")
 			// This is the warden, we have a probable escape situation in solitary. Full lockdown, all personnel initiate response protocols.\n
 			const char *conv_name = ("M08_CON006");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
 			Commands->Monitor_Conversation (obj, conv_id);
 
@@ -3121,7 +3121,7 @@ DECLARE_SCRIPT(M08_Warden_Announcement2, "")
 			// This is the warden, we have a confirmed prison break, repeat, confirmed prison break! Assume all GDI as hostile, kill every last one of them!\n
 			const char *conv_name = ("M08_CON007");
 			int conv_id = Commands->Create_Conversation (conv_name, 100, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true, true);
+			Commands->Join_Conversation(nullptr, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
 			Commands->Monitor_Conversation (obj, conv_id);
 
@@ -3648,7 +3648,7 @@ DECLARE_SCRIPT(M08_Petra_A_Unit, "Unit_ID=0:int")
 
 		if(action_id == GO_PETRA_A && reason == ACTION_COMPLETE_NORMAL)
 		{
-			Commands->Apply_Damage( obj, 10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage( obj, 10000.0f, "STEEL", nullptr );
 		}
 
 
@@ -4027,7 +4027,7 @@ DECLARE_SCRIPT(M08_Petra_B_Unit, "Unit_ID=0:int")
 
 		if(action_id == GO_PETRA_B && reason == ACTION_COMPLETE_NORMAL)
 		{
-			Commands->Apply_Damage( obj, 10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage( obj, 10000.0f, "STEEL", nullptr );
 		}
 
 
@@ -4400,7 +4400,7 @@ DECLARE_SCRIPT(M08_Petra_C_Unit, "Unit_ID=0:int")
 
 		if(action_id == GO_PETRA_C && reason == ACTION_COMPLETE_NORMAL)
 		{
-			Commands->Apply_Damage( obj, 10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage( obj, 10000.0f, "STEEL", nullptr );
 		}
 
 
@@ -4909,7 +4909,7 @@ DECLARE_SCRIPT(M08_Cavern_Entrance_Truck, "")
 
 		if(action_id == WAYPATH && reason == ACTION_COMPLETE_NORMAL)
 		{
-			Commands->Apply_Damage( obj, 10000.0f, "STEEL", NULL );
+			Commands->Apply_Damage( obj, 10000.0f, "STEEL", nullptr );
 		}
 	}
 
@@ -6427,7 +6427,7 @@ DECLARE_SCRIPT(M08_Apache, "Area:int")
 			pad_destroyed = true;
 			if (on_pad)
 			{
-				Commands->Apply_Damage(obj, 10000.0f, "EXPLOSIVE", NULL );
+				Commands->Apply_Damage(obj, 10000.0f, "EXPLOSIVE", nullptr );
 			}
 		}
 		if (type == 400 && param == 400)

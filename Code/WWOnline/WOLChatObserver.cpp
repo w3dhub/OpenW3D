@@ -79,7 +79,7 @@ namespace WWOnline {
 
 ChatObserver::ChatObserver() :
 		mRefCount(1),
-		mOuter(NULL)
+		mOuter(nullptr)
 	{
 	WWDEBUG_SAY(("WOL: ChatObserver Instantiated\n"));
 	}
@@ -151,7 +151,7 @@ STDMETHODIMP ChatObserver::QueryInterface(const IID& iid, void** ppv)
 		}
 	else
 		{
-		*ppv = NULL;
+		*ppv = nullptr;
 		return E_NOINTERFACE;
 		}
 
@@ -232,7 +232,7 @@ ULONG STDMETHODCALLTYPE ChatObserver::Release(void)
 
 STDMETHODIMP ChatObserver::OnServerList(HRESULT result, WOL::Server* servers)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -342,7 +342,7 @@ STDMETHODIMP ChatObserver::OnUpdateList(HRESULT result, WOL::Update* updates)
 	WWDEBUG_SAY(("WOL: OnUpdateList received\n"));
 
 	// Make sure WOLSession is initialized
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -413,7 +413,7 @@ STDMETHODIMP ChatObserver::OnUpdateList(HRESULT result, WOL::Update* updates)
 
 STDMETHODIMP ChatObserver::OnServerError(HRESULT result, [[maybe_unused]] LPCSTR errorText)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -457,14 +457,14 @@ STDMETHODIMP ChatObserver::OnServerError(HRESULT result, [[maybe_unused]] LPCSTR
 
 STDMETHODIMP ChatObserver::OnConnection(HRESULT result, LPCSTR motd)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
 		return S_OK;
 		}
 
-	const char* errorText = NULL;
+	const char* errorText = nullptr;
 
 	switch (result)
 		{
@@ -595,7 +595,7 @@ STDMETHODIMP ChatObserver::OnConnection(HRESULT result, LPCSTR motd)
 
 STDMETHODIMP ChatObserver::OnMessageOfTheDay(HRESULT, LPCSTR messageOfTheDay)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -630,7 +630,7 @@ STDMETHODIMP ChatObserver::OnMessageOfTheDay(HRESULT, LPCSTR messageOfTheDay)
 
 STDMETHODIMP ChatObserver::OnChannelList(HRESULT result, WOL::Channel* inChannels)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -693,8 +693,8 @@ STDMETHODIMP ChatObserver::OnChannelList(HRESULT result, WOL::Channel* inChannel
 		{
 		WWDEBUG_SAY(("WOL: Channel '%s:%ld'\n", (const char*)wolChannel->name, wolChannel->type));
 
-		ChannelList* curList = NULL;
-		ChannelList* newList = NULL;
+		ChannelList* curList = nullptr;
+		ChannelList* newList = nullptr;
 
 		if (wolChannel->type == 0)
 			{
@@ -711,8 +711,8 @@ STDMETHODIMP ChatObserver::OnChannelList(HRESULT result, WOL::Channel* inChannel
 			continue;
 			}
 
-		WWASSERT(curList != NULL);
-		WWASSERT(newList != NULL);
+		WWASSERT(curList != nullptr);
+		WWASSERT(newList != nullptr);
 
 		ChannelList::iterator iter = FindChannelNode(*curList, (const char*)wolChannel->name);
 
@@ -767,7 +767,7 @@ STDMETHODIMP ChatObserver::OnChannelList(HRESULT result, WOL::Channel* inChannel
 
 STDMETHODIMP ChatObserver::OnChannelCreate(HRESULT result, WOL::Channel* inChannel)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -791,7 +791,7 @@ STDMETHODIMP ChatObserver::OnChannelCreate(HRESULT result, WOL::Channel* inChann
 		return S_OK;
 		}
 
-	WWASSERT(inChannel != NULL && "OnChannelCreate parameter error");
+	WWASSERT(inChannel != nullptr && "OnChannelCreate parameter error");
 	WWDEBUG_SAY(("WOL: Created channel '%s'\n", (char*)inChannel->name));
 
 	// Make sure we have the channel to create pending.
@@ -877,7 +877,7 @@ STDMETHODIMP ChatObserver::OnChannelCreate(HRESULT result, WOL::Channel* inChann
 STDMETHODIMP ChatObserver::OnChannelJoin(HRESULT result, WOL::Channel* inChannel,
 		WOL::User* inUser)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -908,8 +908,8 @@ STDMETHODIMP ChatObserver::OnChannelJoin(HRESULT result, WOL::Channel* inChannel
 		return S_OK;
 		}
 
-	WWASSERT(inChannel != NULL && "OnChannelJoin parameter error");
-	WWASSERT(inUser != NULL && "OnChannelJoin parameter error");
+	WWASSERT(inChannel != nullptr && "OnChannelJoin parameter error");
+	WWASSERT(inUser != nullptr && "OnChannelJoin parameter error");
 
   	struct in_addr addr;
 	addr.S_un.S_addr = inUser->ipaddr;
@@ -1036,7 +1036,7 @@ STDMETHODIMP ChatObserver::OnChannelJoin(HRESULT result, WOL::Channel* inChannel
 
 STDMETHODIMP ChatObserver::OnChannelLeave(HRESULT result, WOL::Channel* inChannel, WOL::User* inUser)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1055,8 +1055,8 @@ STDMETHODIMP ChatObserver::OnChannelLeave(HRESULT result, WOL::Channel* inChanne
 		return S_OK;
 		}
 
-	WWASSERT(inChannel != NULL && "OnChannelLeave: Parameter error");
-	WWASSERT(inUser != NULL && "OnChannelLeave: Parameter error");
+	WWASSERT(inChannel != nullptr && "OnChannelLeave: Parameter error");
+	WWASSERT(inUser != nullptr && "OnChannelLeave: Parameter error");
 	WWDEBUG_SAY(("WOL: User '%s' leaving channel '%s'\n", (char*)inUser->name, (char*)inChannel->name));
 
 	// If we are not logged in then ignore.
@@ -1155,7 +1155,7 @@ STDMETHODIMP ChatObserver::OnChannelLeave(HRESULT result, WOL::Channel* inChanne
 
 STDMETHODIMP ChatObserver::OnChannelTopic(HRESULT result, WOL::Channel* inChannel, LPCSTR topic)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1170,7 +1170,7 @@ STDMETHODIMP ChatObserver::OnChannelTopic(HRESULT result, WOL::Channel* inChanne
 		}
 
 	// If inputs are invalid then ignore
-	if (inChannel == NULL)
+	if (inChannel == nullptr)
 		{
 		WWASSERT(inChannel);
 		return S_OK;
@@ -1228,7 +1228,7 @@ STDMETHODIMP ChatObserver::OnChannelTopic(HRESULT result, WOL::Channel* inChanne
 
 STDMETHODIMP ChatObserver::OnPrivateAction(HRESULT result, WOL::User* user, LPCSTR message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1266,7 +1266,7 @@ STDMETHODIMP ChatObserver::OnPrivateAction(HRESULT result, WOL::User* user, LPCS
 
 STDMETHODIMP ChatObserver::OnPublicAction(HRESULT result, WOL::Channel*, WOL::User* user, LPCSTR message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1304,7 +1304,7 @@ STDMETHODIMP ChatObserver::OnPublicAction(HRESULT result, WOL::Channel*, WOL::Us
 
 STDMETHODIMP ChatObserver::OnUserList(HRESULT result, WOL::Channel* inChannel, WOL::User* inUsers)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1319,10 +1319,10 @@ STDMETHODIMP ChatObserver::OnUserList(HRESULT result, WOL::Channel* inChannel, W
 		return S_OK;
 		}
 
-	if (inChannel == NULL)
+	if (inChannel == nullptr)
 		{
-		WWDEBUG_SAY(("WOLERROR: NULL channel\n"));
-		WWASSERT(inChannel != NULL);
+		WWDEBUG_SAY(("WOLERROR: nullptr channel\n"));
+		WWASSERT(inChannel != nullptr);
 		return S_OK;
 		}
 
@@ -1416,7 +1416,7 @@ STDMETHODIMP ChatObserver::OnUserList(HRESULT result, WOL::Channel* inChannel, W
 
 STDMETHODIMP ChatObserver::OnPublicMessage(HRESULT result, WOL::Channel*, WOL::User* user, LPCSTR message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1454,7 +1454,7 @@ STDMETHODIMP ChatObserver::OnPublicMessage(HRESULT result, WOL::Channel*, WOL::U
 
 STDMETHODIMP ChatObserver::OnPrivateMessage(HRESULT result, WOL::User* user, LPCSTR message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1492,7 +1492,7 @@ STDMETHODIMP ChatObserver::OnPrivateMessage(HRESULT result, WOL::User* user, LPC
 
 STDMETHODIMP ChatObserver::OnSystemMessage(HRESULT result, LPCSTR message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1505,7 +1505,7 @@ STDMETHODIMP ChatObserver::OnSystemMessage(HRESULT result, LPCSTR message)
 		}
 	else
 		{
-		ChatMessage msg(NULL, message, false, false);
+		ChatMessage msg(nullptr, message, false, false);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -1530,7 +1530,7 @@ STDMETHODIMP ChatObserver::OnSystemMessage(HRESULT result, LPCSTR message)
 
 STDMETHODIMP ChatObserver::OnNetStatus(HRESULT result)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1819,7 +1819,7 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 
 STDMETHODIMP ChatObserver::OnPrivateGameOptions(HRESULT result, WOL::User* inUser, LPCSTR options)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1833,10 +1833,10 @@ STDMETHODIMP ChatObserver::OnPrivateGameOptions(HRESULT result, WOL::User* inUse
 		}
 
 	// Parameter check
-	if ((inUser == NULL) || (options == NULL))
+	if ((inUser == nullptr) || (options == nullptr))
 		{
-		WWASSERT(inUser != NULL);
-		WWASSERT(options != NULL);
+		WWASSERT(inUser != nullptr);
+		WWASSERT(options != nullptr);
 		return S_OK;
 		}
 
@@ -1846,7 +1846,7 @@ STDMETHODIMP ChatObserver::OnPrivateGameOptions(HRESULT result, WOL::User* inUse
 
 		int count = 0;
 		bool is_spammer = Is_Options_Spammer((char*)inUser->name, count);
-		bool is_rginfo = (strstr(options, "RGINFO") == NULL) ? false : true;
+		bool is_rginfo = (strstr(options, "RGINFO") == nullptr) ? false : true;
 
 		if (is_spammer) {
 			if (count > 16 && count < 19) {
@@ -1856,12 +1856,12 @@ STDMETHODIMP ChatObserver::OnPrivateGameOptions(HRESULT result, WOL::User* inUse
 			if (is_rginfo && count > 2) {
 				WWDEBUG_SAY(("WOL: Ignoring RGINFO from '%s' \n", (char*)inUser->name));
 			} else {
-				GameOptionsMessage gameOptions(inUser, NULL, options, true);
+				GameOptionsMessage gameOptions(inUser, nullptr, options, true);
 				mOuter->NotifyObservers(gameOptions);
 			}
 		}
 	} else {
-		GameOptionsMessage gameOptions(inUser, NULL, options, true);
+		GameOptionsMessage gameOptions(inUser, nullptr, options, true);
 		mOuter->NotifyObservers(gameOptions);
 	}
 
@@ -1887,7 +1887,7 @@ STDMETHODIMP ChatObserver::OnPrivateGameOptions(HRESULT result, WOL::User* inUse
 STDMETHODIMP ChatObserver::OnPublicGameOptions(HRESULT result, WOL::Channel* inChannel,
 			WOL::User* inUser, LPCSTR options)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1901,12 +1901,12 @@ STDMETHODIMP ChatObserver::OnPublicGameOptions(HRESULT result, WOL::Channel* inC
 		}
 
 	// Parameter check
-	if ((inChannel == NULL) || (inUser == NULL) || (options == NULL))
+	if ((inChannel == nullptr) || (inUser == nullptr) || (options == nullptr))
 		{
 		WWDEBUG_SAY(("WOLERROR: OnPublicGameOptions invalid parameters\n"));
-		WWASSERT(inChannel != NULL);
-		WWASSERT(inUser != NULL);
-		WWASSERT(options != NULL);
+		WWASSERT(inChannel != nullptr);
+		WWASSERT(inUser != nullptr);
+		WWASSERT(options != nullptr);
 		return S_OK;
 		}
 
@@ -1972,7 +1972,7 @@ STDMETHODIMP ChatObserver::OnPublicGameOptions(HRESULT result, WOL::Channel* inC
 STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
 		WOL::User* inUsers, int gameID)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -1989,7 +1989,7 @@ STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
 		}
 
 	// Ignore if parameters are invalid
-	if (inChannel == NULL || inUsers == NULL)
+	if (inChannel == nullptr || inUsers == nullptr)
 		{
 		WWDEBUG_SAY(("WOL: OnGameStart Invalid parameters\n"));
 		return S_OK;
@@ -2068,7 +2068,7 @@ STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
 STDMETHODIMP ChatObserver::OnUserKick(HRESULT result, WOL::Channel* inChannel,
 			WOL::User* inUser, [[maybe_unused]] WOL::User* kicker)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2083,11 +2083,11 @@ STDMETHODIMP ChatObserver::OnUserKick(HRESULT result, WOL::Channel* inChannel,
 		}
 
 	// Check parameters
-	if ((inChannel == NULL) || (inUser == NULL))
+	if ((inChannel == nullptr) || (inUser == nullptr))
 		{
 		WWASSERT(inChannel);
 		WWASSERT(inUser);
-		WWDEBUG_SAY(("WOLWARNING: Cannot handle user kick because CHANNEL or USER is NULL\n"));
+		WWDEBUG_SAY(("WOLWARNING: Cannot handle user kick because CHANNEL or USER is nullptr\n"));
 		return S_OK;
 		}
 
@@ -2170,7 +2170,7 @@ STDMETHODIMP ChatObserver::OnUserKick(HRESULT result, WOL::Channel* inChannel,
 
 STDMETHODIMP ChatObserver::OnUserIP(HRESULT result, WOL::User* user)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2217,7 +2217,7 @@ STDMETHODIMP ChatObserver::OnUserIP(HRESULT result, WOL::User* user)
 
 STDMETHODIMP ChatObserver::OnFind(HRESULT result, WOL::Channel* wolChannel)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2350,7 +2350,7 @@ STDMETHODIMP ChatObserver::OnPageSend(HRESULT result)
 
 STDMETHODIMP ChatObserver::OnPaged(HRESULT result, WOL::User* user, LPCSTR text)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2392,7 +2392,7 @@ STDMETHODIMP ChatObserver::OnPaged(HRESULT result, WOL::User* user, LPCSTR text)
 
 STDMETHODIMP ChatObserver::OnServerBannedYou(HRESULT, WOL::time_t liftedTime)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2424,7 +2424,7 @@ STDMETHODIMP ChatObserver::OnServerBannedYou(HRESULT, WOL::time_t liftedTime)
 
 STDMETHODIMP ChatObserver::OnChannelBan(HRESULT result, LPCSTR username, int banned)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2476,7 +2476,7 @@ STDMETHODIMP ChatObserver::OnChannelBan(HRESULT result, LPCSTR username, int ban
 
 STDMETHODIMP ChatObserver::OnUserFlags(HRESULT result, LPCSTR username, unsigned int flags, unsigned int mask)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2526,7 +2526,7 @@ STDMETHODIMP ChatObserver::OnUserFlags(HRESULT result, LPCSTR username, unsigned
 
 STDMETHODIMP ChatObserver::OnSquadInfo(HRESULT result, unsigned int /* squadID */, WOL::Squad* inSquad)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2639,7 +2639,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 
 				if (squad->GetID() == pendingID)
 					{
-					SquadEvent squadEvent(NULL, squad);
+					SquadEvent squadEvent(nullptr, squad);
 					mOuter->NotifyObservers(squadEvent);
 					}
 				else
@@ -2691,7 +2691,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 
 STDMETHODIMP ChatObserver::OnUserLocale(HRESULT result, WOL::User* inUsers)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2825,7 +2825,7 @@ STDMETHODIMP ChatObserver::OnSetLocale(HRESULT result, WOL::Locale locale)
 
 STDMETHODIMP ChatObserver::OnUserTeam(HRESULT result, WOL::User* inUsers)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2880,7 +2880,7 @@ STDMETHODIMP ChatObserver::OnUserTeam(HRESULT result, WOL::User* inUsers)
 
 STDMETHODIMP ChatObserver::OnSetTeam(HRESULT result, int team)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2924,7 +2924,7 @@ STDMETHODIMP ChatObserver::OnSetTeam(HRESULT result, int team)
 
 STDMETHODIMP ChatObserver::OnBuddyList(HRESULT result, WOL::User* inUsers)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -2995,7 +2995,7 @@ STDMETHODIMP ChatObserver::OnBuddyList(HRESULT result, WOL::User* inUsers)
 
 STDMETHODIMP ChatObserver::OnBuddyAdd(HRESULT result, WOL::User* inUsers)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3066,7 +3066,7 @@ STDMETHODIMP ChatObserver::OnBuddyAdd(HRESULT result, WOL::User* inUsers)
 
 STDMETHODIMP ChatObserver::OnBuddyDelete(HRESULT result, WOL::User* inUsers)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3127,7 +3127,7 @@ STDMETHODIMP ChatObserver::OnBuddyDelete(HRESULT result, WOL::User* inUsers)
 STDMETHODIMP ChatObserver::OnPublicUnicodeMessage(HRESULT result, WOL::Channel*,
 		WOL::User* user, const unsigned short* message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3166,7 +3166,7 @@ STDMETHODIMP ChatObserver::OnPublicUnicodeMessage(HRESULT result, WOL::Channel*,
 STDMETHODIMP ChatObserver::OnPrivateUnicodeMessage(HRESULT result, WOL::User* user,
 		const unsigned short* message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3205,7 +3205,7 @@ STDMETHODIMP ChatObserver::OnPrivateUnicodeMessage(HRESULT result, WOL::User* us
 STDMETHODIMP ChatObserver::OnPrivateUnicodeAction(HRESULT result, WOL::User* user,
 		const unsigned short* message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3244,7 +3244,7 @@ STDMETHODIMP ChatObserver::OnPrivateUnicodeAction(HRESULT result, WOL::User* use
 STDMETHODIMP ChatObserver::OnPublicUnicodeAction(HRESULT result, WOL::Channel*,
 		WOL::User* user, const unsigned short* message)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3282,7 +3282,7 @@ STDMETHODIMP ChatObserver::OnPublicUnicodeAction(HRESULT result, WOL::Channel*,
 
 STDMETHODIMP ChatObserver::OnPagedUnicode(HRESULT result, WOL::User* user, const unsigned short* text)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3324,7 +3324,7 @@ STDMETHODIMP ChatObserver::OnPagedUnicode(HRESULT result, WOL::User* user, const
 
 STDMETHODIMP ChatObserver::OnServerTime(HRESULT result, WOL::time_t server_time)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3359,7 +3359,7 @@ STDMETHODIMP ChatObserver::OnServerTime(HRESULT result, WOL::time_t server_time)
 
 STDMETHODIMP ChatObserver::OnInsiderStatus(HRESULT result, WOL::User* wolUsers)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3372,7 +3372,7 @@ STDMETHODIMP ChatObserver::OnInsiderStatus(HRESULT result, WOL::User* wolUsers)
 		return S_OK;
 		}
 
-	if (wolUsers != NULL)
+	if (wolUsers != nullptr)
 		{
 		//	Get the name of the currently logged in user
 		RefPtr<UserData> curr_user = mOuter->GetCurrentUser();
@@ -3430,7 +3430,7 @@ STDMETHODIMP ChatObserver::OnSetLocalIP(HRESULT, LPCSTR)
 
 STDMETHODIMP ChatObserver::OnChannelListBegin(HRESULT result)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3472,14 +3472,14 @@ STDMETHODIMP ChatObserver::OnChannelListBegin(HRESULT result)
 
 STDMETHODIMP ChatObserver::OnChannelListEntry(HRESULT result, WOL::Channel* wolChannel)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
 		return S_OK;
 		}
 
-	if (FAILED(result) || (wolChannel == NULL) || (wolChannel->type != mOuter->mRequestedChannelType))
+	if (FAILED(result) || (wolChannel == nullptr) || (wolChannel->type != mOuter->mRequestedChannelType))
 		{
 		WWDEBUG_SAY(("WOLERROR: OnChannelListEntry '%s'\n", GetChatErrorString(result)));
 		ChannelList empty;
@@ -3495,7 +3495,7 @@ STDMETHODIMP ChatObserver::OnChannelListEntry(HRESULT result, WOL::Channel* wolC
 	WWASSERT(product.IsValid() && "WOLProduct not initialized");
 	int gameCode = product->GetGameCode();
 
-	ChannelList* list = NULL;
+	ChannelList* list = nullptr;
 
 	if (wolChannel->type == 0)
 		{
@@ -3602,7 +3602,7 @@ STDMETHODIMP ChatObserver::OnChannelListEntry(HRESULT result, WOL::Channel* wolC
 
 STDMETHODIMP ChatObserver::OnChannelListEnd(HRESULT result)
 	{
-	if (mOuter == NULL)
+	if (mOuter == nullptr)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
 		WWASSERT(mOuter && "Session not initialized");
@@ -3622,8 +3622,8 @@ STDMETHODIMP ChatObserver::OnChannelListEnd(HRESULT result)
 	WWASSERT(mOuter->mRequestedChannelType >= 0);
 
 	// Replace lists
-	ChannelList* channelList = NULL;
-	ChannelList* newList = NULL;
+	ChannelList* channelList = nullptr;
+	ChannelList* newList = nullptr;
 	int channelType = 0;
 
 	if (mOuter->mRequestedChannelType == 0)
@@ -3641,8 +3641,8 @@ STDMETHODIMP ChatObserver::OnChannelListEnd(HRESULT result)
 		newList = &mOuter->mIncommingGameChannels;
 		}
 
-	WWASSERT(channelList != NULL);
-	WWASSERT(newList != NULL);
+	WWASSERT(channelList != nullptr);
+	WWASSERT(newList != nullptr);
 
 	// Any leftover channels were not in the new list. So, send a
 	// notification that these channels are being removed then remove them.

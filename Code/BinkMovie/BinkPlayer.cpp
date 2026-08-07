@@ -34,7 +34,7 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 	Bink(0),
 	FrameChanged(true),
 	TicksPerFrame(0),
-	SubTitleManager(NULL)
+	SubTitleManager(nullptr)
 {
 	// Load the whole file so we can use our own file IO to access it.
 	file_auto_ptr file(_TheFileFactory, filename);
@@ -43,7 +43,7 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 
 	Bink = BinkOpen(&FileBuffer[0], BINKFROMMEMORY);
 
-	if (Bink == NULL) {
+	if (Bink == nullptr) {
 		return;
 	}
 
@@ -134,7 +134,7 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 
 BINKMovieClass::~BINKMovieClass()
 {
-	if (Bink == NULL) {
+	if (Bink == nullptr) {
 		return;
 	}
 

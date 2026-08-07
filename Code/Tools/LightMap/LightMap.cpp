@@ -170,7 +170,7 @@ BOOL LightMapApp::InitInstance()
 
 	// Get the name and path of the currently executing application.
 	TCHAR filename [MAX_PATH];
-	::GetModuleFileName (NULL, filename, sizeof (filename));
+	::GetModuleFileName (nullptr, filename, sizeof (filename));
 
 	// Get the version information for this application.
 	DWORD dummy_var = 0;
@@ -183,7 +183,7 @@ BOOL LightMapApp::InitInstance()
 
 			// Query the block for the file version information.
 			UINT version_len = 0;
-			VS_FIXEDFILEINFO *pversion_info = NULL;
+			VS_FIXEDFILEINFO *pversion_info = nullptr;
 			if (::VerQueryValue (pblock, "\\", (LPVOID*) &pversion_info, &version_len)) {
 				ApplicationVersion = pversion_info->dwFileVersionMS;
 			}
@@ -244,14 +244,14 @@ void LightMapApp::Do_Version_Check()
 	char filename [_MAX_FNAME];
 	char extension [_MAX_EXT];
 
-	::GetModuleFileName (NULL, pathname, MAX_PATH);
-	_splitpath (pathname, NULL, NULL, filename, extension);
+	::GetModuleFileName (nullptr, pathname, MAX_PATH);
+	_splitpath (pathname, nullptr, nullptr, filename, extension);
 	strcpy (pathname, "\\\\Mobius\\Project7\\Projects\\Renegade\\Programming\\Tools\\Lightmap\\");
 	strcat (pathname, filename);
 	strcat (pathname, extension);
 
 	if (Compare_EXE_Version (::AfxGetInstanceHandle(), pathname) < 0) {
-		::MessageBox (NULL, newversiontext, "Version Information", MB_ICONEXCLAMATION | MB_OK | MB_SETFOREGROUND | MB_SYSTEMMODAL);
+		::MessageBox (nullptr, newversiontext, "Version Information", MB_ICONEXCLAMATION | MB_OK | MB_SETFOREGROUND | MB_SYSTEMMODAL);
 	}
 }
 
@@ -341,12 +341,12 @@ void LightMapApp::OnAppAbout()
  *=============================================================================================*/
 void LightMapApp::OnFileOpen()
 {
-	CFileDialog dialog (true, NULL, NULL, File_Dialog_Flags(), File_Dialog_Filter());
+	CFileDialog dialog (true, nullptr, nullptr, File_Dialog_Flags(), File_Dialog_Filter());
 
 	if (dialog.DoModal() == IDOK) {
 		if (GetDoc()->OnOpenDocument (dialog.GetPathName())) {
 			GetDoc()->SetPathName (dialog.GetPathName());
-			GetDoc()->UpdateAllViews (NULL);
+			GetDoc()->UpdateAllViews (nullptr);
 		}
 	}
 }

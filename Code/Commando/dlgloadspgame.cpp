@@ -73,7 +73,7 @@ enum
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
 ////////////////////////////////////////////////////////////////
-LoadSPGameMenuClass *	LoadSPGameMenuClass::_TheInstance	= NULL;
+LoadSPGameMenuClass *	LoadSPGameMenuClass::_TheInstance	= nullptr;
 
 
 ////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ LoadSPGameMenuClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the columns
@@ -146,14 +146,14 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 
 	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= true;
-	HANDLE file_find			= NULL;
+	HANDLE file_find			= nullptr;
 
 	//
 	//	Get the path to the directory we'll be searching
 	//
 	StringClass path_name;
 	const char *search_dir = ::strrchr (search_string, '\\');
-	if (search_dir != NULL) {
+	if (search_dir != nullptr) {
 
 		//
 		//	Strip the search mask from the string
@@ -417,15 +417,15 @@ LoadSPGameMenuClass::On_ListCtrl_Delete_Entry
 		//
 		//	Free the data
 		//
-		if (file_time != NULL) {
+		if (file_time != nullptr) {
 			delete file_time;
 		}
 
-		if (path != NULL) {
+		if (path != nullptr) {
 			delete path;
 		}
 
-		if (filename != NULL) {
+		if (filename != nullptr) {
 			delete filename;
 		}
 	}
@@ -519,7 +519,7 @@ LoadSPGameMenuClass::Load_Game (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -619,7 +619,7 @@ LoadSPGameMenuClass::Update_Button_State (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -684,7 +684,7 @@ LoadSPGameMenuClass::Delete_Game (bool prompt)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -771,7 +771,7 @@ LoadSPGameMenuClass::Display (void)
 	//
 	//	Create the dialog if necessary, otherwise simply bring it to the front
 	//
-	if (_TheInstance == NULL) {
+	if (_TheInstance == nullptr) {
 		START_DIALOG (LoadSPGameMenuClass);
 	} else {
 		if (_TheInstance->Is_Active_Menu () == false) {

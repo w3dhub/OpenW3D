@@ -32,7 +32,7 @@ class LODSettingsDialogClass : public CDialog
 {
 // Construction
 public:
-	LODSettingsDialogClass (unsigned int distance = 0, CWnd* pParent = NULL);
+	LODSettingsDialogClass (unsigned int distance = 0, CWnd* pParent = nullptr);
 
 // Dialog Data
 	//{{AFX_DATA(LODSettingsDialogClass)

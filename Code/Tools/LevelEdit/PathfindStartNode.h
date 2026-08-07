@@ -63,7 +63,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	PathfindStartNodeClass (PresetClass *preset = NULL);
+	PathfindStartNodeClass (PresetClass *preset = nullptr);
 	PathfindStartNodeClass (const PathfindStartNodeClass &src);
 	~PathfindStartNodeClass (void);
 

@@ -65,7 +65,7 @@ public:
 void
 NetworkGameObjectFactoryClass::Prep_Packet (NetworkObjectClass *object, cPacket &packet) const
 {
-	WWASSERT (object != NULL);
+	WWASSERT (object != nullptr);
 	BaseGameObj *game_obj = (BaseGameObj *)(object);
 
 	//
@@ -87,7 +87,7 @@ NetworkGameObjectFactoryClass::Create (cPacket &packet) const
 	//	Lookup the definition for this object
 	//
 	DefinitionClass *definition = DefinitionMgrClass::Find_Definition (definition_id);
-	WWASSERT (definition != NULL);
+	WWASSERT (definition != nullptr);
 
 	//
 	//	Create the new object
@@ -135,7 +135,7 @@ bool	BaseGameObjDef::Load( ChunkLoadClass &cload )
 **
 */
 BaseGameObj::BaseGameObj( void ) :
-	Definition( NULL ),
+	Definition( nullptr ),
 	//DestroyType( DESTROY_NONE ),
 	//ID( 0 ),
 	IsPostThinkAllowed( false ),
@@ -227,16 +227,16 @@ bool	BaseGameObj::Load( ChunkLoadClass &cload )
 			case	MICROCHUNKID_DEFINITION_ID:
 				int definition_id;
 				LOAD_MICRO_CHUNK( cload, definition_id );
-				WWASSERT( Definition == NULL );
+				WWASSERT( Definition == nullptr );
 				Definition = (const BaseGameObjDef*)DefinitionMgrClass::Find_Definition( definition_id );
-				if ( Definition == NULL ) {
+				if ( Definition == nullptr ) {
 					Debug_Say(( "Definition %d not found\n.  Re-Export needed\n", definition_id ));
 				}
 
 				//
 				// 07/30/01 attempting to load a level with temps will presently assert here.
 				//
-				WWASSERT( Definition != NULL );
+				WWASSERT( Definition != nullptr );
 				break;
 
 			READ_MICRO_CHUNK( cload, MICROCHUNKID_ENABLE_CINEMATIC_FREEZE, EnableCinematicFreeze );

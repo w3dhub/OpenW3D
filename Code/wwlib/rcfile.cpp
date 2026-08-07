@@ -50,11 +50,11 @@ static constexpr char RESOURCE_FILE_TYPE_NAME[] = "File";
 
 #ifdef OPENW3D_WIN32
 ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
-	ResourceName(NULL),
-	hModule(NULL),
-	FileBytes(NULL),
-	FilePtr(NULL),
-	EndOfFile(NULL)
+	ResourceName(nullptr),
+	hModule(nullptr),
+	FileBytes(nullptr),
+	FilePtr(nullptr),
+	EndOfFile(nullptr)
 {
 	Set_Name(filename);
 	HRSRC hresource = FindResourceA(hmodule,ResourceName,RESOURCE_FILE_TYPE_NAME);
@@ -74,15 +74,15 @@ ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 
 #if defined(OPENW3D_WIN32)
 ResourceFileClass::ResourceFileClass(char const *filename) :
-	ResourceFileClass(NULL, filename)
+	ResourceFileClass(nullptr, filename)
 {
 }
 #elif defined(OPENW3D_SDL3)
 ResourceFileClass::ResourceFileClass(char const *filename) :
-	ResourceName(NULL),
-	FileBytes(NULL),
-	FilePtr(NULL),
-	EndOfFile(NULL)
+	ResourceName(nullptr),
+	FileBytes(nullptr),
+	FilePtr(nullptr),
+	EndOfFile(nullptr)
 {
 	Set_Name(filename);
 	if (const auto & pair = Static_Resources.find(ResourceName); pair != Static_Resources.end()) {
@@ -106,7 +106,7 @@ char const * ResourceFileClass::Set_Name(char const *filename)
 {
 	if (ResourceName) {
 		free(ResourceName);
-		ResourceName = NULL;
+		ResourceName = nullptr;
 	}
 	if (filename) {
 		ResourceName = strdup(filename);

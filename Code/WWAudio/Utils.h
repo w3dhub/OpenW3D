@@ -47,19 +47,19 @@
 #define SAFE_DELETE(pobject)					\
 			if (pobject) {							\
 				delete pobject;					\
-				pobject = NULL;					\
+				pobject = nullptr;					\
 			}											\
 
 #define SAFE_DELETE_ARRAY(pobject)			\
 			if (pobject) {							\
 				delete [] pobject;				\
-				pobject = NULL;					\
+				pobject = nullptr;					\
 			}											\
 
 #define SAFE_FREE(pobject)						\
 			if (pobject) {							\
 				::free (pobject);					\
-				pobject = NULL;					\
+				pobject = nullptr;					\
 			}											\
 
 
@@ -86,7 +86,7 @@ Get_Filename_From_Path (const char* path)
 {
 	// Find the last occurance of the directory deliminator
 	const char* filename = ::strrchr (path, '\\');
-	if (filename != NULL) {
+	if (filename != nullptr) {
 		// Increment past the directory deliminator
 		filename ++;
 	} else {

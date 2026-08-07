@@ -35,7 +35,7 @@ class NewAssetPackageDialogClass : public CDialog
 {
 // Construction
 public:
-	NewAssetPackageDialogClass(CWnd* pParent = NULL);   // standard constructor
+	NewAssetPackageDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(NewAssetPackageDialogClass)

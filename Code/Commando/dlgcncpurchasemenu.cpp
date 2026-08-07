@@ -111,8 +111,8 @@ CNCPurchaseMenuClass::On_Init_Dialog (void)
 {
 	MenuDialogClass::On_Init_Dialog ();
 
-	WWASSERT(COMBAT_STAR != NULL);
-	WWASSERT(COMBAT_STAR->Get_Player_Data() != NULL);
+	WWASSERT(COMBAT_STAR != nullptr);
+	WWASSERT(COMBAT_STAR->Get_Player_Data() != nullptr);
 
 	//
 	//	Get the player's current money
@@ -142,7 +142,7 @@ CNCPurchaseMenuClass::On_Init_Dialog (void)
 		//	Get the control for this entry
 		//
 		MerchandiseCtrlClass *ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ITEM_CTRL_IDS[index]);
-		if (ctrl != NULL) {
+		if (ctrl != nullptr) {
 
 			//
 			//	Is this slot available?
@@ -313,7 +313,7 @@ void
 CNCPurchaseMenuClass::Add_Item_To_Shopping_Cart (int ctrl_id)
 {
 	MerchandiseCtrlClass *ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ctrl_id);
-	if (ctrl == NULL) {
+	if (ctrl == nullptr) {
 		return ;
 	}
 
@@ -322,8 +322,8 @@ CNCPurchaseMenuClass::Add_Item_To_Shopping_Cart (int ctrl_id)
 	//
 	//	Can the player afford this item?
 	//
-	WWASSERT(COMBAT_STAR != NULL);
-	WWASSERT(COMBAT_STAR->Get_Player_Data() != NULL);
+	WWASSERT(COMBAT_STAR != nullptr);
+	WWASSERT(COMBAT_STAR->Get_Player_Data() != nullptr);
 
 	int funds	= (int) COMBAT_STAR->Get_Player_Data ()->Get_Money ();
 	int cost		= int(Definition->Get_Cost (item_index) * CostScalingFactor);
@@ -348,7 +348,7 @@ CNCPurchaseMenuClass::Add_Item_To_Shopping_Cart (int ctrl_id)
 		//	Update the counter on the merchandise control
 		//
 		ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ITEM_CTRL_IDS[item_index]);
-		if (ctrl != NULL) {
+		if (ctrl != nullptr) {
 			ctrl->Increment_Purchase_Count ();
 		}
 	}
@@ -370,8 +370,8 @@ CNCPurchaseMenuClass::Clear_Shopping_Cart (void)
 	//
 	TotalCost	= 0;
 
-	WWASSERT(COMBAT_STAR != NULL);
-	WWASSERT(COMBAT_STAR->Get_Player_Data() != NULL);
+	WWASSERT(COMBAT_STAR != nullptr);
+	WWASSERT(COMBAT_STAR->Get_Player_Data() != nullptr);
 
 	int funds	= (int) COMBAT_STAR->Get_Player_Data ()->Get_Money ();
 	ShoppingList.Delete_All ();
@@ -390,7 +390,7 @@ CNCPurchaseMenuClass::Clear_Shopping_Cart (void)
 		//	Get the control for this entry
 		//
 		MerchandiseCtrlClass *ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ITEM_CTRL_IDS[index]);
-		if (ctrl != NULL) {
+		if (ctrl != nullptr) {
 			ctrl->Reset_Purchase_Count ();
 		}
 	}
@@ -448,13 +448,13 @@ CNCPurchaseMenuClass::Purchase (void)
 	//
 	if (allow_purchase) {
 		for (int index = 0; index < ShoppingList.Count (); index ++) {
-			WWASSERT (COMBAT_STAR != NULL);
+			WWASSERT (COMBAT_STAR != nullptr);
 
 			//
 			//	Lookup the merchandise control we'll be purchasing
 			//
 			MerchandiseCtrlClass *ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ShoppingList[index]);
-			if (ctrl != NULL) {
+			if (ctrl != nullptr) {
 				int item_index		= (int)ctrl->Get_User_Data ();
 				int alt_index		= ctrl->Get_Selected_Alternate ();
 				VendorClass::Purchase_Item (COMBAT_STAR, vendor_purchase_type, item_index, alt_index);
@@ -485,26 +485,26 @@ CNCPurchaseMenuClass::Verify_Vehicle_Purchase (void)
 	//	Find the base for this user
 	//
 	BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();
-	if (base != NULL) {
+	if (base != nullptr) {
 
 		//
 		//	Find the vehicle factory
 		//
 		BuildingGameObj *building = base->Find_Building (BuildingConstants::TYPE_VEHICLE_FACTORY);
-		if (building != NULL && building->As_VehicleFactoryGameObj () != NULL) {
+		if (building != nullptr && building->As_VehicleFactoryGameObj () != nullptr) {
 			VehicleFactoryGameObj *factory = building->As_VehicleFactoryGameObj ();
 
 			//
 			//	Determine if the factory is busy or destroyed
 			//
 			if (factory->Is_Busy ()) {
-				DlgMsgBox::DoDialog (IDS_CNC_CANT_PURCHASE_TITLE, IDS_CNC_VEHICLE_FACTORY_BUSY_MSG, DlgMsgBox::Okay, NULL, 0);
+				DlgMsgBox::DoDialog (IDS_CNC_CANT_PURCHASE_TITLE, IDS_CNC_VEHICLE_FACTORY_BUSY_MSG, DlgMsgBox::Okay, nullptr, 0);
 				allow_purchase = false;
 			} else if (factory->Is_Destroyed ()) {
-				DlgMsgBox::DoDialog (IDS_CNC_CANT_PURCHASE_TITLE, IDS_CNC_VEHICLE_FACTORY_DESTROYED_MSG, DlgMsgBox::Okay, NULL, 0);
+				DlgMsgBox::DoDialog (IDS_CNC_CANT_PURCHASE_TITLE, IDS_CNC_VEHICLE_FACTORY_DESTROYED_MSG, DlgMsgBox::Okay, nullptr, 0);
 				allow_purchase = false;
 			} else if (factory->Get_Team_Vehicle_Count() >= factory->Get_Max_Vehicles_Per_Team()) {
-				DlgMsgBox::DoDialog (IDS_CNC_CANT_PURCHASE_TITLE, IDS_CNC_VEHICLE_FACTORY_LIMIT_REACHED, DlgMsgBox::Okay, NULL, 0);
+				DlgMsgBox::DoDialog (IDS_CNC_CANT_PURCHASE_TITLE, IDS_CNC_VEHICLE_FACTORY_LIMIT_REACHED, DlgMsgBox::Okay, nullptr, 0);
 				allow_purchase = false;
 			}
 		}
@@ -523,7 +523,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 {
 	bool retval = false;
 
-	if (definition != NULL) {
+	if (definition != nullptr) {
 		retval = true;
 
 		//
@@ -536,7 +536,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 			//	Is this a weapon we're purchasing?
 			//
 			DefinitionClass *weapon_def = DefinitionMgrClass::Find_Definition (weapon_id);
-			if (weapon_def != NULL && weapon_def->Get_Class_ID () == CLASSID_DEF_WEAPON) {
+			if (weapon_def != nullptr && weapon_def->Get_Class_ID () == CLASSID_DEF_WEAPON) {
 
 				//
 				//	Is this a beacon?
@@ -547,7 +547,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 					//	Is this CnC mode?
 					//
 					/*
-					if (The_Game () != NULL && The_Game ()->As_Cnc () != NULL) {
+					if (The_Game () != nullptr && The_Game ()->As_Cnc () != nullptr) {
 						cGameDataCnc *game_data = The_Game ()->As_Cnc ();
 
 						//
@@ -561,7 +561,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 						}
 					}
 					*/
-					if (The_Game () != NULL) {
+					if (The_Game () != nullptr) {
 
 						//
 						//	Don't allow the player to purchase beacons unless the
@@ -570,7 +570,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 
 						cGameDataCnc * game_cnc = The_Game ()->As_Cnc ();
 
-						if (	game_cnc != NULL &&
+						if (	game_cnc != nullptr &&
 							   (game_cnc->BaseDestructionEndsGame.Is_False () ||
 								 game_cnc->BeaconPlacementEndsGame.Is_False ()))
 						{
@@ -579,7 +579,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 
 						cGameDataSkirmish * game_skirmish = The_Game ()->As_Skirmish ();
 
-						if (	game_skirmish != NULL &&
+						if (	game_skirmish != nullptr &&
 							   (game_skirmish->BaseDestructionEndsGame.Is_False () ||
 								 game_skirmish->BeaconPlacementEndsGame.Is_False ()))
 						{
@@ -598,7 +598,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 			//
 			int phys_def_id = ((PhysicalGameObjDef *)definition)->Get_Phys_Def_ID ();
 			PhysDefClass *phys_def = (PhysDefClass *)DefinitionMgrClass::Find_Definition (phys_def_id);
-			if (phys_def != NULL) {
+			if (phys_def != nullptr) {
 
 				//
 				//	Don't allow flying vehicles on maps that aren't geared towards
@@ -625,12 +625,12 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 void
 CNCPurchaseMenuClass::On_Frame_Update (void)
 {
-	if (COMBAT_STAR == NULL) {
+	if (COMBAT_STAR == nullptr) {
 		return ;
 	}
 
-	WWASSERT(COMBAT_STAR != NULL);
-	WWASSERT(COMBAT_STAR->Get_Player_Data() != NULL);
+	WWASSERT(COMBAT_STAR != nullptr);
+	WWASSERT(COMBAT_STAR->Get_Player_Data() != nullptr);
 
 	//
 	//	Update the player's money every frame
@@ -720,14 +720,14 @@ void
 CNCPurchaseMenuClass::Update_Building_Health (void)
 {
 	BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();
-	if (base == NULL) {
+	if (base == nullptr) {
 		return ;
 	}
 
 	//
 	//	Find the building for the requested factory
 	//
-	BuildingGameObj *building = NULL;
+	BuildingGameObj *building = nullptr;
 	if (PurchaseType == PurchaseSettingsDefClass::TYPE_CLASSES) {
 		building = base->Find_Building (BuildingConstants::TYPE_SOLDIER_FACTORY);
 	} else if (PurchaseType == PurchaseSettingsDefClass::TYPE_VEHICLES) {
@@ -737,7 +737,7 @@ CNCPurchaseMenuClass::Update_Building_Health (void)
 	//
 	//	Update the factory
 	//
-	if (building != NULL) {
+	if (building != nullptr) {
 		float life = building->Get_Defense_Object ()->Get_Health () / building->Get_Defense_Object ()->Get_Health_Max ();
 		((HealthBarCtrlClass *)Get_Dlg_Item (IDC_BUILDING01_HEALTHBAR))->Set_Life (life);
 	}
@@ -746,7 +746,7 @@ CNCPurchaseMenuClass::Update_Building_Health (void)
 	//	Update the poweruplant
 	//
 	building = base->Find_Building (BuildingConstants::TYPE_POWER_PLANT);
-	if (building != NULL) {
+	if (building != nullptr) {
 		float life = building->Get_Defense_Object ()->Get_Health () / building->Get_Defense_Object ()->Get_Health_Max ();
 		((HealthBarCtrlClass *)Get_Dlg_Item (IDC_BUILDING02_HEALTHBAR))->Set_Life (life);
 
@@ -821,7 +821,7 @@ CNCPurchaseMenuClass::Configure_Building_Icons (void)
 void
 CNCPurchaseMenuClass::Update_Enabled_Status (void)
 {
-	if (COMBAT_STAR == NULL || COMBAT_STAR->Get_Player_Data () == NULL) {
+	if (COMBAT_STAR == nullptr || COMBAT_STAR->Get_Player_Data () == nullptr) {
 		return ;
 	}
 
@@ -836,14 +836,14 @@ CNCPurchaseMenuClass::Update_Enabled_Status (void)
 		//	Get the control for this entry
 		//
 		MerchandiseCtrlClass *ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ITEM_CTRL_IDS[index]);
-		if (ctrl != NULL) {
+		if (ctrl != nullptr) {
 
 			//
 			//	Is this slot available?
 			//
 			int definition_id					= Definition->Get_Definition (index);
 			DefinitionClass *definition	= DefinitionMgrClass::Find_Definition (definition_id);
-			if (definition != NULL) {
+			if (definition != nullptr) {
 
 				//
 				//	Configure the merchandise settings

@@ -197,7 +197,7 @@ void StripOptimizerClass::Optimize_Strip_Order (int* strips, int strip_count)
 
 		o = Copy_Strip(o, ss[bestIndex]);					// copy the strip
 		prev = ss[bestIndex];								// set to prev
-		ss[bestIndex] = NULL;								// mark as selected
+		ss[bestIndex] = nullptr;								// mark as selected
 	}
 
 //	WWASSERT((out+outSize)==o);							// HUH?
@@ -258,7 +258,7 @@ void StripOptimizerClass::Optimize_Triangle_Order (int *tris, int triangle_count
 	Tri* prev = t[0];
 
 	*o++ = *prev;
-	t[0] = NULL;
+	t[0] = nullptr;
 
 	for (;;)
 	{
@@ -284,7 +284,7 @@ void StripOptimizerClass::Optimize_Triangle_Order (int *tris, int triangle_count
 
 		*o++ = *t[bestIndex];
 		prev = t[bestIndex];
-		t[bestIndex] = NULL;
+		t[bestIndex] = nullptr;
 	}
 
 
@@ -497,7 +497,7 @@ namespace Strip
  *
  * Description:		Returns pointer to triangle with smallest connectivity
  *
- * Returns:			pointer to triangle with smallest connectivity or NULL
+ * Returns:			pointer to triangle with smallest connectivity or nullptr
  *					if the queue is empty
  *
  *****************************************************************************/
@@ -548,7 +548,7 @@ inline TriangleQueue::~TriangleQueue ()
  * Description:		Internal function for recalculating a triangle's
  *					connectivity
  *
- * Parameters:		t = pointer to triangle (non-NULL)
+ * Parameters:		t = pointer to triangle (non-nullptr)
  *
  *****************************************************************************/
 
@@ -585,7 +585,7 @@ inline void TriangleQueue::reinsert (Triangle* t)
  *
  * Description:		Removes a triangle from the queue
  *
- * Parameters:		t = pointer to triangle (non-NULL)
+ * Parameters:		t = pointer to triangle (non-nullptr)
  *
  *****************************************************************************/
 

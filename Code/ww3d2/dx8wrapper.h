@@ -391,9 +391,9 @@ public:
 	**	WW3D::Render (scene, camera, false, false);
 	**	WW3D::End_Render ();
 	**
-	**	swap_chain_ptr->Present (NULL, NULL, NULL, NULL);
+	**	swap_chain_ptr->Present (nullptr, nullptr, nullptr, nullptr);
 	**
-	**	DX8Wrapper::Set_Render_Target ((IDirect3DSurface9 *)NULL);
+	**	DX8Wrapper::Set_Render_Target ((IDirect3DSurface9 *)nullptr);
 	**
 	*/
 	static IDirect3DSwapChain9 *	Create_Additional_Swap_Chain (HWND render_window);
@@ -632,7 +632,7 @@ WWINLINE void DX8Wrapper::Set_Fog(bool enable, const Vector3 &color, float start
 //
 // Set vertex buffer to be used in the subsequent render calls. If there was
 // a vertex buffer being used earlier, release the reference to it. Passing
-// NULL just will release the vertex buffer.
+// nullptr just will release the vertex buffer.
 //
 // ----------------------------------------------------------------------------
 
@@ -729,7 +729,7 @@ WWINLINE void DX8Wrapper::_Copy_DX8_Rects(
 )
 {
 	if (cRects == 0) {
-		DX8CALL(UpdateSurface(pSourceSurface, NULL, pDestinationSurface, NULL));
+		DX8CALL(UpdateSurface(pSourceSurface, nullptr, pDestinationSurface, nullptr));
 	} else {
 		for (UINT i = 0; i < cRects; i++) {
 			DX8CALL(UpdateSurface(pSourceSurface, &pSourceRectsArray[i], pDestinationSurface, &pDestPointsArray[i]));

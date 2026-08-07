@@ -61,7 +61,7 @@ bool DlgMPConnectionRefused::DoDialog(const unichar_t * text, bool show_splash_s
 		popup->Release_Ref();
 		}
 
-	return (popup != NULL);
+	return (popup != nullptr);
 	}
 
 
@@ -86,7 +86,7 @@ DlgMPConnectionRefused::DlgMPConnectionRefused(const unichar_t * text, bool show
 	{
 	WWDEBUG_SAY(("DlgMPConnectionRefused: Instantiated\n"));
 
-	WWASSERT(text != NULL);
+	WWASSERT(text != nullptr);
 	Text.Format(text);
 
 	ShowSplashScreen = show_splash_screen;

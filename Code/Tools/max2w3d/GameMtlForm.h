@@ -51,15 +51,15 @@ public:
 	TimeValue GetTime(){ return GetCOREInterface()->GetTime();}
 	virtual void MtlChanged(){};
 	virtual HWND AddRollupPage( HINSTANCE hInst, DLGTEMPLATE *dlgTemplate,
-		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD ){return NULL;}
+		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD ){return nullptr;}
 	virtual HWND AddRollupPage( HINSTANCE hInst, TCHAR *dlgTemplate,
-		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD ){return NULL;};
+		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD ){return nullptr;};
 
 	virtual HWND ReplaceRollupPage( HWND hOldRollup, HINSTANCE hInst, TCHAR *dlgTemplate,
-		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD  ){return NULL;}
+		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD  ){return nullptr;}
 
 	virtual HWND ReplaceRollupPage( HWND hOldRollup, HINSTANCE hInst, DLGTEMPLATE *dlgTemplate,
-		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD  ){return NULL;};
+		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD  ){return nullptr;};
 
 	virtual void DeleteRollupPage( HWND hRollup ){};
 
@@ -78,7 +78,7 @@ public:
 	virtual void EndPickMode(){};
 
 	// JBW 10/19/98: get interface to mtl editor rollup
-	virtual IRollupWindow *GetMtlEditorRollup(){return NULL;}
+	virtual IRollupWindow *GetMtlEditorRollup(){return nullptr;}
 
 	virtual int IsRollupPanelOpen(HWND hwnd){return 0;}
 	virtual int GetRollupScrollPos(){return 0;}

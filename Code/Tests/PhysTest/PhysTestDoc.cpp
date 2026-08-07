@@ -74,9 +74,9 @@ END_MESSAGE_MAP()
 // CPhysTestDoc construction/destruction
 
 CPhysTestDoc::CPhysTestDoc() :
-	Scene(NULL),
-	Light(NULL),
-	Origin(NULL)
+	Scene(nullptr),
+	Light(nullptr),
+	Origin(nullptr)
 {
 }
 
@@ -93,7 +93,7 @@ CPhysTestDoc::~CPhysTestDoc()
 
 void CPhysTestDoc::Init_Scene(void)
 {
-	if (Scene == NULL)
+	if (Scene == nullptr)
 	{
 		// Instantiate a new scene
 		Scene = NEW_REF(PhysicsSceneClass,());
@@ -101,7 +101,7 @@ void CPhysTestDoc::Init_Scene(void)
 
 		// Were we successful in instantiating the scene object?
 		ASSERT(Scene);
-		if (Scene != NULL) {
+		if (Scene != nullptr) {
 
 			// Set up some collision groups.
 			Scene->Enable_All_Collision_Detections(0);
@@ -110,7 +110,7 @@ void CPhysTestDoc::Init_Scene(void)
 			Scene->Set_Ambient_Light(Vector3 (0.5F, 0.5F, 0.5F));
 
 			// Create a new scene light
-			if (Light == NULL) {
+			if (Light == nullptr) {
 				Light = NEW_REF(LightClass,(LightClass::DIRECTIONAL));
 				ASSERT(Light);
 
@@ -138,8 +138,8 @@ void CPhysTestDoc::Init_Scene(void)
 			}
 
 			// Create an object at the Origin
-			if (Origin == NULL) {
-				ResourceFileClass mesh_file(NULL, "Axes.w3d");
+			if (Origin == nullptr) {
+				ResourceFileClass mesh_file(nullptr, "Axes.w3d");
 				WW3DAssetManager::Get_Instance()->Load_3D_Assets(mesh_file);
 
 				Origin = WW3DAssetManager::Get_Instance()->Create_Render_Obj("Axes");
@@ -343,7 +343,7 @@ void CPhysTestDoc::Save_PHY_File(LPCTSTR lpszPathName)
 //
 CDataView * CPhysTestDoc::Get_Data_View(void)
 {
-    CDataView * view = NULL;
+    CDataView * view = nullptr;
 
     // Get a pointer to the main window
     CMainFrame * mainwnd = (CMainFrame *)::AfxGetMainWnd();
@@ -363,7 +363,7 @@ CDataView * CPhysTestDoc::Get_Data_View(void)
 //
 CGraphicView * CPhysTestDoc::Get_Graphic_View(void)
 {
-    CGraphicView * view = NULL;
+    CGraphicView * view = nullptr;
 
     // Get a pointer to the main window
     CMainFrame * mainwnd = (CMainFrame *)::AfxGetMainWnd();
@@ -383,8 +383,8 @@ CGraphicView * CPhysTestDoc::Get_Graphic_View(void)
 //
 void CPhysTestDoc::Add_Physics_Object(PhysClass * obj)
 {
-	if (obj == NULL) return;
-	if (Scene == NULL) return;
+	if (obj == nullptr) return;
+	if (Scene == nullptr) return;
 
 	Scene->Add_Dynamic_Object(obj);
 

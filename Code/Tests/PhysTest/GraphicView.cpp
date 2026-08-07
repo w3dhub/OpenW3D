@@ -79,8 +79,8 @@ void CALLBACK TimerCallback
 	if (IsWindow(hwnd)) {
 
 		// Send this event off to the view to process (hackish, but fine for now)
-		if ((GetProp (hwnd, "WaitingToProcess") == NULL) &&
-			 (GetProp (hwnd, "Inactive") == NULL)) {
+		if ((GetProp (hwnd, "WaitingToProcess") == nullptr) &&
+			 (GetProp (hwnd, "Inactive") == nullptr)) {
 
 			SetProp (hwnd, "WaitingToProcess", (HANDLE)1);
 
@@ -140,14 +140,14 @@ CGraphicView::CGraphicView() :
 	RunSimulation(false),
 	DisplayBoxes(false),
 	CameraMode(CAMERA_FLY),
-	Camera(NULL),
+	Camera(nullptr),
 	TimerID(0),
 	LMouseDown(false),
 	RMouseDown(false),
 	LastPoint(0,0),
-	PipCamera(NULL),
-	PipScene(NULL),
-	Axes(NULL)
+	PipCamera(nullptr),
+	PipScene(nullptr),
+	Axes(nullptr)
 {
 }
 
@@ -192,12 +192,12 @@ BOOL CGraphicView::Initialize_WW3D(int device,int bits)
 	}
 
 	// Load some models that we're going to need into the asset manager
-	ResourceFileClass point_file(NULL, "Point.w3d");
+	ResourceFileClass point_file(nullptr, "Point.w3d");
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets(point_file);
-	ResourceFileClass axes_file(NULL, "Axes.w3d");
+	ResourceFileClass axes_file(nullptr, "Axes.w3d");
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets(axes_file);
 
-	if (Camera == NULL) {
+	if (Camera == nullptr) {
 		Camera = NEW_REF(CameraClass,());
 		ASSERT(Camera);
 
@@ -228,7 +228,7 @@ BOOL CGraphicView::Initialize_WW3D(int device,int bits)
 #endif
 	}
 
-	if (PipCamera == NULL) {
+	if (PipCamera == nullptr) {
 		PipCamera = NEW_REF(CameraClass,());
 		ASSERT(PipCamera);
 		PipCamera->Set_Viewport(Vector2(0.0f,1.0f - PIP_VIEW),Vector2(PIP_VIEW,1.0f));
@@ -236,13 +236,13 @@ BOOL CGraphicView::Initialize_WW3D(int device,int bits)
 		Update_Pip_Camera();
 	}
 
-	if (PipScene == NULL) {
+	if (PipScene == nullptr) {
 		PipScene = NEW_REF(SimpleSceneClass,());
 		PipScene->Set_Ambient_Light(Vector3(1,1,1));
 		ASSERT(PipScene);
 	}
 
-	if (Axes == NULL) {
+	if (Axes == nullptr) {
 		Axes = WW3DAssetManager::Get_Instance()->Create_Render_Obj("Axes");
 		ASSERT(Axes);
 		Axes->Set_Transform(Matrix3D(1));

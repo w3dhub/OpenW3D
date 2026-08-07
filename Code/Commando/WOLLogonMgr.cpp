@@ -228,7 +228,7 @@ RefPtr<IRCServerData> WOLLogonMgr::GetDefaultServer(void)
 
 	if (!wolSession.IsValid())
 		{
-		return NULL;
+		return nullptr;
 		}
 
 	// Find the server closets to us.
@@ -556,7 +556,7 @@ RefPtr<IRCServerData> WOLLogonMgr::GetPreferredServer([[maybe_unused]] const uni
 		const RefPtr<IRCServerData>& thisServer = serverList[index];
 
 		const char* name = thisServer->GetName();
-		WWASSERT(name != NULL && "NULL server name");
+		WWASSERT(name != nullptr && "nullptr server name");
 
 		if (preferred && (stricmp(preferred, name) == 0))
 			{
@@ -1148,8 +1148,8 @@ void WOLLogonMgr::HandleNotification(DlgWOLLogonEvent& event)
 		DlgWOLLogon& logonDialog = event.Subject();
 
 		// Get selected login
-		const unichar_t* name = NULL;
-		const unichar_t* password = NULL;
+		const unichar_t* name = nullptr;
+		const unichar_t* password = nullptr;
 		logonDialog.GetLogin(&name, &password, mPasswordEncrypted);
 
 		mLoginName = name;

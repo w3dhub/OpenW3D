@@ -98,29 +98,29 @@ BYTE huge * ReadDib (char * szFileName)
 	WORD             wDibRead ;
 
 	if (-1 == (hFile = _lopen (szFileName, OF_READ | OF_SHARE_DENY_WRITE)))
-		return NULL ;
+		return nullptr ;
 
 	if (_lread (hFile, (LPSTR) &bmfh, sizeof (BITMAPFILEHEADER)) !=
 									   sizeof (BITMAPFILEHEADER))
 	{
 		_lclose (hFile) ;
-		return NULL ;
+		return nullptr ;
 	}
 
 	if (bmfh.bfType != * (WORD *) "BM")
 	{
 		  _lclose (hFile) ;
-		  return NULL ;
+		  return nullptr ;
 	}
 
 	dwDibSize = bmfh.bfSize - sizeof (BITMAPFILEHEADER) ;
 
 	lpDib = (BYTE huge * ) GlobalAllocPtr (GMEM_MOVEABLE, dwDibSize) ;
 
-	if (lpDib == NULL)
+	if (lpDib == nullptr)
 	{
 		_lclose (hFile) ;
-		return NULL ;
+		return nullptr ;
 	}
 
 	dwOffset = 0 ;
@@ -132,7 +132,7 @@ BYTE huge * ReadDib (char * szFileName)
 		if (wDibRead != _lread (hFile, (LPSTR) (lpDib + dwOffset), wDibRead))
 		{
 			_lclose (hFile) ;
-			return NULL ;
+			return nullptr ;
 		}
 
 		dwDibSize -= wDibRead ;
@@ -144,7 +144,7 @@ BYTE huge * ReadDib (char * szFileName)
 	dwHeaderSize = GetDibInfoHeaderSize (lpDib) ;
 
 	if (dwHeaderSize < 12 || (dwHeaderSize > 12 && dwHeaderSize < 16))
-		return NULL ;
+		return nullptr ;
 	return lpDib ;
 }
 
@@ -167,7 +167,7 @@ int FAR PASCAL _export MainWndProc(HWND hWnd,UINT message,UINT wParam,LONG lPara
 	{
 		case WM_CREATE:
 			fi=fopen("somefile.bmp","r");
-			if(fi==NULL)
+			if(fi==nullptr)
 				return 0;
 
 			LogPal=(LPLOGPALETTE)farmalloc(sizeof(LOGPALETTE)+sizeof(PALETTEENTRY)*256);

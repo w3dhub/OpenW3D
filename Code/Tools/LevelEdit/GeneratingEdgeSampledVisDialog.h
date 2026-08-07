@@ -57,7 +57,7 @@ class GeneratingEdgeSampledVisDialogClass : public CDialog
 {
 // Construction
 public:
-	GeneratingEdgeSampledVisDialogClass(CWnd* pParent = NULL);   // standard constructor
+	GeneratingEdgeSampledVisDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GeneratingEdgeSampledVisDialogClass)

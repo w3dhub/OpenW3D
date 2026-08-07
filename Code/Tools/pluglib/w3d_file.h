@@ -312,7 +312,7 @@ struct W3dChunkHeader
 	make the importer faster, the triangles will also be stored in this
 	format.  The application can read whichever chunk it wants to.
 
-	The mesh user text chunk is a NULL-terminated text buffer.
+	The mesh user text chunk is a nullptr-terminated text buffer.
 
 ********************************************************************************/
 
@@ -361,9 +361,9 @@ struct W3dRGBStruct
 /////////////////////////////////////////////////////////////////////////////////////////////
 struct W3dMaterialStruct
 {
-	char		  	MaterialName[W3D_NAME_LEN];	// name of the material (NULL terminated)
-	char	 		PrimaryName[W3D_NAME_LEN];		// primary texture name (NULL terminated)
-	char	 		SecondaryName[W3D_NAME_LEN];	// secondary texture name (NULL terminated)
+	char		  	MaterialName[W3D_NAME_LEN];	// name of the material (nullptr terminated)
+	char	 		PrimaryName[W3D_NAME_LEN];		// primary texture name (nullptr terminated)
+	char	 		SecondaryName[W3D_NAME_LEN];	// secondary texture name (nullptr terminated)
 	uint32		RenderFlags;						// Rendering flags
 	uint8	 		Red;									// Rgb colors
 	uint8	 		Green;
@@ -375,9 +375,9 @@ struct W3dMaterialStruct
 /////////////////////////////////////////////////////////////////////////////////////////////
 struct W3dMaterial2Struct
 {
-	char		  	MaterialName[W3D_NAME_LEN];	// name of the material (NULL terminated)
-	char	 		PrimaryName[W3D_NAME_LEN];		// primary texture name (NULL terminated)
-	char	 		SecondaryName[W3D_NAME_LEN];	// secondary texture name (NULL terminated)
+	char		  	MaterialName[W3D_NAME_LEN];	// name of the material (nullptr terminated)
+	char	 		PrimaryName[W3D_NAME_LEN];		// primary texture name (nullptr terminated)
+	char	 		SecondaryName[W3D_NAME_LEN];	// secondary texture name (nullptr terminated)
 	uint32		RenderFlags;						// Rendering flags
 	uint8	 		Red;									// Rgb colors
 	uint8	 		Green;
@@ -790,8 +790,8 @@ struct W3dBitChannelStruct
 struct W3dHModelHeaderStruct
 {
 	uint32					Version;
-	char						Name[W3D_NAME_LEN];				// Name of this connection set (NULL terminated)
-	char						HierarchyName[W3D_NAME_LEN];	// Name of hierarchy associated with these connections (NULL terminated)
+	char						Name[W3D_NAME_LEN];				// Name of this connection set (nullptr terminated)
+	char						HierarchyName[W3D_NAME_LEN];	// Name of hierarchy associated with these connections (nullptr terminated)
 	uint16					NumConnections;
 };
 

@@ -77,7 +77,7 @@ public:
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
-	NodeClass (PresetClass *preset = NULL);
+	NodeClass (PresetClass *preset = nullptr);
 	NodeClass (const NodeClass &src);
 	virtual ~NodeClass (void);
 
@@ -111,13 +111,13 @@ public:
 	//
 	//	RTTI
 	//
-	virtual ObjectNodeClass *		As_ObjectNodeClass (void)		{ return NULL; }
-	virtual TileNodeClass *			As_TileNodeClass (void)			{ return NULL; }
-	virtual TerrainNodeClass *		As_TerrainNodeClass (void)		{ return NULL; }
-	virtual SoundNodeClass *		As_SoundNodeClass (void)		{ return NULL; }
-	virtual LightNodeClass *		As_LightNodeClass (void)		{ return NULL; }
-	virtual WaypathNodeClass *		As_WaypathNodeClass (void)		{ return NULL; }
-	virtual WaypointNodeClass *	As_WaypointNodeClass (void)	{ return NULL; }
+	virtual ObjectNodeClass *		As_ObjectNodeClass (void)		{ return nullptr; }
+	virtual TileNodeClass *			As_TileNodeClass (void)			{ return nullptr; }
+	virtual TerrainNodeClass *		As_TerrainNodeClass (void)		{ return nullptr; }
+	virtual SoundNodeClass *		As_SoundNodeClass (void)		{ return nullptr; }
+	virtual LightNodeClass *		As_LightNodeClass (void)		{ return nullptr; }
+	virtual WaypathNodeClass *		As_WaypathNodeClass (void)		{ return nullptr; }
+	virtual WaypointNodeClass *	As_WaypointNodeClass (void)	{ return nullptr; }
 
 	//
 	//	Scene methods
@@ -195,8 +195,8 @@ public:
 	//	Editing methods
 	//
 	virtual bool					Show_Settings_Dialog (void);
-	virtual NodeClass *			Add_Child_Node (const Matrix3D &/* tm */)		{ return NULL; }
-	virtual NodeClass *			Get_Parent_Node (void) const				{ return NULL; }
+	virtual NodeClass *			Add_Child_Node (const Matrix3D &/* tm */)		{ return nullptr; }
+	virtual NodeClass *			Get_Parent_Node (void) const				{ return nullptr; }
 	virtual bool					Can_Add_Child_Nodes (void)	const			{ return false; }
 	virtual bool					Is_A_Child_Node (NodeClass *) const		{ return false; }
 
@@ -215,15 +215,15 @@ public:
 	//
 	//	Vis-related methods
 	//
-	virtual void					Add_Vis_Points (VisPointGeneratorClass &generator, RenderObjClass *render_obj = NULL);
-	virtual bool					Has_Vis_Sectors (RenderObjClass *render_obj = NULL);
+	virtual void					Add_Vis_Points (VisPointGeneratorClass &generator, RenderObjClass *render_obj = nullptr);
+	virtual bool					Has_Vis_Sectors (RenderObjClass *render_obj = nullptr);
 	virtual void					Update_Cached_Vis_IDs (void) { };
 
 	//
 	//	Sub-node Enumeration
 	//
 	virtual int						Get_Sub_Node_Count (void) const	{ return 0; }
-	virtual NodeClass *			Get_Sub_Node (int /* index */)			{ return NULL; }
+	virtual NodeClass *			Get_Sub_Node (int /* index */)			{ return nullptr; }
 
 	//
 	//	From PersistClass
@@ -306,7 +306,7 @@ NodeClass::Set_Transform (const Matrix3D &tm)
 	m_Transform = tm;
 
 	PhysClass *phys_obj = Peek_Physics_Obj ();
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 		phys_obj->Set_Transform (tm);
 		On_Transform ();
 	}
@@ -323,7 +323,7 @@ NodeClass::Get_Transform (void)
 	Matrix3D tm (1);
 
 	PhysClass *phys_obj = Peek_Physics_Obj ();
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 		tm = phys_obj->Get_Transform ();
 	}
 
@@ -339,7 +339,7 @@ NodeClass::Set_Position (const Vector3 &pos)
 	m_Transform.Set_Translation (pos);
 
 	PhysClass *phys_obj = Peek_Physics_Obj ();
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 		phys_obj->Set_Transform (m_Transform);
 		On_Translate ();
 	}
@@ -409,7 +409,7 @@ inline void
 NodeClass::Set_Preset (PresetClass *preset)
 {
 	m_Preset = preset;
-	if (m_Preset != NULL) {
+	if (m_Preset != nullptr) {
 		m_PresetID = m_Preset->Get_ID ();
 	}
 

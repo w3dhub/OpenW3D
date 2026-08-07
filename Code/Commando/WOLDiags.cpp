@@ -104,7 +104,7 @@ void WOLConsoleFunctionClass::Activate(const char* input)
 		{"server", ShowServer},
 		{"topic", ShowTopic},
 		{"ver", ShowWOLVersion},
-		{NULL, NULL}
+		{nullptr, nullptr}
 		};
 
 	RefPtr<Session> session = Session::GetInstance(false);
@@ -118,7 +118,7 @@ void WOLConsoleFunctionClass::Activate(const char* input)
 	int index = 0;
 	const char* cmd = _dispatch[0].Cmd;
 
-	while (cmd != NULL)
+	while (cmd != nullptr)
 		{
 		if (stricmp(cmd, input) == 0)
 			{

@@ -66,8 +66,8 @@ class VSSClass : public AssetDatabaseClass
 		//	Public constructors/destructors
 		//
 		VSSClass (void)
-			:	m_pIVSSDatabase (NULL),
-				m_bReadOnly (true)				{ ::CoInitialize (NULL); }
+			:	m_pIVSSDatabase (nullptr),
+				m_bReadOnly (true)				{ ::CoInitialize (nullptr); }
 		virtual ~VSSClass (void)				{ COM_RELEASE (m_pIVSSDatabase); ::CoUninitialize (); }
 
 
@@ -79,13 +79,13 @@ class VSSClass : public AssetDatabaseClass
 		//
 		//	Database methods
 		//
-		bool						Open_Database (LPCTSTR ini_filename, LPCTSTR username = NULL, LPCTSTR password = NULL);
+		bool						Open_Database (LPCTSTR ini_filename, LPCTSTR username = nullptr, LPCTSTR password = nullptr);
 
 		//
 		//	File manipulation methods
 		//
-		bool						Add_File (LPCTSTR local_filename, LPCTSTR comment = NULL);
-		bool						Check_In (LPCTSTR local_filename, LPCTSTR comment = NULL);
+		bool						Add_File (LPCTSTR local_filename, LPCTSTR comment = nullptr);
+		bool						Check_In (LPCTSTR local_filename, LPCTSTR comment = nullptr);
 		bool						Check_Out (LPCTSTR local_filename, bool get_locally = true);
 		bool						Undo_Check_Out (LPCTSTR local_filename);
 		bool						Get (LPCTSTR local_filename);
@@ -117,7 +117,7 @@ class VSSClass : public AssetDatabaseClass
 		//	File information methods
 		//
 
-		VSSFileStatus			Get_File_Status (LPCTSTR local_filename, LPTSTR checked_out_username = NULL, DWORD buffer_size = 0, IVSSItem *item_to_use = NULL);
+		VSSFileStatus			Get_File_Status (LPCTSTR local_filename, LPTSTR checked_out_username = nullptr, DWORD buffer_size = 0, IVSSItem *item_to_use = nullptr);
 		FILE_STATUS				Get_File_Status (LPCTSTR local_filename, StringClass *checked_out_user_name);
 
 		long						Get_File_Version (LPCTSTR local_filename);

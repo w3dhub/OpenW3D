@@ -149,7 +149,7 @@ private:
 inline WaypointClass *
 WaypathClass::Get_Point (int index) const
 {
-	WaypointClass *waypoint = NULL;
+	WaypointClass *waypoint = nullptr;
 
 	//
 	//	Check to ensure the requested index is valid

@@ -48,7 +48,7 @@ class TransitionEditDialogClass : public CDialog
 {
 // Construction
 public:
-	TransitionEditDialogClass(CWnd* pParent = NULL);   // standard constructor
+	TransitionEditDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(TransitionEditDialogClass)

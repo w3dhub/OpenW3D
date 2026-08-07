@@ -109,8 +109,8 @@ WindClass::WindClass (float heading, float speed, float variability, SoundEnviro
 	}
 
 	// Create the wind sound effect.
-	Sound = WWAudioClass::Get_Instance()->Create_Sound (windsamplename, NULL, 0, CLASSID_2D);
-	if (Sound != NULL) {
+	Sound = WWAudioClass::Get_Instance()->Create_Sound (windsamplename, nullptr, 0, CLASSID_2D);
+	if (Sound != nullptr) {
 		SoundEnvironment->Add_User();
 		Sound->Set_Volume (0.0f);
 		Sound->Play();
@@ -133,7 +133,7 @@ WindClass::WindClass (float heading, float speed, float variability, SoundEnviro
 WindClass::~WindClass()
 {
 	// Remove wind sound effect.
-	if (Sound != NULL) {
+	if (Sound != nullptr) {
 		Sound->Stop();
 		REF_PTR_RELEASE (Sound);
 		SoundEnvironment->Remove_User();
@@ -203,7 +203,7 @@ bool WindClass::Update()
 	Velocity.Set (WWMath::Cos (h) * speed, WWMath::Sin (h) * speed);
 
 	// Update wind sound effect.
-	if (Sound != NULL) {
+	if (Sound != nullptr) {
 
 		const float maxvolumespeed	= 10.0f;
 
@@ -256,11 +256,11 @@ WeatherSystemClass::WeatherSystemClass	(PhysicsSceneClass *scene,
 	  ParticleSpeed (particlespeed),
 	  HalfParticleWidth (particlewidth * 0.5f),
 	  HalfParticleHeight (particleheight * 0.5f),
-	  RayHead (NULL),
+	  RayHead (nullptr),
 	  RayCount (0),
-	  RaySpawnPtr (NULL),
-	  RayUpdatePtr (NULL),
-	  ParticleHead (NULL),
+	  RaySpawnPtr (nullptr),
+	  RayUpdatePtr (nullptr),
+	  ParticleHead (nullptr),
 	  ParticleCount (0),
 	  MinRayEndZ (FLT_MAX),
 	  SpawnCountFraction (0.0f),
@@ -326,7 +326,7 @@ WeatherSystemClass::WeatherSystemClass	(PhysicsSceneClass *scene,
 	// NOTE: Split the texture into vertical pages.
 	WWASSERT (pagecount > 0);
 	TextureArray = new Vector2 [pagecount * VERTICES_PER_TRIANGLE];
-	WWASSERT (TextureArray != NULL);
+	WWASSERT (TextureArray != nullptr);
 	for (unsigned page = 0; page < pagecount; page++) {
 		TextureArray [page * VERTICES_PER_TRIANGLE + 0].Set (pageoffset.U + (((page + 0.5f) * oopagecount) * pagesize.U), pageoffset.V + 0.0f);
 		TextureArray [page * VERTICES_PER_TRIANGLE + 1].Set (pageoffset.U + (((page + 1.0f) * oopagecount) * pagesize.U), pageoffset.V + pagesize.V);
@@ -354,7 +354,7 @@ WeatherSystemClass::~WeatherSystemClass()
 
 	// Clean-up rays.
 	rayptr = RayHead;
-	while (rayptr != NULL) {
+	while (rayptr != nullptr) {
 
 		RayStruct *nextrayptr;
 
@@ -368,7 +368,7 @@ WeatherSystemClass::~WeatherSystemClass()
 
 	// Clean-up particles.
 	particleptr = ParticleHead;
-	while (particleptr != NULL) {
+	while (particleptr != nullptr) {
 
 		ParticleStruct *nextparticleptr = particleptr->Next;
 
@@ -415,7 +415,7 @@ void WeatherSystemClass::Set_Density (float density)
 		for (r = signedcount; r < 0; r++) {
 
 			rayptr = new RayStruct;
-			WWASSERT (rayptr != NULL);
+			WWASSERT (rayptr != nullptr);
 
 			rayptr->Next = RayHead;
 			rayptr->Initialized = false;
@@ -423,8 +423,8 @@ void WeatherSystemClass::Set_Density (float density)
 		}
 
 		// If necessary, initialize the spawn and update pointers.
-		if (RaySpawnPtr  == NULL) RaySpawnPtr  = RayHead;
-		if (RayUpdatePtr == NULL) RayUpdatePtr = RayHead;
+		if (RaySpawnPtr  == nullptr) RaySpawnPtr  = RayHead;
+		if (RayUpdatePtr == nullptr) RayUpdatePtr = RayHead;
 
 	} else {
 
@@ -434,7 +434,7 @@ void WeatherSystemClass::Set_Density (float density)
 
 			RayStruct *nextrayptr;
 
-			if (rayptr == NULL) break;
+			if (rayptr == nullptr) break;
 
 			nextrayptr = rayptr->Next;
 
@@ -497,7 +497,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 	oldemitterposition = EmitterPosition;
 
 	// Calculate particle velocity based on wind.
-	if (wind != NULL) {
+	if (wind != nullptr) {
 		ParticleVelocity.Set (wind->Get_Velocity().X, wind->Get_Velocity().Y, -ParticleSpeed);
 	} else {
 		ParticleVelocity.Set (0.0f, 0.0f, -ParticleSpeed);
@@ -586,7 +586,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 	// Iterate over all rays...
 	spawncountfraction = 0.0f;
 	rayptr = RayHead;
-	while (rayptr != NULL) {
+	while (rayptr != nullptr) {
 
 	  	Vector3 raystartposition;
 
@@ -690,7 +690,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 	// Now iterate over rayupdatecount rays and randomize them so that the ray 'pattern' is
 	// not discernable to the user (because it is constantly changing) and also to take
 	// account of the new particle velocity.
-	if (RayUpdatePtr != NULL) {
+	if (RayUpdatePtr != nullptr) {
 
 		for (unsigned r = 0; r < rayupdatecount; r++) {
 
@@ -733,7 +733,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 
 			// Next ray. If necessary, wrap around to head of list.
 			RayUpdatePtr = RayUpdatePtr->Next;
-			if (RayUpdatePtr == NULL) RayUpdatePtr = RayHead;
+			if (RayUpdatePtr == nullptr) RayUpdatePtr = RayHead;
 		}
 	}
 
@@ -754,7 +754,7 @@ bool WeatherSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 	// Iterate over all particles...
 	time = WW3D::Get_Frame_Time() * 0.001f;
 	particleptr = ParticleHead;
-	while (particleptr != NULL) {
+	while (particleptr != nullptr) {
 
 		Vector2 emitterposition;
 		bool	  outside;
@@ -851,14 +851,14 @@ bool WeatherSystemClass::Spawn (RayStruct *suppliedrayptr)
 
 		RayStruct *rayptr;
 
-		if (suppliedrayptr == NULL) {
+		if (suppliedrayptr == nullptr) {
 
 			// Assign a ray to this particle.
 			// If there are no rays to assign then return failure to spawn.
-			if (RaySpawnPtr != NULL) {
+			if (RaySpawnPtr != nullptr) {
 				rayptr = RaySpawnPtr;
 				RaySpawnPtr = RaySpawnPtr->Next;
-				if (RaySpawnPtr == NULL) RaySpawnPtr = RayHead;
+				if (RaySpawnPtr == nullptr) RaySpawnPtr = RayHead;
 			} else {
 				return (false);
 			}
@@ -879,13 +879,13 @@ bool WeatherSystemClass::Spawn (RayStruct *suppliedrayptr)
 			ParticleStruct *particleptr;
 
 			particleptr = new ParticleStruct;
-			WWASSERT (particleptr != NULL);
+			WWASSERT (particleptr != nullptr);
 
 			// Add this particle to the head of the list.
-			if (ParticleHead != NULL) {
+			if (ParticleHead != nullptr) {
 				ParticleHead->Prev = particleptr;
 			}
-			particleptr->Prev = NULL;
+			particleptr->Prev = nullptr;
 			particleptr->Next = ParticleHead;
 			ParticleHead		= particleptr;
 
@@ -908,7 +908,7 @@ bool WeatherSystemClass::Spawn (RayStruct *suppliedrayptr)
 				particleptr->LifeTime = collisiontime;
 			}
 
-			if (suppliedrayptr == NULL) {
+			if (suppliedrayptr == nullptr) {
 
 				// Start particle at emitter.
 				particleptr->ElapsedTime	  = 0.0f;
@@ -968,12 +968,12 @@ void WeatherSystemClass::Kill (ParticleStruct *particleptr)
 	WWASSERT (ParticleCount > 0);
 
 	// Remove this particle from the list.
-	if (particleptr->Prev != NULL) {
+	if (particleptr->Prev != nullptr) {
 		particleptr->Prev->Next = particleptr->Next;
 	} else {
 		ParticleHead = particleptr->Next;
 	}
-	if (particleptr->Next != NULL) {
+	if (particleptr->Next != nullptr) {
 		particleptr->Next->Prev = particleptr->Prev;
 	}
 
@@ -1075,7 +1075,7 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 
 					Vector3	position;
 
-					WWASSERT (particleptr != NULL);
+					WWASSERT (particleptr != nullptr);
 					position = particleptr->CurrentPosition;
 
 					// Optimization: only submit this particle for rendering if it is in the view frustum.
@@ -1209,7 +1209,7 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 			processedparticlecount += particlecount;
 		}
 
-		WWASSERT (particleptr == NULL);
+		WWASSERT (particleptr == nullptr);
 
 	}
 }
@@ -1271,8 +1271,8 @@ RainSystemClass::RainSystemClass (PhysicsSceneClass *scene, float particledensit
 
 	// Create the rain sound effect.
 	// Optimization: Only add the sound effect if wind speed is non-zero.
-	Sound = WWAudioClass::Get_Instance()->Create_Sound (rainsamplename, NULL, 0, CLASSID_2D);
-	if (Sound != NULL) {
+	Sound = WWAudioClass::Get_Instance()->Create_Sound (rainsamplename, nullptr, 0, CLASSID_2D);
+	if (Sound != nullptr) {
 		SoundEnvironment->Add_User();
 		Sound->Set_Volume (0.0f);
 		Sound->Play();
@@ -1295,7 +1295,7 @@ RainSystemClass::RainSystemClass (PhysicsSceneClass *scene, float particledensit
 RainSystemClass::~RainSystemClass()
 {
 	// Remove rain sound effect.
-	if (Sound != NULL) {
+	if (Sound != nullptr) {
 		Sound->Stop();
 		REF_PTR_RELEASE (Sound);
 		SoundEnvironment->Remove_User();
@@ -1317,7 +1317,7 @@ RainSystemClass::~RainSystemClass()
  *=============================================================================================*/
 bool RainSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
 {
-	if (Sound != NULL) {
+	if (Sound != nullptr) {
 
 		const float maxvolume			= 4.0f;
 		const float volumeperparticle	= 0.0025f;
@@ -1564,13 +1564,13 @@ WeatherMgrClass::WeatherMgrClass()
  *=============================================================================================*/
 void WeatherMgrClass::Init (SoundEnvironmentClass *soundenvironment)
 {
-	WWASSERT (soundenvironment != NULL);
+	WWASSERT (soundenvironment != nullptr);
 
 	REF_PTR_SET (_SoundEnvironment, soundenvironment);
 
-	_Wind = NULL;
+	_Wind = nullptr;
 	for (int p = PRECIPITATION_FIRST; p < PRECIPITATION_COUNT; p++) {
-		_Precipitation [p] = NULL;
+		_Precipitation [p] = nullptr;
 	}
 
 	Reset();
@@ -1598,15 +1598,15 @@ void WeatherMgrClass::Reset()
 		_Parameters [p].Initialize();
 	}
 
-	if (_Wind != NULL) {
+	if (_Wind != nullptr) {
 		delete _Wind;
-		_Wind = NULL;
+		_Wind = nullptr;
 	}
 
 	//	Restore the settings to default.
 	Set_Wind (0.0f, 0.0f, 0.0f, 0.0f, false);
 	for (p = PRECIPITATION_FIRST; p < PRECIPITATION_COUNT; p++) {
-		if (_Precipitation [p] != NULL) {
+		if (_Precipitation [p] != nullptr) {
 			_Precipitation [p]->Remove();
   			REF_PTR_RELEASE (_Precipitation [p]);
 			Set_Precipitation ((PrecipitationEnum) p, 0.0f, 0.0f, false);
@@ -1991,7 +1991,7 @@ void WeatherMgrClass::Update (PhysicsSceneClass *scene, CameraClass *camera)
 	windmodified  = _Parameters [PARAMETER_WIND_HEADING].Update (time, _WindOverrideCount > 0);
 	windmodified |= _Parameters [PARAMETER_WIND_SPEED].Update (time, _WindOverrideCount > 0);
 	windmodified |= _Parameters [PARAMETER_WIND_VARIABILITY].Update (time, _WindOverrideCount > 0);
-	if (_Wind != NULL) {
+	if (_Wind != nullptr) {
 		if (windmodified) {
 			_Wind->Set (_Parameters [PARAMETER_WIND_HEADING].Value(), _Parameters [PARAMETER_WIND_SPEED].Value(), _Parameters [PARAMETER_WIND_VARIABILITY].Value());
 		}
@@ -1999,7 +1999,7 @@ void WeatherMgrClass::Update (PhysicsSceneClass *scene, CameraClass *camera)
 		// Optimization: if there is nothing to update, can safely remove the wind.
 		if (!_Wind->Update()) {
 			delete _Wind;
-			_Wind = NULL;
+			_Wind = nullptr;
 		}
 
 	} else {
@@ -2012,7 +2012,7 @@ void WeatherMgrClass::Update (PhysicsSceneClass *scene, CameraClass *camera)
 
 	for (int p = PRECIPITATION_FIRST; p < PRECIPITATION_COUNT; p++) {
 
-		WeatherParameterClass *parameterptr = NULL;
+		WeatherParameterClass *parameterptr = nullptr;
 		bool						  modified;
 
 		switch (p) {
@@ -2035,7 +2035,7 @@ void WeatherMgrClass::Update (PhysicsSceneClass *scene, CameraClass *camera)
 		}
 
 		modified = parameterptr->Update (time, _PrecipitationOverrideCount > 0);
-	  	if (_Precipitation [p] != NULL) {
+	  	if (_Precipitation [p] != nullptr) {
 	  		if (modified) {
 	  			_Precipitation [p]->Set_Density (parameterptr->Value());
 	  		}

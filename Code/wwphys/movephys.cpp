@@ -104,9 +104,9 @@ MoveablePhysClass::MoveablePhysClass(void) :
 	MassInv(1.0f),
 	GravScale(1.0f),
 	Elasticity(0.5f),
-	Controller(NULL),
-	Carrier(NULL),
-	CarrierSubObject(NULL),
+	Controller(nullptr),
+	Carrier(nullptr),
+	CarrierSubObject(nullptr),
 	ShadowManager(*this)
 {
 }
@@ -125,7 +125,7 @@ MoveablePhysClass::MoveablePhysClass(void) :
  *=============================================================================================*/
 MoveablePhysClass::~MoveablePhysClass(void)
 {
-	Link_To_Carrier(NULL);
+	Link_To_Carrier(nullptr);
 }
 
 /***********************************************************************************************
@@ -210,7 +210,7 @@ void MoveablePhysClass::Post_Timestep_Process(void)
 void MoveablePhysClass::Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box)
 {
 	// NOTE: derived classes should really override this!!!
-	WWASSERT(set_obj_space_box != NULL);
+	WWASSERT(set_obj_space_box != nullptr);
 	set_obj_space_box->Center.Set(0,0,0);
 	set_obj_space_box->Extent.Set(1,1,1);
 }
@@ -220,7 +220,7 @@ void MoveablePhysClass::Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box)
  * MoveablePhysClass::Link_To_Carrier -- Link this object to a carrier object                  *
  *                                                                                             *
  *    This function will make this object move with the specified carrier object.  You can     *
- *    pass in NULL to clear out the linkage as well.                                           *
+ *    pass in nullptr to clear out the linkage as well.                                           *
  *                                                                                             *
  * INPUT:                                                                                      *
  * carrier - physics object that this object is "standing" on.                                 *
@@ -241,10 +241,10 @@ void MoveablePhysClass::Link_To_Carrier(PhysClass * carrier,RenderObjClass * car
 	if ((Carrier == carrier) && (CarrierSubObject == carrier_sub_obj)) return;
 
 	// If we had a different carrier, unlink from it
-	if (Carrier != NULL) {
+	if (Carrier != nullptr) {
 		Carrier->Internal_Unlink_Rider(this);
-		Carrier = NULL;
-		CarrierSubObject = NULL;
+		Carrier = nullptr;
+		CarrierSubObject = nullptr;
 	}
 
 	if (carrier) {
@@ -312,7 +312,7 @@ bool MoveablePhysClass::Cinematic_Move_To(const Matrix3D &new_tm)
 {
 
 	int cinematic_move_mode = MoveablePhysDefClass::CINEMATIC_COLLISION_PUSH;
-	if (Get_MoveablePhysDef() != NULL) {
+	if (Get_MoveablePhysDef() != nullptr) {
 		cinematic_move_mode = Get_MoveablePhysDef()->CinematicCollisionMode;
 	}
 
@@ -362,7 +362,7 @@ bool MoveablePhysClass::Cinematic_Move_To(const Matrix3D &new_tm)
 				// (gth) rbody objects are currently including static objects in
 				// the list of intersected objects.  Don't kill them please.
 				//
-				if (it.Peek_Obj()->As_DynamicPhysClass() != NULL) {
+				if (it.Peek_Obj()->As_DynamicPhysClass() != nullptr) {
 					it.Peek_Obj()->Expire();
 				}
 				it.Next();
@@ -411,10 +411,10 @@ bool MoveablePhysClass::Save(ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK(csave,MOVEABLE_VARIABLE_MASS,Mass);
 	WRITE_MICRO_CHUNK(csave,MOVEABLE_VARIABLE_GRAVSCALE,GravScale);
 	WRITE_MICRO_CHUNK(csave,MOVEABLE_VARIABLE_ELASTICITY,Elasticity);
-	if (Controller != NULL) {
+	if (Controller != nullptr) {
 		WRITE_MICRO_CHUNK_PTR(csave,MOVEABLE_VARIABLE_CONTROLLER,Controller);
 	}
-	if (Carrier != NULL) {
+	if (Carrier != nullptr) {
 		WRITE_MICRO_CHUNK_PTR(csave,MOVEABLE_VARIABLE_CARRIER,Carrier);
 	}
 	csave.End_Chunk();
@@ -437,8 +437,8 @@ bool MoveablePhysClass::Save(ChunkSaveClass &csave)
  *=============================================================================================*/
 bool MoveablePhysClass::Load(ChunkLoadClass &cload)
 {
-	Controller = NULL;
-	Carrier = NULL;
+	Controller = nullptr;
+	Carrier = nullptr;
 
 	while (cload.Open_Chunk()) {
 
@@ -473,11 +473,11 @@ bool MoveablePhysClass::Load(ChunkLoadClass &cload)
 		cload.Close_Chunk();
 	}
 
-	if (Controller != NULL) {
+	if (Controller != nullptr) {
 		REQUEST_POINTER_REMAP((void**)&Controller);
 	}
 
-	if (Carrier != NULL) {
+	if (Carrier != nullptr) {
 		REQUEST_POINTER_REMAP((void**)&Carrier);
 	}
 
@@ -510,7 +510,7 @@ void MoveablePhysClass::On_Post_Load(void)
 	// Force our carrier to get correctly linked up, the way I do this
 	// is to just clear it out and call the Set_Carrier function again.
 	PhysClass * tmp_carrier = Carrier;
-	Carrier = NULL;
+	Carrier = nullptr;
 	Link_To_Carrier(tmp_carrier);
 }
 

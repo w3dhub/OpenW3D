@@ -60,11 +60,11 @@
 #include "Except.h"
 
 
-static PrintFunc			_CurMessageHandler = NULL;
-static AssertPrintFunc	_CurAssertHandler = NULL;
-static TriggerFunc		_CurTriggerHandler = NULL;
-static ProfileFunc		_CurProfileStartHandler = NULL;
-static ProfileFunc		_CurProfileStopHandler = NULL;
+static PrintFunc			_CurMessageHandler = nullptr;
+static AssertPrintFunc	_CurAssertHandler = nullptr;
+static TriggerFunc		_CurTriggerHandler = nullptr;
+static ProfileFunc		_CurProfileStartHandler = nullptr;
+static ProfileFunc		_CurProfileStopHandler = nullptr;
 
 // Convert the latest system error into a string and return a pointer to
 // a static buffer containing the error string.
@@ -74,12 +74,12 @@ void Convert_System_Error_To_String(int id, char* buffer, int buf_len)
 #ifndef __unix
 	FormatMessageA(
 		FORMAT_MESSAGE_FROM_SYSTEM,
-		NULL,
+		nullptr,
 		id,
 		0,
 		buffer,
 		buf_len,
-		NULL);
+		nullptr);
 #endif
 }
 
@@ -207,7 +207,7 @@ ProfileFunc	WWDebug_Install_Profile_Stop_Handler(ProfileFunc func)
 
 void WWDebug_Printf(const char * format,...)
 {
-	if (_CurMessageHandler != NULL) {
+	if (_CurMessageHandler != nullptr) {
 
 		va_list	va;
 		char buffer[4096];
@@ -237,7 +237,7 @@ void WWDebug_Printf(const char * format,...)
 
 void WWDebug_Printf_Warning(const char * format,...)
 {
-	if (_CurMessageHandler != NULL) {
+	if (_CurMessageHandler != nullptr) {
 
 		va_list	va;
 		char buffer[4096];
@@ -267,7 +267,7 @@ void WWDebug_Printf_Warning(const char * format,...)
 
 void WWDebug_Printf_Error(const char * format,...)
 {
-	if (_CurMessageHandler != NULL) {
+	if (_CurMessageHandler != nullptr) {
 
 		va_list	va;
 		char buffer[4096];
@@ -297,7 +297,7 @@ void WWDebug_Printf_Error(const char * format,...)
 #ifdef WWDEBUG
 void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
 {
-	if (_CurAssertHandler != NULL) {
+	if (_CurAssertHandler != nullptr) {
 
 		char buffer[4096];
 		sprintf(buffer,"%s (%d) Assert: %s\n",file,line,expr);
@@ -371,7 +371,7 @@ void _assert(void *expr, void *filename, unsigned lineno)
 #ifdef WWDEBUG
 void WWDebug_Assert_Fail_Print(const char * expr,const char * file, int line,const char * string)
 {
-	if (_CurAssertHandler != NULL) {
+	if (_CurAssertHandler != nullptr) {
 
 		char buffer[4096];
 		sprintf(buffer,"%s (%d) Assert: %s %s\n",file,line,expr, string);
@@ -400,7 +400,7 @@ void WWDebug_Assert_Fail_Print(const char * expr,const char * file, int line,con
  *=============================================================================================*/
 bool WWDebug_Check_Trigger(int trigger_num)
 {
-	if (_CurTriggerHandler != NULL) {
+	if (_CurTriggerHandler != nullptr) {
 		return _CurTriggerHandler(trigger_num);
 	} else {
 		return false;
@@ -422,7 +422,7 @@ bool WWDebug_Check_Trigger(int trigger_num)
  *=============================================================================================*/
 void WWDebug_Profile_Start( const char * title)
 {
-	if (_CurProfileStartHandler != NULL) {
+	if (_CurProfileStartHandler != nullptr) {
 		_CurProfileStartHandler( title );
 	}
 }
@@ -442,7 +442,7 @@ void WWDebug_Profile_Start( const char * title)
  *=============================================================================================*/
 void WWDebug_Profile_Stop( const char * title)
 {
-	if (_CurProfileStopHandler != NULL) {
+	if (_CurProfileStopHandler != nullptr) {
 		_CurProfileStopHandler( title );
 	}
 }
@@ -475,7 +475,7 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
     heventDBWIN = OpenEvent(EVENT_MODIFY_STATE, false, "DBWIN_BUFFER_READY");
     if ( !heventDBWIN )
     {
-        // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DBWIN_BUFFER_READY nonexistent", NULL);
+        // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DBWIN_BUFFER_READY nonexistent", nullptr);
         return;
     }
 
@@ -483,12 +483,12 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
     heventData = OpenEvent(EVENT_MODIFY_STATE, false, "DBWIN_DATA_READY");
     if ( !heventData )
     {
-        // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DBWIN_DATA_READY nonexistent", NULL);
+        // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DBWIN_DATA_READY nonexistent", nullptr);
         CloseHandle(heventDBWIN);
         return;
     }
 
-    hSharedFile = CreateFileMappingA((HANDLE)-1, NULL, PAGE_READWRITE, 0, 4096, "DBWIN_BUFFER");
+    hSharedFile = CreateFileMappingA((HANDLE)-1, nullptr, PAGE_READWRITE, 0, 4096, "DBWIN_BUFFER");
     if (!hSharedFile)
     {
         // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DebugTrace: Unable to create file mapping object DBWIN_BUFFER", "Error");

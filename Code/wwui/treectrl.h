@@ -203,7 +203,7 @@ public:
 	///////////////////////////////////////////////////////////////////
 	TreeItemClass  (TreeCtrlClass *ctrl)	:
 		TreeCtrl (ctrl),
-		Parent (NULL),
+		Parent (nullptr),
 		UserData (0),
 		IsExpanded (false),
 		NeedsChildren (false)		{}

@@ -119,12 +119,12 @@ enum
 //
 ///////////////////////////////////////////////////////////////////////
 PresetClass::PresetClass (void)
-	:	m_Definition (NULL),
+	:	m_Definition (nullptr),
 		m_DefinitionID (0),
-		m_Parent (NULL),
+		m_Parent (nullptr),
 		m_ParentID (0),
-		m_NextPreset (NULL),
-		m_PrevPreset (NULL),
+		m_NextPreset (nullptr),
+		m_PrevPreset (nullptr),
 		m_IsTemporary (false),
 		m_IsValid (true)
 {
@@ -143,7 +143,7 @@ PresetClass::~PresetClass (void)
 	//	Remove this preset from its parent (if possible or necessary)
 	//
 	PresetClass *parent = PresetMgrClass::Find_Preset (m_ParentID);
-	if (parent != NULL) {
+	if (parent != nullptr) {
 		parent->Remove_Child_Preset (m_DefinitionID);
 	}
 
@@ -151,8 +151,8 @@ PresetClass::~PresetClass (void)
 	//	Unlink this definition from its preset (if possible or necessary)
 	//
 	DefinitionClass *definition = DefinitionMgrClass::Find_Definition (m_DefinitionID, false);
-	if (definition != NULL && (definition->Get_User_Data () == (uintptr_t)this)) {
-		definition->Set_User_Data (NULL);
+	if (definition != nullptr && (definition->Get_User_Data () == (uintptr_t)this)) {
+		definition->Set_User_Data (0);
 	}
 
 	Free_Node_List ();
@@ -188,7 +188,7 @@ PresetClass::Show_Properties (bool read_only)
 	// Should we add a physics-definition page?
 	//
 	ModelDefParameterClass *phys_def_param = Get_Phys_Def_Param ();
-	if (phys_def_param != NULL) {
+	if (phys_def_param != nullptr) {
 		phys_model_tab.Set_PhysDef_Param (phys_def_param);
 		phys_model_tab.Set_Filter (phys_def_param->Get_Base_Class ());
 		phys_model_tab.Set_Is_Temp (m_IsTemporary);
@@ -206,7 +206,7 @@ PresetClass::Show_Properties (bool read_only)
 	// Should we add a scripts page?
 	//
 	ScriptListParameterClass *script_list_param = Get_Script_List_Param ();
-	if (script_list_param != NULL) {
+	if (script_list_param != nullptr) {
 		scripts_tab.Set_Script_List_Parameter (script_list_param);
 		prop_sheet.Add_Page (&scripts_tab);
 	}
@@ -222,7 +222,7 @@ PresetClass::Show_Properties (bool read_only)
 	//	Should we add a transition-list page?
 	//
 	TRANSITION_DATA_LIST *transition_list = Get_Transition_List ();
-	if (transition_list != NULL && read_only == false) {
+	if (transition_list != nullptr && read_only == false) {
 		transition_tab.Set_Transition_List (transition_list);
 		prop_sheet.Add_Page (&transition_tab);
 	}
@@ -309,8 +309,8 @@ PresetClass::Save_Variables (ChunkSaveClass &csave)
 	//
 	//	Write the ID of the definition to the chunk
 	//
-	ASSERT (m_Definition != NULL);
-	if (m_Definition != NULL) {
+	ASSERT (m_Definition != nullptr);
+	if (m_Definition != nullptr) {
 		m_DefinitionID = m_Definition->Get_ID ();
 		WRITE_MICRO_CHUNK (csave, VARID_DEFINITIONID, m_DefinitionID);
 	}
@@ -331,7 +331,7 @@ PresetClass::Save_Variables (ChunkSaveClass &csave)
 	PresetClass *this_ptr = this;
 	WRITE_MICRO_CHUNK_PTR (csave, VARID_THISPTR, this_ptr);
 
-	if (m_Parent != NULL) {
+	if (m_Parent != nullptr) {
 		m_ParentID = m_Parent->Get_ID ();
 		WRITE_MICRO_CHUNK (csave, VARID_PARENT_ID, m_ParentID);
 	}
@@ -377,7 +377,7 @@ bool
 PresetClass::Load_Variables (ChunkLoadClass &cload)
 {
 	m_DefinitionID = 0;
-	PresetClass *old_this_ptr = NULL;
+	PresetClass *old_this_ptr = nullptr;
 	m_ManualDependencies.Delete_All ();
 
 	//
@@ -418,9 +418,9 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Handle pointer remapping.  LEGACY CODE -- IS NOW OBSOLETE.
 	//
-	WWASSERT (old_this_ptr != NULL);
+	WWASSERT (old_this_ptr != nullptr);
 	SaveLoadSystemClass::Register_Pointer (old_this_ptr, this);
-	if (m_Parent != NULL) {
+	if (m_Parent != nullptr) {
 		REQUEST_POINTER_REMAP ((void **)&m_Parent);
 	}
 
@@ -433,7 +433,7 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Associate this preset with the definition
 	//
-	if (m_Definition != NULL) {
+	if (m_Definition != nullptr) {
 		m_Definition->Set_User_Data ((uintptr_t)this);
 	}
 
@@ -456,12 +456,12 @@ PresetClass::On_Post_Load (void)
 	//
 	if (m_ParentID != 0) {
 		m_Parent = PresetMgrClass::Find_Preset (m_ParentID);
-		ASSERT (m_Parent != NULL);
+		ASSERT (m_Parent != nullptr);
 
 		//
 		//	Add ourselves as a child of our parent
 		//
-		if (m_Parent != NULL) {
+		if (m_Parent != nullptr) {
 			m_Parent->Add_Child_Preset (Get_ID ());
 		}
 
@@ -487,10 +487,10 @@ PresetClass::On_Post_Load (void)
 NodeClass *
 PresetClass::Create (void)
 {
-	NodeClass *node = NULL;
+	NodeClass *node = nullptr;
 
 	StringClass error_message;
-	if (m_Definition != NULL && m_Definition->Is_Valid_Config (error_message)) {
+	if (m_Definition != nullptr && m_Definition->Is_Valid_Config (error_message)) {
 
 		uint32 class_id = m_Definition->Get_Class_ID ();
 		switch (::SuperClassID_From_ClassID (class_id))
@@ -557,7 +557,7 @@ PresetClass::Create (void)
 				break;
 		}
 
-	} else if (m_Definition != NULL) {
+	} else if (m_Definition != nullptr) {
 
 		//
 		//	Warn the user
@@ -580,7 +580,7 @@ void
 PresetClass::Copy_Properties (const PresetClass &preset)
 {
 	DefinitionClass *src_def = preset.Get_Definition ();
-	if ((m_Definition != NULL) && (src_def != NULL)) {
+	if ((m_Definition != nullptr) && (src_def != nullptr)) {
 
 		//
 		//	Simply copy the parameters from one definition to the other...
@@ -592,7 +592,7 @@ PresetClass::Copy_Properties (const PresetClass &preset)
 		//
 		const TRANSITION_DATA_LIST *src_list	= preset.Get_Transition_List ();
 		TRANSITION_DATA_LIST *dest_list	= Get_Transition_List ();
-		if (src_list != NULL && dest_list != NULL) {
+		if (src_list != nullptr && dest_list != nullptr) {
 
 			//
 			//	Free any existing transitions
@@ -727,7 +727,7 @@ PresetClass::Get_Implicit_Dependencies (STRING_LIST &list) const
 void
 PresetClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING_LIST &list)
 {
-	if (definition != NULL) {
+	if (definition != nullptr) {
 
 		//
 		//	Find all 'filename' parameters to this definition.
@@ -755,7 +755,7 @@ PresetClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING_LI
 				//
 				//	If this is param references a physics-definition, then add all its dependencies as well..
 				//
-				DefinitionClass *phys_def = NULL;
+				DefinitionClass *phys_def = nullptr;
 				phys_def = DefinitionMgrClass::Find_Definition (((ModelDefParameterClass *)parameter)->Get_Value (), false);
 				Add_Definition_Dependencies (phys_def, list);
 			}
@@ -774,13 +774,13 @@ PresetClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING_LI
 ScriptListParameterClass *
 PresetClass::Get_Script_List_Param (void)
 {
-	ScriptListParameterClass *param = NULL;
+	ScriptListParameterClass *param = nullptr;
 
 	//
 	//	Try to find a script list parameter somewhere in the preset...
 	//
 	int index = m_Definition->Get_Parameter_Count ();
-	while ((index --) && (param == NULL)) {
+	while ((index --) && (param == nullptr)) {
 		ParameterClass *parameter = m_Definition->Lock_Parameter (index);
 
 		//
@@ -805,13 +805,13 @@ PresetClass::Get_Script_List_Param (void)
 ModelDefParameterClass *
 PresetClass::Get_Phys_Def_Param (void)
 {
-	ModelDefParameterClass *param = NULL;
+	ModelDefParameterClass *param = nullptr;
 
 	//
 	//	Try to find a physics-def parameter somewhere in the preset...
 	//
 	int index = m_Definition->Get_Parameter_Count ();
-	while ((index --) && (param == NULL)) {
+	while ((index --) && (param == nullptr)) {
 		ParameterClass *parameter = m_Definition->Lock_Parameter (index);
 
 		//
@@ -837,9 +837,9 @@ PresetClass::Get_Phys_Def_Param (void)
 TRANSITION_DATA_LIST *
 PresetClass::Get_Transition_List (void) const
 {
-	TRANSITION_DATA_LIST *list = NULL;
+	TRANSITION_DATA_LIST *list = nullptr;
 
-	if (m_Definition != NULL) {
+	if (m_Definition != nullptr) {
 		switch (m_Definition->Get_Class_ID ()) {
 
 			//
@@ -873,11 +873,11 @@ PresetClass::Get_Transition_List (void) const
 void
 PresetClass::Build_Zone_List (DefinitionClass *definition, ZONE_PARAM_LIST &zone_list) const
 {
-	if (definition == NULL) {
+	if (definition == nullptr) {
 		definition = m_Definition;
 	}
 
-	if (definition != NULL) {
+	if (definition != nullptr) {
 
 		//
 		//	Loop over all the parameters
@@ -899,7 +899,7 @@ PresetClass::Build_Zone_List (DefinitionClass *definition, ZONE_PARAM_LIST &zone
 				//
 				int def_id = ((ModelDefParameterClass *)parameter)->Get_Value ();
 				DefinitionClass *model_def= DefinitionMgrClass::Find_Definition (def_id, false);
-				if (model_def !=  NULL) {
+				if (model_def !=  nullptr) {
 					Build_Zone_List (model_def, zone_list);
 				}
 			}
@@ -959,7 +959,7 @@ PresetClass::Is_Valid_Sound_Preset (void)
 	//
 	//	First off, is this a sound preset at all?
 	//
-	if (	m_Definition != NULL &&
+	if (	m_Definition != nullptr &&
 			m_Definition->Get_Class_ID () == CLASSID_SOUND)
 	{
 		AudibleSoundDefinitionClass *definition = (AudibleSoundDefinitionClass *)m_Definition;
@@ -995,7 +995,7 @@ PresetClass::Is_A_Parent (PresetClass *preset)
 	//	Look over all the parents
 	//
 	for (	PresetClass *parent = this;
-			parent != NULL && !retval;
+			parent != nullptr && !retval;
 			parent = parent->Get_Parent ())
 	{
 		retval = (parent == preset);
@@ -1019,7 +1019,7 @@ PresetClass::Is_A_Parent (LPCTSTR parent_name)
 	//	Look over all the parents
 	//
 	for (	PresetClass *parent = this;
-			parent != NULL && !retval;
+			parent != nullptr && !retval;
 			parent = parent->Get_Parent ())
 	{
 		retval = (::lstrcmpi (parent->Get_Name (), parent_name) == 0);
@@ -1110,7 +1110,7 @@ PresetClass::Get_Icon_Index (void) const
 void
 PresetClass::Collect_Definitions (DEFINITION_LIST &list)
 {
-	if (m_Definition != NULL) {
+	if (m_Definition != nullptr) {
 		list.Add (m_Definition);
 
 		//
@@ -1132,7 +1132,7 @@ bool
 PresetClass::Is_Soldier_Preset (void)
 {
 	bool is_soldier = false;
-	if (m_Definition != NULL) {
+	if (m_Definition != nullptr) {
 		is_soldier = (m_Definition->Get_Class_ID () == CLASSID_GAME_OBJECT_DEF_SOLDIER);
 	}
 
@@ -1162,7 +1162,7 @@ PresetClass::Build_Node_List (NodeClass *parent_node)
 	//	Loop over all the nodes in the scene
 	//
 	for (	NodeClass *node = NodeMgrClass::Get_First ();
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node))
 	{
 		//
@@ -1170,14 +1170,14 @@ PresetClass::Build_Node_List (NodeClass *parent_node)
 		//
 		if (	node != parent_node &&
 				node->Is_Proxied () == false &&
-				node->Get_Parent_Node () == NULL &&
+				node->Get_Parent_Node () == nullptr &&
 				node->Get_Type () != NODE_TYPE_WAYPOINT)
 		{
 			//
 			//	Make a copy of the node
 			//
 			NodeClass *new_node = node->Clone ();
-			if (new_node != NULL) {
+			if (new_node != nullptr) {
 
 				//
 				//	Transform the new node into the coordinate system
@@ -1269,7 +1269,7 @@ PresetClass::Create_Linked_Nodes (NodeClass *parent_node)
 PresetClass *
 PresetClass::Get_Child_Preset (int index)
 {
-	PresetClass *retval = NULL;
+	PresetClass *retval = nullptr;
 
 	if (index >= 0 && index < m_ChildIDList.Count ()) {
 		retval = PresetMgrClass::Find_Preset (m_ChildIDList[index]);
@@ -1287,8 +1287,8 @@ PresetClass::Get_Child_Preset (int index)
 void
 PresetClass::Set_Definition (DefinitionClass *definition)
 {
-	if (m_Definition != NULL) {
-		m_Definition->Set_User_Data (NULL);
+	if (m_Definition != nullptr) {
+		m_Definition->Set_User_Data (0);
 	}
 
 	m_Definition		= definition;
@@ -1298,7 +1298,7 @@ PresetClass::Set_Definition (DefinitionClass *definition)
 	//	Store our "this" pointer in the definition so we can
 	// quickly find the preset given its definition
 	//
-	if (m_Definition != NULL) {
+	if (m_Definition != nullptr) {
 		m_Definition->Set_User_Data ((uintptr_t)this);
 		m_DefinitionID = m_Definition->Get_ID ();
 	}
@@ -1368,7 +1368,7 @@ PresetClass::Set_Parent (PresetClass *parent)
 	//
 	//	If changing parents, unlink ourselves from our old parent
 	//
-	if (m_Parent != NULL) {
+	if (m_Parent != nullptr) {
 		m_Parent->Remove_Child_Preset (Get_ID ());
 	}
 
@@ -1377,7 +1377,7 @@ PresetClass::Set_Parent (PresetClass *parent)
 	//
 	//	Cache the parent's ID
 	//
-	if (m_Parent != NULL) {
+	if (m_Parent != nullptr) {
 		m_ParentID = m_Parent->Get_ID ();
 	} else {
 		m_ParentID = 0;

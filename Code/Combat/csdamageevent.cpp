@@ -111,7 +111,7 @@ cCsDamageEvent::Act
 		if ( obj ) {
 			// Make an offense object
 			PhysicalGameObj * damager = GameObjManager::Find_PhysicalGameObj( DamagerGOID );
-			if ( damager != NULL && damager->As_ArmedGameObj() != NULL ) {
+			if ( damager != nullptr && damager->As_ArmedGameObj() != nullptr ) {
 				OffenseObjectClass offense( Damage, Warhead, damager->As_ArmedGameObj());
 
 //				obj->Get_Defense_Object()->Do_Damage( offense );

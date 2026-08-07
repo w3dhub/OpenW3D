@@ -119,9 +119,9 @@ BOOL CALLBACK UtilityDlgProc(HWND hDlg, UINT message, WPARAM wParam,LPARAM lPara
  *=============================================================================================*/
 TransViewerUtility::TransViewerUtility(void)
 {
-	iu = NULL;
-	ip = NULL;
-	hPanel = NULL;
+	iu = nullptr;
+	ip = nullptr;
+	hPanel = nullptr;
 }
 
 
@@ -174,7 +174,7 @@ void TransViewerUtility::EndEditParams(Interface *ip, IUtil *iu)
 
 	// The panel index is only valid within BeginEditParams and
 	// EndEditParams.  Set it to null for safety.
-	hPanel = NULL;
+	hPanel = nullptr;
 }
 
 /***********************************************************************************************

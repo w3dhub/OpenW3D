@@ -119,7 +119,7 @@ char SlaveServerDialogClass::ServerSettingsFileNames[MAX_SLAVES][MAX_PATH];
 
 
 int SlaveServerDialogClass::SlaveNumber = 0;
-SlaveServerDialogClass *SlaveServerDialogClass::Instance = NULL;
+SlaveServerDialogClass *SlaveServerDialogClass::Instance = nullptr;
 
 
 
@@ -167,7 +167,7 @@ SlaveServerDialogClass::On_Init_Dialog (void)
 
 		if (i < num_slaves) {
 			SlaveServerClass *slave = SlaveMaster.Get_Slave(i);
-			if (slave != NULL) {
+			if (slave != nullptr) {
 				slave->Get(enable, nick, serial, port, settings_file_name, bw, pass);
 			}
 		}

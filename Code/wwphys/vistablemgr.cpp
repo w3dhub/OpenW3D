@@ -82,8 +82,8 @@ void VisDecompressionCacheClass::Reset(int vis_sector_count)
 	** Each table that we have should be in our LRU list
 	*/
 	VisTableClass * pvs = LRUQueue.Peek_Head();
-	while (pvs != NULL) {
-		WWASSERT(Cache[pvs->Get_Vis_Sector_ID()] != NULL);
+	while (pvs != nullptr) {
+		WWASSERT(Cache[pvs->Get_Vis_Sector_ID()] != nullptr);
 
 		LRUQueue.Remove_Head();
 
@@ -94,11 +94,11 @@ void VisDecompressionCacheClass::Reset(int vis_sector_count)
 	}
 
 	/*
-	** Sanity check, every pointer in the cache array should now be NULL!
+	** Sanity check, every pointer in the cache array should now be nullptr!
 	*/
 #ifdef WWDEBUG
 	for (int i=0; i<Cache.Length(); i++) {
-		WWASSERT(Cache[i] == NULL);
+		WWASSERT(Cache[i] == nullptr);
 	}
 #endif
 
@@ -115,7 +115,7 @@ void VisDecompressionCacheClass::Reset(int vis_sector_count)
 VisTableClass *
 VisDecompressionCacheClass::Get_Table(int vis_sector_id)
 {
-	if (Cache[vis_sector_id] != NULL) {
+	if (Cache[vis_sector_id] != nullptr) {
 		/*
 		** Move the table to the end of the LRU Queue and
 		** update its timestamp
@@ -130,15 +130,15 @@ VisDecompressionCacheClass::Get_Table(int vis_sector_id)
 		Cache[vis_sector_id]->Add_Ref();
 		return Cache[vis_sector_id];
 	} else {
-		return NULL;
+		return nullptr;
 	}
 }
 
 void
 VisDecompressionCacheClass::Add_Table(VisTableClass * pvs)
 {
-	WWASSERT(Cache[pvs->Get_Vis_Sector_ID()] == NULL);
-	WWASSERT(pvs != NULL);
+	WWASSERT(Cache[pvs->Get_Vis_Sector_ID()] == nullptr);
+	WWASSERT(pvs != nullptr);
 
 	/*
 	** Set the timestamp, add to the cache, and add to
@@ -257,7 +257,7 @@ int VisTableMgrClass::Allocate_Vis_Sector_ID(int count /*= 1*/)
 	int id = VisSectorCount;
 
 	for (int i=0; i<count; i++) {
-		VisTables.Add(NULL);
+		VisTables.Add(nullptr);
 	}
 
 	VisSectorCount += count;
@@ -282,13 +282,13 @@ VisTableClass * VisTableMgrClass::Get_Vis_Table(int id,bool allocate/*= false*/)
 	WWMEMLOG(MEM_VIS);
 
 	/*
-	** if id is invalid, return NULL
+	** if id is invalid, return nullptr
 	*/
 	if ((id == -1) || (id >= VisTables.Count())) {
 #ifdef WWDEBUG
 		if (id > 0) WWDEBUG_SAY(("Vis Table ID out of range: %d\r\n",id));
 #endif
-		return NULL;
+		return nullptr;
 	}
 
 	/*
@@ -296,18 +296,18 @@ VisTableClass * VisTableMgrClass::Get_Vis_Table(int id,bool allocate/*= false*/)
 	** - if we have the compressed version of this vis table, decompress it and return it
 	** - else if they want one allocated, just create a table and return it
 	**   (we will install the compressed version when they release this table)
-	** - else return NULL
+	** - else return nullptr
 	*/
 	VisTableClass * pvs = Cache->Get_Table(id);
 
-	if (pvs != NULL) {
+	if (pvs != nullptr) {
 
 		/*
 		** Cache had the table, just return the pointer. (Add-Ref'd by the cache...)
 		*/
 		return pvs;
 
-	} else if (VisTables[id] != NULL) {
+	} else if (VisTables[id] != nullptr) {
 
 		/*
 		** Cache didn't have it, but we have the compressed version.
@@ -330,9 +330,9 @@ VisTableClass * VisTableMgrClass::Get_Vis_Table(int id,bool allocate/*= false*/)
 	} else {
 
 		/*
-		** Table doesn't exist, just return NULL
+		** Table doesn't exist, just return nullptr
 		*/
-		return NULL;
+		return nullptr;
 
 	}
 }
@@ -345,9 +345,9 @@ void VisTableMgrClass::Update_Vis_Table(int id,VisTableClass * pvs)
 	/*
 	** release any existing vis table
 	*/
-	if (VisTables[id] != NULL) {
+	if (VisTables[id] != nullptr) {
 		delete VisTables[id];
-		VisTables[id] = NULL;
+		VisTables[id] = nullptr;
 	}
 
 	/*
@@ -363,7 +363,7 @@ void VisTableMgrClass::Update_Vis_Table(int id,VisTableClass * pvs)
 
 bool VisTableMgrClass::Has_Vis_Table(int id)
 {
-	return (VisTables[id] != NULL);
+	return (VisTables[id] != nullptr);
 }
 
 void VisTableMgrClass::Notify_Frame_Ended(void)
@@ -377,9 +377,9 @@ void VisTableMgrClass::Delete_All_Vis_Tables(void)
 {
 	// delete all allocated tables
 	for (int i=0; i<VisTables.Count(); i++) {
-		if (VisTables[i] != NULL) {
+		if (VisTables[i] != nullptr) {
 			delete VisTables[i];
-			VisTables[i] = NULL;
+			VisTables[i] = nullptr;
 		}
 	}
 }
@@ -400,7 +400,7 @@ void VisTableMgrClass::Save(ChunkSaveClass & csave)
 	// loop over tables
 	for (int i=0; i<VisTables.Count(); i++) {
 
-		if (VisTables[i] != NULL) {
+		if (VisTables[i] != nullptr) {
 			csave.Begin_Chunk(VISMGR_CHUNK_VISTABLEID);
 			uint32 index = i;
 			csave.Write(&index,sizeof(index));
@@ -440,7 +440,7 @@ void VisTableMgrClass::Load(ChunkLoadClass & cload)
 
 	// allocate a pointer for each table
 	for (int i=0; i<VisSectorCount; i++) {
-		VisTables.Add(NULL,VisSectorCount);
+		VisTables.Add(nullptr,VisSectorCount);
 	}
 
 	// reset the cache
@@ -458,7 +458,7 @@ void VisTableMgrClass::Load(ChunkLoadClass & cload)
 
 			case VISMGR_CHUNK_VISTABLEDATA:
 				WWASSERT(id != 0xFFFFFFFF);
-				if (VisTables[id] == NULL) {
+				if (VisTables[id] == nullptr) {
 					VisTables[id] = new CompressedVisTableClass;
 				}
 				VisTables[id]->Load(cload);

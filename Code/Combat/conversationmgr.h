@@ -210,7 +210,7 @@ ConversationMgrClass::Get_Conversation_Count (void)
 inline ConversationClass *
 ConversationMgrClass::Peek_Conversation (int index_to_find)
 {
-	ConversationClass *conversation = NULL;
+	ConversationClass *conversation = nullptr;
 
 	//
 	//	Loop over all the categories

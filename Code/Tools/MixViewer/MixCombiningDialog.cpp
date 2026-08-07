@@ -35,7 +35,7 @@ static char THIS_FILE[] = __FILE__;
 // MixCombiningDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-MixCombiningDialogClass::MixCombiningDialogClass(CWnd* pParent /*=NULL*/)
+MixCombiningDialogClass::MixCombiningDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(MixCombiningDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(MixCombiningDialogClass)

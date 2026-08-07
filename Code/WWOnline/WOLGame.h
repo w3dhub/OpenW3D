@@ -87,12 +87,12 @@ class GameStartWait :
 		public Observer<GameStartEvent>
 	{
 	public:
-		static RefPtr<GameStartWait> Create(const UserList& players, void(*callback)(void) = NULL);
+		static RefPtr<GameStartWait> Create(const UserList& players, void(*callback)(void) = nullptr);
 
 		void WaitBeginning(void) override;
 
 	protected:
-		GameStartWait(const UserList& players, void(*callback)(void) = NULL);
+		GameStartWait(const UserList& players, void(*callback)(void) = nullptr);
 		virtual ~GameStartWait();
 
 		// Prevent copy and assignment

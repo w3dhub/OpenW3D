@@ -67,10 +67,10 @@ static const int TOOLBAR_H_BORDER	= TOOLBAR_H_SPACING * 2;
 // OverlapPageClass
 //
 /////////////////////////////////////////////////////////////////////////////
-OverlapPageClass::OverlapPageClass(CWnd* pParent /*=NULL*/)
+OverlapPageClass::OverlapPageClass(CWnd* pParent /*=nullptr*/)
 	:	CDialog(OverlapPageClass::IDD, pParent),
-		m_SoundsRoot (NULL),
-		m_LightsRoot (NULL)
+		m_SoundsRoot (nullptr),
+		m_LightsRoot (nullptr)
 {
 	//{{AFX_DATA_INIT(OverlapPageClass)
 		// NOTE: the ClassWizard will add member initialization here
@@ -148,7 +148,7 @@ OverlapPageClass::OnSize
 		ScreenToClient (&toolbar_rect);
 
 		// Move the toolbar so it is in its correct position
-		m_Toolbar.SetWindowPos (NULL,
+		m_Toolbar.SetWindowPos (nullptr,
 										TOOLBAR_H_SPACING,
 										(cy - TOOLBAR_V_SPACING) - toolbar_rect.Height (),
 										cx - TOOLBAR_H_BORDER,
@@ -164,7 +164,7 @@ OverlapPageClass::OnSize
 		int list_height = ((cy - TOOLBAR_V_BORDER) - toolbar_rect.Height ()) - client_rect.top;
 
 		// Resize the tab control to fill the entire contents of the client area
-		m_TreeCtrl.SetWindowPos (	NULL,
+		m_TreeCtrl.SetWindowPos (	nullptr,
 											0,
 											0,
 											cx-((list_rect.left - parentrect.left) << 1),
@@ -186,11 +186,11 @@ OverlapPageClass::OnDestroy (void)
 {
 	// Free the state image list we associated with the control
 	CImageList *imagelist = m_TreeCtrl.GetImageList (TVSIL_STATE);
-	m_TreeCtrl.SetImageList (NULL, TVSIL_STATE);
+	m_TreeCtrl.SetImageList (nullptr, TVSIL_STATE);
 	SAFE_DELETE (imagelist);
 
 	// Remove the main image list we associated with the control
-	m_TreeCtrl.SetImageList (NULL, TVSIL_NORMAL);
+	m_TreeCtrl.SetImageList (nullptr, TVSIL_NORMAL);
 	m_TreeCtrl.DeleteAllItems ();
 
 	::RemoveProp (m_TreeCtrl, "TRANS_ACCS");
@@ -222,7 +222,7 @@ OverlapPageClass::OnInitDialog (void)
 	//
 	CRect parentrect;
 	GetWindowRect (&parentrect);
-	m_Toolbar.SetWindowPos (NULL, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);
+	m_Toolbar.SetWindowPos (nullptr, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);
 
 	//
 	// Pass the general use imagelist onto the tree control
@@ -303,18 +303,18 @@ OverlapPageClass::Detect_Overlaps (HTREEITEM root_item, NODE_TYPE node_type)
 	//
 	//	Loop over each node (of the given type) in the world
 	//
-	NodeClass *node1 = NULL;
+	NodeClass *node1 = nullptr;
 	for (	node1 = NodeMgrClass::Get_First (node_type);
-			node1 != NULL;
+			node1 != nullptr;
 			node1 = NodeMgrClass::Get_Next (node1, node_type))
 	{
 		//
 		//	Check this node against every other node (of the sametype) in the world
 		//
-		HTREEITEM tree_item		= NULL;
-		NodeClass *node2	= NULL;
+		HTREEITEM tree_item		= nullptr;
+		NodeClass *node2	= nullptr;
 		for (	node2 = NodeMgrClass::Get_First (node_type);
-				node2 != NULL;
+				node2 != nullptr;
 				node2 = NodeMgrClass::Get_Next (node2, node_type))
 		{
 			if (node1 != node2) {
@@ -330,7 +330,7 @@ OverlapPageClass::Detect_Overlaps (HTREEITEM root_item, NODE_TYPE node_type)
 					//
 					//	Add a tree entry for this node (if necessary)
 					//
-					if (tree_item == NULL) {
+					if (tree_item == nullptr) {
 						tree_item = Insert_Node (root_item, node1);
 					}
 
@@ -367,7 +367,7 @@ OverlapPageClass::Insert_Node (HTREEITEM parent_item, NodeClass *node)
 	//
 	//	Save the node's ID with the tree entry so we can look it up later...
 	//
-	if (tree_item != NULL) {
+	if (tree_item != nullptr) {
 		m_TreeCtrl.SetItemData (tree_item, node->Get_ID ());
 	}
 
@@ -412,14 +412,14 @@ OverlapPageClass::OnDblclkOverlapTree
 	//
 	UINT flags				= 0;
 	HTREEITEM tree_item	= m_TreeCtrl.HitTest (hit_point, &flags);
-	if (tree_item != NULL && flags & TVHT_ONITEMLABEL) {
+	if (tree_item != nullptr && flags & TVHT_ONITEMLABEL) {
 
 		//
 		//	Lookup the node from its ID
 		//
 		int node_id = m_TreeCtrl.GetItemData (tree_item);
 		NodeClass *node = NodeMgrClass::Find_Node (node_id);
-		if (node != NULL) {
+		if (node != nullptr) {
 
 			//
 			//	Reposition the camera so its looking at the node

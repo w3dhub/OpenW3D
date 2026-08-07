@@ -86,7 +86,7 @@ cSuicideEvent::Act(void)
    WWDEBUG_SAY(("Client %d committed suicide.\n", SenderId));
 
 	SmartGameObj * p_soldier = GameObjManager::Find_Soldier_Of_Client_ID(SenderId);
-	if (p_soldier != NULL)
+	if (p_soldier != nullptr)
 	{
 		p_soldier->Set_Delete_Pending();
 	}
@@ -95,7 +95,7 @@ cSuicideEvent::Act(void)
 	// Increment Deaths
 	//
 	cPlayer * p_player = cPlayerManager::Find_Player(SenderId);
-	if (p_player != NULL)
+	if (p_player != nullptr)
 	{
 		//p_player->Increment_Deaths();
 		p_player->Set_Money(0);

@@ -34,7 +34,7 @@ class CAssetPropertySheet : public CPropertySheet
 
 // Construction
 public:
-    CAssetPropertySheet (int iCaptionID, CPropertyPage *pCPropertyPage, CWnd *pCParentWnd = NULL);
+    CAssetPropertySheet (int iCaptionID, CPropertyPage *pCPropertyPage, CWnd *pCParentWnd = nullptr);
 
 // Attributes
 public:
@@ -60,8 +60,8 @@ protected:
 
     private:
         // Private constructors (shouldn't be called)
-	    CAssetPropertySheet(UINT , CWnd*  = NULL, UINT  = 0) {}
-	    CAssetPropertySheet(LPCTSTR , CWnd*  = NULL, UINT  = 0) {}
+	    CAssetPropertySheet(UINT , CWnd*  = nullptr, UINT  = 0) {}
+	    CAssetPropertySheet(LPCTSTR , CWnd*  = nullptr, UINT  = 0) {}
 
         CPropertyPage *m_pCPropertyPage;
 };

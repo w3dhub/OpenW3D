@@ -69,11 +69,11 @@ static const char *HEADER_FONT_NAME				= "FONT8X8.TGA";
 //
 ////////////////////////////////////////////////////////////////
 MessageWindowClass::MessageWindowClass (void) :
-	TextWindow (NULL),
+	TextWindow (nullptr),
 	DecayTime (6000),
-	Scene (NULL),
-	Camera (NULL),
-	HeadModel (NULL),
+	Scene (nullptr),
+	Camera (nullptr),
+	HeadModel (nullptr),
 	IsRectangleDirty (true)
 {
 	MessageLog.Set_Growth_Step (1000);
@@ -103,12 +103,12 @@ MessageWindowClass::~MessageWindowClass (void)
 void
 MessageWindowClass::Shutdown (void)
 {
-	if (TextWindow != NULL) {
+	if (TextWindow != nullptr) {
 		delete TextWindow;
-		TextWindow = NULL;
+		TextWindow = nullptr;
 	}
 
-	if (HeadModel != NULL) {
+	if (HeadModel != nullptr) {
 		HeadModel->Remove ();
 	}
 	REF_PTR_RELEASE (HeadModel);
@@ -188,7 +188,7 @@ MessageWindowClass::Initialize (void)
 	//	Lookup the head model we'll use for conversations
 	//
 	//HeadModel = WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("CX_HAVOC_HEAD");
-	if (HeadModel != NULL) {
+	if (HeadModel != nullptr) {
 		HeadModel->Set_Hidden (true);
 
 		//
@@ -227,7 +227,7 @@ MessageWindowClass::Render (void)
 		Update_Window_Rectangle ();
 	}
 
-	if (TextWindow != NULL) {
+	if (TextWindow != nullptr) {
 		TextWindow->Render ();
 	}
 
@@ -247,14 +247,14 @@ void
 MessageWindowClass::On_Frame_Update (void)
 {
 	WWMEMLOG(MEM_GAMEDATA);
-	if (TextWindow == NULL || TextWindow->Is_Displayed () == false) {
+	if (TextWindow == nullptr || TextWindow->Is_Displayed () == false) {
 		return ;
 	}
 
 	if (TextWindow->Get_Item_Count () == 0) {
 		TextWindow->Display (false);
 		//IconRenderer.Set_Hidden (true);
-		if (HeadModel != NULL) {
+		if (HeadModel != nullptr) {
 			HeadModel->Set_Hidden (true);
 		}
 		Reset_Current_Rect ();
@@ -311,7 +311,7 @@ MessageWindowClass::Add_Message
 )
 {
 	WWMEMLOG(MEM_GAMEDATA);
-	if (TextWindow == NULL) {
+	if (TextWindow == nullptr) {
 		return ;
 	}
 
@@ -350,18 +350,18 @@ MessageWindowClass::Add_Message
 	//	Get the name of the icon file we'll use
 	//
 	StringClass filename("hud_6x4_icon_default.tga",true);
-	if (game_obj != NULL) {
+	if (game_obj != nullptr) {
 		Strip_Path_From_Filename (filename, game_obj->Get_Info_Icon_Texture_Filename ());
 
 		//
 		//	Try to play an animation on the head model
 		//
-		if (HeadModel != NULL) {
+		if (HeadModel != nullptr) {
 			SoldierGameObj *soldier = game_obj->As_SoldierGameObj ();
-			if (soldier != NULL) {
+			if (soldier != nullptr) {
 				DynamicSpeechAnimClass *speech_anim = soldier->Get_Facial_Anim ();
 
-				if (speech_anim != NULL) {
+				if (speech_anim != nullptr) {
 					HeadModel->Set_Animation( speech_anim, 0, RenderObjClass::ANIM_MODE_ONCE );
 				}
 			}
@@ -375,7 +375,7 @@ MessageWindowClass::Add_Message
 	//IconRenderer.Reset ();
 	//IconRenderer.Set_Hidden (false);
 
-	if (HeadModel != NULL) {
+	if (HeadModel != nullptr) {
 		HeadModel->Set_Hidden (false);
 	}
 
@@ -414,11 +414,11 @@ MessageWindowClass::Update_Window_Rectangle (void)
 	//
 	EvaSettingsDefClass *settings		= EvaSettingsDefClass::Get_Instance ();
 
-	if (settings == NULL || TextWindow == NULL) {
+	if (settings == nullptr || TextWindow == nullptr) {
 		return;
 	}
 
-	WWASSERT(settings != NULL);
+	WWASSERT(settings != nullptr);
 	RectClass screen_rect				= settings->Get_Messages_Screen_Rect ();
 	RectClass text_rect					= settings->Get_Messages_Text_Rect ();
 	float top_border						= text_rect.Top - screen_rect.Top;
@@ -428,7 +428,7 @@ MessageWindowClass::Update_Window_Rectangle (void)
 	//
 	//	Resize the area (if needs be)
 	//
-	WWASSERT(TextWindow != NULL);
+	WWASSERT(TextWindow != nullptr);
 	float total_height = TextWindow->Get_Total_Display_Height ();
 	if (IsRectangleDirty || (total_height > (CurrentRect.Height () - vert_border))) {
 
@@ -462,7 +462,7 @@ MessageWindowClass::Update_Window_Rectangle (void)
 void
 MessageWindowClass::Clear (void)
 {
-	if (TextWindow != NULL) {
+	if (TextWindow != nullptr) {
 		TextWindow->Delete_All_Items ();
 	}
 
@@ -478,14 +478,14 @@ MessageWindowClass::Clear (void)
 void
 MessageWindowClass::Force_Display (bool onoff)
 {
-	if (TextWindow != NULL) {
+	if (TextWindow != nullptr) {
 		TextWindow->Display (onoff);
 	}
 
 	//IconRenderer.Set_Hidden (!onoff);
 
 
-	if (HeadModel != NULL) {
+	if (HeadModel != nullptr) {
 		HeadModel->Set_Hidden (!onoff);
 	}
 
@@ -502,7 +502,7 @@ MessageWindowClass::Force_Display (bool onoff)
 bool
 MessageWindowClass::Has_Data (void) const
 {
-	return (TextWindow != NULL && TextWindow->Get_Item_Count () > 0);
+	return (TextWindow != nullptr && TextWindow->Get_Item_Count () > 0);
 }
 
 

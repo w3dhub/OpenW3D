@@ -96,7 +96,7 @@ bool BitStreamClass::Get(bool & value)
 //-----------------------------------------------------------------------------
 void BitStreamClass::Add_Raw_Data(const char * data, uint16_t data_size)
 {
-	WWASSERT(data != NULL);
+	WWASSERT(data != nullptr);
 	WWASSERT(data_size >= 0);
 
 	for (int i = 0; i < data_size; i++) {
@@ -107,7 +107,7 @@ void BitStreamClass::Add_Raw_Data(const char * data, uint16_t data_size)
 //-----------------------------------------------------------------------------
 void BitStreamClass::Get_Raw_Data(char * buffer, [[maybe_unused]] uint16_t buffer_size, uint16_t data_size)
 {
-	WWASSERT(buffer != NULL);
+	WWASSERT(buffer != nullptr);
 	WWASSERT(data_size >= 0);
    WWASSERT(buffer_size >= data_size);
 
@@ -119,7 +119,7 @@ void BitStreamClass::Get_Raw_Data(char * buffer, [[maybe_unused]] uint16_t buffe
 //-----------------------------------------------------------------------------
 void BitStreamClass::Add_Terminated_String(const char * string, bool permit_empty)
 {
-	WWASSERT(string != NULL);
+	WWASSERT(string != nullptr);
 
 	//
 	// The terminating null is not transmitted.
@@ -138,7 +138,7 @@ void BitStreamClass::Add_Terminated_String(const char * string, bool permit_empt
 //-----------------------------------------------------------------------------
 void BitStreamClass::Get_Terminated_String(char * buffer, uint16_t buffer_size, bool permit_empty)
 {
-	WWASSERT(buffer != NULL);
+	WWASSERT(buffer != nullptr);
 	WWASSERT(buffer_size > 0);
 
 	uint16_t len;
@@ -169,7 +169,7 @@ void BitStreamClass::Get_Terminated_String(char * buffer, uint16_t buffer_size, 
 //-----------------------------------------------------------------------------
 void BitStreamClass::Add_Wide_Terminated_String(const unichar_t *string, bool permit_empty)
 {
-	WWASSERT(string != NULL);
+	WWASSERT(string != nullptr);
 
 	//
 	// The terminating null is not transmitted.
@@ -188,7 +188,7 @@ void BitStreamClass::Add_Wide_Terminated_String(const unichar_t *string, bool pe
 //-----------------------------------------------------------------------------
 void BitStreamClass::Get_Wide_Terminated_String(unichar_t *buffer, uint16_t buffer_len, bool permit_empty)
 {
-	WWASSERT(buffer != NULL);
+	WWASSERT(buffer != nullptr);
 	WWASSERT(buffer_len > 0);
 
 	uint16_t len;

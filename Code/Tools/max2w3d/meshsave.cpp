@@ -138,7 +138,7 @@ uint32 setup_mesh_attributes(INode * node)
 	** And, a mesh may have one or more types of collision detection enabled.
 	** W3D_MESH_FLAG_COLLISION_TYPE_PHYSICAL
 	** W3D_MESH_FLAG_COLLISION_TYPE_PROJECTILE
-	** However, if the mesh is SKIN, SHADOW, ALIGNED, ORIENTED or NULL, don't let
+	** However, if the mesh is SKIN, SHADOW, ALIGNED, ORIENTED or nullptr, don't let
 	** the collision bits get set...
 	*/
 	if (	attributes != W3D_MESH_FLAG_GEOMETRY_TYPE_SKIN &&
@@ -232,9 +232,9 @@ MeshSaveClass::MeshSaveClass
 	CurTime(curtime),
 	ExportSpace(exportspace),
 	HTree(htree),
-	UserText(NULL),
-	VertInfluences(NULL),
-	MaterialRemapTable(NULL)
+	UserText(nullptr),
+	VertInfluences(nullptr),
+	MaterialRemapTable(nullptr)
 {
 	Mesh			mesh = *input_mesh;		// copy the mesh so we can modify it
 	Mtl *		   nodemtl = inode->GetMtl();
@@ -276,8 +276,8 @@ MeshSaveClass::MeshSaveClass
 	//////////////////////////////////////////////////////////////////////
 	// Prepare the mesh header.
 	//////////////////////////////////////////////////////////////////////
-	assert(mesh_name != NULL);
-	assert(container_name != NULL);
+	assert(mesh_name != nullptr);
+	assert(container_name != nullptr);
 
 	memset(&Header,0,sizeof(Header));
 	Set_W3D_Name(Header.MeshName,mesh_name);
@@ -322,7 +322,7 @@ MeshSaveClass::MeshSaveClass
 		Header.VertexChannels |= W3D_VERTEX_CHANNEL_NORMAL;
 	}
 
-	if (((Header.Attributes & W3D_MESH_FLAG_GEOMETRY_TYPE_MASK) == W3D_MESH_FLAG_GEOMETRY_TYPE_SKIN) && (HTree != NULL)) {
+	if (((Header.Attributes & W3D_MESH_FLAG_GEOMETRY_TYPE_MASK) == W3D_MESH_FLAG_GEOMETRY_TYPE_SKIN) && (HTree != nullptr)) {
 		Header.VertexChannels |= W3D_VERTEX_CHANNEL_BONEID;
 	}
 
@@ -367,7 +367,7 @@ MeshSaveClass::MeshSaveClass
 	//////////////////////////////////////////////////////////////////////
 	// If this is a skin, pre-deform the mesh.
 	//////////////////////////////////////////////////////////////////////
-	if (((Header.Attributes & W3D_MESH_FLAG_GEOMETRY_TYPE_MASK) == W3D_MESH_FLAG_GEOMETRY_TYPE_SKIN) && (HTree != NULL)) {
+	if (((Header.Attributes & W3D_MESH_FLAG_GEOMETRY_TYPE_MASK) == W3D_MESH_FLAG_GEOMETRY_TYPE_SKIN) && (HTree != nullptr)) {
 		inv_deform_mesh();
 	}
 
@@ -401,17 +401,17 @@ MeshSaveClass::~MeshSaveClass(void)
 {
 	if (UserText) {
 		delete[] UserText;
-		UserText = NULL;
+		UserText = nullptr;
 	}
 
 	if (VertInfluences) {
 		delete[] VertInfluences;
-		VertInfluences = NULL;
+		VertInfluences = nullptr;
 	}
 
 	if (MaterialRemapTable) {
 		delete[] MaterialRemapTable;
-		MaterialRemapTable = NULL;
+		MaterialRemapTable = nullptr;
 	}
 }
 
@@ -421,27 +421,27 @@ void MeshSaveClass::Build_Mesh(Mesh & mesh, Mtl *node_mtl)
 	int face_index;
 	int pass;
 	int stage;
-	float *vdata = NULL;
+	float *vdata = nullptr;
 
 	Builder.Reset(true,mesh.getNumFaces(),mesh.getNumFaces()/3);
 
 	// Get a pointer to the channel that has alpha values entered by the artist.
-	// This pointer will be NULL if they didn't use the channel.
+	// This pointer will be nullptr if they didn't use the channel.
 	vdata = mesh.vertexFloat(ALPHA_VERTEX_CHANNEL);
 
 	/*
 	** Get the skin info
 	*/
 	bool								is_skin = false;
-	SkinDataClass *				skindata = NULL;
-	SkinWSMObjectClass *			skinobj = NULL;
+	SkinDataClass *				skindata = nullptr;
+	SkinWSMObjectClass *			skinobj = nullptr;
 
 	get_skin_modifier_objects(&skindata,&skinobj);
 
 	if (	((Header.Attributes & W3D_MESH_FLAG_GEOMETRY_TYPE_MASK) == W3D_MESH_FLAG_GEOMETRY_TYPE_SKIN) &&
-			(HTree != NULL)	)
+			(HTree != nullptr)	)
 	{
-		is_skin = ((skindata != NULL) && (skinobj != NULL));
+		is_skin = ((skindata != nullptr) && (skinobj != nullptr));
 	}
 
 	/*
@@ -481,11 +481,11 @@ void MeshSaveClass::Build_Mesh(Mesh & mesh, Mtl *node_mtl)
 		**	Lookup this face's surface type
 		*/
 		Mtl *mtl_to_use = node_mtl;
-		if ((node_mtl != NULL) && (node_mtl->NumSubMtls() > 1)) {
+		if ((node_mtl != nullptr) && (node_mtl->NumSubMtls() > 1)) {
 			mtl_to_use = node_mtl->GetSubMtl (maxface.getMatID() % node_mtl->NumSubMtls());
 		}
 
-		if ((mtl_to_use != NULL) && ((mtl_to_use->ClassID() == GameMaterialClassID) ||
+		if ((mtl_to_use != nullptr) && ((mtl_to_use->ClassID() == GameMaterialClassID) ||
 			 (mtl_to_use->ClassID() == PS2GameMaterialClassID))) {
 			face.SurfaceType = ((GameMtl *)mtl_to_use)->Get_Surface_Type ();
 		}
@@ -558,7 +558,7 @@ void MeshSaveClass::Build_Mesh(Mesh & mesh, Mtl *node_mtl)
 						UVVert * uvarray = mesh.mapVerts(channel);
 						TVFace * tvfacearray = mesh.mapFaces(channel);
 
-						if ((uvarray != NULL) && (tvfacearray != NULL)) {
+						if ((uvarray != nullptr) && (tvfacearray != nullptr)) {
 
 							int tvert_index = tvfacearray[face_index].t[max_vert_counter];
 							tvert = uvarray[tvert_index];
@@ -636,7 +636,7 @@ void MeshSaveClass::Build_Mesh(Mesh & mesh, Mtl *node_mtl)
 				// If this is a valid bone, try to find the corresponding bone index in the HTree
 				if (	(skin_bone_index != -1) &&
 						(skin_bone_index < skinobj->Num_Bones()) &&
-						(skinobj->BoneTab[skin_bone_index] != NULL)	)
+						(skinobj->BoneTab[skin_bone_index] != nullptr)	)
 				{
 					face.Verts[vert_counter].BoneIndex = get_htree_bone_index_for_inode(skinobj->BoneTab[skin_bone_index]);
 				}
@@ -678,8 +678,8 @@ void MeshSaveClass::Build_Mesh(Mesh & mesh, Mtl *node_mtl)
  *=============================================================================================*/
 void MeshSaveClass::get_skin_modifier_objects(SkinDataClass ** skin_data_ptr,SkinWSMObjectClass ** skin_obj_ptr)
 {
-	*skin_data_ptr = NULL;
-	*skin_obj_ptr = NULL;
+	*skin_data_ptr = nullptr;
+	*skin_obj_ptr = nullptr;
 
 	// loop through the references that our node has
 	for (int i = 0; i < MaxINode->NumRefs(); i++) {
@@ -687,7 +687,7 @@ void MeshSaveClass::get_skin_modifier_objects(SkinDataClass ** skin_data_ptr,Ski
 		ReferenceTarget *refTarg = MaxINode->GetReference(i);
 
 		// if the reference is a WSM Derived Object.
-		if (refTarg != NULL && refTarg->ClassID() == Class_ID(WSM_DERIVOB_CLASS_ID,0)) {
+		if (refTarg != nullptr && refTarg->ClassID() == Class_ID(WSM_DERIVOB_CLASS_ID,0)) {
 
 			IDerivedObject * wsm_der_obj = (IDerivedObject *)refTarg;
 
@@ -949,7 +949,7 @@ int MeshSaveClass::write_header(ChunkSaveClass & csave)
 int MeshSaveClass::write_user_text(ChunkSaveClass & csave)
 {
 	// If there's no user text, just don't write the chunk
-	if (UserText == NULL) {
+	if (UserText == nullptr) {
 		return 0;
 	}
 
@@ -957,7 +957,7 @@ int MeshSaveClass::write_user_text(ChunkSaveClass & csave)
 		return 1;
 	}
 
-	// write the user text buffer (writing one extra byte to include the NULL)
+	// write the user text buffer (writing one extra byte to include the nullptr)
 	if (csave.Write(UserText,strlen(UserText) + 1) != strlen(UserText) + 1) {
 		return 1;
 	}
@@ -1093,7 +1093,7 @@ int MeshSaveClass::write_vert_influences(ChunkSaveClass & csave)
 {
 	if (((Header.Attributes & W3D_MESH_FLAG_GEOMETRY_TYPE_MASK) != W3D_MESH_FLAG_GEOMETRY_TYPE_SKIN) ||
 		 !(Header.VertexChannels & W3D_VERTEX_CHANNEL_BONEID) ||
-		 (VertInfluences == NULL)) {
+		 (VertInfluences == nullptr)) {
 		return 0;
 	}
 
@@ -1227,7 +1227,7 @@ int MeshSaveClass::write_vertex_materials(ChunkSaveClass & csave)
 
 		// write the filename
 		const char * name = MaterialDesc.Get_Vertex_Material_Name(i);
-		if (name != NULL) {
+		if (name != nullptr) {
 			csave.Begin_Chunk(W3D_CHUNK_VERTEX_MATERIAL_NAME);
 			if (csave.Write(name,strlen(name) + 1) != strlen(name) + 1) {
 				return 1;
@@ -1245,7 +1245,7 @@ int MeshSaveClass::write_vertex_materials(ChunkSaveClass & csave)
 
 		// write the mapper args
 		const char * args = MaterialDesc.Get_Mapper_Args(i, 0);
-		if (args != NULL) {
+		if (args != nullptr) {
 			csave.Begin_Chunk(W3D_CHUNK_VERTEX_MAPPER_ARGS0);
 			if (csave.Write(args,strlen(args) + 1) != strlen(args) + 1) {
 				return 1;
@@ -1253,7 +1253,7 @@ int MeshSaveClass::write_vertex_materials(ChunkSaveClass & csave)
 			csave.End_Chunk();
 		}
 		args = MaterialDesc.Get_Mapper_Args(i, 1);
-		if (args != NULL) {
+		if (args != nullptr) {
 			csave.Begin_Chunk(W3D_CHUNK_VERTEX_MAPPER_ARGS1);
 			if (csave.Write(args,strlen(args) + 1) != strlen(args) + 1) {
 				return 1;
@@ -1448,7 +1448,7 @@ int MeshSaveClass::write_textures(ChunkSaveClass & csave)
 		csave.End_Chunk();
 
 		// optionally write an animation info chunk
-		if (map->AnimInfo != NULL) {
+		if (map->AnimInfo != nullptr) {
 			csave.Begin_Chunk(W3D_CHUNK_TEXTURE_INFO);
 			if (csave.Write(map->AnimInfo,sizeof(W3dTextureInfoStruct)) != sizeof(W3dTextureInfoStruct)) return 1;
 			csave.End_Chunk();
@@ -1695,7 +1695,7 @@ int MeshSaveClass::scan_used_materials(Mesh & mesh,Mtl * nodemtl)
 	int face_index;
 	int mat_index;
 
-	if ((nodemtl == NULL) || (nodemtl->NumSubMtls() <= 1)) {
+	if ((nodemtl == nullptr) || (nodemtl->NumSubMtls() <= 1)) {
 
 		MaterialRemapTable = new int[1];
 		MaterialRemapTable[0] = 0;

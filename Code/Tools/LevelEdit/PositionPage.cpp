@@ -41,7 +41,7 @@ static char THIS_FILE[] = __FILE__;
 //
 /////////////////////////////////////////////////////////////////////////////
 PositionPageClass::PositionPageClass (void)
-	: m_pNode (NULL),
+	: m_pNode (nullptr),
 	  m_bInclueRotation (false),
 	  DockableFormClass (PositionPageClass::IDD)
 {
@@ -129,7 +129,7 @@ void PositionPageClass::Dump(CDumpContext& dc) const
 void
 PositionPageClass::HandleInitDialog (void)
 {
-	ASSERT (m_pNode != NULL);
+	ASSERT (m_pNode != nullptr);
 
 	// Get the node's position
 	Matrix3D transform = m_pNode->Get_Transform ();

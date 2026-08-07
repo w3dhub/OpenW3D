@@ -173,9 +173,9 @@ cRemoteHost::~cRemoteHost()
    SLNode<cPacket> * objnode;
    cPacket * p_packet;
    for (int list_type = 0; list_type < 4; list_type++) {
-      for (objnode = PacketList[list_type].Head(); objnode != NULL;) {
+      for (objnode = PacketList[list_type].Head(); objnode != nullptr;) {
          p_packet = objnode->Data();
-         WWASSERT(p_packet != NULL);
+         WWASSERT(p_packet != nullptr);
          objnode = objnode->Next();
          PacketList[list_type].Remove(p_packet);
 		   p_packet->Flush();
@@ -211,7 +211,7 @@ void cRemoteHost::Add_Packet(cPacket & packet, BYTE list_type)
    }
 
    cPacket * p_packet = new cPacket;
-   WWASSERT(p_packet != NULL);
+   WWASSERT(p_packet != nullptr);
    *p_packet = packet; // copy data
 
 	if (list_type == RELIABLE_SEND_LIST || list_type == UNRELIABLE_SEND_LIST) {
@@ -222,10 +222,10 @@ void cRemoteHost::Add_Packet(cPacket & packet, BYTE list_type)
 		// Locate insertion point according to packet id
 		//
 		SLNode<cPacket> * objnode;
-		cPacket * obj = NULL;
+		cPacket * obj = nullptr;
 		for (objnode = PacketList[list_type].Head(); objnode; objnode = objnode->Next()) {
 			obj = objnode->Data();
-			WWASSERT(obj != NULL);
+			WWASSERT(obj != nullptr);
 
 			if (obj->Get_Id() > packet.Get_Id()) {
 				break;
@@ -237,7 +237,7 @@ void cRemoteHost::Add_Packet(cPacket & packet, BYTE list_type)
 		// TSS - this is inefficient: we have already parsed the
 		// list once
 		//
-		if (objnode == NULL) {
+		if (objnode == nullptr) {
 			PacketList[list_type].Add_Tail(p_packet);
 		} else {
 			PacketList[list_type].Insert_Before(p_packet, obj);
@@ -256,10 +256,10 @@ void cRemoteHost::Remove_Packet(int packet_id, BYTE list_type)
       list_type == UNRELIABLE_RCV_LIST);
 
    SLNode<cPacket> * objnode;
-	for (objnode = PacketList[list_type].Head(); objnode != NULL;) {
+	for (objnode = PacketList[list_type].Head(); objnode != nullptr;) {
 
       cPacket * p_packet = objnode->Data();
-      WWASSERT(p_packet != NULL);
+      WWASSERT(p_packet != nullptr);
       objnode = objnode->Next();
 
 		if (packet_id == p_packet->Get_Id()) {

@@ -23,18 +23,18 @@ static char **CommandLineToArgvU(LPCWSTR lpCmdLine, int *pNumArgs)
 {
 	int cmd_line_pos; // Array "index" of the actual command line string
 	// int lpCmdLine_len = wcslen(lpCmdLine) + 1;
-	int lpCmdLine_len = WideCharToMultiByte(CP_UTF8, 0, lpCmdLine, -1, NULL, 0, NULL, NULL) + 1;
+	int lpCmdLine_len = WideCharToMultiByte(CP_UTF8, 0, lpCmdLine, -1, nullptr, 0, nullptr, nullptr) + 1;
 	char **argv_u;
 
 	wchar_t **argv_w = CommandLineToArgvW(lpCmdLine, pNumArgs);
 
 	if (!argv_w) {
-		return NULL;
+		return nullptr;
 	}
 
 	cmd_line_pos = *pNumArgs + 1;
 
-	// argv is indeed terminated with an additional sentinel NULL pointer.
+	// argv is indeed terminated with an additional sentinel nullptr pointer.
 	argv_u = (char **)LocalAlloc(LMEM_FIXED, cmd_line_pos * sizeof(char *) + lpCmdLine_len);
 
 	if (argv_u) {
@@ -45,14 +45,14 @@ static char **CommandLineToArgvU(LPCWSTR lpCmdLine, int *pNumArgs)
 			size_t cur_arg_u_len;
 			int conv_len;
 			argv_u[i] = cur_arg_u;
-			conv_len = WideCharToMultiByte(CP_UTF8, 0, argv_w[i], -1, cur_arg_u, lpCmdLine_len, NULL, NULL);
+			conv_len = WideCharToMultiByte(CP_UTF8, 0, argv_w[i], -1, cur_arg_u, lpCmdLine_len, nullptr, nullptr);
 
-			cur_arg_u_len = argv_w[i] != NULL ? conv_len : conv_len + 1;
+			cur_arg_u_len = argv_w[i] != nullptr ? conv_len : conv_len + 1;
 			cur_arg_u += cur_arg_u_len;
 			lpCmdLine_len -= static_cast<int>(cur_arg_u_len);
 		}
 
-		argv_u[i] = NULL;
+		argv_u[i] = nullptr;
 	}
 
 	LocalFree(argv_w);

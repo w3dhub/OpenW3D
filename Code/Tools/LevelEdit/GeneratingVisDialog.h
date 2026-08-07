@@ -38,7 +38,7 @@ class GeneratingVisDialogClass : public CDialog
 {
 // Construction
 public:
-	GeneratingVisDialogClass(float granularity, CWnd* pParent = NULL);   // standard constructor
+	GeneratingVisDialogClass(float granularity, CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GeneratingVisDialogClass)

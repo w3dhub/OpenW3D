@@ -134,7 +134,7 @@ ArrayList<T>::ArrayList()
 {
   Entries_=0;
   Slots_=0;
-  Vector_=NULL;
+  Vector_=nullptr;
 }
 
 // copy constructor
@@ -143,7 +143,7 @@ ArrayList<T>::ArrayList(ArrayList<T> &other)
 {
   Entries_=0;
   Slots_=0;
-  Vector_=NULL;
+  Vector_=nullptr;
   (*this)=other;
 }
 
@@ -656,7 +656,7 @@ bit8 ArrayList<T>::growVector(void)
   T *newVector=(T *)(new uint8[newSlots * sizeof(T)]);
   memset(newVector,0,newSlots * sizeof(T)); // zero just to be safe
 
-  if (Vector_ != NULL)
+  if (Vector_ != nullptr)
     memcpy(newVector,Vector_,Entries_*sizeof(T));
 
   delete[]((uint8 *)Vector_);  // Get rid of the old vector without calling
@@ -695,7 +695,7 @@ bit8 ArrayList<T>::shrinkVector(void)
   //
   T *newVector=(T *)(new uint8[newSlots * sizeof(T)]);
 
-  if (Vector_ != NULL)    // Vector_ better not be NULL!
+  if (Vector_ != nullptr)    // Vector_ better not be nullptr!
     memcpy(newVector,Vector_,Entries_*sizeof(T));
 
   delete[]((uint8 *)Vector_);  // Get rid of the old vector without calling

@@ -95,11 +95,11 @@ EditableHeightfieldClass::EditableHeightfieldClass (void)	:
 	GridPointsX (0),
 	GridPointsY (0),
 	GridPointCount (0),
-	Grid (NULL),
-	GridNormals (NULL),
-	QuadFlags (NULL),
-	PatchGrid (NULL),
-	PhysObjGrid (NULL),
+	Grid (nullptr),
+	GridNormals (nullptr),
+	QuadFlags (nullptr),
+	PatchGrid (nullptr),
+	PhysObjGrid (nullptr),
 	PatchesX (0),
 	PatchesY (0),
 	PatchGridPointsX (0),
@@ -124,11 +124,11 @@ EditableHeightfieldClass::EditableHeightfieldClass (const EditableHeightfieldCla
 	GridPointsX (0),
 	GridPointsY (0),
 	GridPointCount (0),
-	Grid (NULL),
-	GridNormals (NULL),
-	QuadFlags (NULL),
-	PatchGrid (NULL),
-	PhysObjGrid (NULL),
+	Grid (nullptr),
+	GridNormals (nullptr),
+	QuadFlags (nullptr),
+	PatchGrid (nullptr),
+	PhysObjGrid (nullptr),
 	PatchesX (0),
 	PatchesY (0),
 	PatchGridPointsX (0),
@@ -316,7 +316,7 @@ EditableHeightfieldClass::Initialize_Grid (void)
 			//	Calculate the UV coordinate for this texture at this vertex
 			//
 			for (int index = 0; index < MAX_TEXTURE_PASSES; index ++) {
-				if (MaterialList[index] != NULL) {
+				if (MaterialList[index] != nullptr) {
 					float meters_per_texture = MaterialList[index]->Get_Meters_Per_Tile ();
 					float u_value = Grid[start_index + x_pos].X / meters_per_texture;
 					float v_value = Grid[start_index + x_pos].Y / meters_per_texture;
@@ -478,7 +478,7 @@ EditableHeightfieldClass::Update_Texture_Quad_List (int min_x, int min_y, int ma
 							//
 							//	Get acces to the material pass for this layer
 							//
-							RenegadeTerrainMaterialPassClass *material_pass = NULL;
+							RenegadeTerrainMaterialPassClass *material_pass = nullptr;
 							material_pass = PatchGrid[patch_index]->Get_Material_Pass (layer, MaterialList[layer]);
 
 							v0_alpha_sum += TextureWeights[layer][v0_index];
@@ -554,7 +554,7 @@ EditableHeightfieldClass::Set_Material (int index, TerrainMaterialClass *materia
 void
 EditableHeightfieldClass::On_Material_Changed (int index)
 {
-	if (index < 0 || index >= MAX_TEXTURE_PASSES || MaterialList[index] == NULL) {
+	if (index < 0 || index >= MAX_TEXTURE_PASSES || MaterialList[index] == nullptr) {
 		return ;
 	}
 
@@ -1452,7 +1452,7 @@ EditableHeightfieldClass::Save (ChunkSaveClass &csave)
 			//
 			//	Is there a material to save?
 			//
-			if (MaterialList[index] != NULL) {
+			if (MaterialList[index] != nullptr) {
 
 				//
 				//	Save the material's definition to this chunk
@@ -1700,8 +1700,8 @@ EditableHeightfieldClass::Create
 	//
 	//	Load the bitmap from disk
 	//
-	HBITMAP bitmap = (HBITMAP)::LoadImage (NULL, heightmap_filename, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-	if (bitmap != NULL) {
+	HBITMAP bitmap = (HBITMAP)::LoadImage (nullptr, heightmap_filename, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+	if (bitmap != nullptr) {
 
 		//
 		//	Initialize the heightfield from the bitmap
@@ -1729,7 +1729,7 @@ EditableHeightfieldClass::Create
 	float			scale
 )
 {
-	if (bitmap == NULL) {
+	if (bitmap == nullptr) {
 		return ;
 	}
 
@@ -1761,10 +1761,10 @@ EditableHeightfieldClass::Create
 	//
 	//	Get the bitmap data
 	//
-	HDC screen_dc = ::GetDC (NULL);
+	HDC screen_dc = ::GetDC (nullptr);
 	::GetDIBits (screen_dc, bitmap, 0, bmp_info.bmHeight,
 			(LPVOID)bmp_bits, (BITMAPINFO *)&bitmap_info, DIB_RGB_COLORS);
-	::ReleaseDC (NULL, screen_dc);
+	::ReleaseDC (nullptr, screen_dc);
 
 	//
 	//	First, create the grid
@@ -2091,8 +2091,8 @@ EditableHeightfieldClass::Free_Patches (void)
 	//
 	SAFE_DELETE_ARRAY (PatchGrid);
 	SAFE_DELETE_ARRAY (PhysObjGrid);
-	PatchGrid	= NULL;
-	PhysObjGrid	= NULL;
+	PatchGrid	= nullptr;
+	PhysObjGrid	= nullptr;
 
 	PatchesX				= 0;
 	PatchesY				= 0;

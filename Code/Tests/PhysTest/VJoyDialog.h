@@ -34,7 +34,7 @@ class CVJoyDialog : public CDialog
 {
 // Construction
 public:
-	CVJoyDialog(CWnd* pParent = NULL);   // standard constructor
+	CVJoyDialog(CWnd* pParent = nullptr);   // standard constructor
 	~CVJoyDialog(void);
 
 // Dialog Data

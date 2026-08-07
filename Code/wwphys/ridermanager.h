@@ -62,7 +62,7 @@ public:
 	void						Unlink_Rider(PhysClass * obj);
 	bool						Contains(PhysClass * obj);
 
-	void						Move_Riders(const Matrix3D & delta,RenderObjClass * carrier_sub_obj = NULL);
+	void						Move_Riders(const Matrix3D & delta,RenderObjClass * carrier_sub_obj = nullptr);
 
 	NonRefPhysListClass * Get_Rider_List(void)	{ return &RiderList; }
 

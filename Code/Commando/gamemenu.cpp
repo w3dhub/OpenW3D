@@ -98,7 +98,7 @@ bool g_is_loading = false;
 //
 ////////////////////////////////////////////////////////////////////
 MenuGameModeClass2::MenuGameModeClass2 (void)	:
-	MenuMusic (NULL)
+	MenuMusic (nullptr)
 {
 	return ;
 }
@@ -118,14 +118,14 @@ MenuGameModeClass2::Init (void)
 	//	Create the background music
 	//
 	MenuMusic = WWAudioClass::Get_Instance ()->Create_Sound_Effect (MENU_MUSIC_FILENAME);
-	if (MenuMusic != NULL) {
+	if (MenuMusic != nullptr) {
 		MenuMusic->Set_Type (AudibleSoundClass::TYPE_MUSIC);
 		MenuMusic->Set_Priority (1.0F);
 		MenuMusic->Set_Loop_Count (0);
 		MenuMusic->Set_Volume (1.0F);
 	}
 
-	if (MenuDialogClass::Get_BackDrop () && MenuDialogClass::Get_BackDrop ()->Peek_Model () == NULL) {
+	if (MenuDialogClass::Get_BackDrop () && MenuDialogClass::Get_BackDrop ()->Peek_Model () == nullptr) {
 		MenuDialogClass::Get_BackDrop ()->Set_Model ("IF_BACK01");
 		MenuDialogClass::Get_BackDrop ()->Set_Animation ("IF_BACK01.IF_BACK01");
 	}
@@ -142,7 +142,7 @@ MenuGameModeClass2::Init (void)
 void
 MenuGameModeClass2::Shutdown (void)
 {
-	if (MenuMusic != NULL) {
+	if (MenuMusic != nullptr) {
 		MenuMusic->Stop ();
 		REF_PTR_RELEASE (MenuMusic);
 	}
@@ -159,7 +159,7 @@ MenuGameModeClass2::Shutdown (void)
 void
 MenuGameModeClass2::Think (void)
 {
-	if (MenuMusic != NULL) {
+	if (MenuMusic != nullptr) {
 
 		//
 		//	Start playing the music where necessary and stop the music
@@ -210,11 +210,11 @@ MenuGameModeClass2::Activate (void)
 	//
 	//	Pause game sounds and activate menu sounds
 	//
-	if (IS_SOLOPLAY && WWAudioClass::Get_Instance () != NULL) {
+	if (IS_SOLOPLAY && WWAudioClass::Get_Instance () != nullptr) {
 		WWAudioClass::Get_Instance ()->Set_Active_Sound_Page (WWAudioClass::PAGE_SECONDARY);
 	}
 
-	if (COMBAT_CAMERA != NULL) {
+	if (COMBAT_CAMERA != nullptr) {
 		COMBAT_CAMERA->Set_Snap_Shot_Mode (false);
 	}
 
@@ -234,7 +234,7 @@ MenuGameModeClass2::Deactivate (void)
 	//
 	//	Resume game sounds as necessary
 	//
-	if (WWAudioClass::Get_Instance () != NULL) {
+	if (WWAudioClass::Get_Instance () != nullptr) {
 		WWAudioClass::Get_Instance ()->Flush_Playlist (WWAudioClass::PAGE_SECONDARY);
 		WWAudioClass::Get_Instance ()->Set_Active_Sound_Page (WWAudioClass::PAGE_PRIMARY);
 	}

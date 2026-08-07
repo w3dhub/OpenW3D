@@ -33,7 +33,7 @@ class CCommandoUpdateDlg : public CDialog
 {
 // Construction
 public:
-	CCommandoUpdateDlg(CWnd* pParent = NULL);	// standard constructor
+	CCommandoUpdateDlg(CWnd* pParent = nullptr);	// standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CCommandoUpdateDlg)

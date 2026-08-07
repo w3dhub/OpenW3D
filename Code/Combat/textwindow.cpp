@@ -53,7 +53,7 @@
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
 ////////////////////////////////////////////////////////////////
-SceneClass *TextWindowClass::Scene	= NULL;
+SceneClass *TextWindowClass::Scene	= nullptr;
 
 
 ////////////////////////////////////////////////////////////////
@@ -77,8 +77,8 @@ TextWindowClass::TextWindowClass (void) :
 	ColumnHeight (0),
 	LineSpacing (0)
 {
-	TextRenderers[0] = NULL;
-	TextRenderers[1] = NULL;
+	TextRenderers[0] = nullptr;
+	TextRenderers[1] = nullptr;
 	return ;
 }
 
@@ -175,8 +175,8 @@ TextWindowClass::Free_Renderers (void)
 	//
 	delete TextRenderers[0];
 	delete TextRenderers[1];
-	TextRenderers[0] = NULL;
-	TextRenderers[1] = NULL;
+	TextRenderers[0] = nullptr;
+	TextRenderers[1] = nullptr;
 	return ;
 }
 
@@ -203,7 +203,7 @@ TextWindowClass::Set_Backdrop
 	//	Load the backdrop texture
 	//
 	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture (texture_name, TextureClass::MIP_LEVELS_1);
-	if (texture != NULL) {
+	if (texture != nullptr) {
 
 		//
 		//	Pass the texture onto the renderer
@@ -635,7 +635,7 @@ TextWindowClass::Build_View (void)
 	//
 	//	Load the font we'll use for the column headers
 	//
-	if (header_font != NULL) {
+	if (header_font != nullptr) {
 		ColumnHeight = (header_font->Get_Char_Height () * 1.5F);
 	}
 
@@ -662,7 +662,7 @@ TextWindowClass::Update_View (float *total_height, bool info_only)
 	//
 	//	Ensure the view has been created before we try to update it
 	//
-	if (TextRenderers[0] == NULL || TextRenderers[1] == NULL) {
+	if (TextRenderers[0] == nullptr || TextRenderers[1] == nullptr) {
 		Build_View ();
 	}
 
@@ -728,7 +728,7 @@ TextWindowClass::Update_View (float *total_height, bool info_only)
 	//
 	//	Return the height to the caller (if necessary)
 	//
-	if (total_height != NULL) {
+	if (total_height != nullptr) {
 		(*total_height) = (y_pos - TextRect.Top);
 	}
 
@@ -893,7 +893,7 @@ TextWindowClass::Render (void)
 		return ;
 	}
 
-	if (IsViewDirty || TextRenderers[0] == NULL) {
+	if (IsViewDirty || TextRenderers[0] == nullptr) {
 		Update_View ();
 	}
 

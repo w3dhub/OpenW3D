@@ -222,7 +222,7 @@ void	ExplosionManager::Create_Explosion_At( int explosion_def_id, const Matrix3D
 
 	// Find Explosion Def
 	ExplosionDefinitionClass * explosion_def = (ExplosionDefinitionClass *)DefinitionMgrClass::Find_Definition( explosion_def_id );
-	if ( explosion_def == NULL ) {
+	if ( explosion_def == nullptr ) {
 		Debug_Say(( "Explosion Def %d not found\n", explosion_def_id ));
 		return;
 	}
@@ -233,33 +233,33 @@ void	ExplosionManager::Create_Explosion_At( int explosion_def_id, const Matrix3D
 	if ( explosion_def->PhysDefID != 0 ) {
 	//if ( explosion_def->PhysDefID != 0 ) {
 		PhysDefClass * phys_def = (PhysDefClass *)DefinitionMgrClass::Find_Definition( explosion_def->PhysDefID );
-		if ( phys_def != NULL ) {
+		if ( phys_def != nullptr ) {
 			WWASSERT( phys_def );
 			WWASSERT( phys_def->Is_Type( "TimedDecorationPhysDef" ) );
 			TimedDecorationPhysClass * explosion = (TimedDecorationPhysClass *)phys_def->Create();
 			if ( explosion ) {
 				RenderObjClass * model = explosion->Peek_Model();
-				WWASSERT(model != NULL);
-				if (model != NULL) {
+				WWASSERT(model != nullptr);
+				if (model != nullptr) {
 
 					explosion->Set_Transform( up_tm );
 
-					if (model->Get_HTree() != NULL && explosion_def->AnimatedExplosion) {
+					if (model->Get_HTree() != nullptr && explosion_def->AnimatedExplosion) {
 
 						// Auto play an explosion anim if we find it
 						StringClass	exp_anim_name;
 						exp_anim_name.Format( "%s.%s",
 							model->Get_HTree()->Get_Name(),
 							model->Get_HTree()->Get_Name() );
-						WWASSERT(WW3DAssetManager::Get_Instance() != NULL);
+						WWASSERT(WW3DAssetManager::Get_Instance() != nullptr);
 						HAnimClass * anim = WW3DAssetManager::Get_Instance()->Get_HAnim( exp_anim_name );
-						if ( anim != NULL ) {
+						if ( anim != nullptr ) {
 							model->Set_Animation( anim, 0, RenderObjClass::ANIM_MODE_ONCE );
 							anim->Release_Ref();
 						}
 					}
 
-					WWASSERT(COMBAT_SCENE != NULL);
+					WWASSERT(COMBAT_SCENE != nullptr);
 					COMBAT_SCENE->Add_Dynamic_Object( explosion );
 				}
 				explosion->Release_Ref();
@@ -273,7 +273,7 @@ void	ExplosionManager::Create_Explosion_At( int explosion_def_id, const Matrix3D
 		StringClass	new_name(true);
 		::Strip_Path_From_Filename( new_name, explosion_def->DecalFilename );
 		PhysicsSceneClass::Get_Instance()->Create_Decal( blast_tm, new_name,
-																		explosion_def->DecalSize, false, NULL );
+																		explosion_def->DecalSize, false, false );
 	}
 
 
@@ -299,7 +299,7 @@ void	ExplosionManager::Create_Explosion_At( int explosion_def_id, const Matrix3D
 				if ( objnode->Data() == force_victim ) {
 
 					// physical objs take extended damage
-					if ( obj != NULL ) {
+					if ( obj != nullptr ) {
 						obj->Apply_Damage_Extended( offense );
 					} else {
 						force_victim->Apply_Damage( offense );
@@ -413,11 +413,11 @@ void	ExplosionManager::Server_Explode( int explosion_def_id, const Vector3 & pos
 void	ExplosionManager::Explode( int explosion_def_id, const Vector3 & pos, int owner_id, int victim_id )
 {
 	if ( explosion_def_id != 0 ) {
-		ArmedGameObj * owner = NULL;
+		ArmedGameObj * owner = nullptr;
 		if ( owner_id != 0 ) {
 			owner = GameObjManager::Find_SmartGameObj( owner_id );
 		}
-		DamageableGameObj * force_victim = NULL;
+		DamageableGameObj * force_victim = nullptr;
 		if ( victim_id != 0 ) {
 			force_victim = GameObjManager::Find_PhysicalGameObj( victim_id );
 		}

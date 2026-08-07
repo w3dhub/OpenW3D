@@ -83,14 +83,14 @@ cLoadingEvent::Act(void)
    WWASSERT(cNetwork::I_Am_Server());
 
 	cPlayer * p_player = cPlayerManager::Find_Player(SenderId);
-	if (p_player != NULL)
+	if (p_player != nullptr)
 	{
 		p_player->Set_Is_In_Game(!IsLoading);
 		p_player->Mark_As_Modified();
 
 		if (p_player->Get_Is_In_Game().Is_True())
 		{
-			if (cNetwork::PServerConnection != NULL) {
+			if (cNetwork::PServerConnection != nullptr) {
 				cNetwork::PServerConnection->Set_Rhost_Expect_Packet_Flood(p_player->Get_Id(), true);
 				cNetwork::PServerConnection->Set_Rhost_Is_In_Game(p_player->Get_Id(), true);
 			}

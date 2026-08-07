@@ -68,12 +68,12 @@ enum
 };
 
 
-MPWolBuddiesMenuClass* MPWolBuddiesMenuClass::_mInstance = NULL;
+MPWolBuddiesMenuClass* MPWolBuddiesMenuClass::_mInstance = nullptr;
 
 void MPWolBuddiesMenuClass::Display(void)
 {
 	//	Create the dialog if necessary, otherwise simply bring it to the front
-	if (_mInstance == NULL) {
+	if (_mInstance == nullptr) {
 		MPWolBuddiesMenuClass* dialog = new MPWolBuddiesMenuClass;
 
 		if (dialog) {
@@ -99,7 +99,7 @@ MPWolBuddiesMenuClass::MPWolBuddiesMenuClass (void)	:
 	mBuddyInfoChanged(false)
 {
 	WWDEBUG_SAY(("MPWolBuddiesMenuClass: Instantiated\n"));
-	WWASSERT(_mInstance == NULL);
+	WWASSERT(_mInstance == nullptr);
 	_mInstance = this;
 
 	//	Get the buddy manager object
@@ -117,7 +117,7 @@ MPWolBuddiesMenuClass::~MPWolBuddiesMenuClass (void)
 {
 	WWDEBUG_SAY(("MPWolBuddiesMenuClass: Destroyed\n"));
 	REF_PTR_RELEASE (mBuddyMgr);
-	_mInstance = NULL;
+	_mInstance = nullptr;
 }
 
 
@@ -132,7 +132,7 @@ MPWolBuddiesMenuClass::On_Init_Dialog (void)
 	//	Configure the shortcut bar
 	ShortcutBarCtrlClass *bar = (ShortcutBarCtrlClass *)Get_Dlg_Item (IDC_SHORTCUT_BAR);
 
-	if (bar != NULL) {
+	if (bar != nullptr) {
 		bar->Add_Button(IDC_MP_SHORTCUT_CHAT, TRANSLATE(IDS_MP_SHORTCUT_CHAT));
 		bar->Add_Button(IDC_MP_SHORTCUT_GAMELIST, TRANSLATE(IDS_MENU_TEXT365));
 		bar->Add_Button(IDC_MP_WOL_BUDDIES_IGNORE_BUTTON, TRANSLATE(IDS_MENU_TEXT378));
@@ -151,7 +151,7 @@ MPWolBuddiesMenuClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_BUDDY_LIST_CTRL);
 
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 		//	Configure the columns
 		list_ctrl->Add_Column(TRANSLATE(IDS_MP_BUDDY_LIST_NAME), 0.2F, Vector3 (1, 1, 1));
 		list_ctrl->Add_Column(TRANSLATE (IDS_MENU_CLAN), 0.1F, Vector3 (1, 1, 1));
@@ -275,7 +275,7 @@ void MPWolBuddiesMenuClass::Update_Buddy_Info(int index, const RefPtr<WWOnline::
 {
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_BUDDY_LIST_CTRL);
 
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -355,7 +355,7 @@ MPWolBuddiesMenuClass::Refresh_Buddy_List (void)
 {
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_BUDDY_LIST_CTRL);
 
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 

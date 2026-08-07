@@ -185,7 +185,7 @@ public:
 //	const Vector2 & Get_Cursor( void )						{ return Cursor; }
 
 	Vector2			Get_Text_Extents( const unichar_t * text );
-	Vector2			Get_Formatted_Text_Extents( const unichar_t * text, int *row_count = NULL );
+	Vector2			Get_Formatted_Text_Extents( const unichar_t * text, int *row_count = nullptr );
 	const unichar_t *	Find_Row_Start( const unichar_t * text, int row_index );
 
 	//

@@ -52,8 +52,8 @@ enum {
 };
 
 // Script commands
-ScriptCommands* Commands = NULL;
-void (*ScriptImpClass::Request_Destroy_Script)(ScriptClass*) =  NULL;
+ScriptCommands* Commands = nullptr;
+void (*ScriptImpClass::Request_Destroy_Script)(ScriptClass*) =  nullptr;
 
 void ScriptImpClass::Set_Request_Destroy_Func(void (*function)(ScriptClass*))
 {
@@ -78,10 +78,10 @@ void ScriptImpClass::Set_Request_Destroy_Func(void (*function)(ScriptClass*))
 ******************************************************************************/
 
 ScriptImpClass::ScriptImpClass()
-	: mOwner(NULL),
+	: mOwner(nullptr),
 		mArgC(0),
-		mArgV(NULL),
-		AutoVariableList( NULL )
+		mArgV(nullptr),
+		AutoVariableList( nullptr )
 {
 }
 
@@ -105,16 +105,16 @@ ScriptImpClass::ScriptImpClass()
 ScriptImpClass::~ScriptImpClass()
 {
 	#ifdef _DEBUG
-	if (Commands != NULL) {
+	if (Commands != nullptr) {
 		DebugPrint("Script '%s' for object '%d' deleted.\n",
-			Get_Name(), ((mOwner != NULL) ? Commands->Get_ID(mOwner) : 0 ));
+			Get_Name(), ((mOwner != nullptr) ? Commands->Get_ID(mOwner) : 0 ));
 	}
 	#endif
 
 	Clear_Parameters();
 
 	// Delete the auto variables
-	while ( AutoVariableList != NULL ) {
+	while ( AutoVariableList != nullptr ) {
 		ScriptVariableClass * next = AutoVariableList->Get_Next();
 		delete AutoVariableList;
 		AutoVariableList = next;
@@ -162,7 +162,7 @@ const char* ScriptImpClass::Get_Name(void)
 
 void ScriptImpClass::Destroy_Script(void)
 {
-	if (Request_Destroy_Script != NULL) {
+	if (Request_Destroy_Script != nullptr) {
 		Request_Destroy_Script(this);
 	}
 }
@@ -187,7 +187,7 @@ void ScriptImpClass::Destroy_Script(void)
 void ScriptImpClass::Attach(GameObject* obj)
 {
 	#ifdef _DEBUG
-	if (Commands != NULL) {
+	if (Commands != nullptr) {
 		DebugPrint("Attaching script '%s' to object %d\n",
 			Get_Name(), Commands->Get_ID(obj));
 	}
@@ -215,7 +215,7 @@ void ScriptImpClass::Attach(GameObject* obj)
 
 void ScriptImpClass::Detach(GameObject* /* obj */)
 {
-	mOwner = NULL;
+	mOwner = nullptr;
 	Destroy_Script();
 }
 
@@ -238,7 +238,7 @@ void ScriptImpClass::Detach(GameObject* /* obj */)
 
 void ScriptImpClass::Set_Parameters_String(const char* params)
 {
-	if ((params == NULL) || (strlen(params) == 0)) {
+	if ((params == nullptr) || (strlen(params) == 0)) {
 		return;
 	}
 
@@ -269,7 +269,7 @@ void ScriptImpClass::Set_Parameters_String(const char* params)
 	// Create new argument vector
 	mArgC = count;
 	mArgV = new char*[count];
-	assert(mArgV != NULL);
+	assert(mArgV != nullptr);
 	memset(mArgV, 0, (sizeof(char*) * count));
 
 	// Copy the parameters
@@ -316,7 +316,7 @@ void ScriptImpClass::Set_Parameters_String(const char* params)
 
 void ScriptImpClass::Get_Parameters_String(char* buffer, unsigned int size)
 {
-	assert(buffer != NULL);
+	assert(buffer != nullptr);
 
 	buffer[0] = '\0';
 
@@ -361,9 +361,9 @@ void ScriptImpClass::Get_Parameters_String(char* buffer, unsigned int size)
 
 void ScriptImpClass::Clear_Parameters(void)
 {
-	if (mArgV != NULL) {
+	if (mArgV != nullptr) {
 		while (mArgC--) {
-			if (mArgV[mArgC] != NULL) {
+			if (mArgV[mArgC] != nullptr) {
 				free((void*)mArgV[mArgC]);
 			}
 		}
@@ -372,7 +372,7 @@ void ScriptImpClass::Clear_Parameters(void)
 	}
 
 	mArgC = 0;
-	mArgV = NULL;
+	mArgV = nullptr;
 }
 
 
@@ -396,12 +396,12 @@ void ScriptImpClass::Clear_Parameters(void)
 void ScriptImpClass::Set_Parameter(int index, const char* str)
 {
 	// Release old parameter
-	if (mArgV[index] != NULL) {
+	if (mArgV[index] != nullptr) {
 		free(mArgV[index]);
 	}
 
 	mArgV[index] = strdup(str);
-	assert(mArgV[index] != NULL);
+	assert(mArgV[index] != nullptr);
 }
 
 
@@ -556,7 +556,7 @@ int ScriptImpClass::Get_Parameter_Index(const char* parameterName)
 		// Strip the name portion from the parameter definition
 		char* tokenEnd = strpbrk(param_ptr, "=:\n");
 
-		if (tokenEnd != NULL) {
+		if (tokenEnd != nullptr) {
 			*tokenEnd = '\0';
 		}
 
@@ -601,9 +601,9 @@ void ScriptImpClass::Save(ScriptSaver& saver)
 */
 
 	ScriptVariableClass * var = AutoVariableList;
-	if ( var != NULL ) {
+	if ( var != nullptr ) {
 		Commands->Begin_Chunk(saver, CHUNKID_SCRIPT_AUTO_VARIABLES);
-	 	while ( var != NULL ) {
+	 	while ( var != nullptr ) {
 			Commands->Save_Data(saver, var->Get_ID(), var->Get_Data_Size(), var->Get_Data_Ptr() );
 	 		var = var->Get_Next();
 	 	}
@@ -649,7 +649,7 @@ void ScriptImpClass::Load(ScriptLoader& loader)
 				while (Commands->Load_Begin(loader, &id)) {
 					// If we find this ID, load it
 					ScriptVariableClass * var = AutoVariableList;
-					while ( var != NULL ) {
+					while ( var != nullptr ) {
 						if ( var->Get_ID() == id ) {
 							Commands->Load_Data(loader, var->Get_Data_Size(), var->Get_Data_Ptr() );
 						}
@@ -682,7 +682,7 @@ void	ScriptImpClass::Auto_Save_Variable( void * data_ptr, int data_size, int id 
 
 	// First be sure we don't already have this ID
 	ScriptVariableClass * var = AutoVariableList;
-	while ( var != NULL ) {
+	while ( var != nullptr ) {
 		if ( var->Get_ID() == id ) {
 			DebugPrint("***** ScriptImpClass::Auto_Save_Variable  Dupe ID %d\n", id );
 			return;

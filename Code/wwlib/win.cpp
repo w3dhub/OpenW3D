@@ -41,8 +41,8 @@ void Print_Win32Error(unsigned int win32Error)
 {
 	LPVOID lpMsgBuf;
 	FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
-			FORMAT_MESSAGE_IGNORE_INSERTS, NULL, win32Error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-			(LPTSTR)&lpMsgBuf, 0, NULL);
+			FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, win32Error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+			(LPTSTR)&lpMsgBuf, 0, nullptr);
 
 	WWDEBUG_SAY(("Win32 Error: %s\n", (const char*)lpMsgBuf));
 	LocalFree(lpMsgBuf);

@@ -105,7 +105,7 @@ void TimedDecorationPhysClass::Timestep(float dt)
 		Lifetime -= dt;
 		if (Lifetime < 0.0f) {
 			ExpirationReactionType result = EXPIRATION_APPROVED;
-			if (Observer != NULL) {
+			if (Observer != nullptr) {
 				result = Observer->Object_Expired(this);
 			}
 			if (result == EXPIRATION_APPROVED) {

@@ -38,19 +38,19 @@
 cRegistryFloat::cRegistryFloat(const char *registry_location, const char *key_name, float default_value)
 {
    WWMEMLOG(MEM_GAMEDATA);
-	if (registry_location == NULL) {
+	if (registry_location == nullptr) {
       strcpy(RegistryLocation, "");
       strcpy(KeyName, "");
       Set(default_value);
    } else {
-      WWASSERT(key_name != NULL);
+      WWASSERT(key_name != nullptr);
       WWASSERT(strlen(registry_location) < sizeof(RegistryLocation));
       WWASSERT(strlen(key_name) < sizeof(KeyName));
       strcpy(RegistryLocation, registry_location);
       strcpy(KeyName, key_name);
 
 	   RegistryClass * registry = new RegistryClass(RegistryLocation);
-	   WWASSERT(registry != NULL && registry->Is_Valid());
+	   WWASSERT(registry != nullptr && registry->Is_Valid());
 		int temp_1 = 0;
 		WWASSERT(sizeof(temp_1) == sizeof(default_value));
 		::memcpy(&temp_1, &default_value, sizeof(default_value));
@@ -70,7 +70,7 @@ void cRegistryFloat::Set(float value)
 
    if (strcmp(RegistryLocation, "")) {
 	   RegistryClass * registry = new RegistryClass(RegistryLocation);
-	   WWASSERT(registry != NULL && registry->Is_Valid());
+	   WWASSERT(registry != nullptr && registry->Is_Valid());
 		int temp = 0;
 		WWASSERT(sizeof(temp) == sizeof(Value));
 		::memcpy(&temp, &Value, sizeof(Value));

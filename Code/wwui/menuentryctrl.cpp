@@ -220,7 +220,7 @@ MenuEntryCtrlClass::On_Mouse_Wheel (int direction)
 		//	Find the next control to set the focus to...
 		//
 		DialogControlClass *control = Parent->Find_Next_Group_Control (this, direction);
-		if (control != NULL) {
+		if (control != nullptr) {
 			control->Set_Focus ();
 			control->Center_Mouse ();
 		}
@@ -696,7 +696,7 @@ MenuEntryCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 			//	Set the focus to the previous control in our group
 			//
 			DialogControlClass *control = Parent->Find_Next_Group_Control (this, -1);
-			if (control != NULL) {
+			if (control != nullptr) {
 				control->Set_Focus ();
 			}
 			break;
@@ -709,7 +709,7 @@ MenuEntryCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 			//	Set the focus to the next control in our group
 			//
 			DialogControlClass *control = Parent->Find_Next_Group_Control (this, 1);
-			if (control != NULL) {
+			if (control != nullptr) {
 				control->Set_Focus ();
 			}
 			break;

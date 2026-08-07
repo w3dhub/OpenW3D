@@ -180,7 +180,7 @@ SimpleGameObj::SimpleGameObj()
 	//WWDEBUG_SAY(("SimpleGameObj::SimpleGameObj\n"));
 
 	/*
-	if (Get_Definition().Get_Name() != NULL) {
+	if (Get_Definition().Get_Name() != nullptr) {
 		WWDEBUG_SAY(("  for %s\n", Get_Definition().Get_Name()));
 	}
 	*/
@@ -198,7 +198,7 @@ void SimpleGameObj::Init( void )
 	Init( Get_Definition() );
 
 	/*
-	if (Get_Definition().Get_Name() != NULL) {
+	if (Get_Definition().Get_Name() != nullptr) {
 		WWDEBUG_SAY(("SimpleGameObj::Init for %s\n", Get_Definition().Get_Name()));
 	}
 	*/
@@ -265,10 +265,10 @@ void	SimpleGameObj::On_Post_Load( void )
 	// so we can put game-specific behavior into this function without messing up the level
 	// editor.
 	if ( Get_Definition().IsEditorObject ) {
-		// Switch to a NULL model
-		Peek_Physical_Object()->Set_Model_By_Name( "NULL" );
+		// Switch to a nullptr model
+		Peek_Physical_Object()->Set_Model_By_Name( "nullptr" );
 		// Add clear anim_control
-		if ( Get_Anim_Control() != NULL ) {
+		if ( Get_Anim_Control() != nullptr ) {
 			Get_Anim_Control()->Set_Model( Peek_Model() );
 		}
 	}
@@ -281,7 +281,7 @@ void	SimpleGameObj::On_Post_Load( void )
 	}
 
 	/*
-	if (Get_Definition().Get_Name() != NULL) {
+	if (Get_Definition().Get_Name() != nullptr) {
 		WWDEBUG_SAY(("SimpleGameObj::On_Post_Load for %s\n", Get_Definition().Get_Name()));
 	}
 	*/

@@ -67,24 +67,24 @@ TextDisplayLine::TextDisplayLine( const WideStringClass & text, unsigned int col
 /*
 ** TextDisplayGameMode
 */
-TextDisplayGameModeClass * TextDisplayGameModeClass::Instance = NULL;
+TextDisplayGameModeClass * TextDisplayGameModeClass::Instance = nullptr;
 
 void	TextDisplayGameModeClass::Init()
 {
 	if (!ConsoleBox.Is_Exclusive()) {
 		// Build Fonts
-		WWASSERT(WW3DAssetManager::Get_Instance() != NULL);
+		WWASSERT(WW3DAssetManager::Get_Instance() != nullptr);
 		Font = WW3DAssetManager::Get_Instance()->Get_Font3DInstance( "FONT8x8.TGA" );
-   	WWASSERT(Font != NULL);
+   	WWASSERT(Font != nullptr);
 		SET_REF_OWNER( Font );
 		MonoFont = WW3DAssetManager::Get_Instance()->Get_Font3DInstance( "FONT8x8.TGA" );
-   	WWASSERT(MonoFont != NULL);
+   	WWASSERT(MonoFont != nullptr);
 		SET_REF_OWNER( MonoFont );
 		MonoFont->Set_Mono_Spaced();
 
 
 		// Update Instance
-		WWASSERT( TextDisplayGameModeClass::Instance == NULL );
+		WWASSERT( TextDisplayGameModeClass::Instance == nullptr );
 		TextDisplayGameModeClass::Instance = this;
 
 		DisplayVisWarning = false;
@@ -119,20 +119,20 @@ void 	TextDisplayGameModeClass::Shutdown()
    	Flush();
 
 		delete StatisticsDisplay;
-		StatisticsDisplay=NULL;
+		StatisticsDisplay=nullptr;
 
 		delete VerboseDisplay;
-		VerboseDisplay=NULL;
+		VerboseDisplay=nullptr;
 
 		delete Display;
-		Display=NULL;
+		Display=nullptr;
 
 		REF_PTR_RELEASE( Font );
 		REF_PTR_RELEASE( MonoFont );
 
 		// Update Instance
 		WWASSERT( TextDisplayGameModeClass::Instance == this );
-		TextDisplayGameModeClass::Instance = NULL;
+		TextDisplayGameModeClass::Instance = nullptr;
 	}
 }
 
@@ -168,7 +168,7 @@ void 	TextDisplayGameModeClass::Think()
 {
 	WWPROFILE( "TextDisplay Think" );
 
-	if (Font == NULL) {
+	if (Font == nullptr) {
 		return;
 	}
 	// Update time on all scroll lines
@@ -213,7 +213,7 @@ void 	TextDisplayGameModeClass::Render()
 	WWMEMLOG(MEM_GAMEDATA);
 	WWPROFILE( "TextDisplay Render" );
 
-	if (Font == NULL) {
+	if (Font == nullptr) {
 		return;
 	}
 
@@ -318,7 +318,7 @@ int	TextDisplayGameModeClass::Count_Scroll_Lines( void )
 */
 void	TextDisplayGameModeClass::Print( const char * string, const Vector4 & color )
 {
-	if (Font == NULL) {
+	if (Font == nullptr) {
 		return;
 	}
 	unsigned int col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|(unsigned(color[3]*255.0f));
@@ -330,7 +330,7 @@ void	TextDisplayGameModeClass::Print( const char * string, const Vector4 & color
 
 void	TextDisplayGameModeClass::Print( const WideStringClass & string, const Vector4 & color )
 {
-	if (Font == NULL) {
+	if (Font == nullptr) {
 		return;
 	}
 	unsigned int col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|(unsigned(color[3]*255.0f));
@@ -340,7 +340,7 @@ void	TextDisplayGameModeClass::Print( const WideStringClass & string, const Vect
 
 void	TextDisplayGameModeClass::Print( const char * string, const Vector3 & color )
 {
-	if (Font == NULL) {
+	if (Font == nullptr) {
 		return;
 	}
 	//TSS unsigned int col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|0xff;
@@ -354,7 +354,7 @@ void	TextDisplayGameModeClass::Print( const char * string, const Vector3 & color
 
 void	TextDisplayGameModeClass::Print( const WideStringClass & string, const Vector3 & color )
 {
-	if (Font == NULL) {
+	if (Font == nullptr) {
 		return;
 	}
 	//TSS unsigned int col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|0xff;
@@ -401,14 +401,14 @@ void	TextDisplayGameModeClass::Print_Informational( const WideStringClass & stri
 */
 void	TextDebugDisplayHandlerClass::Display_Text( const char * string, const Vector4 & color )
 {
-	if (Get_Text_Display() != NULL) {
+	if (Get_Text_Display() != nullptr) {
 		Get_Text_Display()->Print( string, color );
 	}
 }
 
 void	TextDebugDisplayHandlerClass::Display_Text( const WideStringClass & string, const Vector4 & color )
 {
-	if (Get_Text_Display() != NULL) {
+	if (Get_Text_Display() != nullptr) {
 		Get_Text_Display()->Print( string, color );
 	}
 }

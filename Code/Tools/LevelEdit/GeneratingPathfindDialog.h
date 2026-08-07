@@ -34,7 +34,7 @@ class GeneratingPathfindDialogClass : public CDialog
 {
 // Construction
 public:
-	GeneratingPathfindDialogClass(CWnd* pParent = NULL);   // standard constructor
+	GeneratingPathfindDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GeneratingPathfindDialogClass)

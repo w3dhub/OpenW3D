@@ -72,12 +72,12 @@ void Handle_Fatal_System_Error (int errorcode, const char *filename, int sourcel
 	LPVOID			 messagebuffer;
 
 	FormatMessage (FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
- 						NULL,
+ 						nullptr,
 						errorcode,
 						MAKELANGID (LANG_NEUTRAL, SUBLANG_DEFAULT),
 						(LPTSTR) &messagebuffer,
 						0,
-						NULL);
+						nullptr);
 
 	messagebody = (TCHAR*) messagebuffer;
 	LocalFree (messagebuffer);

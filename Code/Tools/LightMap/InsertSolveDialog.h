@@ -46,11 +46,11 @@ class InsertSolveDialog : public CDialog
 {
 // Construction
 public:
-	InsertSolveDialog (const char *initialpathname, CWnd* pParent = NULL);
+	InsertSolveDialog (const char *initialpathname, CWnd* pParent = nullptr);
 
 	~InsertSolveDialog() {
-		if (FileListBuffer != NULL) delete [] FileListBuffer;
-		if (InclusionString != NULL) delete [] InclusionString;
+		if (FileListBuffer != nullptr) delete [] FileListBuffer;
+		if (InclusionString != nullptr) delete [] InclusionString;
 	}
 
 	char *Directory_Name()	 {return (DirectoryName);}

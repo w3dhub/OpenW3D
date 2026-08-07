@@ -261,7 +261,7 @@ const PersistFactoryClass & ElevatorPhysClass::Get_Factory (void) const
 ElevatorPhysClass::ElevatorPhysClass( void ) :
 	CheckTimer( 0 ),
 	State( STATE_UP ),
-	MovingSoundObj( NULL ),
+	MovingSoundObj( nullptr ),
 	PrevFrame( 0 ),
 	IsCallTimerSet( false ),
 	CallTimer( 0 ),
@@ -273,7 +273,7 @@ ElevatorPhysClass::ElevatorPhysClass( void ) :
 
 ElevatorPhysClass::~ElevatorPhysClass( void )
 {
-	if ( MovingSoundObj != NULL ) {
+	if ( MovingSoundObj != nullptr ) {
 		MovingSoundObj->Stop();
 		MovingSoundObj->Remove_From_Scene();
 		REF_PTR_RELEASE( MovingSoundObj );
@@ -313,7 +313,7 @@ bool	ElevatorPhysClass::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_BOTTOM_DOOR_STATE,	DoorStates[BOTTOM] );
 	csave.End_Chunk();
 
-	if ( CurrentAIRider != NULL ) {
+	if ( CurrentAIRider != nullptr ) {
 		csave.Begin_Chunk( CHUNKID_RIDER_OBJECT );
 		CurrentAIRider.Save( csave );
 		csave.End_Chunk();
@@ -376,7 +376,7 @@ void	ElevatorPhysClass::Save_State( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_BOTTOM_DOOR_STATE,	DoorStates[BOTTOM] );
 	csave.End_Chunk();
 
-	if ( CurrentAIRider != NULL ) {
+	if ( CurrentAIRider != nullptr ) {
 		csave.Begin_Chunk( CHUNKID_RIDER_OBJECT );
 		CurrentAIRider.Save( csave );
 		csave.End_Chunk();
@@ -445,7 +445,7 @@ void	ElevatorPhysClass::Timestep( float dt )
 	{
 		WWPROFILE("ElevatorPhys::Timestep");
 		// Delayed Open/close
-		if ( AnimManager.Peek_Animation() != NULL ) {
+		if ( AnimManager.Peek_Animation() != nullptr ) {
 
 			//
 			//	Make sure the door sounds play at the appropriate times
@@ -642,7 +642,7 @@ bool	ElevatorPhysClass::Triggered( int zone_id )
 	SLNode<SoldierGameObj> *objnode;
 	for (	objnode = player_list->Head(); objnode; objnode = objnode->Next()) {
 		SoldierGameObj *soldier = objnode->Data();
-		if ( soldier != NULL ) {
+		if ( soldier != nullptr ) {
 
 			//
 			//	Is this player inside the trigger zone?
@@ -816,7 +816,7 @@ void	ElevatorPhysClass::Play_Effect( int effect_id, bool is_top )
 			if ( def->ElevatorMovingSoundDefID != 0 ) {
 
 				RenderObjClass *model = Peek_Model ();
-				if (model != NULL) {
+				if (model != nullptr) {
 
 					//
 					//	Lookup the bone we need to attach this sound to
@@ -827,14 +827,14 @@ void	ElevatorPhysClass::Play_Effect( int effect_id, bool is_top )
 						//
 						//	Create the sound object (if necessary)
 						//
-						if ( MovingSoundObj == NULL ) {
+						if ( MovingSoundObj == nullptr ) {
 							MovingSoundObj = WWAudioClass::Get_Instance ()->Create_Continuous_Sound( def->ElevatorMovingSoundDefID );
 						}
 
 						//
 						//	Attach the sound to the elevator car and insert it into the scene
 						//
-						if ( MovingSoundObj != NULL ) {
+						if ( MovingSoundObj != nullptr ) {
 							MovingSoundObj->Attach_To_Object( model, bone_index );
 							MovingSoundObj->Add_To_Scene( true );
 						}
@@ -846,7 +846,7 @@ void	ElevatorPhysClass::Play_Effect( int effect_id, bool is_top )
 
 		case EFFECT_ELEVATOR_STOPPED_MOVING:
 		{
-			if ( MovingSoundObj != NULL ) {
+			if ( MovingSoundObj != nullptr ) {
 				MovingSoundObj->Stop();
 				MovingSoundObj->Remove_From_Scene();
 			}
@@ -893,15 +893,15 @@ bool ElevatorPhysClass::Can_Object_Enter (SmartGameObj *game_obj)
 {
 	bool retval = false;
 
-	WWASSERT( game_obj != NULL && game_obj->Peek_Physical_Object () != NULL );
-	if( game_obj == NULL || game_obj->Peek_Physical_Object () == NULL ) {
+	WWASSERT( game_obj != nullptr && game_obj->Peek_Physical_Object () != nullptr );
+	if( game_obj == nullptr || game_obj->Peek_Physical_Object () == nullptr ) {
 		return false;
 	}
 
 	//
 	//	Don't let other objects on if we've already got an AI rider
 	//
-	if (CurrentAIRider != NULL) {
+	if (CurrentAIRider != nullptr) {
 		return false;
 	}
 
@@ -949,8 +949,8 @@ bool ElevatorPhysClass::Can_Object_Exit (SmartGameObj * /*game_obj*/)
 
 void ElevatorPhysClass::Request_Elevator (SmartGameObj *game_obj)
 {
-	WWASSERT( game_obj != NULL && game_obj->Peek_Physical_Object () != NULL );
-	if( game_obj == NULL || game_obj->Peek_Physical_Object () == NULL ) {
+	WWASSERT( game_obj != nullptr && game_obj->Peek_Physical_Object () != nullptr );
+	if( game_obj == nullptr || game_obj->Peek_Physical_Object () == nullptr ) {
 		return ;
 	}
 

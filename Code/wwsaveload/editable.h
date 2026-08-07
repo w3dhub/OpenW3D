@@ -88,7 +88,7 @@ inline ParameterClass *
 EditableClass::Lock_Parameter (int /*i*/)
 {
 	WWASSERT (0);
-	return NULL;
+	return nullptr;
 }
 
 /////////////////////////////////////////////////////////////////////

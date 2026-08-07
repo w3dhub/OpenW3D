@@ -679,7 +679,7 @@ const unichar_t* SerialWait::GetWaitText(void) const
 		return (mWaits[mCurrentWait]->GetWaitText());
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 

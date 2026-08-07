@@ -34,7 +34,7 @@ class PerformanceConfigDialogClass : public CDialog
 {
 // Construction
 public:
-	PerformanceConfigDialogClass(CWnd* pParent = NULL);   // standard constructor
+	PerformanceConfigDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(PerformanceConfigDialogClass)

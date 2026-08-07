@@ -476,7 +476,7 @@ void ThumbnailManagerClass::Save(bool force)
 // ----------------------------------------------------------------------------
 ThumbnailManagerClass::ThumbnailManagerClass(const char* thumbnail_filename, const char* mix_filename)
 	:
-	ThumbnailMemory(NULL),
+	ThumbnailMemory(nullptr),
 	ThumbnailFileName(thumbnail_filename),
 	MixFileName(mix_filename),
 	PerTextureTimeStampUsed(false),
@@ -500,7 +500,7 @@ ThumbnailManagerClass::~ThumbnailManagerClass()
 	}
 
 	if (ThumbnailMemory) delete[] ThumbnailMemory;
-	ThumbnailMemory=NULL;
+	ThumbnailMemory=nullptr;
 }
 
 // ----------------------------------------------------------------------------
@@ -543,7 +543,7 @@ ThumbnailClass* ThumbnailManagerClass::Peek_Thumbnail_Instance(const StringClass
 			thumb=new ThumbnailClass(this,name);
 			if (!thumb->Peek_Bitmap()) {
 				delete thumb;
-				thumb=NULL;
+				thumb=nullptr;
 			}
 		}
 	}

@@ -71,8 +71,8 @@ VisErrorReportDialogClass::VisErrorReportDialogClass (CWnd *pParent)
 		m_TrackPixel (0),
 		m_SelStartIndex (0),
 		m_SelEndIndex (0),
-		m_AxisBMP (NULL),
-		m_AxisSelBMP (NULL),
+		m_AxisBMP (nullptr),
+		m_AxisSelBMP (nullptr),
 		m_AxisSel (0),
 		CDialog(VisErrorReportDialogClass::IDD, pParent)
 {
@@ -299,7 +299,7 @@ VisErrorReportDialogClass::Re_Sync_Data (void)
 void
 VisErrorReportDialogClass::Refresh_View (void)
 {
-	if (m_hWnd != NULL) {
+	if (m_hWnd != nullptr) {
 		InvalidateRect (&m_GraphArea, false);
 		UpdateWindow ();
 	}
@@ -799,14 +799,14 @@ VisErrorReportDialogClass::OnDrawItem
 	//
 	// Determine which BMP to use
 	//
-	HBITMAP hbmp = NULL;
+	HBITMAP hbmp = nullptr;
 	if (nIDCtl == IDC_PREV_ERROR) {
 		hbmp = ::IsWindowEnabled (lpDrawItemStruct->hwndItem) ? m_PrevButton.normal : m_PrevButton.disabled;
 	} else if (nIDCtl == IDC_NEXT_ERROR) {
 		hbmp = ::IsWindowEnabled (lpDrawItemStruct->hwndItem) ? m_NextButton.normal : m_NextButton.disabled;
 	}
 
-	HDC mem_dc			= ::CreateCompatibleDC (NULL);
+	HDC mem_dc			= ::CreateCompatibleDC (nullptr);
 	HBITMAP old_bmp	= (HBITMAP)::SelectObject (mem_dc, hbmp);
 
 	//
@@ -840,7 +840,7 @@ VisErrorReportDialogClass::OnDrawItem
 void
 VisErrorReportDialogClass::Paint_Axis_Area (HDC hdc)
 {
-	HDC mem_dc			= ::CreateCompatibleDC (NULL);
+	HDC mem_dc			= ::CreateCompatibleDC (nullptr);
 	HBITMAP old_bmp	= (HBITMAP)::SelectObject (mem_dc, m_AxisBMP);
 
 	//

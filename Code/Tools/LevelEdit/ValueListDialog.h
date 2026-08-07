@@ -32,7 +32,7 @@ class ValueListDialogClass : public CDialog
 {
 // Construction
 public:
-	ValueListDialogClass(CWnd* pParent = NULL);   // standard constructor
+	ValueListDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(ValueListDialogClass)

@@ -35,7 +35,7 @@ static char THIS_FILE[] = __FILE__;
 // ZoneInfoPageClass
 //
 ZoneInfoPageClass::ZoneInfoPageClass ()
-	: m_pZone (NULL),
+	: m_pZone (nullptr),
 	  DockableFormClass(ZoneInfoPageClass::IDD)
 {
 	//{{AFX_DATA_INIT(ZoneInfoPageClass)

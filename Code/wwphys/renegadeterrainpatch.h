@@ -328,7 +328,7 @@ RenegadeTerrainPatchClass::Collide_Quad
 				best_pass	= index;
 			}
 		}
-		if (MaterialPassList[best_pass]->Material != NULL) {
+		if (MaterialPassList[best_pass]->Material != nullptr) {
 			result.SurfaceType = MaterialPassList[best_pass]->Material->Get_Surface_Type ();
 		}
 	}

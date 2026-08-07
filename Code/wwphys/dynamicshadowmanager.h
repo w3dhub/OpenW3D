@@ -91,7 +91,7 @@ public:
 	/*
 	** Accessor to indicate whether we are actually casting a shadow
 	*/
-	bool								Is_Casting_Shadow(void) { return (Shadow != NULL); }
+	bool								Is_Casting_Shadow(void) { return (Shadow != nullptr); }
 
 protected:
 

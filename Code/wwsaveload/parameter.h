@@ -119,7 +119,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////////
 
 	// RTTI
-	virtual DefParameterClass *	As_DefParameterClass (void)	{ return NULL; }
+	virtual DefParameterClass *	As_DefParameterClass (void)	{ return nullptr; }
 
 	// Type identification (see paramtypes.h in wwsaveload)
 	virtual Type				Get_Type (void) const = 0;
@@ -163,7 +163,7 @@ private:
 //////////////////////////////////////////////////////////////////////////////////
 inline
 ParameterClass::ParameterClass (void)
-	:	m_Name (NULL),
+	:	m_Name (nullptr),
 		IsModified (false)
 {
 	return ;
@@ -174,7 +174,7 @@ ParameterClass::ParameterClass (void)
 //////////////////////////////////////////////////////////////////////////////////
 inline
 ParameterClass::ParameterClass (const ParameterClass &src)
-	:	m_Name (NULL),
+	:	m_Name (nullptr),
 		IsModified (false)
 {
 	(*this) = src;
@@ -187,7 +187,7 @@ ParameterClass::ParameterClass (const ParameterClass &src)
 inline
 ParameterClass::~ParameterClass (void)
 {
-	Set_Name (NULL);
+	Set_Name (nullptr);
 	return ;
 }
 
@@ -217,12 +217,12 @@ ParameterClass::Get_Name (void) const
 inline void
 ParameterClass::Set_Name (const char *new_name)
 {
-	if (m_Name != NULL) {
+	if (m_Name != nullptr) {
 		::free ((void *)m_Name);
-		m_Name = NULL;
+		m_Name = nullptr;
 	}
 
-	if (new_name != NULL) {
+	if (new_name != nullptr) {
 		m_Name = ::strdup (new_name);
 	}
 
@@ -431,7 +431,7 @@ protected:
 		StringClass		name;
 		int				value;
 
-		_ENUM_VALUE (const char *_name=NULL, int _value=0) : name (_name), value (_value) {}
+		_ENUM_VALUE (const char *_name=nullptr, int _value=0) : name (_name), value (_value) {}
 		bool operator== (const _ENUM_VALUE &/* src*/) { return false; }
 		bool operator!= (const _ENUM_VALUE &/* src*/) { return true; }
 	} ENUM_VALUE;

@@ -83,9 +83,9 @@ cWarpEvent::Act(void)
 
 	SoldierGameObj * p_warp_soldier = GameObjManager::Find_Soldier_Of_Client_ID(SenderId);
 
-	if (p_warp_soldier != NULL) {
+	if (p_warp_soldier != nullptr) {
 
-		SoldierGameObj * p_other_soldier = NULL;
+		SoldierGameObj * p_other_soldier = nullptr;
 
 		if (PlayerName.Is_Empty())
 		{
@@ -94,13 +94,13 @@ cWarpEvent::Act(void)
 		else
 		{
 			cPlayer * p_player = cPlayerManager::Find_Player(PlayerName);
-			if (p_player != NULL)
+			if (p_player != nullptr)
 			{
 				p_other_soldier = GameObjManager::Find_Soldier_Of_Client_ID(p_player->Get_Id());
 			}
 		}
 
-		if (p_other_soldier != NULL) {
+		if (p_other_soldier != nullptr) {
 			Matrix3D soldier_tm = p_other_soldier->Get_Transform();
 			p_warp_soldier->Set_Transform(soldier_tm);
 			p_warp_soldier->Perturb_Position(2);

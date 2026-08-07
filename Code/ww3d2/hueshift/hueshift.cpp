@@ -65,15 +65,15 @@ static void Init_3D_Scene();
 HINSTANCE				hInst;									// current instance
 char						szTitle[MAX_LOADSTRING];			// The title bar text
 char						szWindowClass[MAX_LOADSTRING];	// The title bar text
-WW3DAssetManager *	AssetManager=NULL;
-SimpleSceneClass *	my_scene = NULL;
-CameraClass *			my_camera = NULL;
-Render2DTextClass *	mytext = NULL;
-RenderObjClass *		orig_object = NULL;
-RenderObjClass *		shift_object = NULL;
-HAnimClass *			my_anim = NULL;
-Font3DInstanceClass *my_font_a=NULL;
-Font3DInstanceClass *my_font_b=NULL;
+WW3DAssetManager *	AssetManager=nullptr;
+SimpleSceneClass *	my_scene = nullptr;
+CameraClass *			my_camera = nullptr;
+Render2DTextClass *	mytext = nullptr;
+RenderObjClass *		orig_object = nullptr;
+RenderObjClass *		shift_object = nullptr;
+HAnimClass *			my_anim = nullptr;
+Font3DInstanceClass *my_font_a=nullptr;
+Font3DInstanceClass *my_font_b=nullptr;
 
 DecalSystemClass		TheDecalSystem;
 bool						running=true;
@@ -183,10 +183,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		0,
 		CW_USEDEFAULT,
 		0,
-		NULL,
-		NULL,
+		nullptr,
+		nullptr,
 		hInstance,
-		NULL);
+		nullptr);
 
 	ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
@@ -312,7 +312,7 @@ ATOM MyRegisterClassA(HINSTANCE hInstance)
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= hInstance;
 	wcex.hIcon			= LoadIcon(hInstance, (const char*)IDI_SKELETON);
-	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
+	wcex.hCursor		= LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
 	wcex.lpszMenuName	= (LPCSTR)IDC_SKELETON;
 	wcex.lpszClassName	= szWindowClass;
@@ -492,7 +492,7 @@ void Debug_Refs(void)
 				  !strcmp(search_ref->File, ref->File) &&
 				  (search_ref->Line == ref->Line) ) {
 				count++;
-			} else if ( (ref->File == NULL) &&  (search_ref->File == NULL) ) {
+			} else if ( (ref->File == nullptr) &&  (search_ref->File == nullptr) ) {
 				count++;
 			}
 

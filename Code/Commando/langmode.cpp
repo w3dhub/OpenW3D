@@ -41,7 +41,7 @@
 //
 // class statics
 //
-cLanChat * LanGameModeClass::PLanChat = NULL;
+cLanChat * LanGameModeClass::PLanChat = nullptr;
 
 //-----------------------------------------------------------------------------
 //
@@ -51,9 +51,9 @@ void LanGameModeClass::Init(void)
 {
 	WWDEBUG_SAY(("LanGameModeClass::Init\n"));
 
-	WWASSERT(PLanChat == NULL);
+	WWASSERT(PLanChat == nullptr);
 	PLanChat = new cLanChat();
-	WWASSERT(PLanChat != NULL);
+	WWASSERT(PLanChat != nullptr);
 }
 
 //-----------------------------------------------------------------------------
@@ -64,9 +64,9 @@ void LanGameModeClass::Shutdown(void)
 {
 	WWDEBUG_SAY(("LanGameModeClass::Shutdown"));
 
-	WWASSERT(PLanChat != NULL);
+	WWASSERT(PLanChat != nullptr);
 	delete PLanChat;
-	PLanChat = NULL;
+	PLanChat = nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -77,14 +77,14 @@ void LanGameModeClass::Think(void)
 {
 	WWPROFILE( "Lan Think" );
 
-	WWASSERT(PLanChat != NULL);
+	WWASSERT(PLanChat != nullptr);
 	PLanChat->Think();
 }
 
 //-----------------------------------------------------------------------------
 cLanChat * LanGameModeClass::Get_Lan_Interface(void)
 {
-	//WWASSERT(PLanChat != NULL);
+	//WWASSERT(PLanChat != nullptr);
 
 	return PLanChat;
 }

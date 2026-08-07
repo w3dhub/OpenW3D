@@ -104,7 +104,7 @@ LightDefinitionClass::LightDefinitionClass (void)
 	NAMED_EDITABLE_PARAM (LightDefinitionClass, ParameterClass::TYPE_FLOAT, m_FarRadiusInner, "Inner Radius");
 	NAMED_EDITABLE_PARAM (LightDefinitionClass, ParameterClass::TYPE_FLOAT, m_FarRadiusOuter, "Outer Radius");
 	FLOAT_EDITABLE_PARAM (LightDefinitionClass, m_Intensity, 0, 1.0F);
-	ENUM_PARAM (LightDefinitionClass, m_LightType, ("Point", LightClass::POINT, "Directional", LightClass::DIRECTIONAL, "Spotlight", LightClass::SPOT, NULL));
+	ENUM_PARAM (LightDefinitionClass, m_LightType, ("Point", LightClass::POINT, "Directional", LightClass::DIRECTIONAL, "Spotlight", LightClass::SPOT, nullptr));
 
 	NAMED_EDITABLE_PARAM (LightDefinitionClass, ParameterClass::TYPE_ANGLE, m_SpotAngle, "Spot Angle");
 	NAMED_EDITABLE_PARAM (LightDefinitionClass, ParameterClass::TYPE_FLOAT, m_SpotExp, "Spot Exponent");

@@ -95,7 +95,7 @@ cGodModeEvent::Act(void)
 	{
 		cPlayer * p_player = cPlayerManager::Find_Player(SenderId);
 
-		if (p_player != NULL) {
+		if (p_player != nullptr) {
 
 			p_player->Invulnerable.Toggle();
 			p_player->Mark_As_Modified();
@@ -108,7 +108,7 @@ cGodModeEvent::Act(void)
 
 				SoldierGameObj * p_soldier = GameObjManager::Find_Soldier_Of_Client_ID(p_player->Get_Id());
 
-				if (p_soldier != NULL) {
+				if (p_soldier != nullptr) {
 
 					p_soldier->Give_All_Weapons();
 
@@ -127,7 +127,7 @@ cGodModeEvent::Act(void)
 	else
 	{
 		if (Get_Text_Display()) {
-			WWASSERT(Get_Text_Display() != NULL);
+			WWASSERT(Get_Text_Display() != nullptr);
 			Get_Text_Display()->Print_System("God status toggle request ignored due to your atheism.");
 		}
 	}

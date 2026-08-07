@@ -342,7 +342,7 @@ void SAMSiteGameObj::Generate_Control( void )
 static const char * _profile_name = "SAMSite Think";
 void	SAMSiteGameObj::Think( void )
 {
-	SmartGameObj *target = NULL;
+	SmartGameObj *target = nullptr;
 {	WWPROFILE( _profile_name );
 
 	// Find Nearest Emeny

@@ -41,19 +41,19 @@
 class TextureNameNode
 {
 	public:
-		TextureNameNode() {TextureName = NULL; Next = NULL;}
+		TextureNameNode() {TextureName = nullptr; Next = nullptr;}
 		TextureNameNode (const char *texturename)
 		{
-			ASSERT (texturename != NULL);
+			ASSERT (texturename != nullptr);
 			TextureName = new char [strlen (texturename) + 1];
-			ASSERT (TextureName != NULL);
+			ASSERT (TextureName != nullptr);
 			strcpy (TextureName, texturename);
-			Next = NULL;
+			Next = nullptr;
 		}
 
 		~TextureNameNode()
 		{
-			if (TextureName != NULL) delete [] TextureName;
+			if (TextureName != nullptr) delete [] TextureName;
 		}
 
 		// Public data.

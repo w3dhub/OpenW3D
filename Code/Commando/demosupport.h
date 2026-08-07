@@ -63,7 +63,7 @@ cDemoSupport::Security_Check
 	// If not, bail randomly within a few minutes.
 	// Crc of "C&C_Under.mix" = 721292856.
 	//
-	if (The_Game() != NULL &&
+	if (The_Game() != nullptr &&
 		 (CRC_Stringi(The_Game()->Get_Map_Name()) != 721292856) &&
 		 (::rand() % 5000 == 2273)) {
 

@@ -66,13 +66,13 @@ static const char *ANIM_NAME			= "IF_TITLETRANS.IF_TITLETRANS";
 //
 ////////////////////////////////////////////////////////////////
 MainMenuTransitionClass::MainMenuTransitionClass (void)	:
-	Model (NULL),
-	Dialog (NULL),
-	OtherDlg (NULL),
-	Camera (NULL),
+	Model (nullptr),
+	Dialog (nullptr),
+	OtherDlg (nullptr),
+	Camera (nullptr),
 	CurrentFrame (0),
 	TargetFrame (0),
-	TransitionAnim (NULL)
+	TransitionAnim (nullptr)
 {
 	return ;
 }
@@ -115,7 +115,7 @@ MainMenuTransitionClass::Set_Model (RenderObjClass *model)
 {
 	REF_PTR_SET (Model, model);
 
-	if (TransitionAnim == NULL) {
+	if (TransitionAnim == nullptr) {
 		TransitionAnim	= WW3DAssetManager::Get_Instance ()->Get_HAnim (ANIM_NAME);
 	}
 
@@ -155,7 +155,7 @@ MainMenuTransitionClass::Set_Type (TYPE type)
 void
 MainMenuTransitionClass::On_Frame_Update (void)
 {
-	if (Model != NULL && TransitionAnim != NULL) {
+	if (Model != nullptr && TransitionAnim != nullptr) {
 
 		//
 		//	Do we need to keep animating?
@@ -283,7 +283,7 @@ MainMenuTransitionClass::Is_Valid (void) const
 	//
 	//	Check to see if the model and animation are valid
 	//
-	if (Model != NULL && TransitionAnim != NULL) {
+	if (Model != nullptr && TransitionAnim != nullptr) {
 		retval = true;
 	}
 

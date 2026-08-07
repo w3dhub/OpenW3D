@@ -32,7 +32,7 @@ class CRangeDialog : public CDialog
 {
 // Construction
 public:
-	CRangeDialog(CWnd* pParent = NULL);   // standard constructor
+	CRangeDialog(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CRangeDialog)

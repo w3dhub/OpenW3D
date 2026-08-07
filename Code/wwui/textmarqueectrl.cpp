@@ -285,7 +285,7 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 	//	Handy macro
 	//
 	#define COPY_LINE(dest,	src_start, src_end)	\
-			if (src_end == NULL) {						\
+			if (src_end == nullptr) {						\
 				dest = src_start;							\
 			} else {											\
 				size_t bytes	= src_end - src_start;	\
@@ -302,7 +302,7 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 	//	Build an array of formatted text lines
 	//
 	const unichar_t *text = Title;
-	while (text != NULL) {
+	while (text != nullptr) {
 
 		//
 		//	Scan this line for formatting information
@@ -320,7 +320,7 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 		//	Loop over all the lines of text and check for wrapping...
 		//
 		const unichar_t *line_start = renderer->Find_Row_Start (line.Text, 0);
-		while (line_start != NULL) {
+		while (line_start != nullptr) {
 
 			//
 			//	Lookup the start of the next line...
@@ -416,7 +416,7 @@ TextMarqueeCtrlClass::Read_Tag (const unichar_t *text, CREDIT_LINE &line)
 					unichar_t *buffer = temp_buffer.Peek_Buffer ();
 					for (int color_index = 0; color_index < 3; color_index ++) {
 						unichar_t *comma_str  = ::u_strchr (buffer, U_CHAR(','));
-						if (comma_str != NULL) {
+						if (comma_str != nullptr) {
 							comma_str[0]			= 0;
 							u_sscanf_u(buffer, U_CHAR("%d"), &color[color_index]);
 							buffer					= &comma_str[1];

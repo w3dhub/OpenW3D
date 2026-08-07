@@ -100,7 +100,7 @@ void PhysGridCullClass::Re_Partition(const Vector3 & min,const Vector3 & max,flo
 	** Tell the parent class to repartition
 	*/
 	TypedGridCullSystemClass<PhysClass>::Re_Partition(min,max,objdim);
-	WWASSERT(Scene != NULL);
+	WWASSERT(Scene != nullptr);
 }
 
 void PhysGridCullClass::Collect_Visible_Objects(const FrustumClass & frustum,VisTableClass * pvs,RefPhysListClass & visobjlist)
@@ -110,7 +110,7 @@ void PhysGridCullClass::Collect_Visible_Objects(const FrustumClass & frustum,Vis
 
 	PhysClass * obj;
 	for (	obj = Get_First_Collected_Object();
-			obj != NULL;
+			obj != nullptr;
 			obj = Get_Next_Collected_Object(obj))
 	{
 		visobjlist.Add(obj);
@@ -119,7 +119,7 @@ void PhysGridCullClass::Collect_Visible_Objects(const FrustumClass & frustum,Vis
 
 void PhysGridCullClass::Collect_Visible_Objects(const FrustumClass & frustum,VisTableClass * pvs)
 {
-	if (pvs == NULL) {
+	if (pvs == nullptr) {
 		Collect_Objects(frustum);
 		return;
 	}
@@ -165,7 +165,7 @@ inline void PhysGridCullClass::collect_visible_objects_in_leaf
 )
 {
 	CullableClass * head = Cells[address];
-	if (head != NULL) {
+	if (head != nullptr) {
 
 		/*
 		** Add all visible objects to the collection

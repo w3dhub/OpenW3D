@@ -57,14 +57,14 @@ class CollisionEventClass
 {
 public:
 	CollisionEventClass(void) :
-		OtherObj(NULL),
-		CollisionResult(NULL),
-		CollidedRenderObj(NULL)
+		OtherObj(nullptr),
+		CollisionResult(nullptr),
+		CollidedRenderObj(nullptr)
 	{}
 
 	PhysClass *						OtherObj;				// set to the other object before given to you
 	const CastResultStruct *	CollisionResult;		// actual collision data.
-	RenderObjClass *				CollidedRenderObj;	// actual render object collided against (may be NULL!)
+	RenderObjClass *				CollidedRenderObj;	// actual render object collided against (may be nullptr!)
 };
 
 

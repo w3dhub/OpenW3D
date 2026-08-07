@@ -481,7 +481,7 @@ void AutoRestartClass::Think(void)
 			** Create the new game data.
 			*/
 			PTheGameData = cGameData::Create_Game_Of_Type((cGameData::GameTypeEnum)game_type);
-			WWASSERT(PTheGameData != NULL);
+			WWASSERT(PTheGameData != nullptr);
 
 			/*
 			** Apply command line/ini settings.
@@ -615,7 +615,7 @@ void AutoRestartClass::Think(void)
 				WWASSERT(wol_game);
 				wol_game->Set_Quiet_Mode(true);
 				wol_game->SignalMe(*this);
-				WWASSERT(PTheGameData != NULL);
+				WWASSERT(PTheGameData != nullptr);
 				NumChannelCreateTries++;
 				wol_game->Create_Game(The_Game());
 				RestartState = STATE_WAIT_CHANNEL_CREATE;
@@ -741,7 +741,7 @@ void AutoRestartClass::Think(void)
 			}
 
 			//ConsoleBox.Print("Loading level...\n");
-			WWASSERT(PTheGameData != NULL);
+			WWASSERT(PTheGameData != nullptr);
 			CampaignManager::Select_Backdrop_Number_By_MP_Type(The_Game()->Get_Game_Type());
 			GameInitMgrClass::Set_Is_Client_Required(false);
 			GameInitMgrClass::Set_Is_Server_Required(true);
@@ -921,7 +921,7 @@ void AutoRestartClass::Set_Restart_Flag(bool enable)
 				char dir[_MAX_DIR];
 				char path[_MAX_PATH];
 				GetModuleFileNameA(ProgramInstance, path_to_exe, sizeof(path_to_exe));
-				_splitpath(path_to_exe, drive, dir, NULL, NULL);
+				_splitpath(path_to_exe, drive, dir, nullptr, nullptr);
 #ifdef FREEDEDICATEDSERVER
 				_makepath(path, drive, dir, "renegadeserver", "exe");
 #else  //FREEDEDICATEDSERVER

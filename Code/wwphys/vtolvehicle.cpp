@@ -106,10 +106,10 @@ VTOLVehicleClass::~VTOLVehicleClass(void)
 void VTOLVehicleClass::Render(RenderInfoClass & rinfo)
 {
 	const VTOLVehicleDefClass * def = Get_VTOLVehicleDef();
-	WWASSERT(def != NULL);
+	WWASSERT(def != nullptr);
 
 	// update the engine angles, flames, spin rotors!
-	WWASSERT(Model != NULL);
+	WWASSERT(Model != nullptr);
 	Matrix3D engine_rotation(1);
 	Matrix3D rotor_rotation(1);
 	engine_rotation.Rotate_Z(def->MaxEngineRotation * NormalizedEngineRotation);
@@ -182,7 +182,7 @@ void VTOLVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 		WWPROFILE("VTOLVehicleClass::Compute_Force_And_Torque");
 
 		const VTOLVehicleDefClass * def = Get_VTOLVehicleDef();
-		WWASSERT(def != NULL);
+		WWASSERT(def != nullptr);
 
 		/*
 		** Yaw:
@@ -225,7 +225,7 @@ void VTOLVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 			float move_forward = 0.0f;
 			float move_up = 0.0f;
 
-			if (Get_Controller() != NULL) {
+			if (Get_Controller() != nullptr) {
 				turn_left = Get_Controller()->Get_Turn_Left();
 				move_left = Get_Controller()->Get_Move_Left();
 				move_forward = Get_Controller()->Get_Move_Forward();
@@ -343,7 +343,7 @@ float VTOLVehicleClass::Get_Normalized_Engine_Flame(void)
 void VTOLVehicleClass::Release_Engine_Bones(void)
 {
 	// release any bones that we currently have captured
-	if (Model != NULL) {
+	if (Model != nullptr) {
 		for (int i=0;i<MAX_CAPTURED_BONE_COUNT; i++) {
 			if (EngineAngleBones[i] != -1) {
 				Model->Release_Bone(EngineAngleBones[i]);

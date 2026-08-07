@@ -34,7 +34,7 @@ class MixCombiningDialogClass : public CDialog
 {
 // Construction
 public:
-	MixCombiningDialogClass(CWnd* pParent = NULL);   // standard constructor
+	MixCombiningDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(MixCombiningDialogClass)

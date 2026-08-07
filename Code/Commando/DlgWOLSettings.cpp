@@ -87,7 +87,7 @@ bool DlgWOLSettings::DoDialog(void)
 		dialog->Release_Ref();
 		}
 
-	return (dialog != NULL);
+	return (dialog != nullptr);
 	}
 
 
@@ -650,7 +650,7 @@ void DlgWOLSettings::UpdateForPersona(void)
 			SetServerCombo("");
 			SetSideCombo(-1);
 			SetLocaleCombo(WOL::LOC_UNKNOWN);
-			ShowProfileRanking(this, NULL);
+			ShowProfileRanking(this, nullptr);
 			}
 		}
 
@@ -859,12 +859,12 @@ void DlgWOLSettings::InitSideCombo(void)
 			{TRANSLATE (IDS_MENU_RANDOM), -1},
 			{TRANSLATE (IDS_MENU_TEXT933), 1},
 			{TRANSLATE (IDS_MENU_TEXT934), 0},
-			{NULL, -1},
+			{nullptr, -1},
 			};
 
 		int index = 0;
 
-		while (_teams[index].TeamName != NULL)
+		while (_teams[index].TeamName != nullptr)
 			{
 			int item = combo->Add_String(_teams[index].TeamName);
 
@@ -1199,5 +1199,5 @@ LoginProfile* DlgWOLSettings::GetLoginProfile(void)
 			}
 		}
 
-	return NULL;
+	return nullptr;
 	}

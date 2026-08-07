@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 // TranslationExportDialogClass dialog
 
 
-TranslationExportDialogClass::TranslationExportDialogClass(CWnd* pParent /*=NULL*/)	:
+TranslationExportDialogClass::TranslationExportDialogClass(CWnd* pParent /*=nullptr*/)	:
 	IsInstaller (false),
 	CDialog(TranslationExportDialogClass::IDD, pParent)
 {
@@ -146,7 +146,7 @@ TranslationExportDialogClass::Export_Game_Strings (void)
 	//	Don't export the installer strings...
 	//
 	TDBCategoryClass *category = TranslateDBClass::Find_Category ("Installer");
-	if (category != NULL) {
+	if (category != nullptr) {
 
 		//
 		//	Filter out any strings that do not belong to this category
@@ -181,7 +181,7 @@ TranslationExportDialogClass::Export_Installer_Strings (void)
 	//	Find the category we wish to export
 	//
 	TDBCategoryClass *category = TranslateDBClass::Find_Category ("Installer");
-	if (category != NULL) {
+	if (category != nullptr) {
 
 		//
 		//	Filter out any strings that do not belong to this category

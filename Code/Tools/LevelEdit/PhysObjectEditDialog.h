@@ -36,7 +36,7 @@ class PhysObjectEditDialogClass : public CDialog
 {
 // Construction
 public:
-	PhysObjectEditDialogClass(CWnd* pParent = NULL);   // standard constructor
+	PhysObjectEditDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(PhysObjectEditDialogClass)

@@ -118,7 +118,7 @@ ImageCtrlClass::Create_Texture_Renderer (void)
 	//
 	renderer.Reset ();
 
-	if (renderer.Peek_Texture () != NULL) {
+	if (renderer.Peek_Texture () != nullptr) {
 		renderer.Add_Quad (Rect);
 	}
 

@@ -36,7 +36,7 @@ class ExportPresetsDialogClass : public CDialog
 {
 // Construction
 public:
-	ExportPresetsDialogClass(CWnd* pParent = NULL);   // standard constructor
+	ExportPresetsDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(ExportPresetsDialogClass)

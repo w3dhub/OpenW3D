@@ -204,8 +204,8 @@ VisSectorSamplerClass::VisSectorSamplerClass
 	float min_sample_distance,
 	int collision_group
 ) :
-	Scene(NULL),
-	MeshBuilder(NULL),
+	Scene(nullptr),
+	MeshBuilder(nullptr),
 	Stats(stats),
 	MinSampleDistance(min_sample_distance),
 	CollisionGroup(collision_group),
@@ -217,9 +217,9 @@ VisSectorSamplerClass::VisSectorSamplerClass
 
 VisSectorSamplerClass::~VisSectorSamplerClass(void)
 {
-	if (MeshBuilder != NULL) {
+	if (MeshBuilder != nullptr) {
 		delete MeshBuilder;
-		MeshBuilder = NULL;
+		MeshBuilder = nullptr;
 	}
 	REF_PTR_RELEASE(Scene);
 }
@@ -245,7 +245,7 @@ void VisSectorSamplerClass::Reset(int poly_count)
 
 int VisSectorSamplerClass::Collect_Polygons(RenderObjClass * renderobj)
 {
-	WWASSERT(renderobj != NULL);
+	WWASSERT(renderobj != nullptr);
 	int poly_count = 0;
 
 	/*
@@ -256,7 +256,7 @@ int VisSectorSamplerClass::Collect_Polygons(RenderObjClass * renderobj)
 			(renderobj->Class_ID() == RenderObjClass::CLASSID_MESH) )
 	{
 		MeshModelClass * model = ((MeshClass *)renderobj)->Get_Model();
-		if (model != NULL) {
+		if (model != nullptr) {
 
 			MeshBuilderClass::FaceClass face;
 
@@ -294,7 +294,7 @@ int VisSectorSamplerClass::Collect_Polygons(RenderObjClass * renderobj)
 	int count = renderobj->Get_Num_Sub_Objects();
 	for (int index = 0; index < count; index ++) {
 		RenderObjClass *sub_object = renderobj->Get_Sub_Object(index);
-		if (sub_object != NULL) {
+		if (sub_object != nullptr) {
 			poly_count += Collect_Polygons(sub_object);
 			REF_PTR_RELEASE(sub_object);
 		}
@@ -517,7 +517,7 @@ bool VisSectorSamplerClass::Check_Ceiling (const Vector3 &position, float *ceili
 	//
 	//	Return how far above us the ceiling is.
 	//
-	if (ceiling_dist != NULL) {
+	if (ceiling_dist != nullptr) {
 		(*ceiling_dist) = (res.Fraction * (end_point.Z - start_point.Z));
 	}
 
@@ -528,7 +528,7 @@ bool VisSectorSamplerClass::Check_Ceiling (const Vector3 &position, float *ceili
 
 		// Get the physics object we hit
 		PhysClass *physobj = raytest.CollidedPhysObj;
-		if ((physobj != NULL) && (physobj->As_StaticPhysClass() != NULL)) {
+		if ((physobj != nullptr) && (physobj->As_StaticPhysClass() != nullptr)) {
 
 			// If this polygon is facing up, then make sure it satisfies
 			// our 'ceiling' requirements for back-face polygons.
@@ -573,7 +573,7 @@ bool VisSectorSamplerClass::Is_Object_Invalid_Roof(RenderObjClass *render_obj)
 		// Check this subobject
 		//
 		RenderObjClass *sub_object = render_obj->Get_Sub_Object (index);
-		if (sub_object != NULL) {
+		if (sub_object != nullptr) {
 			retval &= Is_Object_Invalid_Roof (sub_object);
 			REF_PTR_RELEASE(sub_object);
 		}
@@ -585,7 +585,7 @@ bool VisSectorSamplerClass::Is_Object_Invalid_Roof(RenderObjClass *render_obj)
 	//
 	if (render_obj->Class_ID () == RenderObjClass::CLASSID_MESH) {
 		MeshModelClass *model = ((MeshClass *)render_obj)->Get_Model ();
-		if (model != NULL) {
+		if (model != nullptr) {
 
 			//
 			//	The mesh is invalid if:

@@ -96,7 +96,7 @@ typedef struct
     INDEX*  pIndex[LOCALE_BANK_COUNT]; /* array of string indices */
 } LOCALE_INSTANCE;
 
-static LOCALE_INSTANCE	*lx			= NULL;
+static LOCALE_INSTANCE	*lx			= nullptr;
 
 /*************************************************************************/
 /* initialization/restore                                                */
@@ -105,10 +105,10 @@ static LOCALE_INSTANCE	*lx			= NULL;
 /* helper function to make assertions for initialization clearer */
 int LOCALE_isinitialized( void )
 {
-    if ( lx == NULL ) {
+    if ( lx == nullptr ) {
 //        TRACE("LOCALE API is not initialized - call LOCALE_init before calling LOCALE functions\n");
 	}
-    return( lx != NULL );
+    return( lx != nullptr );
 }
 
 /*
@@ -153,14 +153,14 @@ int LOCALE_init(void)
     int ok = 0;
 
     /* ensure locale module is NOT already initialized */
-    ASSERT(lx == NULL);		/* can only call LOCALE_init after a restore or once, cannot double init locale API */
+    ASSERT(lx == nullptr);		/* can only call LOCALE_init after a restore or once, cannot double init locale API */
 
-	if( lx != NULL )
+	if( lx != nullptr )
 		return ok;
 
     /* allocate instance */
     lx = (LOCALE_INSTANCE*)galloc(sizeof(LOCALE_INSTANCE));
-    if (lx != NULL) {
+    if (lx != nullptr) {
         memset(lx, 0, sizeof(LOCALE_INSTANCE));
         ok = 1;
     }
@@ -207,9 +207,9 @@ void LOCALE_restore(void)
     int i;
 
     ASSERT(LOCALE_isinitialized());		/* must call LOCALE_init before calling this function */
-	ASSERT(lx != NULL);
+	ASSERT(lx != nullptr);
 
-	if( lx != NULL ) {
+	if( lx != nullptr ) {
 
 		/* free any language tables */
 		for (i = 0; i < LOCALE_BANK_COUNT; i++) {
@@ -221,7 +221,7 @@ void LOCALE_restore(void)
 
 		/* free instance */
 		gfree(lx);
-		lx = NULL;
+		lx = nullptr;
 	}
 }
 
@@ -270,7 +270,7 @@ void LOCALE_restore(void)
 void LOCALE_setbank(int BankIndex)
 {
     ASSERT(LOCALE_isinitialized()); /* must call LOCALE_init before calling this function */
-	if( lx != NULL ) {
+	if( lx != nullptr ) {
 	    lx->BankIndex = BankIndex;
 	}
 }
@@ -312,7 +312,7 @@ void LOCALE_setbank(int BankIndex)
 int LOCALE_getbank(void)
 {
     ASSERT(LOCALE_isinitialized()); /* must call LOCALE_init before calling this function */
-	if( lx != NULL ) {
+	if( lx != nullptr ) {
 	    return lx->BankIndex;
 	} else {
 		return -1;
@@ -359,7 +359,7 @@ int LOCALE_getbanklanguageid(void)
     ASSERT(LOCALE_isinitialized());			/* must call LOCALE_init before calling this function */
     ASSERT(lx->pBank[lx->BankIndex]);       /* must load a table into bank before calling this function */
 
-	if( lx != NULL && lx->pBank[lx->BankIndex] != NULL ) {
+	if( lx != nullptr && lx->pBank[lx->BankIndex] != nullptr ) {
 	    return (int)(lx->pBank[lx->BankIndex]->LanguageID);
 	} else {
 		return -1;
@@ -406,7 +406,7 @@ int LOCALE_getbankstringcount(void)
 
     ASSERT(LOCALE_isinitialized()); /* must call LOCALE_init before calling this function */
 
-    if (lx != NULL && lx->pBank[lx->BankIndex]) {
+    if (lx != nullptr && lx->pBank[lx->BankIndex]) {
         StringCount = lx->pBank[lx->BankIndex]->StringCount;
     }
     return StringCount;
@@ -587,20 +587,20 @@ int LOCALE_loadtable( const char* PathName, int LanguageID )
     GSTREAM* g;
 
     ASSERT(LOCALE_isinitialized());             /* must call LOCALE_init before calling this function */
-    ASSERT(lx->pBank[lx->BankIndex] == NULL);   /* bank must be empty before loading a new table */
-    ASSERT(lx->pIndex[lx->BankIndex] == NULL);  /* bank must be empty before loading a new table */
+    ASSERT(lx->pBank[lx->BankIndex] == nullptr);   /* bank must be empty before loading a new table */
+    ASSERT(lx->pIndex[lx->BankIndex] == nullptr);  /* bank must be empty before loading a new table */
 
 	if ( !LOCALE_isinitialized())
 		return ok;
 
-	if( lx->pBank[lx->BankIndex] != NULL)
+	if( lx->pBank[lx->BankIndex] != nullptr)
 		return ok;
 
-	if( lx->pIndex[lx->BankIndex] != NULL)
+	if( lx->pIndex[lx->BankIndex] != nullptr)
 		return ok;
 
     g = gopen( PathName );
-    if( g != NULL ) {
+    if( g != nullptr ) {
 
         if( readheader(g)) {
 		    ok = readstrings( g, LanguageID );
@@ -659,20 +659,20 @@ int LOCALE_loadtable( const char* PathName, int LanguageID )
 
 void LOCALE_freetable(void)
 {
-	if( lx != NULL ) {
+	if( lx != nullptr ) {
 
 		ASSERT(LOCALE_isinitialized());			/* must call LOCALE_init before calling this function */
 		ASSERT(lx->pBank[lx->BankIndex]);       /* table must be loaded before calling this function  */
 
 	    /* free string bank */
-		if( lx->pBank[lx->BankIndex] != NULL ) {
+		if( lx->pBank[lx->BankIndex] != nullptr ) {
 			gfree(lx->pBank[lx->BankIndex]);
-		    lx->pBank[lx->BankIndex] = NULL;
+		    lx->pBank[lx->BankIndex] = nullptr;
 		}
 		/* if the bank has an index loaded, free that as well */
-	    if ( lx->pIndex[lx->BankIndex] != NULL ) {
+	    if ( lx->pIndex[lx->BankIndex] != nullptr ) {
 		    gfree(lx->pIndex[lx->BankIndex]);
-			lx->pIndex[lx->BankIndex] = NULL;
+			lx->pIndex[lx->BankIndex] = nullptr;
 	    }
 	}
 }
@@ -749,18 +749,18 @@ static int getstringbyindex( unsigned short key, const INDEX* pIndex )
     unsigned char*  base;			/* pointer to base of string id table */
 
     ASSERT(LOCALE_isinitialized()); /* must call LOCALE_init before calling this function */
-    ASSERT(pIndex != NULL);			/* index not loaded - .loc file must have index created (use -i option) */
+    ASSERT(pIndex != nullptr);			/* index not loaded - .loc file must have index created (use -i option) */
 
 	if( !LOCALE_isinitialized())
 		return -1;
 
-	if( pIndex == NULL )
+	if( pIndex == nullptr )
 		return -1;
 
     base	= ((unsigned char*)pIndex) + LOCALEFILE_INDEXCHUNK_STRINGID_OFFSET;
     result	= (unsigned short*)bsearch((unsigned char *)&key, base, pIndex->StringCount, 4, compare);
 
-    if (result != NULL) {
+    if (result != nullptr) {
         /* index is the second unsigned short */
         ++result;
         index = *result;
@@ -778,15 +778,15 @@ static int getstringbyindex( unsigned short key, const INDEX* pIndex )
 
 const char* LOCALE_getstring( int StringID )
 {
-    const char* p;							/* pointer to string, NULL if string cannot be found */
+    const char* p;							/* pointer to string, nullptr if string cannot be found */
 
     ASSERT( LOCALE_isinitialized());		/* must call LOCALE_init before calling this function */
 
 	if( !LOCALE_isinitialized())
-		return NULL;
+		return nullptr;
 
     /* get string array index from the index if it exists */
-    if ( lx->pIndex[ lx->BankIndex ] != NULL ) {
+    if ( lx->pIndex[ lx->BankIndex ] != nullptr ) {
         StringID = getstringbyindex((unsigned short)StringID, lx->pIndex[lx->BankIndex]);
     }
 
@@ -799,7 +799,7 @@ const char* LOCALE_getstring( int StringID )
         p += offset;
 
     } else {
-        p = NULL;
+        p = nullptr;
     }
 
     return p;
@@ -854,15 +854,15 @@ int LOCALElanguageid = 0;
 
 const char* LOCALE_getstr( const void* pLocFile, int StringID )
 {
-	const char* p = NULL;	/* pointer to string, NULL if string cannot be found */
+	const char* p = nullptr;	/* pointer to string, nullptr if string cannot be found */
 
     HEADER* pHeader;
     BANK*   pBank;
 
-    ASSERT(pLocFile != NULL);
+    ASSERT(pLocFile != nullptr);
 
 	/* Must pass something in */
-	if( pLocFile == NULL ) {
+	if( pLocFile == nullptr ) {
 		return p;
 	}
 
@@ -892,7 +892,7 @@ const char* LOCALE_getstr( const void* pLocFile, int StringID )
         p += offset;
 
     } else {
-        p = NULL;
+        p = nullptr;
     }
 
     return p;

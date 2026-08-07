@@ -46,7 +46,7 @@ class SelectionDialog : public CDialog
 {
 // Construction
 public:
-	SelectionDialog (DynamicVectorClass <char*> *listptr = NULL, CWnd* pParent = NULL);   // standard constructor
+	SelectionDialog (DynamicVectorClass <char*> *listptr = nullptr, CWnd* pParent = nullptr);   // standard constructor
 
 	int Get_Selection() {return (Selection);}
 

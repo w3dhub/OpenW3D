@@ -211,7 +211,7 @@ CLevelEditApp::InitInstance (void)
 	//	Handle the command line
 	//
 	LPCTSTR cmd_line = ::strstr (m_lpCmdLine, "-j=");
-	if (cmd_line != NULL) {
+	if (cmd_line != nullptr) {
 		cmd_line += 3;
 
 		Set_Silent_Mode (true);
@@ -282,16 +282,16 @@ CLevelEditApp::InitInstance (void)
 	//
 	const char *INSTALL_KEY		= "Software\\Westwood Studios\\LevelEdit\\Install";
 	const char *INSTALL_VALUE	= "Exe";
-	HKEY reg_key = NULL;
+	HKEY reg_key = nullptr;
 	if (::RegCreateKeyEx (	HKEY_CURRENT_USER,
 									INSTALL_KEY,
 									0L,
-									NULL,
+									nullptr,
 									0L,
 									KEY_ALL_ACCESS,
-									NULL,
+									nullptr,
 									&reg_key,
-									NULL) == ERROR_SUCCESS)
+									nullptr) == ERROR_SUCCESS)
 	{
 		::RegSetValueEx (	reg_key,
 								INSTALL_VALUE,
@@ -310,7 +310,7 @@ CLevelEditApp::InitInstance (void)
 	//
 	//	Handle the command line
 	//
-	if (cmd_line != NULL) {
+	if (cmd_line != nullptr) {
 		::Perform_Job (cmd_line, true);
 		Set_Modified (false);
 		m_pMainWnd->PostMessage (WM_CLOSE);
@@ -410,7 +410,7 @@ void Debug_Refs(void)
 				  !strcmp(search_ref->File, ref->File) &&
 				  (search_ref->Line == ref->Line) ) {
 				count++;
-			} else if ( (ref->File == NULL) &&  (search_ref->File == NULL) ) {
+			} else if ( (ref->File == nullptr) &&  (search_ref->File == nullptr) ) {
 				count++;
 			}
 
@@ -443,9 +443,9 @@ int
 CLevelEditApp::ExitInstance (void)
 {
 	// Remove the debug handlers we installed earlier
-	::WWDebug_Install_Message_Handler (NULL);
-	::WWDebug_Install_Assert_Handler (NULL);
-	::WWDebug_Install_Trigger_Handler (NULL);
+	::WWDebug_Install_Message_Handler (nullptr);
+	::WWDebug_Install_Assert_Handler (nullptr);
+	::WWDebug_Install_Trigger_Handler (nullptr);
 
 	//
 	// Free the audio manager
@@ -480,7 +480,7 @@ CLevelEditApp::OnFileOpen (void)
 {
 	CFileDialog dialog (true,
 							  ".lvl",
-							  NULL,
+							  nullptr,
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 							  "Level Files|*.lvl||",
 							  ::AfxGetMainWnd ());
@@ -522,7 +522,7 @@ void
 Register_Light_Icon (void)
 {
 	DWORD disp		= 0;
-	HKEY reg_key	= NULL;
+	HKEY reg_key	= nullptr;
 
 	const char *LIGHT_ICON_APP_NAME	= "W3D Light";
 	const char *LIGHT_ICON_KEY			= "W3D Light\\DefaultIcon";
@@ -533,17 +533,17 @@ Register_Light_Icon (void)
 	if (::RegCreateKeyEx (	HKEY_CLASSES_ROOT,
 									".wlt",
 									0,
-									NULL,
+									nullptr,
 									REG_OPTION_NON_VOLATILE,
 									KEY_ALL_ACCESS,
-									NULL,
+									nullptr,
 									&reg_key,
 									&disp) == ERROR_SUCCESS)
 	{
 		//
 		//	Write the name of the application under this extension's default value
 		//
-		::RegSetValueEx (reg_key, NULL, 0, REG_SZ, (const BYTE *)LIGHT_ICON_APP_NAME, ::lstrlen (LIGHT_ICON_APP_NAME) + 1);
+		::RegSetValueEx (reg_key, nullptr, 0, REG_SZ, (const BYTE *)LIGHT_ICON_APP_NAME, ::lstrlen (LIGHT_ICON_APP_NAME) + 1);
 		::RegCloseKey (reg_key);
 
 		//
@@ -552,10 +552,10 @@ Register_Light_Icon (void)
 		if (::RegCreateKeyEx (	HKEY_CLASSES_ROOT,
 										LIGHT_ICON_KEY,
 										0,
-										NULL,
+										nullptr,
 										REG_OPTION_NON_VOLATILE,
 										KEY_ALL_ACCESS,
-										NULL,
+										nullptr,
 										&reg_key,
 										&disp) == ERROR_SUCCESS)
 		{
@@ -564,7 +564,7 @@ Register_Light_Icon (void)
 			// the icon's index.
 			//
 			TCHAR path[MAX_PATH] = { 0 };
-			::GetModuleFileName (NULL, path, MAX_PATH);
+			::GetModuleFileName (nullptr, path, MAX_PATH);
 
 			CString icon_path;
 			icon_path.Format ("%s,-%d", path, IDI_LIGHT);
@@ -572,7 +572,7 @@ Register_Light_Icon (void)
 			//
 			//	Write the icon's location under this key
 			//
-			::RegSetValueEx (reg_key, NULL, 0, REG_SZ, (const BYTE *)(LPCTSTR)icon_path, ::lstrlen (icon_path) + 1);
+			::RegSetValueEx (reg_key, nullptr, 0, REG_SZ, (const BYTE *)(LPCTSTR)icon_path, ::lstrlen (icon_path) + 1);
 			::RegCloseKey (reg_key);
 		}
 	}
@@ -597,13 +597,13 @@ CLevelEditApp::PreTranslateMessage (MSG *pMsg)
 	//
 	//	Is this window registered for global translation?
 	//
-	if (pMsg->hwnd != NULL && ::GetProp (pMsg->hwnd, "TRANS_ACCS") == (HANDLE)1) {
+	if (pMsg->hwnd != nullptr && ::GetProp (pMsg->hwnd, "TRANS_ACCS") == (HANDLE)1) {
 
 		//
 		//	Translate the accelerator
 		//
 		CMainFrame *main_wnd = (CMainFrame *)::AfxGetMainWnd ();
-		if (main_wnd !=  NULL) {
+		if (main_wnd !=  nullptr) {
 			HACCEL accel_table = main_wnd->GetDefaultAccelerator ();
 			if (::TranslateAccelerator (main_wnd->m_hWnd, accel_table, pMsg)) {
 				retval = true;

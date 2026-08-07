@@ -89,7 +89,7 @@ public:
 	** variable will be modified with the updated node id.  The first time this method is called,
 	** initialize the node_id to zero.
 	*/
-	uint32				Get_Dynamic_Object_Vis_ID(const AABoxClass & obj_bounds,int * node_id = NULL);
+	uint32				Get_Dynamic_Object_Vis_ID(const AABoxClass & obj_bounds,int * node_id = nullptr);
 
 	/*
 	** DynamicObjCullClass adds a new re-partitioning interface to AABTreeCullSystemClass

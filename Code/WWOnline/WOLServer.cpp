@@ -67,7 +67,7 @@ namespace WWOnline {
 ServerData::ServerData(const WOL::Server& server)
 	{
 	memcpy(&mData, &server, sizeof(mData));
-	mData.next = NULL;
+	mData.next = nullptr;
 	}
 
 
@@ -170,7 +170,7 @@ IRCServerData::IRCServerData(const WOL::Server& server) :
 					mMatchesLanguageCode = true;
 					}
 
-				token = strtok(NULL, ",");
+				token = strtok(nullptr, ",");
 				} while (token);
 			}
 		}
@@ -212,7 +212,7 @@ HostPortServerData::HostPortServerData(const WOL::Server& server) :
 
 	if (token)
 		{
-		token = strtok(NULL, ";");
+		token = strtok(nullptr, ";");
 		}
 
 	WWASSERT(token);
@@ -220,7 +220,7 @@ HostPortServerData::HostPortServerData(const WOL::Server& server) :
 	if (token)
 		{
 		mHostAddress = token;
-		token = strtok(NULL, ";");
+		token = strtok(nullptr, ";");
 		}
 
 	WWASSERT(token);

@@ -78,7 +78,7 @@ SaveGameMenuClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the columns
@@ -99,7 +99,7 @@ SaveGameMenuClass::On_Init_Dialog (void)
 	//
 	//	Populate the list
 	//
-	Reload_List (NULL);
+	Reload_List (nullptr);
 	Update_Text_Field ();
 	Update_Button_State ();
 
@@ -171,10 +171,10 @@ SaveGameMenuClass::On_ListCtrl_Delete_Entry
 		StringClass *filename	= (StringClass *)list_ctrl->Get_Entry_Data (item_index, 2);
 		list_ctrl->Set_Entry_Data (item_index, 0, 0);
 		list_ctrl->Set_Entry_Data (item_index, 2, 0);
-		if (file_time != NULL) {
+		if (file_time != nullptr) {
 			delete file_time;
 		}
-		if (filename != NULL) {
+		if (filename != nullptr) {
 			delete filename;
 		}
 	}
@@ -273,7 +273,7 @@ SaveGameMenuClass::Save_Game (bool prompt)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -325,7 +325,7 @@ SaveGameMenuClass::Save_Game (bool prompt)
 				//	Save the game
 				//
 				SaveGameManager::Set_Description (Get_Dlg_Item_Text (IDC_FILENAME_EDIT));
-				SaveGameManager::Save_Game( full_path, &_CommandoSaveLoad, NULL );
+				SaveGameManager::Save_Game( full_path, &_CommandoSaveLoad, nullptr );
 
 				//
 				//	Quit out of the dialog
@@ -397,7 +397,7 @@ SaveGameMenuClass::Update_Text_Field (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -456,7 +456,7 @@ SaveGameMenuClass::Delete_Game (bool prompt)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -522,7 +522,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-	if (list_ctrl == NULL) {
+	if (list_ctrl == nullptr) {
 		return ;
 	}
 
@@ -542,7 +542,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 
 	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= true;
-	HANDLE file_find				= NULL;
+	HANDLE file_find				= nullptr;
 
 	//
 	//	Build a list of all the saved games we know about
@@ -589,7 +589,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 			//
 			//	Select this entry if its the default
 			//
-			if (	current_filename != NULL &&
+			if (	current_filename != nullptr &&
 					::stricmp (current_filename, find_info.cFileName) == 0)
 			{
 				list_ctrl->Set_Curr_Sel (item_index);
@@ -713,7 +713,7 @@ SaveGameMenuClass::Check_HD_Space (void)
 	StringClass		kernelpathname;
 	int64_t			diskspace;
 
-	if (!GetDiskFreeSpaceExA (NULL, &freebytecount, &totalbytecount, NULL)) {
+	if (!GetDiskFreeSpaceExA (nullptr, &freebytecount, &totalbytecount, nullptr)) {
 		return false;
 	}
 	diskspace = freebytecount.QuadPart;

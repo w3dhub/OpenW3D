@@ -85,7 +85,7 @@ MapCtrlClass::MapCtrlClass (void)	:
 	ZoomOutButtonRect (0, 0, 0, 0),
 	MapCenterPoint (0, 0),
 	MapScale (1, 1),
-	CloudVector (NULL),
+	CloudVector (nullptr),
 	CloudSize (0, 0),
 	OverlayOpacity (1.0F),
 	PulseDirection (-1.0F)
@@ -659,7 +659,7 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 	//	Load the texture
 	//
 	TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (filename, TextureClass::MIP_LEVELS_1);
-	if (texture != NULL) {
+	if (texture != nullptr) {
 
 		//
 		//	Get the dimensions of the texture
@@ -694,7 +694,7 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 	//
 	IsUsingOverlay = false;
 	FileClass *file = _TheFileFactory->Get_File (overlay_texture_name);
-	if (file != NULL) {
+	if (file != nullptr) {
 
 		bool is_valid = true;
 
@@ -708,7 +708,7 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 			overlay_texture_name.Erase (static_cast<int>(overlay_len - 3), 3);
 			overlay_texture_name += "dds";
 			file = _TheFileFactory->Get_File (overlay_texture_name);
-			if (file != NULL && file->Is_Available ()) {
+			if (file != nullptr && file->Is_Available ()) {
 				is_valid = true;
 			}
 		}
@@ -719,7 +719,7 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 			//
 			//	Configure the overlay renderer
 			//
-			if (texture != NULL) {
+			if (texture != nullptr) {
 				texture->Set_U_Addr_Mode (TextureClass::TEXTURE_ADDRESS_CLAMP);
 				texture->Set_V_Addr_Mode (TextureClass::TEXTURE_ADDRESS_CLAMP);
 				MapOverlayRenderer.Set_Texture (texture);
@@ -728,7 +728,7 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 			}
 		}
 
-		if (file != NULL) {
+		if (file != nullptr) {
 			_TheFileFactory->Return_File (file);
 		}
 	}
@@ -925,7 +925,7 @@ MapCtrlClass::Set_Marker_Texture (const char *filename)
 	//	Load the texture
 	//
 	TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (filename, TextureClass::MIP_LEVELS_1);
-	if (texture != NULL) {
+	if (texture != nullptr) {
 
 		//
 		//	Get the dimensions of the texture
@@ -1113,7 +1113,7 @@ MapCtrlClass::Reset_Cloud (void)
 void
 MapCtrlClass::Set_Cloud_Cell (int cell_x, int cell_y, bool is_visible)
 {
-	if (CloudVector == NULL) {
+	if (CloudVector == nullptr) {
 		return ;
 	}
 
@@ -1145,9 +1145,9 @@ MapCtrlClass::Set_Cloud_Cell (int cell_x, int cell_y, bool is_visible)
 void
 MapCtrlClass::Free_Cloud_Data (void)
 {
-	if (CloudVector != NULL) {
+	if (CloudVector != nullptr) {
 		delete CloudVector;
-		CloudVector = NULL;
+		CloudVector = nullptr;
 	}
 
 	CloudSize.Set (0, 0);

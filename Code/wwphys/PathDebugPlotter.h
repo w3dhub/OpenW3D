@@ -62,14 +62,14 @@ class PathDebugPlotterClass : public RenderObjClass
 		/////////////////////////////////////////////////////////////////////////
 		PathDebugPlotterClass (void)
 			:	m_ShouldDisplay (false),
-				m_PhysObj (NULL)				{ _ThePathDebugPlotter = this; WidgetSystem::Init_Debug_Widgets (); m_BoundingBox.Center.Set (0, 0, 0); m_BoundingBox.Extent.Set (2000, 2000, 2000); }
+				m_PhysObj (nullptr)				{ _ThePathDebugPlotter = this; WidgetSystem::Init_Debug_Widgets (); m_BoundingBox.Center.Set (0, 0, 0); m_BoundingBox.Extent.Set (2000, 2000, 2000); }
 
-		~PathDebugPlotterClass (void)		{ Reset (); _ThePathDebugPlotter = NULL; }
+		~PathDebugPlotterClass (void)		{ Reset (); _ThePathDebugPlotter = nullptr; }
 
 		/////////////////////////////////////////////////////////////////////////
 		// RenderObjClass required methods
 		/////////////////////////////////////////////////////////////////////////
-		RenderObjClass *Clone (void) const override { return NULL; }
+		RenderObjClass *Clone (void) const override { return nullptr; }
 		int				Class_ID (void) const override	{ return CLASSID_LAST + 104L; }
 		void				Render (RenderInfoClass &rinfo) override;
 		const AABoxClass &Get_Bounding_Box(void) const override { return m_BoundingBox; }
@@ -170,11 +170,11 @@ PathDebugPlotterClass::Display (bool display)
 {
 	PhysicsSceneClass *scene = PhysicsSceneClass::Get_Instance ();
 
-	if (scene != NULL) {
+	if (scene != nullptr) {
 
 		if ((m_ShouldDisplay == false) && display) {
 
-			if (m_PhysObj == NULL) {
+			if (m_PhysObj == nullptr) {
 				m_PhysObj = new DecorationPhysClass;
 				m_PhysObj->Set_Model (this);
 				m_PhysObj->Set_Cull_Box (m_BoundingBox);

@@ -101,7 +101,7 @@ public:
 		SOLDIER_AI_CONDITIONAL_IDLE = 100,
 	} SoldierAIStates;
 
-	bool Set_State( SoldierGameObj * soldier, int state, const Vector3& location = Vector3(0,0,0), GameObject* enemy = NULL);
+	bool Set_State( SoldierGameObj * soldier, int state, const Vector3& location = Vector3(0,0,0), GameObject* enemy = nullptr);
 
 private:
 	int		State;					// Current State

@@ -40,7 +40,7 @@ class PresetRemapDialogClass : public CDialog
 {
 // Construction
 public:
-	PresetRemapDialogClass(CWnd* pParent = NULL);   // standard constructor
+	PresetRemapDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(PresetRemapDialogClass)

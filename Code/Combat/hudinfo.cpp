@@ -60,14 +60,14 @@ bool					HUDInfo::IsMCT	 = false;
 */
 void	HUDInfo::Set_Info_Object( DamageableGameObj * obj, bool is_mct )
 {
-	static void * last_info_object = NULL;
+	static void * last_info_object = nullptr;
 	static float  last_info_health = 0;
 
 //	Debug_Say(( "--- Info Object %s\n", obj ? obj->Get_Definition().Get_Name() : "NONE" ));
 
 	IsMCT	= is_mct;
 
-	if ( obj != NULL && obj->As_BuildingGameObj() != NULL ) {
+	if ( obj != nullptr && obj->As_BuildingGameObj() != nullptr ) {
 		if ( last_info_object == obj ) {
 			// Don't re-select buildings unless it has been damaged
 			if ( last_info_health == obj->Get_Defense_Object()->Get_Health() ) {
@@ -79,7 +79,7 @@ void	HUDInfo::Set_Info_Object( DamageableGameObj * obj, bool is_mct )
 		}
 	}
 
-	if ( obj != NULL ) {
+	if ( obj != nullptr ) {
 		last_info_object = obj;
 		last_info_health = obj->Get_Defense_Object()->Get_Health();
 	}
@@ -99,35 +99,35 @@ void	HUDInfo::Update_Info_Object( void )
 	DamageableGameObj * info = Get_Info_Object();
 
 	// Forget Building as soon as we are off them (in MP)
-	if ( !IS_MISSION && info != NULL && info->As_BuildingGameObj() != NULL ) {
+	if ( !IS_MISSION && info != nullptr && info->As_BuildingGameObj() != nullptr ) {
 		if ( HUDInfo::InfoObjectTimer > 0 ) {
-			InfoObject = NULL;
-			info = NULL;
+			InfoObject = nullptr;
+			info = nullptr;
 		}
 	}
 
 	// Forget Dead
-	if ( info != NULL && info->Get_Defense_Object()->Get_Health() == 0 ) {
-		InfoObject = NULL;
-		info = NULL;
+	if ( info != nullptr && info->Get_Defense_Object()->Get_Health() == 0 ) {
+		InfoObject = nullptr;
+		info = nullptr;
 	}
 
-//	if ( info != NULL && info->As_BuildingGameObj() == NULL ) {
-	if ( info != NULL ) {
+//	if ( info != nullptr && info->As_BuildingGameObj() == nullptr ) {
+	if ( info != nullptr ) {
 
 		HUDInfo::InfoObjectTimer += TimeManager::Get_Frame_Seconds();
 		if ( HUDInfo::InfoObjectTimer > 5 ) {
-			InfoObject = NULL;
-			info = NULL;
+			InfoObject = nullptr;
+			info = nullptr;
 		} else {
 			// Forget him if we fall off target
 #if 0
-			if ( info->As_PhysicalGameObj() != NULL ) {
+			if ( info->As_PhysicalGameObj() != nullptr ) {
 				Vector3 obj_pos = info->As_PhysicalGameObj()->Get_Bullseye_Position();
 				Vector3 screen_pos;
 				if (COMBAT_CAMERA->Project(screen_pos, obj_pos) == CameraClass::INSIDE_FRUSTUM) {
 #else
-			if ( info->As_PhysicalGameObj() != NULL && info->As_PhysicalGameObj()->Peek_Physical_Object() != NULL ) {
+			if ( info->As_PhysicalGameObj() != nullptr && info->As_PhysicalGameObj()->Peek_Physical_Object() != nullptr ) {
 				AABoxClass bounds = info->As_PhysicalGameObj()->Peek_Physical_Object()->Get_Cull_Box();
 				if ( !COMBAT_CAMERA->Cull_Box( bounds ) ) {
 #endif
@@ -139,12 +139,12 @@ void	HUDInfo::Update_Info_Object( void )
 					screen_pos.Z = 0;
 					if ( screen_pos.Length() > 0.25f ) {
 						if ( HUDInfo::InfoObjectTimer > 0.5f ) {
-							InfoObject = NULL;
+							InfoObject = nullptr;
 						}
 					}
 #endif
 				} else {
-					InfoObject = NULL;
+					InfoObject = nullptr;
 				}
 			}
 		}

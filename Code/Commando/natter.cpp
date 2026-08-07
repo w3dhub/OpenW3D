@@ -83,8 +83,8 @@ WOLNATInterfaceClass WOLNATInterface;
  *=============================================================================================*/
 WOLNATInterfaceClass::WOLNATInterfaceClass(void)
 {
-	GameOptionsMutex = CreateMutexA(NULL, false, NULL);
-	ServiceSocketHandler = NULL;
+	GameOptionsMutex = CreateMutexA(nullptr, false, nullptr);
+	ServiceSocketHandler = nullptr;
 	IsServer = false;
 	PortBase = 0;
 	ForcePort = 0;
@@ -436,7 +436,7 @@ bool WOLNATInterfaceClass::Get_Mangler_Name_By_Index(int index, char *mangler_na
 	server_list.Delete_All();
 
 	char *cptr = strtok(conn_data, ";");
-	cptr = strtok(NULL, ";");
+	cptr = strtok(nullptr, ";");
 	if (cptr) {
 		/*
 		** Found the name, copy it into the return buffer and we are done.
@@ -495,9 +495,9 @@ unsigned short WOLNATInterfaceClass::Get_Mangler_Port_By_Index(int index)
 	server_list.Delete_All();
 
 	char *cptr = strtok(conn_data, ";");
-	cptr = strtok(NULL, ";");
+	cptr = strtok(nullptr, ";");
 	if (cptr) {
-		cptr = strtok(NULL, ";");
+		cptr = strtok(nullptr, ";");
 		if (cptr) {
 			return((unsigned short)atol(cptr));
 		}
@@ -958,8 +958,8 @@ void WOLNATInterfaceClass::Send_Private_Game_Options(WOL::User *user, char *opti
 	*/
 	ThreadLockClass locker(this);
 
-	fw_assert(user != NULL);
-	fw_assert(options != NULL);
+	fw_assert(user != nullptr);
+	fw_assert(options != nullptr);
 	fw_assert(strlen(options) < OPTIONS_STAGING_BUFFER_SIZE);
 
 	GameOptionsStagingStruct *new_options = new GameOptionsStagingStruct;
@@ -992,8 +992,8 @@ bool WOLNATInterfaceClass::Get_Private_Game_Options(WOL::User *user, char *optio
 {
 	ThreadLockClass locker(this);
 
-	fw_assert(user != NULL);
-	fw_assert(options_buffer != NULL);
+	fw_assert(user != nullptr);
+	fw_assert(options_buffer != nullptr);
 	fw_assert(option_buffer_len >= OPTIONS_STAGING_BUFFER_SIZE);
 
 	if (IncomingOptions.Count()) {
@@ -1130,7 +1130,7 @@ void WOLNATInterfaceClass::Service(void)
 void WOLNATInterfaceClass::Set_Service_Socket_Handler(SocketHandlerClass *socket)
 {
 	ThreadLockClass locker(this);
-	fw_assert((socket == NULL && ServiceSocketHandler != NULL) || (socket != NULL && ServiceSocketHandler == NULL));
+	fw_assert((socket == nullptr && ServiceSocketHandler != nullptr) || (socket != nullptr && ServiceSocketHandler == nullptr));
 	ServiceSocketHandler = socket;
 }
 
@@ -1187,7 +1187,7 @@ void WOLNATInterfaceClass::Get_Current_Server_ConnData(char *buffer, int size)
 	if (server.IsValid()) {
 		WOL::Server& data = server->GetData();
 
-		fw_assert(buffer != NULL);
+		fw_assert(buffer != nullptr);
 		fw_assert(size >= sizeof(data.conndata));
 
 		strncpy(buffer, (char*)data.conndata, size);
@@ -1220,9 +1220,9 @@ bool WOLNATInterfaceClass::Send_Game_Format_Packet_To(IPAddressClass *address, c
 	ThreadLockClass locker(this);
 
 	payload_size = payload_size;
-	fw_assert(address != NULL);
+	fw_assert(address != nullptr);
 	fw_assert(address->Is_Valid());
-	fw_assert(payload != NULL);
+	fw_assert(payload != nullptr);
 
 	/*
 	** Build the packet.
@@ -1247,11 +1247,11 @@ bool WOLNATInterfaceClass::Send_Game_Format_Packet_To(IPAddressClass *address, c
 		/*
 		** On the server, we can use the regular game packet send.
 		*/
-		fw_assert(cNetwork::PServerConnection != NULL);
+		fw_assert(cNetwork::PServerConnection != nullptr);
 		cNetwork::PServerConnection->Send_Packet_To_Address(packet, &sock_address);
 	} else {
 
-		fw_assert(socket != NULL);
+		fw_assert(socket != nullptr);
 
 		/*
 		** If we are the client then the game comms isn't initialised and we need to send directly. Ugh.
@@ -1358,7 +1358,7 @@ void WOLNATInterfaceClass::Intercept_Game_Packet(cPacket &packet)
 void WOLNATInterfaceClass::Service_Receive_Queue(SocketHandlerClass *socket)
 {
 	ThreadLockClass locker(this);
-	fw_assert(socket != NULL);
+	fw_assert(socket != nullptr);
 	fw_assert(socket->Get_Socket() != INVALID_SOCKET);
 
 	/*
@@ -1543,12 +1543,12 @@ unsigned short WOLNATInterfaceClass::Get_Next_Client_Port(void)
  *=============================================================================================*/
 void WOLNATInterfaceClass::Set_Server_Negotiated_Address(IPAddressClass *server_address)
 {
-	fw_assert(server_address != NULL);
+	fw_assert(server_address != nullptr);
 	fw_assert(server_address->Is_Valid());
 
 	if (server_address && server_address->Is_Valid()) {
 		ServerNegotiatedAddress = *server_address;
-		WWASSERT(PTheGameData != NULL);
+		WWASSERT(PTheGameData != nullptr);
 		The_Game()->Set_Ip_Address((unsigned int)server_address->Get_Address());
 		The_Game()->Set_Port(server_address->Get_Port());
 	}

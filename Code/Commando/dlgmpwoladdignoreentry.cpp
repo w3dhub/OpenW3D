@@ -51,7 +51,7 @@ bool MPWolAddIgnoreEntry::DoDialog(const unichar_t* defaultUser)
 		dialog->Release_Ref();
 	}
 
-	return (dialog != NULL);
+	return (dialog != nullptr);
 }
 
 

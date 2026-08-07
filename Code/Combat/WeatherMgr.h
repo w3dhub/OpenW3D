@@ -188,7 +188,7 @@ class WeatherSystemClass : public RenderObjClass
 		float Spawn_Count (float time) {return (ParticleDensity * EmitterSize * EmitterSize * time);}
 		bool	Can_Spawn (const RayStruct *rayptr) {return (rayptr->EndPosition.Z < EmitterPosition.Z);}
 
-		bool Spawn (RayStruct *suppliedrayptr = NULL);
+		bool Spawn (RayStruct *suppliedrayptr = nullptr);
 		void Kill (ParticleStruct *particleptr);
 
 		PhysicsSceneClass						*Scene;						// The scene that contains the weather system.

@@ -78,18 +78,18 @@ const int CHAR_BUFFER_LEN		= 32768;
 //
 ////////////////////////////////////////////////////////////////////////////////////
 Render2DSentenceClass::Render2DSentenceClass (void) :
-	Font (NULL),
+	Font (nullptr),
 	Location (0.0F,0.0F),
 	Cursor (0.0F,0.0F),
 	TextureOffset (0, 0),
 	TextureStartX (0),
-	CurSurface (NULL),
+	CurSurface (nullptr),
 	CurrTextureSize (0),
 	MonoSpaced (false),
 	IsClippedEnabled (false),
 	ClipRect (0, 0, 0, 0),
 	BaseLocation (0, 0),
-	LockedPtr (NULL),
+	LockedPtr (nullptr),
 	LockedStride (0),
 	TextureSizeHint (0),
 	WrapWidth (0),
@@ -156,9 +156,9 @@ Render2DSentenceClass::Reset (void)
 	//
 	//	Make sure we unlock the current surface (if necessary)
 	//
-	if (LockedPtr != NULL) {
+	if (LockedPtr != nullptr) {
 		CurSurface->Unlock ();
-		LockedPtr = NULL;
+		LockedPtr = nullptr;
 	}
 
 	//
@@ -332,7 +332,7 @@ Render2DSentenceClass::Find_Row_Start( const unichar_t * text, int row_index )
 		return text;
 	}
 
-	const unichar_t *retval = NULL;
+	const unichar_t *retval = nullptr;
 
 	float max_x_pos	= 0;
 	float x_pos			= 0;
@@ -471,7 +471,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const unichar_t *text, int *r
 	//
 	//	Return the row count to the caller (if necessary)
 	//
-	if (row_count != NULL) {
+	if (row_count != nullptr) {
 		(*row_count) = row_counter + 1;
 	}
 
@@ -533,9 +533,9 @@ Render2DSentenceClass::Build_Textures (void)
 	//
 	//	Make sure we unlock the current surface
 	//
-	if (LockedPtr != NULL) {
+	if (LockedPtr != nullptr) {
 		CurSurface->Unlock ();
-		LockedPtr = NULL;
+		LockedPtr = nullptr;
 	}
 
 	//
@@ -567,7 +567,7 @@ Render2DSentenceClass::Build_Textures (void)
 		//
 		//	Copy the contents of the texture from the surface
 		//
-		DX8Wrapper::_Copy_DX8_Rects (curr_surface->Peek_D3D_Surface (), NULL, 0, texture_surface->Peek_D3D_Surface (), NULL);
+		DX8Wrapper::_Copy_DX8_Rects (curr_surface->Peek_D3D_Surface (), nullptr, 0, texture_surface->Peek_D3D_Surface (), nullptr);
 		REF_PTR_RELEASE (texture_surface);
 
 		//
@@ -601,8 +601,8 @@ Render2DSentenceClass::Build_Textures (void)
 void
 Render2DSentenceClass::Draw_Sentence (uint32 color)
 {
-	Render2DClass *curr_renderer	= NULL;
-	SurfaceClass *curr_surface		= NULL;
+	Render2DClass *curr_renderer	= nullptr;
+	SurfaceClass *curr_surface		= nullptr;
 
 	DrawExtents.Set (0, 0, 0, 0);
 
@@ -799,9 +799,9 @@ Render2DSentenceClass::Allocate_New_Surface (const unichar_t *text)
 	//
 	//	Unlock the last surface (if necessary)
 	//
-	if (LockedPtr != NULL) {
+	if (LockedPtr != nullptr) {
 		CurSurface->Unlock ();
-		LockedPtr = NULL;
+		LockedPtr = nullptr;
 	}
 
 	//
@@ -862,7 +862,7 @@ Render2DSentenceClass::Allocate_New_Surface (const unichar_t *text)
 	//	Create the new surface
 	//
 	CurSurface = NEW_REF (SurfaceClass, (CurrTextureSize, CurrTextureSize, WW3D_FORMAT_A4R4G4B4, SurfaceClass::POOL_SYSTEMMEM));
-	WWASSERT (CurSurface != NULL);
+	WWASSERT (CurSurface != nullptr);
 	CurSurface->Add_Ref ();
 
 	//
@@ -889,7 +889,7 @@ Render2DSentenceClass::Allocate_New_Surface (const unichar_t *text)
 void
 Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 {
-	if (text == NULL) {
+	if (text == nullptr) {
 		return ;
 	}
 
@@ -906,7 +906,7 @@ Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 	//
 	//	Ensure we have a surface to start with
 	//
-	if (CurSurface == NULL) {
+	if (CurSurface == nullptr) {
 		Allocate_New_Surface (text);
 	}
 
@@ -915,7 +915,7 @@ Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 	//
 	//	Loop over all the characters in the string
 	//
-	while (text != NULL) {
+	while (text != nullptr) {
 		unichar_t ch = *text++;
 
 		//
@@ -1003,9 +1003,9 @@ Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 			//
 			//	Ensure the surface is locked
 			//
-			if (LockedPtr == NULL) {
+			if (LockedPtr == nullptr) {
 				LockedPtr = (uint16 *)CurSurface->Lock (&LockedStride);
-				WWASSERT (LockedPtr != NULL);
+				WWASSERT (LockedPtr != nullptr);
 			}
 
 			//
@@ -1046,20 +1046,20 @@ FontCharsClass::FontCharsClass (void) :
 #ifdef OPENW3D_FREETYPE_BUILD
 	CharAscent(0),
 	PixelOverlap(0),
-	FtLibrary(	NULL ),
-	FtFace(	NULL ),
+	FtLibrary(	nullptr ),
+	FtFace(	nullptr ),
 #elif defined _WIN32
-	OldGDIFont(	NULL ),
-	OldGDIBitmap( NULL ),
-	GDIFont( NULL ),
-	GDIBitmap( NULL ),
-	GDIBitmapBits ( NULL ),
-	MemDC( NULL ),
+	OldGDIFont(	nullptr ),
+	OldGDIBitmap( nullptr ),
+	GDIFont( nullptr ),
+	GDIBitmap( nullptr ),
+	GDIBitmapBits ( nullptr ),
+	MemDC( nullptr ),
 #endif
 	CurrPixelOffset( 0 ),
 	PointSize( 0 ),
 	CharHeight( 0 ),
-	UnicodeCharArray( NULL ),
+	UnicodeCharArray( nullptr ),
 	FirstUnicodeChar( 0xFFFF ),
 	LastUnicodeChar( 0 ),
 	IsBold (false),
@@ -1106,7 +1106,7 @@ FontCharsClass::~FontCharsClass (void)
 const FontCharsClass::CharDataStruct *
 FontCharsClass::Get_Char_Data (unichar_t ch)
 {
-	const CharDataStruct *retval = NULL;
+	const CharDataStruct *retval = nullptr;
 
 	if ( ch < 256 ) {
 		retval = ASCIICharArray[ch];
@@ -1118,7 +1118,7 @@ FontCharsClass::Get_Char_Data (unichar_t ch)
 	//
 	//	If the character wasn't found, then add it to our list
 	//
-	if ( retval == NULL ) {
+	if ( retval == nullptr ) {
 #ifdef OPENW3D_FREETYPE_BUILD
 		retval = Store_Freetype_Char( ch );
 #elif defined _WIN32
@@ -1140,7 +1140,7 @@ int
 FontCharsClass::Get_Char_Width (unichar_t ch)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
-	if ( data != NULL ) {
+	if ( data != nullptr ) {
 		return data->Width;
 	}
 
@@ -1157,7 +1157,7 @@ int
 FontCharsClass::Get_Char_Spacing (unichar_t ch)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
-	if ( data != NULL ) {
+	if ( data != nullptr ) {
 		if ( data->Width != 0 ) {
 			return data->Width + 1;
 		}
@@ -1176,7 +1176,7 @@ void
 FontCharsClass::Blit_Char (unichar_t ch, uint16 *dest_ptr, int dest_stride, int x, int y)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
-	if ( data != NULL && data->Width != 0 ) {
+	if ( data != nullptr && data->Width != 0 ) {
 
 		//
 		//	Setup the src and destination pointers
@@ -1304,7 +1304,7 @@ FontCharsClass::Store_GDI_Char (unichar_t ch)
 	//	Draw the character into the memory DC
 	//
 	RECT rect = { 0, 0, width, height };
-	::ExtTextOutW( MemDC, x_pos, 0, ETO_OPAQUE, &rect, reinterpret_cast<wchar_t *>(&ch), 1, NULL);
+	::ExtTextOutW( MemDC, x_pos, 0, ETO_OPAQUE, &rect, reinterpret_cast<wchar_t *>(&ch), 1, nullptr);
 
 	//
 	//	Get a pointer to the surface that this character should use
@@ -1569,7 +1569,7 @@ void FontCharsClass::Remove_Font(const char *filename)
 void
 FontCharsClass::Create_GDI_Font (const char *font_name)
 {
-	HDC screen_dc = ::GetDC (NULL);
+	HDC screen_dc = ::GetDC (nullptr);
 
 	//
 	//	Calculate the height of the font in logical units
@@ -1637,13 +1637,13 @@ FontCharsClass::Create_GDI_Font (const char *font_name)
 													(const BITMAPINFO *)&bitmap_info,
 													DIB_RGB_COLORS,
 													(void **)&GDIBitmapBits,
-													NULL,
+													nullptr,
 													0L);
 
 	//
 	//	Create a device context we can select the font and bitmap into
 	//
-	MemDC = ::CreateCompatibleDC (NULL);
+	MemDC = ::CreateCompatibleDC (nullptr);
 
 	//
 	//	Now select the BMP and font into the DC
@@ -1663,7 +1663,7 @@ FontCharsClass::Create_GDI_Font (const char *font_name)
 	//
 	// Release our temporary screen DC
 	//
-	::ReleaseDC (NULL, screen_dc);
+	::ReleaseDC (nullptr, screen_dc);
 	return ;
 }
 
@@ -1680,28 +1680,28 @@ FontCharsClass::Free_GDI_Font (void)
 	//	Select the old font back into the DC and delete
 	// our font object
 	//
-	if ( GDIFont != NULL ) {
+	if ( GDIFont != nullptr ) {
 		::SelectObject( MemDC, OldGDIFont );
 		::DeleteObject( GDIFont );
-		GDIFont = NULL;
+		GDIFont = nullptr;
 	}
 
 	//
 	//	Select the old bitmap back into the DC and delete
 	// our bitmap object
 	//
-	if ( GDIBitmap != NULL ) {
+	if ( GDIBitmap != nullptr ) {
 		::SelectObject( MemDC, OldGDIBitmap );
 		::DeleteObject( GDIBitmap );
-		GDIBitmap = NULL;
+		GDIBitmap = nullptr;
 	}
 
 	//
 	//	Delete our memory DC
 	//
-	if ( MemDC != NULL ) {
+	if ( MemDC != nullptr ) {
 		::DeleteDC( MemDC );
-		MemDC = NULL;
+		MemDC = nullptr;
 	}
 
 	return ;
@@ -1799,7 +1799,7 @@ FontCharsClass::Grow_Unicode_Array (unichar_t ch)
 	//
 	//	Copy the contents of the old array into the new array
 	//
-	if ( UnicodeCharArray != NULL ) {
+	if ( UnicodeCharArray != nullptr ) {
 		int start_offset	= (FirstUnicodeChar - first_index);
 		int old_count		= (LastUnicodeChar - FirstUnicodeChar) + 1;
 		::memcpy (&new_array[start_offset], UnicodeCharArray, sizeof (CharDataStruct *) * old_count);
@@ -1808,7 +1808,7 @@ FontCharsClass::Grow_Unicode_Array (unichar_t ch)
 		//	Delete the old array
 		//
 		delete [] UnicodeCharArray;
-		UnicodeCharArray = NULL;
+		UnicodeCharArray = nullptr;
 	}
 
 	FirstUnicodeChar	= first_index;
@@ -1826,7 +1826,7 @@ FontCharsClass::Grow_Unicode_Array (unichar_t ch)
 void
 FontCharsClass::Free_Character_Arrays (void)
 {
-	if ( UnicodeCharArray != NULL ) {
+	if ( UnicodeCharArray != nullptr ) {
 
 		int count = (LastUnicodeChar - FirstUnicodeChar) + 1;
 
@@ -1834,9 +1834,9 @@ FontCharsClass::Free_Character_Arrays (void)
 		//	Delete each member of the unicode array
 		//
 		for (int index = 0; index < count; index ++) {
-			if ( UnicodeCharArray[index] != NULL ) {
+			if ( UnicodeCharArray[index] != nullptr ) {
 				delete UnicodeCharArray[index];
-				UnicodeCharArray[index] = NULL;
+				UnicodeCharArray[index] = nullptr;
 			}
 		}
 
@@ -1844,16 +1844,16 @@ FontCharsClass::Free_Character_Arrays (void)
 		//	Delete the array itself
 		//
 		delete [] UnicodeCharArray;
-		UnicodeCharArray = NULL;
+		UnicodeCharArray = nullptr;
 	}
 
 	//
 	//	Delete each member of the ascii character array
 	//
 	for (int index = 0; index < 256; index ++) {
-		if ( ASCIICharArray[index] != NULL ) {
+		if ( ASCIICharArray[index] != nullptr ) {
 			delete ASCIICharArray[index];
-			ASCIICharArray[index] = NULL;
+			ASCIICharArray[index] = nullptr;
 		}
 	}
 

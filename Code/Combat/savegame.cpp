@@ -132,7 +132,7 @@ void SaveGameManager::Save_Game( const char * filename, ... )
 		bool done = false;
 		while ( !done ) {
 			SaveLoadSubSystemClass * sub_system = va_arg( arg_list, SaveLoadSubSystemClass * );
-			if ( sub_system != NULL ) {
+			if ( sub_system != nullptr ) {
 				SaveLoadSystemClass::Save( csave, *sub_system );
 			} else {
 				done = true;
@@ -161,7 +161,7 @@ void	SaveGameManager::Pre_Load_Game
 	//
 	char root_name[_MAX_FNAME] = { 0 };
 	char extension[_MAX_EXT] = { 0 };
-	::_splitpath (filename, NULL, NULL, root_name, extension);
+	::_splitpath (filename, nullptr, nullptr, root_name, extension);
 
 	SystemInfoLog::Set_Current_Level(root_name);
 	filename_to_load = filename;
@@ -169,7 +169,7 @@ void	SaveGameManager::Pre_Load_Game
 	//
 	//	Reset the search order
 	//
-	if (FileFactoryListClass::Get_Instance () != NULL)
+	if (FileFactoryListClass::Get_Instance () != nullptr)
 	{
 		FileFactoryListClass::Get_Instance ()->Reset_Search_Start();
 	}
@@ -193,7 +193,7 @@ void	SaveGameManager::Pre_Load_Game
 		//	HACK HACK - Put the level 9 mix file first...
 		//
 		if (	::stricmp (filename, "M09.mix") == 0 &&
-				FileFactoryListClass::Get_Instance () != NULL)
+				FileFactoryListClass::Get_Instance () != nullptr)
 		{
 			FileFactoryListClass::Get_Instance ()->Set_Search_Start(filename);
 		}
@@ -210,7 +210,7 @@ void	SaveGameManager::Pre_Load_Game
 		if (Peek_Map_Name (filename, map_name)) {
 
 			char mix_root_name[_MAX_FNAME] = { 0 };
-			::_splitpath ((const char *)map_name, NULL, NULL, mix_root_name, NULL);
+			::_splitpath ((const char *)map_name, nullptr, nullptr, mix_root_name, nullptr);
 
 			//
 			//	Build the mix filename from the map name...
@@ -223,7 +223,7 @@ void	SaveGameManager::Pre_Load_Game
 			//	HACK HACK - Put the level 9 mix file first...
 			//
 			if (	::stricmp (mix_filename, "M09.mix") == 0 &&
-					FileFactoryListClass::Get_Instance () != NULL)
+					FileFactoryListClass::Get_Instance () != nullptr)
 			{
 				FileFactoryListClass::Get_Instance ()->Set_Search_Start(mix_filename);
 			}
@@ -319,21 +319,21 @@ bool	SaveGameManager::Smart_Peek_Description
 	//
 	char root_name[_MAX_FNAME] = { 0 };
 	char extension[_MAX_EXT] = { 0 };
-	::_splitpath (filename, NULL, NULL, root_name, extension);
+	::_splitpath (filename, nullptr, nullptr, root_name, extension);
 
 	StringClass filename_to_load(filename,true);
 
 	//
 	//	Is this a mix file?
 	//
-	FileFactoryClass * mix_factory = NULL;
+	FileFactoryClass * mix_factory = nullptr;
 	if (::strcmpi (extension, ".mix") == 0) {
 
 		//
 		// Configure a mix file factory for this mix file
 		//
 		Debug_Say(( "Adding Temp MIX file factory %s\n", filename ));
-		if ( FileFactoryListClass::Get_Instance() != NULL ) {
+		if ( FileFactoryListClass::Get_Instance() != nullptr ) {
 			mix_factory = new MixFileFactoryClass( filename, _TheFileFactory );
 			FileFactoryListClass::Get_Instance()->Add_FileFactory( mix_factory, filename );
 		}
@@ -352,10 +352,10 @@ bool	SaveGameManager::Smart_Peek_Description
 	//
 	//	Remove the temporary mix file factory we added
 	//
-	if (mix_factory != NULL) {
+	if (mix_factory != nullptr) {
 		FileFactoryListClass::Get_Instance()->Remove_FileFactory(mix_factory);
 		delete mix_factory;
-		mix_factory = NULL;
+		mix_factory = nullptr;
 	}
 
 	return retval;
@@ -373,7 +373,7 @@ bool SaveGameManager::Peek_Description
 	//	Open the file as a chunk
 	//
 	FileClass * file = _TheFileFactory->Get_File(filename);
-	WWASSERT(file != NULL);
+	WWASSERT(file != nullptr);
 	file->Open(FileClass::READ);
 	ChunkLoadClass cload(file);
 
@@ -414,7 +414,7 @@ bool SaveGameManager::Peek_Description
 	if (mission_name_id == 0) {
 		mission_name.Convert_From ( map_filename );
 		unichar_t *extension = (unichar_t *)::u_strrchr (mission_name, U_CHAR('.'));
-		if (extension != NULL) {
+		if (extension != nullptr) {
 			extension[0] = 0;
 		}
 	} else {
@@ -436,7 +436,7 @@ bool SaveGameManager::Peek_Map_Name( const char * filename, StringClass &map_nam
 	//	Open the file as a chunk
 	//
 	FileClass * file = _TheFileFactory->Get_File(filename);
-	WWASSERT(file != NULL);
+	WWASSERT(file != nullptr);
 	file->Open(FileClass::READ);
 	ChunkLoadClass cload(file);
 
@@ -489,7 +489,7 @@ void	SaveGameManager::Save_Level( void )
 									&_TheBackgroundMgr,
 									&_TheWeatherMgr,
 									&_TheMapMgrSaveLoadSubsystem,
-									NULL );
+									nullptr );
 }
 
 void	SaveGameManager::Load_Level( void )
@@ -504,7 +504,7 @@ void	SaveGameManager::Load_Level( void )
 void	SaveGameManager::Save_Definitions( const char * filename )
 {
 	Debug_Say(( "Save Definitions %s\n", filename ));
-	Save_Save_Load_System( filename, &_TheDefinitionMgr, NULL );
+	Save_Save_Load_System( filename, &_TheDefinitionMgr, nullptr );
 }
 
 void	SaveGameManager::Load_Definitions( const char * filename )
@@ -529,7 +529,7 @@ void SaveGameManager::Save_Save_Load_System( const char * filename, ... )
 	bool done = false;
 	while ( !done ) {
 		SaveLoadSubSystemClass * sub_system = va_arg( arg_list, SaveLoadSubSystemClass * );
-		if ( sub_system != NULL ) {
+		if ( sub_system != nullptr ) {
 			SaveLoadSystemClass::Save( csave, *sub_system );
 		} else {
 			done = true;
@@ -544,7 +544,7 @@ void SaveGameManager::Save_Save_Load_System( const char * filename, ... )
 void	SaveGameManager::Load_Save_Load_System( const char * filename, bool auto_post_load )
 {
 	FileClass * file = _TheFileFactory->Get_File( filename );
-	if ( file != NULL ) {
+	if ( file != nullptr ) {
 		file->Open( FileClass::READ );
 		ChunkLoadClass cload(file);
 		SaveLoadSystemClass::Load( cload, auto_post_load );

@@ -46,7 +46,7 @@ void main(int, void**)
 {
 	void* buffer = new unsigned char[BUFFER_SIZE];
 
-	if (buffer == NULL) {
+	if (buffer == nullptr) {
 		printf("Failed to allocate buffer\n");
 	}
 

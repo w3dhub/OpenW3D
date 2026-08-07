@@ -36,7 +36,7 @@ class OptimizingVisDialogClass : public CDialog
 {
 // Construction
 public:
-	OptimizingVisDialogClass(CWnd* pParent = NULL);   // standard constructor
+	OptimizingVisDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(OptimizingVisDialogClass)

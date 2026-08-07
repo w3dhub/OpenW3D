@@ -57,7 +57,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	AnimationCompressionSettingsDialogClass (Interface *maxinterface, HWND parent_wnd = NULL);
+	AnimationCompressionSettingsDialogClass (Interface *maxinterface, HWND parent_wnd = nullptr);
 	~AnimationCompressionSettingsDialogClass (void);
 
 

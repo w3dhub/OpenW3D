@@ -38,7 +38,7 @@ class GotoObjectDialogClass : public CDialog
 {
 // Construction
 public:
-	GotoObjectDialogClass (NodeClass *sel_node, CWnd *parent = NULL);
+	GotoObjectDialogClass (NodeClass *sel_node, CWnd *parent = nullptr);
 
 // Dialog Data
 	//{{AFX_DATA(GotoObjectDialogClass)

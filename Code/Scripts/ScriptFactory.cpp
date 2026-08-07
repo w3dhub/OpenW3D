@@ -57,14 +57,14 @@
 ******************************************************************************/
 
 ScriptFactory::ScriptFactory(const char* name, const char* param)
-	: mNext(NULL)
+	: mNext(nullptr)
 {
 	// Save script name
-	assert(name != NULL);
+	assert(name != nullptr);
 	ScriptName = name;
 
 	// Save parameter description
-	assert(param != NULL);
+	assert(param != nullptr);
 	ParamDescription = param;
 
 	// Register this factory with the registrar
@@ -93,8 +93,8 @@ ScriptFactory::~ScriptFactory()
 	// Remove this factory from the registrar
 	ScriptRegistrar::UnregisterScript(this);
 
-	ScriptName = NULL;
-	ParamDescription = NULL;
+	ScriptName = nullptr;
+	ParamDescription = nullptr;
 }
 
 
@@ -138,8 +138,8 @@ ScriptFactory* ScriptFactory::GetNext(void) const
 
 void ScriptFactory::SetNext(ScriptFactory* link)
 {
-	if (mNext != NULL) {
-		assert(link != NULL);
+	if (mNext != nullptr) {
+		assert(link != nullptr);
 		link->SetNext(mNext);
 	}
 

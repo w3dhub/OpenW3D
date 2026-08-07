@@ -102,7 +102,7 @@ void GameMajorModeClass::Deactivate()
 */
 void	GameModeManager::Destroy( GameModeClass *mode )
 {
-	assert( mode != NULL );
+	assert( mode != nullptr );
 
 	mode->Deactivate();
 	mode->Safely_Deactivate();
@@ -145,14 +145,14 @@ void GameModeManager::List_Active_Game_Modes(void)
 	if (!Get_Text_Display()) {
 		return;
 	}
-	WWASSERT(Get_Text_Display() != NULL);
+	WWASSERT(Get_Text_Display() != nullptr);
 
 	Get_Text_Display()->Print_System("Active game modes:");
 
 	for (SLNode<GameModeClass> * game_mode_node = GameModeList.Head();
-		game_mode_node != NULL; game_mode_node = game_mode_node->Next()) {
+		game_mode_node != nullptr; game_mode_node = game_mode_node->Next()) {
 		GameModeClass * p_mode = game_mode_node->Data();
-		WWASSERT(p_mode != NULL);
+		WWASSERT(p_mode != nullptr);
 
 		if (p_mode->Is_Active()) {
 			Get_Text_Display()->Print_System( "  %s", p_mode->Name() );
@@ -169,7 +169,7 @@ void GameModeManager::List_Active_Game_Modes(void)
 void	GameModeManager::Think( void )
 {
 	for (	SLNode<GameModeClass> *game_mode_node = GameModeList.Head();
-			game_mode_node != NULL;
+			game_mode_node != nullptr;
 			game_mode_node = game_mode_node->Next()) {
 		GameModeClass *mode = game_mode_node->Data();
 
@@ -197,10 +197,10 @@ void GameModeManager::Safely_Deactivate(void)
 	//
 
 	for (SLNode<GameModeClass> *game_mode_node = GameModeList.Head();
-		game_mode_node != NULL; game_mode_node = game_mode_node->Next()) {
+		game_mode_node != nullptr; game_mode_node = game_mode_node->Next()) {
 
 		GameModeClass * p_mode = game_mode_node->Data();
-		WWASSERT(p_mode != NULL);
+		WWASSERT(p_mode != nullptr);
 		p_mode->Safely_Deactivate(); // if required
 	}
 }
@@ -227,7 +227,7 @@ void	GameModeManager::Render( void )
 		// enabled, so it is safe to always call it
 		DX8RendererDebugger::Update();
 
-		bool do_pscene = (COMBAT_SCENE != NULL) && !cNetwork::I_Am_Only_Server();
+		bool do_pscene = (COMBAT_SCENE != nullptr) && !cNetwork::I_Am_Only_Server();
 		if (!GameInFocus) do_pscene=false;	// Don't render the game scene if the applicationisn't active
 		if (do_pscene) {
 
@@ -249,7 +249,7 @@ void	GameModeManager::Render( void )
 		if (GameInFocus) {
 			WWPROFILE( "Render Game Modes" );
 			for (	SLNode<GameModeClass> *game_mode_node = GameModeList.Head();
-					game_mode_node != NULL;
+					game_mode_node != nullptr;
 					game_mode_node = game_mode_node->Next()) {
 				GameModeClass *mode = game_mode_node->Data();
 
@@ -261,7 +261,7 @@ void	GameModeManager::Render( void )
 
 		{
 			WWPROFILE( "Message Window" );
-			if (CombatManager::Get_Message_Window () != NULL) {
+			if (CombatManager::Get_Message_Window () != nullptr) {
 				CombatManager::Get_Message_Window ()->Render();
 			}
 		}
@@ -329,7 +329,7 @@ void GameModeManager::Hide_Render_Frames(unsigned frame_count)
 GameModeClass	*GameModeManager::Find( const char * name )
 {
 	for (	SLNode<GameModeClass> *game_mode_node = GameModeList.Head();
-			game_mode_node != NULL;
+			game_mode_node != nullptr;
 			game_mode_node = game_mode_node->Next()) {
 		GameModeClass *mode = game_mode_node->Data();
 
@@ -337,7 +337,7 @@ GameModeClass	*GameModeManager::Find( const char * name )
 			return mode;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------

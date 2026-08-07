@@ -89,7 +89,7 @@ EvaDataTabClass::Fill_Statistics_List (void)
 	//	Get a pointer to the list control
 	//
 	//ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LISTCTRL);
-	//if (list_ctrl == NULL) {
+	//if (list_ctrl == nullptr) {
 		//return ;
 	//}
 
@@ -108,7 +108,7 @@ EvaDataTabClass::Fill_Statistics_List (void)
 	((ImageCtrlClass *)Get_Dlg_Item (IDC_HIT_MAP_IMAGE))->Set_Texture ("if_NodHits128.tga");
 
 	cPlayer *player = cNetwork::Get_My_Player_Object ();
-	if (player != NULL) {
+	if (player != nullptr) {
 
 		Set_Dlg_Item_Int (IDC_WEAPONS_TEXT,				player->Get_Weapon_Fired_Count ());
 		Set_Dlg_Item_Int (IDC_POWERUPS_TEXT,			player->Get_Powerups_Collected ());

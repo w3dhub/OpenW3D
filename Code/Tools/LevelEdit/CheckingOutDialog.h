@@ -32,7 +32,7 @@ class CheckingOutDialogClass : public CDialog
 {
 // Construction
 public:
-	CheckingOutDialogClass(CWnd* pParent = NULL);   // standard constructor
+	CheckingOutDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CheckingOutDialogClass)

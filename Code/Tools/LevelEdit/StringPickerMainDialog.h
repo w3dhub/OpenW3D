@@ -37,7 +37,7 @@ class StringPickerMainDialogClass : public CDialog
 {
 // Construction
 public:
-	StringPickerMainDialogClass(CWnd* pParent = NULL);   // standard constructor
+	StringPickerMainDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(StringPickerMainDialogClass)

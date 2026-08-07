@@ -80,7 +80,7 @@
 ////////////////////////////////////////////////////////////////
 //	Globals
 ////////////////////////////////////////////////////////////////
-WWUIInputClass *	_TheWWUIInput = NULL;
+WWUIInputClass *	_TheWWUIInput = nullptr;
 
 
 ////////////////////////////////////////////////////////////////
@@ -89,16 +89,16 @@ WWUIInputClass *	_TheWWUIInput = NULL;
 DialogFactoryBaseClass *FactoryArray[FACTORY_COUNT] =
 {
 	new DialogFactoryClass<StartSPGameDialogClass>,
-	NULL,
-	NULL,
+	nullptr,
+	nullptr,
 	new DialogFactoryClass<OptionsMenuClass>,
 	new DialogFactoryClass<DifficultyMenuClass>,
-	NULL,	//IDC_MENU_START_TUTORIAL_BUTTON
+	nullptr,	//IDC_MENU_START_TUTORIAL_BUTTON
 	new DialogFactoryClass<LoadSPGameMenuClass>,
-	NULL,	//IDC_MENU_DIFFCULTY01_BUTTON
-	NULL,	//IDC_MENU_DIFFCULTY02_BUTTON
-	NULL,	//IDC_MENU_DIFFCULTY04_BUTTON
-	NULL,	//IDC_MENU_DIFFCULTY04_BUTTON
+	nullptr,	//IDC_MENU_DIFFCULTY01_BUTTON
+	nullptr,	//IDC_MENU_DIFFCULTY02_BUTTON
+	nullptr,	//IDC_MENU_DIFFCULTY04_BUTTON
+	nullptr,	//IDC_MENU_DIFFCULTY04_BUTTON
 	new DialogFactoryClass<ControlsMenuClass>,
 	new DialogFactoryClass<CharacterOptionsMenuClass>,
 	new DialogFactoryClass<CheatOptionsMenuClass>,
@@ -112,16 +112,16 @@ DialogFactoryBaseClass *FactoryArray[FACTORY_COUNT] =
 	new DialogFactoryClass<SaveGameMenuClass>,
 	new DialogFactoryClass<MPLanMenuClass>,
 	//new DialogFactoryClass<MPInternetMenuClass>,
-	NULL,
-	NULL,//new DialogFactoryClass<MPGameMenuClass>,
+	nullptr,
+	nullptr,//new DialogFactoryClass<MPGameMenuClass>,
 	new DialogFactoryClass<MPJoinMenuClass>,
-	NULL,//new DialogFactoryClass<MPServerStartMenuClass>,
+	nullptr,//new DialogFactoryClass<MPServerStartMenuClass>,
 	new DialogFactoryClass<MultiplayOptionsMenuClass>,
-	NULL,
+	nullptr,
 	new DialogFactoryClass<MPWolMainMenuClass>,
 	new DialogFactoryClass<MPLanGameListMenuClass>,
-	NULL,	//IDC_MENU_MP_LAN_JOIN_BUTTON
-	NULL,	//IDC_MENU_MP_LAN_START_BUTTON
+	nullptr,	//IDC_MENU_MP_LAN_JOIN_BUTTON
+	nullptr,	//IDC_MENU_MP_LAN_START_BUTTON
 };
 
 
@@ -307,7 +307,7 @@ RenegadeDialogMgrClass::Goto_Location (LOCATION location)
 	//	Activate the menu game mode (if necessary)
 	//
 	GameModeClass *menu_game_mode = GameModeManager::Find ("Menu");
-	if (menu_game_mode != NULL && menu_game_mode->Is_Active () == false) {
+	if (menu_game_mode != nullptr && menu_game_mode->Is_Active () == false) {
 		menu_game_mode->Activate ();
 	}
 
@@ -339,7 +339,7 @@ RenegadeDialogMgrClass::Shutdown (void)
 	for (int i=0 ; i<FACTORY_COUNT ; i++) {
 		if (FactoryArray[i]) {
 			delete FactoryArray[i];
-			FactoryArray[i] = NULL;
+			FactoryArray[i] = nullptr;
 		}
 	}
 
@@ -361,7 +361,7 @@ Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int /* mesage_id */, u
 	//	Is this one of our "auto-link" buttons?
 	//
 	if (ctrl_id >= DIALOG_LINK_FIRST && ctrl_id < DIALOG_LINK_LAST) {
-		if (FactoryArray[ctrl_id - DIALOG_LINK_FIRST] != NULL) {
+		if (FactoryArray[ctrl_id - DIALOG_LINK_FIRST] != nullptr) {
 
 			//
 			//	Do the dialog associated with this command
@@ -434,7 +434,7 @@ Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int /* mesage_id */, u
 				/*dialog->End_Dialog ();
 				{
 					MainMenuDialogClass *main_menu = MainMenuDialogClass::Get_Instance ();
-					if (main_menu != NULL) {
+					if (main_menu != nullptr) {
 						main_menu->End_Dialog ();
 					}
 				}*/
@@ -457,7 +457,7 @@ Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int /* mesage_id */, u
 // unichar_t Buffer[128] is your buffer, the call would be
 // MyLoadStringW(IDS_TEST,Buffer,128);
 // If it succeeds, the function returns the number of characters copied
-// into the buffer, not including the NULL terminating character, or
+// into the buffer, not including the nullptr terminating character, or
 // zero if the string resource does not exist.
 //
 int MyLoadStringW (unsigned str_id, unichar_t *buffer, int buffer_len)
@@ -471,17 +471,17 @@ int MyLoadStringW (unsigned str_id, unichar_t *buffer, int buffer_len)
 	//
 	//	Find the resource
 	//
-	HRSRC resource = ::FindResourceEx (NULL, RT_STRING, MAKEINTRESOURCE (block),
+	HRSRC resource = ::FindResourceEx (nullptr, RT_STRING, MAKEINTRESOURCE (block),
 								MAKELANGID (LANG_NEUTRAL, SUBLANG_NEUTRAL));
 
 	//
 	//	Load the resource into memory
 	//
-	HGLOBAL hglobal	= ::LoadResource (NULL, resource);
+	HGLOBAL hglobal	= ::LoadResource (nullptr, resource);
 	const unichar_t *res_string	= (const unichar_t *)::LockResource (hglobal);
 
 	int length = 0;
-	if (res_string != NULL) {
+	if (res_string != nullptr) {
 
 		for (int index = 0; index < num; index ++) {
 			res_string += *res_string + 1;

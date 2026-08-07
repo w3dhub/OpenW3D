@@ -37,12 +37,12 @@ SList<cGameChannel> cGameChannelList::ChanList;
 //-----------------------------------------------------------------------------
 void cGameChannelList::Add_Channel(cGameData * p_game_data, const RefPtr<WWOnline::ChannelData>& p_channel)
 {
-	WWASSERT(p_game_data != NULL);
+	WWASSERT(p_game_data != nullptr);
 
    cGameChannel * p_game_channel = Find_Channel(p_game_data->Get_Owner());
-	if (p_game_channel == NULL) {
+	if (p_game_channel == nullptr) {
 		p_game_channel = new cGameChannel(p_game_data, p_channel);
-		WWASSERT(p_game_channel != NULL);
+		WWASSERT(p_game_channel != nullptr);
 		ChanList.Add_Tail(p_game_channel);
    } else {
 		//
@@ -69,20 +69,20 @@ cGameChannel * cGameChannelList::Find_Channel(const WideStringClass & owner)
 		objnode = objnode->Next()) {
 
 		cGameChannel * p_channel = objnode->Data();
-		WWASSERT(p_channel != NULL);
+		WWASSERT(p_channel != nullptr);
 		if (p_channel->Get_Game_Data()->Get_Owner() == owner) {
 			return p_channel;
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
 void cGameChannelList::Remove_Channel(const WideStringClass & owner)
 {
 	cGameChannel * p_channel = Find_Channel(owner);
-	if (p_channel != NULL) {
+	if (p_channel != nullptr) {
 		ChanList.Remove(p_channel);
 		p_channel->Release_Ref ();
 		//delete p_channel;
@@ -100,7 +100,7 @@ void cGameChannelList::Remove_All(void)
 		objnode = objnode->Next()) {
 
 		cGameChannel * p_channel = objnode->Data();
-		WWASSERT(p_channel != NULL);
+		WWASSERT(p_channel != nullptr);
 		p_channel->Release_Ref ();
 	}
 

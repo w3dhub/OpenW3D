@@ -40,7 +40,7 @@ static char THIS_FILE[] = __FILE__;
 //
 /////////////////////////////////////////////////////////////////////////////
 NodeInfoPageClass::NodeInfoPageClass (void)
-	:	m_pNode (NULL),
+	:	m_pNode (nullptr),
 		DockableFormClass(NodeInfoPageClass::IDD)
 {
 	//{{AFX_DATA_INIT(NodeInfoPageClass)
@@ -118,11 +118,11 @@ void NodeInfoPageClass::Dump(CDumpContext& dc) const
 void
 NodeInfoPageClass::HandleInitDialog (void)
 {
-	ASSERT (m_pNode != NULL);
+	ASSERT (m_pNode != nullptr);
 
 	CString model_name;
 	RenderObjClass *render_obj = m_pNode->Peek_Render_Obj ();
-	if (render_obj != NULL) {
+	if (render_obj != nullptr) {
 		model_name = render_obj->Get_Name ();
 	}
 
@@ -157,7 +157,7 @@ NodeInfoPageClass::Apply_Changes (void)
 
 	// If the ID was changed then verify that it is unique before actually
 	// changing it for the object.
-	uint32 id = GetDlgItemInt(IDC_ID_EDIT, NULL, false);
+	uint32 id = GetDlgItemInt(IDC_ID_EDIT, nullptr, false);
 	if (m_pNode->Get_ID() != id) {
 
 		//

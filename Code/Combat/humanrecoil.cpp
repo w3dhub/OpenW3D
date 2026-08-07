@@ -93,7 +93,7 @@ HumanRecoilClass::HumanRecoilClass(void)
 
 void HumanRecoilClass::Capture_Bones(RenderObjClass * model)
 {
-	WWASSERT(model != NULL);
+	WWASSERT(model != nullptr);
 	if (IsInitted == false) {
 		Initialize(model);
 	}
@@ -104,7 +104,7 @@ void HumanRecoilClass::Capture_Bones(RenderObjClass * model)
 
 void HumanRecoilClass::Apply_Recoil(const Matrix3D & recoil_tm,RenderObjClass * model,float scale)
 {
-	WWASSERT(model != NULL);
+	WWASSERT(model != nullptr);
 	if (IsInitted == false) {
 		Initialize(model);
 	}
@@ -121,7 +121,7 @@ void HumanRecoilClass::Apply_Recoil(const Matrix3D & recoil_tm,RenderObjClass * 
 
 void HumanRecoilClass::Release_Bones(RenderObjClass * model)
 {
-	WWASSERT(model != NULL);
+	WWASSERT(model != nullptr);
 	if (IsInitted == false) {
 		Initialize(model);
 	}

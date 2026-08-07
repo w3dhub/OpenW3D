@@ -88,7 +88,7 @@ VisRenderContextClass::VisRenderContextClass
 
 VisRenderContextClass::~VisRenderContextClass(void)
 {
-	VisRasterizer->Set_Camera(NULL);
+	VisRasterizer->Set_Camera(nullptr);
 }
 
 
@@ -219,7 +219,7 @@ void VisRenderContextClass::Scan_Frame_Buffer
 	int maxy = std::min(int(max.Y * height) , height-1);
 	int backface_count = 0;
 
-	const uint32 * pixel_row = NULL;
+	const uint32 * pixel_row = nullptr;
 
 	/*
 	** Loop over the pixels, counting backfaces and enabling the visibility of
@@ -241,7 +241,7 @@ void VisRenderContextClass::Scan_Frame_Buffer
 		}
 	}
 
-	if (sample != NULL) {
+	if (sample != nullptr) {
 		int total_pixels = (maxx-minx)*(maxy-miny);
 		float backface_fraction = (float)backface_count / (float)total_pixels;
 

@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 // ChooseModPackageDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-ChooseModPackageDialogClass::ChooseModPackageDialogClass(CWnd* pParent /*=NULL*/)
+ChooseModPackageDialogClass::ChooseModPackageDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(ChooseModPackageDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(ChooseModPackageDialogClass)

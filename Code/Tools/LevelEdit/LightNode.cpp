@@ -83,10 +83,10 @@ enum
 //
 //////////////////////////////////////////////////////////////////////////////
 LightNodeClass::LightNodeClass (PresetClass *preset)
-	:	m_LightPhysObj (NULL),
-		m_DisplayObj (NULL),
+	:	m_LightPhysObj (nullptr),
+		m_DisplayObj (nullptr),
 		m_UsePreset (true),
-		m_Sphere (NULL),
+		m_Sphere (nullptr),
 		m_VisSectorID (0xFFFFFFFF),
 		NodeClass (preset)
 {
@@ -100,12 +100,12 @@ LightNodeClass::LightNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 LightNodeClass::LightNodeClass (const LightNodeClass &src)
-	:	m_LightPhysObj (NULL),
-		m_DisplayObj (NULL),
+	:	m_LightPhysObj (nullptr),
+		m_DisplayObj (nullptr),
 		m_UsePreset (true),
-		m_Sphere (NULL),
+		m_Sphere (nullptr),
 		m_VisSectorID (0xFFFFFFFF),
-		NodeClass (NULL)
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -144,9 +144,9 @@ LightNodeClass::Initialize (void)
 	//
 	//	Use the preset's settings (if desired)
 	//
-	if (m_UsePreset == true && m_Preset != NULL) {
+	if (m_UsePreset == true && m_Preset != nullptr) {
 		LightDefinitionClass *definition = static_cast<LightDefinitionClass *> (m_Preset->Get_Definition ());
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			m_InstanceSettings = *definition;
 		}
 	}
@@ -258,7 +258,7 @@ LightNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (m_DisplayObj != NULL && m_IsInScene) {
+	if (m_DisplayObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (m_DisplayObj);
 	}
 	return ;
@@ -276,7 +276,7 @@ LightNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (m_DisplayObj != NULL && m_IsInScene) {
+	if (m_DisplayObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (m_DisplayObj);
 	}
 	Release_Ref ();
@@ -294,7 +294,7 @@ LightNodeClass::Add_To_Scene (void)
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
 
-	if (	m_LightPhysObj != NULL &&
+	if (	m_LightPhysObj != nullptr &&
 			scene->Contains (m_LightPhysObj) == false) {
 
 		//
@@ -303,7 +303,7 @@ LightNodeClass::Add_To_Scene (void)
 		//
 		scene->Add_Static_Light (m_LightPhysObj);
 		scene->Add_Dynamic_Object (m_DisplayObj);
-		if (m_Sphere != NULL) {
+		if (m_Sphere != nullptr) {
 			m_Sphere->Display_Around_Node (*this);
 		}
 	}
@@ -323,7 +323,7 @@ LightNodeClass::Remove_From_Scene (void)
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
 
-	if (	m_LightPhysObj != NULL &&
+	if (	m_LightPhysObj != nullptr &&
 			scene->Contains (m_LightPhysObj)) {
 
 		//
@@ -332,7 +332,7 @@ LightNodeClass::Remove_From_Scene (void)
 		//
 		scene->Remove_Object (m_LightPhysObj);
 		scene->Remove_Object (m_DisplayObj);
-		if (m_Sphere != NULL) {
+		if (m_Sphere != nullptr) {
 			m_Sphere->Remove_From_Scene ();
 		}
 	}
@@ -450,8 +450,8 @@ LightNodeClass::Update_Light (void)
 	//
 	//	Do we have a light to setup?
 	//
-	if (	m_LightPhysObj != NULL &&
-			m_LightPhysObj->Peek_Model () != NULL )
+	if (	m_LightPhysObj != nullptr &&
+			m_LightPhysObj->Peek_Model () != nullptr )
 	{
 		LightClass *light_obj = new LightClass (m_InstanceSettings.Get_Light_Type ());
 
@@ -493,12 +493,12 @@ LightNodeClass::Update_Light (void)
 		//	and make them match the light...
 		//
 		MaterialInfoClass *material_info = light_obj->Get_Material_Info ();
-		if (material_info != NULL) {
+		if (material_info != nullptr) {
 
 			int counter = material_info->Vertex_Material_Count ();
 			while (counter --) {
 				VertexMaterialClass *vertex_mat = material_info->Peek_Vertex_Material (counter);
-				if (vertex_mat != NULL) {
+				if (vertex_mat != nullptr) {
 					vertex_mat->Set_Ambient (ambient);
 					vertex_mat->Set_Emissive (ambient);
 					vertex_mat->Set_Diffuse (diffuse);
@@ -512,7 +512,7 @@ LightNodeClass::Update_Light (void)
 		//
 		//	Update the sphere's settings
 		//
-		if (m_Sphere != NULL) {
+		if (m_Sphere != nullptr) {
 			m_Sphere->Set_Radius (outer_radius);
 			m_Sphere->Set_Color (ambient);
 		}
@@ -597,13 +597,13 @@ LightNodeClass::Initialize_From_Light (LightClass *light)
 void
 LightNodeClass::Show_Attenuation_Spheres (bool onoff)
 {
-	if (onoff && m_Sphere == NULL) {
+	if (onoff && m_Sphere == nullptr) {
 		m_Sphere = new AttenuationSphereClass;
 		m_Sphere->Display_Around_Node (*this);
 		m_Sphere->Set_Color (m_InstanceSettings.Get_Ambient_Color ());
 		m_Sphere->Set_Radius (Get_Attenuation_Radius ());
 		m_Sphere->Set_Opacity (0.25F);
-	} else if (onoff == false && m_Sphere != NULL) {
+	} else if (onoff == false && m_Sphere != nullptr) {
 		m_Sphere->Remove_From_Scene ();
 		MEMBER_RELEASE (m_Sphere);
 	}
@@ -620,19 +620,19 @@ LightNodeClass::Show_Attenuation_Spheres (bool onoff)
 LightClass *
 LightNodeClass::Peek_Light (void)
 {
-	LightClass *light = NULL;
+	LightClass *light = nullptr;
 
 	//
 	//	Check to make sure we have a light objects
 	//
-	if (	m_LightPhysObj != NULL &&
-			m_LightPhysObj->Peek_Model () != NULL )
+	if (	m_LightPhysObj != nullptr &&
+			m_LightPhysObj->Peek_Model () != nullptr )
 	{
 		//
 		//	Can we get at the light from its phys-wrapper?
 		//
 		RenderObjClass *model = m_LightPhysObj->Peek_Model ();
-		if (model != NULL && model->Class_ID () == RenderObjClass::CLASSID_LIGHT) {
+		if (model != nullptr && model->Class_ID () == RenderObjClass::CLASSID_LIGHT) {
 			light = (LightClass *)model;
 		}
 	}
@@ -654,7 +654,7 @@ LightNodeClass::Set_Vis_Sector_ID (uint32 vis_id)
 	//
 	//	Update the physics object as well
 	//
-	if (m_LightPhysObj != NULL) {
+	if (m_LightPhysObj != nullptr) {
 		m_LightPhysObj->Set_Vis_Sector_ID (m_VisSectorID);
 	}
 
@@ -670,7 +670,7 @@ LightNodeClass::Set_Vis_Sector_ID (uint32 vis_id)
 void
 LightNodeClass::Update_Cached_Vis_IDs (void)
 {
-	if (m_LightPhysObj != NULL) {
+	if (m_LightPhysObj != nullptr) {
 		m_VisSectorID = m_LightPhysObj->Get_Vis_Sector_ID ();
 	}
 

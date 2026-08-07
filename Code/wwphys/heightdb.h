@@ -127,7 +127,7 @@ protected:
 inline float *
 HeightDBClass::Get_Height_Entry (int row, int col)
 {
-	float *retval = NULL;
+	float *retval = nullptr;
 
 	//
 	//	If the row and column are valid, then return the address of the

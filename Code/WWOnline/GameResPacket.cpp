@@ -106,7 +106,7 @@ GameResPacket::GameResPacket(unsigned char* curbuf)
 	mReserved = ntohs(*(unsigned short*)curbuf);
 	curbuf += sizeof(mReserved);
 
-	mHead = NULL;
+	mHead = nullptr;
 
 	// Calculate the remaining size so that we can loop through the
 	// packets and extract them.
@@ -259,7 +259,7 @@ GameResField *GameResPacket::Find_Field(char *id)
 			return current;
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 

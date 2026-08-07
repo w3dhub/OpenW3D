@@ -67,7 +67,7 @@ const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Software\\Westwood\\Renegade\\Sound";
 // AudioConfigDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-AudioConfigDialogClass::AudioConfigDialogClass(CWnd* pParent /*=NULL*/)
+AudioConfigDialogClass::AudioConfigDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(AudioConfigDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(AudioConfigDialogClass)
@@ -304,7 +304,7 @@ AudioConfigDialogClass::OnInitDialog (void)
 		//
 		//	Get information about this sound driver
 		//
-		const char *driver_info = NULL;
+		const char *driver_info = nullptr;
 		if (WWAudioClass::Get_Instance ()->Get_3D_Device (index, &driver_info)) {
 
 			//
@@ -312,7 +312,7 @@ AudioConfigDialogClass::OnInitDialog (void)
 			//
 			int item_index = m_ListCtrl.InsertItem (0xFF, driver_info);
 			if (item_index >= 0) {
-				m_ListCtrl.SetItemData (item_index, NULL);
+				m_ListCtrl.SetItemData (item_index, 0);
 
 				//
 				//	Select this entry if its the default

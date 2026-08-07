@@ -105,7 +105,7 @@ void Write_Iff_Chunk(int file, int id, void *buffer, int length);
 /* The following prototypes are for the file: LOADPICT.CPP						*/
 /*=========================================================================*/
 
-//int Load_Picture(char const *filename, BufferClass& scratchbuf, BufferClass& destbuf, unsigned char *palette=NULL, PicturePlaneType format=BM_DEFAULT);
+//int Load_Picture(char const *filename, BufferClass& scratchbuf, BufferClass& destbuf, unsigned char *palette=nullptr, PicturePlaneType format=BM_DEFAULT);
 
 
 /*=========================================================================*/
@@ -115,7 +115,7 @@ void Write_Iff_Chunk(int file, int id, void *buffer, int length);
 unsigned int Load_Data(char const *name, void *ptr, unsigned int size);
 unsigned int Write_Data(char const *name, void *ptr, unsigned int size);
 //void * Load_Alloc_Data(char const *name, MemoryFlagType flags);
-unsigned int Load_Uncompress(char const *file, Buffer & uncomp_buff, Buffer & dest_buff, void *reserved_data=NULL);
+unsigned int Load_Uncompress(char const *file, Buffer & uncomp_buff, Buffer & dest_buff, void *reserved_data=nullptr);
 unsigned int Uncompress_Data(void const *src, void *dst);
 void Set_Uncomp_Buffer(int buffer_segment, int size_of_buffer);
 

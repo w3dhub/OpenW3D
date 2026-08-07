@@ -70,7 +70,7 @@ BoneMapper	BoneMap;
 void Load_Bones( void )
 {
 	INIClass	* bonesINI = Get_INI( BONES_INI_FILENAME );
-	if (bonesINI != NULL) {
+	if (bonesINI != nullptr) {
 
 		WWASSERT( bonesINI && bonesINI->Section_Count() > 0 );
 

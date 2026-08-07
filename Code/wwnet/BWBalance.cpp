@@ -67,7 +67,7 @@ BandwidthBalancerClass BandwidthBalancer;
 BandwidthBalancerClass::BandwidthBalancerClass(void)
 {
 	NumClientStructs = 0;
-	ClientInfo = NULL;
+	ClientInfo = nullptr;
 
 	Allocate_Client_Structs(8);
 
@@ -95,7 +95,7 @@ BandwidthBalancerClass::~BandwidthBalancerClass(void)
 	if (ClientInfo) {
 		delete [] ClientInfo;
 	}
-	ClientInfo = NULL;
+	ClientInfo = nullptr;
 }
 
 
@@ -161,7 +161,7 @@ void BandwidthBalancerClass::Adjust(cConnection *connection, bool is_dedicated)
 	** Repeat until no bandwidth left.
 	**
 	*/
-	if (connection != NULL) {
+	if (connection != nullptr) {
 
 		bool need_update = false;
 		for (int i=connection->Get_Min_RHost() + (is_dedicated ? 0 : 1) ; i <= connection->Get_Max_RHost() ; i++) {
@@ -197,7 +197,7 @@ void BandwidthBalancerClass::Adjust(cConnection *connection, bool is_dedicated)
 
 				cRemoteHost *client = connection->Get_Remote_Host(i);
 
-				if (client != NULL) {
+				if (client != nullptr) {
 
 					ClientInfo[NumClients].AveragePriority = client->Get_Average_Priority();
 					ClientInfo[NumClients].MaxBpsDown = client->Get_Maximum_Bps();
@@ -267,7 +267,7 @@ void BandwidthBalancerClass::Adjust(cConnection *connection, bool is_dedicated)
 					int index = 0;
 					for (int i=connection->Get_Min_RHost() + (is_dedicated ? 0 : 1) ; i <= connection->Get_Max_RHost() ; i++) {
 						cRemoteHost *client = connection->Get_Remote_Host(i);
-						if (client != NULL) {
+						if (client != nullptr) {
 							client->Set_Target_Bps(ClientInfo[index++].AllocatedBBO);
 						}
 					}

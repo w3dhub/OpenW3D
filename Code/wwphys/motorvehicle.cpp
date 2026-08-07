@@ -170,7 +170,7 @@ float MotorVehicleClass::Get_Engine_Torque(void)
 	const MotorVehicleDefClass * def = Get_MotorVehicleDef();
 
 	float normalized_torque = 0;
-	if (def->EngineTorqueCurve != NULL) {
+	if (def->EngineTorqueCurve != nullptr) {
 		normalized_torque = def->EngineTorqueCurve->Get_Value(WWMath::Fabs(EngineAngularVelocity));
 	}
 
@@ -326,7 +326,7 @@ enum
 MotorVehicleDefClass::MotorVehicleDefClass(void) :
 	MaxEngineTorque(5.0f),
 	EngineTorqueCurveFilename("Vehicles/PhysicsTables/DefaultEngineTorque.tbl"),
-	EngineTorqueCurve(NULL),
+	EngineTorqueCurve(nullptr),
 	GearCount(4),
 	FinalDriveGearRatio(2.92f),
 	ShiftUpRpm(7000),
@@ -461,13 +461,13 @@ bool MotorVehicleDefClass::Load(ChunkLoadClass &cload)
 
 		// strip the path off the filename
 		const char * fname = strrchr(EngineTorqueCurveFilename,'\\');
-		if (fname == NULL) {
+		if (fname == nullptr) {
 			EngineTorqueCurve = LookupTableMgrClass::Get_Table(EngineTorqueCurveFilename);
 		} else {
 			EngineTorqueCurve = LookupTableMgrClass::Get_Table(fname + 1);
 		}
 	}
-	if (EngineTorqueCurve == NULL) {
+	if (EngineTorqueCurve == nullptr) {
 		WWDEBUG_SAY(("Missing EngineTorqueCurve Table file: %s\r\n",EngineTorqueCurveFilename.Peek_Buffer()));
 		EngineTorqueCurve = LookupTableMgrClass::Get_Table("DefaultTable");
 	}

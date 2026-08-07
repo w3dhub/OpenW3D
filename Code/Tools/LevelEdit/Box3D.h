@@ -166,10 +166,10 @@ class Box3DPhysClass : public EditorPhysClass
 		//	Public constructors/destructors
 		//////////////////////////////////////////////////////////
 		Box3DPhysClass (void)
-			: m_pBox (NULL)								{ Initialize (1, 1, 1); }
+			: m_pBox (nullptr)								{ Initialize (1, 1, 1); }
 
 		Box3DPhysClass (const Vector3 &dimensions)
-			: m_pBox (NULL)								{ Initialize (dimensions.X, dimensions.Y, dimensions.Z); }
+			: m_pBox (nullptr)								{ Initialize (dimensions.X, dimensions.Y, dimensions.Z); }
 
 		virtual ~Box3DPhysClass (void)				{ MEMBER_RELEASE (m_pBox); }
 

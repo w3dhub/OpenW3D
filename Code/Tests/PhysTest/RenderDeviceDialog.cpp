@@ -34,7 +34,7 @@ static char THIS_FILE[] = __FILE__;
 // CRenderDeviceDialog dialog
 
 
-CRenderDeviceDialog::CRenderDeviceDialog(CWnd* pParent /*=NULL*/)
+CRenderDeviceDialog::CRenderDeviceDialog(CWnd* pParent /*=nullptr*/)
 	: CDialog(CRenderDeviceDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CRenderDeviceDialog)

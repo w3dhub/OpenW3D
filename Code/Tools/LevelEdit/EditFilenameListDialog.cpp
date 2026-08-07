@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 // EditFilenameListDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-EditFilenameListDialogClass::EditFilenameListDialogClass(CWnd* pParent /*=NULL*/)
+EditFilenameListDialogClass::EditFilenameListDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(EditFilenameListDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(EditFilenameListDialogClass)
@@ -82,7 +82,7 @@ EditFilenameListDialogClass::OnAdd (void)
 {
 	CFileDialog dialog (	true,
 								".w3d",
-								NULL,
+								nullptr,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER | OFN_ALLOWMULTISELECT,
 								"Westwood 3D Files (*.w3d)|*.w3d|Texture Files (*.tga)|*.tga|Sound Files (*.wav,*.mp3)|*.wav;*.mp3|All Files|*.*||",
 								this);
@@ -105,7 +105,7 @@ EditFilenameListDialogClass::OnAdd (void)
 		// Add all the new filenames to the list
 		//
 		POSITION pos = dialog.GetStartPosition ();
-		while (pos != NULL) {
+		while (pos != nullptr) {
 			CString full_path = (LPCTSTR)dialog.GetNextPathName (pos);
 			if (::Get_File_Mgr ()->Is_Path_Valid (full_path)) {
 				m_ListCtrl.InsertItem (0xFF, (LPCTSTR)::Get_File_Mgr ()->Make_Relative_Path (full_path));

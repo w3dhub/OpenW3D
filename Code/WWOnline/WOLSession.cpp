@@ -125,7 +125,7 @@ Session::Session() :
 	WWDEBUG_SAY(("WOL: Session instantiated\n"));
 
 	// Initailize COM
-	HRESULT hr = CoInitialize(NULL);
+	HRESULT hr = CoInitialize(nullptr);
 
 	if (FAILED(hr))
 		{
@@ -161,8 +161,8 @@ bool Session::FinalizeCreate(void)
 	// Create chat object
 	//---------------------------------------------------------------------------
 	WWDEBUG_SAY(("WOL: Creating IID_IChat object\n"));
-	WOL::IChat* chatObject = NULL;
-	HRESULT hr = CoCreateInstance(WOL::CLSID_Chat, NULL, CLSCTX_INPROC_SERVER,
+	WOL::IChat* chatObject = nullptr;
+	HRESULT hr = CoCreateInstance(WOL::CLSID_Chat, nullptr, CLSCTX_INPROC_SERVER,
 			WOL::IID_IChat, (void**)&chatObject);
 
 	if (FAILED(hr))
@@ -180,7 +180,7 @@ bool Session::FinalizeCreate(void)
 		CComPtr<ChatObserver> chatEvents;
 		chatEvents.Attach(new ChatObserver);
 
-		if (chatEvents == NULL)
+		if (chatEvents == nullptr)
 			{
 			WWDEBUG_SAY(("WOLERROR: Failed to create IChatEvents observer\n"));
 			return false;
@@ -204,8 +204,8 @@ bool Session::FinalizeCreate(void)
 	//---------------------------------------------------------------------------
 	WWDEBUG_SAY(("WOL: Creating IID_INetUtil object\n"));
 
-	WOL::INetUtil* utilObject = NULL;
-	hr = CoCreateInstance(WOL::CLSID_NetUtil, NULL, CLSCTX_INPROC_SERVER,
+	WOL::INetUtil* utilObject = nullptr;
+	hr = CoCreateInstance(WOL::CLSID_NetUtil, nullptr, CLSCTX_INPROC_SERVER,
 			WOL::IID_INetUtil, (void **)&utilObject);
 
 	if (FAILED(hr))
@@ -223,7 +223,7 @@ bool Session::FinalizeCreate(void)
 		CComPtr<NetUtilObserver> utilEvents;
 		utilEvents.Attach(new NetUtilObserver);
 
-		if (utilEvents == NULL)
+		if (utilEvents == nullptr)
 			{
 			WWDEBUG_SAY(("WOLERROR: Failed to create INetUtilEvents observer\n"));
 			return false;
@@ -634,7 +634,7 @@ RefPtr<WaitCondition> Session::LoginServer(const RefPtr<IRCServerData>& server,
 	mPendingServer = server;
 	mPendingLogin = login;
 
-	// Server == NULL is just a logout
+	// Server == nullptr is just a logout
 	if (!server.IsValid())
 		{
 		return serverWait;
@@ -791,9 +791,9 @@ bool Session::RequestChannelList(int channelType, bool autoPing)
 
 RefPtr<ChannelData> Session::FindChannel(const unichar_t* channelName)
 	{
-	if (channelName == NULL)
+	if (channelName == nullptr)
 		{
-		return NULL;
+		return nullptr;
 		}
 
 	if (mCurrentChannel.IsValid())
@@ -819,9 +819,9 @@ RefPtr<ChannelData> Session::FindChannel(const unichar_t* channelName)
 
 RefPtr<ChannelData> Session::FindChannel(const char* channelName)
 	{
-	if (channelName == NULL)
+	if (channelName == nullptr)
 		{
-		return NULL;
+		return nullptr;
 		}
 
 	if (mCurrentChannel.IsValid())
@@ -883,7 +883,7 @@ RefPtr<WaitCondition> Session::JoinChannel(const RefPtr<ChannelData>& channel,
 		}
 
 	// Use default product password if one is not provided
-	if (password == NULL)
+	if (password == nullptr)
 		{
 		RefPtrConst<Product> product = Product::Current();
 		WWASSERT(product.IsValid());
@@ -942,7 +942,7 @@ RefPtr<WaitCondition> Session::JoinChannel(const unichar_t* chanName, const unic
 		}
 
 	// Use default product password if one is not provided
-	if (password == NULL)
+	if (password == nullptr)
 		{
 		RefPtrConst<Product> product = Product::Current();
 		WWASSERT(product.IsValid());
@@ -1142,7 +1142,7 @@ RefPtr<WaitCondition> Session::GetNewGameChannelList(void)
 		return ChannelListWait::Create(this, channelType);
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -1347,7 +1347,7 @@ RefPtr<WaitCondition> Session::CreateChannel(const RefPtr<ChannelData>& channel,
 *     NONE
 *
 * RESULT
-*     Topic - Channel topic or NULL if no topic or not in channel.
+*     Topic - Channel topic or nullptr if no topic or not in channel.
 *
 ******************************************************************************/
 
@@ -1360,7 +1360,7 @@ const char* Session::GetChannelTopic(void) const
 		return channel->GetTopic();
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -1955,7 +1955,7 @@ void Session::MakeLocaleRequests(void)
 
 				if (index == (count - 1))
 					{
-					user.next = NULL;
+					user.next = nullptr;
 					}
 				else
 					{
@@ -2197,7 +2197,7 @@ void Session::MakeTeamRequests(void)
 
 				if (index == count - 1)
 					{
-					user.next = NULL;
+					user.next = nullptr;
 					}
 				else
 					{
@@ -2340,7 +2340,7 @@ void Session::MakeLadderRequests(void)
 
 				// The request name follows the type
 				const unichar_t* widename = u_strchr(*request, U_CHAR(':'));
-				WWASSERT(widename != NULL && "Invalid Ladder Request");
+				WWASSERT(widename != nullptr && "Invalid Ladder Request");
 				widename++;
 
 				// Add the request
@@ -2989,7 +2989,7 @@ void Session::GetLocaleStrings(std::vector<WideStringClass>& localeStrings)
 
 	for (int index = 0; index < numLocales; index++)
 		{
-		const char* name = NULL;
+		const char* name = nullptr;
 		mChat->GetLocaleString(&name, (WOL::Locale)index);
 		localeStrings.push_back(name);
 		}
@@ -3233,7 +3233,7 @@ bool Session::RequestUserIP(char *user_name)
 
 void Session::RequestInsiderStatus(void)
 	{
-	if (mChat != NULL && mCurrentUser.IsValid ())
+	if (mChat != nullptr && mCurrentUser.IsValid ())
 		{
 		WOL::User &user = mCurrentUser->GetData();
 		mChat->RequestInsiderStatus(&user);
@@ -3259,7 +3259,7 @@ void Session::RequestInsiderStatus(void)
 
 void Session::RequestServerTime(void)
 	{
-	if (mChat != NULL)
+	if (mChat != nullptr)
 		{
 		mChat->RequestServerTime();
 		}
@@ -3282,12 +3282,12 @@ void Session::RequestServerTime(void)
 
 const CComPtr<WOL::IIGROptions>& Session::GetIGRObject(void)
 	{
-	if (mIGRObject == NULL)
+	if (mIGRObject == nullptr)
 		{
 		WWDEBUG_SAY(("WOL: Creating IID_IIGROptions object\n"));
-		WOL::IIGROptions* igrObject = NULL;
+		WOL::IIGROptions* igrObject = nullptr;
 
-		HRESULT hr = CoCreateInstance(WOL::CLSID_IGROptions, NULL, CLSCTX_INPROC_SERVER,
+		HRESULT hr = CoCreateInstance(WOL::CLSID_IGROptions, nullptr, CLSCTX_INPROC_SERVER,
 			WOL::IID_IIGROptions, (void**)&igrObject);
 
 		if (SUCCEEDED(hr))

@@ -177,7 +177,7 @@ const PersistFactoryClass & CinematicGameObj::Get_Factory (void) const
 
 
 CinematicGameObj::CinematicGameObj()	:
-	Sound( NULL )
+	Sound( nullptr )
 {
 	Set_App_Packet_Type(APPPACKETTYPE_CINEMATIC);
 }
@@ -282,18 +282,18 @@ void	CinematicGameObj::On_Post_Load( void )
 void CinematicGameObj::Set_Sound( int sound_def_id, const char * bone_name )
 {
 	// Stop Old Sound
-	if ( Sound != NULL ) {
+	if ( Sound != nullptr ) {
 		Sound->Stop();
-		Sound->Attach_To_Object( NULL );
+		Sound->Attach_To_Object( nullptr );
 		Sound->Remove_From_Scene();
 		Sound->Release_Ref();
-		Sound = NULL;
+		Sound = nullptr;
 	}
 
 	// Start new Sound
 	if ( sound_def_id != 0 ) {
 		Sound = WWAudioClass::Get_Instance()->Create_Continuous_Sound( sound_def_id );
-		if ( Sound != NULL ) {
+		if ( Sound != nullptr ) {
 			RenderObjClass * model = Peek_Model();
 			WWASSERT( model );
 			int bone_index = model->Get_Bone_Index( bone_name );
@@ -310,7 +310,7 @@ void	CinematicGameObj::Think( void )
 	// If auto fire weapon
 	if ( Get_Definition().AutoFireWeapon ) {
 
-		PhysicalGameObj * enemy = NULL;
+		PhysicalGameObj * enemy = nullptr;
 		Vector3	my_pos;
 		Get_Position( &my_pos );
 
@@ -335,7 +335,7 @@ void	CinematicGameObj::Think( void )
 			}
 		}
 
-		if ( enemy != NULL ) {
+		if ( enemy != nullptr ) {
 			Vector3 enemy_pos;
 			enemy->Get_Position( &enemy_pos );
 			enemy_pos.Z += 1;
@@ -351,7 +351,7 @@ void	CinematicGameObj::Think( void )
 
 	}
 
-	if ( Get_Definition().CameraRelative && COMBAT_CAMERA != NULL ) {
+	if ( Get_Definition().CameraRelative && COMBAT_CAMERA != nullptr ) {
 		Matrix3D tm = COMBAT_CAMERA->Get_Transform();
 		tm.Rotate_Z( DEG_TO_RADF(90.0) );
 		tm.Rotate_Y( DEG_TO_RADF(90.0) );
@@ -369,14 +369,14 @@ void	CinematicGameObj::Post_Think( void )
 	WWPROFILE( "Cinematic PostThink" );
 
 	// Animation is handled by the DynamicAnimPhysClass for this class
-	WWASSERT(Get_Anim_Control() == NULL);
+	WWASSERT(Get_Anim_Control() == nullptr);
 
 	if (Get_Definition().DestroyAfterAnimation) {
 		PhysClass * pobj = Peek_Physical_Object();
-		if (pobj != NULL) {
+		if (pobj != nullptr) {
 			DynamicAnimPhysClass * dpobj = pobj->As_DynamicAnimPhysClass();
-			if ((dpobj != NULL) &&
-				 (dpobj->Get_Animation_Manager().Peek_Animation() != NULL) &&
+			if ((dpobj != nullptr) &&
+				 (dpobj->Get_Animation_Manager().Peek_Animation() != nullptr) &&
 				 (dpobj->Get_Animation_Manager().Is_At_Target()) )
 			{
 				Set_Delete_Pending();
@@ -395,9 +395,9 @@ void CinematicGameObj::Completely_Damaged( const OffenseObjectClass & damager )
 
 		// If the object has a moving bounding box, use its center point for the explosion
 		RenderObjClass * model = Peek_Model();
-		if (model != NULL) {
+		if (model != nullptr) {
 			RenderObjClass * bbox = model->Get_Sub_Object_By_Name("BoundingBox");
-			if (bbox != NULL) {
+			if (bbox != nullptr) {
 				Matrix3D	bbox_tm = bbox->Get_Transform();
 				bbox_tm.Get_Translation(&pos);
 				REF_PTR_RELEASE(bbox);
@@ -418,16 +418,16 @@ float	CinematicGameObj::Get_Animation_Length( void )
 	//	Try to get the dynamic anim phys object from the physics object
 	//
 	PhysClass *phys_obj = Peek_Physical_Object();
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 		DynamicAnimPhysClass * dynamic_anim_phys = phys_obj->As_DynamicAnimPhysClass();
-		if (dynamic_anim_phys != NULL) {
+		if (dynamic_anim_phys != nullptr) {
 
 			//
 			//	Peek at this object's animation
 			//
 			AnimCollisionManagerClass &anim_mgr = dynamic_anim_phys->Get_Animation_Manager();
 			HAnimClass *anim = anim_mgr.Peek_Animation();
-			if (anim != NULL) {
+			if (anim != nullptr) {
 
 				//
 				//	Return the length of the animation to the caller
@@ -463,14 +463,14 @@ void	CinematicGameObj::Export_Rare( BitStreamClass &packet )
 	//	Dig the animation data out of the physics object
 	//
 	DynamicAnimPhysClass *dynanim = Peek_Physical_Object()->As_DynamicAnimPhysClass();
-	if (dynanim != NULL) {
+	if (dynanim != nullptr) {
 		AnimCollisionManagerClass &anim_mgr = dynanim->Get_Animation_Manager();
 
 		//
 		//	Get the animation name
 		//
 		HAnimClass *anim = anim_mgr.Peek_Animation();
-		if (anim != NULL) {
+		if (anim != nullptr) {
 			animation_name = anim->Get_Name();
 		}
 
@@ -505,7 +505,7 @@ void	CinematicGameObj::Import_Rare( BitStreamClass &packet )
 	//	Pass the animation information onto the controller
 	//
 	DynamicAnimPhysClass *dynanim = Peek_Physical_Object()->As_DynamicAnimPhysClass();
-	if (dynanim != NULL) {
+	if (dynanim != nullptr) {
 		AnimCollisionManagerClass &anim_mgr = dynanim->Get_Animation_Manager();
 		anim_mgr.Set_Animation( animation_name );
 		anim_mgr.Set_Animation_Mode( (AnimCollisionManagerClass::AnimModeType)anim_mode );

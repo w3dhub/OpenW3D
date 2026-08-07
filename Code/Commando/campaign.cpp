@@ -90,7 +90,7 @@ void	CampaignManager::Init( void )
 
 	// Load CAMPAIGN.INI to get campain flow
 	INIClass	* campaignINI = Get_INI( CAMPAIGN_INI_FILENAME );
-	if (campaignINI != NULL) {
+	if (campaignINI != nullptr) {
 		WWASSERT( campaignINI && campaignINI->Section_Count() > 0 );
 		int count =  campaignINI->Entry_Count( SECTION_CAMPAIGN );
 		for ( int entry = 0; entry < count; entry++ )	{
@@ -223,7 +223,7 @@ void	CampaignManager::Continue( bool /* success */ )
 
 		// Activeate the Score screen before the combat deactivates, so we can get the stats
 		ScoreScreenGameModeClass * ss = (ScoreScreenGameModeClass *)GameModeManager::Find ("ScoreScreen");
-		if ( ss != NULL ) {
+		if ( ss != nullptr ) {
 		 	ss->Save_Stats();
 		}
 
@@ -232,7 +232,7 @@ void	CampaignManager::Continue( bool /* success */ )
 		GameInitMgrClass::End_Game();
 		GameModeManager::Find ("Menu")->Deactivate();
 
-		if ( ss != NULL ) {
+		if ( ss != nullptr ) {
 			ss->Activate();
 		}
 		return;
@@ -273,7 +273,7 @@ void	CampaignManager::Continue( bool /* success */ )
 
 		// Activeate the Score screen before the combat deactivates, so we can get the stats
 		ScoreScreenGameModeClass * ss = (ScoreScreenGameModeClass *)GameModeManager::Find ("ScoreScreen");
-		if ( ss != NULL ) {
+		if ( ss != nullptr ) {
 		 	ss->Save_Stats();
 		}
 
@@ -282,7 +282,7 @@ void	CampaignManager::Continue( bool /* success */ )
 		GameInitMgrClass::End_Game();
 		GameModeManager::Find ("Menu")->Deactivate();
 
-		if ( ss != NULL ) {
+		if ( ss != nullptr ) {
 			ss->Activate();
 		}
 
@@ -308,8 +308,8 @@ void	CampaignManager::Continue( bool /* success */ )
 
 	} else if ( StringMatch( state_description, "Movie " ) ) {
 
-		if (COMBAT_CAMERA != NULL) {
-			COMBAT_CAMERA->Set_Host_Model (NULL);
+		if (COMBAT_CAMERA != nullptr) {
+			COMBAT_CAMERA->Set_Host_Model (nullptr);
 		}
 
 		GameModeManager::Find ("Combat")->Suspend();

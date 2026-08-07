@@ -435,13 +435,13 @@ StringsMgrClass::Export_For_Translation (const char *filename, uint32 lang_id)
 	//	Lookup the path of the executable
 	//
 	char path[MAX_PATH] = { 0 };
-	::GetModuleFileName (NULL, path, sizeof (path));
+	::GetModuleFileName (nullptr, path, sizeof (path));
 
 	//
 	//	Strip off the filename
 	//
 	char *filename_portion = ::strrchr (path, '\\');
-	if (filename_portion != NULL) {
+	if (filename_portion != nullptr) {
 		filename_portion[0] = 0;
 	}
 
@@ -457,7 +457,7 @@ StringsMgrClass::Export_For_Translation (const char *filename, uint32 lang_id)
 	int count = TranslateDBClass::Get_Object_Count ();
 	for (int index = 0; index < count; index ++) {
 		TDBObjClass *object = TranslateDBClass::Get_Object (index);
-		if (object != NULL && object->As_StringTwiddlerClass () == NULL) {
+		if (object != nullptr && object->As_StringTwiddlerClass () == nullptr) {
 
 			//
 			//	Get the data for this string that we want to export
@@ -475,7 +475,7 @@ StringsMgrClass::Export_For_Translation (const char *filename, uint32 lang_id)
 			WideStringClass wide_sound_filename;
 			WideStringClass wide_sound_preset_name;
 			AudibleSoundDefinitionClass *sound_def = (AudibleSoundDefinitionClass *)DefinitionMgrClass::Find_Definition (sound_preset_id, false);
-			if (sound_def != NULL) {
+			if (sound_def != nullptr) {
 				wide_sound_preset_name.Convert_From (sound_def->Get_Name ());
 				CString ascii_filename = ::Get_Filename_From_Path (sound_def->Get_Filename ());
 				wide_sound_filename.Convert_From ((const char *)ascii_filename);
@@ -486,7 +486,7 @@ StringsMgrClass::Export_For_Translation (const char *filename, uint32 lang_id)
 			//
 			WideStringClass category_name;
 			TDBCategoryClass *category	= TranslateDBClass::Find_Category (category_id);
-			if (category != NULL) {
+			if (category != nullptr) {
 				category_name.Convert_From (category->Get_Name ());
 			}
 
@@ -594,13 +594,13 @@ StringsMgrClass::Import_From_Translation (const char *filename, uint32 lang_id)
 			//	Find or add this object to our database
 			//
 			TDBObjClass *object = TranslateDBClass::Find_Object (ascii_string_id);
-			if ((object == NULL) && (lang_id == TranslateDBClass::LANGID_ENGLISH)) {
+			if ((object == nullptr) && (lang_id == TranslateDBClass::LANGID_ENGLISH)) {
 				object = new TDBObjClass;
 				object->Set_ID_Desc (ascii_string_id);
 				TranslateDBClass::Add_Object (object);
 			}
 
-			if (object != NULL) {
+			if (object != nullptr) {
 
 				//
 				//	Set the string for this language
@@ -617,7 +617,7 @@ StringsMgrClass::Import_From_Translation (const char *filename, uint32 lang_id)
 				StringClass ascii_category_name;
 				category_name.Convert_To (ascii_category_name);
 				TDBCategoryClass *category = TranslateDBClass::Find_Category (ascii_category_name);
-				if (category == NULL && ascii_category_name.Get_Length () > 0) {
+				if (category == nullptr && ascii_category_name.Get_Length () > 0) {
 					category = new TDBCategoryClass;
 					category->Set_Name (ascii_category_name);
 					TranslateDBClass::Add_Category (category, true);
@@ -626,7 +626,7 @@ StringsMgrClass::Import_From_Translation (const char *filename, uint32 lang_id)
 				//
 				//	Set the category
 				//
-				if (category != NULL) {
+				if (category != nullptr) {
 					object->Set_Category_ID (category->Get_ID ());
 				}
 
@@ -636,7 +636,7 @@ StringsMgrClass::Import_From_Translation (const char *filename, uint32 lang_id)
 				StringClass ascii_preset_name;
 				preset_name.Convert_To (ascii_preset_name);
 				DefinitionClass *definition = DefinitionMgrClass::Find_Typed_Definition (ascii_preset_name, CLASSID_SOUND, false);
-				if (definition != NULL) {
+				if (definition != nullptr) {
 					object->Set_Sound_ID (definition->Get_ID ());
 				}
 			}

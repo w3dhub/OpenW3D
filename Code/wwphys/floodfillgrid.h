@@ -235,10 +235,10 @@ FloodfillGridClass::Remove_Box (FloodfillBoxClass *box)
 	//	Attempt to find the box in this grid
 	//
 	bool found = false;
-	FloodfillBoxClass *curr_box = NULL;
-	FloodfillBoxClass *prev_box = NULL;
+	FloodfillBoxClass *curr_box = nullptr;
+	FloodfillBoxClass *prev_box = nullptr;
 	for (	curr_box = m_Grid[index];
-			curr_box != NULL && !found;
+			curr_box != nullptr && !found;
 			curr_box = curr_box->Get_Grid_Link ())
 	{
 		//
@@ -249,13 +249,13 @@ FloodfillGridClass::Remove_Box (FloodfillBoxClass *box)
 			//
 			//	Unlink this box from the grid
 			//
-			if (prev_box != NULL) {
+			if (prev_box != nullptr) {
 				prev_box->Set_Grid_Link (box->Get_Grid_Link ());
 			} else {
 				m_Grid[index] = box->Get_Grid_Link ();
 			}
 
-			box->Set_Grid_Link (NULL);
+			box->Set_Grid_Link (nullptr);
 			found = true;
 		}
 

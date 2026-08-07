@@ -149,7 +149,7 @@ StringPickerDialogClass::Resize_Controls (void)
 	//
 	//	Resize the tab control
 	//
-	m_TabCtrl.SetWindowPos (NULL, 0, 0, tab_width, tab_height, SWP_NOZORDER | SWP_NOCOPYBITS);
+	m_TabCtrl.SetWindowPos (nullptr, 0, 0, tab_width, tab_height, SWP_NOZORDER | SWP_NOCOPYBITS);
 
 	//
 	// Get the display rectangle of the tab control
@@ -163,14 +163,14 @@ StringPickerDialogClass::Resize_Controls (void)
 	//	Resize all the category page controls
 	//
 	for (int index = 0; index < CategoryPages.Count (); index ++) {
-		CategoryPages[index]->SetWindowPos (NULL, tab_rect.left + BORDER_X, tab_rect.top + BORDER_Y,
+		CategoryPages[index]->SetWindowPos (nullptr, tab_rect.left + BORDER_X, tab_rect.top + BORDER_Y,
 			tab_rect.Width () - BORDER_X * 2, tab_rect.Height () - BORDER_Y * 2, SWP_NOZORDER | SWP_NOCOPYBITS | SWP_NOACTIVATE);
 	}
 
 	//
 	//	Reposition the edit control
 	//
-	::SetWindowPos (::GetDlgItem (m_hWnd, IDC_STRING_EDIT), NULL, 0, edit_y_pos,
+	::SetWindowPos (::GetDlgItem (m_hWnd, IDC_STRING_EDIT), nullptr, 0, edit_y_pos,
 		tab_width, edit_height, SWP_NOZORDER | SWP_NOCOPYBITS | SWP_NOACTIVATE);
 
 	return ;
@@ -221,14 +221,14 @@ StringPickerDialogClass::Update_Page_Visibility (void)
 		//
 		// Hide the old tab
 		//
-		if (CurrentTab < CategoryPages.Count () && CategoryPages[CurrentTab] != NULL) {
+		if (CurrentTab < CategoryPages.Count () && CategoryPages[CurrentTab] != nullptr) {
 			CategoryPages[CurrentTab]->ShowWindow (SW_HIDE);
 		}
 
 		//
 		// Show the new tab
 		//
-		if (CategoryPages[newtab] != NULL) {
+		if (CategoryPages[newtab] != nullptr) {
 			CategoryPages[newtab]->ShowWindow (SW_SHOW);
 		}
 
@@ -286,7 +286,7 @@ StringPickerDialogClass::OnInitDialog (void)
 		//	Lookup this category
 		//
 		TDBCategoryClass *category = TranslateDBClass::Get_Category (index);
-		if (category != NULL) {
+		if (category != nullptr) {
 			Add_Category_Page (category);
 		}
 	}
@@ -397,7 +397,7 @@ StringPickerDialogClass::Update_Selected_String (void)
 		//	Lookup the text associated with the new string
 		//
 		TDBObjClass *object = TranslateDBClass::Find_Object (SelectedObjectID);
-		if (object != NULL) {
+		if (object != nullptr) {
 			english_text = object->Get_English_String ();
 		}
 	}

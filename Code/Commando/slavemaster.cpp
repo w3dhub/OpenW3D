@@ -343,7 +343,7 @@ SlaveServerClass *SlaveMasterClass::Get_Slave(int index)
 	if (index >= 0 && index <NumSlaveServers) {
 		return(&SlaveServers[index]);
 	}
-	return(NULL);
+	return(nullptr);
 }
 
 
@@ -574,7 +574,7 @@ void SlaveMasterClass::Startup_Slaves(void)
 							char dir[_MAX_DIR];
 							char path[_MAX_PATH];
 							GetModuleFileNameA(ProgramInstance, path_to_exe, sizeof(path_to_exe));
-							_splitpath(path_to_exe, drive, dir, NULL, NULL);
+							_splitpath(path_to_exe, drive, dir, nullptr, nullptr);
 #ifdef FREEDEDICATEDSERVER
 							_makepath(path, drive, dir, "renegadeserver", "exe");
 #else  //FREEDEDICATEDSERVER

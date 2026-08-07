@@ -142,7 +142,7 @@ Product::Product(const char* registryPath, int gameCode, const unichar_t* chanPa
 		DWORD type;
 		DWORD sku = 0;
 		DWORD sizeOfBuffer = sizeof(sku);
-		result = RegQueryValueExA(rKey, "SKU", NULL, &type, (unsigned char*)&sku, &sizeOfBuffer);
+		result = RegQueryValueExA(rKey, "SKU", nullptr, &type, (unsigned char*)&sku, &sizeOfBuffer);
 
 		mProductSKU = sku;
 		mLanguageCode = (sku & 0xFF);
@@ -151,7 +151,7 @@ Product::Product(const char* registryPath, int gameCode, const unichar_t* chanPa
 		// Get version
 		DWORD version = 0;
 		sizeOfBuffer = sizeof(version);
-		result = RegQueryValueExA(rKey, "Version", NULL, &type, (unsigned char*)&version, &sizeOfBuffer);
+		result = RegQueryValueExA(rKey, "Version", nullptr, &type, (unsigned char*)&version, &sizeOfBuffer);
 
 		mProductVersion = version;
 

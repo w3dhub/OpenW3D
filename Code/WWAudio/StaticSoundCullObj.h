@@ -61,7 +61,7 @@ class StaticSoundCullObjClass : public TileClass
 		//	Public constructors/destructors
 		//////////////////////////////////////////////////////////////////////
 		StaticSoundCullObjClass (void)
-			: m_SoundObj (NULL),
+			: m_SoundObj (nullptr),
 			  m_Transform (1) {}
 
 		virtual ~StaticSoundCullObjClass (void) { REF_PTR_RELEASE (m_SoundObj); }
@@ -117,7 +117,7 @@ inline const Matrix3D &
 StaticSoundCullObjClass::Get_Transform (void) const
 {
 	// Determine the transform to use
-	if (m_SoundObj != NULL) {
+	if (m_SoundObj != nullptr) {
 		m_Transform = m_SoundObj->Get_Transform ();
 	}
 
@@ -132,7 +132,7 @@ StaticSoundCullObjClass::Set_Transform (const Matrix3D &transform)
 	m_Transform = transform;
 
 	// Pass the tranform on
-	if (m_SoundObj != NULL) {
+	if (m_SoundObj != nullptr) {
 		m_SoundObj->Set_Transform (m_Transform);
 	}
 
@@ -143,7 +143,7 @@ StaticSoundCullObjClass::Set_Transform (const Matrix3D &transform)
 inline Sound3DClass *
 StaticSoundCullObjClass::Get_Sound_Obj (void) const
 {
-	if (m_SoundObj != NULL) {
+	if (m_SoundObj != nullptr) {
 		m_SoundObj->Add_Ref ();
 	}
 
@@ -157,7 +157,7 @@ StaticSoundCullObjClass::Set_Sound_Obj (Sound3DClass *sound_obj)
 {
 	// Start using this sound object
 	REF_PTR_SET (m_SoundObj, sound_obj);
-	if (m_SoundObj != NULL) {
+	if (m_SoundObj != nullptr) {
 		m_Transform = m_SoundObj->Get_Transform ();
 	}
 
@@ -169,7 +169,7 @@ inline const AABoxClass &
 StaticSoundCullObjClass::Get_Bounding_Box (void) const
 {
 	// Get the 'real' values from the
-	if (m_SoundObj != NULL) {
+	if (m_SoundObj != nullptr) {
 		m_Transform = m_SoundObj->Get_Transform ();
 		m_AABox.Extent.X = m_SoundObj->Get_DropOff_Radius ();
 		m_AABox.Extent.Y = m_SoundObj->Get_DropOff_Radius ();

@@ -128,7 +128,7 @@
 ** Static members of PhysicsSceneClass
 */
 bool						PhysicsSceneClass::AllowCollisionFlags[NUM_COLLISION_FLAGS];
-PhysicsSceneClass *	PhysicsSceneClass::TheScene = NULL;
+PhysicsSceneClass *	PhysicsSceneClass::TheScene = nullptr;
 
 /*
 ** Constants
@@ -172,17 +172,17 @@ PhysicsSceneClass::PhysicsSceneClass(void) :
 	ProjectorDebugDisplayEnabled(false),
 	DirtyCullDebugDisplayEnabled(false),
 	LightingDebugDisplayEnabled(false),
-	StaticCullingSystem(NULL),
-	DynamicCullingSystem(NULL),
-	StaticLightingSystem(NULL),
-	StaticProjectorCullingSystem(NULL),
-	DynamicProjectorCullingSystem(NULL),
+	StaticCullingSystem(nullptr),
+	DynamicCullingSystem(nullptr),
+	StaticLightingSystem(nullptr),
+	StaticProjectorCullingSystem(nullptr),
+	DynamicProjectorCullingSystem(nullptr),
 	DynamicPolyBudget(DEFAULT_DYNAMIC_LOD_BUDGET),
 	StaticPolyBudget(DEFAULT_STATIC_LOD_BUDGET),
 	LightingMode(LIGHTING_MODE_CHEAP),
 	SceneAmbientLight(0.5f,0.5f,0.5f),
 	UseSun(false),
-	SunLight(NULL),
+	SunLight(nullptr),
 	VisEnabled(true),
 	VisInverted(false),
 	VisQuickAndDirty(false),
@@ -195,28 +195,28 @@ PhysicsSceneClass::PhysicsSceneClass(void) :
 	BackfaceDebugEnabled(false),
 	VisSamplePointLocked(false),
 	LockedVisSamplePoint(0,0,0),
-	VisCamera(NULL),
-	CurrentVisTable(NULL),
+	VisCamera(nullptr),
+	CurrentVisTable(nullptr),
 	StaticProjectorsEnabled(false),
 	DynamicProjectorsEnabled(false),
 	ShadowMode(SHADOW_MODE_NONE),
 	ShadowAttenStart(25.0f),
 	ShadowAttenEnd(40.0f),
 	ShadowNormalIntensity(0.45f),
-	ShadowBlobTexture(NULL),
-	ShadowCamera(NULL),
-	ShadowRenderContext(NULL),
-	ShadowMaterialPass(NULL),
+	ShadowBlobTexture(nullptr),
+	ShadowCamera(nullptr),
+	ShadowRenderContext(nullptr),
+	ShadowMaterialPass(nullptr),
 	ShadowResWidth(128),
 	ShadowResHeight(128),
-	DecalSystem(NULL),
-	Pathfinder(NULL),
-	CameraShakeSystem(NULL),
-	HighlightMaterialPass(NULL),
+	DecalSystem(nullptr),
+	Pathfinder(nullptr),
+	CameraShakeSystem(nullptr),
+	HighlightMaterialPass(nullptr),
 	UpdateOnlyVisibleObjects(false),
 	CurrentFrameNumber(0)
 {
-	WWASSERT_PRINT(TheScene == NULL,"Only one instance of the PhysicsSceneClass is allowed.\r\n");
+	WWASSERT_PRINT(TheScene == nullptr,"Only one instance of the PhysicsSceneClass is allowed.\r\n");
 	WWMEMLOG(MEM_PHYSICSDATA);
 	TheScene = this;
 
@@ -304,7 +304,7 @@ PhysicsSceneClass::~PhysicsSceneClass(void)
 	WidgetSystem::Release_Debug_Widgets();
 
 	WWASSERT(TheScene == this);
-	TheScene = NULL;
+	TheScene = nullptr;
 
 	/*
 	** Shutdown UMBRA
@@ -428,9 +428,9 @@ void PhysicsSceneClass::Update(float dt,int frameid)
  *=============================================================================================*/
 void PhysicsSceneClass::Add_Dynamic_Object(PhysClass * newobj)
 {
-	WWASSERT(newobj != NULL);
-	WWASSERT(newobj->Peek_Model() != NULL);
-	WWASSERT(newobj->Get_Culling_System() == NULL);
+	WWASSERT(newobj != nullptr);
+	WWASSERT(newobj->Peek_Model() != nullptr);
+	WWASSERT(newobj->Get_Culling_System() == nullptr);
 
 	// Add the object to the dynamic culling system
 	DynamicCullingSystem->Add_Object(newobj);
@@ -440,8 +440,8 @@ void PhysicsSceneClass::Add_Dynamic_Object(PhysClass * newobj)
 
 	// Clean up any cached visibility data that may have been in the object
 	DynamicPhysClass * dynobj = newobj->As_DynamicPhysClass();
-	WWASSERT(dynobj != NULL);
-	if (dynobj != NULL) {
+	WWASSERT(dynobj != nullptr);
+	if (dynobj != nullptr) {
 		dynobj->Update_Visibility_Status();
 	}
 }
@@ -486,9 +486,9 @@ void PhysicsSceneClass::Internal_Add_Dynamic_Object(PhysClass * newobj)
  *=============================================================================================*/
 void PhysicsSceneClass::Add_Static_Object(StaticPhysClass * newtile,int cull_node_id/*=-1*/)
 {
-	WWASSERT(newtile != NULL);
-	WWASSERT(newtile->Peek_Model() != NULL);
-	WWASSERT(newtile->Get_Culling_System() == NULL);
+	WWASSERT(newtile != nullptr);
+	WWASSERT(newtile->Peek_Model() != nullptr);
+	WWASSERT(newtile->Get_Culling_System() == nullptr);
 
 	// Add the object to the static culling system
 	StaticCullingSystem->Add_Object(newtile,cull_node_id);
@@ -520,7 +520,7 @@ void PhysicsSceneClass::Internal_Add_Static_Object(StaticPhysClass * newtile)
 	if (newtile->Needs_Timestep()) {
 		TimestepList.Add(newtile);
 	}
-	if (newtile->As_StaticAnimPhysClass() != NULL) {
+	if (newtile->As_StaticAnimPhysClass() != nullptr) {
 		StaticAnimList.Add(newtile);
 	}
 }
@@ -540,9 +540,9 @@ void PhysicsSceneClass::Internal_Add_Static_Object(StaticPhysClass * newtile)
  *=============================================================================================*/
 void PhysicsSceneClass::Add_Static_Light(LightPhysClass * newlight,int /* cull_node_id */)
 {
-	WWASSERT(newlight != NULL);
-	WWASSERT(newlight->Peek_Model() != NULL);
-	WWASSERT(newlight->Get_Culling_System() == NULL);
+	WWASSERT(newlight != nullptr);
+	WWASSERT(newlight->Peek_Model() != nullptr);
+	WWASSERT(newlight->Get_Culling_System() == nullptr);
 
 	// Add the light to the static light culling system
 	StaticLightingSystem->Add_Object(newlight);
@@ -645,14 +645,14 @@ void PhysicsSceneClass::Remove_Object(PhysClass * obj)
 	if (!Contains(obj)) return;
 
 	// Assert that the object is valid
-	WWASSERT(obj != NULL);
-	WWASSERT(obj->Peek_Model() != NULL);
+	WWASSERT(obj != nullptr);
+	WWASSERT(obj->Peek_Model() != nullptr);
 
 	// Notify the model that it is being removed from the scene
 	SceneClass::Remove_Render_Object(obj->Peek_Model());
 
 	// Notify the observer (if it has one)
-	if (obj->Get_Observer() != NULL) {
+	if (obj->Get_Observer() != nullptr) {
 		obj->Get_Observer()->Object_Removed_From_Scene(obj);
 	}
 
@@ -671,13 +671,13 @@ void PhysicsSceneClass::Remove_Object(PhysClass * obj)
 
 	} else if (cullsys == StaticCullingSystem) {
 
-		WWASSERT(obj->As_StaticPhysClass() != NULL);
+		WWASSERT(obj->As_StaticPhysClass() != nullptr);
 		StaticCullingSystem->Remove_Object(obj->As_StaticPhysClass());
 		StaticObjList.Remove(obj);
 
 	} else if (cullsys == StaticLightingSystem) {
 
-		WWASSERT(obj->As_LightPhysClass() != NULL);
+		WWASSERT(obj->As_LightPhysClass() != nullptr);
 		StaticLightingSystem->Remove_Object(obj->As_LightPhysClass());
 		StaticLightList.Remove(obj);
 
@@ -946,7 +946,7 @@ void PhysicsSceneClass::Add_Render_Object(RenderObjClass * obj)
 	// in the physics scene.  In this case, I wrap the render objects with
 	// RenderObjPhysClass's and set the UserData pointer to point back to this
 	// wrapper.
-	WWASSERT(obj != NULL);
+	WWASSERT(obj != nullptr);
 	RenderObjPhysClass * cullnode = NEW_REF(RenderObjPhysClass,());
 	cullnode->Set_Model(obj);
 	Add_Dynamic_Object(cullnode);
@@ -988,11 +988,11 @@ void PhysicsSceneClass::Remove_Render_Object(RenderObjClass * obj)
 	// wrapper.
 	SceneClass::Remove_Render_Object(obj);
 
-	WWASSERT(obj != NULL);
+	WWASSERT(obj != nullptr);
 	PhysClass * cullnode = (PhysClass *)obj->Get_User_Data();
 
-	WWASSERT(cullnode != NULL);
-	WWASSERT(cullnode->As_RenderObjPhysClass() != NULL);
+	WWASSERT(cullnode != nullptr);
+	WWASSERT(cullnode->As_RenderObjPhysClass() != nullptr);
 	Remove_Object(cullnode);
 }
 
@@ -1014,7 +1014,7 @@ void PhysicsSceneClass::Remove_Render_Object(RenderObjClass * obj)
  *=============================================================================================*/
 void PhysicsSceneClass::Register(RenderObjClass * obj,RegType for_what)
 {
-	WWASSERT(obj != NULL);
+	WWASSERT(obj != nullptr);
 	switch (for_what)
 	{
 		case ON_FRAME_UPDATE:
@@ -1025,7 +1025,7 @@ void PhysicsSceneClass::Register(RenderObjClass * obj,RegType for_what)
 			break;
 		case RELEASE:
 			{
-				if (obj->Get_Container() != NULL) {
+				if (obj->Get_Container() != nullptr) {
 					obj->Get_Container()->Remove_Sub_Object(obj);
 				} else {
 					PhysClass * wrapper = (PhysClass *)obj->Get_User_Data();
@@ -1033,7 +1033,7 @@ void PhysicsSceneClass::Register(RenderObjClass * obj,RegType for_what)
 					/*
 					** If there is no wrapper, the object isn't actually in the scene so do nothing
 					*/
-					if (wrapper != NULL) {
+					if (wrapper != nullptr) {
 						Delayed_Remove_Object(wrapper);
 					}
 				}
@@ -1057,7 +1057,7 @@ void PhysicsSceneClass::Register(RenderObjClass * obj,RegType for_what)
  *=============================================================================================*/
 void PhysicsSceneClass::Unregister(RenderObjClass * obj,RegType for_what)
 {
-	WWASSERT(obj != NULL);
+	WWASSERT(obj != nullptr);
 	switch (for_what)
 	{
 		case ON_FRAME_UPDATE:
@@ -1273,10 +1273,10 @@ void PhysicsSceneClass::Customized_Render(RenderInfoClass & rinfo)
 		Render_Debug_Widgets(rinfo);
 		Reset_Debug_Widget_List();
 
-		rinfo.light_environment = NULL;
+		rinfo.light_environment = nullptr;
 	}
 
-	if (Pathfinder != NULL) {
+	if (Pathfinder != nullptr) {
 		Pathfinder->Render_Debug_Widgets(rinfo);
 	}
 
@@ -1286,14 +1286,14 @@ void PhysicsSceneClass::Customized_Render(RenderInfoClass & rinfo)
 	if (VisSectorDisplayEnabled || VisSectorHistoryEnabled) {
 
 		// list of previous vis sectors so we can render them
-		static StaticPhysClass * old_vis_sectors[3] = { NULL, NULL, NULL };
+		static StaticPhysClass * old_vis_sectors[3] = { nullptr, nullptr, nullptr };
 		static int old_vis_index = 0;
 
 		Vector3 vis_sample_point;
 		Compute_Vis_Sample_Point(rinfo.Camera,&vis_sample_point);
 		StaticPhysClass * vis_sector = StaticCullingSystem->Find_Vis_Tile(vis_sample_point);
 
-		if (vis_sector != NULL) {
+		if (vis_sector != nullptr) {
 			MaterialPassClass * matpass = PhysResourceMgrClass::Get_Highlight_Material_Pass();
 			if (matpass) {
 
@@ -1308,7 +1308,7 @@ void PhysicsSceneClass::Customized_Render(RenderInfoClass & rinfo)
 				if (VisSectorHistoryEnabled) {
 					// render the previous vis sectors
 					for (int i=0; i<3; i++) {
-						if (old_vis_sectors[i] != NULL) {
+						if (old_vis_sectors[i] != nullptr) {
 							old_vis_sectors[i]->Render_Vis_Meshes(rinfo);
 						}
 					}
@@ -1351,7 +1351,7 @@ void PhysicsSceneClass::Customized_Render(RenderInfoClass & rinfo)
 	*/
 	if (VisGridDisplayMode == VIS_GRID_DISPLAY_ACTUAL_BOXES) {
 		VisTableClass * pvs = Get_Vis_Table_For_Rendering(rinfo.Camera);
-		if ((pvs != NULL) && (DynamicObjVisSystem != NULL)) {
+		if ((pvs != nullptr) && (DynamicObjVisSystem != nullptr)) {
 			DynamicObjVisSystem->Render_Visible_Cells(rinfo,pvs,DynamicAABTreeCullClass::DISPLAY_ACTUAL_BOXES);
 		}
 		REF_PTR_RELEASE(pvs);
@@ -1367,7 +1367,7 @@ void PhysicsSceneClass::Customized_Render(RenderInfoClass & rinfo)
 		StaticLightingSystem->Collect_Objects(rinfo.Camera.Get_Frustum());
 
 		LightPhysClass * light = StaticLightingSystem->Peek_First_Collected_Object();
-		while (light != NULL) {
+		while (light != nullptr) {
 			if ((!light->Is_Disabled()) || (!ACTIVE_ONLY)) {
 				DEBUG_RENDER_AXES(light->Get_Transform(),Vector3(1.0f,1.0f,1.0f));
 			}
@@ -1474,7 +1474,7 @@ void PhysicsSceneClass::Render_Objects(
  *=============================================================================================*/
 void PhysicsSceneClass::Render_Object(RenderInfoClass & context,PhysClass * obj)
 {
-	if ((obj->Peek_Model() == NULL) || (obj->Is_Rendering_Disabled())) {
+	if ((obj->Peek_Model() == nullptr) || (obj->Is_Rendering_Disabled())) {
 		return;
 	}
 
@@ -1526,7 +1526,7 @@ void PhysicsSceneClass::Render_Object(RenderInfoClass & context,PhysClass * obj)
 	** Remove the lighting environment
 	*/
 	if (do_lighting) {
-		context.light_environment = NULL;
+		context.light_environment = nullptr;
 	}
 }
 
@@ -1555,7 +1555,7 @@ void PhysicsSceneClass::Render_Backface_Occluders
 	if (BackfaceDebugEnabled) {
 
 		MaterialPassClass * matpass = PhysResourceMgrClass::Get_Highlight_Material_Pass();
-		if (matpass != NULL) {
+		if (matpass != nullptr) {
 
 			/*
 			** Flush the system and invert the backface culling check
@@ -1674,7 +1674,7 @@ void PhysicsSceneClass::Re_Partition_Dynamic_Culling_System(void)
 	DynamicCullingSystem->Re_Partition(	wmin,wmax,
 													MAX_DYNAMIC_OBJ_RADIUS	);
 
-	DynamicObjVisSystem->Re_Partition(	NULL,
+	DynamicObjVisSystem->Re_Partition(	nullptr,
 													wmin,wmax,
 													MIN_GRID_CELL_SIZE,
 													MAX_GRID_CELL_COUNT,
@@ -1923,7 +1923,7 @@ StaticPhysClass * PhysicsSceneClass::Find_Static_Object( int instance_id )
 			return (StaticPhysClass*)it.Peek_Obj();
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 
@@ -2065,7 +2065,7 @@ void PhysicsSceneClass::Add_Camera_Shake
 	float power
 )
 {
-	WWASSERT(CameraShakeSystem != NULL);
+	WWASSERT(CameraShakeSystem != nullptr);
 	CameraShakeSystem->Add_Camera_Shake(position,radius,duration,power);
 }
 
@@ -2096,7 +2096,7 @@ void PhysicsSceneClass::Force_Dynamic_Objects_Awake(const AABoxClass & box)
 	while (!it.Is_Done()) {
 		PhysClass * obj = it.Peek_Obj();
 		obj->Force_Awake();
-		if (obj->As_Phys3Class() != NULL) {
+		if (obj->As_Phys3Class() != nullptr) {
 			obj->As_Phys3Class()->Invalidate_Ground_State();
 		}
 		it.Next();

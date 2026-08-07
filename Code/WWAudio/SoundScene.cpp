@@ -79,8 +79,8 @@ enum
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 SoundSceneClass::SoundSceneClass (void)
-	:	m_Listener (NULL),
-		m_2ndListener (NULL),
+	:	m_Listener (nullptr),
+		m_2ndListener (nullptr),
 		m_MinExtents (-500, -500, -500),
 		m_MaxExtents (500, 500, 500),
 		m_IsBatchMode (false)
@@ -153,7 +153,7 @@ SoundSceneClass::Collect_Logical_Sounds (int listener_count)
 	}
 
 	PriorityMultiListIterator<LogicalListenerClass> priority_queue (&m_LogicalListeners);
-	LogicalListenerClass *listener = NULL;
+	LogicalListenerClass *listener = nullptr;
 
 	//
 	//	Loop over as many of the listeners as we want to process this
@@ -180,7 +180,7 @@ SoundSceneClass::Collect_Logical_Sounds (int listener_count)
 		//
 		SoundCullObjClass * cull_obj;
 		for (	cull_obj = m_LogicalCullingSystem.Get_First_Collected_Object();
-				cull_obj != NULL;
+				cull_obj != nullptr;
 				cull_obj = m_LogicalCullingSystem.Get_Next_Collected_Object (cull_obj))
 		{
 			//
@@ -263,9 +263,9 @@ SoundSceneClass::Collect_Audible_Sounds
 	// they are 'really' audible.  The culling systems just check bounding boxes
 	// but we need to be able to check attenuation spheres.
 	//
-	SoundCullObjClass * cull_obj = NULL;
+	SoundCullObjClass * cull_obj = nullptr;
 	for (	cull_obj = m_DynamicCullingSystem.Get_First_Collected_Object();
-			cull_obj != NULL;
+			cull_obj != nullptr;
 			cull_obj = m_DynamicCullingSystem.Get_Next_Collected_Object(cull_obj))
 	{
 		// Get a pointer to the current 'cull-sound' object
@@ -298,7 +298,7 @@ SoundSceneClass::Collect_Audible_Sounds
 	// but we need to be able to check attenuation spheres.
 	//
 	for (	cull_obj = m_StaticCullingSystem.Get_First_Collected_Object();
-			cull_obj != NULL;
+			cull_obj != nullptr;
 			cull_obj = m_StaticCullingSystem.Get_Next_Collected_Object(cull_obj))
 	{
 		AudibleSoundClass *sound_obj = (AudibleSoundClass *)cull_obj->Peek_Sound_Obj ();
@@ -348,7 +348,7 @@ SoundSceneClass::On_Frame_Update (unsigned int milliseconds)
 	//
 	//	First, collect any auxiliary sounds that are audible
 	//
-	if (m_2ndListener != NULL) {
+	if (m_2ndListener != nullptr) {
 		m_2ndListener->On_Frame_Update (milliseconds);
 		Collect_Audible_Sounds (m_2ndListener, auxiliary_sounds);
 	}
@@ -437,7 +437,7 @@ SoundSceneClass::On_Frame_Update (unsigned int milliseconds)
 		//
 		/*aux_info.sound_obj->Convert_To_Filtered ();
 		AudibleSoundClass *tinny_sound = aux_info.sound_obj->As_Converted_Format ();
-		if (tinny_sound != NULL) {
+		if (tinny_sound != nullptr) {
 			audible_sounds.Add (tinny_sound);
 		}*/
 
@@ -481,7 +481,7 @@ SoundSceneClass::On_Frame_Update (unsigned int milliseconds)
 			//
 			//	Make sure we cull the sound
 			//
-			WWASSERT(sound_obj != NULL);
+			WWASSERT(sound_obj != nullptr);
 			sound_obj->Cull_Sound (true);
 			sound_obj->Set_Runtime_Priority (0);
 		}
@@ -528,8 +528,8 @@ SoundSceneClass::Add_Sound
 	WWPROFILE ("Add_Sound");
 	WWMEMLOG(MEM_SOUND);
 
-	WWASSERT (sound_obj != NULL);
-	if (sound_obj != NULL && sound_obj->Is_In_Scene () == false) {
+	WWASSERT (sound_obj != nullptr);
+	if (sound_obj != nullptr && sound_obj->Is_In_Scene () == false) {
 		bool cull_sound = true;
 
 
@@ -599,7 +599,7 @@ SoundSceneClass::Remove_Sound
 {
 	WWPROFILE ("Remove_Sound");
 
-	if (sound_obj == NULL) {
+	if (sound_obj == nullptr) {
 		return ;
 	}
 
@@ -614,7 +614,7 @@ SoundSceneClass::Remove_Sound
 	//	Is this sound really in the scene?
 	//
 	SoundCullObjClass *cull_obj = sound_obj->Peek_Cullable_Wrapper ();
-	if (cull_obj != NULL && m_DynamicSounds.Is_In_List (cull_obj)) {
+	if (cull_obj != nullptr && m_DynamicSounds.Is_In_List (cull_obj)) {
 
 		//
 		//	Stop playing the sound if necessary
@@ -626,7 +626,7 @@ SoundSceneClass::Remove_Sound
 		//
 		//	Flush the sound's cull-wrapper since we are removing it from the scene
 		//
-		sound_obj->Set_Cullable_Wrapper (NULL);
+		sound_obj->Set_Cullable_Wrapper (nullptr);
 
 		//
 		// Remove this sound from the dynamic culling system
@@ -658,14 +658,14 @@ SoundSceneClass::Add_Static_Sound
 {
 	WWPROFILE ("Add_Static_Sound");
 
-	WWASSERT (sound_obj != NULL);
-	if (sound_obj != NULL) {
+	WWASSERT (sound_obj != nullptr);
+	if (sound_obj != nullptr) {
 
 		//
 		// Check to see if this sound is already in the scene
 		//
 		SoundCullObjClass *cull_obj = sound_obj->Peek_Cullable_Wrapper ();
-		if (cull_obj == NULL) {
+		if (cull_obj == nullptr) {
 
 			//
 			// Create a wrapper object for the sound that we can use
@@ -739,7 +739,7 @@ SoundSceneClass::Remove_Static_Sound
 {
 	WWPROFILE ("Remove_Static_Sound");
 
-	if (sound_obj == NULL) {
+	if (sound_obj == nullptr) {
 		return ;
 	}
 
@@ -754,7 +754,7 @@ SoundSceneClass::Remove_Static_Sound
 	//	Is this sound really in the scene?
 	//
 	SoundCullObjClass *cull_obj = sound_obj->Peek_Cullable_Wrapper ();
-	if (cull_obj != NULL && m_StaticSounds.Is_In_List (cull_obj)) {
+	if (cull_obj != nullptr && m_StaticSounds.Is_In_List (cull_obj)) {
 
 		//
 		//	Stop playing the sound if necessary
@@ -766,7 +766,7 @@ SoundSceneClass::Remove_Static_Sound
 		//
 		//	Flush the sound's cull-wrapper since we are removing it from the scene
 		//
-		sound_obj->Set_Cullable_Wrapper (NULL);
+		sound_obj->Set_Cullable_Wrapper (nullptr);
 
 		//
 		// Remove this sound from the static culling system
@@ -798,8 +798,8 @@ SoundSceneClass::Add_Logical_Sound
 {
 	WWPROFILE ("Add_Logical_Sound");
 
-	WWASSERT (sound_obj != NULL);
-	if (sound_obj != NULL) {
+	WWASSERT (sound_obj != nullptr);
+	if (sound_obj != nullptr) {
 
 		//
 		//	Check to make sure we don't add this sound twice
@@ -861,7 +861,7 @@ SoundSceneClass::Remove_Logical_Sound
 {
 	WWPROFILE ("Remove_Logical_Sound");
 
-	if (sound_obj == NULL) {
+	if (sound_obj == nullptr) {
 		return ;
 	}
 
@@ -888,7 +888,7 @@ SoundSceneClass::Remove_Logical_Sound
 			//
 			// Remove this sound obj's wrapper
 			//
-			sound_obj->Set_Cullable_Wrapper (NULL);
+			sound_obj->Set_Cullable_Wrapper (nullptr);
 			WWAudioThreadsClass::Add_Delayed_Release_Object (cull_obj);
 
 			//
@@ -920,7 +920,7 @@ SoundSceneClass::Remove_Logical_Sound
 			//
 			// Remove this sound obj's wrapper
 			//
-			sound_obj->Set_Cullable_Wrapper (NULL);
+			sound_obj->Set_Cullable_Wrapper (nullptr);
 			WWAudioThreadsClass::Add_Delayed_Release_Object (cull_obj);
 
 			//
@@ -944,8 +944,8 @@ SoundSceneClass::Add_Logical_Listener (LogicalListenerClass *listener_obj)
 {
 	WWPROFILE ("Add_Logical_Listener");
 
-	WWASSERT (listener_obj != NULL);
-	if (listener_obj != NULL) {
+	WWASSERT (listener_obj != nullptr);
+	if (listener_obj != nullptr) {
 
 		//
 		//	Add the listener to the 'scene' if its in our list
@@ -971,8 +971,8 @@ SoundSceneClass::Remove_Logical_Listener (LogicalListenerClass *listener_obj)
 {
 	WWPROFILE ("Remove_Logical_Listener");
 
-	WWASSERT (listener_obj != NULL);
-	if (listener_obj != NULL) {
+	WWASSERT (listener_obj != nullptr);
+	if (listener_obj != nullptr) {
 
 		//
 		//	Remove the listener from the 'scene' if its in our list
@@ -995,7 +995,7 @@ SoundSceneClass::Remove_Logical_Listener (LogicalListenerClass *listener_obj)
 void
 SoundSceneClass::Update_Sound (SoundCullObjClass *sound_obj)
 {
-	if (sound_obj != NULL) {
+	if (sound_obj != nullptr) {
 		sound_obj->Set_Cull_Box(sound_obj->Get_Bounding_Box());
 	}
 
@@ -1032,7 +1032,7 @@ SoundSceneClass::Is_Sound_In_Scene (AudibleSoundClass *sound_obj, bool /* all */
 	// lists.
 	//
 	SoundCullObjClass *cull_obj = sound_obj->Peek_Cullable_Wrapper ();
-	if (cull_obj != NULL) {
+	if (cull_obj != nullptr) {
 		retval = (m_DynamicSounds.Is_In_List (cull_obj) || m_StaticSounds.Is_In_List (cull_obj));
 	}
 
@@ -1113,7 +1113,7 @@ SoundSceneClass::Save_Static_Sounds (ChunkSaveClass &csave)
 		//	Get the sound from its cull object
 		//
 		AudibleSoundClass *sound_obj	= (AudibleSoundClass *)cull_obj->Peek_Sound_Obj ();
-		if (sound_obj != NULL) {
+		if (sound_obj != nullptr) {
 
 			//
 			//	Have the sound's factory save it
@@ -1142,9 +1142,9 @@ SoundSceneClass::Load_Static_Sounds (ChunkLoadClass &cload)
 		//	Load this sound from the chunk (if possible)
 		//
 		PersistFactoryClass *factory = SaveLoadSystemClass::Find_Persist_Factory (cload.Cur_Chunk_ID ());
-		if (factory != NULL) {
+		if (factory != nullptr) {
 			AudibleSoundClass *sound_obj = (AudibleSoundClass *)factory->Load (cload);
-			if (sound_obj != NULL) {
+			if (sound_obj != nullptr) {
 				sound_obj->Add_To_Scene (true);
 				REF_PTR_RELEASE (sound_obj);
 			}
@@ -1273,7 +1273,7 @@ SoundSceneClass::Flush_Scene (void)
 		SoundCullObjClass *cull_obj = temp_static_it.Peek_Obj ();
 
 		AudibleSoundClass *sound_obj	= (AudibleSoundClass *)cull_obj->Peek_Sound_Obj ();
-		if (sound_obj != NULL) {
+		if (sound_obj != nullptr) {
 			Remove_Static_Sound (sound_obj);
 		}
 	}
@@ -1286,7 +1286,7 @@ SoundSceneClass::Flush_Scene (void)
 		SoundCullObjClass *cull_obj = temp_dynamic_it.Peek_Obj ();
 
 		AudibleSoundClass *sound_obj	= (AudibleSoundClass *)cull_obj->Peek_Sound_Obj ();
-		if (sound_obj != NULL) {
+		if (sound_obj != nullptr) {
 			Remove_Sound (sound_obj);
 		}
 	}
@@ -1297,7 +1297,7 @@ SoundSceneClass::Flush_Scene (void)
 	RefMultiListIterator<LogicalSoundClass> temp_logical_it (&temp_logical);
 	for (temp_logical_it.First (); !temp_logical_it.Is_Done (); temp_logical_it.Next ()) {
 		LogicalSoundClass *logical_sound = temp_logical_it.Peek_Obj ();
-		if (logical_sound != NULL) {
+		if (logical_sound != nullptr) {
 			logical_sound->Remove_From_Scene ();
 		}
 	}
@@ -1308,7 +1308,7 @@ SoundSceneClass::Flush_Scene (void)
 	RefMultiListIterator<LogicalSoundClass> temp_single_logical_it (&temp_single_logical);
 	for (temp_single_logical_it.First (); !temp_single_logical_it.Is_Done (); temp_single_logical_it.Next ()) {
 		LogicalSoundClass *logical_sound = temp_single_logical_it.Peek_Obj ();
-		if (logical_sound != NULL) {
+		if (logical_sound != nullptr) {
 			logical_sound->Remove_From_Scene ();
 		}
 	}
@@ -1325,11 +1325,11 @@ SoundSceneClass::Flush_Scene (void)
 void
 SoundSceneClass::Set_2nd_Listener (Listener3DClass *listener)
 {
-	if (m_2ndListener != NULL) {
+	if (m_2ndListener != nullptr) {
 		m_2ndListener->On_Removed_From_Scene ();
 	}
 
-	if (listener != NULL) {
+	if (listener != nullptr) {
 		listener->On_Added_To_Scene ();
 	}
 

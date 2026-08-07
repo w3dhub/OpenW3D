@@ -69,7 +69,7 @@ class HeapNodeClass
 };
 
 // WARNING!
-// To reduce the number of compares, element [0] is a sentinel.  It's key value must be the smallest or NULL.
+// To reduce the number of compares, element [0] is a sentinel.  It's key value must be the smallest or nullptr.
 // Keeps track of pointers to objects.
 template <class Key_Type>
 class BinaryHeapClass
@@ -92,7 +92,7 @@ class BinaryHeapClass
 		BinaryHeapClass(unsigned int max_number_of_elements)
 			:	Max_Number_Of_Elements (max_number_of_elements),
 				Number_Of_Elements (0),
-				Elements (NULL),
+				Elements (nullptr),
 				Own_Array (false)
 		{
 			Resize_Array (max_number_of_elements);
@@ -104,7 +104,7 @@ class BinaryHeapClass
 			Release_Array ();
 		}
 
-		// Reset all entries in the array to NULL
+		// Reset all entries in the array to nullptr
 		void Flush_Array (void)
 		{
 			::memset (Elements, 0, sizeof (HeapNodeClass<Key_Type> *) * Max_Number_Of_Elements);
@@ -123,7 +123,7 @@ class BinaryHeapClass
 			Number_Of_Elements		= 0;
 			Own_Array					= true;
 
-			// Initialize to NULL
+			// Initialize to nullptr
 			::memset (Elements, 0, sizeof (HeapNodeClass<Key_Type> *) * new_size);
 			return ;
 		}
@@ -132,7 +132,7 @@ class BinaryHeapClass
 		{
 			if (Own_Array) {
 				delete [] Elements;
-				Elements = NULL;
+				Elements = nullptr;
 				Number_Of_Elements = 0;
 				Max_Number_Of_Elements = 0;
 			}
@@ -210,7 +210,7 @@ class BinaryHeapClass
 			HeapNodeClass<Key_Type>* 	min_element;
 
 			if (Number_Of_Elements == 0) {
-				return NULL;
+				return nullptr;
 			}
 
 			assert(Number_Of_Elements > 0);
@@ -218,7 +218,7 @@ class BinaryHeapClass
 
 			// The smallest element is always at this position.
 			min_element = Elements[1];
-			if (min_element != NULL) {
+			if (min_element != nullptr) {
 				min_element->Set_Heap_Location (0);
 			}
 

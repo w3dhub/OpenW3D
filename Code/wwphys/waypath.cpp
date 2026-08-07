@@ -97,7 +97,7 @@ WaypathClass::WaypathClass (const WaypathPositionClass &start, const WaypathPosi
 		//	Lookup the path we will use as our reference
 		//
 		WaypathClass *whole_path = PathfindClass::Get_Instance ()->Find_Waypath (waypath_id);
-		if (whole_path != NULL) {
+		if (whole_path != nullptr) {
 
 			//
 			//	Copy the flags from the complete path
@@ -271,7 +271,7 @@ WaypathClass::Load_Variables (ChunkLoadClass &cload)
 				//	Read the old waypoint ptr from the chunk and add it to our
 				// list.  We will remap it later.
 				//
-				WaypointClass *waypoint = NULL;
+				WaypointClass *waypoint = nullptr;
 				cload.Read (&waypoint, sizeof (int));
 				m_Waypoints.Add (waypoint);
 			}
@@ -283,7 +283,7 @@ WaypathClass::Load_Variables (ChunkLoadClass &cload)
 				//	Read the old pointer from the chunk and submit it
 				// to the remapping system.
 				//
-				WaypathClass *old_ptr = NULL;
+				WaypathClass *old_ptr = nullptr;
 				cload.Read (&old_ptr, sizeof (int));
 				SaveLoadSystemClass::Register_Pointer (old_ptr, this);
 			}
@@ -417,7 +417,7 @@ WaypathClass::Evaluate_Position (const WaypathPositionClass &pos, Vector3 *posit
 		//
 		int index = pos.Get_Waypoint_Index ();
 		WaypointClass *seg_pt1 = Get_Point (index);
-		if (seg_pt1 != NULL) {
+		if (seg_pt1 != nullptr) {
 
 			//
 			//	Get the world-space position of the start point of the segment
@@ -437,7 +437,7 @@ WaypathClass::Evaluate_Position (const WaypathPositionClass &pos, Vector3 *posit
 				//	Lookup the end point of the segment
 				//
 				WaypointClass *seg_pt2 = Get_Point (index + 1);
-				if (seg_pt2 != NULL) {
+				if (seg_pt2 != nullptr) {
 
 					//
 					//	Get the world-space position of the end point of the segment

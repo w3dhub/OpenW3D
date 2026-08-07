@@ -79,7 +79,7 @@ EditorMixFileCreator::Add_File (const char *full_path, const char *name)
 	//	Is this file already in the system?
 	//
 	EditorMixFileEntry *stored_path = FilenameHash.Get (lower_name);
-	if (stored_path != NULL) {
+	if (stored_path != nullptr) {
 
 		//
 		//	Don't store the new file unless its newer then the one already
@@ -132,7 +132,7 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 	if (TexturesCompressed) {
 
 		// Is this file a .TGA? If so use a compressed (.DDS) version stored in the texture cache.
-		_splitpath (fullpath, NULL, NULL, filename, extension);
+		_splitpath (fullpath, nullptr, nullptr, filename, extension);
 		if (stricmp (extension, ".tga") == 0) {
 
 			const char *exclusionstring0 = "bump_";
@@ -155,7 +155,7 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 				// OPTIMIZATION: Has the .DDS file already been created and stored in the texture cache?
 
 				// NOTE:	If the name contains a subdirectory mangle it with the filename. This will ensure that the filename is unique.
-				_splitpath (name, NULL, mangleddirectory, mangledname, NULL);
+				_splitpath (name, nullptr, mangleddirectory, mangledname, nullptr);
 
    			// NOTE: The cached name must be the same as the original name but with .DDS extension.
 				cachedname	= mangleddirectory;
@@ -178,19 +178,19 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 				cachedfullpath += ddsextension;
 
 				// Does the cached .DDS file exist?
-				tgafile = CreateFile (fullpath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0L, NULL);
-				ddsfile = CreateFile (cachedfullpath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0L, NULL);
+				tgafile = CreateFile (fullpath, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0L, nullptr);
+				ddsfile = CreateFile (cachedfullpath, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0L, nullptr);
 				if (tgafile != INVALID_HANDLE_VALUE) {
 
 					FILETIME tgawritetime;
 
-					GetFileTime (tgafile, NULL, NULL, &tgawritetime);
+					GetFileTime (tgafile, nullptr, nullptr, &tgawritetime);
 					if (ddsfile != INVALID_HANDLE_VALUE) {
 
 						FILETIME ddswritetime;
 
 						// Does the cached .DDS file have the same time stamp as the .TGA file?
-						GetFileTime (ddsfile, NULL, NULL, &ddswritetime);
+						GetFileTime (ddsfile, nullptr, nullptr, &ddswritetime);
 						CloseHandle (tgafile);
 						CloseHandle (ddsfile);
 						if ((tgawritetime.dwLowDateTime == ddswritetime.dwLowDateTime) && (tgawritetime.dwHighDateTime == ddswritetime.dwHighDateTime)) {

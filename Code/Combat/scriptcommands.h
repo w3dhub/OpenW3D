@@ -187,7 +187,7 @@ typedef struct {
 
 	// Object Display
 	void	( * Set_Model )( GameObject * obj, const char * model_name );
-	void	( * Set_Animation )( GameObject * obj, const char * anim_name, bool looping, const char * sub_obj_name/*  = NULL */, float start_frame /*  = 0.0F */, float end_frame /*  = -1.0F */, bool is_blended /*  = false */ );
+	void	( * Set_Animation )( GameObject * obj, const char * anim_name, bool looping, const char * sub_obj_name/*  = nullptr */, float start_frame /*  = 0.0F */, float end_frame /*  = -1.0F */, bool is_blended /*  = false */ );
 	void	( * Set_Animation_Frame )( GameObject * obj, const char * anim_name, int frame );
 
 	// Sounds
@@ -284,8 +284,8 @@ typedef struct {
 	float	(* Get_Safe_Flight_Height )( float x_pos, float y_pos );
 
 	// Explosions
-	void	(* Create_Explosion )( const char * explosion_def_name, const Vector3 & pos, GameObject * creator/*  = NULL */ );
-	void	(* Create_Explosion_At_Bone )( const char * explosion_def_name, GameObject * object, const char * bone_name, GameObject * creator/*  = NULL */ );
+	void	(* Create_Explosion )( const char * explosion_def_name, const Vector3 & pos, GameObject * creator/*  = nullptr */ );
+	void	(* Create_Explosion_At_Bone )( const char * explosion_def_name, GameObject * object, const char * bone_name, GameObject * creator/*  = nullptr */ );
 
 	// HUD
 	void	(* Enable_HUD )( bool enable );
@@ -314,14 +314,14 @@ typedef struct {
 	void	(* Innate_Force_State_Enemy_Seen )( GameObject * obj, GameObject * enemy );
 
 	// Control of StaticAnimPhys
-	void	(* Static_Anim_Phys_Goto_Frame )( int obj_id, float frame, const char * anim_name/*  = NULL */ );
-	void	(* Static_Anim_Phys_Goto_Last_Frame )( int obj_id, const char * anim_name/*  = NULL */ );
+	void	(* Static_Anim_Phys_Goto_Frame )( int obj_id, float frame, const char * anim_name/*  = nullptr */ );
+	void	(* Static_Anim_Phys_Goto_Last_Frame )( int obj_id, const char * anim_name/*  = nullptr */ );
 
 	// Timing
 	unsigned int (* Get_Sync_Time)( void );
 
 	// Objectives
-	void	(* Add_Objective)( int id, int type, int status, int short_description_id, const char* description_sound_filename/*  = NULL */, int long_description_id/* = 0 */ );
+	void	(* Add_Objective)( int id, int type, int status, int short_description_id, const char* description_sound_filename/*  = nullptr */, int long_description_id/* = 0 */ );
 	void	(* Remove_Objective)( int id );
 	void	(* Set_Objective_Status)( int id, int status );
 	void	(* Change_Objective_Type)( int id, int type );
@@ -367,7 +367,7 @@ typedef struct {
 	void	(* Unlock_Soldier_Facing)( GameObject * object );
 
 	// Apply Damage
-	void	(* Apply_Damage)( GameObject * object, float amount, const char * warhead_name, GameObject * damager/*  = NULL */ );
+	void	(* Apply_Damage)( GameObject * object, float amount, const char * warhead_name, GameObject * damager/*  = nullptr */ );
 
 	// Soldier
 	void	(* Set_Loiters_Allowed)( GameObject * object, bool allowed );

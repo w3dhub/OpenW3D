@@ -35,7 +35,7 @@ class ChooseModPackageDialogClass : public CDialog
 {
 // Construction
 public:
-	ChooseModPackageDialogClass(CWnd* pParent = NULL);   // standard constructor
+	ChooseModPackageDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(ChooseModPackageDialogClass)

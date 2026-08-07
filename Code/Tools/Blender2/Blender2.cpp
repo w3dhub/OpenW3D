@@ -154,9 +154,9 @@ static BOOL CALLBACK BlenderDlgProc
 
 Blender_Class::Blender_Class()
 {
-	iu = NULL;
-	ip = NULL;
-	hPanel = NULL;
+	iu = nullptr;
+	ip = nullptr;
+	hPanel = nullptr;
 
 	first_frame = 0;
 	first_match = 0;
@@ -188,10 +188,10 @@ void Blender_Class::BeginEditParams(Interface *ip,IUtil *iu)
 
 void Blender_Class::EndEditParams ( Interface *ip, IUtil *iu )
 {
-	this->iu = NULL;
-	this->ip = NULL;
+	this->iu = nullptr;
+	this->ip = nullptr;
 	ip->DeleteRollupPage(hPanel);
-	hPanel = NULL;
+	hPanel = nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -332,7 +332,7 @@ void Blender_Class::Blend_Keys ()
 
 	theHold.Begin ();
 
-	SetCursor ( LoadCursor (NULL, IDC_WAIT) );
+	SetCursor ( LoadCursor (nullptr, IDC_WAIT) );
 	SuspendAnimate ();
 	AnimateOn ();
 
@@ -345,7 +345,7 @@ void Blender_Class::Blend_Keys ()
 		INode * inode = ip->GetSelNode ( i );
 
 		Control * tm_controller = inode->GetTMController ();
-		if ( tm_controller == NULL )
+		if ( tm_controller == nullptr )
 			continue;
 
 		Quat rot_start_delta = zero;
@@ -362,7 +362,7 @@ void Blender_Class::Blend_Keys ()
 
 		c = tm_controller->GetRotationController ();
 
-		if ( c != NULL )
+		if ( c != nullptr )
 		{
 			if ( c->ClassID () != Class_ID (TCBINTERP_ROTATION_CLASS_ID, 0) )
 			{
@@ -427,7 +427,7 @@ void Blender_Class::Blend_Keys ()
 #else
 				IKeyControl * keys = GetKeyControlInterface ( c );
 
-				if ( keys != NULL )
+				if ( keys != nullptr )
 				{
 					int number_of_keys = keys->GetNumKeys ();
 
@@ -470,7 +470,7 @@ void Blender_Class::Blend_Keys ()
 
 		c = tm_controller->GetPositionController ();
 
-		if ( c != NULL )
+		if ( c != nullptr )
 		{
 			if ( c->ClassID () != Class_ID (TCBINTERP_POSITION_CLASS_ID, 0) )
 			{
@@ -547,7 +547,7 @@ void Blender_Class::Blend_Keys ()
 #else
 				IKeyControl * keys = GetKeyControlInterface ( c );
 
-				if ( keys != NULL )
+				if ( keys != nullptr )
 				{
 					int number_of_keys = keys->GetNumKeys ();
 
@@ -616,7 +616,7 @@ void Blender_Class::Blend_Keys ()
 	TSTR undostr;
 	undostr.printf ( "Blend Keys" );
 	theHold.Accept ( undostr );
-	SetCursor ( LoadCursor (NULL, IDC_ARROW) );
+	SetCursor ( LoadCursor (nullptr, IDC_ARROW) );
 
 	ip->RedrawViews ( ip->GetTime () );
 
@@ -680,7 +680,7 @@ void Blender_Class::Set_Data_Chunk
 
 	Blender_Data_Chunk * data;
 
-	if ( chunk != NULL )
+	if ( chunk != nullptr )
 	{
 		data = (Blender_Data_Chunk *) chunk->data;
 	}
@@ -743,7 +743,7 @@ void Blender_Class::Loop_Controllers ()
 		INode * inode = ip->GetSelNode ( i );
 
 		Control * tm_controller = inode->GetTMController ();
-		if ( tm_controller == NULL )
+		if ( tm_controller == nullptr )
 			continue;
 
 		Control * c;

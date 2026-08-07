@@ -87,7 +87,7 @@ bool	TransitionGameObjDef::Save( ChunkSaveClass & csave )
 	*/
 	for( int index = 0; index < Transitions.Count (); index ++ ) {
 		TransitionDataClass *transition = Transitions[index];
-		if( transition != NULL ) {
+		if( transition != nullptr ) {
 
 			/*
 			**	Save this transition 'defintion' to its own chunk.
@@ -141,7 +141,7 @@ void TransitionGameObjDef::Free_Transition_List( void )
 	*/
 	for( int index = 0; index < Transitions.Count (); index ++ ) {
 		TransitionDataClass *transition = Transitions[index];
-		if( transition != NULL ) {
+		if( transition != nullptr ) {
 			delete transition;
 		}
 	}

@@ -109,7 +109,7 @@ int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	Keyboard = new WWKeyboardClass();
 
 	// Setup the mouse system and take over the mouse.
-	MouseCursor = new WWMouseClass(NULL, MainWindow);
+	MouseCursor = new WWMouseClass(nullptr, MainWindow);
 
 	Split_Command_Line_Args(hInstance, &path_to_exe[0], lpCmdLine);
 	Set_Working_Directory(oldpath, &path_to_exe[0]);
@@ -152,7 +152,7 @@ SRBOOL SRCALL WIN_resize( SRLONG width, SRLONG height )
 
 	SetRect( &rc, 0,0, width,height);
 	AdjustWindowRectEx( &rc, GetWindowStyle(hWndMain),
-						GetMenu(hWndMain)!=NULL,
+						GetMenu(hWndMain)!=nullptr,
 						GetWindowExStyle(hWndMain));
 
 	xp = (GetSystemMetrics(SM_CXSCREEN) - (rc.right-rc.left))/2;
@@ -168,7 +168,7 @@ SRBOOL SRCALL WIN_resize( SRLONG width, SRLONG height )
 	if (rc.left < rcWork.left) rc.left = rcWork.left;
 	if (rc.top  < rcWork.top)  rc.top  = rcWork.top;
 
-	SetWindowPos( hWndMain, NULL, rc.left, rc.top, 0, 0,
+	SetWindowPos( hWndMain, nullptr, rc.left, rc.top, 0, 0,
 		SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
 
 	UpdateWindow( hWndMain);
@@ -276,16 +276,16 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
 
 				GameInFocus = true;
 				if (wParam != 0) {
-					if (MouseCursor != NULL) MouseCursor->Capture_Mouse();
+					if (MouseCursor != nullptr) MouseCursor->Capture_Mouse();
 				} else {
-					if (MouseCursor != NULL) MouseCursor->Release_Mouse();
+					if (MouseCursor != nullptr) MouseCursor->Release_Mouse();
 				}
 
 			}
 			return(0);
 
 		case WM_SETCURSOR:
-			SetCursor(NULL);
+			SetCursor(nullptr);
 			return 1;
 
 		case WM_ERASEBKGND:
@@ -374,10 +374,10 @@ static BOOL Create_Main_Window(HANDLE hInstance, int nCmdShow)
 	wc.cbClsExtra		= 0;
 	wc.cbWndExtra		= 0;
 	wc.hInstance		= hInstance;
-	wc.hIcon				= LoadIcon( NULL, IDI_APPLICATION);
-	wc.hCursor			= LoadCursor( NULL, IDC_ARROW);
+	wc.hIcon				= LoadIcon( nullptr, IDI_APPLICATION);
+	wc.hCursor			= LoadCursor( nullptr, IDC_ARROW);
 	wc.hbrBackground	= GetStockObject( BLACK_BRUSH);
-	wc.lpszMenuName	= NULL;
+	wc.lpszMenuName	= nullptr;
 	wc.lpszClassName	= "SRCLASS";
 
 	rc = RegisterClass( &wc);
@@ -393,10 +393,10 @@ static BOOL Create_Main_Window(HANDLE hInstance, int nCmdShow)
 		0, 0,										// top left corner
 		GetSystemMetrics(SM_CXSCREEN),	// bottom right corner
 		GetSystemMetrics(SM_CYSCREEN),
-		NULL,										// no parent handle
-		NULL,										// no menu handle
+		nullptr,										// no parent handle
+		nullptr,										// no menu handle
 		ProgramInstance,						// main program instance
-		NULL);									// creation parameters
+		nullptr);									// creation parameters
 
 	if (!hWndMain) {
 		return FALSE;
@@ -445,7 +445,7 @@ void Prog_End(void)
 //	Sound_End();
 	MouseCursor->Release_Mouse();
 	delete MouseCursor;
-	MouseCursor = NULL;
+	MouseCursor = nullptr;
 }
 
 
@@ -457,9 +457,9 @@ void Split_Command_Line_Args(HINSTANCE instance, char *path_to_exe, char *comman
 
 	char * token = strtok(command_line, " ");
 	Argc = 1;
-	while (Argc < ARRAY_SIZE(Argv) && token != NULL) {
+	while (Argc < ARRAY_SIZE(Argv) && token != nullptr) {
 		Argv[Argc++] = token;
-		token = strtok(NULL, " ");
+		token = strtok(nullptr, " ");
 	}
 }
 
@@ -477,8 +477,8 @@ void Set_Working_Directory(char *old_path, char *new_path)
 	**	Change directory to the where the executable is located. Handle the
 	**	case where there is no path attached to argv[0].
 	*/
-	_splitpath(new_path, drive, dir, NULL, NULL);
-	_makepath(path, drive, dir, NULL, NULL);
+	_splitpath(new_path, drive, dir, nullptr, nullptr);
+	_makepath(path, drive, dir, nullptr, nullptr);
 	SetCurrentDirectory(path);
 }
 

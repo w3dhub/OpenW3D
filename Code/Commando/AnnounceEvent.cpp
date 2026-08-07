@@ -252,17 +252,17 @@ void SCAnnouncement::Act(void)
 		//
 		//	Display the emot icon as ncessary
 		//
-		if (sender != NULL && mRadioCmdID != -1)
+		if (sender != nullptr && mRadioCmdID != -1)
 			{
 
 			//
 			//	Dig the soldier game object out from the player data
 			//
 			SmartGameObj *game_obj = sender->Get_GameObj();
-			if (game_obj != NULL && game_obj->As_SoldierGameObj () != NULL)
+			if (game_obj != nullptr && game_obj->As_SoldierGameObj () != nullptr)
 				{
 				CNCModeSettingsDef* cncDef = CNCModeSettingsDef::Get_Instance();
-				if (cncDef != NULL)
+				if (cncDef != nullptr)
 					{
 					//
 					//	Display the emot icon

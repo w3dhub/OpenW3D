@@ -38,7 +38,7 @@ class LevelSettingsDialogClass : public CDialog
 {
 // Construction
 public:
-	LevelSettingsDialogClass(CWnd* pParent = NULL);   // standard constructor
+	LevelSettingsDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(LevelSettingsDialogClass)

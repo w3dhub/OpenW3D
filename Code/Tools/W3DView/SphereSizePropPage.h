@@ -40,7 +40,7 @@ class SphereSizePropPageClass : public CPropertyPage
 
 // Construction
 public:
-	SphereSizePropPageClass(SphereRenderObjClass *sphere = NULL);
+	SphereSizePropPageClass(SphereRenderObjClass *sphere = nullptr);
 	~SphereSizePropPageClass();
 
 // Dialog Data

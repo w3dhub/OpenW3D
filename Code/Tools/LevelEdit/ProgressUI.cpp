@@ -41,7 +41,7 @@
 ///////////////////////////////////////////////////////////////////////
 //	Static member initialization
 ///////////////////////////////////////////////////////////////////////
-ProgressUIClass *	ProgressUIMgrClass::_CurrentProgressUI = NULL;
+ProgressUIClass *	ProgressUIMgrClass::_CurrentProgressUI = nullptr;
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ ProgressUIClass *	ProgressUIMgrClass::_CurrentProgressUI = NULL;
 void
 ProgressUIMgrClass::Set_Status_Text (LPCTSTR text)
 {
-	if (_CurrentProgressUI != NULL) {
+	if (_CurrentProgressUI != nullptr) {
 		_CurrentProgressUI->Set_Status_Text (text);
 	}
 
@@ -68,7 +68,7 @@ ProgressUIMgrClass::Set_Status_Text (LPCTSTR text)
 void
 ProgressUIMgrClass::Set_Progress_Percent (float percent)
 {
-	if (_CurrentProgressUI != NULL) {
+	if (_CurrentProgressUI != nullptr) {
 		_CurrentProgressUI->Set_Progress_Percent (percent);
 	}
 

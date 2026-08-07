@@ -98,7 +98,7 @@ static FONT_DESC	DEFAULT_FONTS[StyleMgrClass::FONT_MAX] =
 ////////////////////////////////////////////////////////////////
 //	Local constants
 ////////////////////////////////////////////////////////////////
-TextureClass *				StyleMgrClass::BackdropTexture			= NULL;
+TextureClass *				StyleMgrClass::BackdropTexture			= nullptr;
 
 uint32						StyleMgrClass::TitleColor					= RGB_TO_INT32 (255, 255, 255);
 uint32						StyleMgrClass::TitleHilightColor			= RGB_TO_INT32 (255, 255, 0);
@@ -116,7 +116,7 @@ uint32						StyleMgrClass::HilightColor				= RGB_TO_INT32 (70, 70, 70);
 uint32						StyleMgrClass::TabTextColor				= RGB_TO_INT32 (255, 255, 255);
 uint32						StyleMgrClass::TabGlowColor				= RGB_TO_INT32 (16, 10, 0);
 
-FontCharsClass *			StyleMgrClass::Fonts[FONT_MAX]			= { NULL };
+FontCharsClass *			StyleMgrClass::Fonts[FONT_MAX]			= { nullptr };
 float							StyleMgrClass::ScaleX						= 1.0F;
 float							StyleMgrClass::ScaleY						= 1.0F;
 
@@ -182,14 +182,14 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 	//
 	//	Get the INI file
 	//
-	INIClass *ini_file = NULL;
+	INIClass *ini_file = nullptr;
 	FileClass *file_obj = _TheFileFactory->Get_File (filename);
-	if (file_obj != NULL && file_obj->Is_Available( ) ) {
+	if (file_obj != nullptr && file_obj->Is_Available( ) ) {
 		ini_file = new INIClass (*file_obj);
 		_TheFileFactory->Return_File (file_obj);
 	}
 
-	if (ini_file != NULL) {
+	if (ini_file != nullptr) {
 
 		const char *FONT_FILE_SECTION	= "Font File List";
 		const char *FONT_NAME_SECTION	= "Font Names";
@@ -244,8 +244,8 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 			//	Parse the information
 			//
 			StringClass font_name	= ::strtok (font_entry.Peek_Buffer (), ",");
-			StringClass font_size	= ::strtok (NULL, ",");
-			StringClass font_bold	= ::strtok (NULL, ",");
+			StringClass font_size	= ::strtok (nullptr, ",");
+			StringClass font_bold	= ::strtok (nullptr, ",");
 			bool is_bold				= (::atoi (font_bold) != 0);
 
 			//
@@ -290,7 +290,7 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 		//	Free the ini file
 		//
 		delete ini_file;
-		ini_file = NULL;
+		ini_file = nullptr;
 	}
 
 	return ;
@@ -337,7 +337,7 @@ FontCharsClass *
 StyleMgrClass::Get_Font (FONT_STYLE style)
 {
 	FontCharsClass *font = Fonts[style];
-	if (font != NULL) {
+	if (font != nullptr) {
 		font->Add_Ref ();
 	}
 	return font;
@@ -394,7 +394,7 @@ StyleMgrClass::Render_Text
 	//
 	//	If necessary, assign the clipping rectangle
 	//
-	if (clipping_rect != NULL) {
+	if (clipping_rect != nullptr) {
 		renderer->Set_Clipping_Rect (*clipping_rect);
 	}
 
@@ -855,7 +855,7 @@ StyleMgrClass::Render_Wrapped_Text_Ex
 	//	Handy macro
 	//
 	#define COPY_LINE(dest,	src_start, src_end)	\
-			if (src_end == NULL) {						\
+			if (src_end == nullptr) {						\
 				dest = src_start;							\
 			} else {											\
 				size_t bytes	= ((char *)src_end - (char *)src_start);	\
@@ -869,7 +869,7 @@ StyleMgrClass::Render_Wrapped_Text_Ex
 	//	Loop over all the lines of text and check for wrapping...
 	//
 	const unichar_t *line_start = renderer->Find_Row_Start (text, 0);
-	while (line_start != NULL) {
+	while (line_start != nullptr) {
 
 		//
 		//	Lookup the start of the next line...
@@ -1122,7 +1122,7 @@ StyleMgrClass::Configure_Renderer (Render2DClass *renderer)
 void
 StyleMgrClass::Play_Sound (EVENT_AUDIO event)
 {
-	if (	WWAudioClass::Get_Instance () == NULL ||
+	if (	WWAudioClass::Get_Instance () == nullptr ||
 			EventAudioList[event].Get_Length () == 0)
 	{
 		return ;
@@ -1133,7 +1133,7 @@ StyleMgrClass::Play_Sound (EVENT_AUDIO event)
 	//
 	StringClass tmp_copy (EventAudioList[event], true);
 	StringClass filename		= ::strtok (tmp_copy.Peek_Buffer (), ",");
-	StringClass vol_string	= ::strtok (NULL, ",");
+	StringClass vol_string	= ::strtok (nullptr, ",");
 	float volume				= ::atoi (vol_string) / 100.0F;
 
 	//

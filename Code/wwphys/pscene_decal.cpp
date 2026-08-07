@@ -54,13 +54,13 @@
 
 void PhysicsSceneClass::Allocate_Decal_Resources(void)
 {
-	WWASSERT(DecalSystem == NULL);
+	WWASSERT(DecalSystem == nullptr);
 	DecalSystem = new PhysDecalSysClass(this);
 }
 
 void PhysicsSceneClass::Release_Decal_Resources(void)
 {
-	if (DecalSystem != NULL) {
+	if (DecalSystem != nullptr) {
 		delete DecalSystem;
 	}
 }
@@ -75,13 +75,13 @@ int PhysicsSceneClass::Create_Decal
 	PhysClass *			only_this_obj
 )
 {
-	WWASSERT(DecalSystem != NULL);
+	WWASSERT(DecalSystem != nullptr);
 	return DecalSystem->Create_Decal(tm,texture_name,radius,is_permanent,apply_to_translucent_meshes,only_this_obj);
 }
 
 bool PhysicsSceneClass::Remove_Decal(uint32 id)
 {
-	WWASSERT(DecalSystem != NULL);
+	WWASSERT(DecalSystem != nullptr);
 	return DecalSystem->Remove_Decal(id);
 }
 

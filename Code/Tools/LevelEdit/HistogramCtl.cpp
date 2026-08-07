@@ -41,8 +41,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 HistogramCtlClass::HistogramCtlClass (void)
-	:	m_hBitmap (NULL),
-		m_pBits (NULL),
+	:	m_hBitmap (nullptr),
+		m_pBits (nullptr),
 		m_ScanlineSize (0),
 		m_BMPWidth (0),
 		m_BMPHeight (0),
@@ -110,16 +110,16 @@ HistogramCtlClass::Create_DIB_Section (void)
 	//
 	// Create a bitmap that we can access the bits directly of
 	//
-	HDC hscreen_dc = ::GetDC (NULL);
+	HDC hscreen_dc = ::GetDC (nullptr);
 	m_hBitmap = ::CreateDIBSection (hscreen_dc,
 											  (const BITMAPINFO *)&bitmap_info,
 											  DIB_RGB_COLORS,
 											  (void **)&m_pBits,
-											  NULL,
+											  nullptr,
 											  0L);
 
 	// Release our temporary screen DC
-	::ReleaseDC (NULL, hscreen_dc);
+	::ReleaseDC (nullptr, hscreen_dc);
 
 	// Window's bitmaps are DWORD aligned, so make sure
 	// we take that into account.
@@ -141,10 +141,10 @@ HistogramCtlClass::Create_DIB_Section (void)
 void
 HistogramCtlClass::Destroy_DIB_Section (void)
 {
-	if (m_hBitmap != NULL) {
+	if (m_hBitmap != nullptr) {
 		::DeleteObject (m_hBitmap);
-		m_hBitmap = NULL;
-		m_pBits = NULL;
+		m_hBitmap = nullptr;
+		m_pBits = nullptr;
 	}
 
 	return ;
@@ -198,7 +198,7 @@ HistogramCtlClass::Paint_DIB (void)
 	//
 	//	Paint the background
 	//
-	if (m_pBits != NULL) {
+	if (m_pBits != nullptr) {
 		float red	= m_BkHighColor.X;
 		float green	= m_BkHighColor.Y;
 		float blue	= m_BkHighColor.Z;
@@ -240,7 +240,7 @@ HistogramCtlClass::Paint_DIB (void)
 	//
 	//	Paint the columns if necessary
 	//
-	if ((m_pBits != NULL) && (m_ValueList.Count () > 0)) {
+	if ((m_pBits != nullptr) && (m_ValueList.Count () > 0)) {
 		int start_index	= Find_Value_Index (m_XAxis.min);
 		int end_index		= Find_Value_Index (m_XAxis.max);
 
@@ -493,8 +493,8 @@ HistogramCtlClass::Render (HDC hdc, int x_pos, int y_pos)
 		Paint_DIB ();
 	}
 
-	if (m_hBitmap != NULL) {
-		HDC mem_dc			= ::CreateCompatibleDC (NULL);
+	if (m_hBitmap != nullptr) {
+		HDC mem_dc			= ::CreateCompatibleDC (nullptr);
 		HBITMAP old_bmp	= (HBITMAP)::SelectObject (mem_dc, m_hBitmap);
 
 		//

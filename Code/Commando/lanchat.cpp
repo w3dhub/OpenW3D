@@ -213,7 +213,7 @@ void cLanChat::Send_Position_Broadcast(void)
 		packet.Add(is_hosting);
 
 		if (is_hosting) {
-			WWASSERT(PTheGameData != NULL);
+			WWASSERT(PTheGameData != nullptr);
 			packet.Add((int) The_Game()->Get_Game_Type());
 			The_Game()->Export_Tier_1_Data(packet);
 		}
@@ -250,7 +250,7 @@ void cLanChat::Process_Position_Broadcast(cPacket & packet)
 		int game_type = packet.Get(game_type);
 		cGameData * p_game_data = cGameData::Create_Game_Of_Type(
 			(cGameData::GameTypeEnum) game_type);
-		WWASSERT(p_game_data != NULL);
+		WWASSERT(p_game_data != nullptr);
 		p_game_data->Import_Tier_1_Data(packet);
 
 		/*
@@ -258,7 +258,7 @@ void cLanChat::Process_Position_Broadcast(cPacket & packet)
 		// TSS2001f
 		// Manually correct hosting ip address according to recv address
 		//
-		WWASSERT(packet.Get_From_Address_Wrapper() != NULL);
+		WWASSERT(packet.Get_From_Address_Wrapper() != nullptr);
 		p_game_data->Set_Ip_Address(packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr);
 		WWDEBUG_SAY(("Manually setting ip to %s\n",
 			cNetUtil::Address_To_String(p_game_data->Get_Ip_Address())));
@@ -272,7 +272,7 @@ void cLanChat::Process_Position_Broadcast(cPacket & packet)
 			cGameChannelList::Add_Channel(p_game_data);
 		} else {
 			delete p_game_data;
-			p_game_data = NULL;
+			p_game_data = nullptr;
 		}
 
 	} else {
@@ -318,7 +318,7 @@ void cLanChat::Lan_Packet_Handler(cPacket & packet)
 //-----------------------------------------------------------------------------
 static void External_Lan_Packet_Handler(cPacket & packet)
 {
-   //WWASSERT(LanGameModeClass::PLanChat != NULL);
+   //WWASSERT(LanGameModeClass::PLanChat != nullptr);
    PLC->Lan_Packet_Handler(packet);
 }
 
@@ -367,7 +367,7 @@ void cLanChat::Think(void)
 
 
 		/*
-		if (MPLanGameListMenuClass::Get_Instance() != NULL) {
+		if (MPLanGameListMenuClass::Get_Instance() != nullptr) {
 			MPLanGameListMenuClass::Get_Instance()->Set_Is_Name_Colliding();
 		}
 		*/

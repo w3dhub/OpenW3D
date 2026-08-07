@@ -169,7 +169,7 @@ CNCBattleInfoDialogClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_GDI_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the columns
@@ -185,7 +185,7 @@ CNCBattleInfoDialogClass::On_Init_Dialog (void)
 	//	Get a pointer to the list control
 	//
 	list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_NOD_LIST_CTRL);
-	if (list_ctrl != NULL) {
+	if (list_ctrl != nullptr) {
 
 		//
 		//	Configure the columns
@@ -206,7 +206,7 @@ CNCBattleInfoDialogClass::On_Init_Dialog (void)
 	//	Activate the menu game mode (if necessary)
 	//
 	GameModeClass *menu_game_mode = GameModeManager::Find ("Menu");
-	if (menu_game_mode != NULL && menu_game_mode->Is_Active () == false) {
+	if (menu_game_mode != nullptr && menu_game_mode->Is_Active () == false) {
 		menu_game_mode->Activate ();
 	}
 
@@ -223,7 +223,7 @@ void
 CNCBattleInfoDialogClass::Configure_Icons (void)
 {
 	BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();
-	if (base == NULL) {
+	if (base == nullptr) {
 		return ;
 	}
 
@@ -251,7 +251,7 @@ CNCBattleInfoDialogClass::Configure_Icons (void)
 		//	Find the building
 		//
 		BuildingGameObj *building = gdi_base->Find_Building (GDI_BUILDINGS[index].type);
-		if (building != NULL) {
+		if (building != nullptr) {
 
 			//
 			//	Configure the controls for this building
@@ -269,7 +269,7 @@ CNCBattleInfoDialogClass::Configure_Icons (void)
 	//	Now fill in the harvester
 	//
 	VehicleGameObj *gdi_harvester = gdi_base->Get_Harvester_Vehicle ();
-	if (gdi_harvester != NULL) {
+	if (gdi_harvester != nullptr) {
 		float life = gdi_harvester->Get_Defense_Object ()->Get_Health () / gdi_harvester->Get_Defense_Object ()->Get_Health_Max ();
 		((ImageCtrlClass *)Get_Dlg_Item (GDI_BUILDING_CTRLS[next_slot].icon_ctrl_id))->Set_Texture ("HUD_C&C_G_HARVISTER.TGA");
 		((HealthBarCtrlClass *)Get_Dlg_Item (GDI_BUILDING_CTRLS[next_slot].health_ctrl_id))->Set_Life (life);
@@ -294,7 +294,7 @@ CNCBattleInfoDialogClass::Configure_Icons (void)
 		//	Find the building
 		//
 		BuildingGameObj *building = nod_base->Find_Building (NOD_BUILDINGS[index].type);
-		if (building != NULL) {
+		if (building != nullptr) {
 
 			//
 			//	Configure the controls for this building
@@ -310,7 +310,7 @@ CNCBattleInfoDialogClass::Configure_Icons (void)
 	//	Now fill in the harvester
 	//
 	VehicleGameObj *nod_harvester = nod_base->Get_Harvester_Vehicle ();
-	if (nod_harvester != NULL) {
+	if (nod_harvester != nullptr) {
 		float life = nod_harvester->Get_Defense_Object ()->Get_Health () / nod_harvester->Get_Defense_Object ()->Get_Health_Max ();
 		((ImageCtrlClass *)Get_Dlg_Item (NOD_BUILDING_CTRLS[next_slot].icon_ctrl_id))->Set_Texture ("HUD_C&C_N_HARVISTER.TGA");
 		((HealthBarCtrlClass *)Get_Dlg_Item (NOD_BUILDING_CTRLS[next_slot].health_ctrl_id))->Set_Life (life);
@@ -342,11 +342,11 @@ CNCBattleInfoDialogClass::Populate_Player_List (ListCtrlClass *list_ctrl, int te
 	//
 	int index = 0;
 	for (	SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ();
-			player_node != NULL;
+			player_node != nullptr;
 			player_node = player_node->Next ())
 	{
 		cPlayer *player = player_node->Data ();
-		WWASSERT (player != NULL);
+		WWASSERT (player != nullptr);
 
 		if (player->Get_Is_Active().Is_False()) {
 			continue;

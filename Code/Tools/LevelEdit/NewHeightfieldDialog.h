@@ -32,7 +32,7 @@ class NewHeightfieldDialogClass : public CDialog
 {
 // Construction
 public:
-	NewHeightfieldDialogClass(CWnd* pParent = NULL);   // standard constructor
+	NewHeightfieldDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(NewHeightfieldDialogClass)

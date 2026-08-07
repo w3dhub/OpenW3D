@@ -827,7 +827,7 @@ TabCtrlClass::Update_Selector (void)
 void
 TabCtrlClass::Add_Tab (ChildDialogClass *dialog)
 {
-	if (dialog == NULL) {
+	if (dialog == nullptr) {
 		return ;
 	}
 

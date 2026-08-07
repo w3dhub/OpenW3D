@@ -71,7 +71,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	CoverSpotNodeClass (PresetClass *preset = NULL);
+	CoverSpotNodeClass (PresetClass *preset = nullptr);
 	CoverSpotNodeClass (const CoverSpotNodeClass &src);
 	~CoverSpotNodeClass (void);
 

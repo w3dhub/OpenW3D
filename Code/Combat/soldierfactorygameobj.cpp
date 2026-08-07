@@ -371,7 +371,7 @@ SoldierFactoryGameObj::On_Destroyed (void)
 	//
 	//	Switch off the radar for each player on this team
 	//
-	if (BaseController != NULL && CombatManager::I_Am_Server ()) {
+	if (BaseController != nullptr && CombatManager::I_Am_Server ()) {
 		BaseController->Set_Can_Generate_Soldiers (false);
 	}
 
@@ -392,7 +392,7 @@ SoldierFactoryGameObj::CnC_Initialize (BaseControllerClass *base)
 	//
 	//	Let the base know it can generate soldiers
 	//
-	if (BaseController != NULL) {
+	if (BaseController != nullptr) {
 		BaseController->Set_Can_Generate_Soldiers (true);
 	}
 

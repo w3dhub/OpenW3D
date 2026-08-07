@@ -67,7 +67,7 @@ HTreeManagerClass::HTreeManagerClass(void) :
 	NumTrees(0)
 {
 	for (int treeidx=0; treeidx < MAX_TREES; treeidx++) {
-		TreePtr[treeidx] = NULL;
+		TreePtr[treeidx] = nullptr;
 	}
 }
 
@@ -123,9 +123,9 @@ void HTreeManagerClass::Free_All_Trees(void)
 	TreeHash.Remove_All();
 
 	for (int treeidx=0; treeidx < MAX_TREES; treeidx++) {
-		if (TreePtr[treeidx] != NULL) {
+		if (TreePtr[treeidx] != nullptr) {
 			delete TreePtr[treeidx];
-			TreePtr[treeidx] = NULL;
+			TreePtr[treeidx] = nullptr;
 		}
 	}
 	NumTrees = 0;
@@ -148,7 +148,7 @@ int HTreeManagerClass::Load_Tree(ChunkLoadClass & cload)
 	WWMEMLOG(MEM_ANIMATION);
 	HTreeClass * newtree = new HTreeClass;
 
-	if (newtree == NULL) {
+	if (newtree == nullptr) {
 		goto Error;
 	}
 
@@ -226,7 +226,7 @@ char *HTreeManagerClass::Get_Tree_Name(const int idx)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 
@@ -255,7 +255,7 @@ HTreeClass * HTreeManagerClass::Get_Tree(const char * name)
 //			return TreePtr[i];
 //		}
 //	}
-//	return NULL;
+//	return nullptr;
 }
 
 
@@ -276,6 +276,6 @@ HTreeClass * HTreeManagerClass::Get_Tree(int id)
 	if ((id >= 0) && (id < NumTrees)) {
 		return TreePtr[id];
 	} else {
-		return NULL;
+		return nullptr;
 	}
 }

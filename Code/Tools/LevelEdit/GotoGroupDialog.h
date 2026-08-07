@@ -36,7 +36,7 @@ class GotoGroupDialogClass : public CDialog
 {
 // Construction
 public:
-	GotoGroupDialogClass (GroupMgrClass *pgroup, CWnd* pParent = NULL);   // standard constructor
+	GotoGroupDialogClass (GroupMgrClass *pgroup, CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GotoGroupDialogClass)

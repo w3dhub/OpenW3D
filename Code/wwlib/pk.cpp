@@ -99,7 +99,7 @@ PKey::PKey(void const * exponent, void const * modulus)
  *=============================================================================================*/
 int PKey::Encode_Modulus(void * buffer) const
 {
-	if (buffer == NULL) {
+	if (buffer == nullptr) {
 		return(0);
 	}
 	return(Modulus.DEREncode((unsigned char *)buffer));
@@ -124,7 +124,7 @@ int PKey::Encode_Modulus(void * buffer) const
  *=============================================================================================*/
 int PKey::Encode_Exponent(void * buffer) const
 {
-	if (buffer == NULL) {
+	if (buffer == nullptr) {
 		return(0);
 	}
 	return(Exponent.DEREncode((unsigned char *)buffer));

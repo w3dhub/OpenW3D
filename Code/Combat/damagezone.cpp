@@ -258,7 +258,7 @@ void	DamageZoneGameObj::Think( void )
 		SLNode<SmartGameObj> * smart_objnode;
 		for (smart_objnode = GameObjManager::Get_Smart_Game_Obj_List()->Head(); smart_objnode; smart_objnode = smart_objnode->Next()) {
 			SmartGameObj * obj = smart_objnode->Data();
-			WWASSERT( obj != NULL );
+			WWASSERT( obj != nullptr );
 
 			Vector3 pos;
 			obj->Get_Position(&pos);

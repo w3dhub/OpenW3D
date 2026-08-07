@@ -46,7 +46,7 @@ CInertiaDialog::CInertiaDialog(CWnd* pParent,RigidBodyClass * obj) :
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 
-	ASSERT(Object != NULL);
+	ASSERT(Object != nullptr);
 }
 
 

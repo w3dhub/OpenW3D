@@ -32,7 +32,7 @@ class VisualOptionsDialogClass : public CDialog
 {
 // Construction
 public:
-	VisualOptionsDialogClass(CWnd* pParent = NULL);   // standard constructor
+	VisualOptionsDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(VisualOptionsDialogClass)

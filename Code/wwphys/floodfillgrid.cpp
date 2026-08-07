@@ -47,7 +47,7 @@
 //
 ///////////////////////////////////////////////////////////////////////
 FloodfillGridClass::FloodfillGridClass (void)
-	:	m_Grid (NULL),
+	:	m_Grid (nullptr),
 		m_BoxExtent (0, 0, 0),
 		m_CellSize (0, 0),
 		m_CellsX (0),
@@ -79,9 +79,9 @@ FloodfillGridClass::~FloodfillGridClass (void)
 void
 FloodfillGridClass::Reset (void)
 {
-	if (m_Grid != NULL) {
+	if (m_Grid != nullptr) {
 		delete [] m_Grid;
-		m_Grid = NULL;
+		m_Grid = nullptr;
 	}
 	m_CellsX	= 0;
 	m_CellsY	= 0;
@@ -169,7 +169,7 @@ FloodfillGridClass::Collect_Boxes (const AABoxClass &vol)
 			//	Loop over all the objects in this cell
 			//
 			FloodfillBoxClass *curr_box = m_Grid[cell_y * m_CellsX + cell_x];
-			for (; curr_box != NULL; curr_box = curr_box->Get_Grid_Link ()) {
+			for (; curr_box != nullptr; curr_box = curr_box->Get_Grid_Link ()) {
 				bounding_box.Center = curr_box->Get_Position ();
 
 				//
@@ -196,7 +196,7 @@ FloodfillGridClass::Find_Box  (const Vector3 &pos)
 {
 	int index = Get_Cell_Index (pos);
 
-	FloodfillBoxClass *box = NULL;
+	FloodfillBoxClass *box = nullptr;
 	AABoxClass bounding_box;
 	bounding_box.Extent = m_BoxExtent;
 
@@ -204,7 +204,7 @@ FloodfillGridClass::Find_Box  (const Vector3 &pos)
 	//	Loop over all the objects in this cell (looking for one inside the given point)
 	//
 	for (	FloodfillBoxClass *curr_box = m_Grid[index];
-			curr_box != NULL && box == NULL;
+			curr_box != nullptr && box == nullptr;
 			curr_box = curr_box->Get_Grid_Link ())
 	{
 		bounding_box.Center = curr_box->Get_Position ();
@@ -267,7 +267,7 @@ FloodfillGridClass::Compute_Box_Count(const AABoxClass & vol)
 			//	Loop over all the objects in this cell
 			//
 			FloodfillBoxClass *curr_box = m_Grid[cell_y * m_CellsX + cell_x];
-			for (; curr_box != NULL; curr_box = curr_box->Get_Grid_Link ()) {
+			for (; curr_box != nullptr; curr_box = curr_box->Get_Grid_Link ()) {
 				bounding_box.Center = curr_box->Get_Position ();
 
 				//

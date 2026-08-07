@@ -205,9 +205,9 @@ Clip_Point (Vector3 *point, const AABoxClass &box, float edge_dist)
 PathSolveClass::PathSolveClass (void)
 	:	m_StartPos (0, 0, 0),
 		m_DestPos (0, 0, 0),
-		m_StartSector (NULL),
-		m_DestSector (NULL),
-		m_CompletedNode (NULL),
+		m_StartSector (nullptr),
+		m_DestSector (nullptr),
+		m_CompletedNode (nullptr),
 		m_State (ERROR_INVALID_START_POS),
 		m_BinaryHeap (10000),
 		m_Priority (0.5F),
@@ -235,9 +235,9 @@ PathSolveClass::PathSolveClass (void)
 PathSolveClass::PathSolveClass (const Vector3 &start, const Vector3 &dest)
 	:	m_StartPos (0, 0, 0),
 		m_DestPos (0, 0, 0),
-		m_StartSector (NULL),
-		m_DestSector (NULL),
-		m_CompletedNode (NULL),
+		m_StartSector (nullptr),
+		m_DestSector (nullptr),
+		m_CompletedNode (nullptr),
 		m_State (ERROR_INVALID_START_POS),
 		m_BinaryHeap (10000),
 		m_Priority (0.5F),
@@ -303,7 +303,7 @@ PathSolveClass::Begin_Distributed_Solve (void)
 {
 	for (int index = 0; index < m_NodeList.Count (); index ++) {
 		PathNodeClass *node = m_NodeList[index];
-		if (node != NULL) {
+		if (node != nullptr) {
 			node->Reconnect_To_Portal ();
 		}
 	}
@@ -355,7 +355,7 @@ PathSolveClass::Resolve_Path (unsigned int milliseconds)
 		//
 		//	Have we found our path?
 		//
-		if (node == NULL) {
+		if (node == nullptr) {
 			m_State = ERROR_NO_PATH;
 		} else  if (node->Peek_Sector () == m_DestSector) {
 			m_State = SOLVED_PATH;
@@ -370,7 +370,7 @@ PathSolveClass::Resolve_Path (unsigned int milliseconds)
 			//	Mark all the nodes that are on the final path
 			//
 			for (	PathNodeClass *path_node = m_CompletedNode;
-					path_node != NULL;
+					path_node != nullptr;
 					path_node = path_node->Peek_Parent_Node ())
 			{
 				path_node->On_Final_Path (true);
@@ -429,7 +429,7 @@ void
 PathSolveClass::Initialize (float sector_fudge)
 {
 	m_State				= THINKING;
-	m_CompletedNode	= NULL;
+	m_CompletedNode	= nullptr;
 	m_BirthTime			= TIMEGETTIME ();
 
 	//
@@ -442,9 +442,9 @@ PathSolveClass::Initialize (float sector_fudge)
 	//	Sanity check, are the starting and ending points
 	// inside of pathfind sectors?
 	//
-	if (m_StartSector == NULL) {
+	if (m_StartSector == nullptr) {
 		m_State = ERROR_INVALID_START_POS;
-	} else if (m_DestSector == NULL) {
+	} else if (m_DestSector == nullptr) {
 		m_State = ERROR_INVALID_DEST_POS;
 	} else {
 
@@ -470,7 +470,7 @@ PathSolveClass::Initialize (float sector_fudge)
 void
 PathSolveClass::Process_Initial_Sector (void)
 {
-	if (m_StartSector == NULL) {
+	if (m_StartSector == nullptr) {
 		return ;
 	}
 
@@ -481,7 +481,7 @@ PathSolveClass::Process_Initial_Sector (void)
 	int index = m_StartSector->Get_Portal_Count ();
 	while (index --) {
 		PathfindPortalClass *portal = m_StartSector->Peek_Portal (index);
-		if (portal != NULL) {
+		if (portal != nullptr) {
 
 			AABoxClass portal_box;
 			portal->Get_Bounding_Box (portal_box);
@@ -508,7 +508,7 @@ PathSolveClass::Process_Initial_Sector (void)
 			//
 			if (Does_Object_Have_Access_To_Portal (portal)) {
 				Submit_Node (	0,
-									NULL,
+									nullptr,
 									portal,
 									portal->Peek_Dest_Sector (m_StartSector),
 									Matrix3D (m_StartPos),
@@ -525,8 +525,8 @@ PathSolveClass::Process_Initial_Sector (void)
 		//
 		m_State = SOLVED_PATH;
 		m_Path.Delete_All ();
-		m_Path.Add (PathDataStruct (NULL, m_StartPos));
-		m_Path.Add (PathDataStruct (NULL, m_DestPos));
+		m_Path.Add (PathDataStruct (nullptr, m_StartPos));
+		m_Path.Add (PathDataStruct (nullptr, m_DestPos));
 
 	} else {
 		m_State = THINKING;
@@ -777,21 +777,21 @@ Does_Object_Fit_Through_Portal
 		//	Try to find two adjacent portals which can make it to the destination
 		//	sector...
 		//
-		PathfindPortalClass *portal1 = NULL;
-		PathfindPortalClass *portal2 = NULL;
+		PathfindPortalClass *portal1 = nullptr;
+		PathfindPortalClass *portal2 = nullptr;
 		::Find_Adjacent_Portals (sector, portal, dest_sector, &portal1, &portal2);
 
 		//
 		//	If the vehicle can fit in through the combined portals, then we will
 		// allow the vehicle to pass...
 		//
-		if (portal1 != NULL || portal2 != NULL) {
+		if (portal1 != nullptr || portal2 != nullptr) {
 
 			//
 			//	We assume portal1 is 'less-then' the test portal, so use its
 			// position and size to determine the lower bounds of our extended portal.
 			//
-			if (portal1 != NULL) {
+			if (portal1 != nullptr) {
 
 				AABoxClass temp_box;
 				portal1->Get_Bounding_Box (temp_box);
@@ -807,7 +807,7 @@ Does_Object_Fit_Through_Portal
 			//	We assume portal2 is 'greater-then' the test portal, so use its
 			// position and size to determine the upper bounds of our extended portal.
 			//
-			if (portal2 != NULL) {
+			if (portal2 != nullptr) {
 
 				AABoxClass temp_box;
 				portal2->Get_Bounding_Box (temp_box);
@@ -846,7 +846,7 @@ PathSolveClass::Does_Object_Have_Access_To_Portal (PathfindPortalClass *portal)
 	//	Does this portal interact with some sort of mechanism
 	//
 	PathfindActionPortalClass *action_portal = portal->As_PathfindActionPortalClass ();
-	if (	action_portal != NULL &&
+	if (	action_portal != nullptr &&
 			action_portal->Get_Action_Type () == PathClass::ACTION_MECHANISM)
 	{
 		//
@@ -854,13 +854,13 @@ PathSolveClass::Does_Object_Have_Access_To_Portal (PathfindPortalClass *portal)
 		//
 		uint32 mechanism_id			= action_portal->Get_Mechanism_ID ();
 		StaticPhysClass *mechanism	= PhysicsSceneClass::Get_Instance ()->Find_Static_Object (mechanism_id);
-		if (mechanism != NULL) {
+		if (mechanism != nullptr) {
 			AccessiblePhysClass *accessible_obj = mechanism->As_AccessiblePhysClass ();
 
 			//
 			//	See if we can unlock this mechanism
 			//
-			if (accessible_obj != NULL && accessible_obj->Get_Lock_Code () != 0) {
+			if (accessible_obj != nullptr && accessible_obj->Get_Lock_Code () != 0) {
 				retval = accessible_obj->Can_Unlock (m_PathObject.Get_Key_Ring ());
 			}
 		}
@@ -905,7 +905,7 @@ PathSolveClass::Can_Object_Go_Through_Portal
 		Vector3 curr_pos		= current_tm.Get_Translation ();
 		Vector3 dest_point	= curr_pos;
 
-		if (portal->As_PathfindActionPortalClass () != NULL) {
+		if (portal->As_PathfindActionPortalClass () != nullptr) {
 			dest_point = portal_box.Center;
 			//::Clip_Point (&dest_point, portal_box, m_PathObject.Get_Width ());
 		} else {
@@ -1033,7 +1033,7 @@ PathSolveClass::Process_Portals (PathNodeClass *node)
 			//	Get this portal's destination
 			//
 			PathfindSectorClass *dest_sector = portal->Peek_Dest_Sector (sector);
-			if (dest_sector != NULL) {
+			if (dest_sector != nullptr) {
 
 				//
 				//	Determine if we can pass through this portal, and if so where
@@ -1053,7 +1053,7 @@ PathSolveClass::Process_Portals (PathNodeClass *node)
 		}
 	}
 
-	if (last_portal != NULL) {
+	if (last_portal != nullptr) {
 		last_portal->m_ClosedListPtr = node;
 	}
 
@@ -1078,7 +1078,7 @@ Calculate_Heuristic_Cost
 {
 	float cost = (curr_pos - dest_pos).Length () * 0.9F;
 
-	if (sector.As_PathfindWaypathSectorClass () != NULL) {
+	if (sector.As_PathfindWaypathSectorClass () != nullptr) {
 
 		//
 		//	Make waypath sectors slightly more appealing
@@ -1187,7 +1187,7 @@ PathSolveClass::Submit_Node
 		//
 		//	Is this sector already in the closed list?
 		//
-		if (portal->m_ClosedListPtr != NULL) {
+		if (portal->m_ClosedListPtr != nullptr) {
 			PathNodeClass *closed_version	= portal->m_ClosedListPtr;
 
 			//
@@ -1196,7 +1196,7 @@ PathSolveClass::Submit_Node
 			//
 			if (current_traversal_cost < closed_version->Get_Traversal_Cost ()) {
 
-				portal->m_ClosedListPtr = NULL;
+				portal->m_ClosedListPtr = nullptr;
 				closed_version->Set_Sector (dest_sector);
 				closed_version->Set_Parent_Node (current_node);
 				closed_version->Set_Traversal_Cost (current_traversal_cost);
@@ -1501,7 +1501,7 @@ PathSolveClass::Post_Process_Path (void)
 	//	Build a list of the nodes (in order) the path passes through.
 	//
 	temp_node_list.Reset_Active();
-	for (PathNodeClass *node = m_CompletedNode; node != NULL; node = node->Peek_Parent_Node ()) {
+	for (PathNodeClass *node = m_CompletedNode; node != nullptr; node = node->Peek_Parent_Node ()) {
 		temp_node_list.Add_Head (node);
 	}
 
@@ -1509,7 +1509,7 @@ PathSolveClass::Post_Process_Path (void)
 	//
 	//	Just do it
 	//
-	m_Path.Add (PathDataStruct (NULL, m_StartPos));
+	m_Path.Add (PathDataStruct (nullptr, m_StartPos));
 	m_Path[m_Path.Count () - 1].m_SectorCenter = m_StartSector->Get_Bounding_Box ().Center;
 	m_Path[m_Path.Count () - 1].m_SectorExtent = m_StartSector->Get_Bounding_Box ().Extent;
 
@@ -1524,12 +1524,12 @@ PathSolveClass::Post_Process_Path (void)
 		m_Path[m_Path.Count () - 1].m_SectorExtent.Set (0, 0, 0);
 
 		PathfindSectorClass *sector = node->Peek_Sector ();
-		if (sector != NULL) {
+		if (sector != nullptr) {
 			m_Path[m_Path.Count () - 1].m_SectorCenter = sector->Get_Bounding_Box ().Center;
 			m_Path[m_Path.Count () - 1].m_SectorExtent = sector->Get_Bounding_Box ().Extent;
 		}
 	}
-	m_Path.Add (PathDataStruct (NULL, m_DestPos));
+	m_Path.Add (PathDataStruct (nullptr, m_DestPos));
 	m_Path[m_Path.Count () - 1].m_SectorCenter = m_DestSector->Get_Bounding_Box ().Center;
 	m_Path[m_Path.Count () - 1].m_SectorExtent = m_DestSector->Get_Bounding_Box ().Extent;
 
@@ -1554,7 +1554,7 @@ PathSolveClass::Post_Process_Path (void)
 		//	Do we have a portal we can clip the point to?
 		//
 		PathfindPortalClass *portal = m_Path[index].m_Portal;
-		if (portal != NULL && portal->As_PathfindActionPortalClass () == NULL) {
+		if (portal != nullptr && portal->As_PathfindActionPortalClass () == nullptr) {
 
 			//
 			//	Clip the point to the portal's box
@@ -1592,7 +1592,7 @@ PathSolveClass::Post_Process_Path (void)
 		//	Do we have a portal we can clip the point to?
 		//
 		PathfindPortalClass *portal = m_Path[index].m_Portal;
-		if (portal != NULL && portal->As_PathfindActionPortalClass () == NULL) {
+		if (portal != nullptr && portal->As_PathfindActionPortalClass () == nullptr) {
 
 			//
 			//	Clip the point to the portal's box
@@ -1641,7 +1641,7 @@ PathSolveClass::Post_Process_Path (void)
 		Vector3 &prev_point_ref			= m_Path[index + 1].m_Point;
 		Vector3 &next_point_ref			= m_Path[index - 1].m_Point;
 		PathfindPortalClass *portal	= m_Path[index].m_Portal;
-		if (portal != NULL && portal->As_PathfindActionPortalClass () == NULL) {
+		if (portal != nullptr && portal->As_PathfindActionPortalClass () == nullptr) {
 
 			//
 			//	Relax the between the last point and the next point, making
@@ -1715,7 +1715,7 @@ PathSolveClass::Keep_Unit_Inside_Sectors (void)
 			//
 			//	Test the object at the point it will be entering the sector
 			//
-			if (prev_portal != NULL && prev_portal->As_PathfindActionPortalClass () == NULL) {
+			if (prev_portal != nullptr && prev_portal->As_PathfindActionPortalClass () == nullptr) {
 
 				//
 				//	Get the portal's box
@@ -1734,7 +1734,7 @@ PathSolveClass::Keep_Unit_Inside_Sectors (void)
 					//	Yup, we would jut outside the sector, so add a new point
 					// to avoid this
 					//
-					m_Path.Insert (index + 1, PathDataStruct (NULL, new_point));
+					m_Path.Insert (index + 1, PathDataStruct (nullptr, new_point));
 					index ++;
 					start_point = new_point;
 				}
@@ -1743,7 +1743,7 @@ PathSolveClass::Keep_Unit_Inside_Sectors (void)
 			//
 			//	Test the object at the point it will be exiting the sector
 			//
-			if (next_portal != NULL && next_portal->As_PathfindActionPortalClass () == NULL) {
+			if (next_portal != nullptr && next_portal->As_PathfindActionPortalClass () == nullptr) {
 
 				//
 				//	Get the portal's box
@@ -1762,7 +1762,7 @@ PathSolveClass::Keep_Unit_Inside_Sectors (void)
 					//	Yup, we would jut outside the sector, so add a new point
 					// to avoid this
 					//
-					m_Path.Insert (index + 1, PathDataStruct (NULL, new_point));
+					m_Path.Insert (index + 1, PathDataStruct (nullptr, new_point));
 					index ++;
 				}
 			}
@@ -1815,7 +1815,7 @@ PathSolveClass::Get_Volumes
 	//	Build a list of the nodes (in order) the path passes through.
 	//
 	for (	PathNodeClass *node = m_CompletedNode;
-			node != NULL;
+			node != nullptr;
 			node = node->Peek_Parent_Node ())
 	{
 		//
@@ -1829,7 +1829,7 @@ PathSolveClass::Get_Volumes
 		//
 		//	If this node has a portal, then add the portal's box to the list
 		//
-		if (node->Peek_Portal () != NULL) {
+		if (node->Peek_Portal () != nullptr) {
 			AABoxClass *portal_box	= new AABoxClass;
 			node->Peek_Portal ()->Get_Bounding_Box (*portal_box);
 			portal_list.Add (portal_box);
@@ -1916,9 +1916,9 @@ PathSolveClass::On_Post_Load (void)
 void
 PathSolveClass::Load_Variables (ChunkLoadClass &cload)
 {
-	PathSolveClass *old_ptr = NULL;
-	m_StartSector	= NULL;
-	m_DestSector	= NULL;
+	PathSolveClass *old_ptr = nullptr;
+	m_StartSector	= nullptr;
+	m_DestSector	= nullptr;
 
 	//
 	//	Loop through all the microchunks that define the variables
@@ -1939,7 +1939,7 @@ PathSolveClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Register our old ptr so other objects can remap to us
 	//
-	if (old_ptr != NULL) {
+	if (old_ptr != nullptr) {
 		SaveLoadSystemClass::Register_Pointer (old_ptr, this);
 	}
 

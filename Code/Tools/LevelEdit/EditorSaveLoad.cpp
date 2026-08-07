@@ -480,7 +480,7 @@ EditorSaveLoadClass::Load_Level (LPCTSTR filename)
 		ChunkLoadClass chunk_load (&file_obj);
 
 		SoundSceneClass *sound_scene = WWAudioClass::Get_Instance ()->Get_Sound_Scene ();
-		if (sound_scene != NULL) {
+		if (sound_scene != nullptr) {
 			sound_scene->Set_Batch_Mode (true);
 		}
 
@@ -541,11 +541,11 @@ EditorSaveLoadClass::Load_Level (LPCTSTR filename)
 			::Get_Scene_Editor ()->Validate_Vis ();
 			::Get_Scene_Editor ()->Update_Culling_System_Bounding_Boxes ();
 		} else {
-			::MessageBox (NULL, "Static geometry has changed since the last time this level was loaded.  All previously generated VIS data has been discarded.", "Vis Discarded", MB_ICONEXCLAMATION | MB_OK);
+			::MessageBox (nullptr, "Static geometry has changed since the last time this level was loaded.  All previously generated VIS data has been discarded.", "Vis Discarded", MB_ICONEXCLAMATION | MB_OK);
 			::Get_Scene_Editor ()->Discard_Vis ();
 		}
 
-		if (sound_scene != NULL) {
+		if (sound_scene != nullptr) {
 			sound_scene->Set_Batch_Mode (false);
 		}
 
@@ -627,7 +627,7 @@ EditorSaveLoadClass::Import_Dynamic_Objects (LPCTSTR filename)
 		//	Re-assign IDs to the existing static nodes
 		//
 		for (	NodeClass *node = NodeMgrClass::Get_First ();
-				node != NULL;
+				node != nullptr;
 				node = NodeMgrClass::Get_Next (node))
 		{
 			if (node->Is_Static ()) {
@@ -643,7 +643,7 @@ EditorSaveLoadClass::Import_Dynamic_Objects (LPCTSTR filename)
 		DynamicVectorClass<NodeClass *> bad_node_list;
 		for (int index = 0; index < dynamic_obj_list.Count (); index ++) {
 			NodeClass *node = dynamic_obj_list[index];
-			if (NodeMgrClass::Find_Node (node->Get_ID ()) != NULL) {
+			if (NodeMgrClass::Find_Node (node->Get_ID ()) != nullptr) {
 				CString entry;
 				entry.Format ("Object %d\n", node->Get_ID ());
 				id_collision_msg += entry;
@@ -662,19 +662,19 @@ EditorSaveLoadClass::Import_Dynamic_Objects (LPCTSTR filename)
 		//	Let the user know we had ID collision (if necessary)
 		//
 		if (show_msg) {
-			::MessageBox (NULL, id_collision_msg, "ID Collision", MB_ICONERROR | MB_OK);
+			::MessageBox (nullptr, id_collision_msg, "ID Collision", MB_ICONERROR | MB_OK);
 
 			//
 			//	Ask the user if we should fix the collisions or not
 			//
-			if (::MessageBox (NULL, "Would you like to repair the newly imported objects with ambiguous IDs?", "ID Collision", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+			if (::MessageBox (nullptr, "Would you like to repair the newly imported objects with ambiguous IDs?", "ID Collision", MB_ICONQUESTION | MB_YESNO) == IDYES) {
 
 				//
 				//	Repair all collisions
 				//
 				for (int index = 0; index < bad_node_list.Count (); index ++) {
 					NodeClass *node = bad_node_list[index];
-					if (node != NULL) {
+					if (node != nullptr) {
 						node->Set_ID (NodeMgrClass::Get_Node_ID (node->Get_Type ()));
 					}
 				}

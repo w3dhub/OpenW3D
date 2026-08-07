@@ -41,7 +41,7 @@ extern GameMtlActionCB* Game_Mtl_ActionCB;
 
 
 //============================================================================================
-FPMatNav fpMatNav(FPMATNAV_INTERFACE, _T("MaterialNavNotify"), 0, NULL, FP_CORE,
+FPMatNav fpMatNav(FPMATNAV_INTERFACE, _T("MaterialNavNotify"), 0, nullptr, FP_CORE,
 	IFPMatNav::idLaunch, _T("Launch"), 0, TYPE_VOID, 0, 0,
 	IFPMatNav::idSetMultiMaterialTabBySlot, _T("SetMultiMaterialTabBySlot"), 0, TYPE_VOID, 0, 3,
 		_T("slot"), 0, TYPE_INT,
@@ -58,7 +58,7 @@ FPMatNav fpMatNav(FPMATNAV_INTERFACE, _T("MaterialNavNotify"), 0, NULL, FP_CORE,
 end
 );
 
-IFPMatNav *FPMatNav::m_pIFPMatNavCallback = NULL;
+IFPMatNav *FPMatNav::m_pIFPMatNavCallback = nullptr;
 
 //============================================================================================
 void FPMatNav::Launch(){
@@ -89,11 +89,11 @@ void FPMatNav::SetMaterialBySlot(int iSlot ){
 	if( m_pIFPMatNavCallback ) {
 		m_pIFPMatNavCallback->SetMaterialBySlot(iSlot);
 	}else{
-		if(NULL == GMaxMaterialDialog){
+		if(nullptr == GMaxMaterialDialog){
 			Game_Mtl_ActionCB->ExecuteAction(IDA_GAMEMTL_DODLG);
 		}
 		//Retry
-		if( NULL != GMaxMaterialDialog && m_pIFPMatNavCallback ) {
+		if( nullptr != GMaxMaterialDialog && m_pIFPMatNavCallback ) {
 			m_pIFPMatNavCallback->SetMaterialBySlot(iSlot);
 		}
 	}

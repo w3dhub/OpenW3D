@@ -111,7 +111,7 @@ void GameSideServerControlClass::Init(void)
 				/*
 				** Start listening.
 				*/
-				ServerControl.Start_Listening(static_cast<unsigned short>(port), password, &App_Request_Callback, NULL, loopback ? true : false, ip);
+				ServerControl.Start_Listening(static_cast<unsigned short>(port), password, &App_Request_Callback, nullptr, loopback ? true : false, ip);
 				Listening = true;
 
 				/*

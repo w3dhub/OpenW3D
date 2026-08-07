@@ -32,7 +32,7 @@ class CRenderDeviceDialog : public CDialog
 {
 // Construction
 public:
-	CRenderDeviceDialog(CWnd* pParent = NULL);   // standard constructor
+	CRenderDeviceDialog(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CRenderDeviceDialog)

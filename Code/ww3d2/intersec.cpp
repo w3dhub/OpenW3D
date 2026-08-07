@@ -352,7 +352,7 @@ RenderObjClass *IntersectionClass::Intersect_Sub_Object(float screenx, float scr
 	if (Intersect_Screen_Point_RenderObject(screenx, screeny, layer, robj, result)) {
 		return robj;
 	}
-	return NULL;
+	return nullptr;
 }
 
 // finds the intersection of the nearest object in the array.

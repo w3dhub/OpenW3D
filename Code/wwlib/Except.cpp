@@ -119,8 +119,8 @@ static char ExceptionText [65536];
 bool SymbolsAvailable = false;
 HINSTANCE ImageHelp = (HINSTANCE) -1;
 
-void (*AppCallback)(void) = NULL;
-const char *(*AppVersionCallback)(void) = NULL;
+void (*AppCallback)(void) = nullptr;
+const char *(*AppVersionCallback)(void) = nullptr;
 
 /*
 ** Flag to indicate we should exit when an exception occurs.
@@ -160,15 +160,15 @@ typedef BOOL  (WINAPI *StackWalkType) (DWORD MachineType, HANDLE hProcess, HANDL
 typedef LPVOID (WINAPI *SymFunctionTableAccessType) (HANDLE hProcess, DWORD_ARCH AddrBase);
 typedef DWORD (WINAPI *SymGetModuleBaseType) (HANDLE hProcess, DWORD_ARCH dwAddr);
 
-static SymCleanupType							_SymCleanup = NULL;
-static SymGetSymFromAddrType				_SymGetSymFromAddr = NULL;
-static SymInitializeType						_SymInitialize = NULL;
-static SymLoadModuleType						_SymLoadModule = NULL;
-static SymSetOptionsType						_SymSetOptions = NULL;
-static SymUnloadModuleType					_SymUnloadModule = NULL;
-static StackWalkType								_StackWalk = NULL;
-static SymFunctionTableAccessType	_SymFunctionTableAccess = NULL;
-static SymGetModuleBaseType				_SymGetModuleBase = NULL;
+static SymCleanupType							_SymCleanup = nullptr;
+static SymGetSymFromAddrType				_SymGetSymFromAddr = nullptr;
+static SymInitializeType						_SymInitialize = nullptr;
+static SymLoadModuleType						_SymLoadModule = nullptr;
+static SymSetOptionsType						_SymSetOptions = nullptr;
+static SymUnloadModuleType					_SymUnloadModule = nullptr;
+static StackWalkType								_StackWalk = nullptr;
+static SymFunctionTableAccessType	_SymFunctionTableAccess = nullptr;
+static SymGetModuleBaseType				_SymGetModuleBase = nullptr;
 
 
 /***********************************************************************************************
@@ -219,7 +219,7 @@ int _purecall(void)
 char const * Last_Error_Text(void)
 {
 	static char message_buffer[256];
-	FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, NULL);
+	FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, nullptr, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, nullptr);
 	return (message_buffer);
 }
 
@@ -370,7 +370,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	*/
 	HINSTANCE imagehelp = LoadLibraryA("IMAGEHLP.DLL");
 
-	if (imagehelp != NULL) {
+	if (imagehelp != nullptr) {
 		DebugString("Exception Handler: Found IMAGEHLP.DLL - linking to required functions\n");
 
 		_SymCleanup = reinterpret_cast<SymCleanupType>(GetProcAddress(imagehelp, STR(SymCleanup)));
@@ -390,14 +390,14 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	/*
 	** Retrieve the programs symbols if they are available
 	*/
-	if (_SymSetOptions != NULL) {
+	if (_SymSetOptions != nullptr) {
 		_SymSetOptions(SYMOPT_DEFERRED_LOADS);
 	}
 
 	int symload = 0;
 	int symbols_available = false;
 
-	if (_SymInitialize != NULL && _SymInitialize (GetCurrentProcess(), NULL, false))	{
+	if (_SymInitialize != nullptr && _SymInitialize (GetCurrentProcess(), nullptr, false))	{
 		DebugString("Exception Handler: Symbols are available\r\n\n");
 		symbols_available = true;
 	}
@@ -405,19 +405,19 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	if (!symbols_available)	{
 		DebugString ("Exception Handler: SymInitialize failed with code %d - %s\n", GetLastError(), Last_Error_Text());
 	} else {
-		if (_SymSetOptions != NULL) {
+		if (_SymSetOptions != nullptr) {
 			_SymSetOptions(SYMOPT_DEFERRED_LOADS | SYMOPT_UNDNAME);
 		}
 
 		char module_name[_MAX_PATH];
-		GetModuleFileNameA(NULL, module_name, sizeof(module_name));
+		GetModuleFileNameA(nullptr, module_name, sizeof(module_name));
 
-		if (_SymLoadModule != NULL) {
-			symload = _SymLoadModule(GetCurrentProcess(), NULL, module_name, NULL, 0, 0);
+		if (_SymLoadModule != nullptr) {
+			symload = _SymLoadModule(GetCurrentProcess(), nullptr, module_name, nullptr, 0, 0);
 		}
 
 		if (!symload) {
-			assert(_SymLoadModule != NULL);
+			assert(_SymLoadModule != nullptr);
 			DebugString ("Exception Handler: SymLoad failed for module %s with code %d - %s\n", module_name, GetLastError(), Last_Error_Text());
 		}
 	}
@@ -485,11 +485,11 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	symptr->Address = context->ARCH_REG_IP;
 
 	if (!IsBadCodePtr((FARPROC)context->ARCH_REG_IP)) {
-		if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr (GetCurrentProcess(), context->ARCH_REG_IP, &displacement, symptr)) {
+		if (_SymGetSymFromAddr != nullptr && _SymGetSymFromAddr (GetCurrentProcess(), context->ARCH_REG_IP, &displacement, symptr)) {
 			sprintf (scrap, "Exception occurred at %p - %s + %08" PRIXPTR "\r\n", (FARPROC)context->ARCH_REG_IP, symptr->Name, displacement);
 		} else {
 			DebugString ("Exception Handler: Failed to get symbol for " STR(ARCH_REG_IP) "\r\n");
-			if (_SymGetSymFromAddr != NULL) {
+			if (_SymGetSymFromAddr != nullptr) {
 				DebugString ("Exception Handler: SymGetSymFromAddr failed with code %d - %s\n", GetLastError(), Last_Error_Text());
 			}
 			sprintf (scrap, "Exception occurred at %p\r\n", (FARPROC)context->ARCH_REG_IP);
@@ -524,7 +524,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 				symptr->Size = 0;
 				symptr->Address = (DWORD_ARCH)temp_addr;
 
-				if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr (GetCurrentProcess(), (DWORD_ARCH)temp_addr, &displacement, symptr)) {
+				if (_SymGetSymFromAddr != nullptr && _SymGetSymFromAddr (GetCurrentProcess(), (DWORD_ARCH)temp_addr, &displacement, symptr)) {
 					char symbuf[256];
 					sprintf(symbuf, "%s + %08" PRIXPTR "\r\n", symptr->Name, displacement);
 					Add_Txt(symbuf);
@@ -792,7 +792,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 					symptr->Size = 0;
 					symptr->Address = *stackptr;
 
-					if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr (GetCurrentProcess(), *stackptr, &displacement, symptr)) {
+					if (_SymGetSymFromAddr != nullptr && _SymGetSymFromAddr (GetCurrentProcess(), *stackptr, &displacement, symptr)) {
 						char symbuf[256];
 						sprintf(symbuf, " - %s + %08" PRIXPTR, symptr->Name, displacement);
 						strcat(scrap, symbuf);
@@ -811,13 +811,13 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	** Unload the symbols.
 	*/
 	if (symbols_available) {
-		if (_SymCleanup != NULL) {
+		if (_SymCleanup != nullptr) {
 			_SymCleanup (GetCurrentProcess());
 		}
 
 		if (symload) {
-			if (_SymUnloadModule != NULL) {
-				_SymUnloadModule(GetCurrentProcess(), (DWORD_ARCH)NULL);
+			if (_SymUnloadModule != nullptr) {
+				_SymUnloadModule(GetCurrentProcess(), (DWORD_ARCH)nullptr);
 			}
 		}
 
@@ -900,11 +900,11 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 		*/
 		HANDLE debug_file;
 		DWORD	actual;
-		debug_file = CreateFileA("_except.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		debug_file = CreateFileA("_except.txt", GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (debug_file != INVALID_HANDLE_VALUE){
 		const size_t text_length = ::strlen(ExceptionText);
 		WWASSERT(text_length <= std::numeric_limits<DWORD>::max());
-		WriteFile(debug_file, ExceptionText, static_cast<DWORD>(text_length), &actual, NULL);
+		WriteFile(debug_file, ExceptionText, static_cast<DWORD>(text_length), &actual, nullptr);
 			CloseHandle (debug_file);
 
 #if (0)
@@ -1157,7 +1157,7 @@ void Load_Image_Helper(void)
 		ImageHelp = LoadLibraryA("IMAGEHLP.DLL");
 
 
-		if (ImageHelp != NULL) {
+		if (ImageHelp != nullptr) {
 			_SymCleanup = reinterpret_cast<SymCleanupType>(GetProcAddress(ImageHelp, "SymCleanup"));
 			_SymGetSymFromAddr = reinterpret_cast<SymGetSymFromAddrType>(GetProcAddress(ImageHelp, "SymGetSymFromAddr"));
 			_SymInitialize = reinterpret_cast<SymInitializeType>(GetProcAddress(ImageHelp, "SymInitialize"));
@@ -1172,29 +1172,29 @@ void Load_Image_Helper(void)
 		/*
 		** Retrieve the programs symbols if they are available. This can be a .pdb or a .dbg file.
 		*/
-		if (_SymSetOptions != NULL) {
+		if (_SymSetOptions != nullptr) {
 			_SymSetOptions(SYMOPT_DEFERRED_LOADS);
 		}
 
 		int symload = 0;
 
-		if (_SymInitialize != NULL && _SymInitialize(GetCurrentProcess(), NULL, false)) {
+		if (_SymInitialize != nullptr && _SymInitialize(GetCurrentProcess(), nullptr, false)) {
 
-			if (_SymSetOptions != NULL) {
+			if (_SymSetOptions != nullptr) {
 				_SymSetOptions(SYMOPT_DEFERRED_LOADS | SYMOPT_UNDNAME);
 			}
 
 			char exe_name[_MAX_PATH];
-			GetModuleFileNameA(NULL, exe_name, sizeof(exe_name));
+			GetModuleFileNameA(nullptr, exe_name, sizeof(exe_name));
 
-			if (_SymLoadModule != NULL) {
-				symload = _SymLoadModule(GetCurrentProcess(), NULL, exe_name, NULL, 0, 0);
+			if (_SymLoadModule != nullptr) {
+				symload = _SymLoadModule(GetCurrentProcess(), nullptr, exe_name, nullptr, 0, 0);
 			}
 
 			if (symload) {
 				SymbolsAvailable = true;
 			} else {
-				//assert (_SymLoadModule != NULL);
+				//assert (_SymLoadModule != nullptr);
 				//DebugString ("SymLoad failed for module %s with code %d - %s\n", szModuleName, GetLastError(), Last_Error_Text());
 			}
 		}
@@ -1240,7 +1240,7 @@ bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement)
 	/*
 	** Make sure symbols are available.
 	*/
-	if (!SymbolsAvailable || _SymGetSymFromAddr == NULL) {
+	if (!SymbolsAvailable || _SymGetSymFromAddr == nullptr) {
 		return(false);
 	}
 
@@ -1285,7 +1285,7 @@ bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement)
  *                                                                                             *
  * INPUT:    Ptr to return address list                                                        *
  *           Number of return addresses to fetch                                               *
- *           Ptr to optional context. NULL means use current                                   *
+ *           Ptr to optional context. nullptr means use current                                   *
  *                                                                                             *
  * OUTPUT:   Number of return addresses found                                                  *
  *                                                                                             *
@@ -1296,7 +1296,7 @@ bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement)
  *=============================================================================================*/
 int Stack_Walk(void **return_addresses, int num_addresses, CONTEXT * /* context */)
 {
-	return CaptureStackBackTrace(1, num_addresses, return_addresses, NULL);
+	return CaptureStackBackTrace(1, num_addresses, return_addresses, nullptr);
 }
 
 

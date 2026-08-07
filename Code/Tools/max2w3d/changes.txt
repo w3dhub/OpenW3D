@@ -4,7 +4,7 @@ Greg -	Fixed a bug in the animation exporter which caused it to export un-used, 
 
 Version 1.0.4.72: October 26, 2001
 Andre:- Fixed a bug in the "wwDuplicateSkinWSM" MAXScript function. It didn't like finding
-        NULL values in a skin modifier's bone table. Since that's legal, the code was changed
+        nullptr values in a skin modifier's bone table. Since that's legal, the code was changed
 		  to support it.
 
 Version 1.0.4.71: September 10, 2001
@@ -261,10 +261,10 @@ Andre:	Merged WWScript.dlx into the exporter, so now WWScript is
 		and GetW3DAppData1 are no longer exported from the DLE.
 
 Version 1.0.4.32: October 11, 1999
-Andre:	Correct NULL object handling was implemented when exporting HLODs.
-		NULL object chunks are only written when using the old-style LOD
-		setup (one per file), otherwise the name "NULL" is put in the HLOD
-		and no NULL object chunk is written.
+Andre:	Correct nullptr object handling was implemented when exporting HLODs.
+		nullptr object chunks are only written when using the old-style LOD
+		setup (one per file), otherwise the name "nullptr" is put in the HLOD
+		and no nullptr object chunk is written.
 
 Version 1.0.4.31: October 5, 1999
 Andre:	Fixed a bug in MeshBuilder where a division by zero occurred if the

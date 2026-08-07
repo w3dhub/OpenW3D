@@ -109,7 +109,7 @@ PacketClass::PacketClass(char *curbuf)
   ID   = *((short *)curbuf);
   curbuf += sizeof(unsigned short);
   ID   = ntohs(ID);
-  Head = NULL;
+  Head = nullptr;
 
   //
   // Calculate the remaining size so that we can loop through the
@@ -263,7 +263,7 @@ FieldClass *PacketClass::Find_Field(char *id)
     if ( strncmp(id, current->ID, 4) == 0)
       return current;
   }
-  return NULL;
+  return nullptr;
 }
 
 

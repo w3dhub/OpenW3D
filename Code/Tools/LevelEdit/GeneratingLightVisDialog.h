@@ -32,7 +32,7 @@ class GeneratingLightVisDialogClass : public CDialog
 {
 // Construction
 public:
-	GeneratingLightVisDialogClass(CWnd* pParent = NULL);   // standard constructor
+	GeneratingLightVisDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(GeneratingLightVisDialogClass)

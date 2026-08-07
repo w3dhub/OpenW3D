@@ -73,7 +73,7 @@ StringClass::Get_String (size_t length, bool is_temp)
 		return;
 	}
 
-	char *string = NULL;
+	char *string = nullptr;
 
 	//
 	//	Should we attempt to use a temp buffer for this string?
@@ -113,7 +113,7 @@ StringClass::Get_String (size_t length, bool is_temp)
 		}
 	}
 
-	if (string == NULL) {
+	if (string == nullptr) {
 
 		//
 		//	Allocate a new string as necessary
@@ -308,7 +308,7 @@ StringClass::Release_Resources (void)
 ///////////////////////////////////////////////////////////////////
 bool StringClass::Copy_Wide (const unichar_t *source)
 {
-	if (source != NULL) {
+	if (source != nullptr) {
 		size_t length = u_wstomb(nullptr, source, 0);
 
 		if (length > 0 && length != size_t(-1)) {

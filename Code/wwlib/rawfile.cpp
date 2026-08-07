@@ -420,7 +420,7 @@ int RawFileClass::Open(int rights)
 			case READ:
 				#if defined(OPENW3D_WIN32)
 					Handle = CreateFileA(Filename, GENERIC_READ, FILE_SHARE_READ,
-												NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+												nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 				#elif defined(OPENW3D_SDL3)
 					Handle = SDL_IOFromFile(Filename, "rb");
 				#else
@@ -431,7 +431,7 @@ int RawFileClass::Open(int rights)
 			case WRITE:
 				#if defined(OPENW3D_WIN32)
 					Handle = CreateFileA(Filename, GENERIC_WRITE, 0,
-												NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+												nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 				#elif defined(OPENW3D_SDL3)
 					Handle = SDL_IOFromFile(Filename, "wb");
 				#else
@@ -444,7 +444,7 @@ int RawFileClass::Open(int rights)
 					// SKB 5/13/99 use OPEN_ALWAYS instead of CREATE_ALWAYS so that files
 					//					does not get destroyed.
 					Handle = CreateFileA(Filename, GENERIC_READ | GENERIC_WRITE, 0,
-												NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+												nullptr, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 				#elif defined(OPENW3D_SDL3)
 					Handle = SDL_IOFromFile(Filename, "rb+");
 					if (Handle == nullptr) {
@@ -527,7 +527,7 @@ bool RawFileClass::Is_Available(int forced)
 
 		#if defined(OPENW3D_WIN32)
 			Handle = CreateFileA(Filename, GENERIC_READ, FILE_SHARE_READ,
-											NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+											nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 		#elif defined(OPENW3D_SDL3)
 			Handle = SDL_IOFromFile(Filename,"rb");
 		#else
@@ -620,10 +620,10 @@ void RawFileClass::Close(void)
  *    the file. This condition can result in fewer bytes being read than requested. Determine  *
  *    this by examining the return value.                                                      *
  *                                                                                             *
- * INPUT:   buffer   -- Pointer to the buffer to read data into. If NULL is passed, no read    *
+ * INPUT:   buffer   -- Pointer to the buffer to read data into. If nullptr is passed, no read    *
  *                      is performed.                                                          *
  *                                                                                             *
- *          size     -- The number of bytes to read. If NULL is passed, then no read is        *
+ *          size     -- The number of bytes to read. If nullptr is passed, then no read is        *
  *                      performed.                                                             *
  *                                                                                             *
  * OUTPUT:  Returns with the number of bytes read into the buffer. If this number is less      *
@@ -670,7 +670,7 @@ int RawFileClass::Read(void * buffer, int size)
 		int readok=true;
 
 		#if defined(OPENW3D_WIN32)
-			readok=ReadFile(Handle, buffer, size, &(DWORD&)bytesread, NULL);
+			readok=ReadFile(Handle, buffer, size, &(DWORD&)bytesread, nullptr);
 		#elif defined(OPENW3D_SDL3)
 			bytesread = SDL_ReadIO(Handle, buffer, size);
 			if (bytesread == 0) {
@@ -743,7 +743,7 @@ int RawFileClass::Write(void const * buffer, int size)
 
 	int writeok=true;
 	#if defined(OPENW3D_WIN32)
-		writeok=WriteFile(Handle, buffer, size, reinterpret_cast<LPDWORD>(&byteswritten), NULL);
+		writeok=WriteFile(Handle, buffer, size, reinterpret_cast<LPDWORD>(&byteswritten), nullptr);
 		if (!writeok) {
 			Error(GetLastError(), false, Filename);
 		}
@@ -890,7 +890,7 @@ int RawFileClass::Size(void)
 	if (Is_Open()) {
 
 		#if defined(OPENW3D_WIN32)
-			size = GetFileSize(Handle, NULL);
+			size = GetFileSize(Handle, nullptr);
 			if (size == 0xFFFFFFFF) {
 				Error(GetLastError(), false, Filename);
 			}
@@ -1092,7 +1092,7 @@ unsigned int RawFileClass::Get_Date_Time(void)
 	return(0);
 #elif defined(OPENW3D_SDL3)
 #ifdef _WIN32
-	HANDLE h = SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER, NULL);
+	HANDLE h = SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER, nullptr);
 	BY_HANDLE_FILE_INFORMATION info;
 	if (h != nullptr && GetFileInformationByHandle(h, &info)) {
 		WORD dosdate;
@@ -1101,7 +1101,7 @@ unsigned int RawFileClass::Get_Date_Time(void)
 		return((dosdate << 16) | dostime);
 	}
 #endif
-	FILE *f = reinterpret_cast<FILE *>(SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_STDIO_FILE_POINTER, NULL));
+	FILE *f = reinterpret_cast<FILE *>(SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_STDIO_FILE_POINTER, nullptr));
 	if (f != nullptr) {
 		struct stat statbuf;
 		fstat(fileno(f), &statbuf);
@@ -1151,7 +1151,7 @@ bool RawFileClass::Set_Date_Time(unsigned int datetime)
 #elif defined(OPENW3D_SDL3)
 
 #ifdef _WIN32
-	HANDLE h = SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER, NULL);
+	HANDLE h = SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER, nullptr);
 	BY_HANDLE_FILE_INFORMATION info;
 	if (GetFileInformationByHandle(h, &info)) {
 		FILETIME filetime;
@@ -1170,7 +1170,7 @@ bool RawFileClass::Set_Date_Time(unsigned int datetime)
 	timespec[0].tv_nsec = (time_ns % 1'000'000'000);
 	timespec[1] = timespec[0];
 #endif
-	FILE *f = reinterpret_cast<FILE *>(SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_STDIO_FILE_POINTER, NULL));
+	FILE *f = reinterpret_cast<FILE *>(SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_STDIO_FILE_POINTER, nullptr));
 	if (f != nullptr) {
 #ifdef _WIN32
         if (_futime(fileno(f), &tbuf) != 0) {
@@ -1290,7 +1290,7 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 				dir = FILE_END;
 				break;
 		}
-		pos = SetFilePointer(Handle, pos, NULL, dir);
+		pos = SetFilePointer(Handle, pos, nullptr, dir);
 		/*
 		**	If there was an error in the seek, then bail with an error condition.
 		*/

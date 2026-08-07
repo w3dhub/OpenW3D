@@ -54,9 +54,9 @@ void cSinglePlayerData::Cleanup()
    cPacket * p_packet;
 
    for (int list_type = 0; list_type < 2; list_type++) {
-		for (objnode = InputPacketList[list_type].Head(); objnode != NULL;) {
+		for (objnode = InputPacketList[list_type].Head(); objnode != nullptr;) {
 			p_packet = objnode->Data();
-			WWASSERT(p_packet != NULL);
+			WWASSERT(p_packet != nullptr);
 			objnode = objnode->Next();
 			InputPacketList[list_type].Remove(p_packet);
 			delete p_packet;

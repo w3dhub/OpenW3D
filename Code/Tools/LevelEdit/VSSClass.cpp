@@ -92,7 +92,7 @@ Sys_String_To_ANSI (BSTR bstr)
 	int len = ::SysStringLen (bstr);
 
 	TCHAR *ansi_string = new TCHAR[len + 1];
-	ASSERT(ansi_string != NULL);
+	ASSERT(ansi_string != nullptr);
 
 	// Convert the BSTR to ANSI using the ANSI code page
 	::WideCharToMultiByte (CP_ACP,
@@ -101,10 +101,10 @@ Sys_String_To_ANSI (BSTR bstr)
 								  len,
 								  ansi_string,
 								  len + 1,
-								  NULL,
-								  NULL);
+								  nullptr,
+								  nullptr);
 
-	// Ensure the new string is NULL terminated
+	// Ensure the new string is nullptr terminated
 	ansi_string[len] = 0;
 
 	// Return a pointer to the ANSI string
@@ -119,9 +119,9 @@ Sys_String_To_ANSI (BSTR bstr)
 BSTR
 Alloc_Sys_String (LPCTSTR string)
 {
-	BSTR sys_string = NULL;
+	BSTR sys_string = nullptr;
 
-	if (string != NULL) {
+	if (string != nullptr) {
 
 		// Copy the ascii format string to a wide-character string
 		wchar_t *pwide_string = new wchar_t [::lstrlen (string) + 1];
@@ -136,7 +136,7 @@ Alloc_Sys_String (LPCTSTR string)
 
 		// Free the wide-character string we allocated earlier
 		delete [] pwide_string;
-		pwide_string = NULL;
+		pwide_string = nullptr;
 	}
 
 	// Return the system string
@@ -160,19 +160,19 @@ IDispatch_Get_Property
 	bool retval = false;
 
 	// Params OK?
-	ASSERT (pdispatch != NULL);
-	if (pdispatch != NULL) {
+	ASSERT (pdispatch != nullptr);
+	if (pdispatch != nullptr) {
 
 		// Get this property w/o passing any args
-		DISPPARAMS no_args = {NULL, NULL, 0, 0};
+		DISPPARAMS no_args = {nullptr, nullptr, 0, 0};
 		retval = SUCCEEDED (pdispatch->Invoke (dispid,
 															IID_NULL,
-															NULL,
+															nullptr,
 															DISPATCH_PROPERTYGET,
 															&no_args,
 															presult,
-															NULL,
-															NULL));
+															nullptr,
+															nullptr));
 	}
 
 	// Return the true/false result code
@@ -197,11 +197,11 @@ IDispatch_Get_Property
 	bool retval = false;
 
 	// Params OK?
-	ASSERT (pdispatch != NULL);
-	if (pdispatch != NULL) {
+	ASSERT (pdispatch != nullptr);
+	if (pdispatch != nullptr) {
 
 		// Fill in the dispatch-params structure with our single param
-		DISPPARAMS args = {NULL, NULL, 0, 0};
+		DISPPARAMS args = {nullptr, nullptr, 0, 0};
 		args.rgvarg = &var_arg;
 		args.cArgs = 1;
 
@@ -209,12 +209,12 @@ IDispatch_Get_Property
 		EXCEPINFO excep_info = { 0 };
 		retval = SUCCEEDED (pdispatch->Invoke (dispid,
 															IID_NULL,
-															NULL,
+															nullptr,
 															DISPATCH_PROPERTYGET,
 															&args,
 															presult,
 															&excep_info,
-															NULL));
+															nullptr));
 	}
 
 	// Return the true/false result code
@@ -229,12 +229,12 @@ IDispatch_Get_Property
 void
 VSSClass::Get_VSS_Interface (void)
 {
-	if (m_pIVSSDatabase == NULL) {
+	if (m_pIVSSDatabase == nullptr) {
 
 		// Attempt to create an instance of the VSS Database interface
-		LPUNKNOWN punknown = NULL;
+		LPUNKNOWN punknown = nullptr;
 		HRESULT hresult = ::CoCreateInstance (CLSID_VSSDatabase,
-														  NULL,
+														  nullptr,
 														  CLSCTX_INPROC_SERVER,
 														  IID_IVSSDatabase,
 														  (LPVOID *)&punknown);
@@ -271,13 +271,13 @@ VSSClass::Open_Database
 	bool retval = false;
 
 	m_bReadOnly = true;
-	ASSERT (m_pIVSSDatabase != NULL);
-	if (m_pIVSSDatabase != NULL) {
+	ASSERT (m_pIVSSDatabase != nullptr);
+	if (m_pIVSSDatabase != nullptr) {
 
 		// Convert the string params to COM-safe system strings
 		BSTR bstr_filename = ::Alloc_Sys_String (ini_filename);
-		BSTR bstr_username = ::Alloc_Sys_String (username != NULL ? username : "");
-		BSTR bstr_password = ::Alloc_Sys_String (password != NULL ? password : "");
+		BSTR bstr_username = ::Alloc_Sys_String (username != nullptr ? username : "");
+		BSTR bstr_password = ::Alloc_Sys_String (password != nullptr ? password : "");
 
 		// Ask VSS to open this database
 		retval = SUCCEEDED (m_pIVSSDatabase->Open (bstr_filename, bstr_username, bstr_password));
@@ -286,7 +286,7 @@ VSSClass::Open_Database
 			//
 			//	Determine if the user is read-only
 			//
-			IVSSUser *user = NULL;
+			IVSSUser *user = nullptr;
 			if (SUCCEEDED (m_pIVSSDatabase->get_User (bstr_username, &user))) {
 				VARIANT_BOOL readonly = 0;
 				user->get_ReadOnly (&readonly);
@@ -299,7 +299,7 @@ VSSClass::Open_Database
 			//
 
 			/*IVSSItem *root_item = Get_VSS_Item ("$/");
-			if (root_item != NULL) {
+			if (root_item != nullptr) {
 
 				LPCTSTR local_path	= ::Get_File_Mgr ()->Get_Base_Path ();
 				BSTR bstr_local_path	= ::Alloc_Sys_String (local_path);
@@ -335,14 +335,14 @@ IVSSItem *
 VSSClass::Get_VSS_Item_From_Local_Path (LPCTSTR local_filename)
 {
 	// Assume failure
-	IVSSItem *pitem = NULL;
+	IVSSItem *pitem = nullptr;
 
-	ASSERT (m_pIVSSDatabase != NULL);
-	ASSERT (local_filename != NULL);
+	ASSERT (m_pIVSSDatabase != nullptr);
+	ASSERT (local_filename != nullptr);
 
 	// State OK?
-	if ((m_pIVSSDatabase != NULL) &&
-		 (local_filename != NULL)) {
+	if ((m_pIVSSDatabase != nullptr) &&
+		 (local_filename != nullptr)) {
 
 		// Lookup the relative path
 		TCHAR vss_path[MAX_PATH];
@@ -366,14 +366,14 @@ IVSSItem *
 VSSClass::Get_VSS_Item (LPCTSTR vss_path)
 {
 	// Assume failure
-	IVSSItem *pitem = NULL;
+	IVSSItem *pitem = nullptr;
 
-	ASSERT (m_pIVSSDatabase != NULL);
-	ASSERT (vss_path != NULL);
+	ASSERT (m_pIVSSDatabase != nullptr);
+	ASSERT (vss_path != nullptr);
 
 	// State OK?
-	if ((m_pIVSSDatabase != NULL) &&
-		 (vss_path != NULL)) {
+	if ((m_pIVSSDatabase != nullptr) &&
+		 (vss_path != nullptr)) {
 
 		// Convert the ascii string to a COM-safe BSTR
 		BSTR bstr_vss_path = ::Alloc_Sys_String (vss_path);
@@ -391,7 +391,7 @@ VSSClass::Get_VSS_Item (LPCTSTR vss_path)
 
 		HRESULT result = m_pIVSSDatabase->get_VSSItem (bstr_vss_path, 0, &pitem);
 		if (FAILED (result)) {
-			pitem = NULL;
+			pitem = nullptr;
 		}
 
 		// Was the property-get successful?
@@ -424,7 +424,7 @@ VSSClass::Does_File_Exist (LPCTSTR local_filename)
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 
 	// If we successfully got the VSS item, then it exists in the DB
-	if (pitem != NULL) {
+	if (pitem != nullptr) {
 		retval = true;
 
 		// Release our hold on the item
@@ -447,8 +447,8 @@ VSSClass::Get_Type (LPCTSTR local_filename)
 
 	// Get a pointer to this 'item' inside the VSS database.
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 		int temp = 0;
 		pitem->get_Type (&temp);
 		type = (VSSItemType)temp;
@@ -482,8 +482,8 @@ VSSClass::Get (LPCTSTR local_filename)
 
 		// Get a pointer to this 'item' inside the VSS database.
 		IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
-		ASSERT (pitem != NULL);
-		if (pitem != NULL) {
+		ASSERT (pitem != nullptr);
+		if (pitem != nullptr) {
 
 			// Do the actual file 'get' from VSS.
 			retval = Get (local_filename, pitem);
@@ -511,10 +511,10 @@ VSSClass::Get
 	bool retval = false;
 
 	// Params OK?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
-		if (Get_File_Status (local_filename, NULL, 0, pitem) != VSSFILE_CHECKEDOUT_ME) {
+		if (Get_File_Status (local_filename, nullptr, 0, pitem) != VSSFILE_CHECKEDOUT_ME) {
 
 			// Convert the ascii string to a COM-safe BSTR
 			BSTR bstr_filename = ::Alloc_Sys_String (local_filename);
@@ -548,7 +548,7 @@ VSSClass::Get
 
 				//	Get the last mod time of the local version
 				FILETIME local_file_time = { 0 };
-				Get_File_Time (local_filename, NULL, NULL, &local_file_time);
+				Get_File_Time (local_filename, nullptr, nullptr, &local_file_time);
 
 				//
 				// Should this file be overwritten?
@@ -581,8 +581,8 @@ VSSClass::Get_Subproject (LPCTSTR local_filename)
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 
 	// Did we succesfully get the VSS item?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		Get_Recursive (local_filename, pitem);
 		retval = true;
@@ -619,14 +619,14 @@ VSSClass::Check_Out (LPCTSTR local_filename, bool get_locally)
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 
 	// Did we succesfully get the VSS item?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		// Convert the ascii string to a COM-safe BSTR
 		BSTR bstr_filename = ::Alloc_Sys_String (local_filename);
 
 		// Ask the VSS interface to 'checkout' this file for us
-		retval = SUCCEEDED (pitem->Checkout (NULL, bstr_filename, (get_locally ? VSSFLAG_TIMEMOD : VSSFLAG_GETNO) | VSSFLAG_CHKEXCLUSIVENO));
+		retval = SUCCEEDED (pitem->Checkout (nullptr, bstr_filename, (get_locally ? VSSFLAG_TIMEMOD : VSSFLAG_GETNO) | VSSFLAG_CHKEXCLUSIVENO));
 
 		// Free the system string we allocated earlier
 		::SysFreeString (bstr_filename);
@@ -658,12 +658,12 @@ VSSClass::Check_In
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 
 	// Did we succesfully get the VSS item?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		// Convert the ascii string to a COM-safe BSTR
 		BSTR bstr_filename = ::Alloc_Sys_String (local_filename);
-		BSTR bstr_comment = (comment != NULL) ? ::Alloc_Sys_String (comment) : NULL;
+		BSTR bstr_comment = (comment != nullptr) ? ::Alloc_Sys_String (comment) : nullptr;
 
 		// Ask the VSS interface to 'Checkin' this file for us
 		retval = SUCCEEDED (pitem->Checkin (bstr_comment, bstr_filename, VSSFLAG_CMPCHKSUM | VSSFLAG_RECURSNO | VSSFLAG_UPDUPDATE));
@@ -706,15 +706,15 @@ VSSClass::Add_File
 		IVSSItem *pitem = Get_VSS_Item_From_Local_Path (parent_dir);
 
 		// Did we succesfully get the VSS item?
-		ASSERT (pitem != NULL);
-		if (pitem != NULL) {
+		ASSERT (pitem != nullptr);
+		if (pitem != nullptr) {
 
 			// Convert the ascii string to a COM-safe BSTR
 			BSTR bstr_filename = ::Alloc_Sys_String (local_filename);
-			BSTR bstr_comment = (comment != NULL) ? ::Alloc_Sys_String (comment) : NULL;
+			BSTR bstr_comment = (comment != nullptr) ? ::Alloc_Sys_String (comment) : nullptr;
 
 			// Ask the VSS interface to add this file for us
-			IVSSItem *pnew_item = NULL;
+			IVSSItem *pnew_item = nullptr;
 			retval = SUCCEEDED (pitem->Add (bstr_filename, bstr_comment, 0, &pnew_item));
 
 			// Free the system strings we allocated earlier
@@ -748,7 +748,7 @@ VSSClass::Build_Tree (LPCTSTR local_filename)
 	CString rel_path = ::Get_File_Mgr ()->Make_Relative_Path (local_filename);
 
 	// Generate a list of folders from the path
-	CString *pfolder_list = NULL;
+	CString *pfolder_list = nullptr;
 	int count = ::Build_List_From_String (::Strip_Filename_From_Path (rel_path), "\\", &pfolder_list);
 
 	// Loop through all the folders in the path and make sure they
@@ -760,18 +760,18 @@ VSSClass::Build_Tree (LPCTSTR local_filename)
 		// See if this path exists in the VSS database
 		vss_path += CString ("\\") + pfolder_list[ifolder];
 		IVSSItem *pitem = Get_VSS_Item (vss_path);
-		if (pitem == NULL) {
+		if (pitem == nullptr) {
 
 			// Get a pointer to the parent so we can create a new folder
 			pitem = Get_VSS_Item (parent + CString ("\\"));
-			if (pitem != NULL) {
+			if (pitem != nullptr) {
 
 				// Convert the ascii string to a COM-safe BSTR
 				BSTR bstr_foldername = ::Alloc_Sys_String (pfolder_list[ifolder]);
 
 				// Ask the VSS interface to add this folder for us
-				IVSSItem *pfolder = NULL;
-				retval &= (bool)SUCCEEDED (pitem->NewSubproject (bstr_foldername, NULL, &pfolder));
+				IVSSItem *pfolder = nullptr;
+				retval &= (bool)SUCCEEDED (pitem->NewSubproject (bstr_foldername, nullptr, &pfolder));
 
 				// Free any memory we allocated
 				::SysFreeString (bstr_foldername);
@@ -805,8 +805,8 @@ VSSClass::Undo_Check_Out (LPCTSTR local_filename)
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 
 	// Did we succesfully get the VSS item?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		// Convert the ascii string to a COM-safe BSTR
 		BSTR bstr_filename = ::Alloc_Sys_String (local_filename);
@@ -840,8 +840,8 @@ VSSClass::Destroy (LPCTSTR local_filename)
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 
 	// Did we succesfully get the VSS item?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		// Ask the VSS interface to completely destroy this file for us
 		retval = SUCCEEDED (pitem->Destroy ());
@@ -868,8 +868,8 @@ VSSClass::Get_File_Version (LPCTSTR local_filename)
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 
 	// Did we succesfully get the VSS item?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		// Get the version number for this item
 		VARIANT result = { 0 };
@@ -900,8 +900,8 @@ VSSClass::Is_File_Different (LPCTSTR local_filename)
 	IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 
 	// Did we succesfully get the VSS item?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		// Convert the ansi string to a system string
 		BSTR bstr_filename = ::Alloc_Sys_String (local_filename);
@@ -942,8 +942,8 @@ VSSClass::Get_File_Date
 )
 {
 	// Params OK?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		// Determine which version number we want the date for.
 		long current_ver_num = 0;
@@ -952,14 +952,14 @@ VSSClass::Get_File_Date
 		//
 		//	Get the 'versions' list for this item
 		//
-		IVSSVersions *pversions = NULL;
+		IVSSVersions *pversions = nullptr;
 		HRESULT hresult = pitem->get_Versions (VSSFLAG_HISTIGNOREFILES, &pversions);
-		if (SUCCEEDED (hresult) && (pversions != NULL)) {
+		if (SUCCEEDED (hresult) && (pversions != nullptr)) {
 
 			//
 			// Get the version enumerator for this item
 			//
-			IUnknown *penum_variant = NULL;
+			IUnknown *penum_variant = nullptr;
 			HRESULT hresult = pversions->_NewEnum (&penum_variant);
 			if (SUCCEEDED (hresult)) {
 
@@ -967,19 +967,19 @@ VSSClass::Get_File_Date
 				// Convert the IUnknown version enumerator to a standard
 				// VARIANT enumerator.
 				//
-				IEnumVARIANT *pversion_enum = NULL;
+				IEnumVARIANT *pversion_enum = nullptr;
 				hresult = penum_variant->QueryInterface (IID_IEnumVARIANT, (LPVOID *)&pversion_enum);
-				if (SUCCEEDED (hresult) && (pversion_enum != NULL)) {
+				if (SUCCEEDED (hresult) && (pversion_enum != nullptr)) {
 
 					//
 					//	Loop through all the versions until we've found the right one.
 					//
 					bool found = false;
 					VARIANT version_info = { 0 };
-					while ((pversion_enum->Next (1, &version_info, NULL) == S_OK) && !found) {
+					while ((pversion_enum->Next (1, &version_info, nullptr) == S_OK) && !found) {
 
 						IVSSVersionOld *pversion = (IVSSVersionOld *)version_info.pdispVal;
-						if (pversion != NULL) {
+						if (pversion != nullptr) {
 
 							// Get this version's number
 							long ver_num = 0L;
@@ -1021,7 +1021,7 @@ VSSClass::Get_File_Date
 
 					// Free the temporary buffer we used to hold the username
 					delete [] username;
-					username = NULL;
+					username = nullptr;
 				}*/
 
 				COM_RELEASE (penum_variant);
@@ -1055,13 +1055,13 @@ VSSClass::Get_File_Status
 
 	// Get a pointer to this 'item' inside the VSS database.
 	IVSSItem *pitem = item_to_use;
-	if (pitem == NULL) {
+	if (pitem == nullptr) {
 		pitem = Get_VSS_Item_From_Local_Path (local_filename);
 	}
 
 	// Did we succesfully get the VSS item?
-	ASSERT (pitem != NULL);
-	if (pitem != NULL) {
+	ASSERT (pitem != nullptr);
+	if (pitem != nullptr) {
 
 		// Get the current check-out status for this item
 		VARIANT result = { 0 };
@@ -1072,13 +1072,13 @@ VSSClass::Get_File_Status
 
 		// Should we lookup the name of user who has this file checked out?
 		if ((status != VSSFILE_NOTCHECKEDOUT) &&
-		    (checked_out_username != NULL)) {
+		    (checked_out_username != nullptr)) {
 
 			// Get a pointer to the 'checkouts' interface for this item
 			bool success = ::IDispatch_Get_Property (pitem, 0x0000000f, &result);
 			IVSSCheckouts *pcheckouts = (IVSSCheckouts *)result.ppdispVal;
 
-			if (success && (pcheckouts != NULL)) {
+			if (success && (pcheckouts != nullptr)) {
 
 				// Get the count of 'checkouts' on this file (should be 1 for our purposes)
 				if (::IDispatch_Get_Property (pcheckouts, 0x00000001, &result)) {
@@ -1108,7 +1108,7 @@ VSSClass::Get_File_Status
 
 								// Free the temporary buffer we used to hold the username
 								delete [] username;
-								username = NULL;
+								username = nullptr;
 							}
 
 							// Release our hold on the checkout interface
@@ -1123,7 +1123,7 @@ VSSClass::Get_File_Status
 		}
 
 		// Release our hold on the item
-		if (item_to_use == NULL) {
+		if (item_to_use == nullptr) {
 			COM_RELEASE (pitem);
 		}
 	}
@@ -1140,12 +1140,12 @@ VSSClass::Get_File_Status
 LPCTSTR
 VSSClass::Get_Error_Description (HRESULT hresult)
 {
-	LPCTSTR description = NULL;
+	LPCTSTR description = nullptr;
 
 	// Loop through all the VSS specific errors that we know about
 	int error_count = sizeof (_ErrorArray) / sizeof (VSS_ERROR);
 	for (int error = 0;
-		  (error < error_count) && (description == NULL);
+		  (error < error_count) && (description == nullptr);
 		  error ++) {
 
 		// Is this the error we are looking for?
@@ -1234,11 +1234,11 @@ VSSClass::Get_Recursive
 	VARIANT result = { 0 };
 	//bool success = ::IDispatch_Get_Property (pparent, 0x00000009, &result);
 
-	IVSSItems *pitems = NULL;
+	IVSSItems *pitems = nullptr;
 	pparent->get_Items (0, &pitems);
 	//IVSSItems *pitems = (IVSSItems *)result.ppdispVal;
 
-	if (pitems != NULL) {
+	if (pitems != nullptr) {
 
 		// Get the sub-item count
 		if (::IDispatch_Get_Property (pitems, 0x00000001, &result)) {
@@ -1256,7 +1256,7 @@ VSSClass::Get_Recursive
 				// Get the subitem at this index
 				if (::IDispatch_Get_Property (pitems, 0x00000000, var_arg, &result)) {
 					IVSSItem *psub_item = (IVSSItem *)result.ppdispVal;
-					if (psub_item != NULL) {
+					if (psub_item != nullptr) {
 
 						// Get the sub-item's name
 						TCHAR sub_item_name[MAX_PATH] = { 0 };
@@ -1392,10 +1392,10 @@ VSSClass::Get_File_Status (LPCTSTR local_filename, StringClass *checked_out_user
 {
 	AssetDatabaseClass::FILE_STATUS retval = AssetDatabaseClass::UNKNOWN;
 
-	LPTSTR username		= NULL;
+	LPTSTR username		= nullptr;
 	DWORD buffer_size		= 0;
 
-	if (checked_out_user_name != NULL) {
+	if (checked_out_user_name != nullptr) {
 		username		= checked_out_user_name->Get_Buffer (64);
 		buffer_size	= 64;
 	}

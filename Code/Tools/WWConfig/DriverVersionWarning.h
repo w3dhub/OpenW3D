@@ -32,7 +32,7 @@ class DriverVersionWarning : public CDialog
 {
 // Construction
 public:
-	DriverVersionWarning(CWnd* pParent = NULL);   // standard constructor
+	DriverVersionWarning(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(DriverVersionWarning)

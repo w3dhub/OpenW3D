@@ -90,11 +90,11 @@ const float					MultiHUDClass::MAX_OVERLAY_DISTANCE_M		= 50;
 const float					MultiHUDClass::Y_INCREMENT_FACTOR			= 1.2f;
 
 #ifdef WWDEBUG
-Render2DTextClass	*		MultiHUDClass::PTextRenderer					= NULL;
-Font3DInstanceClass *	MultiHUDClass::PFont								= NULL;
+Render2DTextClass	*		MultiHUDClass::PTextRenderer					= nullptr;
+Font3DInstanceClass *	MultiHUDClass::PFont								= nullptr;
 #endif
 
-Render2DSentenceClass* MultiHUDClass::NameRenderer					= NULL;
+Render2DSentenceClass* MultiHUDClass::NameRenderer					= nullptr;
 float							MultiHUDClass::BottomTextYPos					= 0;
 //bool							MultiHUDClass::VerboseLists					= false;
 PlayerlistFormatEnum		MultiHUDClass::PlayerlistFormat				= PLAYERLIST_FORMAT_TINY;
@@ -106,9 +106,9 @@ void MultiHUDClass::Init(void)
 	WWDEBUG_SAY(("MultiHUDClass::Init\n"));
 	if (!ConsoleBox.Is_Exclusive()) {
 #ifdef WWDEBUG
-		WWASSERT(WW3DAssetManager::Get_Instance() != NULL);
+		WWASSERT(WW3DAssetManager::Get_Instance() != nullptr);
    	PFont = WW3DAssetManager::Get_Instance()->Get_Font3DInstance("FONT6x8.TGA");
-   	WWASSERT(PFont != NULL);
+   	WWASSERT(PFont != nullptr);
 		PFont->Set_Mono_Spaced();
 		SET_REF_OWNER(PFont);
 
@@ -131,18 +131,18 @@ void MultiHUDClass::Shutdown(void)
 
 	if (NameRenderer) {
 		delete NameRenderer;
-		NameRenderer = NULL;
+		NameRenderer = nullptr;
 	}
 
 #ifdef WWDEBUG
-	if (PTextRenderer != NULL) {
+	if (PTextRenderer != nullptr) {
 		delete PTextRenderer;
-		PTextRenderer = NULL;
+		PTextRenderer = nullptr;
 	}
 
-	if (PFont != NULL) {
+	if (PFont != nullptr) {
 		PFont->Release_Ref();
-		PFont = NULL;
+		PFont = nullptr;
 	}
 #endif
 
@@ -187,13 +187,13 @@ bool MultiHUDClass::Is_On(void)
 void MultiHUDClass::Render(void)
 {
 #ifdef WWDEBUG
-	if (PTextRenderer != NULL) {
+	if (PTextRenderer != nullptr) {
 		WWPROFILE("MultiHud Debug Render");
 		PTextRenderer->Render();
 	}
 #endif
 
-	if (NameRenderer != NULL) {
+	if (NameRenderer != nullptr) {
 		WWPROFILE("MultiHud Render");
 		NameRenderer->Render();
 	}
@@ -205,13 +205,13 @@ void MultiHUDClass::Render(void)
 //
 void MultiHUDClass::Show_Player_Names(void)
 {
-	if (NameRenderer == NULL) {
+	if (NameRenderer == nullptr) {
 		return;
 	}
 
 	WWPROFILENAMED("Show_Player_Name", top);
    if (GameModeManager::Find("Menu")->Is_Active() ||
-		COMBAT_CAMERA == NULL ||
+		COMBAT_CAMERA == nullptr ||
 		!cNetwork::I_Am_Client() ||
       cUserOptions::ShowNamesOnSoldier.Is_False()) {
 
@@ -228,7 +228,7 @@ void MultiHUDClass::Show_Player_Names(void)
 		smart_objnode = smart_objnode->Next()) {
 
 		SmartGameObj * p_smart_obj = smart_objnode->Data();
-      WWASSERT(p_smart_obj != NULL);
+      WWASSERT(p_smart_obj != nullptr);
 
 		//
 		// We will eliminate candidates with sequential tests. Want to
@@ -242,14 +242,14 @@ void MultiHUDClass::Show_Player_Names(void)
       //
 		// We are only interested in soldiers
 		//
-		if (p_smart_obj->As_SoldierGameObj() == NULL) {
+		if (p_smart_obj->As_SoldierGameObj() == nullptr) {
 			continue;
       }
 
       //
 		// ... living soldiers
 		//
-		WWASSERT(p_smart_obj->Get_Defense_Object() != NULL);
+		WWASSERT(p_smart_obj->Get_Defense_Object() != nullptr);
       float health = p_smart_obj->Get_Defense_Object()->Get_Health();
 		if (health < WWMATH_EPSILON) {
 			continue;
@@ -259,11 +259,11 @@ void MultiHUDClass::Show_Player_Names(void)
 
 		// ... with player objects
 		//
-		cPlayer * p_player = NULL;
+		cPlayer * p_player = nullptr;
       if (p_smart_obj->Has_Player()) {
          p_player = cPlayerManager::Find_Player(p_smart_obj->Get_Control_Owner());
       }
-		if (p_player == NULL) {
+		if (p_player == nullptr) {
 			continue;
 		}
 
@@ -284,18 +284,18 @@ void MultiHUDClass::Show_Player_Names(void)
 		//
 		bool is_stealthed = false;
 		SoldierGameObj * p_soldier = p_smart_obj->As_SoldierGameObj();
-		WWASSERT(p_soldier != NULL);
-		VehicleGameObj * p_vehicle = NULL;
+		WWASSERT(p_soldier != nullptr);
+		VehicleGameObj * p_vehicle = nullptr;
 		if (p_soldier->Is_Stealthed()) {
 			is_stealthed = true;
 		} else {
 			p_vehicle = p_soldier->Get_Vehicle();
-			if (p_vehicle != NULL && p_vehicle->Is_Stealthed()) {
+			if (p_vehicle != nullptr && p_vehicle->Is_Stealthed()) {
 				is_stealthed = true;
 			}
 		}
 
-		if (COMBAT_STAR != NULL && p_soldier->Is_Teammate(COMBAT_STAR)) {
+		if (COMBAT_STAR != nullptr && p_soldier->Is_Teammate(COMBAT_STAR)) {
 			//
 			// Don't skip for teammates...
 			//
@@ -327,7 +327,7 @@ void MultiHUDClass::Show_Player_Names(void)
 			continue;
 		}
 
-		if (CombatManager::Is_First_Person() && COMBAT_STAR != NULL) {
+		if (CombatManager::Is_First_Person() && COMBAT_STAR != nullptr) {
 			//
 			// Ignore collision between ray and own commando
 			//
@@ -348,23 +348,23 @@ void MultiHUDClass::Show_Player_Names(void)
 			COMBAT_SCENE->Cast_Ray(raytest);
 		}
 
-		if (CombatManager::Is_First_Person() && COMBAT_STAR != NULL) {
+		if (CombatManager::Is_First_Person() && COMBAT_STAR != nullptr) {
 			COMBAT_STAR->Peek_Physical_Object()->Dec_Ignore_Counter();
 		}
 
-		if (raytest.CollidedPhysObj == NULL) {
+		if (raytest.CollidedPhysObj == nullptr) {
 			//
 			// I think this means that the ray collided with the terrain.
 			//
 			continue;
 		}
 
-		if (raytest.CollidedPhysObj->Get_Observer() == NULL) {
+		if (raytest.CollidedPhysObj->Get_Observer() == nullptr) {
 			continue;
 		} else {
 			PhysicalGameObj * p_blocker = ((CombatPhysObserverClass *)raytest.CollidedPhysObj->Get_Observer())->As_PhysicalGameObj();
 	      //if (p_blocker != p_smart_obj) {
-	      if ((p_blocker == NULL) ||
+	      if ((p_blocker == nullptr) ||
 				 ((p_blocker != p_smart_obj) && (p_blocker != p_vehicle))) {
 			   //
 				// The ray failed to collide with the soldier in question
@@ -400,7 +400,7 @@ void MultiHUDClass::Show_Player_Names(void)
 			//
 			// MVP carries over into next game
 			//
-			WWASSERT(The_Game() != NULL);
+			WWASSERT(The_Game() != nullptr);
 			WideStringClass mvp_name = The_Game()->Get_Mvp_Name();
 			if (!p_player->Get_Name().Compare_No_Case(mvp_name.Peek_Buffer())) {
 				text += U_CHAR("\n");
@@ -416,7 +416,7 @@ void MultiHUDClass::Show_Player_Names(void)
 			// WOL game newbies get a "recruit" tag
 			//
 			if (GameModeManager::Find("WOL")->Is_Active() &&
-				 COMBAT_STAR != NULL &&
+				 COMBAT_STAR != nullptr &&
 				 p_soldier->Is_Teammate(COMBAT_STAR) &&
 				 p_player->Get_Num_Wol_Games() <= cPlayer::NUM_NEWBIE_GAMES) {
 
@@ -447,13 +447,13 @@ void MultiHUDClass::Render_Debug_Text(const char *text, float x, float y, unsign
 	// is non-integral.
 	//
 
-	WWASSERT(text != NULL);
+	WWASSERT(text != nullptr);
 
 	x = WWMath::Round(x);
 	y = WWMath::Round(y);
 
-	if (PTextRenderer != NULL) {
-		WWASSERT(PTextRenderer != NULL);
+	if (PTextRenderer != nullptr) {
+		WWASSERT(PTextRenderer != nullptr);
 		PTextRenderer->Set_Location(Vector2(x, y));
 		PTextRenderer->Draw_Text(text, color);
 	}
@@ -462,9 +462,9 @@ void MultiHUDClass::Render_Debug_Text(const char *text, float x, float y, unsign
 //-----------------------------------------------------------------------------
 void MultiHUDClass::Show_Import_State_Counts(NetworkObjectClass *object)
 {
-   WWASSERT(object != NULL);
+   WWASSERT(object != nullptr);
 
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
@@ -486,7 +486,7 @@ void MultiHUDClass::Show_Import_State_Counts(NetworkObjectClass *object)
 
    Vector3 text_position_3d;
 	if (	show &&
-			COMBAT_CAMERA != NULL &&
+			COMBAT_CAMERA != nullptr &&
 			object->Get_World_Position (text_position_3d))
 	{
       text_position_3d.Z += z_offset;
@@ -529,9 +529,9 @@ void MultiHUDClass::Show_Import_State_Counts(NetworkObjectClass *object)
 
 void MultiHUDClass::Show_Distance_And_Priority(NetworkObjectClass *object)
 {
-   WWASSERT(object != NULL);
+   WWASSERT(object != nullptr);
 
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
@@ -542,7 +542,7 @@ void MultiHUDClass::Show_Distance_And_Priority(NetworkObjectClass *object)
 	}
 
    Vector3 text_position_3d;
-	if (show && COMBAT_CAMERA != NULL && object->Get_World_Position (text_position_3d))
+	if (show && COMBAT_CAMERA != nullptr && object->Get_World_Position (text_position_3d))
 	{
       SmartGameObj * player_ptr = GameObjManager::Find_Soldier_Of_Client_ID(cNetwork::Get_My_Id());
 
@@ -601,21 +601,21 @@ void MultiHUDClass::Show_Distance_And_Priority(NetworkObjectClass *object)
 //-----------------------------------------------------------------------------
 void MultiHUDClass::Show_Player_Rhost_Data(SmartGameObj * smart_obj)
 {
-   WWASSERT(smart_obj != NULL);
+   WWASSERT(smart_obj != nullptr);
 
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
 	if (cDevOptions::ShowServerRhostData.Is_True() &&
 		 cNetwork::I_Am_Server() &&
-		 COMBAT_CAMERA != NULL &&
+		 COMBAT_CAMERA != nullptr &&
 		 smart_obj->Is_Human_Controlled() &&
 		 !smart_obj->Is_Delete_Pending()) {
 
 		int controlling_client = smart_obj->Get_Control_Owner();
       cPlayer * p_player = cPlayerManager::Find_Player(controlling_client);
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 
 		if (!The_Game() || The_Game()->IsDedicated.Is_False()) {
 			Vector3 text_position_3d;
@@ -630,10 +630,10 @@ void MultiHUDClass::Show_Player_Rhost_Data(SmartGameObj * smart_obj)
 
 				SoldierGameObj * p_soldier = smart_obj->As_SoldierGameObj();
 
-				if (p_soldier != NULL) {
+				if (p_soldier != nullptr) {
 
 					cRemoteHost * p_rhost = cNetwork::Get_Server_Rhost(controlling_client);
-					WWASSERT(p_rhost != NULL);
+					WWASSERT(p_rhost != nullptr);
 
 					StringClass text;
 					StringClass sub_string;
@@ -742,17 +742,17 @@ void MultiHUDClass::Show_Player_Rhost_Data(SmartGameObj * smart_obj)
 //-----------------------------------------------------------------------------
 void MultiHUDClass::Show_Client_Rhost_Data(void)
 {
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
    if (cDevOptions::ShowClientRhostData.Is_True() &&
 		 cNetwork::I_Am_Client() &&
-		 COMBAT_CAMERA != NULL) {
+		 COMBAT_CAMERA != nullptr) {
 
 		cRemoteHost * p_rhost = cNetwork::Get_Client_Rhost();
 
-		if (p_rhost != NULL) {
+		if (p_rhost != nullptr) {
 
 			StringClass text;
 			StringClass sub_string;
@@ -779,14 +779,14 @@ void MultiHUDClass::Show_Client_Rhost_Data(void)
 //-----------------------------------------------------------------------------
 void MultiHUDClass::Show_Description(NetworkObjectClass * p_object, float height_offset, float max_distance)
 {
-   WWASSERT(p_object != NULL);
+   WWASSERT(p_object != nullptr);
 	WWASSERT(max_distance > 0);
 
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
-   if (COMBAT_CAMERA != NULL &&
+   if (COMBAT_CAMERA != nullptr &&
 		 !p_object->Is_Delete_Pending()) {
 
       Vector3 text_position_3d;
@@ -823,17 +823,17 @@ void MultiHUDClass::Show_Description(NetworkObjectClass * p_object, float height
 //-----------------------------------------------------------------------------
 void MultiHUDClass::Show_Spawner_Data(void)
 {
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
-	if (COMBAT_CAMERA != NULL && cDevOptions::ShowSpawnerData.Is_True()) {
+	if (COMBAT_CAMERA != nullptr && cDevOptions::ShowSpawnerData.Is_True()) {
 
 		DynamicVectorClass<SpawnerClass*> spawner_list = SpawnManager::Get_Spawner_List();
 
 		for (int i = 0; i < spawner_list.Count(); i++) {
 
-			WWASSERT(spawner_list[i] != NULL);
+			WWASSERT(spawner_list[i] != nullptr);
 			Vector3 text_position_3d;
 			spawner_list[i]->Get_TM().Get_Translation(&text_position_3d);
 			text_position_3d.Z += 1.0f;
@@ -861,12 +861,12 @@ void MultiHUDClass::Show_Spawner_Data(void)
 void MultiHUDClass::Think(void)
 {
 #ifdef WWDEBUG
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 #endif
 
-	if (NameRenderer == NULL) {
+	if (NameRenderer == nullptr) {
 		return;
 	}
 
@@ -915,12 +915,12 @@ void MultiHUDClass::Think(void)
 	for (int index = 0; index < count; index ++) {
 
 		StaticNetworkObjectClass * p_object = (StaticNetworkObjectClass * ) StaticNetworkObjectClass::Get_Static_Network_Object (index);
-		WWASSERT(p_object != NULL);
+		WWASSERT(p_object != nullptr);
 
 		if (
-			(p_object->As_Door_Network_Object_Class() != NULL && cDevOptions::ShowDoorData.Is_True()) ||
-			(p_object->As_Elevator_Network_Object_Class() != NULL && cDevOptions::ShowElevatorData.Is_True()) ||
-			(p_object->As_DSAPO_Network_Object_Class() != NULL && cDevOptions::ShowDSAPOData.Is_True())) {
+			(p_object->As_Door_Network_Object_Class() != nullptr && cDevOptions::ShowDoorData.Is_True()) ||
+			(p_object->As_Elevator_Network_Object_Class() != nullptr && cDevOptions::ShowElevatorData.Is_True()) ||
+			(p_object->As_DSAPO_Network_Object_Class() != nullptr && cDevOptions::ShowDSAPOData.Is_True())) {
 
 			Show_Description(p_object, 0, 20);
 		}
@@ -932,35 +932,35 @@ void MultiHUDClass::Think(void)
 	//
 	SLNode<BaseGameObj> * objnode;
 	for (objnode = GameObjManager::Get_Game_Obj_List()->Head(); objnode; objnode = objnode->Next()) {
-		WWASSERT(objnode->Data() != NULL);
+		WWASSERT(objnode->Data() != nullptr);
       PhysicalGameObj * p_phys_obj = objnode->Data()->As_PhysicalGameObj();
 
-		if (p_phys_obj != NULL) {
+		if (p_phys_obj != nullptr) {
 
 			SmartGameObj * p_smart_obj = p_phys_obj->As_SmartGameObj();
 
-			if (p_smart_obj != NULL) {
+			if (p_smart_obj != nullptr) {
 				Show_Player_Rhost_Data(p_smart_obj);
 
             if (cDevOptions::ShowSoldierData.Is_True()) {
 					SoldierGameObj * p_soldier = p_smart_obj->As_SoldierGameObj();
-					if (p_soldier != NULL) {
+					if (p_soldier != nullptr) {
 						Show_Description(p_soldier, 1.5f, 20);
 					}
 				}
 
             if (cDevOptions::ShowVehicleData.Is_True()) {
 					VehicleGameObj * p_vehicle = p_smart_obj->As_VehicleGameObj();
-					if (p_vehicle != NULL) {
+					if (p_vehicle != nullptr) {
 						Show_Description(p_vehicle, 1.5f, 20);
 					}
 				}
 			}
 
          if (cDevOptions::ShowPowerupData.Is_True()) {
-				if (p_phys_obj->As_SimpleGameObj() != NULL) {
+				if (p_phys_obj->As_SimpleGameObj() != nullptr) {
 					PowerUpGameObj * p_powerup = p_phys_obj->As_SimpleGameObj()->As_PowerUpGameObj();
-					if (p_powerup != NULL) {
+					if (p_powerup != nullptr) {
 						Show_Description(p_powerup, 0, 20);
 					}
 				}
@@ -968,9 +968,9 @@ void MultiHUDClass::Think(void)
 		}
 
       if (cDevOptions::ShowBuildingData.Is_True()) {
-			if (objnode->Data()->As_ScriptableGameObj() != NULL) {
+			if (objnode->Data()->As_ScriptableGameObj() != nullptr) {
 				BuildingGameObj * p_building = objnode->Data()->As_ScriptableGameObj()->As_BuildingGameObj();
-				if (p_building != NULL) {
+				if (p_building != nullptr) {
 					Show_Description(p_building, 0, 100);
 				}
 			}

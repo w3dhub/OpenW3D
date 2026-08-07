@@ -397,7 +397,7 @@ void	DamageableGameObj::Import_Occasional( BitStreamClass &packet )
 		int count = observer_list.Count();
 
 		for (int index = 0; index < count; ++index) {
-			observer_list[index]->Damaged(this, NULL, old_health - new_health);
+			observer_list[index]->Damaged(this, nullptr, old_health - new_health);
 		}
 	}
 
@@ -410,7 +410,7 @@ void	DamageableGameObj::Import_Occasional( BitStreamClass &packet )
 		int count = observer_list.Count();
 
 		for (int index = 0; index < count; ++index) {
-			observer_list[index]->Killed(this, NULL);
+			observer_list[index]->Killed(this, nullptr);
 		}
 
 		OffenseObjectClass dummy_offense_obj;
@@ -442,7 +442,7 @@ void DamageableGameObj::Set_Player_Type(int id)
 //-----------------------------------------------------------------------------
 bool DamageableGameObj::Is_Teammate(DamageableGameObj * p_obj)
 {
-	WWASSERT(p_obj != NULL);
+	WWASSERT(p_obj != nullptr);
 
    return ((p_obj == this) ||
 			  (Is_Team_Player() && Get_Player_Type() == p_obj->Get_Player_Type()));
@@ -450,7 +450,7 @@ bool DamageableGameObj::Is_Teammate(DamageableGameObj * p_obj)
 
 bool DamageableGameObj::Is_Enemy(DamageableGameObj * p_obj)
 {
-	WWASSERT(p_obj != NULL);
+	WWASSERT(p_obj != nullptr);
    return ( (p_obj != this) && Player_Types_Are_Enemies( Get_Player_Type(), p_obj->Get_Player_Type() ) );
 }
 

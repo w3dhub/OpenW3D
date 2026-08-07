@@ -41,7 +41,7 @@ class EditConversationDialogClass : public CDialog
 {
 // Construction
 public:
-	EditConversationDialogClass (CWnd *pParent = NULL);
+	EditConversationDialogClass (CWnd *pParent = nullptr);
 	~EditConversationDialogClass (void);
 
 // Dialog Data

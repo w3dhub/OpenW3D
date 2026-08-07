@@ -47,8 +47,8 @@
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
 ////////////////////////////////////////////////////////////////
-MenuDialogClass *								MenuDialogClass::ActiveMenu	= NULL;
-MenuBackDropClass *							MenuDialogClass::BackDrop		= NULL;
+MenuDialogClass *								MenuDialogClass::ActiveMenu	= nullptr;
+MenuBackDropClass *							MenuDialogClass::BackDrop		= nullptr;
 DynamicVectorClass<MenuDialogClass *>	MenuDialogClass::MenuStack;
 
 
@@ -76,7 +76,7 @@ MenuDialogClass::MenuDialogClass (const DialogResource *dialog_resource)	:
 MenuDialogClass::~MenuDialogClass (void)
 {
 	if (ActiveMenu == this) {
-		ActiveMenu = NULL;
+		ActiveMenu = nullptr;
 	}
 
 	//
@@ -112,9 +112,9 @@ MenuDialogClass::Initialize (void)
 void
 MenuDialogClass::Shutdown (void)
 {
-	if (BackDrop != NULL) {
+	if (BackDrop != nullptr) {
 		delete BackDrop;
-		BackDrop = NULL;
+		BackDrop = nullptr;
 	}
 
 	return ;
@@ -128,7 +128,7 @@ MenuDialogClass::Shutdown (void)
 void
 MenuDialogClass::Ensure_BackDrop (void)
 {
-	if (BackDrop == NULL && WW3D::Is_Initted()) {
+	if (BackDrop == nullptr && WW3D::Is_Initted()) {
 		BackDrop = new MenuBackDropClass;
 	}
 }
@@ -151,7 +151,7 @@ MenuDialogClass::Render (void)
 		//	Render the background scene first
 		//
 		Ensure_BackDrop();
-		if (BackDrop != NULL) {
+		if (BackDrop != nullptr) {
 			BackDrop->Render ();
 		}
 
@@ -210,7 +210,7 @@ MenuDialogClass::On_Activate (bool onoff)
 		//
 		//	Notify the old menu
 		//
-		if (ActiveMenu != NULL) {
+		if (ActiveMenu != nullptr) {
 			ActiveMenu->On_Menu_Activate (false);
 		}
 

@@ -105,7 +105,7 @@ public:
 	void					NextSibling();
 	void					PreviousSibling();
 	void					SetCurrentPage(int i){CurrentPage = i;}
-	bool					HasMultiMtl(){return Game_multi_mtl != NULL;}
+	bool					HasMultiMtl(){return Game_multi_mtl != nullptr;}
 	void					SetMtl(GameMtl* mtl){TheMtl = mtl;}
 	GameMtl*				GetMtl(){return TheMtl;}
 	bool					IsVisible(){ return 	HwndEdit &&	IsWindowVisible(HwndEdit);}
@@ -118,7 +118,7 @@ public:
 
 protected:
 
-	void					Build_Dialog(HWND hParent = NULL);
+	void					Build_Dialog(HWND hParent = nullptr);
 	void					Make_PropertySheet(HWND hParent);
 	void					Make_Floater(HWND hParent);
 	Mtl*					Game_multi_mtl;

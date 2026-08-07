@@ -41,7 +41,7 @@ static char THIS_FILE[] = __FILE__;
 // LightSolveOptionsDialogClass dialog
 
 
-LightSolveOptionsDialogClass::LightSolveOptionsDialogClass(CWnd* pParent /*=NULL*/)
+LightSolveOptionsDialogClass::LightSolveOptionsDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(LightSolveOptionsDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(LightSolveOptionsDialogClass)

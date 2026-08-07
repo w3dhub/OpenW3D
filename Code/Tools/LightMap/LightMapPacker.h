@@ -278,12 +278,12 @@ class TargaLoader {
 
 			TargaCacheStruct()
 			{
-				Ptr = NULL;
+				Ptr = nullptr;
 			}
 
 			~TargaCacheStruct()
 			{
-				if (Ptr != NULL) delete Ptr;
+				if (Ptr != nullptr) delete Ptr;
 			}
 
 			// Equality operator.
@@ -389,7 +389,7 @@ class TrianglePacker {
 			public:
 
 				// Public functions.
-				SampleSurface (unsigned width, unsigned height, ProceduralTexture *blendtexture = NULL);
+				SampleSurface (unsigned width, unsigned height, ProceduralTexture *blendtexture = nullptr);
 
 				bool Sample (const Vector2 &samplepoint, const ProjectionTriangle &projectiontriangle, unsigned priority);
 				bool Sample (float alpha, float beta, const ProjectionTriangle &projectiontriangle, unsigned priority);
@@ -505,7 +505,7 @@ class LightmapPacker {
 
 		void					 Submit (PackingTriangle *principaltriangleptr, const DynamicVectorClass <Triangle> &adjtriangles);
 		TrianglePacker		*Merge (TrianglePacker *trianglepackerptr);
-		void					 Pack (ProceduralTexture *proceduraltexture = NULL);
+		void					 Pack (ProceduralTexture *proceduraltexture = nullptr);
 		void					 Pack (TrueColorTarga &targa, DynamicVectorClass <PackingTriangle*> &triangleptrs);
 
 		static const char *Lightmap_Pathname (unsigned pageindex);
@@ -580,7 +580,7 @@ inline bool TrueColorTarga::Get_Color (const Vector2 &t, W3dRGBStruct &color)	co
 	x = t.U * Width();
 	y = t.V * Height();
 	texelptr = Get_Texel (x, y);
-	if (texelptr == NULL) return (false);
+	if (texelptr == nullptr) return (false);
 	Unpack_Texel (texelptr, TGA_BytesPerPixel (Pixel_Depth()), unpackedtexel);
 	color.Set (unpackedtexel.Red(), unpackedtexel.Green(), unpackedtexel.Blue());
 	return (true);
@@ -606,7 +606,7 @@ inline bool TrueColorTarga::Set_Color (unsigned x, unsigned y, const W3dRGBStruc
 	unsigned char *texelptr;
 
 	texelptr = Get_Texel (x, y);
-	if (texelptr != NULL) {
+	if (texelptr != nullptr) {
 		Pack_Texel (unpackedtexel, texelptr, TGA_BytesPerPixel (Pixel_Depth()));
 		return (true);
 	} else {
@@ -630,8 +630,8 @@ inline bool TrueColorTarga::Set_Color (unsigned x, unsigned y, const W3dRGBStruc
 inline unsigned char *TrueColorTarga::Get_Texel (int x, int y) const
 {
 	// Check for (x, y) out of range.
-	if ((x < 0) || (x >= ((int) Width ()))) return (NULL);
-	if ((y < 0) || (y >= ((int) Height()))) return (NULL);
+	if ((x < 0) || (x >= ((int) Width ()))) return (nullptr);
+	if ((y < 0) || (y >= ((int) Height()))) return (nullptr);
 
 	return ((unsigned char*) GetImage()) + (((Width() * y) + x) * TGA_BytesPerPixel (Pixel_Depth()));
 }

@@ -301,7 +301,7 @@ SpawnerClass::SpawnerClass( void ) :
 	ID( 0 ),
 	TM( 1 ),
 	SpawnTM( 1 ),
-	Definition( NULL ),
+	Definition( nullptr ),
 	SpawnCount( 0 ),
 	SpawnDelayTimer( 0 ),
 	Enabled( true )
@@ -367,7 +367,7 @@ bool	SpawnerClass::Save( ChunkSaveClass & csave )
 
 	csave.End_Chunk();
 
-	if ( LastSpawn.Get_Ptr() != NULL ) {
+	if ( LastSpawn.Get_Ptr() != nullptr ) {
 		csave.Begin_Chunk( CHUNKID_LAST_SPAWN );
 			LastSpawn.Save( csave );
 		csave.End_Chunk();
@@ -405,9 +405,9 @@ bool	SpawnerClass::Load( ChunkLoadClass & cload )
 						case	MICROCHUNKID_DEFINITION_ID:
 							int definition_id;
 							LOAD_MICRO_CHUNK( cload, definition_id );
-							WWASSERT( Definition == NULL );
+							WWASSERT( Definition == nullptr );
 							Definition = (const SpawnerDefClass *)DefinitionMgrClass::Find_Definition( definition_id );
-							WWASSERT( Definition != NULL );
+							WWASSERT( Definition != nullptr );
 							break;
 
 						case	MICROCHUNKID_SPAWN_POINT_ENTRY:
@@ -455,7 +455,7 @@ bool SpawnerClass::Determine_Spawn_TM( PhysicalGameObj * obj )
 {
 	bool spawnable = false;
 
-	MoveablePhysClass * phys_obj = NULL;
+	MoveablePhysClass * phys_obj = nullptr;
 	if ( obj->Peek_Physical_Object() ) {
 		phys_obj = obj->Peek_Physical_Object()->As_MoveablePhysClass();
 	}
@@ -509,7 +509,7 @@ bool SpawnerClass::Determine_Spawn_TM( PhysicalGameObj * obj )
 		// Lets see if we can spawn at TM..
 
 		// Only check teleport for armed objs
-		if ( phys_obj && obj->As_ArmedGameObj() != NULL ) {
+		if ( phys_obj && obj->As_ArmedGameObj() != nullptr ) {
 			Matrix3D safe_spot = TM;
 			if ( phys_obj->Can_Teleport_And_Stand( TM, &safe_spot ) ) {
 				SpawnTM = safe_spot;
@@ -548,17 +548,17 @@ PhysicalGameObj * SpawnerClass::Create_Spawned_Object( int obj_id )
 	/*
 	** Create the object
 	*/
-	PhysicalGameObj * obj = NULL;
+	PhysicalGameObj * obj = nullptr;
 	if ( spawn_id != -1 ) {
 		PhysicalGameObjDef * def = (PhysicalGameObjDef *)DefinitionMgrClass::Find_Definition( spawn_id );
-		if ( def == NULL ) {
+		if ( def == nullptr ) {
 			Debug_Say(( "Spawner %s failed to create a spawn id %d\n", Get_Definition().Get_Name(), spawn_id ));
 		}
 		WWASSERT( def );
-		if ( def != NULL ) {
+		if ( def != nullptr ) {
 			obj = (PhysicalGameObj *)def->Create();
 
-			if ( obj == NULL ) {
+			if ( obj == nullptr ) {
 				Debug_Say(( "Spawner Failed to create %s\n", def->Get_Name() ));
 			}
 		}
@@ -567,9 +567,9 @@ PhysicalGameObj * SpawnerClass::Create_Spawned_Object( int obj_id )
 	/*
 	** If the definition calls for it, add a material effect to the object
 	*/
-	if ((obj != NULL) && (Get_Definition().ApplySpawnMaterialEffect)) {
+	if ((obj != nullptr) && (Get_Definition().ApplySpawnMaterialEffect)) {
 		PhysClass * physobj = obj->Peek_Physical_Object();
-		if (physobj != NULL) {
+		if (physobj != nullptr) {
 			TransitionEffectClass * effect = CombatMaterialEffectManager::Get_Spawn_Effect();
 			physobj->Add_Effect_To_Me(effect);
 			REF_PTR_RELEASE(effect);
@@ -581,7 +581,7 @@ PhysicalGameObj * SpawnerClass::Create_Spawned_Object( int obj_id )
 
 void	SpawnerClass::Check_Auto_Spawn( float dtime )
 {
-	if ( LastSpawn.Get_Ptr() == NULL ) {	// If our last spawn is gone
+	if ( LastSpawn.Get_Ptr() == nullptr ) {	// If our last spawn is gone
 
 		bool spawn_ok = false;
 
@@ -659,7 +659,7 @@ PhysicalGameObj * SpawnerClass::Spawn( int obj_id )
 	if ( !spawnable ) {
 		Debug_Say(( "Couldn't find a place to spawn this object ID %d\n", Get_ID() ));
 		obj->Set_Delete_Pending();
-		return NULL;
+		return nullptr;
 	}
 
 	obj->Start_Observers();
@@ -672,7 +672,7 @@ PhysicalGameObj * SpawnerClass::Spawn( int obj_id )
 		} else {
 			// Give initial goto command / don't let him hibernate
 			SoldierGameObj * soldier = obj->As_SoldierGameObj();
-			if ( soldier != NULL ) {
+			if ( soldier != nullptr ) {
 				ActionParamsStruct parameters;
 				parameters.Priority = int(Get_Definition().GotoSpawnerPosPriority);
 				parameters.ObserverID = 0;
@@ -693,7 +693,7 @@ PhysicalGameObj * SpawnerClass::Spawn( int obj_id )
 	// an animation and sound
 	if ( Get_Definition().SpecialEffectsObjID != 0 ) {
 		PhysicalGameObj *effect_obj = ObjectLibraryManager::Create_Object( Get_Definition().SpecialEffectsObjID );
-		if ( effect_obj != NULL ) {
+		if ( effect_obj != nullptr ) {
 			effect_obj->Set_Transform( SpawnTM );
 		}
 	}
@@ -750,7 +750,7 @@ static SpawnManager JustForLeaks;
 
 void	SpawnManager::Add_Spawner( SpawnerClass * spawner )
 {
-	WWASSERT(spawner != NULL);
+	WWASSERT(spawner != nullptr);
 	SpawnerList.Add( spawner );
 }
 
@@ -924,7 +924,7 @@ Matrix3D SpawnManager::Get_Multiplayer_Spawn_Location( int player_type, SoldierG
 		// we just selected, until we find a clear spawn point for this soldier
 		//
 		Phys3Class * phys_obj = soldier->Peek_Human_Phys();
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 			for ( i = 0; i < SpawnerList.Count(); i++) {
 
 				// Wrap around the list if needed:
@@ -995,8 +995,8 @@ SpawnerClass * SpawnManager::Get_Primary_Spawner( void )
 	}
 
 	if (index == -1) {
-		Debug_Say(("Get_Primary_Spawner: failed to find suitable spawner, returning NULL.\n"));
-		return NULL;
+		Debug_Say(("Get_Primary_Spawner: failed to find suitable spawner, returning nullptr.\n"));
+		return nullptr;
 	} else {
 		return SpawnerList[index];
 	}
@@ -1033,7 +1033,7 @@ PhysicalGameObj * SpawnManager::Spawner_Trigger( int id )
 			return SpawnerList[i]->Spawn();
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 void SpawnManager::Spawner_Enable( int id, bool enable )

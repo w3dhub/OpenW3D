@@ -66,7 +66,7 @@ END_MESSAGE_MAP()
 // CChunkViewDoc construction/destruction
 
 CChunkViewDoc::CChunkViewDoc() :
-	m_pCurChunk(NULL)
+	m_pCurChunk(nullptr)
 {
 	// TODO: add one-time construction code here
 

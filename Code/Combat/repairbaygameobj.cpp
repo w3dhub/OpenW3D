@@ -278,7 +278,7 @@ RepairBayGameObj::RepairBayGameObj (void)	:
 	RepairZone (Vector3 (0, 0, 0), Vector3 (0, 0, 0)),
 	RepairAnimationID (0),
 	IsReparing (false),
-	RepairMesh (NULL)
+	RepairMesh (nullptr)
 {
 	::memset (ArcObjects, 0, sizeof (ArcObjects));
 	for (int index = 0; index < ARC_OBJ_COUNT; index ++) {
@@ -297,7 +297,7 @@ RepairBayGameObj::RepairBayGameObj (void)	:
 RepairBayGameObj::~RepairBayGameObj (void)
 {
 	for (int index = 0; index < ARC_OBJ_COUNT; index ++) {
-		ArcObjects[index] = NULL;
+		ArcObjects[index] = nullptr;
 	}
 
 	return ;
@@ -443,9 +443,9 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 	//
 	//	Find the closest repair bay zone to the building
 	//
-	ScriptZoneGameObj *zone = NULL;
+	ScriptZoneGameObj *zone = nullptr;
 	zone = ScriptZoneGameObj::Find_Closest_Zone (pos, ZoneConstants::TYPE_VEHICLE_REPAIR);
-	if (zone != NULL) {
+	if (zone != nullptr) {
 		RepairZone = zone->Get_Bounding_Box ();
 
 		//
@@ -462,7 +462,7 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 	RefMultiListIterator<BuildingAggregateClass> mesh_iterator (&Aggregates);
 	for (mesh_iterator.First (); !mesh_iterator.Is_Done (); mesh_iterator.Next ()) {
 		StaticPhysClass *phys_obj = mesh_iterator.Peek_Obj ();
-		if (phys_obj != NULL && phys_obj->Peek_Model () != NULL) {
+		if (phys_obj != nullptr && phys_obj->Peek_Model () != nullptr) {
 			if (::stricmp (phys_obj->Peek_Model ()->Get_Name (), "rep^NOD_fx") == 0) {
 				RepairMesh = phys_obj;
 				break;
@@ -482,7 +482,7 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 		//
 		//	Is this a repairing static anim phys?
 		//
-		if (	anim_phys_obj != NULL &&
+		if (	anim_phys_obj != nullptr &&
 				anim_phys_obj->Get_Definition ()->Get_ID () == (uint32)Get_Definition ().RepairingStaticAnimDefID)
 		{
 
@@ -504,8 +504,8 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 	//
 	for (int index = 0; index < ARC_OBJ_COUNT; index ++) {
 		ArcObjects[index]	= (SimpleGameObj *)ObjectLibraryManager::Create_Object ("Arc Effect");
-		if (	ArcObjects[index]->Peek_Physical_Object () != NULL &&
-				ArcObjects[index]->Peek_Physical_Object ()->Peek_Model () != NULL)
+		if (	ArcObjects[index]->Peek_Physical_Object () != nullptr &&
+				ArcObjects[index]->Peek_Physical_Object ()->Peek_Model () != nullptr)
 		{
 			ArcObjects[index]->Peek_Physical_Object ()->Peek_Model ()->Set_Hidden (true);
 		}
@@ -517,7 +517,7 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 	//	Get information about the model
 	//
 	RenderObjClass *model = ArcObjects[0]->Peek_Physical_Object ()->Peek_Model ();
-	if (model != NULL) {
+	if (model != nullptr) {
 
 		//
 		//	Store the original transforms of each bone
@@ -549,9 +549,9 @@ RepairBayGameObj::Play_Repairing_Animation (bool onoff)
 	//	Lookup the static animation object we need to play
 	//
 	StaticPhysClass *static_phys_obj = PhysicsSceneClass::Get_Instance ()->Find_Static_Object (RepairAnimationID);
-	if (static_phys_obj != NULL) {
+	if (static_phys_obj != nullptr) {
 		StaticAnimPhysClass *anim_phys_obj = static_phys_obj->As_StaticAnimPhysClass ();
-		if (anim_phys_obj != NULL) {
+		if (anim_phys_obj != nullptr) {
 
 			//
 			//	Configure the animation
@@ -650,28 +650,28 @@ RepairBayGameObj::Repair_Vehicle (void)
 	//
 	NonRefPhysListIterator it (&objs_to_repair);
 	for (it.First (); !it.Is_Done (); it.Next ()) {
-		PhysicalGameObj *gameobj = NULL;
+		PhysicalGameObj *gameobj = nullptr;
 
 		//
 		//	Get the game object from this physics object
 		//
-		if (it.Peek_Obj()->Get_Observer () != NULL) {
+		if (it.Peek_Obj()->Get_Observer () != nullptr) {
 			gameobj = ((CombatPhysObserverClass *)it.Peek_Obj()->Get_Observer())->As_PhysicalGameObj();
 		}
 
-		if (gameobj != NULL) {
+		if (gameobj != nullptr) {
 
 			//
 			//	See if this is a vehicle game object
 			//
 			VehicleGameObj *vehicle = gameobj->As_VehicleGameObj ();
-			if (vehicle != NULL) {
+			if (vehicle != nullptr) {
 
 				//
 				//	Check to ensure the driver is of the right team
 				//
 				SoldierGameObj *driver = vehicle->Get_Driver ();
-				if (	driver != NULL &&
+				if (	driver != nullptr &&
 						driver->Get_Player_Type () == BaseController->Get_Player_Type() )
 				{
 					float shield_max	= vehicle->Get_Defense_Object ()->Get_Shield_Strength_Max ();
@@ -750,12 +750,12 @@ RepairBayGameObj::Repair_Vehicle (void)
 MeshClass *
 Find_Random_Mesh (RenderObjClass *model)
 {
-	MeshClass *mesh = NULL;
+	MeshClass *mesh = nullptr;
 
 	//
 	//	Is this model a mesh?
 	//
-	if (mesh == NULL && model->Class_ID () == RenderObjClass::CLASSID_MESH) {
+	if (mesh == nullptr && model->Class_ID () == RenderObjClass::CLASSID_MESH) {
 		mesh = reinterpret_cast<MeshClass *> (model);
 	}
 
@@ -768,14 +768,14 @@ Find_Random_Mesh (RenderObjClass *model)
 	//
 	//	Loop over all the objects
 	//
-	for (int index = 0; mesh == NULL && index < count; index ++) {
+	for (int index = 0; mesh == nullptr && index < count; index ++) {
 
 		//
 		//	Get a pointer to the current subobject
 		//
 		int real_index = (start_index + index) % count;
 		RenderObjClass *subobj	= model->Get_Sub_Object (real_index);
-		if (subobj != NULL) {
+		if (subobj != nullptr) {
 
 			//
 			//	Try to find a mesh inside this object
@@ -802,10 +802,10 @@ RepairBayGameObj::Update_Repairing_Animations (void)
 	//
 	for (int index = 0; index < VehicleList.Count (); index ++) {
 		ScriptableGameObj *game_obj = VehicleList[index];
-		if (game_obj != NULL) {
+		if (game_obj != nullptr) {
 			PhysicalGameObj *physical_game_obj	= game_obj->As_PhysicalGameObj ();
 			RenderObjClass *model					= physical_game_obj->Peek_Model ();
-			if (model != NULL) {
+			if (model != nullptr) {
 
 				//
 				//	Randomize the welding-arc's that this vehicle gets
@@ -829,7 +829,7 @@ RepairBayGameObj::Update_Repairing_Animations (void)
 void
 RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 {
-	if (RepairMesh == NULL) {
+	if (RepairMesh == nullptr) {
 		return ;
 	}
 
@@ -858,9 +858,9 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 	//	Find a random mesh inside the vehicle's model
 	//
 	MeshClass *mesh = Find_Random_Mesh (vehicle_model);
-	if (mesh != NULL) {
+	if (mesh != nullptr) {
 		MeshModelClass *mesh_model = mesh->Get_Model ();
-		if (mesh_model != NULL) {
+		if (mesh_model != nullptr) {
 
 			//
 			//	Get a random vertex inside the model
@@ -939,7 +939,7 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 			//
 			ArcLifeRemaining[index] = 3.0F;
 			HAnimClass *anim = model->Peek_Animation ();
-			if (anim != NULL) {
+			if (anim != nullptr) {
 				model->Set_Animation (anim, 0, RenderObjClass::ANIM_MODE_ONCE);
 				ArcLifeRemaining[index] = anim->Get_Total_Time ();
 			}

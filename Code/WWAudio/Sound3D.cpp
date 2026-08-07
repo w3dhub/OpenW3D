@@ -169,7 +169,7 @@ Sound3DClass::On_Frame_Update (unsigned int /* milliseconds */)
 {
 	Matrix3D prev_tm = m_PrevTransform;
 
-	if (m_bDirty && (m_PhysWrapper != NULL)) {
+	if (m_bDirty && (m_PhysWrapper != nullptr)) {
 		m_Scene->Update_Sound (m_PhysWrapper);
 		m_bDirty = false;
 	}
@@ -231,7 +231,7 @@ Sound3DClass::On_Frame_Update (unsigned int /* milliseconds */)
 	// If necessary, update the volume based on the distance
 	// from the edge of the dropoff radius.
 	//
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 		Update_Edge_Volume ();
 	}
 
@@ -247,7 +247,7 @@ Sound3DClass::On_Frame_Update (unsigned int /* milliseconds */)
 void
 Sound3DClass::Update_Edge_Volume (void)
 {
-	if (m_DropOffRadius == 0.0F || As_SoundPseudo3DClass () != NULL) {
+	if (m_DropOffRadius == 0.0F || As_SoundPseudo3DClass () != nullptr) {
 		return ;
 	}
 
@@ -342,7 +342,7 @@ Sound3DClass::Update_Miles_Transform (void)
 	//
 	// Do we have a valid miles handle?
 	//
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 
 		//
 		//	Build a matrix to transform coordinates from world-space to listener-space
@@ -401,7 +401,7 @@ Sound3DClass::Set_Position (const Vector3 &position)
 			m_IsTransformInitted = true;
 		}
 
-		if (m_SoundHandle != NULL) {
+		if (m_SoundHandle != nullptr) {
 
 			//
 			//	Transform the sound's position into 'listener-space'
@@ -437,7 +437,7 @@ Sound3DClass::Set_Velocity (const Vector3 &velocity)
 	//
 	// Pass the sound's velocity onto miles
 	//
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 		m_SoundHandle->Set_Velocity(m_CurrentVelocity);
 	}
 
@@ -459,7 +459,7 @@ Sound3DClass::Set_DropOff_Radius (float radius)
 	Set_Dirty ();
 
 	// Pass attenuation settings onto miles
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 		m_SoundHandle->Set_Dropoff(m_DropOffRadius, m_MaxVolRadius);
 	}
 
@@ -479,7 +479,7 @@ Sound3DClass::Set_Max_Vol_Radius (float radius)
 	Set_Dirty ();
 
 	// Pass attenuation settings onto miles
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 		m_SoundHandle->Set_Dropoff(m_DropOffRadius, m_MaxVolRadius);
 	}
 
@@ -505,7 +505,7 @@ Sound3DClass::Initialize_Miles_Handle (void)
 	}
 
 	// Do we have a valid sample handle from miles?
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 
 		//
 		// Pass the actual sound data onto the sample
@@ -515,7 +515,7 @@ Sound3DClass::Initialize_Miles_Handle (void)
 		//
 		// Record the total length of the sample in milliseconds...
 		//
-		m_SoundHandle->Get_Sample_MS_Position ((int *)&m_Length, NULL);
+		m_SoundHandle->Get_Sample_MS_Position ((int *)&m_Length, nullptr);
 
 		//
 		// Pass our cached settings onto miles
@@ -581,7 +581,7 @@ Sound3DClass::Allocate_Miles_Handle (void)
 	//
 	// If we need to, get a play-handle from the audio system
 	//
-	if (m_SoundHandle == NULL && m_Buffer != NULL) {
+	if (m_SoundHandle == nullptr && m_Buffer != nullptr) {
 		m_SoundHandle = WWAudioClass::Get_Instance ()->Get_3D_Handle(*this);
 		Initialize_Miles_Handle();
 	}
@@ -599,7 +599,7 @@ void
 Sound3DClass::Add_To_Scene (bool start_playing)
 {
 	SoundSceneClass *scene = WWAudioClass::Get_Instance ()->Get_Sound_Scene ();
-	if ((scene != NULL) && (m_Scene == NULL)) {
+	if ((scene != nullptr) && (m_Scene == nullptr)) {
 
 		// Determine what culling system this sound belongs to
 		if (m_IsStatic) {
@@ -622,7 +622,7 @@ Sound3DClass::Add_To_Scene (bool start_playing)
 void
 Sound3DClass::Remove_From_Scene (void)
 {
-	if (m_Scene != NULL) {
+	if (m_Scene != nullptr) {
 
 		// Determine what culling system this sound belongs to
 		if (m_IsStatic) {
@@ -631,8 +631,8 @@ Sound3DClass::Remove_From_Scene (void)
 			m_Scene->Remove_Sound (this);
 		}
 
-		m_Scene = NULL;
-		m_PhysWrapper = NULL;
+		m_Scene = nullptr;
+		m_PhysWrapper = nullptr;
 	}
 
 	return ;

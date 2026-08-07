@@ -32,7 +32,7 @@ class LightSolveOptionsDialogClass : public CDialog
 {
 // Construction
 public:
-	LightSolveOptionsDialogClass(CWnd* pParent = NULL);   // standard constructor
+	LightSolveOptionsDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(LightSolveOptionsDialogClass)

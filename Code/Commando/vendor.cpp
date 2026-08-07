@@ -80,17 +80,17 @@ VendorClass::Purchase_Vehicle
 	//
 	//	Check to see if this vehicle is available to build
 	//
-	VehicleGameObjDef *definition = NULL;
+	VehicleGameObjDef *definition = nullptr;
 	definition = (VehicleGameObjDef *)DefinitionMgrClass::Find_Definition (vehicle_id);
-	if (definition != NULL) {
+	if (definition != nullptr) {
 
-		PlayerDataClass *player_data	= NULL;
+		PlayerDataClass *player_data	= nullptr;
 		bool has_funds						= true;
 
 		//
 		//	Check to see if the player has sufficient funds to purchase the vehicle
 		//
-		if (player != NULL && player->Get_Player_Data () != NULL) {
+		if (player != nullptr && player->Get_Player_Data () != nullptr) {
 			player_data	= player->Get_Player_Data ();
 			has_funds	= (player_data->Get_Money () >= cost);
 		}
@@ -102,7 +102,7 @@ VendorClass::Purchase_Vehicle
 			//	Find our vehicle factory
 			//
 			BuildingGameObj *building = base->Find_Building (TYPE_VEHICLE_FACTORY);
-			if (building != NULL) {
+			if (building != nullptr) {
 				VehicleFactoryGameObj *factory = building->As_VehicleFactoryGameObj ();
 
 				//
@@ -117,7 +117,7 @@ VendorClass::Purchase_Vehicle
 					//	If a player is purcahsing the vehicle, then debit
 					// the player's account
 					//
-					if (player_data != NULL) {
+					if (player_data != nullptr) {
 						player_data->Purchase_Item (cost);
 					}
 				}
@@ -150,7 +150,7 @@ VendorClass::Purchase_Powerup
 	//
 	//	Sanity check
 	//
-	if (player == NULL) {
+	if (player == nullptr) {
 		return retval;
 	}
 
@@ -158,7 +158,7 @@ VendorClass::Purchase_Powerup
 	//	Lookup the powerup's definition
 	//
 	DefinitionClass *definition = DefinitionMgrClass::Find_Definition (powerup_id);
-	if (definition != NULL && definition->Get_Class_ID () == CLASSID_GAME_OBJECT_DEF_POWERUP) {
+	if (definition != nullptr && definition->Get_Class_ID () == CLASSID_GAME_OBJECT_DEF_POWERUP) {
 		PowerUpGameObjDef *powerup_def = reinterpret_cast<PowerUpGameObjDef *> (definition);
 
 		//
@@ -167,7 +167,7 @@ VendorClass::Purchase_Powerup
 		//
 		bool has_funds = false;
 		PlayerDataClass *player_data = player->Get_Player_Data ();
-		if (player_data != NULL) {
+		if (player_data != nullptr) {
 
 			//
 			//	Try to purchase the powerup
@@ -210,7 +210,7 @@ VendorClass::Purchase_Character
 	//
 	//	Sanity check
 	//
-	if (player == NULL) {
+	if (player == nullptr) {
 		return retval;
 	}
 
@@ -226,13 +226,13 @@ VendorClass::Purchase_Character
 		//	Check to see if our soldier factory is operational
 		//
 		BuildingGameObj *building = base->Find_Building (TYPE_SOLDIER_FACTORY);
-		if ((building != NULL && building->Is_Destroyed () == false) || cost == 0) {
+		if ((building != nullptr && building->Is_Destroyed () == false) || cost == 0) {
 
 			//
 			//	Lookup the new definition for the soldier
 			//
 			DefinitionClass *definition = DefinitionMgrClass::Find_Definition (definition_id);
-			if (definition != NULL && definition->Get_Class_ID () == CLASSID_GAME_OBJECT_DEF_SOLDIER) {
+			if (definition != nullptr && definition->Get_Class_ID () == CLASSID_GAME_OBJECT_DEF_SOLDIER) {
 
 				//
 				//	Upgrade the player
@@ -274,7 +274,7 @@ VendorClass::Purchase_Item
 	//
 	//	Sanity check
 	//
-	if (player == NULL) {
+	if (player == nullptr) {
 		return retval;
 	}
 
@@ -296,7 +296,7 @@ VendorClass::Purchase_Item
 		//
 		//	Determine which base controller to purchase from
 		//
-		BaseControllerClass *base = NULL;
+		BaseControllerClass *base = nullptr;
 		if (player->Get_Player_Type () == PLAYERTYPE_NOD) {
 			base = BaseControllerClass::Find_Base ( PLAYERTYPE_NOD );
 		} else {
@@ -313,8 +313,8 @@ VendorClass::Purchase_Item
 		//
 		//	Cost is doubled if the base isn't powered
 		//
-		//if (base != NULL && base->Is_Base_Powered () == false) {
-		if (type != TYPE_BEACON && base != NULL && base->Is_Base_Powered () == false) {
+		//if (base != nullptr && base->Is_Base_Powered () == false) {
+		if (type != TYPE_BEACON && base != nullptr && base->Is_Base_Powered () == false) {
 			cost = cost * 2;
 		}
 
@@ -372,7 +372,7 @@ VendorClass::Grant_Supplies (SoldierGameObj *player)
 	WeaponBagClass *weapon_bag = player->Get_Weapon_Bag ();
 	for (int weapon_index = 0; weapon_index < weapon_bag->Get_Count (); weapon_index ++) {
 		WeaponClass	*weapon = weapon_bag->Peek_Weapon (weapon_index);
-		if (weapon != NULL && weapon->Get_Definition ()->CanReceiveGenericCnCAmmo) {
+		if (weapon != nullptr && weapon->Get_Definition ()->CanReceiveGenericCnCAmmo) {
 
 			//
 			//	Restore full ammo
@@ -433,7 +433,7 @@ VendorClass::Get_Merchandise_Information
 		//	Lookup the information from this purchase definition
 		//
 		PurchaseSettingsDefClass *definition = PurchaseSettingsDefClass::Find_Definition (purchase_type, team);
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			cost = definition->Get_Cost (item_index);
 
 			//
@@ -465,7 +465,7 @@ VendorClass::Get_Merchandise_Information
 			//	Lookup the information from this purchase definition
 			//
 			PurchaseSettingsDefClass *definition = PurchaseSettingsDefClass::Find_Definition (purchase_type, team);
-			if (definition != NULL) {
+			if (definition != nullptr) {
 				cost				= definition->Get_Cost (item_index);
 				definition_id	= definition->Get_Definition (item_index);
 			}
@@ -478,7 +478,7 @@ VendorClass::Get_Merchandise_Information
 		//
 		cost = 0;
 		TeamPurchaseSettingsDefClass *definition = TeamPurchaseSettingsDefClass::Get_Definition ((TeamPurchaseSettingsDefClass::TEAM)team);
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			definition_id = definition->Get_Enlisted_Definition (item_index);
 		}
 
@@ -488,7 +488,7 @@ VendorClass::Get_Merchandise_Information
 		//	For beacons, lookup the team purchase definition
 		//
 		TeamPurchaseSettingsDefClass *definition = TeamPurchaseSettingsDefClass::Get_Definition ((TeamPurchaseSettingsDefClass::TEAM)team);
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			cost				= definition->Get_Beacon_Cost ();
 			definition_id	= definition->Get_Beacon_Definition ();
 		}

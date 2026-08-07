@@ -533,7 +533,7 @@ inline void StringClass::Trim(void)
 inline const StringClass &
 StringClass::operator+= (const char *string)
 {
-	WWASSERT (string != NULL);
+	WWASSERT (string != nullptr);
 
 	size_t cur_len = Get_Length ();
 	size_t src_len = strlen (string);

@@ -779,7 +779,7 @@ public:
 	** pointer to your previous node_id, the lookup will be faster and this variable will be modified
 	** with the updated node id.  The first time this method is called, initialize the node_id to zero.
 	*/
-	uint32						Get_Dynamic_Object_Vis_ID(const AABoxClass & obj_bounds,int * node_id = NULL);
+	uint32						Get_Dynamic_Object_Vis_ID(const AABoxClass & obj_bounds,int * node_id = nullptr);
 	void							Debug_Display_Dynamic_Vis_Node(int node_id);
 
 	/*
@@ -808,7 +808,7 @@ public:
 	int							Get_Vis_Table_Count(void);		// also max vis *sector* ID and vis sector count.
 
 	VisSampleClass				Update_Vis(const Matrix3D & camera,VisDirBitsType direction_bits = VIS_ALL);
-	VisSampleClass				Update_Vis(const Vector3 & sample_point,const Matrix3D & camera,VisDirBitsType direction_bits = VIS_ALL,CameraClass * alternate_camera = NULL,int user_vis_id = -1);
+	VisSampleClass				Update_Vis(const Vector3 & sample_point,const Matrix3D & camera,VisDirBitsType direction_bits = VIS_ALL,CameraClass * alternate_camera = nullptr,int user_vis_id = -1);
 	int							Get_Static_Light_Count(void);
 	void							Generate_Vis_For_Light(int light_index);
 
@@ -883,7 +883,7 @@ public:
 														float					radius,
 														bool					is_permanent = false,
 														bool					apply_to_translucent_polys = false,
-														PhysClass *			only_this_obj = NULL	);
+														PhysClass *			only_this_obj = nullptr	);
 
 	bool							Remove_Decal(uint32 id);
 
@@ -956,7 +956,7 @@ public:
 	*/
 	virtual void				Add_Render_Object(RenderObjClass * obj) override;
 	virtual void				Remove_Render_Object(RenderObjClass * obj) override;
-	virtual SceneIterator *	Create_Iterator(bool /*onlyvisible = false*/) override	{ assert(0); return NULL; }
+	virtual SceneIterator *	Create_Iterator(bool /*onlyvisible = false*/) override	{ assert(0); return nullptr; }
 	virtual void				Destroy_Iterator(SceneIterator * /*it*/) override			{ assert(0); }
 	virtual void				Register(RenderObjClass * obj,RegType for_what) override;
 	virtual void				Unregister(RenderObjClass * obj,RegType for_what) override;

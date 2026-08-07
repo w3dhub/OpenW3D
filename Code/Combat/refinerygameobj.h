@@ -157,7 +157,7 @@ public:
 	//
 	//	State access
 	//
-	bool					Needs_Harvester (void) const			{ return (!IsDestroyed) && (Harvester == NULL); }
+	bool					Needs_Harvester (void) const			{ return (!IsDestroyed) && (Harvester == nullptr); }
 	int					Get_Harvester_Def_ID (void) const	{ return Get_Definition ().HarvesterDefID; }
 	void					Set_Is_Harvester_Docked(bool flag);
 	bool					Get_Is_Harvester_Docked(void)			{ return IsHarvesterDocked; }

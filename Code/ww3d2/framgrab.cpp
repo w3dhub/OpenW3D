@@ -55,7 +55,7 @@ FrameGrabClass::FrameGrabClass(const char *filename, MODE mode, int width, int h
 	} while(result != -1);
 
 	// Create new AVI file using AVIFileOpenA.
-    hr = AVIFileOpenA(&AVIFile, file, OF_WRITE | OF_CREATE, NULL);
+    hr = AVIFileOpenA(&AVIFile, file, OF_WRITE | OF_CREATE, nullptr);
     if (hr != 0) {
 		char buf[256];
 		sprintf(buf, "Unable to open %s\n", Filename);
@@ -134,7 +134,7 @@ void FrameGrabClass::GrabAVI(void *BitmapPointer)
     // CompressDIB(&bi, lpOld, &biNew, lpNew);
 
     // Save the compressed data using AVIStreamWrite.
-    HRESULT hr = AVIStreamWrite(Stream, Counter++, 1, BitmapPointer, BitmapInfoHeader.biSizeImage, AVIIF_KEYFRAME, NULL, NULL);
+    HRESULT hr = AVIStreamWrite(Stream, Counter++, 1, BitmapPointer, BitmapInfoHeader.biSizeImage, AVIIF_KEYFRAME, nullptr, nullptr);
 	if(hr != 0) {
 		char buf[256];
 		sprintf(buf, "avi write error %lx/%ld\n", hr, hr);

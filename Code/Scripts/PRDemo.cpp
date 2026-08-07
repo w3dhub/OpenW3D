@@ -638,7 +638,7 @@ DECLARE_SCRIPT(MPR_Looping_Path_JDG, "DestObjID1=:int, DestObjID2=:int")
 
 		GameObject* dest_obj = Commands->Find_Object(Get_Int_Parameter(m_CurrentDest));
 
-		if (dest_obj != NULL)
+		if (dest_obj != nullptr)
 		{
 			// Instruct our game object to goto the location of the destination object
 			Vector3 pos = Commands->Get_Position(dest_obj);
@@ -715,7 +715,7 @@ DECLARE_SCRIPT(MPR_A03_Bridge_Trigger_DEL, "BridgeID=:int")
 		{
 			int bridgeID = Get_Int_Parameter("BridgeID");
 			GameObject* dest_obj = Commands->Find_Object(bridgeID);
-			if (dest_obj != NULL)
+			if (dest_obj != nullptr)
 			{
 				Commands->Send_Custom_Event(obj, dest_obj, MPR_CUSTOM_EXPLODE_BRIDGE_DEL, 0);
 			}
@@ -786,7 +786,7 @@ DECLARE_SCRIPT(Demo_Harvester, "RefineryZoneID:int,TiberiumZoneID:int")
 
 		GameObject* tiberium = Commands->Find_Object(mTiberiumID);
 
-		if (tiberium != NULL)
+		if (tiberium != nullptr)
 		{
 			Vector3 location = Commands->Get_Position(tiberium);
 //			Vector3 extent = Commands->Get_Extent(tiberium);		// See Byon for a new way to do this, if needed
@@ -845,7 +845,7 @@ DECLARE_SCRIPT(Demo_Harvester, "RefineryZoneID:int,TiberiumZoneID:int")
 		// If there isn't a load and we are at the refinery then just sit idle.
 		GameObject* refinery = Commands->Find_Object(mRefineryID);
 
-		if (refinery != NULL)
+		if (refinery != nullptr)
 		{
 			Vector3 location = Commands->Get_Position(refinery);
 			Commands->Action_Movement_Goto_Location(Owner(), location, 1.0f);
@@ -962,7 +962,7 @@ DECLARE_SCRIPT(MPR_ApacheTrigger, "ApacheID:int,Position:int")
 
 			// Tell the apache were to move
 
-			if (apache != NULL)
+			if (apache != nullptr)
 			{
 				int position = Get_Int_Parameter("Position");
 				Commands->Send_Custom_Event(Owner(), apache, MPR_CUSTOM_APACHE_GOTO_POSITION_DEL, position);
@@ -1002,7 +1002,7 @@ DECLARE_SCRIPT(MPR_ApacheShootAtPlayer, "ApacheID:int")
 
 			// Tell the apache were to move
 
-			if (apache != NULL)
+			if (apache != nullptr)
 			{
 				Commands->Send_Custom_Event(Owner(), apache, MPR_CUSTOM_APACHE_SHOOT_DEL, (int)true);
 			}
@@ -1026,7 +1026,7 @@ DECLARE_SCRIPT(MPR_ApacheShootAtPlayer, "ApacheID:int")
 
 			// Tell the apache were to move
 
-			if (apache != NULL)
+			if (apache != nullptr)
 			{
 				Commands->Send_Custom_Event(Owner(), apache, MPR_CUSTOM_APACHE_SHOOT_DEL, (int)false);
 			}
@@ -1131,7 +1131,7 @@ DECLARE_SCRIPT(MPR_ApacheController, "")
 
 	void Animation_Complete(GameObject* apache, const char* finishedAnim)
 	{
-		assert(finishedAnim != NULL);
+		assert(finishedAnim != nullptr);
 		DebugPrint("Apache animation '%s' complete.\n", finishedAnim);
 
 		Transition& transition = _mTransitions[mDesiredPosition];
@@ -1172,7 +1172,7 @@ DECLARE_SCRIPT(MPR_ApacheController, "")
 			if (mCurrentPosition == mDesiredPosition)
 			{
 				GameObject* star = Commands->Get_The_Star();
-				if (star != NULL)
+				if (star != nullptr)
 				{
 					Vector3 targetPosition = Commands->Get_Position(star);
 					targetPosition.X += Commands->Get_Random(-1.0f, 1.0f);
@@ -1214,7 +1214,7 @@ MPR_ApacheController
 MPR_ApacheController::Transition MPR_ApacheController::_mTransitions[APACHE_POSITION_COUNT] =
 {
 	// Landed
-	{NULL, NULL},
+	{nullptr, nullptr},
 
 	// Position 1 - Hover above landing pad
 	{"m_ap_loitr1", "m_ap_loitr1"},
@@ -1889,7 +1889,7 @@ DECLARE_SCRIPT(MPR_A06_Final_Zone_Trigger_RMV, "")
 		{
 			havoc_has_entered = 1;
 			GameObject *clouds = Commands->Find_Object(9876);
-			if (clouds != NULL)
+			if (clouds != nullptr)
 			{
 				Commands->Destroy_Object(clouds);
 			}
@@ -1910,12 +1910,12 @@ DECLARE_SCRIPT(MPR_A06_Final_Zone_Trigger_RMV, "")
 		{
 			GameObject *apache1 = Commands->Find_Object( apache1_id );
 			GameObject *apache2 = Commands->Find_Object( apache2_id );
-			if (apache1 != NULL)
+			if (apache1 != nullptr)
 			{
 				Vector3 explosion1 = Commands->Get_Bone_Position( apache1, "SEAT" );
 				Commands->Create_Explosion( "Generic Air 02", explosion1 );
 			}
-			if (apache2 != NULL)
+			if (apache2 != nullptr)
 			{
 				Vector3 explosion2 = Commands->Get_Bone_Position( apache2, "SEAT" );
 				Commands->Create_Explosion( "Generic Air 02", explosion2 );
@@ -1933,7 +1933,7 @@ DECLARE_SCRIPT(MPR_A06_Final_Zone_Trigger_RMV, "")
 		if (timer_id == pause_animation)
 		{
 			GameObject *fadeout = Commands->Find_Object(end_id);
-			if (fadeout != NULL)
+			if (fadeout != nullptr)
 			{
 				Commands->Set_Animation_Frame(fadeout, "fadeout.fadeout", 61);
 			}
@@ -2056,7 +2056,7 @@ DECLARE_SCRIPT(MPR_A05_C130_Dropoff_Animation_RMV, "Cinematic=:string,ObjToCreat
 		}
 		if (Timer_ID == MPR_A05_TIMER_DIE_RMV)
 		{
-			if ( obj != NULL )
+			if ( obj != nullptr )
 			{
 				Commands->Create_Explosion_At_Bone("C-130 Explosion 01", obj, "BODYMAIN", obj);
 			}
@@ -2269,7 +2269,7 @@ DECLARE_SCRIPT(MPR_A01_Intro_Cinematic_RMV, "")
 			Commands->Set_Position( Commands->Get_The_Star(), start_location );
 			Commands->Set_Facing( Commands->Get_The_Star(), 180.0f );
 			Commands->Set_Animation( Commands->Get_The_Star(), "s_a_human.m_havok_e3pose", 0 );
-			Commands->Set_Camera_Host( NULL );
+			Commands->Set_Camera_Host( nullptr );
 			Commands->Control_Enable( Commands->Get_The_Star(), true );
 			Commands->Enable_HUD(1);
 			Commands->Destroy_Object(obj);
@@ -4073,7 +4073,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_NOD_Minigunner_JDG, "")
 		{
 			GameObject* nodGunner = Commands->Find_Object(MPR_A04_suiciderun_nod_minigunner_id_JDG);
 
-			if (nodGunner != NULL)
+			if (nodGunner != nullptr)
 			{
 				Commands->Action_Movement_Stop(nodGunner);
 

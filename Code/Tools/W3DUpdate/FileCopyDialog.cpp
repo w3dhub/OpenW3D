@@ -33,7 +33,7 @@ static char THIS_FILE[] = __FILE__;
 // FileCopyDialogClass dialog
 
 
-FileCopyDialogClass::FileCopyDialogClass(CWnd* pParent /*=NULL*/)
+FileCopyDialogClass::FileCopyDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog(FileCopyDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(FileCopyDialogClass)

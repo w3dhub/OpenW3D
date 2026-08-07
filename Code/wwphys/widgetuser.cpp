@@ -106,7 +106,7 @@ DEFINE_AUTO_POOL(WidgetRenderOpClass,256);
 *******************************************/
 WidgetRenderOpClass::WidgetRenderOpClass(void) :
 	RenderOp(RENDER_NONE),
-	Next(NULL)
+	Next(nullptr)
 {
 }
 
@@ -183,7 +183,7 @@ void WidgetRenderOpClass::render_point([[maybe_unused]] RenderInfoClass & rinfo)
 #ifdef WWDEBUG
 	// Get the point model
 	RenderObjClass * model = WidgetSystem::Get_Debug_Widget(WidgetSystem::WIDGET_POINT);
-	if (model == NULL) return;
+	if (model == nullptr) return;
 	if (model->Class_ID() != RenderObjClass::CLASSID_MESH) {
 		model->Release_Ref();
 		return;
@@ -251,7 +251,7 @@ void WidgetRenderOpClass::render_aabox([[maybe_unused]] RenderInfoClass & rinfo)
 {
 #ifdef WWDEBUG
 	RenderObjClass * model = WidgetSystem::Get_Debug_Widget(WidgetSystem::WIDGET_AABOX);
-	if (model == NULL) return;
+	if (model == nullptr) return;
 	if (model->Class_ID() != RenderObjClass::CLASSID_AABOX) {
 		model->Release_Ref();
 		return;
@@ -279,7 +279,7 @@ void WidgetRenderOpClass::render_obbox([[maybe_unused]] RenderInfoClass & rinfo)
 {
 #ifdef WWDEBUG
 	RenderObjClass * model = WidgetSystem::Get_Debug_Widget(WidgetSystem::WIDGET_OBBOX);
-	if (model == NULL) return;
+	if (model == nullptr) return;
 	if (model->Class_ID() != RenderObjClass::CLASSID_OBBOX) {
 		model->Release_Ref();
 		return;
@@ -308,7 +308,7 @@ void WidgetRenderOpClass::render_axes([[maybe_unused]] RenderInfoClass & rinfo)
 {
 #ifdef WWDEBUG
 	RenderObjClass * model = WidgetSystem::Get_Debug_Widget(WidgetSystem::WIDGET_AXES);
-	if (model == NULL) return;
+	if (model == nullptr) return;
 	if (model->Class_ID() != RenderObjClass::CLASSID_MESH) {
 		model->Release_Ref();
 		return;
@@ -329,7 +329,7 @@ void WidgetRenderOpClass::render_axes([[maybe_unused]] RenderInfoClass & rinfo)
 WidgetUserClass::WidgetUserClass(void)
 {
 #ifdef WWDEBUG
-	WidgetRenderOpList = NULL;
+	WidgetRenderOpList = nullptr;
 #endif
 }
 
@@ -347,14 +347,14 @@ void WidgetUserClass::Reset_Debug_Widget_List(void)
 		delete op;
 		op = nextop;
 	}
-	WidgetRenderOpList = NULL;
+	WidgetRenderOpList = nullptr;
 }
 #endif
 
 #ifdef WWDEBUG
 void WidgetUserClass::Add_Debug_Widget(WidgetRenderOpClass * op)
 {
-	WWASSERT(op->Get_Next() == NULL);
+	WWASSERT(op->Get_Next() == nullptr);
 	op->Set_Next(WidgetRenderOpList);
 	WidgetRenderOpList = op;
 }

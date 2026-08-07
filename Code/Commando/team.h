@@ -46,7 +46,7 @@
 #include "soldier.h"
 #include "widestring.h"
 
-const int MAX_TEAMNAME_SIZE = 10; //including NULL
+const int MAX_TEAMNAME_SIZE = 10; //including nullptr
 
 class cPacket;
 

@@ -64,15 +64,15 @@ cGameSpyAuthMgr::Think
 	// Process all the players
 	//
 
-	WWASSERT(cPlayerManager::Get_Player_Object_List() != NULL);
+	WWASSERT(cPlayerManager::Get_Player_Object_List() != nullptr);
 
 	for (
 		SLNode<cPlayer> * player_node = cPlayerManager::Get_Player_Object_List()->Head();
-		player_node != NULL;
+		player_node != nullptr;
 		player_node = player_node->Next())
 	{
 		cPlayer * p_player = player_node->Data();
-		WWASSERT(p_player != NULL);
+		WWASSERT(p_player != nullptr);
 
 		if (!p_player->Is_Alive_And_Kicking())
 		{
@@ -192,7 +192,7 @@ cGameSpyAuthMgr::Initiate_Auth_Rejection
 
 	cPlayer * p_player = cPlayerManager::Find_Player(player_id);
 
-	if (p_player != NULL)
+	if (p_player != nullptr)
 	{
 		cScTextObj * p_message = new cScTextObj;
 		//p_message->Init(U_CHAR("CD Authentication failed. Please quit."), TEXT_MESSAGE_PRIVATE, true, HOST_TEXT_SENDER, player_id);

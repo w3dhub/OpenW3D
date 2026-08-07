@@ -80,7 +80,7 @@ public:
 
 	virtual int		Compute_Derivatives(float t,StateVectorClass * test_state,StateVectorClass * set_derivs,int index)
 	{
-		if (test_state != NULL) {
+		if (test_state != nullptr) {
 			Set_State(*test_state,index);
 		}
 

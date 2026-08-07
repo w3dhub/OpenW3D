@@ -49,7 +49,7 @@ BOOL CALLBACK Update_Info_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPara
     case WM_INITDIALOG:
     {
       FILE *in = fopen("launcher.txt","r");
-      if (in==NULL)
+      if (in==nullptr)
       {
         EndDialog(hwnd,-1);
         return(1);
@@ -57,7 +57,7 @@ BOOL CALLBACK Update_Info_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPara
 
       char   line[270];
       int    lastsel=0;
-      char  *cptr=NULL;
+      char  *cptr=nullptr;
       while(fgets(line,255,in))
       {
         //Get rid of any trailing junk
@@ -76,7 +76,7 @@ BOOL CALLBACK Update_Info_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPara
 
 	     SendDlgItemMessage(hwnd, IDC_TEXT, EM_SETSEL, (WPARAM)lastsel, (LPARAM)lastsel );
 	     SendDlgItemMessage(hwnd, IDC_TEXT, EM_REPLACESEL, 0, (LPARAM)(line) );
-	     SendDlgItemMessage(hwnd, IDC_TEXT, EM_GETSEL, (WPARAM)NULL, (LPARAM)&lastsel );
+	     SendDlgItemMessage(hwnd, IDC_TEXT, EM_GETSEL, (WPARAM)nullptr, (LPARAM)&lastsel );
       }
       unselectText=1;
       fclose(in);
@@ -136,28 +136,28 @@ DWORD CALLBACK ApplyPatchThread(LPVOID _file) {
 	char *patchfile = (char *)_file;
 
     HINSTANCE hInst=LoadLibraryA("patchw32.dll");
-    if (hInst==NULL)
+    if (hInst==nullptr)
     {
       char message[256];
-      LoadStringA(NULL,IDS_ERR_MISSING_FILE,message,256);
+      LoadStringA(nullptr,IDS_ERR_MISSING_FILE,message,256);
       char string[256];
       sprintf(string,message,"patchw32.dll");
       char title[128];
-      LoadStringA(NULL,IDS_ERROR,title,128);
-      MessageBoxA(NULL,string,title,MB_OK);
+      LoadStringA(nullptr,IDS_ERROR,title,128);
+      MessageBoxA(nullptr,string,title,MB_OK);
       rtpErrCode = -2;
       return -1;
     }
 
     PATCHFUNC patchFunc;
     patchFunc=(PATCHFUNC)GetProcAddress(hInst,"RTPatchApply32@12");
-    if (patchFunc==NULL)
+    if (patchFunc==nullptr)
     {
       char message[256];
-      LoadStringA(NULL,IDS_BAD_LIBRARY,message,256);
+      LoadStringA(nullptr,IDS_BAD_LIBRARY,message,256);
       char title[128];
-      LoadStringA(NULL,IDS_ERROR,title,128);
-      MessageBoxA(NULL,message,title,MB_OK);
+      LoadStringA(nullptr,IDS_ERROR,title,128);
+      MessageBoxA(nullptr,message,title,MB_OK);
       rtpErrCode = -2;
       FreeLibrary(hInst);     // unload the DLL
       return -1;
@@ -201,7 +201,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
       "",
       REG_OPTION_NON_VOLATILE,
       KEY_ALL_ACCESS,
-      NULL,
+      nullptr,
       &regKey,
       &regPrevious);
 
@@ -210,21 +210,21 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
       RegSetValueExA(regKey,"EXEPatch",0,REG_SZ,(const uint8*)patchfile,strlen(patchfile)+1);
 
       char message[256];
-      LoadStringA(NULL,IDS_SYS_RESTART,message,256);
+      LoadStringA(nullptr,IDS_SYS_RESTART,message,256);
       char title[128];
-      LoadStringA(NULL,IDS_SYS_RESTART_TITLE,title,128);
+      LoadStringA(nullptr,IDS_SYS_RESTART_TITLE,title,128);
 
-      MessageBoxA(NULL,message,title,MB_OK);
+      MessageBoxA(nullptr,message,title,MB_OK);
 
       Shutdown_Computer_Now();
     }
     else
     {
       char message[256];
-      LoadStringA(NULL,IDS_RUNONCE_ERR,message,256);
+      LoadStringA(nullptr,IDS_RUNONCE_ERR,message,256);
       char string[256];
       sprintf(string,message,patchfile);
-      MessageBoxA(NULL,string,"ERROR",MB_OK);
+      MessageBoxA(nullptr,string,"ERROR",MB_OK);
     }
   }
   //
@@ -234,7 +234,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
   {
     MSG msg;
     HWND dialog=Create_Patch_Dialog();
-    while(PeekMessage(&msg,NULL,0,0, PM_REMOVE))
+    while(PeekMessage(&msg,nullptr,0,0, PM_REMOVE))
     {
       TranslateMessage(&msg);
       DispatchMessage(&msg);
@@ -243,13 +243,13 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     DBGMSG("Patch SKU = "<<skuIndex);
 
 	DWORD patchID = 0;
-	HANDLE patchThread = CreateThread(NULL, 0, ApplyPatchThread, (LPVOID)patchfile, 0, &patchID);
+	HANDLE patchThread = CreateThread(nullptr, 0, ApplyPatchThread, (LPVOID)patchfile, 0, &patchID);
 
 	int dotcnt = 9;
 	DWORD last_time = GetTickCount();
 	BOOL forward = false;
 	char worktext[256];
-    LoadStringA(NULL,IDS_WORKING_TEXT,worktext,sizeof(worktext)-12);
+    LoadStringA(nullptr,IDS_WORKING_TEXT,worktext,sizeof(worktext)-12);
 	int scnt = strlen(worktext)+1;
 	strcat(worktext, " ..........");
 	// Wait for the thread to finish
@@ -267,7 +267,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
 			SetWindowText(GetDlgItem(PatchDialog,IDC_WORKING_BOX),(char *)worktext);
 			last_time = GetTickCount();
 		}
-		while(PeekMessage(&msg,NULL,0,0, PM_REMOVE))
+		while(PeekMessage(&msg,nullptr,0,0, PM_REMOVE))
 		{
 		  TranslateMessage(&msg);
 		  DispatchMessage(&msg);
@@ -295,7 +295,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     char   *cptr=patchfile;
     char   *tempPtr;
     DWORD   version;
-    while( (tempPtr=strchr(cptr,'\\')) !=NULL)
+    while( (tempPtr=strchr(cptr,'\\')) !=nullptr)
       cptr=tempPtr+1;
     if (cptr)
       version=atol(cptr);
@@ -333,7 +333,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
 
 		// Create blocking DLG for update info
 		if (show_dialog) {
-			DialogBox(Global_instance,MAKEINTRESOURCE(IDD_CHANGELOG),NULL,(DLGPROC)Update_Info_Proc);
+			DialogBox(Global_instance,MAKEINTRESOURCE(IDD_CHANGELOG),nullptr,(DLGPROC)Update_Info_Proc);
 		}
   }
   //
@@ -356,18 +356,18 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
   else if (strcasecmp(patchfile+strlen(patchfile)-strlen(".web"),".web")==0)
   {
     char message[256];
-    LoadStringA(NULL,IDS_WEBPATCH,message,256);
+    LoadStringA(nullptr,IDS_WEBPATCH,message,256);
     char title[128];
-    LoadStringA(NULL,IDS_WEBPATCH_TITLE,title,128);
-    MessageBoxA(NULL,message,title,MB_OK);
+    LoadStringA(nullptr,IDS_WEBPATCH_TITLE,title,128);
+    MessageBoxA(nullptr,message,title,MB_OK);
 
     FILE *in=fopen(patchfile,"r");
-    if (in!=NULL)
+    if (in!=nullptr)
     {
       char URL[256];
       fgets(URL,255,in);
       fclose(in);
-      ShellExecuteA(NULL,NULL,URL,NULL,".",SW_SHOW);
+      ShellExecuteA(nullptr,nullptr,URL,nullptr,".",SW_SHOW);
       _unlink(patchfile);
       //// This is somewhat skanky, but we can't wait
       //// for the viewer to exit (I tried).
@@ -375,7 +375,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     }
     else
     {
-      MessageBoxA(NULL,patchfile,"Patchfile vanished?",MB_OK);
+      MessageBoxA(nullptr,patchfile,"Patchfile vanished?",MB_OK);
     }
   }
 }
@@ -395,7 +395,7 @@ void Shutdown_Computer_Now(void)
   }
 
   // Get the LUID for the shutdown privilege.
-  LookupPrivilegeValue(NULL, SE_SHUTDOWN_NAME,
+  LookupPrivilegeValue(nullptr, SE_SHUTDOWN_NAME,
         &tkp.Privileges[0].Luid);
 
   tkp.PrivilegeCount = 1;  // one privilege to set
@@ -403,7 +403,7 @@ void Shutdown_Computer_Now(void)
 
   // Get the shutdown privilege for this process.
   AdjustTokenPrivileges(hToken, false, &tkp, 0,
-        (PTOKEN_PRIVILEGES)NULL, 0);
+        (PTOKEN_PRIVILEGES)nullptr, 0);
 
   // Cannot test the return value of AdjustTokenPrivileges.
   if (GetLastError() != ERROR_SUCCESS)
@@ -416,13 +416,13 @@ void Shutdown_Computer_Now(void)
   {
     // Should never happen
     char restart[128];
-    LoadStringA(NULL,IDS_MUST_RESTART,restart,128);
-    MessageBoxA(NULL,restart,"OK",MB_OK);
+    LoadStringA(nullptr,IDS_MUST_RESTART,restart,128);
+    MessageBoxA(nullptr,restart,"OK",MB_OK);
     exit(0);
   }
 
   MSG     msg;
-  while (GetMessage(&msg, NULL, 0, 0))
+  while (GetMessage(&msg, nullptr, 0, 0))
   {
     TranslateMessage( &msg );
     DispatchMessage( &msg );
@@ -446,7 +446,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 
 
 // Let the main thread do this now.
-//  while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE ))
+//  while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE ))
 //  {
 //    TranslateMessage( &msg );
 //    DispatchMessage( &msg );
@@ -480,11 +480,11 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 	  // Error message header/text
       ///////*g_LogFile << (char *)Parm << std::endl;
       char errmsg[256];
-      LoadStringA(NULL,IDS_ERR_PATCH,errmsg,256);
-      MessageBoxA(NULL,(char *)Param,errmsg,MB_OK);
+      LoadStringA(nullptr,IDS_ERR_PATCH,errmsg,256);
+      MessageBoxA(nullptr,(char *)Param,errmsg,MB_OK);
       {
         FILE *out=fopen("patch.err","a");
-        time_t  timet=time(NULL);
+        time_t  timet=time(nullptr);
         fprintf(out,"\n\nPatch Error: %s\n",ctime(&timet));
         fprintf(out,"%s\n",(char *)Param);
         fclose(out);
@@ -539,7 +539,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 
       currFile++;
       char xofy[64];
-      LoadStringA(NULL,IDS_FILE_X_OF_Y,xofy,64);
+      LoadStringA(nullptr,IDS_FILE_X_OF_Y,xofy,64);
       sprintf(string,xofy,currFile,fileCount);
       SetWindowText(GetDlgItem(PatchDialog,IDC_CAPTION),string);
 //      PostMessage(GetDlgItem(PatchDialog,IDC_CAPTION),WM_SETTEXT,0,(LPARAM)string);
@@ -608,7 +608,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
   }
 
   if(Abort)
-    return (NULL);
+    return (nullptr);
   else
 	return (RetVal);
 }

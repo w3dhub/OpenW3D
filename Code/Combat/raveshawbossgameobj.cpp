@@ -431,11 +431,11 @@ RaveshawBossGameObjClass::RaveshawBossGameObjClass (void)	:
 	EngorgedStateTimer (0),
 	MoveStateTimer (0),
 	BodySlamTimer (0),
-	TiberiumEffect (NULL),
+	TiberiumEffect (nullptr),
 	IsTiberiumEffectApplied (false),
-	StealthSoldier (NULL),
-	StealthEffect (NULL),
-	ThrownObject (NULL),
+	StealthSoldier (nullptr),
+	StealthEffect (nullptr),
+	ThrownObject (nullptr),
 	RaveshawPos (0, 0, 0),
 	StarPos (0, 0, 0),
 	StartTimer (0),
@@ -444,7 +444,7 @@ RaveshawBossGameObjClass::RaveshawBossGameObjClass (void)	:
 	FlyingObjectDest (0, 0, 0),
 	LastMeleeAnimFrame (0),
 	HasMeleeAttackHit (false),
-	CameraBoneModel (NULL),
+	CameraBoneModel (nullptr),
 	RestoreFirstPerson (true)
 {
 	Shuffle_Taunt_List ();
@@ -588,7 +588,7 @@ RaveshawBossGameObjClass::~RaveshawBossGameObjClass (void)
 	REF_PTR_RELEASE (CameraBoneModel);
 
 	for (int index = 0; index < ARC_OBJ_COUNT; index ++) {
-		ArcObjects[index] = NULL;
+		ArcObjects[index] = nullptr;
 	}
 
 	return ;
@@ -909,7 +909,7 @@ RaveshawBossGameObjClass::Save_Variables (ChunkSaveClass &csave)
 void
 RaveshawBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 {
-	RenderObjClass *old_camera_bone_ptr = NULL;
+	RenderObjClass *old_camera_bone_ptr = nullptr;
 	Matrix3D cam_tm (1);
 	int arc_obj_index = 0;
 
@@ -959,14 +959,14 @@ RaveshawBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 		REQUEST_POINTER_REMAP ((void **)&ArcObjects[index]);
 	}
 
-	if (ThrownObject != NULL) {
+	if (ThrownObject != nullptr) {
 		REQUEST_POINTER_REMAP ((void **)&ThrownObject);
 	}
 
 	//
 	//	Register the camera bone pointers...
 	//
-	if (old_camera_bone_ptr != NULL) {
+	if (old_camera_bone_ptr != nullptr) {
 		SaveLoadSystemClass::Register_Pointer (old_camera_bone_ptr, CameraBoneModel);
 		CameraBoneModel->Set_Transform (cam_tm);
 	}
@@ -1007,7 +1007,7 @@ RaveshawBossGameObjClass::Think (void)
 	ok_to_think = false;
 #endif
 
-	if (COMBAT_STAR == NULL || COMBAT_STAR->Is_Dead () || COMBAT_STAR->Is_Destroyed ()) {
+	if (COMBAT_STAR == nullptr || COMBAT_STAR->Is_Dead () || COMBAT_STAR->Is_Destroyed ()) {
 		ok_to_think = false;
 	}
 
@@ -1092,7 +1092,7 @@ RaveshawBossGameObjClass::Verify_Stealth_Soldier (void)
 	//	Check to see if the stealth soldier has been destroyed...
 	//
 	SoldierGameObj *stealth_soldier = Peek_Stealth_Soldier ();
-	if (	stealth_soldier != NULL &&
+	if (	stealth_soldier != nullptr &&
 			(stealth_soldier->Is_Dead () || stealth_soldier->Is_Destroyed ()))
 	{
 		//
@@ -1101,7 +1101,7 @@ RaveshawBossGameObjClass::Verify_Stealth_Soldier (void)
 		stealth_soldier->Peek_Physical_Object ()->Remove_Effect_From_Me (StealthEffect);
 		stealth_soldier->Get_Human_State ()->Stop_Scripted_Animation ();
 		stealth_soldier->Set_Delete_Pending ();
-		StealthSoldier = NULL;
+		StealthSoldier = nullptr;
 
 		OverallState.Set_State (OVERALL_STATE_NOTHING);
 		RaveshawState.Set_State (RAVESHAW_STATE_ROAR);
@@ -1213,7 +1213,7 @@ RaveshawBossGameObjClass::Attach_Sound (const char *sound_name, const char *bone
 	//	Create the sound object from its preset
 	//
 	AudibleSoundClass *sound = WWAudioClass::Get_Instance ()->Create_Sound (sound_name);
-	if (sound != NULL) {
+	if (sound != nullptr) {
 
 		//
 		//	Attach the sound to the object
@@ -1257,7 +1257,7 @@ void
 RaveshawBossGameObjClass::STATE_IMPL_BEGIN(OVERALL_STATE_THROWING_OBJECT) (void)
 {
 	ThrownObject = Find_Object_To_Throw ();
-	if (ThrownObject != NULL) {
+	if (ThrownObject != nullptr) {
 
 		//
 		//	Pull the strings to get the mutant to grab a stealth soldier...
@@ -1529,7 +1529,7 @@ RaveshawBossGameObjClass::Find_Closest_Catwalk_Pos (const Vector3 &curr_pos, Vec
 	//	Get the catwalk waypath
 	//
 	WaypathClass *waypath = PathfindClass::Get_Instance ()->Find_Waypath (CATWALK_WAYPATH_ID);
-	WWASSERT (waypath != NULL);
+	WWASSERT (waypath != nullptr);
 
 	//
 	//	Now find the closest point which is in-between the waypath points
@@ -2555,13 +2555,13 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_BODYSLAM) (void)
 			//	Create an explision when he lands
 			//
 			DefinitionClass *definition = DefinitionMgrClass::Find_Named_Definition ("Explosion_Raveshaw_Bodyslam");
-			if (definition != NULL) {
+			if (definition != nullptr) {
 
 				//
 				//	Position the explosion at the mutants pelvis
 				//
 				const Matrix3D &pelvis_tm = Peek_Model ()->Get_Bone_Transform ("C PELVIS");
-				ExplosionManager::Create_Explosion_At (definition->Get_ID (), pelvis_tm.Get_Translation (), NULL);
+				ExplosionManager::Create_Explosion_At (definition->Get_ID (), pelvis_tm.Get_Translation (), nullptr);
 			}
 		}
 
@@ -3116,7 +3116,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(JUMP_STATE_LANDING) (void)
 void
 RaveshawBossGameObjClass::STATE_IMPL_BEGIN(HAVOC_STATE_GRABBED) (void)
 {
-	if (COMBAT_STAR != NULL) {
+	if (COMBAT_STAR != nullptr) {
 		COMBAT_STAR->Peek_Physical_Object ()->Enable_Objects_Simulation (false);
 		COMBAT_STAR->Control_Enable (false);
 	}
@@ -3252,7 +3252,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(STEALTH_SOLDIER_STATE_DISPLAY) (void)
 	//	Check to see if the stealth soldier has been destroyed...
 	//
 	SoldierGameObj *stealth_soldier = Peek_Stealth_Soldier ();
-	if (stealth_soldier == NULL) {
+	if (stealth_soldier == nullptr) {
 		OverallState.Set_State (OVERALL_STATE_NOTHING);
 		RaveshawState.Set_State (RAVESHAW_STATE_ROAR);
 		MoveState.Set_State (MOVE_STATE_STOP);
@@ -3315,7 +3315,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(STEALTH_SOLDIER_STATE_FLYING) (void)
 	//	Check to see if the stealth soldier has been destroyed...
 	//
 	SoldierGameObj *stealth_soldier = Peek_Stealth_Soldier ();
-	if (stealth_soldier == NULL) {
+	if (stealth_soldier == nullptr) {
 		OverallState.Set_State (OVERALL_STATE_NOTHING);
 		RaveshawState.Set_State (RAVESHAW_STATE_ROAR);
 		MoveState.Set_State (MOVE_STATE_STOP);
@@ -3374,7 +3374,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(STEALTH_SOLDIER_STATE_FLYING) (void)
 	//	Check to see if the stealth soldier has been destroyed...
 	//
 	SoldierGameObj *stealth_soldier = Peek_Stealth_Soldier ();
-	if (stealth_soldier == NULL) {
+	if (stealth_soldier == nullptr) {
 		OverallState.Set_State (OVERALL_STATE_NOTHING);
 		RaveshawState.Set_State (RAVESHAW_STATE_ROAR);
 		MoveState.Set_State (MOVE_STATE_STOP);
@@ -3412,7 +3412,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(STEALTH_SOLDIER_STATE_FLYING) (void)
 		//
 		StealthSoldierState.Set_State (STEALTH_SOLDIER_STATE_NONE);
 		stealth_soldier->Peek_Physical_Object ()->Remove_Effect_From_Me (StealthEffect);
-		StealthSoldier = NULL;
+		StealthSoldier = nullptr;
 	}
 
 	return ;
@@ -3427,7 +3427,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(STEALTH_SOLDIER_STATE_FLYING) (void)
 void
 RaveshawBossGameObjClass::STATE_IMPL_BEGIN(THROWN_OBJECT_STATE_PICKUP) (void)
 {
-	if (ThrownObject == NULL) {
+	if (ThrownObject == nullptr) {
 		return ;
 	}
 
@@ -3519,7 +3519,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(THROWN_OBJECT_STATE_FLYING) (void)
 		OffenseObjectClass offense_obj (10000.0F, 1);
 		ThrownObject->Completely_Damaged (offense_obj);
 		ThrownObject->Set_Delete_Pending ();
-		ThrownObject = NULL;
+		ThrownObject = nullptr;
 
 		//
 		//	Now, revert back to the nothing state
@@ -3683,7 +3683,7 @@ RaveshawBossGameObjClass::Apply_Bone_Collision_Damage (float damage_scale, const
 		//	Dig the name of the mesh out
 		//
 		StringClass obj_name;
-		if (col_test.CollidedRenderObj != NULL) {
+		if (col_test.CollidedRenderObj != nullptr) {
 			obj_name = col_test.CollidedRenderObj->Get_Name ();
 		}
 
@@ -3769,7 +3769,7 @@ RaveshawBossGameObjClass::Create_Stealth_Soldier (const Matrix3D &tm)
 	//	Create the stealth soldier
 	//
 	PhysicalGameObj *phys_game_obj = ObjectLibraryManager::Create_Object ("Raveshaw Boss Fodder");
-	WWASSERT (phys_game_obj != NULL);
+	WWASSERT (phys_game_obj != nullptr);
 	StealthSoldier = phys_game_obj;
 
 	//
@@ -3806,7 +3806,7 @@ RaveshawBossGameObjClass::Create_Stealth_Soldier (const Matrix3D &tm)
 void
 RaveshawBossGameObjClass::Link_Thrown_Object_To_Hands (void)
 {
-	if (ThrownObject == NULL) {
+	if (ThrownObject == nullptr) {
 		return ;
 	}
 
@@ -3840,7 +3840,7 @@ RaveshawBossGameObjClass::Link_Thrown_Object_To_Hands (void)
 void
 RaveshawBossGameObjClass::Link_Player_To_Hands (void)
 {
-	if (COMBAT_STAR == NULL) {
+	if (COMBAT_STAR == nullptr) {
 		return ;
 	}
 
@@ -3962,7 +3962,7 @@ RaveshawBossGameObjClass::Link_Stealth_Soldier_To_Hand (void)
 	//	Check to see if the stealth soldier has been destroyed...
 	//
 	SoldierGameObj *stealth_soldier = Peek_Stealth_Soldier ();
-	if (stealth_soldier == NULL) {
+	if (stealth_soldier == nullptr) {
 		return ;
 	}
 
@@ -4037,7 +4037,7 @@ RaveshawBossGameObjClass::Fly_Move (PhysicalGameObj *game_obj, const Vector3 &ve
 	//
 	AABoxClass collision_box;
 
-	if (game_obj->As_SoldierGameObj () != NULL) {
+	if (game_obj->As_SoldierGameObj () != nullptr) {
 		collision_box				= game_obj->Peek_Physical_Object ()->As_HumanPhysClass ()->Get_Collision_Box ();
 		collision_box.Center		+= curr_pos;
 	} else {
@@ -4094,32 +4094,32 @@ RaveshawBossGameObjClass::Fly_Move (PhysicalGameObj *game_obj, const Vector3 &ve
 SimpleGameObj *
 RaveshawBossGameObjClass::Find_Object_To_Throw (void)
 {
-	if (COMBAT_STAR == NULL) {
-		return NULL;
+	if (COMBAT_STAR == nullptr) {
+		return nullptr;
 	}
 
-	SimpleGameObj *best_object	= NULL;
+	SimpleGameObj *best_object	= nullptr;
 	float best_object_rating	= 100.0F;
 
 	//
 	//	Loop over all the game objects in the world (looking for simple game objects)
 	//
-	SLNode<BaseGameObj> *obj_node = NULL;
+	SLNode<BaseGameObj> *obj_node = nullptr;
 	for (obj_node = GameObjManager::Get_Game_Obj_List ()->Head (); obj_node; obj_node = obj_node->Next ()) {
 
 		//
 		//	Is this a simple game object?
 		//
 		PhysicalGameObj *phys_game_obj = obj_node->Data ()->As_PhysicalGameObj ();
-		if (phys_game_obj != NULL && phys_game_obj->As_SimpleGameObj () != NULL) {
+		if (phys_game_obj != nullptr && phys_game_obj->As_SimpleGameObj () != nullptr) {
 			SimpleGameObj *object = phys_game_obj->As_SimpleGameObj ();
-			if (object != NULL) {
+			if (object != nullptr) {
 
 				//
 				//	Is this one of Raveshaw's throwable objects?
 				//
 				const StringClass &name = object->Get_Definition ().Get_Name ();
-				if (::strstr (name, "(Raveshaw Ammo)") != NULL) {
+				if (::strstr (name, "(Raveshaw Ammo)") != nullptr) {
 
 					//
 					//	Get the position of the object
@@ -4201,7 +4201,7 @@ RaveshawBossGameObjClass::Determine_New_Overall_State (void)
 			int choice = FreeRandom.Get_Int (100);
 			if (choice < 35 && dist2 > 16.0F) {
 				OverallState.Set_State (OVERALL_STATE_THROWING_SOLDIER);
-			} else if (choice < 60 && (ThrownObject == NULL)) {
+			} else if (choice < 60 && (ThrownObject == nullptr)) {
 				OverallState.Set_State (OVERALL_STATE_THROWING_OBJECT);
 			} else if (choice < 80) {
 				OverallState.Set_State (OVERALL_STATE_CHASE_STAR);
@@ -4268,7 +4268,7 @@ RaveshawBossGameObjClass::Collect_Lightning_Rods (void)
 		//
 		//	Add this object to our list
 		//
-		if (phys_obj != NULL) {
+		if (phys_obj != nullptr) {
 			if (phys_obj->Peek_Model ()->Get_Bone_Index ("BBZZZT") > 0) {
 				LightningRodList.Add (phys_obj);
 			}
@@ -4318,8 +4318,8 @@ RaveshawBossGameObjClass::Prepare_Arc_Effect_Data (void)
 	//	Create the simple game object's that we'll use to display the lightning effect
 	//
 	for (int index = 0; index < ARC_OBJ_COUNT; index ++) {
-		if (	ArcObjects[index]->Peek_Physical_Object () != NULL &&
-				ArcObjects[index]->Peek_Physical_Object ()->Peek_Model () != NULL)
+		if (	ArcObjects[index]->Peek_Physical_Object () != nullptr &&
+				ArcObjects[index]->Peek_Physical_Object ()->Peek_Model () != nullptr)
 		{
 			ArcObjects[index]->Peek_Physical_Object ()->Peek_Model ()->Set_Hidden (true);
 		}
@@ -4331,7 +4331,7 @@ RaveshawBossGameObjClass::Prepare_Arc_Effect_Data (void)
 	//	Get information about the model
 	//
 	SimpleGameObj *temp_obj = (SimpleGameObj *)ObjectLibraryManager::Create_Object ("Arc Effect");
-	if (temp_obj != NULL && temp_obj->Peek_Model () != NULL) {
+	if (temp_obj != nullptr && temp_obj->Peek_Model () != nullptr) {
 		RenderObjClass *model = temp_obj->Peek_Model ();
 
 		//
@@ -4429,7 +4429,7 @@ RaveshawBossGameObjClass::Add_Lightning_Arc (const Vector3 &start_point, const V
 			//
 			ArcLifeRemaining[index] = 3.0F;
 			HAnimClass *anim = model->Peek_Animation ();
-			if (anim != NULL) {
+			if (anim != nullptr) {
 				model->Set_Animation (anim, 0, RenderObjClass::ANIM_MODE_ONCE);
 				ArcLifeRemaining[index] = anim->Get_Total_Time ();
 			}
@@ -4458,8 +4458,8 @@ RaveshawBossGameObjClass::fnSortLightningRodsCallback
 	const void *elem2
 )
 {
-   WWASSERT (elem1 != NULL);
-   WWASSERT (elem2 != NULL);
+   WWASSERT (elem1 != nullptr);
+   WWASSERT (elem2 != nullptr);
    DamageableStaticPhysClass *rod1 = *((DamageableStaticPhysClass **)elem1);
    DamageableStaticPhysClass *rod2 = *((DamageableStaticPhysClass **)elem2);
 
@@ -4517,7 +4517,7 @@ RaveshawBossGameObjClass::Find_Death_Facing_Pos (Vector3 *facing_pos)
 	//	Get the catwalk waypath
 	//
 	WaypathClass *waypath = PathfindClass::Get_Instance ()->Find_Waypath (CATWALK_WAYPATH_ID);
-	WWASSERT (waypath != NULL);
+	WWASSERT (waypath != nullptr);
 
 	//
 	//	Now find the closest point which is in-between the waypath points

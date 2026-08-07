@@ -210,7 +210,7 @@ void WeatherPropPageClass::OnFogColor()
 		FogColor.Set ((red + 0.5f) * ooucharmaxplusone, (green + 0.5f) * ooucharmaxplusone, (blue + 0.5f) * ooucharmaxplusone);
 
 		// Repaint the fog color button.
-		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_FOG_COLOR), NULL, true);
+		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_FOG_COLOR), nullptr, true);
 	}
 }
 

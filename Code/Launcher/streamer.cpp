@@ -89,7 +89,7 @@ int Streamer::underflow(void)
 int Streamer::doallocate()
 {
 
-  if (pbase()==NULL)
+  if (pbase()==nullptr)
   {
     char *buf=new char[(2*STREAMER_BUFSIZ)];   // deleted by destructor
     memset(buf,0,2*STREAMER_BUFSIZ);

@@ -80,8 +80,8 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	RTTI
 	////////////////////////////////////////////////////////////////////
-	virtual PathfindWaypathSectorClass *			As_PathfindWaypathSectorClass (void)			{ return NULL; }
-	virtual const PathfindWaypathSectorClass *	As_PathfindWaypathSectorClass (void) const	{ return NULL; }
+	virtual PathfindWaypathSectorClass *			As_PathfindWaypathSectorClass (void)			{ return nullptr; }
+	virtual const PathfindWaypathSectorClass *	As_PathfindWaypathSectorClass (void) const	{ return nullptr; }
 
 	////////////////////////////////////////////////////////////////////
 	//	Public methods

@@ -59,7 +59,7 @@ RefPtr<FirewallDetectWait> FirewallDetectWait::Create(void)
 
 FirewallDetectWait::FirewallDetectWait(void) :
 		SingleWait(TRANSLATION(IDS_FIREWALL_NEGOTIATING_FIREWALL), 60000),
-		mEvent(NULL),
+		mEvent(nullptr),
 		mPingsRemaining(UINT_MAX)
 	{
 	mWOLSession = WWOnline::Session::GetInstance(false);
@@ -84,9 +84,9 @@ void FirewallDetectWait::WaitBeginning(void)
 	{
 	WWDEBUG_SAY(("FirewallDetectWait: Beginning\n"));
 
-	mEvent = CreateEventA(NULL, true, false, NULL);
+	mEvent = CreateEventA(nullptr, true, false, nullptr);
 
-	if (mEvent == NULL)
+	if (mEvent == nullptr)
 		{
 		WWDEBUG_SAY(("FirewallDetectWait: Can't create event\n"));
 		EndWait(Error, TRANSLATION(IDS_FIREWALL_CREATE_EVENT_FAILED));
@@ -152,8 +152,8 @@ RefPtr<FirewallConnectWait> FirewallConnectWait::Create(void)
 
 FirewallConnectWait::FirewallConnectWait(void) :
 		SingleWait(TRANSLATION(IDS_FIREWALL_NEGOTIATING_WITH_SERVER)),
-		mEvent(NULL),
-		mCancelEvent(NULL),
+		mEvent(nullptr),
+		mCancelEvent(nullptr),
 		mSuccessFlag(FirewallHelperClass::FW_RESULT_UNKNOWN),
 		mQueueCount(0),
 		mLastQueueCount(0),
@@ -186,10 +186,10 @@ void FirewallConnectWait::WaitBeginning(void)
 	{
 	WWDEBUG_SAY(("FirewallConnectWait: Beginning\n"));
 
-	mEvent = CreateEventA(NULL, true, false, NULL);
-	mCancelEvent = CreateEventA(NULL, true, false, NULL);
+	mEvent = CreateEventA(nullptr, true, false, nullptr);
+	mCancelEvent = CreateEventA(nullptr, true, false, nullptr);
 
-	if (mEvent == NULL)
+	if (mEvent == nullptr)
 		{
 		WWDEBUG_SAY(("FirewallConnectWait: Can't create event\n"));
 		EndWait(Error, TRANSLATION(IDS_FIREWALL_CREATE_EVENT_FAILED));
@@ -302,7 +302,7 @@ void FirewallConnectWait::EndWait(WaitResult result, const unichar_t* endText)
 			Sleep(1);
 			}
 
-	FirewallHelper.Set_Client_Connect_Event(NULL, NULL, NULL, NULL);
+	FirewallHelper.Set_Client_Connect_Event(nullptr, nullptr, nullptr, nullptr);
 
 	SingleWait::EndWait(result, endText);
 	}

@@ -131,9 +131,9 @@ static BOOL CALLBACK MaxFlyDlgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 
 MaxFly::MaxFly()
 {
-	iu = NULL;
-	ip = NULL;
-	hPanel = NULL;
+	iu = nullptr;
+	ip = nullptr;
+	hPanel = nullptr;
 }
 
 MaxFly::~MaxFly()
@@ -155,10 +155,10 @@ void MaxFly::BeginEditParams(Interface *ip,IUtil *iu)
 
 void MaxFly::EndEditParams(Interface *ip,IUtil *iu)
 {
-	this->iu = NULL;
-	this->ip = NULL;
+	this->iu = nullptr;
+	this->ip = nullptr;
 	ip->DeleteRollupPage(hPanel);
-	hPanel = NULL;
+	hPanel = nullptr;
 }
 
 void MaxFly::Init(HWND hWnd)

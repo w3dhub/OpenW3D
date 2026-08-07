@@ -219,9 +219,9 @@ class FileMgrClass
 		//
 		//	VSS integration methods
 		//
-		bool						Initialize_VSS (LPCTSTR ini_file_path, LPCTSTR username = NULL, LPCTSTR password = NULL);
+		bool						Initialize_VSS (LPCTSTR ini_file_path, LPCTSTR username = nullptr, LPCTSTR password = nullptr);
 		int						Build_Update_List (DynamicVectorClass<LevelFileStruct *> &update_list);
-		bool						Update_Files (DynamicVectorClass<LevelFileStruct *> *pupdate_list = NULL);
+		bool						Update_Files (DynamicVectorClass<LevelFileStruct *> *pupdate_list = nullptr);
 		bool						Update_File (int index);
 		bool						Update_File (LPCTSTR filename);
 		bool						Update_All_Files (LPCTSTR dest_path, LPCTSTR search_mask);

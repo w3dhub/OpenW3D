@@ -32,7 +32,7 @@ class CheckinStyleDialogClass : public CDialog
 {
 // Construction
 public:
-	CheckinStyleDialogClass(CWnd* pParent = NULL);   // standard constructor
+	CheckinStyleDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CheckinStyleDialogClass)

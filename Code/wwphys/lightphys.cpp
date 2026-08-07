@@ -91,7 +91,7 @@ int LightPhysClass::Is_Vis_Object_Visible(int vis_object_id)
 		return 1;
 	}
 	VisTableClass * pvs = PhysicsSceneClass::Get_Instance()->Get_Vis_Table(VisSectorID);
-	if (pvs != NULL) {
+	if (pvs != nullptr) {
 		int vis_bit = pvs->Get_Bit(vis_object_id);
 		REF_PTR_RELEASE(pvs);
 		return vis_bit;

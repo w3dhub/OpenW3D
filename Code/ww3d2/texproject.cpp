@@ -183,9 +183,9 @@ TexProjectClass::TexProjectClass(void) :
 	DesiredIntensity(1.0f),
 	Intensity(1.0f),
 	Attenuation(1.0f),
-	MaterialPass(NULL),
-	Mapper1(NULL),
-	RenderTarget(NULL),
+	MaterialPass(nullptr),
+	Mapper1(nullptr),
+	RenderTarget(nullptr),
 	HFov(90.0f),
 	VFov(90.0f),
 	XMin(-10.0f),
@@ -201,7 +201,7 @@ TexProjectClass::TexProjectClass(void) :
 
 	// create a vertex material
 	VertexMaterialClass * vmtl = NEW_REF(VertexMaterialClass,());
-	WWASSERT(vmtl != NULL);
+	WWASSERT(vmtl != nullptr);
 
 	// Plug our parent's mapper into our vertex material
 	// the mapper for stage1 will be allocated as needed
@@ -209,7 +209,7 @@ TexProjectClass::TexProjectClass(void) :
 
 	MaterialPass->Set_Material(vmtl);
 	vmtl->Release_Ref();
-	vmtl = NULL;
+	vmtl = nullptr;
 
 	// by default init our material pass to be multiplicative (shadow)
 	Init_Multiplicative();
@@ -589,7 +589,7 @@ void TexProjectClass::Init_Multiplicative(void)
 		/*
 		** remove the texture from the second stage
 		*/
-		MaterialPass->Set_Texture(NULL,1);
+		MaterialPass->Set_Texture(nullptr,1);
 	}
 
 #if (DEBUG_SHADOW_RENDERING)
@@ -615,13 +615,13 @@ void TexProjectClass::Init_Multiplicative(void)
 	** Set up some mapper settings related to depth gradient
 	*/
 	if (Get_Flag(USE_DEPTH_GRADIENT)) {
-		if (Mapper1 == NULL) {
+		if (Mapper1 == nullptr) {
 			Mapper1 = NEW_REF(MatrixMapperClass,(1));
 		}
 		Mapper1->Set_Type(MatrixMapperClass::DEPTH_GRADIENT);
 		vmtl->Set_Mapper(Mapper1,1);
 	} else {
-		vmtl->Set_Mapper(NULL,1);
+		vmtl->Set_Mapper(nullptr,1);
 	}
 }
 
@@ -704,7 +704,7 @@ void TexProjectClass::Init_Additive(void)
 	** Set up some mapper settings related to depth gradient
 	** Additive texture projections always use the normal gradient
 	*/
-	if (Mapper1 == NULL) {
+	if (Mapper1 == nullptr) {
 		Mapper1 = NEW_REF(MatrixMapperClass,(1));
 	}
 	Mapper1->Set_Type(MatrixMapperClass::NORMAL_GRADIENT);
@@ -726,7 +726,7 @@ void TexProjectClass::Init_Additive(void)
  *=============================================================================================*/
 void TexProjectClass::Set_Texture(TextureClass * texture)
 {
-	if (texture != NULL) {
+	if (texture != nullptr) {
 		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 		texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 		MaterialPass->Set_Texture(texture);
@@ -865,8 +865,8 @@ bool TexProjectClass::Compute_Perspective_Projection
 	float					zfar
 )
 {
-	if (model == NULL) {
-		WWDEBUG_SAY(("Attempting to generate projection for a NULL model\r\n"));
+	if (model == nullptr) {
+		WWDEBUG_SAY(("Attempting to generate projection for a nullptr model\r\n"));
 		return false;
 	}
 
@@ -992,8 +992,8 @@ bool TexProjectClass::Compute_Ortho_Projection
 	float					zfar
 )
 {
-	if (model == NULL) {
-		WWDEBUG_SAY(("Attempting to generate projection for a NULL model\r\n"));
+	if (model == nullptr) {
+		WWDEBUG_SAY(("Attempting to generate projection for a nullptr model\r\n"));
 		return false;
 	}
 
@@ -1107,7 +1107,7 @@ bool TexProjectClass::Compute_Ortho_Projection
  *=============================================================================================*/
 bool TexProjectClass::Compute_Texture(RenderObjClass * model,SpecialRenderInfoClass * context)
 {
-	if ((model == NULL) || (context == NULL)) {
+	if ((model == nullptr) || (context == nullptr)) {
 		return false;
 	}
 	/*
@@ -1115,7 +1115,7 @@ bool TexProjectClass::Compute_Texture(RenderObjClass * model,SpecialRenderInfoCl
 	*/
 	TextureClass * rtarget = Peek_Render_Target();
 
-	if (rtarget != NULL) {
+	if (rtarget != nullptr) {
 
 		/*
 		** Set the render target
@@ -1139,7 +1139,7 @@ bool TexProjectClass::Compute_Texture(RenderObjClass * model,SpecialRenderInfoCl
 		WW3D::Render(*model,*context);
 		WW3D::End_Render(false);
 
-		DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)NULL);
+		DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)nullptr);
 
 	}
 
@@ -1152,7 +1152,7 @@ bool TexProjectClass::Compute_Texture(RenderObjClass * model,SpecialRenderInfoCl
 	bwr.Fill(0xff);
 	context->BWRenderer = &bwr;
 	model->Special_Render(*context);
-	context->BWRenderer = NULL;
+	context->BWRenderer = nullptr;
 #endif
 	return true;
 }

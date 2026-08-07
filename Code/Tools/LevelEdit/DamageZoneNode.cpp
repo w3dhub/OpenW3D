@@ -82,8 +82,8 @@ enum
 //
 //////////////////////////////////////////////////////////////////////////////
 DamageZoneNodeClass::DamageZoneNodeClass (PresetClass *preset)
-	:	m_PhysObj (NULL),
-		m_GameObj (NULL),
+	:	m_PhysObj (nullptr),
+		m_GameObj (nullptr),
 		m_CachedSize (1, 1, 1),
 		NodeClass (preset)
 {
@@ -97,10 +97,10 @@ DamageZoneNodeClass::DamageZoneNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 DamageZoneNodeClass::DamageZoneNodeClass (const DamageZoneNodeClass &src)
-	:	m_PhysObj (NULL),
-		m_GameObj (NULL),
+	:	m_PhysObj (nullptr),
+		m_GameObj (nullptr),
 		m_CachedSize (1, 1, 1),
-		NodeClass (NULL)
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -136,7 +136,7 @@ DamageZoneNodeClass::Initialize (void)
 	Destroy_Game_Obj ();
 
 	DefinitionClass *definition = m_Preset->Get_Definition ();
-	if (definition != NULL) {
+	if (definition != nullptr) {
 
 		//
 		// Create the new box physics object
@@ -294,7 +294,7 @@ DamageZoneNodeClass::Update_Game_Obj (void)
 	//
 	//	Update the zone's bounding box
 	//
-	if (box != NULL && m_GameObj != NULL) {
+	if (box != nullptr && m_GameObj != nullptr) {
 		Vector3 pos		= box->Get_Transform ().Get_Translation ();
 		Vector3 size	= box->Get_Dimensions () / 2;
 
@@ -386,7 +386,7 @@ DamageZoneNodeClass::Pre_Export (void)
 	// saved during the export.
 	//
 	Add_Ref ();
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (m_PhysObj);
 		m_GrabHandles.Remove_From_Scene ();
 	}
@@ -405,7 +405,7 @@ DamageZoneNodeClass::Post_Export (void)
 	//
 	//	Put ourselves back into the system
 	//
-	if (m_PhysObj != NULL && m_IsInScene) {
+	if (m_PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (m_PhysObj);
 		m_GrabHandles.Position_Around_Node (this);
 	}
@@ -423,9 +423,9 @@ DamageZoneNodeClass::Post_Export (void)
 void
 DamageZoneNodeClass::Destroy_Game_Obj (void)
 {
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		m_GameObj->Set_Delete_Pending ();
-		m_GameObj = NULL;
+		m_GameObj = nullptr;
 	}
 
 	return ;
@@ -440,13 +440,13 @@ DamageZoneNodeClass::Destroy_Game_Obj (void)
 void
 DamageZoneNodeClass::Create_Game_Obj (void)
 {
-	if (m_GameObj == NULL) {
+	if (m_GameObj == nullptr) {
 
 		//
 		//	Get a pointer to the definition that this object uses
 		//
 		DefinitionClass *definition = m_Preset->Get_Definition ();
-		if (definition != NULL) {
+		if (definition != nullptr) {
 
 			//
 			//	Create the game object
@@ -456,7 +456,7 @@ DamageZoneNodeClass::Create_Game_Obj (void)
 			//
 			//	Assign 'hit-test' information to this game object
 			//
-			if (m_GameObj != NULL) {
+			if (m_GameObj != nullptr) {
 
 				//
 				//	Update the zone object we embed

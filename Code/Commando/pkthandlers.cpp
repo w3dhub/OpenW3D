@@ -58,13 +58,13 @@ Create_Network_Object (cPacket &packet, int class_id, int network_obj_id)
 	//	Lookup the factory for this type of network object
 	//
 	NetworkObjectFactoryClass *factory = NetworkObjectFactoryMgrClass::Find_Factory (class_id);
-	WWASSERT (factory != NULL);
+	WWASSERT (factory != nullptr);
 
 	//
 	//	Create the new object
 	//
 	NetworkObjectClass *new_object = factory->Create (packet);
-	WWASSERT (new_object != NULL);
+	WWASSERT (new_object != nullptr);
 
 	new_object->Set_Network_ID(network_obj_id);//TSS2001b
 
@@ -80,7 +80,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 	WWASSERT(
 		rhost_id >= PServerConnection->Get_Min_RHost() &&
 		rhost_id <= PServerConnection->Get_Max_RHost());
-	WWASSERT(Receiver != NULL);
+	WWASSERT(Receiver != nullptr);
 
 	/*TSS082801
 	// TSS - hack
@@ -94,7 +94,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 	//
 	// TSS112401 XXX
 	//
-	if (PServerConnection->Get_Remote_Host(rhost_id) == NULL) {
+	if (PServerConnection->Get_Remote_Host(rhost_id) == nullptr) {
 		//
 		// We were getting this crash:
 		// pkthandlers.cpp (95) - received BIT_CREATION for existing object of type
@@ -127,8 +127,8 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 
 		int net_classid = packet.Get (net_classid);
 
-		//WWASSERT (object == NULL);
-		if (object != NULL)
+		//WWASSERT (object == nullptr);
+		if (object != nullptr)
 		{
 #ifdef WWDEBUG
 			//sockaddr_in *actual_from_addr_ptr = (struct sockaddr_in*) &packet.Get_From_Address_Wrapper()->FromAddress;
@@ -185,7 +185,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 	//
 	// TSS092301
 	//
-	if (PServerConnection->Get_Remote_Host(rhost_id) == NULL) {
+	if (PServerConnection->Get_Remote_Host(rhost_id) == nullptr) {
 		//
 		// This was probably a quit packet. Bail !
 		//
@@ -193,7 +193,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 		return;
 	}
 
-	if (object != NULL) {
+	if (object != nullptr) {
 
 		//
 		//	Do we need to modify this object?
@@ -227,7 +227,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 			//
 			//	Delete the object
 			//
-			if (object != NULL) {
+			if (object != nullptr) {
 				object->Set_Delete_Pending ();
 			}
 		}
@@ -257,7 +257,7 @@ void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 #ifndef FREEDEDICATEDSERVER
 
 	WWASSERT(I_Am_Client());
-	WWASSERT(Receiver != NULL);
+	WWASSERT(Receiver != nullptr);
 
 	// TSS - hack
 	if (g_is_loading) {
@@ -289,8 +289,8 @@ void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 	//
 	if ((dirty_bits & NetworkObjectClass::BIT_CREATION) == NetworkObjectClass::BIT_CREATION) {
 
-		//WWASSERT (object == NULL);
-		if (object != NULL)
+		//WWASSERT (object == nullptr);
+		if (object != nullptr)
 		{
 			WWDEBUG_SAY(("cNetwork::Client_Packet_Handler: received BIT_CREATION for existing object of type %s\n",
 				cAppPacketStats::Interpret_Type(object->Get_App_Packet_Type())));
@@ -301,7 +301,7 @@ void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 		//	Create the network object
 		//
 		int net_classid = packet.Get (net_classid);
-		if (object == NULL) {
+		if (object == nullptr) {
 			object = Create_Network_Object (packet, net_classid, network_obj_id);
 		}
 		object->Import_Creation (packet);
@@ -312,7 +312,7 @@ void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 		if (net_classid == NETCLASSID_GAMEOBJ) {
 			BaseGameObj *game_obj			= (BaseGameObj *)object;
 			SmartGameObj *smart_game_obj	= game_obj->As_SmartGameObj ();
-			if (smart_game_obj != NULL) {
+			if (smart_game_obj != nullptr) {
 				int control_owner = smart_game_obj->Get_Control_Owner ();
 				smart_game_obj->Set_Player_Data (cPlayerManager::Find_Player (control_owner));
 			}
@@ -327,12 +327,12 @@ void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 		*/
 	}
 
-	if (object != NULL) {
+	if (object != nullptr) {
 
 		//
 		//	Do we need to delete this object?
 		//
-		if (is_delete_pending && object != NULL) {
+		if (is_delete_pending && object != nullptr) {
 			object->Set_Delete_Pending ();
 		}
 
@@ -370,7 +370,7 @@ void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 			//
 			//	Delete the object
 			//
-			if (object != NULL) {
+			if (object != nullptr) {
 				object->Set_Delete_Pending ();
 			}
 		}

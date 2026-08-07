@@ -57,7 +57,7 @@ UINT CALLBACK W3DPageCallback(HWND /*hWnd*/,
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ShowHideControls(HWND hDlg, bool show){
 	HWND hControl = GetWindow(hDlg, GW_CHILD);
-	while(hControl != NULL){
+	while(hControl != nullptr){
 		ShowWindow(hControl,show?SW_SHOW:SW_HIDE);
 		hControl = GetWindow(hControl, GW_HWNDNEXT);
 	}
@@ -354,7 +354,7 @@ STDMETHODIMP CShellExt::AddPages(LPFNADDPROPSHEETPAGE lpfnAddPage,	//Pointer to 
 	 m_FileInMemory = false;
     PROPSHEETPAGE psp;
     HPROPSHEETPAGE hpage;
-    FORMATETC fmte = {CF_HDROP,(DVTARGETDEVICE FAR *)NULL,DVASPECT_CONTENT,-1, TYMED_HGLOBAL };
+    FORMATETC fmte = {CF_HDROP,(DVTARGETDEVICE FAR *)nullptr,DVASPECT_CONTENT,-1, TYMED_HGLOBAL };
     STGMEDIUM medium;
 	HRESULT hres = 0;
 	memset(&medium, 0, sizeof(medium));

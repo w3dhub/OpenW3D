@@ -180,7 +180,7 @@ float														WW3D::DecalRejectionDistance = 1000000.0f;
 bool														WW3D::AreStaticSortListsEnabled = false;
 bool														WW3D::MungeSortOnLoad = false;
 
-FrameGrabClass *										WW3D::Movie = NULL;
+FrameGrabClass *										WW3D::Movie = nullptr;
 bool														WW3D::PauseRecord;
 bool														WW3D::RecordNextFrame;
 
@@ -191,13 +191,13 @@ int														WW3D::UserStat2 = 0;
 
 float														WW3D::DefaultNativeScreenSize = 1.0f;
 
-RefRenderObjListClass *								WW3D::DefaultStaticSortLists = NULL;
-RefRenderObjListClass *								WW3D::CurrentStaticSortLists = NULL;
+RefRenderObjListClass *								WW3D::DefaultStaticSortLists = nullptr;
+RefRenderObjListClass *								WW3D::CurrentStaticSortLists = nullptr;
 unsigned int											WW3D::MinStaticSortLevel = 1;	// The 0 list is not used
 unsigned int											WW3D::MaxStaticSortLevel = MAX_SORT_LEVEL;
 
 
-VertexMaterialClass *								WW3D::DefaultDebugMaterial  = NULL;
+VertexMaterialClass *								WW3D::DefaultDebugMaterial  = nullptr;
 ShaderClass												WW3D::DefaultDebugShader(DEFAULT_DEBUG_SHADER_BITS);
 ShaderClass												WW3D::LightmapDebugShader(LIGHTMAP_DEBUG_SHADER_BITS);
 
@@ -212,7 +212,7 @@ WW3D::NPatchesGapFillingModeEnum					WW3D::NPatchesGapFillingMode = NPATCHES_GAP
 unsigned													WW3D::NPatchesLevel=1;
 bool														WW3D::IsTexturingEnabled=true;
 
-static HWND												_Hwnd = NULL;		// Not a member to hide windows from WW3D users
+static HWND												_Hwnd = nullptr;		// Not a member to hide windows from WW3D users
 static int												_TextureReduction = 0;
 int														WW3D::LastFrameMemoryAllocations;
 int														WW3D::LastFrameMemoryFrees;
@@ -991,7 +991,7 @@ WW3DErrorType WW3D::Render(
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_SOLID);
 
 	// Install the lighting environment if one is supplied
-	if (rinfo.light_environment != NULL) {
+	if (rinfo.light_environment != nullptr) {
 		DX8Wrapper::Set_Light_Environment(rinfo.light_environment);
 	}
 
@@ -1364,7 +1364,7 @@ void WW3D::Start_Movie_Capture( const char * filename_base, float frame_rate )
 	int width=bounds.right-bounds.left;
 	int depth=24;
 
-	WWASSERT( Movie == NULL);
+	WWASSERT( Movie == nullptr);
 
 	if (frame_rate == 0.0f) {
 		frame_rate = 1.0f;
@@ -1399,9 +1399,9 @@ void WW3D::Stop_Movie_Capture( void )
 		IsCapturing = false;
 		WWDEBUG_SAY(( "Stoping Movie\n" ));
 
-		WWASSERT( Movie != NULL);
+		WWASSERT( Movie != nullptr);
 		delete Movie;
-		Movie = NULL;
+		Movie = nullptr;
 	}
 #endif
 }
@@ -1687,7 +1687,7 @@ VertexMaterialClass * WW3D::Peek_Default_Debug_Material(void)
 	WWASSERT(DefaultDebugMaterial);
 	return DefaultDebugMaterial;
 #else
-	return NULL;
+	return nullptr;
 #endif
 }
 
@@ -1740,7 +1740,7 @@ ShaderClass	WW3D::Peek_Lightmap_Debug_Shader(void)
 void WW3D::Allocate_Debug_Resources(void)
 {
 #ifdef WWDEBUG
-	WWASSERT(DefaultDebugMaterial == NULL);
+	WWASSERT(DefaultDebugMaterial == nullptr);
 	DefaultDebugMaterial = new VertexMaterialClass;
 	DefaultDebugMaterial->Set_Shininess(0.0f);
 	DefaultDebugMaterial->Set_Opacity(1.0f);
@@ -1777,7 +1777,7 @@ WW3DErrorType WW3D::On_Deactivate_App(void)
 #ifdef WW3D_DX8
 	assert(!IsRendering);
 
-	if ( Gerd == NULL )
+	if ( Gerd == nullptr )
 		return WW3D_ERROR_OK;
 
 	if ( IsWindowed )
@@ -1795,7 +1795,7 @@ WW3DErrorType WW3D::On_Deactivate_App(void)
 WW3DErrorType WW3D::On_Activate_App(void)
 {
 #ifdef WW3D_DX8
-	if ( Gerd == NULL)
+	if ( Gerd == nullptr)
 		return WW3D_ERROR_OK;
 
 	if ( IsWindowed )

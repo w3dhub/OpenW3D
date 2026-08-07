@@ -72,7 +72,7 @@ enum	{
 ** AnimChannelClass
 */
 AnimChannelClass::AnimChannelClass( void ) :
-	Animation( NULL ),
+	Animation( nullptr ),
 	Frame( 0.0f ),
 	NumFrames( 1 ),
 	TargetFrame( 0.0f ),
@@ -84,17 +84,17 @@ AnimChannelClass::~AnimChannelClass( void )
 {
 	if ( Animation ) {
 		Animation->Release_Ref();
-		Animation = NULL;
+		Animation = nullptr;
 	}
 }
 
 AnimChannelClass & AnimChannelClass::operator = (const AnimChannelClass & src)
 {
-	if (Animation != NULL) {
+	if (Animation != nullptr) {
 		Animation->Release_Ref();
 	}
 	Animation = src.Animation;
-	if (Animation != NULL) {
+	if (Animation != nullptr) {
 		Animation->Add_Ref();
 	}
 	Frame			= src.Frame;
@@ -163,24 +163,24 @@ bool	AnimChannelClass::Load( ChunkLoadClass &cload )
 void AnimChannelClass::Set_Animation( const char *name )
 {
 	// If this is our current anim, bail
-	if ( ( Animation != NULL ) && ( name != NULL ) ) {
+	if ( ( Animation != nullptr ) && ( name != nullptr ) ) {
 		if ( stricmp( Animation->Get_Name(), name ) == 0 ) {
 			return;
 		}
 	}
 
-	if ( ( Animation == NULL ) && ( name == NULL ) ) {
+	if ( ( Animation == nullptr ) && ( name == nullptr ) ) {
 		return;
 	}
 
 	// Release the old anim
 	if ( Animation ) {
 		Animation->Release_Ref();
-		Animation = NULL;
+		Animation = nullptr;
 	}
 
 	// we need to switch anims
-	if (( name != NULL ) && ( name[0] != 0 ) ) {
+	if (( name != nullptr ) && ( name[0] != 0 ) ) {
 		Animation = WW3DAssetManager::Get_Instance()->Get_HAnim( name );
 	}
 
@@ -203,7 +203,7 @@ void AnimChannelClass::Set_Animation( const HAnimClass *anim )
 	// Release the old anim
 	if ( Animation ) {
 		Animation->Release_Ref();
-		Animation = NULL;
+		Animation = nullptr;
 	}
 
 	// we need to switch anims
@@ -232,7 +232,7 @@ void AnimChannelClass::Update( float dtime )
 		return;
 	}
 
-	if ( Animation != NULL ) {
+	if ( Animation != nullptr ) {
 
 		switch ( Mode )
 		{
@@ -313,9 +313,9 @@ if ( dtime != 0 ) {
 
 void	AnimChannelClass::Get_Animation_Data( AnimationDataList & list, float weight )
 {
-	if ( Animation != NULL && weight > 0 ) {
+	if ( Animation != nullptr && weight > 0 ) {
 		AnimationDataRecord * record = list.Uninitialized_Add();
-		WWASSERT( record != NULL );
+		WWASSERT( record != nullptr );
 		record->Animation = Animation;
 		record->Frame = Frame;
 		record->Weight = weight;
@@ -399,18 +399,18 @@ bool	BlendableAnimChannelClass::Load( ChunkLoadClass &cload )
 void	BlendableAnimChannelClass::Set_Animation( const char *name, float blendtime, float start_frame )
 {
 	// if setting to our current anim, bail
-	if ( ( NewChannel.Peek_Animation() == NULL ) && ( name == NULL ) ) {
+	if ( ( NewChannel.Peek_Animation() == nullptr ) && ( name == nullptr ) ) {
 		return;
 	}
 
-	if ( ( NewChannel.Peek_Animation() != NULL ) && ( name != NULL ) ) {
+	if ( ( NewChannel.Peek_Animation() != nullptr ) && ( name != nullptr ) ) {
 		if ( stricmp( NewChannel.Peek_Animation()->Get_Name(), name ) == 0 ) {
 			return;
 		}
 	}
 
 	// if no current channel, or no blend, or no new name, don't blend
-	if ( (NewChannel.Peek_Animation() == NULL) || (blendtime == 0) || (name == NULL) ) {
+	if ( (NewChannel.Peek_Animation() == nullptr) || (blendtime == 0) || (name == nullptr) ) {
 		BlendTotal = 0.0f;
 		BlendTimer = 0.0f;
 	} else if ( BlendTotal == 0.0 ) {						//if not currently blending
@@ -432,29 +432,29 @@ void	BlendableAnimChannelClass::Set_Animation( const char *name, float blendtime
 		BlendTotal = blendtime;
 	}
 	NewChannel.Set_Animation( name );
-	if ( NewChannel.Peek_Animation() != NULL ) {
+	if ( NewChannel.Peek_Animation() != nullptr ) {
 		NewChannel.Set_Frame( start_frame );
 	}
-	if ( name == NULL ) {
-		OldChannel.Set_Animation( (const char *)NULL );
+	if ( name == nullptr ) {
+		OldChannel.Set_Animation( (const char *)nullptr );
 	}
 }
 
 void	BlendableAnimChannelClass::Set_Animation( const HAnimClass * anim, float blendtime, float start_frame )
 {
 	// if setting to our current anim, bail
-	if ( ( NewChannel.Peek_Animation() == NULL ) && ( anim == NULL ) ) {
+	if ( ( NewChannel.Peek_Animation() == nullptr ) && ( anim == nullptr ) ) {
 		return;
 	}
 
-	if ( ( NewChannel.Peek_Animation() != NULL ) && ( anim != NULL ) ) {
+	if ( ( NewChannel.Peek_Animation() != nullptr ) && ( anim != nullptr ) ) {
 		if ( NewChannel.Peek_Animation() == anim ) {
 			return;
 		}
 	}
 
 	// if no current channel, or no blend, or no new name, don't blend
-	if ( (NewChannel.Peek_Animation() == NULL) || (blendtime == 0) || (anim == NULL) ) {
+	if ( (NewChannel.Peek_Animation() == nullptr) || (blendtime == 0) || (anim == nullptr) ) {
 		BlendTotal = 0.0f;
 		BlendTimer = 0.0f;
 	} else if ( BlendTotal == 0.0 ) {						//if not currently blending
@@ -476,11 +476,11 @@ void	BlendableAnimChannelClass::Set_Animation( const HAnimClass * anim, float bl
 		BlendTotal = blendtime;
 	}
 	NewChannel.Set_Animation( anim );
-	if ( NewChannel.Peek_Animation() != NULL ) {
+	if ( NewChannel.Peek_Animation() != nullptr ) {
 		NewChannel.Set_Frame( start_frame );
 	}
-	if ( anim == NULL ) {
-		OldChannel.Set_Animation( (const HAnimClass *)NULL );
+	if ( anim == nullptr ) {
+		OldChannel.Set_Animation( (const HAnimClass *)nullptr );
 	}
 }
 
@@ -493,7 +493,7 @@ void	BlendableAnimChannelClass::Update( float dtime )
 		{
 			BlendTotal = 0.0f;
 			BlendTimer = 0.0f;
-			OldChannel.Set_Animation( (const char *)NULL );
+			OldChannel.Set_Animation( (const char *)nullptr );
 		}
 	}
 
@@ -540,7 +540,7 @@ void	BlendableAnimChannelClass::Update_Model( RenderObjClass	*anim_model )
 ** AnimControlClass
 */
 AnimControlClass::AnimControlClass( void )  :
-	Model( NULL )
+	Model( nullptr )
 {
 }
 
@@ -565,7 +565,7 @@ bool	AnimControlClass::Load( ChunkLoadClass &cload )
 
 			case CHUNKID_VARIABLES:
 
-				WWASSERT( Model == NULL );
+				WWASSERT( Model == nullptr );
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_MODEL_PTR, Model );
@@ -577,10 +577,10 @@ bool	AnimControlClass::Load( ChunkLoadClass &cload )
 					cload.Close_Micro_Chunk();
 				}
 
-				if ( Model != NULL ) {
+				if ( Model != nullptr ) {
 					REQUEST_REF_COUNTED_POINTER_REMAP( (RefCountClass **)&Model );
 				} else {
-					Debug_Say(( "Loaded NULL model\n" ));
+					Debug_Say(( "Loaded nullptr model\n" ));
 				}
 
 				break;
@@ -663,7 +663,7 @@ void	SimpleAnimControlClass::Update( float dtime )
 	Channel.Update( dtime );
 
 	// Setup the model for the current frame(s)
-	assert( Model != NULL );
+	assert( Model != nullptr );
 
 	Channel.Update_Model( Model );
 }
@@ -751,7 +751,7 @@ bool	HumanAnimControlClass::Load( ChunkLoadClass &cload )
 
 void HumanAnimControlClass::Build_Skeleton_Anim_Name( StringClass& new_name, const char * name )
 {
-	if (name == NULL) return;
+	if (name == nullptr) return;
 	if (*name == '\0') {
 		Debug_Say(( "No name in Build_Skeleton_Anim_Name\n" ));
 		return;
@@ -776,7 +776,7 @@ void HumanAnimControlClass::Build_Skeleton_Anim_Name( StringClass& new_name, con
 
 		// can we find the anim name?
 		HAnimClass * anim = WW3DAssetManager::Get_Instance()->Get_HAnim( mod_name );
-		if ( anim != NULL ) {
+		if ( anim != nullptr ) {
 			anim->Release_Ref();
 			new_name=mod_name;
 		}
@@ -789,16 +789,16 @@ void	HumanAnimControlClass::Set_Animation( const char *name, float	blendtime, fl
 	Build_Skeleton_Anim_Name( new_name, name );
 
 	Channel1.Set_Animation( new_name, blendtime, start_frame );
-	Channel2.Set_Animation( (const char *)NULL );
+	Channel2.Set_Animation( (const char *)nullptr );
 	Channel2Ratio = 0;
 }
 
 void	HumanAnimControlClass::Set_Animation( const HAnimClass * anim, float blendtime, float start_frame )
 {
-	if ( anim != NULL ) {
+	if ( anim != nullptr ) {
 		Set_Animation( anim->Get_Name(), blendtime, start_frame );
 	} else {
-		Set_Animation( (const char *)NULL, blendtime, start_frame );
+		Set_Animation( (const char *)nullptr, blendtime, start_frame );
 	}
 }
 
@@ -832,9 +832,9 @@ void	HumanAnimControlClass::Set_Model( RenderObjClass	*anim_model )
 	AnimControlClass::Set_Model( anim_model );
 
 	// Update the skeleton
-	if( anim_model != NULL ) {
+	if( anim_model != nullptr ) {
 		const HTreeClass * tree = anim_model->Get_HTree();
-		if ( tree != NULL ) {
+		if ( tree != nullptr ) {
 			const char * name = tree->Get_Name();
 			Skeleton = name[2];
 		}
@@ -846,7 +846,7 @@ void	HumanAnimControlClass::Set_Model( RenderObjClass	*anim_model )
 **
 */
 StringClass	_MonitorAnimDescription;
-HumanAnimControlClass * _Monitor = NULL;
+HumanAnimControlClass * _Monitor = nullptr;
 
 void	HumanAnimControlClass::Update( float dtime )
 {
@@ -854,7 +854,7 @@ void	HumanAnimControlClass::Update( float dtime )
 	Channel1.Update( dtime * AnimSpeedScale );
 	Channel2.Update( dtime * AnimSpeedScale );
 
-	if ( Model != NULL ) {
+	if ( Model != nullptr ) {
 
 		// Get Animation data
 		DataList.Reset_Active();

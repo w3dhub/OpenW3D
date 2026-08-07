@@ -66,7 +66,7 @@ CreditsMenuClass::On_Init_Dialog (void)
 	//	Open the text file
 	//
 	FileClass *credits_txt_file = _TheFileFactory->Get_File (CREDITS_TXT_FILENAME);
-	if (credits_txt_file != NULL && credits_txt_file->Is_Available ()) {
+	if (credits_txt_file != nullptr && credits_txt_file->Is_Available ()) {
 		if (credits_txt_file->Open ()) {
 
 			//

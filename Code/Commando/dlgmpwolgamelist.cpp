@@ -91,7 +91,7 @@ static int NumericSortCallback(ListCtrlClass* list, int item1, int item2, uint32
 static int AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param);
 
 
-MPWolGameListMenuClass* MPWolGameListMenuClass::_mInstance = NULL;
+MPWolGameListMenuClass* MPWolGameListMenuClass::_mInstance = nullptr;
 
 /******************************************************************************
 *
@@ -112,10 +112,10 @@ MPWolGameListMenuClass* MPWolGameListMenuClass::_mInstance = NULL;
 void MPWolGameListMenuClass::DoDialog(void)
 	{
 	//	Create the dialog if necessary, otherwise simply bring it to the front
-	if (_mInstance == NULL)
+	if (_mInstance == nullptr)
 		{
 		MPWolGameListMenuClass* dialog = new MPWolGameListMenuClass;
-		WWASSERT(dialog != NULL && "Failed to create WOL GameList dialog");
+		WWASSERT(dialog != nullptr && "Failed to create WOL GameList dialog");
 
 		if (dialog)
 			{
@@ -157,7 +157,7 @@ MPWolGameListMenuClass::MPWolGameListMenuClass(void) :
 		mSortFlags(0)
 	{
 	WWDEBUG_SAY(("MPWolGameListMenuClass Instantiated\n"));
-	WWASSERT(_mInstance == NULL);
+	WWASSERT(_mInstance == nullptr);
 	_mInstance = this;
 
 	mWOLSession = Session::GetInstance(false);
@@ -184,7 +184,7 @@ MPWolGameListMenuClass::MPWolGameListMenuClass(void) :
 MPWolGameListMenuClass::~MPWolGameListMenuClass(void)
 	{
 	WWDEBUG_SAY(("MPWolGameListMenuClass Destroyed\n"));
-	_mInstance = NULL;
+	_mInstance = nullptr;
 	}
 
 
@@ -375,12 +375,12 @@ void MPWolGameListMenuClass::On_Command(int id, int msg, unsigned int param)
 			GameInitMgrClass::Set_WOL_Return_Dialog(RenegadeDialogMgrClass::LOC_INTERNET_GAME_LIST);
 
 			//	Create the new game data
-			if ( PTheGameData != NULL ) {
+			if ( PTheGameData != nullptr ) {
 				delete PTheGameData;
-				PTheGameData = NULL;
+				PTheGameData = nullptr;
 			}
 			PTheGameData = cGameData::Create_Game_Of_Type(cGameData::GAME_TYPE_CNC);
-			WWASSERT(PTheGameData != NULL);
+			WWASSERT(PTheGameData != nullptr);
 
 			// WOL games default as quickmatch servers
 			The_Game()->Set_QuickMatch_Server(true);
@@ -642,15 +642,15 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 					//
 					//	If this is a mod'd game, then display the mod_name\map_name...
 					//
-					if (gameInfo.ModName() != NULL && gameInfo.ModName()[0] != 0) {
+					if (gameInfo.ModName() != nullptr && gameInfo.ModName()[0] != 0) {
 
 						//
 						//	Strip off the extension for both the map and the mod package
 						//
 						char map_name[_MAX_FNAME] = { 0 };
 						char mod_name[_MAX_FNAME] = { 0 };
-						::_splitpath (gameInfo.MapName(), NULL, NULL, map_name, NULL);
-						::_splitpath (gameInfo.ModName(), NULL, NULL, mod_name, NULL);
+						::_splitpath (gameInfo.MapName(), nullptr, nullptr, map_name, nullptr);
+						::_splitpath (gameInfo.ModName(), nullptr, nullptr, mod_name, nullptr);
 
 						//
 						//	Create the map name from the aggregate of the mod and map
@@ -1180,7 +1180,7 @@ void MPWolGameListMenuClass::HandleNotification(WWOnline::SquadEvent& event)
 
 void SetGameTypeFlags(ListCtrlClass* list, int itemIndex, const WOLGameInfo& gameInfo)
 	{
-	WWASSERT(list != NULL);
+	WWASSERT(list != nullptr);
 
 	list->Reset_Icons(itemIndex, COL_ICON);
 	uint32 flags = 0;
@@ -1237,7 +1237,7 @@ void SetGameTypeFlags(ListCtrlClass* list, int itemIndex, const WOLGameInfo& gam
 
 void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, int pingTime)
 	{
-	const char* pingIcon = NULL;
+	const char* pingIcon = nullptr;
 
 	if (pingTime <= PING_GREEN_THRESHOLD)
 		{

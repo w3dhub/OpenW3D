@@ -84,7 +84,7 @@ void DecorationPhysClass::Set_Model(RenderObjClass * model)
 	DynamicPhysClass::Set_Model(model);
 
 	// Initialize our copy of the world box
-	if (Model != NULL) {
+	if (Model != nullptr) {
 
 		RenderObjClass * box = Model->Get_Sub_Object_By_Name("WORLDBOX");
 		if (box) {
@@ -129,7 +129,7 @@ void DecorationPhysClass::Set_Transform(const Matrix3D & m)
 
 void DecorationPhysClass::Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box)
 {
-	if (set_obj_space_box != NULL) {
+	if (set_obj_space_box != nullptr) {
 		*set_obj_space_box = ObjSpaceWorldBox;
 	}
 }

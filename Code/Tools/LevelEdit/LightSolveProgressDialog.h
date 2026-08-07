@@ -38,7 +38,7 @@ class LightSolveProgressDialog : public CDialog
 {
 // Construction
 public:
-	LightSolveProgressDialog(LightSolveContextClass & context,CWnd* pParent = NULL);   // standard constructor
+	LightSolveProgressDialog(LightSolveContextClass & context,CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(LightSolveProgressDialog)

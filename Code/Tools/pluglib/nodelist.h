@@ -62,10 +62,10 @@ class INodeListClass : public ITreeEnumProc
 {
 public:
 
-	INodeListClass(TimeValue time,INodeFilterClass * nodefilter = NULL);
-	INodeListClass(IScene * scene,TimeValue time,INodeFilterClass * nodefilter = NULL);
-	INodeListClass(INode * root,TimeValue time,INodeFilterClass * nodefilter = NULL);
-	INodeListClass(INodeListClass & copyfrom,TimeValue time,INodeFilterClass * inodefilter = NULL);
+	INodeListClass(TimeValue time,INodeFilterClass * nodefilter = nullptr);
+	INodeListClass(IScene * scene,TimeValue time,INodeFilterClass * nodefilter = nullptr);
+	INodeListClass(INode * root,TimeValue time,INodeFilterClass * nodefilter = nullptr);
+	INodeListClass(INodeListClass & copyfrom,TimeValue time,INodeFilterClass * inodefilter = nullptr);
 	~INodeListClass();
 
 	void			Set_Filter(INodeFilterClass * inodefilter) { INodeFilter = inodefilter; }
@@ -108,7 +108,7 @@ public:
 	INodeListIterator(INodeListClass * list);
 	~INodeListIterator(void);
 
-	void		First(INodeListClass * list = NULL);
+	void		First(INodeListClass * list = nullptr);
 	void		Next(void);
 	bool		Is_Done(void);
 

@@ -366,8 +366,8 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	LastMeleeAnimFrame (0),
 	NextMeleeAttackTime (0),
 	MoveStateTimer (0),
-	CameraBoneModel (NULL),
-	Sydney (NULL),
+	CameraBoneModel (nullptr),
+	Sydney (nullptr),
 	MendozaPos (0, 0, 0),
 	StarPos (0, 0, 0),
 	ShootGroundPos (0, 0, 0),
@@ -453,10 +453,10 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	//
 	//	Register the camera states with its state machine
 	//
-	CameraState.Add_State (NULL,													NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_NORMAL_Begin,					NULL);
-	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Think,				NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Begin,				NULL);
-	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Think,		NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Begin,		NULL);
-	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Think,	NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Begin,	NULL);
+	CameraState.Add_State (nullptr,													nullptr,		&MendozaBossGameObjClass::On_CAMERA_STATE_NORMAL_Begin,					nullptr);
+	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Think,				nullptr,		&MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Begin,				nullptr);
+	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Think,		nullptr,		&MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Begin,		nullptr);
+	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Think,	nullptr,		&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Begin,	nullptr);
 	CameraState.Set_State (CAMERA_STATE_NORMAL);
 
 	//
@@ -692,7 +692,7 @@ MendozaBossGameObjClass::Initialize_Boss (void)
 	//	Find Sydney
 	//
 	PhysicalGameObj *game_obj = GameObjManager::Find_PhysicalGameObj (101010);
-	if (game_obj != NULL) {
+	if (game_obj != nullptr) {
 		Sydney = game_obj->As_SoldierGameObj ();
 
 		//
@@ -746,7 +746,7 @@ MendozaBossGameObjClass::Save_Variables (ChunkSaveClass &csave)
 void
 MendozaBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 {
-	RenderObjClass *old_camera_bone_ptr = NULL;
+	RenderObjClass *old_camera_bone_ptr = nullptr;
 	Matrix3D cam_tm (1);
 
 	while (cload.Open_Micro_Chunk ()) {
@@ -784,7 +784,7 @@ MendozaBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Register the camera bone pointers...
 	//
-	if (old_camera_bone_ptr != NULL) {
+	if (old_camera_bone_ptr != nullptr) {
 		SaveLoadSystemClass::Register_Pointer (old_camera_bone_ptr, CameraBoneModel);
 		CameraBoneModel->Set_Transform (cam_tm);
 	}
@@ -825,7 +825,7 @@ MendozaBossGameObjClass::Think (void)
 	ok_to_think = false;
 #endif
 
-	if (COMBAT_STAR == NULL || Sydney == NULL) {
+	if (COMBAT_STAR == nullptr || Sydney == nullptr) {
 		ok_to_think = false;
 	}
 
@@ -1046,7 +1046,7 @@ MendozaBossGameObjClass::On_MENDOZA_STATE_STANDING_Begin (void)
 void
 MendozaBossGameObjClass::On_MENDOZA_STATE_STANDING_Think (void)
 {
-	if (COMBAT_STAR == NULL) {
+	if (COMBAT_STAR == nullptr) {
 		return ;
 	}
 
@@ -1172,13 +1172,13 @@ MendozaBossGameObjClass::On_MENDOZA_STATE_PACK_EXPLODING_Begin (void)
 	//	Create the explosion aggregate to attach to Mendoza
 	//
 	RenderObjClass *die_aggregate = WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("AG_MENDOZA_DIE");
-	if (die_aggregate != NULL) {
+	if (die_aggregate != nullptr) {
 
 		//
 		//	Play the animation on the object
 		//
 		HAnimClass *anim = WW3DAssetManager::Get_Instance ()->Get_HAnim ("AG_MENDOZA_DIE.AG_MENDOZA_DIE");
-		if (anim != NULL) {
+		if (anim != nullptr) {
 			die_aggregate->Set_Animation (anim, 0, RenderObjClass::ANIM_MODE_ONCE);
 			REF_PTR_RELEASE (anim);
 		}
@@ -1458,7 +1458,7 @@ MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Begin (void)
 	//	Get the waypath we're going to follow
 	//
 	WaypathClass *waypath = PathfindClass::Get_Instance ()->Find_Waypath (3000100);
-	WWASSERT (waypath != NULL);
+	WWASSERT (waypath != nullptr);
 
 	//
 	//	Add the points from the waypath to the spline
@@ -1471,7 +1471,7 @@ MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Begin (void)
 		//	Add this point to the spline
 		//
 		WaypointClass *waypoint = waypath->Get_Point (index);
-		WWASSERT (waypoint != NULL);
+		WWASSERT (waypoint != nullptr);
 		CameraSpline.Add_Key (waypoint->Get_Position (), percent);
 
 		//
@@ -1572,7 +1572,7 @@ MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Think (void)
 		//	Restore the camera state
 		//
 		TimeManager::Set_Time_Scale (1.0F);
-		COMBAT_CAMERA->Set_Host_Model (NULL);
+		COMBAT_CAMERA->Set_Host_Model (nullptr);
 		REF_PTR_RELEASE (CameraBoneModel);
 
 		//
@@ -1597,7 +1597,7 @@ MendozaBossGameObjClass::Attach_Sound (const char *sound_name, const char *bone_
 	//	Create the sound object from its preset
 	//
 	AudibleSoundClass *sound = WWAudioClass::Get_Instance ()->Create_Sound (sound_name);
-	if (sound != NULL) {
+	if (sound != nullptr) {
 
 		//
 		//	Attach the sound to the object
@@ -1627,7 +1627,7 @@ MendozaBossGameObjClass::Attach_Fire_Sound (void)
 	//	Create the sound object from its preset
 	//
 	AudibleSoundClass *sound = WWAudioClass::Get_Instance ()->Create_Sound ("SFX.Fire_Small_01");
-	if (sound != NULL) {
+	if (sound != nullptr) {
 
 		//
 		//	Attach the sound to the object
@@ -2671,7 +2671,7 @@ MendozaBossGameObjClass::Apply_Bone_Collision_Damage (const char *bone_name)
 		//	Dig the name of the mesh out
 		//
 		StringClass obj_name;
-		if (col_test.CollidedRenderObj != NULL) {
+		if (col_test.CollidedRenderObj != nullptr) {
 			obj_name = col_test.CollidedRenderObj->Get_Name ();
 		}
 
@@ -3397,13 +3397,13 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_GET_CLOSE_TO_PLAYER) (void)
 		//
 		//	Track down the player (if possible)
 		//
-		if (COMBAT_STAR != NULL && (StarPos.X > -70.0F)) {
+		if (COMBAT_STAR != nullptr && (StarPos.X > -70.0F)) {
 			ActionParamsStruct params;
 			params.Set_Basic ((int)0, 100, 777);
 			params.Set_Movement (COMBAT_STAR, 1.0F, 1.0F);
 			params.MoveFollow		= true;
 			Get_Action ()->Goto (params);
-		} else if (COMBAT_STAR != NULL) {
+		} else if (COMBAT_STAR != nullptr) {
 
 			//
 			//	If the player goes out of range, then switch to the fireball attack
@@ -3648,7 +3648,7 @@ MendozaBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_RUN_TO_HEALTH) (void)
 	//	First, find the "best" health powerup in the region...
 	//
 	PowerUpGameObj *powerup = Find_Best_Powerup ();
-	if (powerup != NULL) {
+	if (powerup != nullptr) {
 
 		//
 		//	Get the position of the powerup
@@ -3693,26 +3693,26 @@ MendozaBossGameObjClass::STATE_IMPL_END(MOVE_STATE_RUN_TO_HEALTH) (void)
 PowerUpGameObj *
 MendozaBossGameObjClass::Find_Best_Powerup (void)
 {
-	if (COMBAT_STAR == NULL) {
-		return NULL;
+	if (COMBAT_STAR == nullptr) {
+		return nullptr;
 	}
 
-	PowerUpGameObj *best_powerup	= NULL;
+	PowerUpGameObj *best_powerup	= nullptr;
 	float best_powerup_rating		= 100.0F;
 
 	//
 	//	Loop over all the game objects in the world (looking for powerups)
 	//
-	SLNode<BaseGameObj> *obj_node = NULL;
+	SLNode<BaseGameObj> *obj_node = nullptr;
 	for (obj_node = GameObjManager::Get_Game_Obj_List ()->Head (); obj_node; obj_node = obj_node->Next ()) {
 
 		//
 		//	Is this a powerup?
 		//
 		PhysicalGameObj *phys_game_obj = obj_node->Data ()->As_PhysicalGameObj ();
-		if (phys_game_obj != NULL && phys_game_obj->As_PowerUpGameObj () != NULL) {
+		if (phys_game_obj != nullptr && phys_game_obj->As_PowerUpGameObj () != nullptr) {
 			PowerUpGameObj *powerup = phys_game_obj->As_PowerUpGameObj ();
-			if (powerup != NULL) {
+			if (powerup != nullptr) {
 
 				//
 				//	Get the position of the powerup
@@ -3834,7 +3834,7 @@ MendozaBossGameObjClass::Spawn_Health_Powerups (void)
 		//
 		//	Pick a random part of the level to create the powerup in...
 		//
-		const AABoxClass *area_box = NULL;
+		const AABoxClass *area_box = nullptr;
 		int area_id = FreeRandom.Get_Int (3);
 		if (area_id == 0) {
 			area_box = &BOSS_AREA_BOX01;
@@ -3878,7 +3878,7 @@ MendozaBossGameObjClass::Spawn_Health_Powerups (void)
 			//	Create and position the object
 			//
 			PhysicalGameObj *powerup = ObjectLibraryManager::Create_Object ("POW_Health_025");
-			if (powerup != NULL) {
+			if (powerup != nullptr) {
 				powerup->Start_Observers ();
 				powerup->Set_Position (powerup_pos);
 			}

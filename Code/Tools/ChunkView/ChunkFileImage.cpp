@@ -44,7 +44,7 @@
 
 
 ChunkFileImageClass::ChunkFileImageClass(void) :
-	RootNode(NULL)
+	RootNode(nullptr)
 {
 }
 
@@ -90,9 +90,9 @@ void ChunkFileImageClass::Load(const char * filename)
 
 
 ChunkImageClass::ChunkImageClass(void) :
-	Child(NULL),
-	Sibling(NULL),
-	Data(NULL),
+	Child(nullptr),
+	Sibling(nullptr),
+	Data(nullptr),
 	ID(0),
 	Length(0)
 {
@@ -109,7 +109,7 @@ ChunkImageClass::~ChunkImageClass(void)
 	}
 
 	// Delete our data
-	if (Data != NULL) {
+	if (Data != nullptr) {
 		delete Data;
 	}
 }
@@ -142,11 +142,11 @@ void ChunkImageClass::Load(ChunkLoadClass & cload)
 
 void ChunkImageClass::Add_Child(ChunkImageClass * new_child)
 {
-	assert(new_child != NULL);
-	assert(new_child->Sibling == NULL);
+	assert(new_child != nullptr);
+	assert(new_child->Sibling == nullptr);
 
 	// need to add to the tail...
-	if (Child == NULL) {
+	if (Child == nullptr) {
 		Child = new_child;
 	} else {
 		Child->Add_Sibling(new_child);
@@ -159,11 +159,11 @@ void ChunkImageClass::Add_Sibling(ChunkImageClass * new_sibling)
 	// the same order they appear in the file, so we
 	// search for the tail.
 	ChunkImageClass * tail = this;
-	while (tail->Sibling != NULL) {
+	while (tail->Sibling != nullptr) {
 		tail = tail->Sibling;
 	}
 	tail->Sibling = new_sibling;
-	assert(new_sibling->Sibling == NULL);
+	assert(new_sibling->Sibling == nullptr);
 }
 
 
@@ -172,7 +172,7 @@ int ChunkImageClass::Get_Child_Count(void) const
 	int count = 0;
 
 	ChunkImageClass * child = Child;
-	while (child != NULL) {
+	while (child != nullptr) {
 		count++;
 		child = child->Sibling;
 	}
@@ -184,7 +184,7 @@ const ChunkImageClass * ChunkImageClass::Get_Child(int i) const
 	int count = 0;
 
 	ChunkImageClass * child = Child;
-	while (child != NULL && count < i) {
+	while (child != nullptr && count < i) {
 		count++;
 		child = child->Sibling;
 	}
@@ -199,7 +199,7 @@ int ChunkImageClass::Get_Sibling_Count(void) const
 	int count = 0;
 
 	const ChunkImageClass * sibling = this;
-	while (sibling != NULL) {
+	while (sibling != nullptr) {
 		count++;
 		sibling = sibling->Sibling;
 	}
@@ -212,7 +212,7 @@ const ChunkImageClass * ChunkImageClass::Get_Sibling(int i) const
 	int count = 0;
 
 	const ChunkImageClass * sibling = this;
-	while (sibling != NULL && count < i) {
+	while (sibling != nullptr && count < i) {
 		count++;
 		sibling = sibling->Sibling;
 	}

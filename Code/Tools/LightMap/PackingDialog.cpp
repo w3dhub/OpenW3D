@@ -117,7 +117,7 @@ BOOL PackingDialog::OnInitDialog()
 
 
 // The following is maintained by MFC tools.
-PackingDialog::PackingDialog(CWnd* pParent /*=NULL*/)
+PackingDialog::PackingDialog(CWnd* pParent /*=nullptr*/)
 	: CDialog(PackingDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(PackingDialog)

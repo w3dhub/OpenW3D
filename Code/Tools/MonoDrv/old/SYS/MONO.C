@@ -171,7 +171,7 @@ typedef struct _MONO_RESOURCE
 // the info stored in the device extension).
 //
 
-MonoGlobals * GlobalDeviceExtension = NULL;
+MonoGlobals * GlobalDeviceExtension = nullptr;
 
 
 
@@ -266,7 +266,7 @@ Return Value:
 --*/
 NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 {
-	PDEVICE_OBJECT         deviceObject        = NULL;
+	PDEVICE_OBJECT         deviceObject        = nullptr;
 	NTSTATUS               ntStatus;
 	UNICODE_STRING         deviceNameUnicodeString;
 	MonoGlobals * deviceExtension;
@@ -339,7 +339,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 		//                                            MonoResources[MONO_MODE_CTL_REG].Length
 		//                                            );
 
-		if (deviceExtension->Control.Buffer == NULL || deviceExtension->CRTCRegisters == NULL)  {
+		if (deviceExtension->Control.Buffer == nullptr || deviceExtension->CRTCRegisters == nullptr)  {
 			ntStatus = STATUS_UNSUCCESSFUL;
 			goto done_DriverEntry;
 		}
@@ -377,8 +377,8 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 		deviceExtension->Control.XPos = 0;
 		deviceExtension->Control.YPos = 0;
 		deviceExtension->Control.Attribute = 0x07;
-		deviceExtension->CurrentContext = NULL;
-		deviceExtension->LockPtr = NULL;
+		deviceExtension->CurrentContext = nullptr;
+		deviceExtension->LockPtr = nullptr;
 		deviceExtension->LockCount = 0;
 
 		//
@@ -395,7 +395,7 @@ done_DriverEntry:
 		//
 		// Something went wrong, so clean up
 		//
-		pMonoReportResourceUsage(DriverObject, NULL, 0);
+		pMonoReportResourceUsage(DriverObject, nullptr, 0);
 
 		if (symbolicLinkCreated)  {
 			IoDeleteSymbolicLink(&deviceLinkUnicodeString);
@@ -405,7 +405,7 @@ done_DriverEntry:
 			IoDeleteDevice(deviceObject);
 		}
 
-		GlobalDeviceExtension = NULL;
+		GlobalDeviceExtension = nullptr;
 	}
 
 	return ntStatus;
@@ -438,9 +438,9 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 	unsigned int outputBufferLength;
 	unsigned int ioControlCode;
 	NTSTATUS ntStatus;
-	BuffControl * context = NULL;
-	FILE_OBJECT * fileobject = NULL;
-	BuffControl * control = NULL;
+	BuffControl * context = nullptr;
+	FILE_OBJECT * fileobject = nullptr;
+	BuffControl * control = nullptr;
 
 	/*
 	**	Presume success in the command processing.
@@ -463,7 +463,7 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 	**	Fetch the file object for this I/O request.
 	*/
 	fileobject = irpStack->FileObject;
-	if (fileobject != NULL)  {
+	if (fileobject != nullptr)  {
 		context = fileobject->FsContext;
 	}
 
@@ -478,7 +478,7 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 	** Synchronize execution of the dispatch routine by acquiring the device
 	** event object. This ensures all request are serialized.
 	*/
-	KeWaitForSingleObject(&deviceExtension->SyncEvent, Executive, KernelMode, false, NULL);
+	KeWaitForSingleObject(&deviceExtension->SyncEvent, Executive, KernelMode, false, nullptr);
 
 	/*
 	**	Output goes to the context buffer associated with the file
@@ -488,7 +488,7 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 	**	appropriately if it loses focus.
 	*/
 	control = context;
-	if (context != NULL)  {
+	if (context != nullptr)  {
 		Mono_Bring_To_Top(deviceExtension, context);
 	}
 	if (control == deviceExtension->CurrentContext)  {
@@ -503,7 +503,7 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 		**	Process WriteFile request to display text.
 		*/
 		case IRP_MJ_WRITE:
-			if (ioBuffer != NULL && irpStack->Parameters.Write.Length > 0)  {
+			if (ioBuffer != nullptr && irpStack->Parameters.Write.Length > 0)  {
 				Mono_Print(control, ioBuffer, irpStack->Parameters.Write.Length);
 				Irp->IoStatus.Information = irpStack->Parameters.Write.Length;
 			}
@@ -514,9 +514,9 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 		**	time, allocate a context buffer and inialize it.
 		*/
 		case IRP_MJ_CREATE:
-			if (context == NULL)  {
+			if (context == nullptr)  {
 				control = fileobject->FsContext = MmAllocateNonCachedMemory(sizeof(BuffControl) + SIZE_OF_SCREEN);
-				if (fileobject->FsContext != NULL)  {
+				if (fileobject->FsContext != nullptr)  {
 					BuffControl * newcon = fileobject->FsContext;
 					newcon->XPos = 0;
 					newcon->YPos = 0;
@@ -539,11 +539,11 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 		**	severed.
 		*/
 		case IRP_MJ_CLOSE:
-			if (context != NULL)  {
+			if (context != nullptr)  {
 				MmFreeNonCachedMemory(context, sizeof(BuffControl) + SIZE_OF_SCREEN);
-				fileobject->FsContext = NULL;
+				fileobject->FsContext = nullptr;
 				if (context == deviceExtension->CurrentContext)  {
-					deviceExtension->CurrentContext = NULL;
+					deviceExtension->CurrentContext = nullptr;
 				}
 			}
 			break;
@@ -587,12 +587,12 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 					break;
 
 				case IOCTL_MONO_LOCK:
-					if (deviceExtension->LockPtr != NULL) {
+					if (deviceExtension->LockPtr != nullptr) {
 						*(void**)ioBuffer = deviceExtension->LockPtr;
 						deviceExtension->LockCount++;
 					} else {
 						*(void**)ioBuffer = Mono_Fetch_Ptr(DeviceObject);
-						if (*(void**)ioBuffer != NULL) {
+						if (*(void**)ioBuffer != nullptr) {
 							deviceExtension->LockPtr = *(void**)ioBuffer;
 							deviceExtension->LockCount++;
 							Irp->IoStatus.Information = sizeof(PVOID);
@@ -608,7 +608,7 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 
 						if (deviceExtension->LockCount == 0) {
 							Irp->IoStatus.Status = ZwUnmapViewOfSection((HANDLE) -1, deviceExtension->LockPtr);
-							deviceExtension->LockPtr = NULL;
+							deviceExtension->LockPtr = nullptr;
 						}
 					}
 					break;
@@ -662,7 +662,7 @@ void MonoUnload(PDRIVER_OBJECT DriverObject)
 	//
 	// Unreport the resources
 	//
-	pMonoReportResourceUsage(DriverObject, NULL, 0);
+	pMonoReportResourceUsage(DriverObject, nullptr, 0);
 
 	//
 	// Delete the symbolic link
@@ -742,7 +742,7 @@ NTSTATUS Mono_Detect_MGA_Adapter(void)
  *                                                                                             *
  *          length   -- The length of the memory that will be referenced.                      *
  *                                                                                             *
- * OUTPUT:  Returns with a usable pointer to the memory specified or NULL if it could not be   *
+ * OUTPUT:  Returns with a usable pointer to the memory specified or nullptr if it could not be   *
  *          processed.                                                                         *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
@@ -753,7 +753,7 @@ NTSTATUS Mono_Detect_MGA_Adapter(void)
 void * Mono_Get_Address_Ptr(PHYSICAL_ADDRESS address, unsigned int space, unsigned int length)
 {
 	PHYSICAL_ADDRESS translatedAddress;
-	void * usable_ptr = NULL;
+	void * usable_ptr = nullptr;
 
 	/*
 	**	Translate a bus specific address into a logical system address.
@@ -801,7 +801,7 @@ Arguments:
     DriverObject      - pointer to a driver object
 
     MonoResources     - pointer to an array of resource information, or
-                        NULL is unreporting resources for this driver
+                        nullptr is unreporting resources for this driver
 
     NumberOfResources - number of entries in the resource array, or
                         0 if unreporting resources for this driver
@@ -815,7 +815,7 @@ Return Value:
 BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE MonoResources, unsigned int NumberOfResources)
 {
 	unsigned int                           sizeOfResourceList = 0;
-	PCM_RESOURCE_LIST               resourceList       = NULL;
+	PCM_RESOURCE_LIST               resourceList       = nullptr;
 	PCM_PARTIAL_RESOURCE_DESCRIPTOR partial;
 	unsigned int                           i;
 	UNICODE_STRING                  className;
@@ -879,7 +879,7 @@ BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE Mon
 
 	RtlInitUnicodeString(&className, L"LOADED MONO DRIVER RESOURCES");
 
-	IoReportResourceUsage(&className, DriverObject, resourceList, sizeOfResourceList, NULL, NULL, 0, false, &conflictDetected);
+	IoReportResourceUsage(&className, DriverObject, resourceList, sizeOfResourceList, nullptr, nullptr, 0, false, &conflictDetected);
 
 	if (resourceList) {
 		ExFreePool(resourceList);
@@ -952,7 +952,7 @@ void Mono_Set_Cursor(MonoGlobals * device, int x, int y)
  *=============================================================================================*/
 void Mono_Print(BuffControl * control, unsigned char * string, unsigned int length)
 {
-	if (control != NULL)  {
+	if (control != nullptr)  {
 		int x,y;
 		unsigned char space = ' ';
 
@@ -1083,7 +1083,7 @@ void Mono_Print(BuffControl * control, unsigned char * string, unsigned int leng
  *=============================================================================================*/
 void Mono_Scroll(BuffControl * control)
 {
-	if (control != NULL)  {
+	if (control != nullptr)  {
 		int j;
 		unsigned short * vidmem;
 		unsigned short blank = BUILD_CHAR(' ', control->Attribute);
@@ -1124,7 +1124,7 @@ void Mono_Scroll(BuffControl * control)
  *=============================================================================================*/
 void Mono_Pan(BuffControl * control)
 {
-	if (control != NULL)  {
+	if (control != nullptr)  {
 		int j;
 		unsigned short * vidmem;
 		unsigned short blank = BUILD_CHAR(' ', control->Attribute);
@@ -1168,7 +1168,7 @@ void Mono_Pan(BuffControl * control)
  *=============================================================================================*/
 void Mono_Print_Raw(BuffControl * control, unsigned char * string, unsigned int length)
 {
-	if (control != NULL)  {
+	if (control != nullptr)  {
 		unsigned short * vidmem;
 		int x,y;
 		unsigned int i;
@@ -1214,7 +1214,7 @@ void Mono_Print_Raw(BuffControl * control, unsigned char * string, unsigned int 
  *=============================================================================================*/
 void Mono_Clear_Screen(BuffControl * control)
 {
-	if (control != NULL)  {
+	if (control != nullptr)  {
 		int i;
 		unsigned short * vidptr = control->Buffer;
 		unsigned short blank = BUILD_CHAR(' ', control->Attribute);
@@ -1248,7 +1248,7 @@ void Mono_Clear_Screen(BuffControl * control)
  *=============================================================================================*/
 void Mono_Printf(BuffControl * control, char const * text, ...)
 {
-	if (control != NULL)  {
+	if (control != nullptr)  {
 		char buf[1024];
 		va_list ap;
 		va_start(ap, text);
@@ -1278,7 +1278,7 @@ void Mono_Printf(BuffControl * control, char const * text, ...)
  *=============================================================================================*/
 void Mono_Set_View_Pos(MonoGlobals * device, int pos)
 {
-	if (device != NULL)  {
+	if (device != nullptr)  {
 		WRITE_PORT_UCHAR(device->CRTCRegisters, 0xC);
 		WRITE_PORT_UCHAR(device->CRTCRegisters+1, (unsigned char)(pos >> 8));
 		WRITE_PORT_UCHAR(device->CRTCRegisters, 0xD);
@@ -1289,13 +1289,13 @@ void Mono_Set_View_Pos(MonoGlobals * device, int pos)
 
 void Mono_Bring_To_Top(MonoGlobals * device, BuffControl * context)
 {
-	if (context == NULL || context == device->CurrentContext) return;
+	if (context == nullptr || context == device->CurrentContext) return;
 
 	/*
 	**	If there is already a current top screen, then copy it off before
 	**	bringing the new image forward.
 	*/
-	if (device->CurrentContext != NULL)  {
+	if (device->CurrentContext != nullptr)  {
 		Mono_Buff_Copy(&device->Control, device->CurrentContext);
 	}
 
@@ -1370,9 +1370,9 @@ void * Mono_Fetch_Ptr(PDEVICE_OBJECT DeviceObject)
 {
 	UNICODE_STRING     memory_unicode_string;
 	OBJECT_ATTRIBUTES  object_attribute;
-	HANDLE             section_handle  = NULL;
+	HANDLE             section_handle  = nullptr;
 	NTSTATUS           error;
-	void * retval = NULL;
+	void * retval = nullptr;
 
 	/*
 	**	Try to open the PhysicalMemory section. This will be needed when mapping the
@@ -1380,7 +1380,7 @@ void * Mono_Fetch_Ptr(PDEVICE_OBJECT DeviceObject)
 	**	memory object and then convert that object into a handle value.
 	*/
 	RtlInitUnicodeString(&memory_unicode_string, L"\\Device\\PhysicalMemory");
-	InitializeObjectAttributes(&object_attribute, &memory_unicode_string, OBJ_CASE_INSENSITIVE, (HANDLE)NULL, (PSECURITY_DESCRIPTOR)NULL);
+	InitializeObjectAttributes(&object_attribute, &memory_unicode_string, OBJ_CASE_INSENSITIVE, (HANDLE)nullptr, (PSECURITY_DESCRIPTOR)nullptr);
 	error = ZwOpenSection(&section_handle, SECTION_ALL_ACCESS, &object_attribute);
 	if (NT_SUCCESS(error)) {
 		PHYSICAL_ADDRESS logical_base_address;
@@ -1394,7 +1394,7 @@ void * Mono_Fetch_Ptr(PDEVICE_OBJECT DeviceObject)
 		// Translate the physical addresses.
 		//
 		if (HalTranslateBusAddress(Isa, 0, physical_address, &in_io_space, &logical_base_address)) {
-			PVOID virtual_address = NULL;
+			PVOID virtual_address = nullptr;
 			ULONG viewlength = MONO_MEM_LENGTH;
 			PHYSICAL_ADDRESS view_base = logical_base_address;
 

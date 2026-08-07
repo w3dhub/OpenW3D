@@ -82,14 +82,14 @@ static constexpr int	MAX_VIRTUAL_CHANNELS				= 100;
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //	Static member initialization
 ////////////////////////////////////////////////////////////////////////////////////////////////
-WWAudioClass *WWAudioClass::_theInstance = NULL;
+WWAudioClass *WWAudioClass::_theInstance = nullptr;
 
 WWAudioClass::WWAudioClass(bool lite)
  :
-	  m_BackgroundMusic (NULL),
-	  m_FileFactory (NULL),
-		AudioIni(NULL),
-	  m_SoundScene (NULL),
+	  m_BackgroundMusic (nullptr),
+	  m_FileFactory (nullptr),
+		AudioIni(nullptr),
+	  m_SoundScene (nullptr),
 	  m_CurrPage (PAGE_PRIMARY),
 	  m_FadeType (FADE_NONE),
 	  m_NonDialogFadeTime (DEF_FADE_TIME),
@@ -123,7 +123,7 @@ WWAudioClass::WWAudioClass(bool lite)
 	//	Allocate the virtual channels
 	//
 	for (int index = 0; index < MAX_VIRTUAL_CHANNELS; index ++) {
-		m_VirtualChannels.Add (NULL);
+		m_VirtualChannels.Add (nullptr);
 	}
 
 	// Create a new sound scene to manage our 3D sounds...
@@ -135,7 +135,7 @@ WWAudioClass::WWAudioClass(bool lite)
 WWAudioClass::~WWAudioClass (void)
 {
 	delete AudioIni;
-	_theInstance = NULL;
+	_theInstance = nullptr;
 }
 
 bool
@@ -504,7 +504,7 @@ WWAudioClass::On_Frame_Update (unsigned int milliseconds)
 	//
 	//	Update the sound scene as necessary
 	//
-	if (m_CurrPage == PAGE_PRIMARY && m_SoundScene != NULL) {
+	if (m_CurrPage == PAGE_PRIMARY && m_SoundScene != nullptr) {
 		m_SoundScene->On_Frame_Update (milliseconds);
 		m_SoundScene->Collect_Logical_Sounds ();
 	}
@@ -618,7 +618,7 @@ WWAudioClass::Fire_Text_Callback (AudibleSoundClass *sound_obj, const StringClas
 		for (int index = 0; index < m_TextCallbackList.Count (); index ++) {
 			uint32 user_data				= 0;
 			LPFNTEXTCALLBACK callback	= m_TextCallbackList.Get_Callback (index, &user_data);
-			if (callback != NULL) {
+			if (callback != nullptr) {
 
 				//
 				//	Fire the notification
@@ -643,19 +643,19 @@ WWAudioClass::Set_Background_Music (const char *filename)
 	//
 	//	Stop the background music
 	//
-	if (m_BackgroundMusic != NULL) {
+	if (m_BackgroundMusic != nullptr) {
 		m_BackgroundMusic->Stop ();
 		REF_PTR_RELEASE (m_BackgroundMusic);
 	}
 
 	m_BackgroundMusicName = filename;
-	if (filename != NULL) {
+	if (filename != nullptr) {
 
 		//
 		//	Create the sound
 		//
 		m_BackgroundMusic = Create_Sound_Effect (filename);
-		if (m_BackgroundMusic != NULL) {
+		if (m_BackgroundMusic != nullptr) {
 
 			//
 			//	Configure the sound and start playing it
@@ -684,19 +684,19 @@ WWAudioClass::Fade_Background_Music (const char *filename, int fade_out_time, in
 	//
 	//	Fade-out the background music (as necessary)
 	//
-	if (m_BackgroundMusic != NULL) {
+	if (m_BackgroundMusic != nullptr) {
 		m_BackgroundMusic->Fade_Out (fade_out_time);
 		REF_PTR_RELEASE (m_BackgroundMusic);
 	}
 
 	m_BackgroundMusicName = filename;
-	if (filename != NULL) {
+	if (filename != nullptr) {
 
 		//
 		//	Create the sound
 		//
 		m_BackgroundMusic = Create_Sound_Effect (filename);
-		if (m_BackgroundMusic != NULL) {
+		if (m_BackgroundMusic != nullptr) {
 
 			//
 			//	Configure the sound and start playing it
@@ -795,16 +795,16 @@ WWAudioClass::Create_Sound_Effect (const char *filename)
 	WWPROFILE ("Create_Sound_Effect");
 
 	// Assume failure
-	AudibleSoundClass *sound_obj = NULL;
+	AudibleSoundClass *sound_obj = nullptr;
 	if (!Is_Disabled()) {
 		// Param OK?
-		WWASSERT (filename != NULL);
-		if (filename != NULL) {
+		WWASSERT (filename != nullptr);
+		if (filename != nullptr) {
 
 			// Try to find the buffer in our cache, otherwise create a new buffer.
 			SoundBufferClass *buffer = Get_Sound_Buffer (filename, false);
 
-			if (buffer != NULL) {
+			if (buffer != nullptr) {
 				sound_obj = NEW_REF(AudibleSoundClass, ());
 				sound_obj->Set_Buffer(buffer);
 				REF_PTR_RELEASE(buffer);
@@ -836,12 +836,12 @@ WWAudioClass::Create_3D_Sound
 	WWMEMLOG(MEM_SOUND);
 
 	// Assume failure
-	Sound3DClass *sound_obj = NULL;
+	Sound3DClass *sound_obj = nullptr;
 	if (!Is_Disabled()) {
 
 		// Param OK?
-		WWASSERT (filename != NULL);
-		if (filename != NULL) {
+		WWASSERT (filename != nullptr);
+		if (filename != nullptr) {
 
 			// Try to find the buffer in our cache, otherwise create a new buffer.
 			SoundBufferClass *buffer = Get_Sound_Buffer (filename, true);
@@ -855,7 +855,7 @@ WWAudioClass::Create_3D_Sound
 			{
 				sound_obj = new SoundPseudo3DClass;
 				sound_obj->Set_Buffer (buffer);
-			} else if (buffer != NULL) {
+			} else if (buffer != nullptr) {
 				sound_obj = new Sound3DClass;
 				sound_obj->Set_Buffer (buffer);
 			} else {
@@ -889,13 +889,13 @@ WWAudioClass::Create_Sound
 )
 {
 	WWPROFILE ("Create_Sound");
-	AudibleSoundClass *sound = NULL;
+	AudibleSoundClass *sound = nullptr;
 
 	//
 	//	Find the definition
 	//
 	DefinitionClass *definition = DefinitionMgrClass::Find_Definition (definition_id);
-	if (definition != NULL ) {
+	if (definition != nullptr ) {
 
 		//
 		//	Make sure this is really a sound definition
@@ -908,7 +908,7 @@ WWAudioClass::Create_Sound
 			//	Create an instance of the sound
 			//
 			sound = sound_def->Create_Sound (classid_hint);
-			if (sound != NULL) {
+			if (sound != nullptr) {
 				sound->Set_User_Data (user_obj, user_data);
 			}
 		}
@@ -933,13 +933,13 @@ WWAudioClass::Create_Sound
 )
 {
 	WWPROFILE ("Create_Sound");
-	AudibleSoundClass *sound = NULL;
+	AudibleSoundClass *sound = nullptr;
 
 	//
 	//	Find the definition
 	//
 	DefinitionClass *definition = DefinitionMgrClass::Find_Typed_Definition (def_name, CLASSID_SOUND, true);
-	if (definition != NULL ) {
+	if (definition != nullptr ) {
 
 		//
 		//	Make sure this is really a sound definition
@@ -952,7 +952,7 @@ WWAudioClass::Create_Sound
 			//	Create an instance of the sound
 			//
 			sound = sound_def->Create_Sound (classid_hint);
-			if (sound != NULL) {
+			if (sound != nullptr) {
 				sound->Set_User_Data (user_obj, user_data);
 			}
 		}
@@ -982,7 +982,7 @@ WWAudioClass::Create_Continuous_Sound
 	//	Create an instance of the sound and play it
 	//
 	AudibleSoundClass *sound = Create_Sound (definition_id, user_obj, user_data, classid_hint);
-	if (sound != NULL) {
+	if (sound != nullptr) {
 
 		if (sound->Get_Loop_Count () != INFINITE_LOOPS) {
 			WWDEBUG_SAY (("Audio Error:  Creating a continuous sound with a finite loop count!\r\n"));
@@ -1016,7 +1016,7 @@ WWAudioClass::Create_Instant_Sound
 	//	Create an instance of the sound and play it
 	//
 	AudibleSoundClass *sound = Create_Sound (definition_id, user_obj, user_data, classid_hint);
-	if (sound != NULL) {
+	if (sound != nullptr) {
 
 		if (sound->Get_Loop_Count () == INFINITE_LOOPS) {
 			WWDEBUG_SAY (("Audio Error:  Creating an instant sound %s with an infinite loop count!\r\n",sound->Get_Definition()->Get_Name()));
@@ -1052,7 +1052,7 @@ WWAudioClass::Create_Continuous_Sound
 	//	Create an instance of the sound and play it
 	//
 	AudibleSoundClass *sound = Create_Sound (def_name, user_obj, user_data, classid_hint);
-	if (sound != NULL) {
+	if (sound != nullptr) {
 
 		if (sound->Get_Loop_Count () != INFINITE_LOOPS) {
 			WWDEBUG_SAY (("Audio Error:  Creating a continuous sound with a finite loop count!\r\n"));
@@ -1086,7 +1086,7 @@ WWAudioClass::Create_Instant_Sound
 	//	Create an instance of the sound and play it
 	//
 	AudibleSoundClass *sound = Create_Sound (def_name, user_obj, user_data, classid_hint);
-	if (sound != NULL) {
+	if (sound != nullptr) {
 
 		if (sound->Get_Loop_Count () == INFINITE_LOOPS) {
 			WWDEBUG_SAY (("Audio Error:  Creating an instant sound %s with an infinite loop count!\r\n",sound->Get_Definition()->Get_Name()));
@@ -1117,13 +1117,13 @@ WWAudioClass::Simple_Play_2D_Sound_Effect
 {
 	bool retval = false;
 	AudibleSoundClass *sound = Create_Sound_Effect (filename);
-	if (sound != NULL) {
+	if (sound != nullptr) {
 		sound->Set_Priority (priority);
 		sound->Set_Loop_Count (1);
 		sound->Set_Volume(volume);
 		sound->Play ();
 		sound->Release_Ref ();
-		sound = NULL;
+		sound = nullptr;
 		retval = true;
 	}
 
@@ -1144,7 +1144,7 @@ WWAudioClass::Flush_Playlist (SOUND_PAGE page)
 	//
 	for (int index = 0; index < m_Playlist[page].Count (); index ++) {
 		AudibleSoundClass *sound_obj = m_Playlist[page][index];
-		if (sound_obj != NULL) {
+		if (sound_obj != nullptr) {
 			sound_obj->Stop ();
 			sound_obj->Remove_From_Scene ();
 		}
@@ -1186,7 +1186,7 @@ WWAudioClass::Flush_Playlist (void)
 AudibleSoundClass *
 WWAudioClass::Get_Playlist_Entry (int index) const
 {
-	AudibleSoundClass *sound_obj = NULL;
+	AudibleSoundClass *sound_obj = nullptr;
 
 	// Params OK?
 	WWASSERT (index >= 0 && index < m_Playlist[m_CurrPage].Count ());
@@ -1210,8 +1210,8 @@ WWAudioClass::Add_To_Playlist (AudibleSoundClass *sound)
 {
 	bool retval = false;
 
-	WWASSERT (sound != NULL);
-	if (sound != NULL) {
+	WWASSERT (sound != nullptr);
+	if (sound != nullptr) {
 
 		//
 		// Loop through all the entries in the playlist
@@ -1244,8 +1244,8 @@ WWAudioClass::Remove_From_Playlist (AudibleSoundClass *sound_obj)
 {
 	bool retval = false;
 
-	WWASSERT (sound_obj != NULL);
-	if (sound_obj != NULL) {
+	WWASSERT (sound_obj != nullptr);
+	if (sound_obj != nullptr) {
 
 		//
 		// Loop through all the entries in the playlist
@@ -1274,7 +1274,7 @@ WWAudioClass::Remove_From_Playlist (AudibleSoundClass *sound_obj)
 			for (int index = 0; index < m_EOSCallbackList.Count (); index ++) {
 				uint32 user_data				= 0;
 				LPFNEOSCALLBACK callback	= m_EOSCallbackList.Get_Callback (index, &user_data);
-				if (callback != NULL) {
+				if (callback != nullptr) {
 					(*callback) (sound_obj, user_data);
 				}
 			}
@@ -1320,7 +1320,7 @@ WWAudioClass::Acquire_Virtual_Channel (AudibleSoundClass *sound_obj, int channel
 	//	Verify parameters
 	//
 	channel_index --;
-	if (sound_obj == NULL || channel_index < 0 || channel_index >= MAX_VIRTUAL_CHANNELS) {
+	if (sound_obj == nullptr || channel_index < 0 || channel_index >= MAX_VIRTUAL_CHANNELS) {
 		return false;
 	}
 
@@ -1328,7 +1328,7 @@ WWAudioClass::Acquire_Virtual_Channel (AudibleSoundClass *sound_obj, int channel
 	//	Is there already a sound playing on this channel?
 	//
 	bool retval = true;
-	if (m_VirtualChannels[channel_index] != NULL) {
+	if (m_VirtualChannels[channel_index] != nullptr) {
 		AudibleSoundClass *curr_sound = m_VirtualChannels[channel_index];
 
 		//
@@ -1336,7 +1336,7 @@ WWAudioClass::Acquire_Virtual_Channel (AudibleSoundClass *sound_obj, int channel
 		// that's currently playing on this channel
 		//
 		if (sound_obj->Get_Priority () >= curr_sound->Get_Priority ()) {
-			m_VirtualChannels[channel_index] = NULL;
+			m_VirtualChannels[channel_index] = nullptr;
 			curr_sound->Stop ();
 			REF_PTR_RELEASE (curr_sound);
 		} else {
@@ -1368,7 +1368,7 @@ WWAudioClass::Release_Virtual_Channel (AudibleSoundClass *sound_obj, int channel
 	//	Verify parameters
 	//
 	channel_index --;
-	if (sound_obj == NULL || channel_index < 0 || channel_index >= MAX_VIRTUAL_CHANNELS) {
+	if (sound_obj == nullptr || channel_index < 0 || channel_index >= MAX_VIRTUAL_CHANNELS) {
 		return ;
 	}
 
@@ -1380,7 +1380,7 @@ WWAudioClass::Release_Virtual_Channel (AudibleSoundClass *sound_obj, int channel
 		//
 		//	Free the channel
 		//
-		m_VirtualChannels[channel_index] = NULL;
+		m_VirtualChannels[channel_index] = nullptr;
 		REF_PTR_RELEASE (sound_obj);
 	}
 
@@ -1396,7 +1396,7 @@ WWAudioClass::Release_Virtual_Channel (AudibleSoundClass *sound_obj, int channel
 SoundSceneObjClass *
 WWAudioClass::Find_Sound_Object (uint32 sound_obj_id)
 {
-	SoundSceneObjClass *sound_obj = NULL;
+	SoundSceneObjClass *sound_obj = nullptr;
 
 	//
 	//	Lookup the sound object and return it to the caller
@@ -1553,7 +1553,7 @@ void WWAudioClass::Load_Default_Volume (int &defaultmusicvolume, int &defaultsou
 	const int maxsetting = 100;
 
 	// IML: If the audio INI has not yet been loaded then do it now.
-	if (AudioIni == NULL) {
+	if (AudioIni == nullptr) {
 		AudioIni = new INIClass;
 		if (!AudioIni->Load (WWAUDIO_INI_FILENAME)) {
 			AudioIni->Load (WWAUDIO_INI_RELATIVE_PATHNAME);
@@ -1675,7 +1675,7 @@ WWAudioClass::Free_Completed_Sounds (void)
 		//
 		for (int index = 0; index < m_CompletedSounds.Count (); index ++) {
 			AudibleSoundClass *sound_obj = m_CompletedSounds[index];
-			WWASSERT(sound_obj != NULL); //TSS 05/24/99
+			WWASSERT(sound_obj != nullptr); //TSS 05/24/99
 
 			//
 			//	Be careful not to remove the sound from the playlist unless
@@ -1726,7 +1726,7 @@ WWAudioClass::Free_Completed_Sounds (void)
 void
 WWAudioClass::Reprioritize_Playlist (void)
 {
-	AudibleSoundClass *sound_to_get_handle = NULL;
+	AudibleSoundClass *sound_to_get_handle = nullptr;
 	float hightest_priority = 0;
 
 	//
@@ -1738,7 +1738,7 @@ WWAudioClass::Reprioritize_Playlist (void)
 		// Is this the highest priority without a miles handle?
 		//
 		AudibleSoundClass *sound_obj = m_Playlist[m_CurrPage][index];
-		if ((sound_obj->Get_Miles_Handle () == NULL) &&
+		if ((sound_obj->Get_Miles_Handle () == nullptr) &&
 			 (!sound_obj->Is_Sound_Culled()) &&
 			 (sound_obj->Get_Priority () > hightest_priority))
 		{
@@ -1754,7 +1754,7 @@ WWAudioClass::Reprioritize_Playlist (void)
 	//
 	// Get a new handle for this sound if necessary
 	//
-	if (sound_to_get_handle != NULL) {
+	if (sound_to_get_handle != nullptr) {
 		sound_to_get_handle->Allocate_Miles_Handle ();
 	}
 

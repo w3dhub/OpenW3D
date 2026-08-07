@@ -96,11 +96,11 @@ public:
 	static REFUSAL_CODE Application_Acceptance_Handler(cPacket & packet);
    static void Eviction_Handler(int evicted_rhost_id);
 
-   static bool I_Am_Client(void)				{return PClientConnection != NULL;}
-   static bool I_Am_Server(void)				{return PServerConnection != NULL;}
-   static bool	I_Am_Only_Client(void)		{return PClientConnection != NULL && PServerConnection == NULL;}
-   static bool	I_Am_Only_Server(void)		{return PClientConnection == NULL && PServerConnection != NULL;}
-   static bool	I_Am_Client_Server(void)	{return PClientConnection != NULL && PServerConnection != NULL;}
+   static bool I_Am_Client(void)				{return PClientConnection != nullptr;}
+   static bool I_Am_Server(void)				{return PServerConnection != nullptr;}
+   static bool	I_Am_Only_Client(void)		{return PClientConnection != nullptr && PServerConnection == nullptr;}
+   static bool	I_Am_Only_Server(void)		{return PClientConnection == nullptr && PServerConnection != nullptr;}
+   static bool	I_Am_Client_Server(void)	{return PClientConnection != nullptr && PServerConnection != nullptr;}
 	static bool I_Am_God(void);
 
 

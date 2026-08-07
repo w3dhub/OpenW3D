@@ -33,7 +33,7 @@ class CVidinitDlg : public CDialog
 {
 // Construction
 public:
-	CVidinitDlg(CWnd* pParent = NULL);	// standard constructor
+	CVidinitDlg(CWnd* pParent = nullptr);	// standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CVidinitDlg)

@@ -109,7 +109,7 @@ public:
 	** dynamic objects.  Examples are tree shadows and stained glass windows
 	*/
 	void											Set_Shadow(TexProjectClass * shadow);
-	virtual bool								Is_Casting_Shadow(void) override										{ return (ShadowProjector != NULL); }
+	virtual bool								Is_Casting_Shadow(void) override										{ return (ShadowProjector != nullptr); }
 
 	/*
 	** Save-Load Support

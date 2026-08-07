@@ -109,23 +109,23 @@ static	void		Release_Weapon_Assets( void );
 */
 void 	WeaponViewClass::Init()
 {
-	WeaponModel = NULL;
-	HandsPhysObj = NULL;
-	HandAnimControl.Set_Model( NULL );
-	WeaponAnimControl.Set_Model( NULL );
+	WeaponModel = nullptr;
+	HandsPhysObj = nullptr;
+	HandAnimControl.Set_Model( nullptr );
+	WeaponAnimControl.Set_Model( nullptr );
 
-	ClipModel = NULL;
+	ClipModel = nullptr;
 
 	for ( int i = 0; i < NUM_WEAPON_STATES; i++ ) {
-		WeaponAnims[i] = NULL;
-		HandsAnims[i] = NULL;
+		WeaponAnims[i] = nullptr;
+		HandsAnims[i] = nullptr;
 	}
 
 	WeaponState = -1;
 
 	BobState = BOB_NONE;
-	BobHTree = NULL;
-	BobHAnim = NULL;
+	BobHTree = nullptr;
+	BobHAnim = nullptr;
 	BobFrame = 0;
 	BobRecoil = 0;
 
@@ -166,7 +166,7 @@ bool	WeaponViewClass::Save( ChunkSaveClass &csave )
 {
 	csave.Begin_Chunk( CHUNKID_VARIABLES );
 		// If the scene has our hands, we must save and swizzle them
-		if ( HandsPhysObj != NULL && COMBAT_SCENE->Contains( HandsPhysObj ) ) {
+		if ( HandsPhysObj != nullptr && COMBAT_SCENE->Contains( HandsPhysObj ) ) {
 			WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_HANDS_PHYS_OBJ, HandsPhysObj );
 		}
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ENABLED, WeaponViewEnabled );
@@ -207,7 +207,7 @@ bool	WeaponViewClass::Load( ChunkLoadClass &cload )
 		cload.Close_Chunk();
 	}
 
-	if ( HandsPhysObj != NULL ) {
+	if ( HandsPhysObj != nullptr ) {
 		REQUEST_REF_COUNTED_POINTER_REMAP ((RefCountClass **)&HandsPhysObj);
 	}
 
@@ -239,7 +239,7 @@ void 	WeaponViewClass::Think()
 		bail = true;
 	}
 
-	if ( COMBAT_STAR == NULL ) {
+	if ( COMBAT_STAR == nullptr ) {
 		bail = true;
 	}
 
@@ -248,7 +248,7 @@ void 	WeaponViewClass::Think()
 	}
 
 	// No first person weapon in vehicles
-	if ( COMBAT_STAR && COMBAT_STAR->Get_Vehicle() != NULL ) {
+	if ( COMBAT_STAR && COMBAT_STAR->Get_Vehicle() != nullptr ) {
 		bail = true;
 	}
 
@@ -258,21 +258,21 @@ void 	WeaponViewClass::Think()
 	}
 
 
-	WeaponClass * weapon = NULL;
+	WeaponClass * weapon = nullptr;
 
-	if ( COMBAT_STAR != NULL ) {
+	if ( COMBAT_STAR != nullptr ) {
 		weapon = COMBAT_STAR->Get_Weapon();
 	}
 
-	if ( weapon == NULL && WeaponModel == NULL ) {
+	if ( weapon == nullptr && WeaponModel == nullptr ) {
 		bail = true;
 	}
 
-	if ( weapon != NULL ) {
+	if ( weapon != nullptr ) {
 		if ( ( weapon->Get_Style() == WEAPON_HOLD_STYLE_C4 ) ||
 			  ( weapon->Get_Style() == WEAPON_HOLD_STYLE_BEACON ) ) {
 			if ( weapon->Get_Total_Rounds() == 0 ) {
-				if ( WeaponModel == NULL || WeaponState == WEAPON_STATE_IDLE ) {
+				if ( WeaponModel == nullptr || WeaponState == WEAPON_STATE_IDLE ) {
 					bail = true;
 				}
 			}
@@ -281,7 +281,7 @@ void 	WeaponViewClass::Think()
 
 	// If not in first person mode, hide the model and bail
 	if ( bail ) {
-		if ( HandsPhysObj != NULL && COMBAT_SCENE->Contains( HandsPhysObj ) ) {
+		if ( HandsPhysObj != nullptr && COMBAT_SCENE->Contains( HandsPhysObj ) ) {
 			COMBAT_SCENE->Remove_Object( HandsPhysObj );
 		}
 
@@ -307,7 +307,7 @@ void 	WeaponViewClass::Think()
 		}
 
 		// Setup weapon State
-		if ( weapon != NULL && weapon->Is_Firing() ) {
+		if ( weapon != nullptr && weapon->Is_Firing() ) {
 			Set_Bob_Recoil( 0.15f );
 		}
 	}
@@ -315,15 +315,15 @@ void 	WeaponViewClass::Think()
 	// is the current (non-looping) animation completed
 	bool	is_current_complete = true;
 #if 0
-	if ( HandsPhysObj != NULL && (WeaponState != WEAPON_STATE_IDLE) ) {
+	if ( HandsPhysObj != nullptr && (WeaponState != WEAPON_STATE_IDLE) ) {
 		RenderObjClass * hands_model = HandsPhysObj->Peek_Model();
-		if ( hands_model != NULL && ( hands_model->Peek_Animation() != NULL ) &&
+		if ( hands_model != nullptr && ( hands_model->Peek_Animation() != nullptr ) &&
 			  ((Animatable3DObjClass*)hands_model)->Is_Animation_Complete() == false ) {
 			is_current_complete = false;
 		}
 	}
 #else
-	if ( HandsPhysObj != NULL && (WeaponState != WEAPON_STATE_IDLE) ) {
+	if ( HandsPhysObj != nullptr && (WeaponState != WEAPON_STATE_IDLE) ) {
 		is_current_complete = HandAnimControl.Is_Complete();
 	}
 #endif
@@ -336,7 +336,7 @@ void 	WeaponViewClass::Think()
 	int new_weapon_state = WEAPON_STATE_IDLE;
 	if ( COMBAT_STAR ) {
 		WeaponClass	* star_weapon = COMBAT_STAR->Get_Weapon();
-		if ( star_weapon != NULL ) {
+		if ( star_weapon != nullptr ) {
 			if ( star_weapon->Is_Reloading() ) {
 				new_weapon_state = WEAPON_STATE_RELOAD;
 			} else if ( star_weapon->Is_Firing() ) {
@@ -351,7 +351,7 @@ void 	WeaponViewClass::Think()
 
 				muzzle_flash_on = true;
 
-				if ( WeaponModel != NULL ) {
+				if ( WeaponModel != nullptr ) {
 					// if this gun has an eject bone, eject a shell.
 					int eject_index = WeaponModel->Get_Bone_Index( "eject" );
 					if ( eject_index > 0 ) {
@@ -380,7 +380,7 @@ void 	WeaponViewClass::Think()
 //	if ( cur_weapon_model_name.Compare_No_Case( new_weapon_model_name ) != 0 ) {
 
 		// If we don't have a weapon, switch!
-		if ( WeaponModel == NULL ) {
+		if ( WeaponModel == nullptr ) {
 			WeaponState = WEAPON_STATE_EXIT;
 			is_current_complete = true;
 		}
@@ -413,10 +413,10 @@ void 	WeaponViewClass::Think()
 	}
 
 
-	if ( HandsPhysObj != NULL && WeaponModel != NULL ) {
+	if ( HandsPhysObj != nullptr && WeaponModel != nullptr ) {
 
 		// make sure the "hands" object has the stealth effect
-		if (COMBAT_STAR->Peek_Stealth_Effect() != NULL) {
+		if (COMBAT_STAR->Peek_Stealth_Effect() != nullptr) {
 			HandsPhysObj->Add_Effect_To_Me(COMBAT_STAR->Peek_Stealth_Effect());
 		}
 
@@ -447,7 +447,7 @@ void 	WeaponViewClass::Think()
 					// Keep it by restarting the fire anim
 
 					RenderObjClass * hands_model = HandsPhysObj->Peek_Model();
-					if ( hands_model != NULL ) {
+					if ( hands_model != nullptr ) {
 //						hands_model->Set_Animation( HandsAnims[ WeaponState ], 0, RenderObjClass::ANIM_MODE_ONCE );
 						HandAnimControl.Set_Animation( HandsAnims[ WeaponState ] );
 						HandAnimControl.Set_Mode( ANIM_MODE_ONCE, 0 );
@@ -480,7 +480,7 @@ void 	WeaponViewClass::Think()
 
 				int mode = ( WeaponState == WEAPON_STATE_IDLE ) ? RenderObjClass::ANIM_MODE_LOOP : RenderObjClass::ANIM_MODE_ONCE;
 				RenderObjClass * hands_model = HandsPhysObj->Peek_Model();
-				if ( hands_model != NULL ) {
+				if ( hands_model != nullptr ) {
 					mode = ( WeaponState == WEAPON_STATE_IDLE ) ? ANIM_MODE_LOOP : ANIM_MODE_ONCE;
 //					hands_model->Set_Animation( HandsAnims[ WeaponState ], 0, mode );
 					HandAnimControl.Set_Animation( HandsAnims[ WeaponState ], anim_blend_time );
@@ -491,7 +491,7 @@ void 	WeaponViewClass::Think()
 				mode = ( WeaponState == WEAPON_STATE_IDLE ) ? ANIM_MODE_LOOP : ANIM_MODE_ONCE;
   				WeaponAnimControl.Set_Mode( (AnimMode)mode );
 
-//				if ( HandsAnims[ WeaponState ] != NULL ) {
+//				if ( HandsAnims[ WeaponState ] != nullptr ) {
 //					Debug_Say(( "Playing %s\n", HandsAnims[ WeaponState ]->Get_Name() ));
 //				}
 			}
@@ -502,7 +502,7 @@ void 	WeaponViewClass::Think()
 		Matrix3D tm = COMBAT_CAMERA->Get_Transform();
 
 		// Add bobing position
-		if ( BobHTree != NULL && BobHAnim != NULL ) {
+		if ( BobHTree != nullptr && BobHAnim != nullptr ) {
 			BobFrame += TimeManager::Get_Frame_Seconds() * BobHAnim->Get_Frame_Rate();
 			if ( BobFrame > BobHAnim->Get_Num_Frames()-1 ) {
 				BobFrame -= BobHAnim->Get_Num_Frames()-1;
@@ -533,10 +533,10 @@ void 	WeaponViewClass::Think()
 		Vector3	fp_offset = HandsOffset + COMBAT_CAMERA->Get_First_Person_Offset_Tweak();
 		tm.Translate( fp_offset );
 
-		//WWASSERT(COMBAT_STAR != NULL);//TSS
-		if (COMBAT_STAR != NULL) {
+		//WWASSERT(COMBAT_STAR != nullptr);//TSS
+		if (COMBAT_STAR != nullptr) {
 			//
-			// COMBAT_STAR may be NULL during MP game intermission
+			// COMBAT_STAR may be nullptr during MP game intermission
 			//
 			Matrix3D obj_convention_camera = COMBAT_CAMERA->Get_Transform();
 			obj_convention_camera.Rotate_Z( DEG_TO_RADF(90.0) );
@@ -574,18 +574,18 @@ void 	WeaponViewClass::Think()
 			PhysRayCollisionTestClass raytest(ray, &result, BULLET_COLLISION_GROUP, COLLISION_TYPE_PROJECTILE);
 
 			{
-				if (COMBAT_STAR != NULL && COMBAT_STAR->Peek_Physical_Object()!=NULL) {
+				if (COMBAT_STAR != nullptr && COMBAT_STAR->Peek_Physical_Object()!=nullptr) {
 					COMBAT_STAR->Peek_Physical_Object()->Inc_Ignore_Counter();
 				}
 				WWPROFILE( "Cast Ray" );
-				WWASSERT(COMBAT_SCENE != NULL);
+				WWASSERT(COMBAT_SCENE != nullptr);
 				COMBAT_SCENE->Cast_Ray( raytest );
-				if (COMBAT_STAR != NULL && COMBAT_STAR->Peek_Physical_Object()!=NULL) {
+				if (COMBAT_STAR != nullptr && COMBAT_STAR->Peek_Physical_Object()!=nullptr) {
 					COMBAT_STAR->Peek_Physical_Object()->Dec_Ignore_Counter();
 				}
 			}
 
-/*			if ( raytest.CollidedPhysObj != NULL && raytest.CollidedPhysObj->Get_Observer() != NULL ) {
+/*			if ( raytest.CollidedPhysObj != nullptr && raytest.CollidedPhysObj->Get_Observer() != nullptr ) {
 				DamageableGameObj * obj = ((CombatPhysObserverClass *)raytest.CollidedPhysObj->Get_Observer())->As_DamageableGameObj();
 				if ( obj ) {
 					Debug_Say(( "Hit %s\n", obj->Get_Definition().Get_Name() ));
@@ -645,15 +645,15 @@ const char * WeaponActionNames[ NUM_WEAPON_STATES ] = {
 */
 static void	Aquire_Weapon_Assets( const WeaponClass * weapon )
 {
-	if ( HandsPhysObj == NULL ) {
+	if ( HandsPhysObj == nullptr ) {
 		Aquire_Hands_Assets();
 	} else {
 		HandAnimControl.Set_Model( HandsPhysObj->Peek_Model() );
-		HandAnimControl.Set_Animation( (HAnimClass*)NULL );
+		HandAnimControl.Set_Animation( (HAnimClass*)nullptr );
 	}
 
 
-	if ( HandsPhysObj == NULL || HandsPhysObj->Peek_Model() == NULL ) {
+	if ( HandsPhysObj == nullptr || HandsPhysObj->Peek_Model() == nullptr ) {
 		return;
 	}
 
@@ -668,7 +668,7 @@ static void	Aquire_Weapon_Assets( const WeaponClass * weapon )
 //		Debug_Say(( "Loaded %s\n", WeaponModel ? WeaponModel->Get_Name() : "NONE" ));
 
 		// Use model name
-		if ( WeaponModel != NULL ) {
+		if ( WeaponModel != nullptr ) {
 			weapon_name = WeaponModel->Get_Name() + 5;		// Get the weapon name from the model
 			Debug_Say(( "weapon_name is %s\n", (const char *)weapon_name ));
 
@@ -679,16 +679,16 @@ static void	Aquire_Weapon_Assets( const WeaponClass * weapon )
 				clip_name[3] = 'M';
 			}
 			ClipModel = WW3DAssetManager::Get_Instance()->Create_Render_Obj( clip_name );
-			if ( ClipModel != NULL ) {
+			if ( ClipModel != nullptr ) {
 				hands_model->Add_Sub_Object_To_Bone( ClipModel, "CLIPBONE" );
 			}
 		}
 	}
 
 	WeaponAnimControl.Set_Model( WeaponModel );
-	WeaponAnimControl.Set_Animation( (HAnimClass*)NULL );
+	WeaponAnimControl.Set_Animation( (HAnimClass*)nullptr );
 
-	if ( WeaponModel != NULL ) {
+	if ( WeaponModel != nullptr ) {
 
 		// Add the model
 		hands_model->Add_Sub_Object_To_Bone( WeaponModel, "GUNBONE" );
@@ -696,7 +696,7 @@ static void	Aquire_Weapon_Assets( const WeaponClass * weapon )
 		HandsOffset = weapon->Get_First_Person_Model_Offset();
 
 		StringClass weapon_htree_name;
-		if ( WeaponModel->Get_HTree() != NULL ) {
+		if ( WeaponModel->Get_HTree() != nullptr ) {
 			weapon_htree_name = WeaponModel->Get_HTree()->Get_Name();
 		}
 
@@ -711,7 +711,7 @@ static void	Aquire_Weapon_Assets( const WeaponClass * weapon )
 			anim_name.Format( "%s.F_GA_%s_%s", weapon_htree_name.Peek_Buffer(), weapon_name.Peek_Buffer(), WeaponActionNames[state] );
 //			Debug_Say(( "Loading Weapon Anim %s\n", anim_name ));
 			WeaponAnims[i] = WW3DAssetManager::Get_Instance()->Get_HAnim( anim_name );
-			if ( WeaponAnims[i] == NULL ) {
+			if ( WeaponAnims[i] == nullptr ) {
 				Debug_Say(( "Missing Weapon Anim %s\n", anim_name.Peek_Buffer() ));
 			}
 
@@ -719,7 +719,7 @@ static void	Aquire_Weapon_Assets( const WeaponClass * weapon )
 			anim_name.Format( "F_SKELETON.F_HA_%s_%s", weapon_name.Peek_Buffer(), WeaponActionNames[i] );
 //			Debug_Say(( "Loading Hands Anim %s\n", anim_name ));
 			HandsAnims[i] = WW3DAssetManager::Get_Instance()->Get_HAnim( anim_name );
-			if ( HandsAnims[i] == NULL ) {
+			if ( HandsAnims[i] == nullptr ) {
 				Debug_Say(( "Missing Hands Anim %s\n", anim_name.Peek_Buffer() ));
 				HandsAnims[i] = WW3DAssetManager::Get_Instance()->Get_HAnim( "F_SKELETON.F_HA_PIST_IDLE" );
 			}
@@ -729,40 +729,40 @@ static void	Aquire_Weapon_Assets( const WeaponClass * weapon )
 
 static void	Release_Weapon_Assets( void )
 {
-	WeaponAnimControl.Set_Model( NULL );
-	WeaponAnimControl.Set_Animation( (HAnimClass*)NULL );
+	WeaponAnimControl.Set_Model( nullptr );
+	WeaponAnimControl.Set_Animation( (HAnimClass*)nullptr );
 
-	if ( WeaponModel != NULL ) {
+	if ( WeaponModel != nullptr ) {
 		// Remove
-		WWASSERT( HandsPhysObj != NULL );
+		WWASSERT( HandsPhysObj != nullptr );
 		RenderObjClass * hands_model = HandsPhysObj->Peek_Model();
-		WWASSERT( hands_model != NULL );
+		WWASSERT( hands_model != nullptr );
 		hands_model->Remove_Sub_Objects_From_Bone( "GUNBONE" );
 
 		WeaponModel->Release_Ref();
-		WeaponModel = NULL;
+		WeaponModel = nullptr;
 	}
 
-	if ( ClipModel != NULL ) {
+	if ( ClipModel != nullptr ) {
 		// Remove
-		WWASSERT( HandsPhysObj != NULL );
+		WWASSERT( HandsPhysObj != nullptr );
 		RenderObjClass * hands_model = HandsPhysObj->Peek_Model();
-		WWASSERT( hands_model != NULL );
+		WWASSERT( hands_model != nullptr );
 		hands_model->Remove_Sub_Objects_From_Bone( "CLIPBONE" );
 
 		ClipModel->Release_Ref();
-		ClipModel = NULL;
+		ClipModel = nullptr;
 	}
 
 	for ( int i = 0; i < NUM_WEAPON_STATES; i++ ) {
-		if ( WeaponAnims[i] != NULL ) {
+		if ( WeaponAnims[i] != nullptr ) {
 			WeaponAnims[i]->Release_Ref();
-			WeaponAnims[i] = NULL;
+			WeaponAnims[i] = nullptr;
 		}
 
-		if ( HandsAnims[i] != NULL ) {
+		if ( HandsAnims[i] != nullptr ) {
 			HandsAnims[i]->Release_Ref();
-			HandsAnims[i] = NULL;
+			HandsAnims[i] = nullptr;
 		}
 	}
 }
@@ -779,13 +779,13 @@ static void	Aquire_Hands_Assets( void )
 //	Debug_Say(( "Loading Hands from %s\n", name ));
 
 	HandsPhysObj = new DecorationPhysClass();
-	if ( HandsPhysObj != NULL ) {
+	if ( HandsPhysObj != nullptr ) {
 		HandsPhysObj->Set_Collision_Group( UNCOLLIDEABLE_GROUP );
 
 		RenderObjClass * model = ::Create_Render_Obj_From_Filename( name );
-		if ( model != NULL ) {
+		if ( model != nullptr ) {
 			HandAnimControl.Set_Model( model );
-			HandAnimControl.Set_Animation( (HAnimClass*)NULL );
+			HandAnimControl.Set_Animation( (HAnimClass*)nullptr );
 			HandsPhysObj->Set_Model( model );
 			model->Release_Ref();
 		}
@@ -794,15 +794,15 @@ static void	Aquire_Hands_Assets( void )
 
 static void	Release_Hands_Assets( void )
 {
-	HandAnimControl.Set_Model( NULL );
-	HandAnimControl.Set_Animation( (HAnimClass*)NULL );
+	HandAnimControl.Set_Model( nullptr );
+	HandAnimControl.Set_Animation( (HAnimClass*)nullptr );
 
-	if ( HandsPhysObj != NULL ) {
+	if ( HandsPhysObj != nullptr ) {
 		if ( COMBAT_SCENE->Contains( HandsPhysObj ) ) {
 			COMBAT_SCENE->Remove_Object( HandsPhysObj );
 		}
 		HandsPhysObj->Release_Ref();
-		HandsPhysObj = NULL;
+		HandsPhysObj = nullptr;
 	}
 }
 
@@ -823,7 +823,7 @@ static void	Set_Bob( int bob_state )
 		BobState = bob_state;
 
 		// Release the old copys, if any
-		BobHTree = NULL;
+		BobHTree = nullptr;
 		REF_PTR_RELEASE( BobHAnim );
 
 		StringClass name(BobNames[ BobState ],true);

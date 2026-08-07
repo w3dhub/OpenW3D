@@ -139,14 +139,14 @@ EncyclopediaMgrClass::Build_Bit_Vector (TYPE type)
 	//	Get the INI file which contains the data for this type
 	//
 	INIClass *ini_file = ::Get_INI (ENCY_INI_FILENAMES[type]);
-	if (ini_file != NULL) {
+	if (ini_file != nullptr) {
 
 		//
 		//	Loop over all the sections in the INI
 		//
 		List<INISection *> &section_list = ini_file->Get_Section_List ();
 		for (	INISection *section = section_list.First ();
-				section != NULL;
+				section != nullptr;
 				section = section->Next_Valid ())
 		{
 			//
@@ -404,7 +404,7 @@ EncyclopediaMgrClass::Load_Variables (ChunkLoadClass &/* cload */)
 bool
 EncyclopediaMgrClass::Reveal_Object (DamageableGameObj *game_obj)
 {
-	if (game_obj == NULL) {
+	if (game_obj == nullptr) {
 		return false;
 	}
 
@@ -457,7 +457,7 @@ EncyclopediaMgrClass::Display_Event_UI (void)
 		//
 		//	Display the text and play the sound
 		//
-		SoldierGameObj::Say_Dynamic_Dialogue( strings_id, NULL );
+		SoldierGameObj::Say_Dynamic_Dialogue( strings_id, nullptr );
 	}
 
 	return ;

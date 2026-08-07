@@ -36,7 +36,7 @@ class UpdateAssetsDialogClass : public CDialog
 {
 // Construction
 public:
-	UpdateAssetsDialogClass (const CString &comments, STRING_LIST &directory_list, bool update_all, CWnd *pParent = NULL);
+	UpdateAssetsDialogClass (const CString &comments, STRING_LIST &directory_list, bool update_all, CWnd *pParent = nullptr);
 
 // Dialog Data
 	//{{AFX_DATA(UpdateAssetsDialogClass)

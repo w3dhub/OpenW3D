@@ -68,7 +68,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	BuildingNodeClass (PresetClass *preset = NULL);
+	BuildingNodeClass (PresetClass *preset = nullptr);
 	BuildingNodeClass (const BuildingNodeClass &src);
 	~BuildingNodeClass (void);
 
@@ -152,7 +152,7 @@ protected:
 inline void
 BuildingNodeClass::On_Rotate (void)
 {
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		((BuildingGameObj *)m_GameObj)->Set_Position (m_Transform.Get_Translation ());
 	}
 
@@ -168,7 +168,7 @@ BuildingNodeClass::On_Rotate (void)
 inline void
 BuildingNodeClass::On_Translate (void)
 {
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		((BuildingGameObj *)m_GameObj)->Set_Position (m_Transform.Get_Translation ());
 	}
 
@@ -184,7 +184,7 @@ BuildingNodeClass::On_Translate (void)
 inline void
 BuildingNodeClass::On_Transform (void)
 {
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		((BuildingGameObj *)m_GameObj)->Set_Position (m_Transform.Get_Translation ());
 	}
 
@@ -199,7 +199,7 @@ BuildingNodeClass::On_Transform (void)
 inline void
 BuildingNodeClass::Enable_Power (bool onoff)
 {
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		((BuildingGameObj *)m_GameObj)->Enable_Power (onoff);
 	}
 
@@ -214,7 +214,7 @@ BuildingNodeClass::Is_Power_Enabled (void) const
 {
 	bool retval = false;
 
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		retval = ((BuildingGameObj *)m_GameObj)->Is_Power_Enabled ();
 	}
 
@@ -228,7 +228,7 @@ BuildingNodeClass::Is_Power_Enabled (void) const
 inline void
 BuildingNodeClass::Set_Normalized_Health (float health)
 {
-	if (m_GameObj != NULL) {
+	if (m_GameObj != nullptr) {
 		((BuildingGameObj *)m_GameObj)->Set_Normalized_Health (health);
 	}
 

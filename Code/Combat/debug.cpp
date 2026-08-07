@@ -66,7 +66,7 @@ bool	DebugManager::AllowCinematicKeys = false;
 
 CriticalSectionClass DebugManager::CriticalSection;
 
-DebugDisplayHandlerClass *	DebugManager::DisplayHandler		= NULL;
+DebugDisplayHandlerClass *	DebugManager::DisplayHandler		= nullptr;
 #define DEFAULT_LOGFILE_NAME "_logfile.txt"
 const char *DebugManager::LOGFILE = DEFAULT_LOGFILE_NAME;
 char DebugManager::LogfileNameBuffer[256];
@@ -125,11 +125,11 @@ void	DebugManager::Shutdown( void )
 {
 	// Remove message handler functions for the WWDebug messages
 	// and assertion failures.
-	WWDebug_Install_Message_Handler(NULL);
-	WWDebug_Install_Assert_Handler(NULL);
-	WWDebug_Install_Trigger_Handler(NULL);
-	WWDebug_Install_Profile_Start_Handler(NULL);
-	WWDebug_Install_Profile_Stop_Handler(NULL);
+	WWDebug_Install_Message_Handler(nullptr);
+	WWDebug_Install_Assert_Handler(nullptr);
+	WWDebug_Install_Trigger_Handler(nullptr);
+	WWDebug_Install_Profile_Start_Handler(nullptr);
+	WWDebug_Install_Profile_Stop_Handler(nullptr);
 }
 
 /*
@@ -367,14 +367,14 @@ void wwdebug_profile_stop_handler( const char * /* title */ )
 */
 void	DebugManager::Display_Text( const char * string, const Vector4 & color )
 {
-	if (DisplayHandler != NULL) {
+	if (DisplayHandler != nullptr) {
 		DisplayHandler->Display_Text( string, color );
 	}
 }
 
 void	DebugManager::Display_Text( const char * string, const Vector3 & color )
 {
-	if (DisplayHandler != NULL) {
+	if (DisplayHandler != nullptr) {
 		DisplayHandler->Display_Text( string, Vector4(color[0],color[1],color[2],1.0f) );
 	}
 }
@@ -382,14 +382,14 @@ void	DebugManager::Display_Text( const char * string, const Vector3 & color )
 
 void	DebugManager::Display_Text( const WideStringClass & string, const Vector4 & color )
 {
-	if (DisplayHandler != NULL) {
+	if (DisplayHandler != nullptr) {
 		DisplayHandler->Display_Text( string, color );
 	}
 }
 
 void	DebugManager::Display_Text( const WideStringClass & string, const Vector3 & color )
 {
-	if (DisplayHandler != NULL) {
+	if (DisplayHandler != nullptr) {
 		DisplayHandler->Display_Text( string, Vector4(color[0],color[1],color[2],1.0f) );
 	}
 }
@@ -419,7 +419,7 @@ void DebugManager::Write_To_File(LPCSTR str)
    //
 
    FILE * file = fopen(LOGFILE, "at");
-   if (file != NULL) {
+   if (file != nullptr) {
 	   fwrite(str, 1, strlen(str), file);
 	   fclose(file);
    }
@@ -459,7 +459,7 @@ void DebugManager::Write_To_File(LPCSTR str)
 
 void * operator new (size_t size)
 {
-	void* memory=NULL;
+	void* memory=nullptr;
 #ifdef LOG_MEMORY
 	#ifdef WWDEBUG
 		memory=WWMemoryLogClass::Allocate_Memory(size);
@@ -531,7 +531,7 @@ struct NewCallerStruct {
 void* ReturnAddresses[20];
 int Stack_Walk(void **return_addresses, int num_addresses, CONTEXT *);
 bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement);
-void *NewMutex = NULL;
+void *NewMutex = nullptr;
 
 #ifdef _DEBUG
 #ifdef STEVES_NEW_CATCHER
@@ -585,7 +585,7 @@ void* operator new(size_t s)
 	static unsigned long _temp_addr;
 	static char _spaces[33] = {"                                "};
 	static int _wa;
-	//static CriticalSectionClass *_new_mutex = NULL;
+	//static CriticalSectionClass *_new_mutex = nullptr;
 
 	/*
 	** Length of all locals.
@@ -595,15 +595,15 @@ void* operator new(size_t s)
 	/*
 	** Wait for exclusive access.
 	*/
-	//if (_new_mutex == NULL) {
+	//if (_new_mutex == nullptr) {
 	//	void *newmem = ::operator new(s, 1, __FILE__, __LINE__);
 	//	_new_mutex = new(newmem) CriticalSectionClass;
 	//
 	//}
 	//CriticalSectionClass::LockClass mutex(*_new_mutex);
-	if (NewMutex == NULL) {
-		NewMutex = CreateMutex(NULL, false, NULL);
-		assert(NewMutex != NULL);
+	if (NewMutex == nullptr) {
+		NewMutex = CreateMutex(nullptr, false, nullptr);
+		assert(NewMutex != nullptr);
 	}
 	if (NewMutex) {
 		WaitForSingleObject(NewMutex, INFINITE);
@@ -633,12 +633,12 @@ void* operator new(size_t s)
 #ifdef ONLY_WATCH_ADDRESSES
 	for (_wa = 0 ; _wa<NUM_WATCH_ADDRESSES ; _wa++) {
 		if (_return_addr == WatchAddresses[_wa]) {
-			num_frames = Stack_Walk(ReturnAddresses, WALK_FRAMES, NULL);
+			num_frames = Stack_Walk(ReturnAddresses, WALK_FRAMES, nullptr);
 			break;
 		}
 	}
 #else	//ONLY_WATCH_ADDRESSES
-	num_frames = Stack_Walk(ReturnAddresses, WALK_FRAMES, NULL);
+	num_frames = Stack_Walk(ReturnAddresses, WALK_FRAMES, nullptr);
 #endif //ONLY_WATCH_ADDRESSES
 
 	if (num_frames == 0) {
@@ -745,15 +745,15 @@ typedef LPVOID (WINAPI *SymFunctionTableAccessType) (HANDLE hProcess, DWORD Addr
 typedef DWORD (WINAPI *SymGetModuleBaseType) (HANDLE hProcess, DWORD dwAddr);
 
 
-SymCleanupType						_SymCleanup = NULL;
-SymGetSymFromAddrType			_SymGetSymFromAddr = NULL;
-SymInitializeType					_SymInitialize = NULL;
-SymLoadModuleType					_SymLoadModule = NULL;
-SymSetOptionsType					_SymSetOptions = NULL;
-SymUnloadModuleType				_SymUnloadModule = NULL;
-StackWalkType						_StackWalk = NULL;
-SymFunctionTableAccessType		_SymFunctionTableAccess = NULL;
-SymGetModuleBaseType				_SymGetModuleBase = NULL;
+SymCleanupType						_SymCleanup = nullptr;
+SymGetSymFromAddrType			_SymGetSymFromAddr = nullptr;
+SymInitializeType					_SymInitialize = nullptr;
+SymLoadModuleType					_SymLoadModule = nullptr;
+SymSetOptionsType					_SymSetOptions = nullptr;
+SymUnloadModuleType				_SymUnloadModule = nullptr;
+StackWalkType						_StackWalk = nullptr;
+SymFunctionTableAccessType		_SymFunctionTableAccess = nullptr;
+SymGetModuleBaseType				_SymGetModuleBase = nullptr;
 
 static char const *ImagehelpFunctionNames[] = {
 	"SymCleanup",
@@ -765,7 +765,7 @@ static char const *ImagehelpFunctionNames[] = {
 	"StackWalk",
 	"SymFunctionTableAccess",
 	"SymGetModuleBaseType",
-	NULL
+	nullptr
 };
 
 
@@ -797,8 +797,8 @@ void Load_Image_Helper(void)
 	if (ImageHelp == (HINSTANCE)-1) {
 		ImageHelp = LoadLibrary("IMAGEHLP.DLL");
 
-		if (ImageHelp != NULL) {
-			char const *function_name = NULL;
+		if (ImageHelp != nullptr) {
+			char const *function_name = nullptr;
 			unsigned long *fptr = (unsigned long *) &_SymCleanup;
 			int count = 0;
 
@@ -816,29 +816,29 @@ void Load_Image_Helper(void)
 		/*
 		** Retrieve the programs symbols if they are available. This can be a .pdb or a .dbg file.
 		*/
-		if (_SymSetOptions != NULL) {
+		if (_SymSetOptions != nullptr) {
 			_SymSetOptions(SYMOPT_DEFERRED_LOADS);
 		}
 
 		int symload = 0;
 
-		if (_SymInitialize != NULL && _SymInitialize(GetCurrentProcess(), NULL, false)) {
+		if (_SymInitialize != nullptr && _SymInitialize(GetCurrentProcess(), nullptr, false)) {
 
-			if (_SymSetOptions != NULL) {
+			if (_SymSetOptions != nullptr) {
 				_SymSetOptions(SYMOPT_DEFERRED_LOADS | SYMOPT_UNDNAME);
 			}
 
 			char exe_name[_MAX_PATH];
-			GetModuleFileName(NULL, exe_name, sizeof(exe_name));
+			GetModuleFileName(nullptr, exe_name, sizeof(exe_name));
 
-			if (_SymLoadModule != NULL) {
-				symload = _SymLoadModule(GetCurrentProcess(), NULL, exe_name, NULL, 0, 0);
+			if (_SymLoadModule != nullptr) {
+				symload = _SymLoadModule(GetCurrentProcess(), nullptr, exe_name, nullptr, 0, 0);
 			}
 
 			if (symload) {
 				SymbolsAvailable = true;
 			} else {
-				//assert (_SymLoadModule != NULL);
+				//assert (_SymLoadModule != nullptr);
 				//DebugString ("SymLoad failed for module %s with code %d - %s\n", szModuleName, GetLastError(), Last_Error_Text());
 			}
 		}
@@ -884,7 +884,7 @@ bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement)
 	/*
 	** Make sure symbols are available.
 	*/
-	if (!SymbolsAvailable || _SymGetSymFromAddr == NULL) {
+	if (!SymbolsAvailable || _SymGetSymFromAddr == nullptr) {
 		return(false);
 	}
 
@@ -929,7 +929,7 @@ bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement)
  *                                                                                             *
  * INPUT:    Ptr to return address list                                                        *
  *           Number of return addresses to fetch                                               *
- *           Ptr to optional context. NULL means use current                                   *
+ *           Ptr to optional context. nullptr means use current                                   *
  *                                                                                             *
  * OUTPUT:   Number of return addresses found                                                  *
  *                                                                                             *
@@ -953,7 +953,7 @@ int Stack_Walk(unsigned long *return_addresses, int num_addresses, CONTEXT *cont
 	/*
 	** If there is no debug support .dll available then we can't walk the stack.
 	*/
-	if (ImageHelp == NULL) {
+	if (ImageHelp == nullptr) {
 		return(0);
 	}
 
@@ -995,12 +995,12 @@ here:
 	** Walk the stack by the requested number of return address iterations.
 	*/
 	for (int i = 0; i < num_addresses + 1; i++) {
-		if (_StackWalk(IMAGE_FILE_MACHINE_I386, GetCurrentProcess(), GetCurrentThread(), &stack_frame, NULL, NULL, _SymFunctionTableAccess, _SymGetModuleBase, NULL)) {
+		if (_StackWalk(IMAGE_FILE_MACHINE_I386, GetCurrentProcess(), GetCurrentThread(), &stack_frame, nullptr, nullptr, _SymFunctionTableAccess, _SymGetModuleBase, nullptr)) {
 
 			/*
 			** First result will always be the return address we were called from.
 			*/
-			if (i==0 && context == NULL) {
+			if (i==0 && context == nullptr) {
 				continue;
 			}
 			unsigned long return_address = stack_frame.AddrReturn.Offset;

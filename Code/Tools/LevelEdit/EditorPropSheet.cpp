@@ -128,7 +128,7 @@ EditorPropSheetClass::Reposition_Buttons (int cx, int cy)
 	//	Reposition the OK and Cancel buttons
 	//
 	::SetWindowPos (::GetDlgItem (m_hWnd, IDCANCEL),
-						 NULL,
+						 nullptr,
 						 (cx - button_rect.Width ()) - BORDER_BUTTON_X,
 						 (cy - button_rect.Height ()) - BORDER_BUTTON_Y,
 						 0,
@@ -136,7 +136,7 @@ EditorPropSheetClass::Reposition_Buttons (int cx, int cy)
 						 SWP_NOZORDER | SWP_NOSIZE);
 
 	::SetWindowPos (::GetDlgItem (m_hWnd, IDC_OK),
-						 NULL,
+						 nullptr,
 						 (cx - (button_rect.Width () << 1)) - (BORDER_BUTTON_X * 2),
 						 (cy - button_rect.Height ()) - BORDER_BUTTON_Y,
 						 0,
@@ -184,7 +184,7 @@ EditorPropSheetClass::OnSize
 		cy -= (BORDER_TAB_Y * 2) + (button_rect.Height () + BORDER_BUTTON_Y);
 
 		// Resize the tab control to fill the entire contents of the client area
-		m_TabCtrl.SetWindowPos (NULL, 0, 0, cx, cy, SWP_NOZORDER | SWP_NOMOVE);
+		m_TabCtrl.SetWindowPos (nullptr, 0, 0, cx, cy, SWP_NOZORDER | SWP_NOMOVE);
 
 		// Get the display rectangle of the tab control
 		CRect rect;
@@ -201,9 +201,9 @@ EditorPropSheetClass::OnSize
 
 			// Get a pointer to this tab
 			DockableFormClass *ptab = m_TabList[tab];
-			if (ptab != NULL) {
+			if (ptab != nullptr) {
 				// Resize this tab
-				ptab->SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
+				ptab->SetWindowPos (nullptr, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
 			}
 		}
 	}
@@ -231,13 +231,13 @@ EditorPropSheetClass::OnSelchangeTabCtrl
 	if (m_iCurrentTab != newtab) {
 
 		// Is the old tab valid?
-		if (m_TabList[m_iCurrentTab] != NULL) {
+		if (m_TabList[m_iCurrentTab] != nullptr) {
 			// Hide the contents of the old tab
 			m_TabList[m_iCurrentTab]->ShowWindow (SW_HIDE);
 		}
 
 		// Is the new tab valid?
-		if (m_TabList[newtab] != NULL) {
+		if (m_TabList[newtab] != nullptr) {
 			// Show the contents of the new tab
 			m_TabList[newtab]->ShowWindow (SW_SHOW);
 		}
@@ -263,7 +263,7 @@ EditorPropSheetClass::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	// Move the tab control so it starts at 2, 2
-	m_TabCtrl.SetWindowPos (NULL, BORDER_TAB_X, BORDER_TAB_Y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	m_TabCtrl.SetWindowPos (nullptr, BORDER_TAB_X, BORDER_TAB_Y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
 	// Loop through all the tabs in our list
 	int cx = 0;
@@ -276,8 +276,8 @@ EditorPropSheetClass::OnInitDialog (void)
 		DockableFormClass *ptab = m_TabList[tab];
 
 		// Was the tab pointer valid?
-		ASSERT (ptab != NULL);
-		if (ptab != NULL) {
+		ASSERT (ptab != nullptr);
+		if (ptab != nullptr) {
 
 			// Create the window associated with this tab
 			ptab->Create (this, 100 + tab);
@@ -294,7 +294,7 @@ EditorPropSheetClass::OnInitDialog (void)
 			cx = (rect.Width () > cx) ? rect.Width () : cx;
 			cy = (rect.Height () > cy) ? rect.Height() : cy;
 
-			ptab->SetWindowPos (NULL, 0, 0, cx, cy, SWP_NOMOVE | SWP_NOZORDER);
+			ptab->SetWindowPos (nullptr, 0, 0, cx, cy, SWP_NOMOVE | SWP_NOZORDER);
 
 			// Now insert a tab into the tab control for this form
 			TC_ITEM tabInfo = { 0 };
@@ -322,7 +322,7 @@ EditorPropSheetClass::OnInitDialog (void)
 		rect.InflateRect (BORDER_TAB_X, BORDER_TAB_Y);
 
 		// Resize the dialog to be large enough to hold the tab control
-		SetWindowPos (NULL, 0, 0, rect.Width (), rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
+		SetWindowPos (nullptr, 0, 0, rect.Width (), rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	}
 
 	if (m_IsReadOnly) {
@@ -385,8 +385,8 @@ EditorPropSheetClass::Apply_Changes (void)
 
 	for (int index = 0; index < m_TabList.Count (); index ++) {
 		DockableFormClass *tab = m_TabList[index];
-		ASSERT (tab != NULL);
-		if (tab != NULL) {
+		ASSERT (tab != nullptr);
+		if (tab != nullptr) {
 
 			//
 			// Have the tab apply its changes
@@ -415,8 +415,8 @@ EditorPropSheetClass::OnCancel (void)
 		DockableFormClass *ptab = m_TabList[tab];
 
 		// Was the tab pointer valid?
-		ASSERT (ptab != NULL);
-		if (ptab != NULL) {
+		ASSERT (ptab != nullptr);
+		if (ptab != nullptr) {
 
 			// Have the tab discard its changes
 			ptab->Discard_Changes ();

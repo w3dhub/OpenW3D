@@ -125,7 +125,7 @@ void Render2DClass::Set_Texture( const char * filename)
 {
 	TextureClass * tex = WW3DAssetManager::Get_Instance()->Get_Texture( filename, TextureClass::MIP_LEVELS_1 );
 	Set_Texture( tex );
-	if ( tex != NULL ) {
+	if ( tex != nullptr ) {
 		SET_REF_OWNER( tex );
 		tex->Release_Ref();
 	}
@@ -616,7 +616,7 @@ void Render2DClass::Render(void)
 Render2DTextClass::Render2DTextClass(Font3DInstanceClass *font) :
 	Location(0.0f,0.0f),
 	Cursor(0.0f,0.0f),
-	Font(NULL),
+	Font(nullptr),
 	WrapWidth(0),
 	ClipRect(0, 0, 0, 0),
 	IsClippedEnabled(false)
@@ -647,7 +647,7 @@ void	Render2DTextClass::Set_Font( Font3DInstanceClass *font )
 {
 	REF_PTR_SET(Font,font);
 
-	if ( Font != NULL ) {
+	if ( Font != nullptr ) {
 		Set_Texture( Font->Peek_Texture() );
 
 	#define	BLOCK_CHAR	0

@@ -57,7 +57,7 @@ class UpdatePresetDialogClass : public CDialog
 {
 // Construction
 public:
-	UpdatePresetDialogClass (PresetClass *preset, CWnd* pParent = NULL);
+	UpdatePresetDialogClass (PresetClass *preset, CWnd* pParent = nullptr);
 
 // Dialog Data
 	//{{AFX_DATA(UpdatePresetDialogClass)

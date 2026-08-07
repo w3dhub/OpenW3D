@@ -63,21 +63,21 @@ int												DialogMgrClass::TestArrayCount;
 int												DialogMgrClass::TestArrayMaxCount;
 bool												DialogMgrClass::IsFirstRender	= false;
 bool												DialogMgrClass::IsInMenuMode	= false;
-DialogBaseClass *								DialogMgrClass::ActiveDialog	= NULL;
+DialogBaseClass *								DialogMgrClass::ActiveDialog	= nullptr;
 BYTE												DialogMgrClass::KeyboardState[256];
-DialogControlClass *							DialogMgrClass::InputCapture = NULL;
-DialogControlClass *							DialogMgrClass::FocusControl = NULL;
-WWUIInputClass *								DialogMgrClass::Input = NULL;
-DialogTransitionClass *						DialogMgrClass::Transition = NULL;
-DialogBaseClass *								DialogMgrClass::PendingActiveDialog	= NULL;
-DialogBaseClass *								DialogMgrClass::TransitionDialog = NULL;
+DialogControlClass *							DialogMgrClass::InputCapture = nullptr;
+DialogControlClass *							DialogMgrClass::FocusControl = nullptr;
+WWUIInputClass *								DialogMgrClass::Input = nullptr;
+DialogTransitionClass *						DialogMgrClass::Transition = nullptr;
+DialogBaseClass *								DialogMgrClass::PendingActiveDialog	= nullptr;
+DialogBaseClass *								DialogMgrClass::TransitionDialog = nullptr;
 uint32											DialogMgrClass::CurrTime		= 0;
 uint32											DialogMgrClass::LastFrameTime	= 0;
 Vector3											DialogMgrClass::LastMousePos (0, 0, 0);
 bool												DialogMgrClass::LastMouseButtonState[MB_COUNT] = { 0 };
 bool												DialogMgrClass::IsFlushing = false;
 
-ToolTipClass* DialogMgrClass::mIMEMessage = NULL;
+ToolTipClass* DialogMgrClass::mIMEMessage = nullptr;
 uint32 DialogMgrClass::mIMEMessageTime = 0;
 
 
@@ -121,14 +121,14 @@ DialogMgrClass::Shutdown (void)
 	MouseMgrClass::Shutdown ();
 	ToolTipMgrClass::Shutdown ();
 
-	Set_Active_Dialog (NULL);
+	Set_Active_Dialog (nullptr);
 
 	delete[] TestArray;
-	TestArray=NULL;
+	TestArray=nullptr;
 
 	if (mIMEMessage) {
 		delete mIMEMessage;
-		mIMEMessage = NULL;
+		mIMEMessage = nullptr;
 		mIMEMessageTime = 0;
 	}
 
@@ -183,10 +183,10 @@ DialogMgrClass::Register_Dialog (DialogBaseClass *dialog)
 		// by the order in the list.
 		//
 		bool is_top_level = true;
-		if (dialog->As_PopupDialogClass () == NULL) {
+		if (dialog->As_PopupDialogClass () == nullptr) {
 			int new_index = DialogList.Count () - 1;
 			for (; new_index >= 0; new_index --) {
-				if (DialogList[new_index]->As_PopupDialogClass () == NULL) {
+				if (DialogList[new_index]->As_PopupDialogClass () == nullptr) {
 					break;
 				}
 				is_top_level = false;
@@ -293,7 +293,7 @@ DialogMgrClass::On_Dialog_Removed (void)
 		//	Revert from "dialog" mode.
 		//
 		MouseMgrClass::Show_Cursor (false);
-		Set_Active_Dialog (NULL);
+		Set_Active_Dialog (nullptr);
 
 	} else if (IsFlushing == false) {
 
@@ -321,7 +321,7 @@ DialogMgrClass::On_Dialog_Removed (void)
 void
 DialogMgrClass::Update_Transition (void)
 {
-	if (Transition != NULL) {
+	if (Transition != nullptr) {
 
 		//
 		//	Allow the transition to think
@@ -337,11 +337,11 @@ DialogMgrClass::Update_Transition (void)
 			//
 			//	Let the dialog controls be displayed (as necessary)
 			//
-			if (TransitionDialog != NULL) {
+			if (TransitionDialog != nullptr) {
 				TransitionDialog->Set_Controls_Hidden (false);
 			}
 
-			if (PendingActiveDialog != NULL) {
+			if (PendingActiveDialog != nullptr) {
 				PendingActiveDialog->Set_Controls_Hidden (false);
 			}
 
@@ -349,8 +349,8 @@ DialogMgrClass::Update_Transition (void)
 			//	Now make the pending dialog active
 			//
 			Internal_Set_Active_Dialog (PendingActiveDialog);
-			PendingActiveDialog	= NULL;
-			TransitionDialog		= NULL;
+			PendingActiveDialog	= nullptr;
+			TransitionDialog		= nullptr;
 
 			//
 			//	Release our hold on the transition
@@ -405,11 +405,11 @@ DialogMgrClass::On_Frame_Update (void)
 		}
 
 		DialogBaseClass* dialog = DialogList[index];
-		WWASSERT(dialog != NULL);
+		WWASSERT(dialog != nullptr);
 
 		dialog->Add_Ref();
 
-		if (dialog->Is_Active () && dialog->As_ChildDialogClass () == NULL) {
+		if (dialog->Is_Active () && dialog->As_ChildDialogClass () == nullptr) {
 			dialog->On_Frame_Update ();
 		}
 
@@ -489,7 +489,7 @@ DialogMgrClass::Render (void)
 			//
 			//	Don't render here if its a child-dialog
 			//
-			render = (dialog->As_ChildDialogClass () == NULL);
+			render = (dialog->As_ChildDialogClass () == nullptr);
 		}
 
 		//
@@ -542,7 +542,7 @@ DialogMgrClass::Set_Active_Dialog (DialogBaseClass *dialog)
 	}
 
 	//REF_PTR_RELEASE (Transition);
-	if (Transition != NULL) {
+	if (Transition != nullptr) {
 		PendingActiveDialog = dialog;
 		return ;
 	}
@@ -551,16 +551,16 @@ DialogMgrClass::Set_Active_Dialog (DialogBaseClass *dialog)
 	//	Check to see if we should play an outro-transition for
 	// the currently active dialog
 	//
-	if (ActiveDialog != NULL) {
+	if (ActiveDialog != nullptr) {
 		Transition = ActiveDialog->Get_Transition_Out (dialog);
-		if (Transition != NULL) {
+		if (Transition != nullptr) {
 			PendingActiveDialog	= dialog;
 			TransitionDialog		= ActiveDialog;
 
 			//
 			//	Hide the controls on the pending dialog (if necessary)
 			//
-			if (PendingActiveDialog != NULL) {
+			if (PendingActiveDialog != nullptr) {
 				//PendingActiveDialog->Set_Controls_Hidden (true);
 			}
 		}
@@ -570,9 +570,9 @@ DialogMgrClass::Set_Active_Dialog (DialogBaseClass *dialog)
 	//	Check to see if we should play an intro-transition for
 	// the new active dialog
 	//
-	if (dialog != NULL && Transition == NULL) {
+	if (dialog != nullptr && Transition == nullptr) {
 		Transition = dialog->Get_Transition_In (ActiveDialog);
-		if (Transition != NULL) {
+		if (Transition != nullptr) {
 			PendingActiveDialog	= dialog;
 			TransitionDialog		= dialog;
 
@@ -587,7 +587,7 @@ DialogMgrClass::Set_Active_Dialog (DialogBaseClass *dialog)
 	//	If we don't have any transition to play, then simply
 	// set the active dialog
 	//
-	if (Transition == NULL) {
+	if (Transition == nullptr) {
 		Internal_Set_Active_Dialog (dialog);
 	}
 
@@ -636,17 +636,17 @@ DialogMgrClass::Internal_Set_Active_Dialog (DialogBaseClass *dialog)
 	//
 	//	Notify the old dialog
 	//
-	if (old_dialog != NULL) {
+	if (old_dialog != nullptr) {
 		old_dialog->On_Activate (false);
 		REF_PTR_RELEASE (old_dialog);
 	}
 
-	Set_Focus (NULL);
+	Set_Focus (nullptr);
 
 	//
 	//	Notify the new dialog (if necessary)
 	//
-	if (ActiveDialog != NULL) {
+	if (ActiveDialog != nullptr) {
 		ActiveDialog->Add_Ref ();
 		ActiveDialog->On_Activate (true);
 	}
@@ -667,7 +667,7 @@ DialogMgrClass::Internal_Set_Active_Dialog (DialogBaseClass *dialog)
 bool
 DialogMgrClass::On_Key_Down (uint32 key_id, uint32 key_data)
 {
-	if (Transition != NULL) {
+	if (Transition != nullptr) {
 		return false;
 	}
 
@@ -679,7 +679,7 @@ DialogMgrClass::On_Key_Down (uint32 key_id, uint32 key_data)
 	//
 	//	Notify the active dialog (if any)
 	//
-	if (ActiveDialog != NULL) {
+	if (ActiveDialog != nullptr) {
 		return ActiveDialog->On_Key_Down (key_id, key_data);
 	}
 
@@ -695,7 +695,7 @@ DialogMgrClass::On_Key_Down (uint32 key_id, uint32 key_data)
 bool
 DialogMgrClass::On_Key_Up (uint32 key_id)
 {
-	if (Transition != NULL) {
+	if (Transition != nullptr) {
 		return false;
 	}
 
@@ -707,7 +707,7 @@ DialogMgrClass::On_Key_Up (uint32 key_id)
 	//
 	//	Notify the active dialog (if any)
 	//
-	if (ActiveDialog != NULL) {
+	if (ActiveDialog != nullptr) {
 		return ActiveDialog->On_Key_Up (key_id);
 	}
 
@@ -723,7 +723,7 @@ DialogMgrClass::On_Key_Up (uint32 key_id)
 void
 DialogMgrClass::On_Unicode_Char (uint16 unicode)
 {
-	if (Transition != NULL) {
+	if (Transition != nullptr) {
 		return ;
 	}
 
@@ -735,7 +735,7 @@ DialogMgrClass::On_Unicode_Char (uint16 unicode)
 	//
 	//	Notify the active dialog (if any)
 	//
-	if (ActiveDialog != NULL) {
+	if (ActiveDialog != nullptr) {
 		ActiveDialog->On_Unicode_Char (unicode);
 	}
 
@@ -750,12 +750,12 @@ DialogMgrClass::On_Unicode_Char (uint16 unicode)
 DialogControlClass *
 DialogMgrClass::Find_Control (const Vector2 &mouse_pos)
 {
-	DialogControlClass *retval = NULL;
+	DialogControlClass *retval = nullptr;
 
 	//
 	//	Get this information from the active dialog
 	//
-	if (ActiveDialog != NULL) {
+	if (ActiveDialog != nullptr) {
 		retval = ActiveDialog->Find_Control (mouse_pos);
 	}
 
@@ -784,7 +784,7 @@ DialogMgrClass::Set_Capture (DialogControlClass *control)
 void
 DialogMgrClass::Release_Capture (void)
 {
-	InputCapture = NULL;
+	InputCapture = nullptr;
 	return ;
 }
 
@@ -801,7 +801,7 @@ DialogMgrClass::Flush_Dialogs (void)
 
 	IsFlushing = true;
 
-	Set_Active_Dialog (NULL);
+	Set_Active_Dialog (nullptr);
 
 	//
 	//	Remove all the dialogs from our list
@@ -810,13 +810,13 @@ DialogMgrClass::Flush_Dialogs (void)
 		DialogList[DialogList.Count () - 1]->End_Dialog ();
 	}
 
-	Set_Focus (NULL);
+	Set_Focus (nullptr);
 
 	//
 	//	Reset our transition variables
 	//
-	TransitionDialog		= NULL;
-	PendingActiveDialog	= NULL;
+	TransitionDialog		= nullptr;
+	PendingActiveDialog	= nullptr;
 	REF_PTR_RELEASE (Transition);
 
 	//
@@ -893,14 +893,14 @@ DialogMgrClass::Set_Focus (DialogControlClass *control)
 	//
 	//	Let go of the currently focus'd control
 	//
-	if (old_focus_ctrl != NULL) {
+	if (old_focus_ctrl != nullptr) {
 		old_focus_ctrl->On_Kill_Focus (control);
 	}
 
 	//
 	//	Reset the focus
 	//
-	if (FocusControl != NULL) {
+	if (FocusControl != nullptr) {
 		FocusControl->On_Set_Focus ();
 	}
 
@@ -920,7 +920,7 @@ DialogBaseClass* DialogMgrClass::Find_Dialog(int dialogID)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 
@@ -944,7 +944,7 @@ DialogMgrClass::Rollback (DialogBaseClass *dialog)
 		//
 		//	Close this dialog (if necessary)
 		//
-		if (DialogList[index]->As_ChildDialogClass () == NULL) {
+		if (DialogList[index]->As_ChildDialogClass () == nullptr) {
 			DialogList[index]->End_Dialog ();
 		}
 	}
@@ -955,7 +955,7 @@ DialogMgrClass::Rollback (DialogBaseClass *dialog)
 
 void DialogMgrClass::Show_IME_Message(const unichar_t* message, uint32 duration)
 {
-	if (mIMEMessage == NULL) {
+	if (mIMEMessage == nullptr) {
 		mIMEMessage = new ToolTipClass;
 	}
 

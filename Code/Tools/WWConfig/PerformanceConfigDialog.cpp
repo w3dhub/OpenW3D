@@ -178,7 +178,7 @@ const char *VALUE_INI_PARTICLE_DETAIL	= "ParticleDetail";
 // PerformanceConfigDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-PerformanceConfigDialogClass::PerformanceConfigDialogClass(CWnd* pParent /*=NULL*/)
+PerformanceConfigDialogClass::PerformanceConfigDialogClass(CWnd* pParent /*=nullptr*/)
 	: CDialog (PerformanceConfigDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(PerformanceConfigDialogClass)
@@ -309,7 +309,7 @@ PerformanceConfigDialogClass::Build_Expert_Window_List (void)
 	//	Loop over all the child windows of the dialog
 	//
 	for (	HWND child_wnd = ::GetWindow (m_hWnd, GW_CHILD);
-			child_wnd != NULL;
+			child_wnd != nullptr;
 			child_wnd = ::GetWindow (child_wnd, GW_HWNDNEXT))
 	{
 		//
@@ -812,9 +812,9 @@ void AutoConfigSettings()
 {
 	INIClass ini(W3D_CONF_FILE);
 
-	IDirect3D9* d3d=NULL;
+	IDirect3D9* d3d=nullptr;
 	D3DCAPS9 tmp_caps;
-	const D3DCAPS9* d3dcaps=NULL;
+	const D3DCAPS9* d3dcaps=nullptr;
 	D3DADAPTER_IDENTIFIER9 adapter_id;
 	D3DFORMAT display_format;
 

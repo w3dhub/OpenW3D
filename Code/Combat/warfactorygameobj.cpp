@@ -395,11 +395,11 @@ WarFactoryGameObj::CnC_Initialize (BaseControllerClass *base)
 		//
 		//	Is this a vehicle creation static anim phys?
 		//
-		if (anim_phys_obj != NULL && anim_phys_obj->Peek_Model () != NULL) {
+		if (anim_phys_obj != nullptr && anim_phys_obj->Peek_Model () != nullptr) {
 
 			StringClass name = anim_phys_obj->Peek_Model ()->Get_Name ();
             name.To_Upper();
-			if (::strstr (name, "WEP#CONSTRUCT") != NULL) {
+			if (::strstr (name, "WEP#CONSTRUCT") != nullptr) {
 
 				//
 				//	Is this the closest one we've found so far?
@@ -445,7 +445,7 @@ WarFactoryGameObj::Think (void)
 				//	Generate the current vehicle
 				//
 				VehicleGameObj *vehicle = Create_Vehicle ();
-				if (vehicle != NULL) {
+				if (vehicle != nullptr) {
 
 					Matrix3D new_tm = CreationTM;
 
@@ -453,7 +453,7 @@ WarFactoryGameObj::Think (void)
 					//	Adjust the vehicle's transform to ensure its
 					// not embedded in the ground
 					//
-					if (vehicle->Peek_Vehicle_Phys() != NULL) {
+					if (vehicle->Peek_Vehicle_Phys() != nullptr) {
 						float height = vehicle->Peek_Vehicle_Phys()->Compute_Approximate_Ride_Height();
 						new_tm.Translate(0.0f,0.0f,height);
 						vehicle->Set_Transform(new_tm);
@@ -462,7 +462,7 @@ WarFactoryGameObj::Think (void)
 					//
 					// Lock the vehicle to anyone but the purchaser
 					//
-					if (Purchaser != NULL) {
+					if (Purchaser != nullptr) {
 						vehicle->Lock_Vehicle(Purchaser,WARFACTORY_LOCK_TIME);
 					}
 
@@ -501,9 +501,9 @@ WarFactoryGameObj::Play_Creation_Animation (bool onoff)
 	//	Lookup the static animation object we need to play
 	//
 	StaticPhysClass *static_phys_obj = PhysicsSceneClass::Get_Instance ()->Find_Static_Object (CreationAnimationID);
-	if (static_phys_obj != NULL) {
+	if (static_phys_obj != nullptr) {
 		StaticAnimPhysClass *anim_phys_obj = static_phys_obj->As_StaticAnimPhysClass ();
-		if (anim_phys_obj != NULL) {
+		if (anim_phys_obj != nullptr) {
 
 			//
 			//	Configure the animation
@@ -544,9 +544,9 @@ WarFactoryGameObj::Begin_Generation (void)
 	//	Lookup the static animation object for the ending animation
 	//
 	StaticPhysClass *static_phys_obj = PhysicsSceneClass::Get_Instance ()->Find_Static_Object (CreationAnimationID);
-	if (static_phys_obj != NULL) {
+	if (static_phys_obj != nullptr) {
 		StaticAnimPhysClass *anim_phys_obj = static_phys_obj->As_StaticAnimPhysClass ();
-		if (anim_phys_obj != NULL) {
+		if (anim_phys_obj != nullptr) {
 
 			//
 			//	Calculate how long to wait before we start playing the end animations

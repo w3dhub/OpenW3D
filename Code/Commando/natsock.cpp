@@ -412,7 +412,7 @@ void SocketHandlerClass::Write(void *buffer, int buffer_len, void *address, unsi
 	** Create a temporary holding area for the packet.
 	*/
 	WinsockBufferType *packet = (WinsockBufferType*) Get_New_Out_Buffer();
-	fw_assert (packet != NULL);
+	fw_assert (packet != nullptr);
 
 	/*
 	** Copy the packet into the holding buffer.
@@ -491,9 +491,9 @@ int SocketHandlerClass::Read(void *buffer, int buffer_len, void *address, unsign
 	}
 
 	WinsockBufferType *packet = InBuffers[packetnum];
-	fw_assert(packet != NULL);
+	fw_assert(packet != nullptr);
 
-	if (packet == NULL) {
+	if (packet == nullptr) {
 		return(0);
 	}
 
@@ -569,9 +569,9 @@ int SocketHandlerClass::Peek(void *buffer, int buffer_len, void *address, unsign
 	}
 
 	WinsockBufferType *packet = InBuffers[packetnum];
-	fw_assert(packet != NULL);
+	fw_assert(packet != nullptr);
 
-	if (packet == NULL) {
+	if (packet == nullptr) {
 		return(0);
 	}
 
@@ -701,7 +701,7 @@ bool SocketHandlerClass::Passes_CRC_Check(WinsockBufferType *packet)
  *=============================================================================================*/
 void *SocketHandlerClass::Get_New_Out_Buffer(void)
 {
-	WinsockBufferType *buffer = NULL;
+	WinsockBufferType *buffer = nullptr;
 	int pos;
 
 	fw_assert (OutBuffersUsed <= MAX_STATIC_BUFFERS);
@@ -733,7 +733,7 @@ void *SocketHandlerClass::Get_New_Out_Buffer(void)
 		}
 	}
 
-	fw_assert (buffer != NULL);
+	fw_assert (buffer != nullptr);
 	return (buffer);
 }
 
@@ -754,7 +754,7 @@ void *SocketHandlerClass::Get_New_Out_Buffer(void)
  *=============================================================================================*/
 void *SocketHandlerClass::Get_New_In_Buffer(void)
 {
-	WinsockBufferType *buffer = NULL;
+	WinsockBufferType *buffer = nullptr;
 	int pos;
 
 	fw_assert (InBuffersUsed <= MAX_STATIC_BUFFERS);
@@ -786,7 +786,7 @@ void *SocketHandlerClass::Get_New_In_Buffer(void)
 		}
 	}
 
-	fw_assert (buffer != NULL);
+	fw_assert (buffer != nullptr);
 	return (buffer);
 }
 
@@ -918,7 +918,7 @@ void SocketHandlerClass::Service(void)
 					** Create a new holding buffer to store this packet in.
 					*/
 					packet = (WinsockBufferType*) Get_New_In_Buffer();
-					fw_assert (packet != NULL);
+					fw_assert (packet != nullptr);
 
 					/*
 					** Store the packet into the holding buffer.

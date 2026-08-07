@@ -83,7 +83,7 @@ cClientBboEvent::Act(void)
    WWASSERT(cNetwork::I_Am_Server());
 
 	cRemoteHost * p_rhost = cNetwork::Get_Server_Rhost(SenderId);
-	if (p_rhost != NULL)	{
+	if (p_rhost != nullptr)	{
 		p_rhost->Set_Maximum_Bps(Bbo);
 	   WWDEBUG_SAY(("Client %d adjusted bbo to %d.\n", SenderId, Bbo));
 	}

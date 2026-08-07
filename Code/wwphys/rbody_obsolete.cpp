@@ -189,7 +189,7 @@ Assert_State_Valid();
 	Assert_State_Valid();
 
 
-	if (ContactBox != NULL) {
+	if (ContactBox != nullptr) {
 		ContactBox->Compute_Forces();
 	}
 

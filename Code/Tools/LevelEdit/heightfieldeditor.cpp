@@ -59,7 +59,7 @@ float				HeightfieldEditorClass::BrushOutterRadius					= 20.0F;
 float				HeightfieldEditorClass::BrushAmount							= 1.0F;
 int				HeightfieldEditorClass::CurrentTextureIndex				= 0;
 
-EditableHeightfieldClass *							HeightfieldEditorClass::CurrentHeightfield = NULL;
+EditableHeightfieldClass *							HeightfieldEditorClass::CurrentHeightfield = nullptr;
 HeightfieldEditorClass::EDITING_MODE			HeightfieldEditorClass::Mode = HeightfieldEditorClass::MODE_DEFORM;
 DynamicVectorClass<TerrainMaterialClass *>	HeightfieldEditorClass::MaterialList;
 
@@ -171,7 +171,7 @@ HeightfieldEditorClass::On_Frame_Update (void)
 	CastResultStruct res;
 	res.ComputeContactPoint = true;
 	PhysClass *phys_obj = MoverClass::Cast_Ray (res, v_start, v_end);
-	if (phys_obj != NULL) {
+	if (phys_obj != nullptr) {
 
 		//
 		//	For right now, add a debug box to show where the operation will occur
@@ -182,7 +182,7 @@ HeightfieldEditorClass::On_Frame_Update (void)
 		//	Check to see if this is a heightfield
 		//
 		RenderObjClass *model = phys_obj->Peek_Model ();
-		if (model != NULL && model->Class_ID () == RenderObjClass::CLASSID_RENEGADE_TERRAIN && CurrentHeightfield != NULL) {
+		if (model != nullptr && model->Class_ID () == RenderObjClass::CLASSID_RENEGADE_TERRAIN && CurrentHeightfield != nullptr) {
 
 			EditableHeightfieldClass *heightfield = CurrentHeightfield;
 
@@ -245,8 +245,8 @@ HeightfieldEditorClass::Render (void)
 HBITMAP
 HeightfieldEditorClass::Create_Texture_Thumbnail (TextureClass *texture, int width, int height)
 {
-	if (texture == NULL) {
-		return NULL;
+	if (texture == nullptr) {
+		return nullptr;
 	}
 
 	//
@@ -272,8 +272,8 @@ HeightfieldEditorClass::Create_Texture_Thumbnail (TextureClass *texture, int wid
 HBITMAP
 HeightfieldEditorClass::Create_Texture_Thumbnail (const char *filename, int width, int height)
 {
-	if (filename == NULL) {
-		return NULL;
+	if (filename == nullptr) {
+		return nullptr;
 	}
 
 	//
@@ -317,10 +317,10 @@ HeightfieldEditorClass::Create_Texture_Thumbnail (const char *filename, int widt
 	//
 	// Create a bitmap that we can access the bits directly of
 	//
-	uint8 *dest_bits	= NULL;
-	HDC screen_dc		= ::GetDC (NULL);
+	uint8 *dest_bits	= nullptr;
+	HDC screen_dc		= ::GetDC (nullptr);
 	HBITMAP bitmap		= ::CreateDIBSection (screen_dc, (const BITMAPINFO *)&bitmap_info,
-														DIB_RGB_COLORS, (void **)&dest_bits, NULL, 0L);
+														DIB_RGB_COLORS, (void **)&dest_bits, nullptr, 0L);
 
 	int dest_pitch = (((width * 3) + 3) & ~3);
 
@@ -329,14 +329,14 @@ HeightfieldEditorClass::Create_Texture_Thumbnail (const char *filename, int widt
 	//
 	BitmapHandlerClass::Copy_Image (dest_bits, width, height, dest_pitch, WW3D_FORMAT_R8G8B8,
 								src_bits, sd.Width, sd.Height, src_pitch, WW3D_FORMAT_R8G8B8,
-								NULL, 0, false);
+								nullptr, 0, false);
 
 	//
 	//	Free the surface
 	//
 	DX8_ErrorCode (d3d_surface->UnlockRect ());
 	d3d_surface->Release ();
-	d3d_surface = NULL;
+	d3d_surface = nullptr;
 
 	return bitmap;
 }
@@ -354,7 +354,7 @@ HeightfieldEditorClass::Set_Material (int index, TerrainMaterialClass *material)
 	//	Add enough entries to the array until we've got a slot for "index"
 	//
 	while (index >= MaterialList.Count ()) {
-		MaterialList.Add (NULL);
+		MaterialList.Add (nullptr);
 	}
 
 	//
@@ -373,7 +373,7 @@ HeightfieldEditorClass::Set_Material (int index, TerrainMaterialClass *material)
 TerrainMaterialClass *
 HeightfieldEditorClass::Peek_Material (int index)
 {
-	TerrainMaterialClass *retval = NULL;
+	TerrainMaterialClass *retval = nullptr;
 
 	//
 	//	Simply return the material in this slot (if it exists)
@@ -398,7 +398,7 @@ HeightfieldEditorClass::Get_Material (int index)
 	//	Simply add a reference to the material and return its pointer
 	//
 	TerrainMaterialClass *retval = Peek_Material (index);
-	if (retval != NULL) {
+	if (retval != nullptr) {
 		retval->Add_Ref ();
 	}
 
@@ -414,7 +414,7 @@ HeightfieldEditorClass::Get_Material (int index)
 void
 HeightfieldEditorClass::Load_Materials (EditableHeightfieldClass *heightfield)
 {
-	if (heightfield == NULL) {
+	if (heightfield == nullptr) {
 		return ;
 	}
 
@@ -466,7 +466,7 @@ HeightfieldEditorClass::On_Material_Changed (int material_index)
 	//
 	//	Apply these changes to the heightfield itself
 	//
-	if (CurrentHeightfield != NULL) {
+	if (CurrentHeightfield != nullptr) {
 		CurrentHeightfield->Set_Material (material_index, MaterialList[material_index]);
 		CurrentHeightfield->On_Material_Changed (material_index);
 	}

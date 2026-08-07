@@ -83,7 +83,7 @@ protected:
 
 		HLodArrayEntry (int num_sub_objs = 0)
 		{
-			sub_obj = NULL;
+			sub_obj = nullptr;
 			num_sub_objects = 0;
 			Allocate_Sub_Objects(num_sub_objs);
 		}
@@ -93,7 +93,7 @@ protected:
 			if (sub_obj)
 			{
 				delete sub_obj;
-				sub_obj = NULL;
+				sub_obj = nullptr;
 				num_sub_objects = 0;
 			}
 		}

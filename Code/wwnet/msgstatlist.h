@@ -33,10 +33,6 @@
 
 #include "msgstat.h"
 
-#ifndef NULL
-#define NULL 0L
-#endif
-
 //-----------------------------------------------------------------------------
 class cMsgStatList
 {

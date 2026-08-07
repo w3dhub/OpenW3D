@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 // GotoLocationDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-GotoLocationDialogClass::GotoLocationDialogClass (CWnd* pParent /*=NULL*/)
+GotoLocationDialogClass::GotoLocationDialogClass (CWnd* pParent /*=nullptr*/)
 	: CDialog(GotoLocationDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(GotoLocationDialogClass)

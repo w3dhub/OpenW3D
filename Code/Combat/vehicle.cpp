@@ -295,7 +295,7 @@ bool	VehicleGameObjDef::Save( ChunkSaveClass & csave )
 	//	Save each of the transition 'definitions' in our list.
 	for( int index = 0; index < Transitions.Count (); index ++ ) {
 		TransitionDataClass *transition = Transitions[index];
-		if( transition != NULL ) {
+		if( transition != nullptr ) {
 
 			//	Save this transition 'defintion' to its own chunk.
 			csave.Begin_Chunk( CHUNKID_DEF_TRANSITION );
@@ -377,7 +377,7 @@ void VehicleGameObjDef::Free_Transition_List( void )
 	//	Delete each of the transition 'definitions' in our list.
 	for( int index = 0; index < Transitions.Count (); index ++ ) {
 		TransitionDataClass *transition = Transitions[index];
-		if( transition != NULL ) {
+		if( transition != nullptr ) {
 			delete transition;
 		}
 	}
@@ -431,10 +431,10 @@ VehicleGameObj::VehicleGameObj()	:
 	TurretTurn( 0 ),
 	BarrelTilt( 0 ),
 	BarrelOffset( 0 ),
-	Sound( NULL ),
+	Sound( nullptr ),
 	EngineSoundState( ENGINE_SOUND_STATE_OFF ),
-	CachedEngineSound( NULL ),
-	WheelSurfaceSound(NULL),
+	CachedEngineSound( nullptr ),
+	WheelSurfaceSound(nullptr),
 	TransitionsEnabled( true ),
 	OccupiedSeats( 0 ),
 	HasEnterTransitions( false ),
@@ -448,7 +448,7 @@ VehicleGameObj::VehicleGameObj()	:
 
 VehicleGameObj::~VehicleGameObj()
 {
-	if ( Peek_Physical_Object() != NULL && COMBAT_SCENE != NULL) {
+	if ( Peek_Physical_Object() != nullptr && COMBAT_SCENE != nullptr) {
 
 		// Make sure the exiters don't hit me
 		Peek_Physical_Object()->Set_Collision_Group( UNCOLLIDEABLE_GROUP );
@@ -457,17 +457,17 @@ VehicleGameObj::~VehicleGameObj()
 		Vector3 vehicle_pos;
 		Peek_Physical_Object()->Get_Position( &vehicle_pos );
 		for ( int i = 0; i < SeatOccupants.Length(); i++ ) {
-			if ( SeatOccupants[i] != NULL ) {
+			if ( SeatOccupants[i] != nullptr ) {
 				SeatOccupants[i]->Exit_Destroyed_Vehicle( i, vehicle_pos );
 			}
-			SeatOccupants[i] = NULL;
+			SeatOccupants[i] = nullptr;
 		}
 	} else {
 		for ( int i = 0; i < SeatOccupants.Length(); i++ ) {
-			if ( SeatOccupants[i] != NULL ) {
+			if ( SeatOccupants[i] != nullptr ) {
 				SeatOccupants[i]->Exit_Vehicle();
 			}
-			SeatOccupants[i] = NULL;
+			SeatOccupants[i] = nullptr;
 		}
 	}
 
@@ -476,7 +476,7 @@ VehicleGameObj::~VehicleGameObj()
 	if (Sound) {
 		Sound->Remove_From_Scene ();
 		Sound->Release_Ref ();
-		Sound = NULL;
+		Sound = nullptr;
 	}
 
 	if (CachedEngineSound) {
@@ -506,7 +506,7 @@ void	VehicleGameObj::Init( const VehicleGameObjDef & definition )
 
 	SeatOccupants.Resize(definition.NumSeats);
 	for ( int i = 0; i < SeatOccupants.Length(); i++ ) {
-		SeatOccupants[i] = NULL;
+		SeatOccupants[i] = nullptr;
 	}
 
 	Aquire_Turret_Bones();
@@ -622,16 +622,16 @@ bool	VehicleGameObj::Load( ChunkLoadClass &cload )
 				if ( (num_seats == 0) || (num_seats != Get_Definition().NumSeats)) {
 					SeatOccupants.Resize(Get_Definition().NumSeats);
 					for ( int i = 0; i < SeatOccupants.Length(); i++ ) {
-						SeatOccupants[i] = NULL;
+						SeatOccupants[i] = nullptr;
 					}
 					break;		// May be legacy
 				}
 
 				SeatOccupants.Resize( num_seats );
 				for ( int i = 0; i < num_seats; i++ ) {
-					SeatOccupants[i] = NULL;
+					SeatOccupants[i] = nullptr;
 					cload.Read( &SeatOccupants[i], sizeof(int));
-					if ( SeatOccupants[i] != NULL ) {
+					if ( SeatOccupants[i] != nullptr ) {
 						REQUEST_POINTER_REMAP( (void **)&SeatOccupants[i] );
 					}
 				}
@@ -661,7 +661,7 @@ void	VehicleGameObj::On_Post_Load( void )
 	Update_Damage_Meshes();
 
 	// For some reason???  some vehicles come in with an anim control, but no model in the anim control.
-	if ( Get_Anim_Control() != NULL && Get_Anim_Control()->Peek_Model() == NULL ) {
+	if ( Get_Anim_Control() != nullptr && Get_Anim_Control()->Peek_Model() == nullptr ) {
 		Get_Anim_Control()->Set_Model( Peek_Model() );
 	}
 
@@ -687,13 +687,13 @@ void	VehicleGameObj::Create_Transitions( void )
 
 	if ( trans_data_list.Count() != 0 ) {		// new style
 
-		if ( Seats[0] == NULL ) {
+		if ( Seats[0] == nullptr ) {
 			Create_New_Transitions( TransitionDataClass::VEHICLE_ENTER_0 );
 		} else {
 			Create_New_Transitions( TransitionDataClass::VEHICLE_EXIT_0 );
 		}
 
-		if ( Seats[1] == NULL ) {
+		if ( Seats[1] == nullptr ) {
 			Create_New_Transitions( TransitionDataClass::VEHICLE_ENTER_1 );
 		} else {
 			Create_New_Transitions( TransitionDataClass::VEHICLE_EXIT_1 );
@@ -818,7 +818,7 @@ void	VehicleGameObj::Export_Creation( BitStreamClass &packet )
 	//	Send the lock status to the client
 	//
 	int lock_owner_id = 0;
-	if (LockOwner != NULL) {
+	if (LockOwner != nullptr) {
 		lock_owner_id = LockOwner.Get_Ptr ()->Get_ID ();
 	}
 	packet.Add(lock_owner_id);
@@ -857,7 +857,7 @@ void VehicleGameObj::Export_Rare( BitStreamClass &packet )
 	// Export the seat occupants
 	//
 	for (int i = 0; i < SeatOccupants.Length(); i++) {
-		if (SeatOccupants[i] == NULL) {
+		if (SeatOccupants[i] == nullptr) {
 			const int NO_OCCUPANTS = -1;
 			packet.Add(NO_OCCUPANTS);
 		} else {
@@ -883,24 +883,24 @@ void VehicleGameObj::Import_Rare( BitStreamClass &packet )
 			//
 			//	Remove the occupant from the seat
 			//
-			if (SeatOccupants[i] != NULL) {
+			if (SeatOccupants[i] != nullptr) {
 				Remove_Occupant (SeatOccupants[i]);
 			}
 
 		} else {
-			if ((SeatOccupants[i] == NULL) || (SeatOccupants[i]->Get_ID() != occupant)) {
+			if ((SeatOccupants[i] == nullptr) || (SeatOccupants[i]->Get_ID() != occupant)) {
 				SmartGameObj * obj = GameObjManager::Find_SmartGameObj(occupant);
 
-				if (SeatOccupants[i] != NULL) {
+				if (SeatOccupants[i] != nullptr) {
 					Remove_Occupant (SeatOccupants[i]);
 				}
 
-				if (obj != NULL) {
+				if (obj != nullptr) {
 
 					//
 					//	Add the occupant to the seat
 					//
-					if (SeatOccupants[i] == NULL) {
+					if (SeatOccupants[i] == nullptr) {
 						Add_Occupant (obj->As_SoldierGameObj(), i);
 					}
 				}
@@ -940,7 +940,7 @@ void VehicleGameObj::Import_Frequent(BitStreamClass & packet)
    WWASSERT(CombatManager::I_Am_Only_Client());
 
 	int rounds = packet.Get(rounds);
-	if (Get_Weapon() != NULL) {
+	if (Get_Weapon() != nullptr) {
 		Get_Weapon()->Set_Total_Rounds(rounds);
 	}
 
@@ -953,7 +953,7 @@ void VehicleGameObj::Import_Frequent(BitStreamClass & packet)
 		{
 			VehiclePhysClass * p_obj = Peek_Vehicle_Phys();
 
-			if (p_obj != NULL) {
+			if (p_obj != nullptr) {
 
 
 				Vector3 sc_position;
@@ -1041,7 +1041,7 @@ void VehicleGameObj::Export_Frequent(BitStreamClass & packet)
 	// Vehicles never change their weapon type
 	//
 	int total_rounds = 0;
-	if (Get_Weapon() != NULL) {
+	if (Get_Weapon() != nullptr) {
 		total_rounds = Get_Weapon()->Get_Total_Rounds();
 	}
 	packet.Add(total_rounds);
@@ -1054,7 +1054,7 @@ void VehicleGameObj::Export_Frequent(BitStreamClass & packet)
 		case VEHICLE_TYPE_FLYING:
 		{
 			VehiclePhysClass * p_obj = Peek_Vehicle_Phys();
-			if (p_obj != NULL) {
+			if (p_obj != nullptr) {
 
 				Vector3 pos;
 				Quaternion q;
@@ -1130,7 +1130,7 @@ void VehicleGameObj::Export_State_Cs(BitStreamClass & packet)
 void VehicleGameObj::Get_Velocity(Vector3 & vel)
 {
 	VehiclePhysClass * vp = Peek_Vehicle_Phys();
-	if (vp != NULL) {
+	if (vp != nullptr) {
 		vp->Get_Velocity(&vel);
 	} else {
 		vel.Set(0,0,0);
@@ -1140,7 +1140,7 @@ void VehicleGameObj::Get_Velocity(Vector3 & vel)
 void VehicleGameObj::Set_Velocity(Vector3 & vel)
 {
 	VehiclePhysClass * vehicle = Peek_Vehicle_Phys();
-	if (vehicle != NULL) {
+	if (vehicle != nullptr) {
 		vehicle->Set_Velocity(vel);
 	}
 }
@@ -1287,7 +1287,7 @@ void VehicleGameObj::Apply_Control( void )
 {
 	SoldierGameObj * driver = Seats[DRIVER_SEAT];
 	SoldierGameObj * gunner = Seats[GUNNER_SEAT];
-	if ( gunner == NULL ) {
+	if ( gunner == nullptr ) {
 		gunner = driver;
 	}
 
@@ -1336,7 +1336,7 @@ void VehicleGameObj::Apply_Control( void )
 	SoldierGameObj * driver = Get_Driver();
 	SoldierGameObj * gunner = Get_Gunner();
 
-	if ( gunner == NULL || Get_Driver_Is_Gunner() ) {
+	if ( gunner == nullptr || Get_Driver_Is_Gunner() ) {
 		gunner = driver;
 	}
 
@@ -1344,7 +1344,7 @@ void VehicleGameObj::Apply_Control( void )
 		if ( !CombatManager::Is_Gameplay_Permitted() ) {
 			Clear_Control();
 			Controller.Reset();
-			if ( Peek_Vehicle_Phys() != NULL) {
+			if ( Peek_Vehicle_Phys() != nullptr) {
 				Peek_Vehicle_Phys()->Set_Velocity( Vector3(0,0,0) );
 			}
 			return;
@@ -1447,11 +1447,11 @@ void	VehicleGameObj::Think( void )
 	if (LockTimer > 0.0f) {
 		LockTimer -= TimeManager::Get_Frame_Seconds();
 	} else {
-		LockOwner = NULL;
+		LockOwner = nullptr;
 	}
 
 	// UnStealth if we don't have any occupants, and we aren't in single play
-	if (StealthEffect != NULL) {
+	if (StealthEffect != nullptr) {
 		if ((Get_Occupant_Count() == 0 ) && ( !IS_MISSION )) {
 			StealthEffect->Enable_Stealth(false);
 		}
@@ -1468,7 +1468,7 @@ void	VehicleGameObj::Post_Think( void )
 	WWASSERT( model );
 
 	for ( int i = 0; i < SeatOccupants.Length(); i++ ) {
-		if ( SeatOccupants[i] != NULL ) {
+		if ( SeatOccupants[i] != nullptr ) {
 			char	bone_name[80];
 			sprintf( bone_name, "SEAT%d", i );
 			int seat_bone_index = model->Get_Bone_Index( bone_name );
@@ -1490,7 +1490,7 @@ void	VehicleGameObj::Post_Think( void )
 		Get_Weapon()->Reset_Anim_Update();
 		int state = Get_Weapon()->Get_Anim_State();
 		if ( state == WEAPON_ANIM_NOT_FIRING ) {
-			Set_Animation( NULL );
+			Set_Animation( nullptr );
 		} else if ( state == WEAPON_ANIM_FIRING_0 ) {
 			Set_Animation( Get_Definition().Fire0Anim );
 		} else if ( state == WEAPON_ANIM_FIRING_1 ) {
@@ -1510,7 +1510,7 @@ int VehicleGameObj::Get_Player_Type(void) const
 {
 	// If they have a driver, they are his team.
 	for (int i = 0; i < SeatOccupants.Length(); i++) {
-		if (SeatOccupants[i] != NULL) {
+		if (SeatOccupants[i] != nullptr) {
 			return SeatOccupants[i]->Get_Player_Type();
 		}
 	}
@@ -1532,7 +1532,7 @@ void	VehicleGameObj::Init_Wheel_Effects( void )
 {
 	// Create an array of persistant surface emitters, one for each "real" wheel
 	WWASSERT( WheelSurfaceEmitters.Length() == 0 );
-	if (	(Peek_Vehicle_Phys() != NULL) &&
+	if (	(Peek_Vehicle_Phys() != nullptr) &&
 			(Peek_Vehicle_Phys()->Get_VehiclePhysDef()->Is_Fake() == false) )
 	{
 		int real_wheel_count = Peek_Vehicle_Phys()->Get_Real_Wheel_Count();
@@ -1543,7 +1543,7 @@ void	VehicleGameObj::Init_Wheel_Effects( void )
 	}
 
 	// Create a single persistant surface effect sound for tire squealing
-	WWASSERT(WheelSurfaceSound == NULL);
+	WWASSERT(WheelSurfaceSound == nullptr);
 	WheelSurfaceSound = SurfaceEffectsManager::Create_Persistant_Sound();
 }
 
@@ -1552,18 +1552,18 @@ void	VehicleGameObj::Shutdown_Wheel_Effects( void )
 	// Release the persistant surface emitters
 	for (int i=0; i<WheelSurfaceEmitters.Length(); i++) {
 		SurfaceEffectsManager::Destroy_Persistant_Emitter( WheelSurfaceEmitters[i] );
-		WheelSurfaceEmitters[i] = NULL;
+		WheelSurfaceEmitters[i] = nullptr;
 	}
 	WheelSurfaceEmitters.Clear();
 
 	// Release the persistant surface sound effect
 	SurfaceEffectsManager::Destroy_Persistant_Sound(WheelSurfaceSound);
-	WheelSurfaceSound = NULL;
+	WheelSurfaceSound = nullptr;
 }
 
 void	VehicleGameObj::Update_Wheel_Effects( void )
 {
-	if (	(Peek_Vehicle_Phys() == NULL) ||
+	if (	(Peek_Vehicle_Phys() == nullptr) ||
 			(Peek_Vehicle_Phys()->Get_VehiclePhysDef()->Is_Fake()) )
 	{
 		return;
@@ -1572,7 +1572,7 @@ void	VehicleGameObj::Update_Wheel_Effects( void )
 	int roll_hitter_type = SurfaceEffectsManager::HITTER_TYPE_TIRE_ROLLING;
 	int slide_hitter_type = SurfaceEffectsManager::HITTER_TYPE_TIRE_SLIDING;
 
-	if ( Peek_Vehicle_Phys()->As_TrackedVehicleClass() != NULL) {
+	if ( Peek_Vehicle_Phys()->As_TrackedVehicleClass() != nullptr) {
 		roll_hitter_type = SurfaceEffectsManager::HITTER_TYPE_TRACK_ROLLING;
 		slide_hitter_type = SurfaceEffectsManager::HITTER_TYPE_TRACK_SLIDING;
 	}
@@ -1590,7 +1590,7 @@ void	VehicleGameObj::Update_Wheel_Effects( void )
 
 	if (WheelSurfaceEmitters.Length() > 0) {
 
-		if ( Peek_Vehicle_Phys() != NULL) {
+		if ( Peek_Vehicle_Phys() != nullptr) {
 			int emitter_index = 0;
 			int wheel_count = Peek_Vehicle_Phys()->Get_Wheel_Count();
 			for (int i=0; i<wheel_count; i++) {
@@ -1657,7 +1657,7 @@ void	VehicleGameObj::Update_Wheel_Effects( void )
 
 void VehicleGameObj::Update_Sound_Effects(void)
 {
-	if (Peek_Vehicle_Phys() == NULL) {
+	if (Peek_Vehicle_Phys() == nullptr) {
 		return;
 	}
 
@@ -1667,7 +1667,7 @@ void VehicleGameObj::Update_Sound_Effects(void)
 	case ENGINE_SOUND_STATE_STARTING:
 		{
 			// play our ENGINE_STARTING sound, if it is finished or not found, destroy and go to ENGINE_RUNNING
-			if ((CachedEngineSound == NULL) || ((CachedEngineSound != NULL) && (CachedEngineSound->Get_State()==AudibleSoundClass::STATE_STOPPED))) {
+			if ((CachedEngineSound == nullptr) || ((CachedEngineSound != nullptr) && (CachedEngineSound->Get_State()==AudibleSoundClass::STATE_STOPPED))) {
 				Change_Engine_Sound_State(ENGINE_SOUND_STATE_RUNNING);
 			}
 		}
@@ -1675,7 +1675,7 @@ void VehicleGameObj::Update_Sound_Effects(void)
 
 	case ENGINE_SOUND_STATE_RUNNING:
 		{
-			if (CachedEngineSound != NULL) {
+			if (CachedEngineSound != nullptr) {
 				Update_Engine_Sound_Pitch ();
 			}
 			if (Peek_Vehicle_Phys()->Is_Engine_Enabled() == false) {
@@ -1687,7 +1687,7 @@ void VehicleGameObj::Update_Sound_Effects(void)
 	case ENGINE_SOUND_STATE_STOPPING:
 		{
 			// play the ENGINE_STOPPING sound, if it is finished or not found, destroy and go to ENGINE_OFF
-			if ((CachedEngineSound == NULL) || ((CachedEngineSound != NULL) && (CachedEngineSound->Get_State()==AudibleSoundClass::STATE_STOPPED))) {
+			if ((CachedEngineSound == nullptr) || ((CachedEngineSound != nullptr) && (CachedEngineSound->Get_State()==AudibleSoundClass::STATE_STOPPED))) {
 				Change_Engine_Sound_State(ENGINE_SOUND_STATE_OFF);
 			}
 		}
@@ -1710,20 +1710,20 @@ void VehicleGameObj::Update_Sound_Effects(void)
 
 void VehicleGameObj::Change_Engine_Sound_State(int new_state)
 {
-	if (CachedEngineSound != NULL) {
+	if (CachedEngineSound != nullptr) {
 		CachedEngineSound->Remove_From_Scene();
 		CachedEngineSound->Release_Ref();
-		CachedEngineSound = NULL;
+		CachedEngineSound = nullptr;
 	}
 
 	EngineSoundState = new_state;
 
 	DefinitionClass * sound_def = DefinitionMgrClass::Find_Definition(Get_Definition().EngineSound[new_state]);
-	if (sound_def != NULL) {
+	if (sound_def != nullptr) {
 		CachedEngineSound = (AudibleSoundClass *)sound_def->Create();
 	}
 
-	if (CachedEngineSound != NULL) {
+	if (CachedEngineSound != nullptr) {
 		CachedEngineSound->Add_To_Scene();
 		CachedEngineSound->Attach_To_Object(Peek_Model());
 	}
@@ -1733,13 +1733,13 @@ void VehicleGameObj::Change_Engine_Sound_State(int new_state)
 
 void	VehicleGameObj::Update_Engine_Sound_Pitch(void)
 {
-	if (CachedEngineSound == NULL) {
+	if (CachedEngineSound == nullptr) {
 		return ;
 	}
 
 	float pitch_factor = 1.0F;
 
-	if (Peek_Vehicle_Phys() != NULL) {
+	if (Peek_Vehicle_Phys() != nullptr) {
 
 		MotorVehicleClass * motophys = Peek_Physical_Object()->As_MotorVehicleClass();
 		TrackedVehicleClass * trackphys = Peek_Physical_Object()->As_TrackedVehicleClass();
@@ -1747,7 +1747,7 @@ void	VehicleGameObj::Update_Engine_Sound_Pitch(void)
 
 		float max_factor = Get_Definition().EngineSoundMaxPitchFactor;
 
-		if (motophys != NULL) {
+		if (motophys != nullptr) {
 
 			// Wheeled vehicle engine pitch depends on their rpms
 			float norm_rpm = motophys->Get_Normalized_Engine_RPM();
@@ -1758,7 +1758,7 @@ void	VehicleGameObj::Update_Engine_Sound_Pitch(void)
 
 			pitch_factor = 1.0F + ((max_factor - 1.0F) * norm_rpm);
 
-		} else if (trackphys != NULL) {
+		} else if (trackphys != nullptr) {
 
 			// Tracked vehicle engine pitch depends on their overall speed
 			const float MAX_TRACKED_SPEED = 10.0f;
@@ -1769,7 +1769,7 @@ void	VehicleGameObj::Update_Engine_Sound_Pitch(void)
 
 			pitch_factor = 1.0F + ((max_factor - 1.0F) * norm_speed);
 
-		} else if (vtolphys != NULL) {
+		} else if (vtolphys != nullptr) {
 
 			// VTOL vehicle engine pitch depends on absolute acceleration
 			const float MAX_VTOL_SPEED = 20.0f;
@@ -1789,7 +1789,7 @@ void	VehicleGameObj::Update_Engine_Sound_Pitch(void)
 VehiclePhysClass	*VehicleGameObj::Peek_Vehicle_Phys( void ) const
 {
 	WWASSERT( Peek_Physical_Object() );
-	return Peek_Physical_Object()->As_VehiclePhysClass();		// NOTE: sometimes will return NULL!
+	return Peek_Physical_Object()->As_VehiclePhysClass();		// NOTE: sometimes will return nullptr!
 }
 
 
@@ -1800,7 +1800,7 @@ void	VehicleGameObj::Add_Occupant( SoldierGameObj * occupant )
 {
 	// Add the the lowest empty seat
 	for ( int i = 0; i < Get_Definition().NumSeats; i++ ) {
-		if ( SeatOccupants[i] == NULL ) {
+		if ( SeatOccupants[i] == nullptr ) {
 			Add_Occupant( occupant, i );
 			break;;
 		}
@@ -1811,7 +1811,7 @@ void	VehicleGameObj::Add_Occupant( SoldierGameObj * occupant, int seat_id )
 {
 	WWASSERT( occupant );
 
-	if ( SeatOccupants[seat_id] != NULL ) {
+	if ( SeatOccupants[seat_id] != nullptr ) {
 		Debug_Say(( "Vehicle already has an occupant in that seat\n" ));
 		return;
 	}
@@ -1835,7 +1835,7 @@ void	VehicleGameObj::Add_Occupant( SoldierGameObj * occupant, int seat_id )
 	OccupiedSeats++;
 	Set_Object_Dirty_Bit( NetworkObjectClass::BIT_RARE, true );
 
-	const char * anim_name = NULL;
+	const char * anim_name = nullptr;
 	if ( Get_Definition().Type == VEHICLE_TYPE_BIKE ) {
 		anim_name = "S_A_HUMAN.H_A_V20A";
 	} else {
@@ -1870,7 +1870,7 @@ void	VehicleGameObj::Add_Occupant( SoldierGameObj * occupant, int seat_id )
 	//
 	// Reset any action the vehicle was performing
 	//
-	if (Get_Action() != NULL) {
+	if (Get_Action() != nullptr) {
 		Get_Action()->Reset(1);
 	}
 
@@ -1878,7 +1878,7 @@ void	VehicleGameObj::Add_Occupant( SoldierGameObj * occupant, int seat_id )
 	// Unlock the vehicle!
 	//
 	LockTimer = 0.0f;
-	LockOwner = NULL;
+	LockOwner = nullptr;
 }
 
 int	VehicleGameObj::Find_Seat( SoldierGameObj * occupant )
@@ -1912,7 +1912,7 @@ void	VehicleGameObj::Remove_Occupant( SoldierGameObj * occupant )
 	Debug_Say(( "Soldier %p removed from seat %d\n", occupant, seat_num ));
 
 	SeatOccupants[seat_num]->Exit_Vehicle();
-	SeatOccupants[seat_num] = NULL;
+	SeatOccupants[seat_num] = nullptr;
 	OccupiedSeats--;
 
 	// in MP, empty vehicles are neutral
@@ -1953,7 +1953,7 @@ int VehicleGameObj::Get_Occupant_Count(void)
 {
 	int count = 0;
 	for ( int i = 0; i < SeatOccupants.Length(); i++ ) {
-		if ( SeatOccupants[i] != NULL ) {
+		if ( SeatOccupants[i] != nullptr ) {
 			count++;
 		}
 	}
@@ -1975,7 +1975,7 @@ bool	VehicleGameObj::Is_Entry_Permitted( SoldierGameObj * p_soldier )
 	// Actually, only allow 2 Nods or 2 GDI's to share a vehicle...
 	//
 
-	WWASSERT(p_soldier != NULL);
+	WWASSERT(p_soldier != nullptr);
 
 	bool is_permitted = true;
 
@@ -1984,7 +1984,7 @@ bool	VehicleGameObj::Is_Entry_Permitted( SoldierGameObj * p_soldier )
 	int i;
 	for (i = 0; i < SeatOccupants.Length(); i++) {
 
-		if (SeatOccupants[i] != NULL) {
+		if (SeatOccupants[i] != nullptr) {
 			int seated_pt = SeatOccupants[i]->Get_Player_Type();
 
 			if (seated_pt != player_type ||
@@ -2112,7 +2112,7 @@ void VehicleGameObj::Get_Description(StringClass & description)
 	description += line;
 
 	WeaponClass	* p_weapon = Get_Weapon();
-	if (p_weapon != NULL) {
+	if (p_weapon != nullptr) {
 		line.Format("WEAP:  %s\n", p_weapon->Get_Name());
 		description += line;
 
@@ -2120,17 +2120,17 @@ void VehicleGameObj::Get_Description(StringClass & description)
 		description += line;
    }
 
-	if (Get_Defense_Object() != NULL) {
+	if (Get_Defense_Object() != nullptr) {
 		line.Format("HLTH:  %-5.2f\n", Get_Defense_Object()->Get_Health());
 		description += line;
 	}
 
-   if (Get_Driver() != NULL) {
+   if (Get_Driver() != nullptr) {
 		line.Format("DRVR:  %d\n", Get_Driver()->Get_ID());
 		description += line;
    }
 
-   if (Get_Gunner() != NULL) {
+   if (Get_Gunner() != nullptr) {
 		line.Format("GUNR:   %d\n", Get_Gunner()->Get_ID());
 		description += line;
    }
@@ -2148,7 +2148,7 @@ void VehicleGameObj::Get_Description(StringClass & description)
 		control.Get_Analog(ControlClass::ANALOG_TURN_LEFT));
 	description += line;
 
-	if (Get_Action() != NULL) {
+	if (Get_Action() != nullptr) {
 
 		line.Format("ACTCT: %d\n", Get_Action()->Get_Act_Count());
 		description += line;
@@ -2173,7 +2173,7 @@ void VehicleGameObj::Get_Description(StringClass & description)
 
 bool	VehicleGameObj::Is_Engine_Enabled (void) const
 {
-	if (Peek_Vehicle_Phys() != NULL) {
+	if (Peek_Vehicle_Phys() != nullptr) {
 		return Peek_Vehicle_Phys()->Is_Engine_Enabled();
 	} else {
 		return false;
@@ -2182,7 +2182,7 @@ bool	VehicleGameObj::Is_Engine_Enabled (void) const
 
 void	VehicleGameObj::Enable_Engine (bool onoff)
 {
-	if (Peek_Vehicle_Phys() != NULL) {
+	if (Peek_Vehicle_Phys() != nullptr) {
 		Peek_Vehicle_Phys()->Enable_Engine(onoff);
 	}
 }
@@ -2210,8 +2210,8 @@ void	VehicleGameObj::Apply_Damage( const OffenseObjectClass & damager, float sca
 
 	// Stats
 	if ( starting_health > 0 && Get_Defense_Object()->Get_Health() <= 0 ) {
-		if ( damager.Get_Owner() && damager.Get_Owner()->As_SoldierGameObj() != NULL ) {
-			if ( damager.Get_Owner()->As_SoldierGameObj()->Get_Player_Data() != NULL ) {
+		if ( damager.Get_Owner() && damager.Get_Owner()->As_SoldierGameObj() != nullptr ) {
+			if ( damager.Get_Owner()->As_SoldierGameObj()->Get_Player_Data() != nullptr ) {
 				damager.Get_Owner()->As_SoldierGameObj()->Get_Player_Data()->Stats_Add_Vehicle_Destroyed();
 			}
 		}
@@ -2229,14 +2229,14 @@ void	VehicleGameObj::Update_Damage_Meshes( void )
 	//	Calculate what percent health we have after this damage
 	//
 	DefenseObjectClass *defense_object = Get_Defense_Object();
-	if ( defense_object != NULL ) {
+	if ( defense_object != nullptr ) {
 		float ending_health = defense_object->Get_Health() / defense_object->Get_Health_Max();
 
 		//
 		//	Make sure we have a render object to lookup bones on
 		//
 		RenderObjClass *model = Peek_Model ();
-		if (model != NULL) {
+		if (model != nullptr) {
 			bool show_damage25 = false;
 			bool show_damage50 = false;
 			bool show_damage75 = false;
@@ -2299,7 +2299,7 @@ void	VehicleGameObj::Update_Damage_Meshes( void )
 
 void	Set_Subobject_Visibility (RenderObjClass *model, int bone_index, bool show)
 {
-	WWASSERT( model != NULL );
+	WWASSERT( model != nullptr );
 
 	//
 	//	Loop over all the subobjects that are attached to this bone
@@ -2307,7 +2307,7 @@ void	Set_Subobject_Visibility (RenderObjClass *model, int bone_index, bool show)
 	int count = model->Get_Num_Sub_Objects_On_Bone( bone_index );
 	for (int index = 0; index < count; index ++) {
 		RenderObjClass *sub_obj = model->Get_Sub_Object_On_Bone(index, bone_index);
-		if (sub_obj != NULL) {
+		if (sub_obj != nullptr) {
 
 			//
 			//	Show or hide this subobject
@@ -2353,7 +2353,7 @@ ExpirationReactionType	VehicleGameObj::Object_Expired( PhysClass * observed_obj 
 			// notify the observers of killed
 			const GameObjObserverList & observer_list = Get_Observers();
 			for( int index = 0; index < observer_list.Count(); index++ ) {
-				observer_list[ index ]->Killed( this, NULL );
+				observer_list[ index ]->Killed( this, nullptr );
 			}
 		}
 
@@ -2372,7 +2372,7 @@ SoldierGameObj * VehicleGameObj::Get_Driver(void)
 	if ( SeatOccupants.Length() > DRIVER_SEAT ) {
 		return SeatOccupants[DRIVER_SEAT];
 	}
-	return NULL;
+	return nullptr;
 }
 
 SoldierGameObj * VehicleGameObj::Get_Gunner(void)
@@ -2380,7 +2380,7 @@ SoldierGameObj * VehicleGameObj::Get_Gunner(void)
 	if ( SeatOccupants.Length() > GUNNER_SEAT ) {
 		return SeatOccupants[GUNNER_SEAT];
 	}
-	return NULL;
+	return nullptr;
 }
 
 SoldierGameObj * VehicleGameObj::Get_Actual_Gunner(void)
@@ -2415,7 +2415,7 @@ float VehicleGameObj::Get_Filter_Distance(void) const
 	if (Get_Definition().Type == VEHICLE_TYPE_TURRET) {
 		WeaponClass *weapon = ((VehicleGameObj*)this)->Get_Weapon();
 		float range = Get_Definition().SightRange;
-		if (weapon != NULL) {
+		if (weapon != nullptr) {
 			range = std::min(weapon->Get_Range(), range);
 		}
 		return(range);
@@ -2428,8 +2428,8 @@ float VehicleGameObj::Get_Filter_Distance(void) const
 void	VehicleGameObj::Ignore_Occupants( void )
 {
 	for (int i = 0; i < SeatOccupants.Length(); i++) {
-		if (SeatOccupants[i] != NULL) {
-			if ( SeatOccupants[i]->Peek_Physical_Object() != NULL ) {
+		if (SeatOccupants[i] != nullptr) {
+			if ( SeatOccupants[i]->Peek_Physical_Object() != nullptr ) {
 				SeatOccupants[i]->Peek_Physical_Object()->Inc_Ignore_Counter();
 			}
 		}
@@ -2439,8 +2439,8 @@ void	VehicleGameObj::Ignore_Occupants( void )
 void	VehicleGameObj::Unignore_Occupants( void )
 {
 	for (int i = 0; i < SeatOccupants.Length(); i++) {
-		if (SeatOccupants[i] != NULL) {
-			if ( SeatOccupants[i]->Peek_Physical_Object() != NULL ) {
+		if (SeatOccupants[i] != nullptr) {
+			if ( SeatOccupants[i]->Peek_Physical_Object() != nullptr ) {
 				SeatOccupants[i]->Peek_Physical_Object()->Dec_Ignore_Counter();
 			}
 		}
@@ -2536,7 +2536,7 @@ void VehicleGameObj::Import_State_Sc(BitStreamClass & packet)
 {
    WWASSERT(CombatManager::I_Am_Only_Client());
 
-	if (Get_Weapon() != NULL) {
+	if (Get_Weapon() != nullptr) {
 		int rounds = packet.Get(rounds);
 		Get_Weapon()->Set_Total_Rounds(rounds);
 	}
@@ -2544,12 +2544,12 @@ void VehicleGameObj::Import_State_Sc(BitStreamClass & packet)
 	for (int i = 0; i < NUM_SEATS; i++) {
 		int occupant = packet.Get(occupant);
 		if (occupant == -1) {
-			Seats[i] = NULL;
+			Seats[i] = nullptr;
 		} else {
-			if ((Seats[i] == NULL) || (Seats[i]->Get_ID() != occupant)) {
+			if ((Seats[i] == nullptr) || (Seats[i]->Get_ID() != occupant)) {
 				SmartGameObj * obj = GameObjManager::Find_SmartGameObj(occupant);
-				Seats[i] = NULL;
-				if (obj != NULL) {
+				Seats[i] = nullptr;
+				if (obj != nullptr) {
 					Seats[i] = obj->As_SoldierGameObj();
 				}
 			}
@@ -2563,7 +2563,7 @@ void VehicleGameObj::Import_State_Sc(BitStreamClass & packet)
 		case VEHICLE_TYPE_TANK:
 		{
 			VehiclePhysClass * p_obj = Peek_Vehicle_Phys();
-			WWASSERT(p_obj != NULL);
+			WWASSERT(p_obj != nullptr);
 
 			Vector3 sc_position;
 			Quaternion q;
@@ -2617,7 +2617,7 @@ void VehicleGameObj::Import_State_Sc(BitStreamClass & packet)
 				case CLIENT_INTERPOLATION_PATHFIND: {
 
 					SoldierGameObj * p_driver = Seats[DRIVER_SEAT];
-					if (p_driver != NULL && p_driver->Get_Control_Owner() == CombatManager::Get_My_Id()) {
+					if (p_driver != nullptr && p_driver->Get_Control_Owner() == CombatManager::Get_My_Id()) {
 
 						Matrix3D tm(q, sc_position);
 						p_obj->Set_Transform(tm);
@@ -2630,7 +2630,7 @@ void VehicleGameObj::Import_State_Sc(BitStreamClass & packet)
 						parameters.Priority = 1;
 						parameters.MoveLocation = sc_position;
 						parameters.MoveArrivedDistance = 0.1f;
-						WWASSERT(Get_Action() != NULL);
+						WWASSERT(Get_Action() != nullptr);
 						Get_Action()->Goto(parameters);
 					}
 					break;

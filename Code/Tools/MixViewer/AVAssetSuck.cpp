@@ -28,7 +28,7 @@
 
 
 AVAssetSuckerClass::AVAssetSuckerClass(void) :
-	Dialog(NULL)
+	Dialog(nullptr)
 {
 }
 
@@ -66,7 +66,7 @@ void AVAssetSuckerClass::Thread_Suck(void)
 {
 	char name[_MAX_PATH];
 
-	while (Dialog == NULL) {
+	while (Dialog == nullptr) {
 		Sleep(0);
 	}
 
@@ -74,7 +74,7 @@ void AVAssetSuckerClass::Thread_Suck(void)
 	** Get just the file name.
 	*/
 	char justname[_MAX_PATH];
-	_splitpath(InputFile, NULL, NULL, justname, NULL);
+	_splitpath(InputFile, nullptr, nullptr, justname, nullptr);
 	char text[_MAX_PATH + 128];
 	sprintf(text, "Copying files from %s...", justname);
 

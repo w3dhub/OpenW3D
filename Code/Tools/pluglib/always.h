@@ -161,10 +161,6 @@ template <class T> T max(T a,T b)
 #include	"visualc.h"
 #endif
 
-#ifndef	NULL
-	#define	NULL		0
-#endif
-
 /**********************************************************************
 **	This macro serves as a general way to determine the number of elements
 **	within an array.

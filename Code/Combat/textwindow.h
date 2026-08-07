@@ -146,7 +146,7 @@ private:
 	void				Free_Contents (void);
 	void				Free_Renderers (void);
 	void				Build_View (void);
-	void				Update_View (float *total_height = NULL, bool info_only = false);
+	void				Update_View (float *total_height = nullptr, bool info_only = false);
 
 	void				Update_Row (int item_index, float y_pos, float *row_height);
 

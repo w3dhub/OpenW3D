@@ -48,7 +48,7 @@ static UINT fnOptimizeVisDialogThread (DWORD_PTR dwparam1, DWORD_PTR dwparam2, D
 /////////////////////////////////////////////////////////////////////////////
 OptimizingVisDialogClass::OptimizingVisDialogClass(CWnd *parent)
 	:	m_Cancelled (false),
-		m_ProgressStats (NULL),
+		m_ProgressStats (nullptr),
 		CDialog(OptimizingVisDialogClass::IDD, parent)
 {
 	//{{AFX_DATA_INIT(OptimizingVisDialogClass)
@@ -93,7 +93,7 @@ OptimizingVisDialogClass::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	m_ProgressBar.SetRange (0, 100);
-	SetTimer (777, 1000, NULL);
+	SetTimer (777, 1000, nullptr);
 	return true;
 }
 
@@ -142,7 +142,7 @@ OptimizingVisDialogClass::WindowProc
 void
 OptimizingVisDialogClass::Update_Stats (void)
 {
-	if (m_ProgressStats == NULL) {
+	if (m_ProgressStats == nullptr) {
 		return ;
 	}
 
@@ -206,13 +206,13 @@ OptimizingVisDialogClass::Set_Finished (void)
 void
 OptimizingVisDialogClass::Optimize (void)
 {
-	OptimizingVisDialogClass *dialog = NULL;
+	OptimizingVisDialogClass *dialog = nullptr;
 	VisOptProgressClass stats;
 
 	//
 	//	Create the dialog on a separate thread
 	//
-	::Create_UI_Thread (fnOptimizeVisDialogThread, 0, (DWORD_PTR)&dialog, 0, NULL, NULL);
+	::Create_UI_Thread (fnOptimizeVisDialogThread, 0, (DWORD_PTR)&dialog, 0, nullptr, nullptr);
 	dialog->Set_Status_Object (&stats);
 
 	//
@@ -229,7 +229,7 @@ OptimizingVisDialogClass::Optimize (void)
 	//	Cleanup the dialog
 	//
 	dialog->Set_Finished ();
-	dialog->Set_Status_Object (NULL);
+	dialog->Set_Status_Object (nullptr);
 	return ;
 }
 
@@ -249,14 +249,14 @@ fnOptimizeVisDialogThread
 	HWND* /*phmain_wnd*/
 )
 {
-	OptimizingVisDialogClass *dialog = new OptimizingVisDialogClass (NULL); //::AfxGetMainWnd ());
+	OptimizingVisDialogClass *dialog = new OptimizingVisDialogClass (nullptr); //::AfxGetMainWnd ());
 	dialog->ShowWindow (SW_SHOW);
 
 	//
 	//	Return the dialog object to the caller
 	//
 	OptimizingVisDialogClass **return_val = (OptimizingVisDialogClass **)dwparam2;
-	if (return_val != NULL) {
+	if (return_val != nullptr) {
 		(*return_val) = dialog;
 	}
 

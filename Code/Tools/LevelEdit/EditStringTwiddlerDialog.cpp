@@ -39,8 +39,8 @@ static char THIS_FILE[] = __FILE__;
 // EditStringTwiddlerDialogClass
 //
 /////////////////////////////////////////////////////////////////////////////
-EditStringTwiddlerDialogClass::EditStringTwiddlerDialogClass (CWnd *pParent /*=NULL*/)	:
-	StringObject (NULL),
+EditStringTwiddlerDialogClass::EditStringTwiddlerDialogClass (CWnd *pParent /*=nullptr*/)	:
+	StringObject (nullptr),
 	CDialog (EditStringTwiddlerDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(EditStringTwiddlerDialogClass)
@@ -100,7 +100,7 @@ EditStringTwiddlerDialogClass::OnInitDialog (void)
 	//
 	//	Fill in the text control
 	//
-	if (StringObject != NULL) {
+	if (StringObject != nullptr) {
 		SetDlgItemText (IDC_CODEID_EDIT, StringObject->Get_ID_Desc ());
 
 		//
@@ -136,7 +136,7 @@ EditStringTwiddlerDialogClass::Insert_String (int string_id)
 	//	Lookup the object for this ID
 	//
 	TDBObjClass *object = TranslateDBClass::Find_Object (string_id);
-	if (object != NULL) {
+	if (object != nullptr) {
 		const StringClass &text = object->Get_ID_Desc ();
 
 		//
@@ -198,7 +198,7 @@ EditStringTwiddlerDialogClass::OnOK (void)
 		//
 		//	Create a new twiddler (if necessary)
 		//
-		if (StringObject == NULL) {
+		if (StringObject == nullptr) {
 			StringObject = new StringTwiddlerClass;
 		}
 

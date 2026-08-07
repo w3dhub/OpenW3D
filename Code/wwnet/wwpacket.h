@@ -37,10 +37,6 @@
 #include "packetmgr.h"
 #include "mempool.h"
 
-#ifndef NULL
-#define NULL 0L
-#endif
-
 class Vector3;
 class Quaternion;
 class cFromAddress;

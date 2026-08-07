@@ -231,7 +231,7 @@ void WOLGameInfo::ImportFromGame(const cGameData& theGame)
 	mClanID2 = theGame.Get_Clan(1);
 
 	const unichar_t* password = theGame.Get_Password();
-	mIsPassworded = ((password != NULL) && (u_strlen(password) > 0));
+	mIsPassworded = ((password != nullptr) && (u_strlen(password) > 0));
 	mIsLaddered   = theGame.IsLaddered.Get();
 	mIsQuickmatch = theGame.Is_QuickMatch_Server();
 	mIsDedicated  = theGame.IsDedicated.Get();
@@ -288,9 +288,9 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 
 	const char* exInfo = channel->GetExtraInfo();
 
-	if ((exInfo == NULL) || (exInfo && (strlen(exInfo) != 36)))
+	if ((exInfo == nullptr) || (exInfo && (strlen(exInfo) != 36)))
 		{
-		WWDEBUG_SAY(("WOLERROR: Channel ExInfo NULL or wrong size\n"));
+		WWDEBUG_SAY(("WOLERROR: Channel ExInfo nullptr or wrong size\n"));
 		mIsDataValid = false;
 		return;
 		}
@@ -402,14 +402,14 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 
 	const char* topic = channel->GetTopic();
 
-	if (topic == NULL)
+	if (topic == nullptr)
 		{
-		WWDEBUG_SAY(("WOLERROR: Channel Topic is NULL\n"));
+		WWDEBUG_SAY(("WOLERROR: Channel Topic is nullptr\n"));
 		mIsDataValid = false;
 		}
 
 	// Quickmatch settings are marked by a pipe '|' character
-	mIsQuickmatch = (strchr(topic, '|') != NULL);
+	mIsQuickmatch = (strchr(topic, '|') != nullptr);
 
 	// Extract game title from topic
 	unsigned int titleLength = (topic[0] - 0x20);

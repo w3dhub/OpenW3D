@@ -70,8 +70,8 @@
 //
 SList<cPlayer>				cPlayerManager::PlayerList;
 cPlayer *					cPlayerManager::Player_Array[];
-Render2DTextClass	*		cPlayerManager::PTextRenderer				= NULL;
-Font3DInstanceClass *	cPlayerManager::PFont						= NULL;
+Render2DTextClass	*		cPlayerManager::PTextRenderer				= nullptr;
+Font3DInstanceClass *	cPlayerManager::PFont						= nullptr;
 const float					cPlayerManager::Y_INCREMENT_FACTOR		= 1.2f;
 int							cPlayerManager::XPos							= 0;
 int							cPlayerManager::YPos							= 0;
@@ -82,16 +82,16 @@ void cPlayerManager::Onetime_Init(void)
 {
 	WWDEBUG_SAY(("cPlayerManager::Onetime_Init\n"));
 	if (!ConsoleBox.Is_Exclusive()) {
-		WWASSERT(PFont == NULL);
-		WWASSERT(WW3DAssetManager::Get_Instance() != NULL);
+		WWASSERT(PFont == nullptr);
+		WWASSERT(WW3DAssetManager::Get_Instance() != nullptr);
    	PFont = WW3DAssetManager::Get_Instance()->Get_Font3DInstance("FONT6x8.TGA");
-   	WWASSERT(PFont != NULL);
+   	WWASSERT(PFont != nullptr);
 		PFont->Set_Mono_Spaced();
 		SET_REF_OWNER(PFont);
 
-		WWASSERT(PTextRenderer == NULL);
+		WWASSERT(PTextRenderer == nullptr);
 		PTextRenderer = new Render2DTextClass(PFont);
-   	WWASSERT(PTextRenderer != NULL);
+   	WWASSERT(PTextRenderer != nullptr);
 		PTextRenderer->Set_Coordinate_Range(Render2DClass::Get_Screen_Resolution());
 	}
    memset(Player_Array, 0, sizeof(Player_Array));
@@ -103,13 +103,13 @@ void cPlayerManager::Onetime_Shutdown(void)
 	WWDEBUG_SAY(("cPlayerManager::Onetime_Shutdown\n"));
 
 	if (!ConsoleBox.Is_Exclusive()) {
-		WWASSERT(PTextRenderer != NULL);
+		WWASSERT(PTextRenderer != nullptr);
 		delete PTextRenderer;
-		PTextRenderer = NULL;
+		PTextRenderer = nullptr;
 
-		WWASSERT(PFont != NULL);
+		WWASSERT(PFont != nullptr);
 		PFont->Release_Ref();
-		PFont = NULL;
+		PFont = nullptr;
 	}
 }
 
@@ -119,7 +119,7 @@ void cPlayerManager::Think(void)
 	WWPROFILE("cPlayerManager::Think");
 
 	if (MultiHUDClass::Is_On()) {
-		WWASSERT(PTextRenderer != NULL);
+		WWASSERT(PTextRenderer != nullptr);
 		Render_Player_List();
 	}
 	else {
@@ -131,8 +131,8 @@ void cPlayerManager::Think(void)
 void cPlayerManager::Render(void)
 {
 	WWPROFILE("cPlayerManager::Render");
-	if (PTextRenderer != NULL) {
-		WWASSERT(PTextRenderer != NULL);
+	if (PTextRenderer != nullptr) {
+		WWASSERT(PTextRenderer != nullptr);
 		PTextRenderer->Render();
 	}
 }
@@ -143,14 +143,14 @@ cPlayer * cPlayerManager::Find_Player(int id)
    SLNode<cPlayer> * objnode;
 	for (objnode = PlayerList.Head(); objnode; objnode = objnode->Next()) {
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 		if (p_player->Get_Is_Active().Is_True() &&
 			 p_player->Get_Id() == id) {
 			return p_player; // found it
 		}
 	}
 
-	return NULL; // Not found
+	return nullptr; // Not found
 }
 
 //------------------------------------------------------------------------------------
@@ -159,7 +159,7 @@ cPlayer * cPlayerManager::Find_Player(const WideStringClass & name)
    SLNode<cPlayer> * objnode;
 	for (objnode = PlayerList.Head(); objnode; objnode = objnode->Next()) {
 		cPlayer *p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 
       if (p_player->Get_Is_Active().Is_True() &&
 			 !name.Compare_No_Case(p_player->Get_Name())) {
@@ -168,21 +168,21 @@ cPlayer * cPlayerManager::Find_Player(const WideStringClass & name)
 		}
 	}
 
-	return NULL; // Not found
+	return nullptr; // Not found
 }
 
 //------------------------------------------------------------------------------------
 cPlayer * cPlayerManager::Find_Inactive_Player(const WideStringClass & name)
 {
-	cPlayer * p_result = NULL;
+	cPlayer * p_result = nullptr;
 
 	for (
 		SLNode<cPlayer> * objnode = PlayerList.Head();
-		objnode != NULL;
+		objnode != nullptr;
 		objnode = objnode->Next())
 	{
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 
       if (p_player->Get_Is_Active().Is_False() &&
 			!p_player->Get_Name().Compare_No_Case(name)) {
@@ -204,14 +204,14 @@ cPlayer * cPlayerManager::Find_Team_Player(int team_number)
    SLNode<cPlayer> * objnode;
 	for (objnode = PlayerList.Head(); objnode; objnode = objnode->Next()) {
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 		if (p_player->Get_Is_Active().Is_True() &&
 			 p_player->Get_Player_Type() == team_number) {
 			return p_player; // found it
 		}
 	}
 
-	return NULL; // Not found
+	return nullptr; // Not found
 }
 
 
@@ -227,7 +227,7 @@ cPlayer * cPlayerManager::Find_Random_Team_Player(int team_number)
 	SLNode<cPlayer> * objnode;
 	for (objnode = PlayerList.Head(); objnode; objnode = objnode->Next()) {
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 		if (p_player->Get_Is_Active().Is_True() &&
 			 p_player->Get_Player_Type() == team_number &&
 			 count++ == chosen_player) {
@@ -235,13 +235,13 @@ cPlayer * cPlayerManager::Find_Random_Team_Player(int team_number)
 		}
 	}
 
-	return NULL; // Not found
+	return nullptr; // Not found
 }
 
 //------------------------------------------------------------------------------------
 cPlayer * cPlayerManager::Find_Team_Mate(cPlayer * p_player1)
 {
-	WWASSERT(p_player1 != NULL);
+	WWASSERT(p_player1 != nullptr);
 	WWASSERT(p_player1->Get_Is_Active().Is_True());
 	//WWASSERT(The_Game()->Is_Team_Game());
 
@@ -251,7 +251,7 @@ cPlayer * cPlayerManager::Find_Team_Mate(cPlayer * p_player1)
    SLNode<cPlayer> * objnode;
 	for (objnode = PlayerList.Head(); objnode; objnode = objnode->Next()) {
 		cPlayer * p_player2 = objnode->Data();
-      WWASSERT(p_player2 != NULL);
+      WWASSERT(p_player2 != nullptr);
 		if (p_player2->Get_Is_Active().Is_True() &&
 			p_player2->Get_Id() != p_player1->Get_Id() &&
 			p_player2->Get_Player_Type() == team_number) {
@@ -259,12 +259,12 @@ cPlayer * cPlayerManager::Find_Team_Mate(cPlayer * p_player1)
 		}
 	}
 
-	return NULL; // Not found
+	return nullptr; // Not found
 }
 
 cPlayer* cPlayerManager::Find_Clan_Mate(cPlayer* player)
 {
-	if (player != NULL) {
+	if (player != nullptr) {
 		unsigned int clan = player->Get_WOL_ClanID();
 		int playerID = player->Get_Id();
 
@@ -272,7 +272,7 @@ cPlayer* cPlayerManager::Find_Clan_Mate(cPlayer* player)
 
 		while (node) {
 			cPlayer* mate = node->Data();
-			WWASSERT(mate != NULL);
+			WWASSERT(mate != nullptr);
 
 			if (playerID != mate->Get_Id()) {
 				if (clan == mate->Get_WOL_ClanID()) {
@@ -284,26 +284,26 @@ cPlayer* cPlayerManager::Find_Clan_Mate(cPlayer* player)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 //------------------------------------------------------------------------------------
 bool cPlayerManager::Is_Player_Present(int id)
 {
-   return (Find_Player(id) != NULL);
+   return (Find_Player(id) != nullptr);
 }
 
 //------------------------------------------------------------------------------------
 bool cPlayerManager::Is_Player_Present(WideStringClass & name)
 {
-   return (Find_Player(name) != NULL);
+   return (Find_Player(name) != nullptr);
 }
 
 //------------------------------------------------------------------------------------
 const WideStringClass & cPlayerManager::Get_Player_Name(int id)
 {
    cPlayer * p_player = Find_Player(id);
-   WWASSERT(p_player != NULL);
+   WWASSERT(p_player != nullptr);
    WWASSERT(p_player->Get_Is_Active().Is_True());
    return p_player->Get_Name();
 }
@@ -311,7 +311,7 @@ const WideStringClass & cPlayerManager::Get_Player_Name(int id)
 //------------------------------------------------------------------------------------
 void cPlayerManager::Add(cPlayer * p_player)
 {
-   WWASSERT(p_player != NULL);
+   WWASSERT(p_player != nullptr);
    PlayerList.Add_Tail(p_player);
 
 	PlayerMgrEvent event(PLAYER_ADDED, p_player);
@@ -321,7 +321,7 @@ void cPlayerManager::Add(cPlayer * p_player)
 //------------------------------------------------------------------------------------
 void cPlayerManager::Remove(cPlayer * p_player)
 {
-	WWASSERT(p_player != NULL);
+	WWASSERT(p_player != nullptr);
    PlayerList.Remove(p_player);
 
 	PlayerMgrEvent event(PLAYER_REMOVED, p_player);
@@ -497,7 +497,7 @@ void cPlayerManager::Compute_Ladder_Points(int winning_team)
 {
 	WWASSERT(cNetwork::I_Am_Server());
 
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 	if (The_Game()->IsLaddered.Is_False())	{
 		return;
 	}
@@ -515,7 +515,7 @@ void cPlayerManager::Compute_Ladder_Points(int winning_team)
 	int num_losers = 0;
    for (i = 0; i < MAX_PLAYERS; i++) {
 
-		if (Player_Array[i] == NULL ||
+		if (Player_Array[i] == nullptr ||
 			 Player_Array[i]->Get_Total_Time() < min_qualifying_time_ms) {
 			continue;
 		}
@@ -532,7 +532,7 @@ void cPlayerManager::Compute_Ladder_Points(int winning_team)
 
    for (i = 0; i < MAX_PLAYERS; i++) {
 
-		if (Player_Array[i] == NULL ||
+		if (Player_Array[i] == nullptr ||
 			 Player_Array[i]->Get_Total_Time() < min_qualifying_time_ms) {
 			continue;
 		}
@@ -560,7 +560,7 @@ void cPlayerManager::Compute_Ladder_Points(int winning_team)
 	}
    for (i = 0; i < MAX_PLAYERS; i++) {
 
-		if (Player_Array[i] == NULL ||
+		if (Player_Array[i] == nullptr ||
 			 Player_Array[i]->Get_Total_Time() < min_qualifying_time_ms) {
 			continue;
 		}
@@ -595,7 +595,7 @@ void cPlayerManager::Increment_Player_Times(void)
 	//
 
    for (int i = 0; i < MAX_PLAYERS; i++) {
-      if (Player_Array[i] != NULL &&
+      if (Player_Array[i] != nullptr &&
 			 Player_Array[i]->Is_Active()) {
 
 			Player_Array[i]->Increment_Total_Time();
@@ -610,7 +610,7 @@ WideStringClass cPlayerManager::Determine_Mvp_Name(void)
 
 	WideStringClass mvp_name;
 
-	WWASSERT(The_Game() != NULL);
+	WWASSERT(The_Game() != nullptr);
 	DWORD min_qualifying_time_ms = The_Game()->Get_Min_Qualifying_Time_Minutes() * 60 * 1000;
 
 	//
@@ -618,7 +618,7 @@ WideStringClass cPlayerManager::Determine_Mvp_Name(void)
 	// Player_Array has already been sorted on score.
 	//
    for (int i = 0; i < MAX_PLAYERS; i++) {
-      if (Player_Array[i] != NULL) {
+      if (Player_Array[i] != nullptr) {
 
 			//Player_Array[i]->Increment_Total_Time();
 
@@ -651,7 +651,7 @@ int cPlayerManager::Compute_Full_Player_List_Height(void)
 		count = Count();
 	}
 
-   WWASSERT(PFont != NULL);
+   WWASSERT(PFont != nullptr);
 	int height = (int)((count + 1) * PFont->Char_Height() * Y_INCREMENT_FACTOR);
 
 	return height;
@@ -662,10 +662,10 @@ void cPlayerManager::Remove_Inactive(void)
 {
 	for (
 		SLNode<cPlayer> * objnode = PlayerList.Head();
-		objnode != NULL;)
+		objnode != nullptr;)
 	{
 		cPlayer * p_player = objnode->Data();
-		WWASSERT(p_player != NULL);
+		WWASSERT(p_player != nullptr);
 		objnode = objnode->Next();
 
 		if (p_player->Get_Is_Active().Is_False())
@@ -681,10 +681,10 @@ void cPlayerManager::Remove_All(void)
 {
 	WWDEBUG_SAY(("cPlayerManager::Remove_All\n"));
 
-	for (SLNode<cPlayer> * objnode = PlayerList.Head(); objnode != NULL;) {
+	for (SLNode<cPlayer> * objnode = PlayerList.Head(); objnode != nullptr;) {
 
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 		objnode = objnode->Next();
 		PlayerList.Remove(p_player);
 		delete p_player;
@@ -702,11 +702,11 @@ int cPlayerManager::Count(void)
 
    for (
 		SLNode<cPlayer> * objnode = PlayerList.Head();
-		objnode != NULL;
+		objnode != nullptr;
 		objnode = objnode->Next()) {
 
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 
 		if (p_player->Get_Is_Active().Is_True())
 		{
@@ -729,11 +729,11 @@ void cPlayerManager::Reset_Players(void)
 
    for (
 		SLNode<cPlayer> * objnode = PlayerList.Head();
-		objnode != NULL;
+		objnode != nullptr;
 		objnode = objnode->Next()) {
 
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 		p_player->Reset_Player();
    }
 }
@@ -747,10 +747,10 @@ int cPlayerManager::Tally_Team_Size(int type)
 
    int tally = 0;
    SLNode<cPlayer> * objnode;
-	cPlayer * p_player = NULL;
-   for (objnode = PlayerList.Head(); objnode != NULL; objnode = objnode->Next()) {
+	cPlayer * p_player = nullptr;
+   for (objnode = PlayerList.Head(); objnode != nullptr; objnode = objnode->Next()) {
 		p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
       if (p_player->Get_Is_Active().Is_True() &&
 			 p_player->Get_Player_Type() == type) {
          tally++;
@@ -767,8 +767,8 @@ bool cPlayerManager::Is_Kill_Treasonous(cPlayer * p_killer, cPlayer * p_victim)
    return (
 		//The_Game()->Is_Team_Game() &&
 		//The_Game()->Is_Team_Game() &&
-		p_killer != NULL &&
-      p_victim != NULL &&
+		p_killer != nullptr &&
+      p_victim != nullptr &&
 		p_killer != p_victim &&
 		p_killer->Get_Player_Type() == p_victim->Get_Player_Type());
 }
@@ -789,7 +789,7 @@ void cPlayerManager::Sort_Players(bool fast_sort)
    SLNode<cPlayer> * objnode;
    for (objnode = Get_Player_Object_List()->Head(); objnode; objnode = objnode->Next()) {
 		p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 
 		//if (p_player->Is_Living()) {
 			//active_players++;
@@ -845,13 +845,13 @@ int cPlayerManager::Player_Compare(const void * elem1, const void * elem2)
 	// data-safe variables being accessed.
    //
 
-   WWASSERT(elem1 != NULL);
-   WWASSERT(elem2 != NULL);
+   WWASSERT(elem1 != nullptr);
+   WWASSERT(elem2 != nullptr);
 
    cPlayer * p_player1 = *((cPlayer **)elem1);
    cPlayer * p_player2 = *((cPlayer **)elem2);
-   WWASSERT(p_player1 != NULL);
-   WWASSERT(p_player2 != NULL);
+   WWASSERT(p_player1 != nullptr);
+   WWASSERT(p_player2 != nullptr);
 
    int result;
 
@@ -945,14 +945,14 @@ int cPlayerManager::Fast_Player_Compare(const void * elem1, const void * elem2)
    //
    // Used by qsort
    //
-   WWASSERT(elem1 != NULL);
-   WWASSERT(elem2 != NULL);
+   WWASSERT(elem1 != nullptr);
+   WWASSERT(elem2 != nullptr);
 
    cPlayer * p_player1 = *((cPlayer **)elem1);
    cPlayer * p_player2 = *((cPlayer **)elem2);
 
-   WWASSERT(p_player1 != NULL);
-   WWASSERT(p_player2 != NULL);
+   WWASSERT(p_player1 != nullptr);
+   WWASSERT(p_player2 != nullptr);
 
 	if (p_player1->Get_Fast_Sort_Key() > p_player2->Get_Fast_Sort_Key()) {
 		return -1;
@@ -974,7 +974,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 {
 	string.Format(U_CHAR(""));
 
-	WWASSERT(PTheGameData != NULL);
+	WWASSERT(PTheGameData != nullptr);
 	//bool is_verbose = force_verbose || The_Game()->IsIntermission.Get() || MultiHUDClass::Get_Verbose_Lists();
 	bool is_verbose = force_verbose ||
 		               The_Game()->IsIntermission.Is_True() ||
@@ -1102,14 +1102,14 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 //-----------------------------------------------------------------------------
 void cPlayerManager::List_Print(WideStringClass & text, Vector3 color)
 {
-   //WWASSERT(text != NULL);
+   //WWASSERT(text != nullptr);
    //WWASSERT(::strlen(text) > 0);
 
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
-	WWASSERT(PTextRenderer != NULL);
+	WWASSERT(PTextRenderer != nullptr);
 
 	PTextRenderer->Set_Location(Vector2(float(XPos), float(YPos)));
 
@@ -1117,7 +1117,7 @@ void cPlayerManager::List_Print(WideStringClass & text, Vector3 color)
 
 	PTextRenderer->Draw_Text(text, c);
 
-   WWASSERT(PFont != NULL);
+   WWASSERT(PFont != nullptr);
    YPos += int(PFont->Char_Height() * Y_INCREMENT_FACTOR);
 }
 
@@ -1126,11 +1126,11 @@ void cPlayerManager::Line(float x, float length, int line_color)
 {
    WWASSERT(length > 0);
 
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
-	WWASSERT(PTextRenderer != NULL);
+	WWASSERT(PTextRenderer != nullptr);
 
 	float y = YPos + PTextRenderer->Peek_Font()->Char_Height() / 2.0f;
 
@@ -1148,12 +1148,12 @@ void cPlayerManager::Render_Player_List(void)
    // Fields are name, ping, kills, death, kills-to-deaths, num-lives, score
    //
 
-	if (PTextRenderer == NULL) {
+	if (PTextRenderer == nullptr) {
 		return;
 	}
 
-	WWASSERT(PTheGameData != NULL);
-	if (GameModeManager::Find("Combat") == NULL ||
+	WWASSERT(PTheGameData != nullptr);
+	if (GameModeManager::Find("Combat") == nullptr ||
 		!GameModeManager::Find("Combat")->Is_Active() ||
 		The_Game()->IsIntermission.Is_True()) {
 
@@ -1297,8 +1297,8 @@ void cPlayerManager::Render_Player_List(void)
 	PTextRenderer->Reset();
 
 
-   WWASSERT(PFont != NULL);
-	WWASSERT(PTextRenderer != NULL);
+   WWASSERT(PFont != nullptr);
+	WWASSERT(PTextRenderer != nullptr);
 
 	DEMO_SECURITY_CHECK;
 
@@ -1402,7 +1402,7 @@ void cPlayerManager::Log_Player_List(void)
 	results_filename.Format("results%d.txt", cUserOptions::ResultsLogNumber.Get());
 	FILE * file = ::fopen(results_filename, "at");
 
-   if (file != NULL) {
+   if (file != nullptr) {
 
 		char line[2000] = "";
 
@@ -1417,7 +1417,7 @@ void cPlayerManager::Log_Player_List(void)
 
 		for (int j = 0; j < MAX_PLAYERS; j++) {
 			cPlayer * p_player = Player_Array[j];
-			if (p_player != NULL) {
+			if (p_player != nullptr) {
 				p_player->Get_Player_String(j + 1, wide_text, true);
 				wide_text.Convert_To(text);
 				::sprintf(line, "%s\n", text.Peek_Buffer());
@@ -1446,7 +1446,7 @@ bool cPlayerManager::Save(ChunkSaveClass & csave)
    SLNode<cPlayer> * objnode;
 	for (objnode = PlayerList.Head(); objnode; objnode = objnode->Next()) {
 		cPlayer * p_player = objnode->Data();
-      WWASSERT(p_player != NULL);
+      WWASSERT(p_player != nullptr);
 		csave.Begin_Chunk(CHUNKID_PLAYER);
 		p_player->Save(csave);
 		csave.End_Chunk();

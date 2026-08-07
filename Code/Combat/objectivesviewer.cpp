@@ -67,7 +67,7 @@ static const char *LOWER_RIGHT_BONE_NAME		= "BONE01";
 ////////////////////////////////////////////////////////////////
 ObjectivesViewerClass::ObjectivesViewerClass (void) :
 	IsDisplayed (false),
-	TextWindow (NULL)
+	TextWindow (nullptr)
 {
 	return ;
 }
@@ -92,9 +92,9 @@ ObjectivesViewerClass::~ObjectivesViewerClass (void)
 void
 ObjectivesViewerClass::Shutdown (void)
 {
-	if (TextWindow != NULL) {
+	if (TextWindow != nullptr) {
 		delete TextWindow;
-		TextWindow = NULL;
+		TextWindow = nullptr;
 	}
 
 	IsDisplayed		= false;
@@ -113,9 +113,9 @@ ObjectivesViewerClass::Initialize (void)
 	//
 	//	Start fresh
 	//
-	if (TextWindow != NULL) {
+	if (TextWindow != nullptr) {
 		delete TextWindow;
-		TextWindow = NULL;
+		TextWindow = nullptr;
 	}
 
 	//
@@ -161,7 +161,7 @@ ObjectivesViewerClass::Initialize (void)
 void
 ObjectivesViewerClass::Update (void)
 {
-	if (TextWindow == NULL) {
+	if (TextWindow == nullptr) {
 		return ;
 	}
 
@@ -261,7 +261,7 @@ ObjectivesViewerClass::Display (bool onoff)
 void
 ObjectivesViewerClass::Page_Down (void)
 {
-	if (TextWindow == NULL) {
+	if (TextWindow == nullptr) {
 		return ;
 	}
 
@@ -310,8 +310,8 @@ ObjectivesViewerClass::fnCompareObjectivesCallback
 	const void *elem2
 )
 {
-   WWASSERT (elem1 != NULL);
-   WWASSERT (elem2 != NULL);
+   WWASSERT (elem1 != nullptr);
+   WWASSERT (elem2 != nullptr);
    Objective *objective1 = *((Objective **)elem1);
    Objective *objective2 = *((Objective **)elem2);
 

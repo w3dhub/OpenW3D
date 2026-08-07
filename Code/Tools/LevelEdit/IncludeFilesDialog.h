@@ -48,7 +48,7 @@ class IncludeFilesDialogClass : public CDialog
 {
 // Construction
 public:
-	IncludeFilesDialogClass(CWnd* pParent = NULL);   // standard constructor
+	IncludeFilesDialogClass(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(IncludeFilesDialogClass)

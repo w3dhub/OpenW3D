@@ -147,10 +147,10 @@ public:
 
 	// Type identification
 	virtual	ScriptableGameObj	*As_ScriptableGameObj( void ) override	{ return this; };
-	virtual	DamageableGameObj	*As_DamageableGameObj( void )	{ return NULL; };
-	virtual	BuildingGameObj	*As_BuildingGameObj( void )	{ return NULL; };
-	virtual	SoldierGameObj		*As_SoldierGameObj( void )		{ return NULL; };
-	virtual	ScriptZoneGameObj	*As_ScriptZoneGameObj( void )	{ return NULL; };
+	virtual	DamageableGameObj	*As_DamageableGameObj( void )	{ return nullptr; };
+	virtual	BuildingGameObj	*As_BuildingGameObj( void )	{ return nullptr; };
+	virtual	SoldierGameObj		*As_SoldierGameObj( void )		{ return nullptr; };
+	virtual	ScriptZoneGameObj	*As_ScriptZoneGameObj( void )	{ return nullptr; };
 	ReferenceableGameObj *	As_ReferenceableGameObj( void ) { return this; }
 
 	virtual	void	Get_Information( StringClass & string );

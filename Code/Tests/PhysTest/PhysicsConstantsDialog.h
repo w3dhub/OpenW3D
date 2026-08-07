@@ -32,7 +32,7 @@ class CPhysicsConstantsDialog : public CDialog
 {
 // Construction
 public:
-	CPhysicsConstantsDialog(CWnd* pParent = NULL);   // standard constructor
+	CPhysicsConstantsDialog(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CPhysicsConstantsDialog)

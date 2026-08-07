@@ -59,7 +59,7 @@ class FontClass {
 		virtual int String_Pixel_Width(char const * string) const = 0;
 		virtual int Get_Width(void) const = 0;
 		virtual int Get_Height(void) const = 0;
-		virtual Point2D Print(char const * string, Surface & surface, Rect const & cliprect, Point2D const & point, ConvertClass const & converter, unsigned char const * remap=NULL) const = 0;
+		virtual Point2D Print(char const * string, Surface & surface, Rect const & cliprect, Point2D const & point, ConvertClass const & converter, unsigned char const * remap=nullptr) const = 0;
 
 		virtual int Set_XSpacing(int x) = 0;
 		virtual int Set_YSpacing(int y) = 0;

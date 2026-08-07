@@ -44,10 +44,10 @@
 /*
 **
 */
-LPDIRECTINPUT			DIObject				= NULL;
-LPDIRECTINPUTDEVICE	DIKeyboardDevice		= NULL;
-LPDIRECTINPUTDEVICE	DIMouseDevice			= NULL;
-LPDIRECTINPUTDEVICE2	DIJoystickDevice		= NULL;
+LPDIRECTINPUT			DIObject				= nullptr;
+LPDIRECTINPUTDEVICE	DIKeyboardDevice		= nullptr;
+LPDIRECTINPUTDEVICE	DIMouseDevice			= nullptr;
+LPDIRECTINPUTDEVICE2	DIJoystickDevice		= nullptr;
 
 DIJOYSTATE				DIJoystickState;
 
@@ -64,7 +64,7 @@ float						DirectInput::ButtonLastHitTime[NUM_KEYBOARD_BUTTONS];
 Vector3					DirectInput::CursorPos (0, 0, 0);
 bool						DirectInput::EatMouseHeld = false;
 bool						DirectInput::Captured = false;
-void *					DirectInput::DirectInputLibrary = NULL;
+void *					DirectInput::DirectInputLibrary = nullptr;
 int						DirectInput::LastKeyPressed = 0;
 
 // Temp State Table (only for joystick currently)
@@ -88,7 +88,7 @@ int PASCAL DirectInputInitJoystick(LPCDIDEVICEINSTANCE pdinst, LPVOID pvRef);
 
 
 typedef HRESULT (WINAPI *DirectInput8CreateType) (HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter);
-DirectInput8CreateType DirectInput8CreatePtr = NULL;
+DirectInput8CreateType DirectInput8CreatePtr = nullptr;
 
 
 /*
@@ -100,25 +100,25 @@ void DirectInput::Init( void )
 
 	HRESULT        hr;
 
-	WWASSERT(DirectInputLibrary == NULL);
+	WWASSERT(DirectInputLibrary == nullptr);
 	DirectInputLibrary = LoadLibraryA("DINPUT8.DLL");
 
-	if (DirectInputLibrary != NULL) {
+	if (DirectInputLibrary != nullptr) {
 		DirectInput8CreatePtr = (DirectInput8CreateType) GetProcAddress((HINSTANCE)DirectInputLibrary, "DirectInput8Create");
 
 		if (DirectInput8CreatePtr) {
 
 			// Create the DirectInput Object
-			hr = DirectInput8CreatePtr( ProgramInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DIObject, NULL);
+			hr = DirectInput8CreatePtr( ProgramInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DIObject, nullptr);
 			if FAILED(hr)
 			{
 				Debug_Say(( "DirectInput %x not available, trying version %x\n", DIRECTINPUT_VERSION/0x100, MINIMUM_DIRECTINPUT_VERSION/0x100 ));
-				hr = DirectInput8CreatePtr( ProgramInstance, MINIMUM_DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DIObject, NULL);
+				hr = DirectInput8CreatePtr( ProgramInstance, MINIMUM_DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DIObject, nullptr);
 				if FAILED(hr)
 				{
 					Debug_Say(( "DirectInput %x not available\n", MINIMUM_DIRECTINPUT_VERSION ));
 					FreeLibrary((HINSTANCE)DirectInputLibrary);
-					DirectInputLibrary = NULL;
+					DirectInputLibrary = nullptr;
 					return;
 				}
 			}
@@ -127,10 +127,10 @@ void DirectInput::Init( void )
 //	Debug_Say(( "DirectInput object Created\n" ));
 
 	// Create the Keyboard Object
-	hr = DIObject->CreateDevice( GUID_SysKeyboard , &DIKeyboardDevice, NULL);
+	hr = DIObject->CreateDevice( GUID_SysKeyboard , &DIKeyboardDevice, nullptr);
 	WWASSERT( !FAILED(hr) );
 
-	if ( DIKeyboardDevice != NULL ) {
+	if ( DIKeyboardDevice != nullptr ) {
 
 		// Set the keyboard's data format
 		hr = DIKeyboardDevice->SetDataFormat(&c_dfDIKeyboard);
@@ -173,10 +173,10 @@ void DirectInput::Init( void )
 	}
 
 	// Create the Mouse Object
-	hr = DIObject->CreateDevice( GUID_SysMouse, &DIMouseDevice, NULL );
+	hr = DIObject->CreateDevice( GUID_SysMouse, &DIMouseDevice, nullptr );
 	WWASSERT( !FAILED(hr) );
 
-	if ( DIMouseDevice != NULL ) {
+	if ( DIMouseDevice != nullptr ) {
 
 		// Set the mouse's data format
 		hr = DIMouseDevice->SetDataFormat(&c_dfDIMouse);
@@ -220,7 +220,7 @@ void DirectInput::Init( void )
 	// Enumerate the Joysticks
 	DIObject->EnumDevices(DI8DEVCLASS_GAMECTRL, InitJoystick, DIObject, DIEDFL_ATTACHEDONLY );
 
-	if ( DIJoystickDevice != NULL ) {
+	if ( DIJoystickDevice != nullptr ) {
 
 		// Set the joystick's data format
 		hr = DIJoystickDevice->SetDataFormat( &c_dfDIJoystick );
@@ -294,24 +294,24 @@ void DirectInput::Shutdown( void )
 	if ( DIKeyboardDevice ) {
 		DIKeyboardDevice->Unacquire();
 		DIKeyboardDevice->Release();
-		DIKeyboardDevice = NULL;
+		DIKeyboardDevice = nullptr;
 	}
 
 	if ( DIMouseDevice ) {
 		DIMouseDevice->Unacquire();
 		DIMouseDevice->Release();
-		DIMouseDevice = NULL;
+		DIMouseDevice = nullptr;
 	}
 
 	if ( DIJoystickDevice ) {
 		DIJoystickDevice->Unacquire();
 		DIJoystickDevice->Release();
-		DIJoystickDevice = NULL;
+		DIJoystickDevice = nullptr;
 	}
 
 	if ( DIObject ) {
 		DIObject->Release();
-		DIObject = NULL;
+		DIObject = nullptr;
 		if (DirectInputLibrary) {
 			FreeLibrary((HINSTANCE)DirectInputLibrary);
 		}
@@ -394,11 +394,11 @@ int PASCAL InitJoystick(LPCDIDEVICEINSTANCE pdinst, LPVOID pvRef)
 {
    LPDIRECTINPUT pdi = (LPDIRECTINPUT)pvRef;
 
-	if ( DIJoystickDevice == NULL ) {
+	if ( DIJoystickDevice == nullptr ) {
 
 		LPDIRECTINPUTDEVICE temp;
 		HRESULT hr;
-		hr = pdi->CreateDevice(pdinst->guidInstance, &temp, NULL);
+		hr = pdi->CreateDevice(pdinst->guidInstance, &temp, nullptr);
 
 		if ( !FAILED(hr)) {
 			hr = temp->QueryInterface(IID_IDirectInputDevice2,
@@ -421,7 +421,7 @@ int PASCAL InitJoystick(LPCDIDEVICEINSTANCE pdinst, LPVOID pvRef)
 */
 void DirectInput::ReadKeyboard( void )
 {
-	if ( DIKeyboardDevice == NULL ) return;
+	if ( DIKeyboardDevice == nullptr ) return;
 
 	for (int i = 0; i < sizeof( DIKeyboardButtons ); i++ ) {
 		DIKeyboardButtons[i] &= DI_BUTTON_HELD;	// make off all but the STATE
@@ -533,7 +533,7 @@ enum {
 */
 void DirectInput::ReadMouse( void )
 {
-	if ( DIMouseDevice == NULL ) return;
+	if ( DIMouseDevice == nullptr ) return;
 
 	int i;
 	for (i = 0; i < sizeof( DIMouseButtons ); i++ ) {
@@ -657,7 +657,7 @@ retry_mouse:
 */
 void DirectInput::ReadJoystick( void )
 {
-	if ( DIJoystickDevice == NULL ) return;
+	if ( DIJoystickDevice == nullptr ) return;
 
     // poll the joystick to read the current state
 retry_joystick:

@@ -64,13 +64,13 @@
 ** Class statics.
 */
 BandwidthCheckerClass::BandwidthCheckerThreadClass BandwidthCheckerClass::Thread;
-HANDLE BandwidthCheckerClass::EventNotify = NULL;
+HANDLE BandwidthCheckerClass::EventNotify = nullptr;
 unsigned int BandwidthCheckerClass::UpstreamBandwidth = 0;
 unsigned int BandwidthCheckerClass::ReportedUpstreamBandwidth = 0;
-const unichar_t *BandwidthCheckerClass::UpstreamBandwidthString = NULL;
+const unichar_t *BandwidthCheckerClass::UpstreamBandwidthString = nullptr;
 unsigned int BandwidthCheckerClass::DownstreamBandwidth = 0;
 unsigned int BandwidthCheckerClass::ReportedDownstreamBandwidth = 0;
-const unichar_t *BandwidthCheckerClass::DownstreamBandwidthString = NULL;
+const unichar_t *BandwidthCheckerClass::DownstreamBandwidthString = nullptr;
 int BandwidthCheckerClass::FailureCode = BANDTEST_OK;
 bool BandwidthCheckerClass::GotBandwidth = false;
 const char *BandwidthCheckerClass::DefaultServerName = "www.westwood.com";
@@ -336,7 +336,7 @@ void BandwidthCheckerClass::Check(void)
 
 	ConsoleBox.Print("Detecting bandwidth...\n");
 
-	const char *host_name = NULL;
+	const char *host_name = nullptr;
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
 		// US West Ping server
 		host_name = "159.153.192.10";
@@ -346,13 +346,13 @@ void BandwidthCheckerClass::Check(void)
 	WWDEBUG_SAY(("BandwidthCheckerClass::Check -- Trying server %s\n", host_name));
 
 	host = gethostbyname(host_name);
-	if (host == NULL) {
+	if (host == nullptr) {
 		host_name = DefaultServerName;
 		WWDEBUG_SAY(("BandwidthCheckerClass::Check -- Trying server %s\n", host_name));
 		host = gethostbyname(host_name);
 	}
 
-	if (host == NULL) {
+	if (host == nullptr) {
 		/*
 		** No DNS or no connection at all. Either way we are in trouble.
 		*/
@@ -852,7 +852,7 @@ RefPtr<BandwidthDetectWait> BandwidthDetectWait::Create(void)
  *=============================================================================================*/
 BandwidthDetectWait::BandwidthDetectWait(void) :
 	SingleWait(TRANSLATE (IDS_MENU_TESTING_BANDWIDTH), 60000),
-	mEvent(NULL),
+	mEvent(nullptr),
 	mPingsRemaining(0xffffffff)
 {
 	if (!cGameSpyAdmin::Is_Gamespy_Game()) {
@@ -907,9 +907,9 @@ void BandwidthDetectWait::WaitBeginning(void)
 {
 	WWDEBUG_SAY(("BandwidthDetectWait: Beginning\n"));
 
-	mEvent = CreateEventA(NULL, true, false, NULL);
+	mEvent = CreateEventA(nullptr, true, false, nullptr);
 
-	if (mEvent == NULL) {
+	if (mEvent == nullptr) {
 		WWDEBUG_SAY(("BandwidthDetectWait: Can't create event\n"));
 		EndWait(Error, TRANSLATE (IDS_MENU_FAILED_TO_CREATE_BW_EVENT));
 	} else {

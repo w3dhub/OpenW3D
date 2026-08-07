@@ -46,7 +46,7 @@ const char * cMiscUtil::Get_Text_Time(void)
    // Note: BoundsChecker reports 2 memory leaks in ctime here.
 	//
 
-	time_t time_now = ::time(NULL);
+	time_t time_now = ::time(nullptr);
    char * time_str = ::ctime(&time_now);
    time_str[::strlen(time_str) - 1] = 0; // remove \n
    return time_str;
@@ -73,8 +73,8 @@ void cMiscUtil::Seconds_To_Hms(float seconds, int & h, int & m, int & s)
 //-----------------------------------------------------------------------------
 bool cMiscUtil::Is_String_Same(const char * str1, const char * str2)
 {
-   WWASSERT(str1 != NULL);
-   WWASSERT(str2 != NULL);
+   WWASSERT(str1 != nullptr);
+   WWASSERT(str2 != nullptr);
 
    return(::stricmp(str1, str2) == 0);
 }
@@ -82,8 +82,8 @@ bool cMiscUtil::Is_String_Same(const char * str1, const char * str2)
 //-----------------------------------------------------------------------------
 bool cMiscUtil::Is_String_Different(const char * str1, const char * str2)
 {
-   WWASSERT(str1 != NULL);
-   WWASSERT(str2 != NULL);
+   WWASSERT(str1 != nullptr);
+   WWASSERT(str2 != nullptr);
 
    return(::stricmp(str1, str2) != 0);
 }
@@ -92,7 +92,7 @@ bool cMiscUtil::Is_String_Different(const char * str1, const char * str2)
 bool cMiscUtil::File_Exists(const char * filename)
 {
 #if 0
-   WWASSERT(filename != NULL);
+   WWASSERT(filename != nullptr);
 
 	WIN32_FIND_DATAA find_info;
    HANDLE file_handle = ::FindFirstFileA(filename, &find_info);
@@ -140,7 +140,7 @@ bool cMiscUtil::Is_Whitespace(char c)
 //-----------------------------------------------------------------------------
 void cMiscUtil::Trim_Trailing_Whitespace(char * text)
 {
-   WWASSERT(text != NULL);
+   WWASSERT(text != nullptr);
 
 	int length = static_cast<int>(::strlen(text));
 	while (length > 0 && Is_Whitespace(text[length - 1])) {
@@ -151,7 +151,7 @@ void cMiscUtil::Trim_Trailing_Whitespace(char * text)
 //-----------------------------------------------------------------------------
 void cMiscUtil::Remove_File(const char * filename)
 {
-   WWASSERT(filename != NULL);
+   WWASSERT(filename != nullptr);
 
     ::remove(filename);
 }
@@ -186,7 +186,7 @@ int cMiscUtil::Get_Exe_Key(void)
    //
 	char filename[500];
    int succeeded;
-	succeeded = ::GetModuleFileNameA(NULL, filename, sizeof(filename));
+	succeeded = ::GetModuleFileNameA(nullptr, filename, sizeof(filename));
 	::strupr(filename);
 	WWASSERT(succeeded);
 
@@ -213,7 +213,7 @@ int cMiscUtil::Get_Exe_Key(void)
 	// Pull a time/date stamp out of the exe header
 	//
 	PIMAGE_FILE_HEADER p_header = (PIMAGE_FILE_HEADER) PEFHDROFFSET(ProgramInstance);
-	WWASSERT(p_header != NULL);
+	WWASSERT(p_header != nullptr);
 	int time_date_stamp = p_header->TimeDateStamp;
 
 	//
@@ -242,7 +242,7 @@ int cMiscUtil::Get_Exe_Key(void)
    //
 	char filename[500];
    int succeeded;
-	succeeded = ::GetModuleFileNameA(NULL, filename, sizeof(filename));
+	succeeded = ::GetModuleFileNameA(nullptr, filename, sizeof(filename));
 	::strupr(filename);
 	WWASSERT(succeeded);
 

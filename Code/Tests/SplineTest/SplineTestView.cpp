@@ -89,7 +89,7 @@ void CSplineTestView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 
 	Curve3DClass * curve = pDoc->Get_Curve();
-	if (curve == NULL) return;
+	if (curve == nullptr) return;
 
 	Vector3 pt;
 	int x,y;
@@ -131,7 +131,7 @@ void CSplineTestView::OnDraw(CDC* pDC)
 
 	// draw the control points
 	for (int pi=0; pi<curve->Key_Count(); pi++) {
-		curve->Get_Key(pi,&pt,NULL);
+		curve->Get_Key(pi,&pt,nullptr);
 		Map_Point(pt,&x,&y);
 		pDC->FillSolidRect(x-2,y-2,4,4, RGB(255,0,0));
 	}
@@ -148,7 +148,7 @@ void CSplineTestView::OnDraw(CDC* pDC)
 		for (int pi=0; pi<spline->Key_Count(); pi++) {
 
 			int cx,cy;
-			spline->Get_Key(pi,&pt,NULL);
+			spline->Get_Key(pi,&pt,nullptr);
 			Map_Point(pt,&cx,&cy);
 
 			Vector3 in,out;
@@ -246,7 +246,7 @@ void CSplineTestView::OnLButtonUp(UINT nFlags, CPoint point)
 	// were we dragging something?  if so release it
 	// otherwise add a point to the curve
 	CSplineTestDoc* pDoc = GetDocument();
-	if (pDoc != NULL) {
+	if (pDoc != nullptr) {
 		if (pDoc->Is_Dragging()) {
 			pDoc->Release_Point();
 			::ReleaseCapture();
@@ -307,7 +307,7 @@ void CSplineTestView::Enable_Draw_Tangents(bool onoff)
 	DrawTangents = onoff;
 	CSplineTestDoc* pDoc = GetDocument();
 	if (pDoc) {
-		pDoc->UpdateAllViews(NULL);
+		pDoc->UpdateAllViews(nullptr);
 	}
 }
 

@@ -163,7 +163,7 @@ public:
 	//
 	//	Factory access
 	//
-	bool					Request_Vehicle (int defintion_id, float generation_time,SoldierGameObj * player = NULL);
+	bool					Request_Vehicle (int defintion_id, float generation_time,SoldierGameObj * player = nullptr);
 
 	//
 	//	Creation transform access

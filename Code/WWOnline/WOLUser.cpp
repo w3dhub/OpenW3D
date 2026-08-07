@@ -118,7 +118,7 @@ UserData::UserData(const WOL::User& user) :
 	WWDEBUG_SAY(("WOL: Instantiating UserData '%S'\n", (const unichar_t*)mUserName));
 	memcpy(&mData, &user, sizeof(mData));
 	mKickTimer = 0;
-	mData.next = NULL;
+	mData.next = nullptr;
 	}
 
 
@@ -367,7 +367,7 @@ RefPtr<LadderData> UserData::GetClanLadder(void) const
 		return mSquad->GetLadder();
 		}
 
-	return NULL;
+	return nullptr;
 	}
 
 
@@ -471,7 +471,7 @@ RefPtr<LadderData> UserData::GetLadderFromType(LadderType type)
 ******************************************************************************/
 
 NativeWOLUserList::NativeWOLUserList(const UserList& users) :
-		mNativeList(NULL)
+		mNativeList(nullptr)
 	{
 	const size_t count = users.size();
 
@@ -488,7 +488,7 @@ NativeWOLUserList::NativeWOLUserList(const UserList& users) :
 
 				if (index == (count - 1))
 					{
-					mNativeList[index].next = NULL;
+					mNativeList[index].next = nullptr;
 					}
 				else
 					{

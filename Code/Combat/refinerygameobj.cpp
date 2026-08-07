@@ -267,7 +267,7 @@ RefineryGameObjDef::Get_Factory (void) const
 ////////////////////////////////////////////////////////////////
 RefineryGameObj::RefineryGameObj (void)	:
 	IsHarvesterDocked (false),
-	Harvester (NULL),
+	Harvester (nullptr),
 	UnloadAnimationID (0),
 	UnloadTimer (0),
 	DistributionTimer (0),
@@ -276,7 +276,7 @@ RefineryGameObj::RefineryGameObj (void)	:
 	DockTM (1),
 	TiberiumField (Vector3 (0, 0, 0), Vector3 (0, 0, 0))
 {
-	WWASSERT(WWAudioClass::Get_Instance() != NULL);
+	WWASSERT(WWAudioClass::Get_Instance() != nullptr);
 	MoneyTrickleSound = WWAudioClass::Get_Instance()->Create_Sound("Money_Trickle");
 	return ;
 }
@@ -289,7 +289,7 @@ RefineryGameObj::RefineryGameObj (void)	:
 ////////////////////////////////////////////////////////////////
 RefineryGameObj::~RefineryGameObj (void)
 {
-	if (MoneyTrickleSound != NULL) {
+	if (MoneyTrickleSound != nullptr) {
 		MoneyTrickleSound->Stop();
 		REF_PTR_RELEASE(MoneyTrickleSound);
 	}
@@ -447,7 +447,7 @@ RefineryGameObj::CnC_Initialize (BaseControllerClass *base)
 	//
 	//	Try to find the appropriate zone for the team
 	//
-	ScriptZoneGameObj *zone = NULL;
+	ScriptZoneGameObj *zone = nullptr;
 	if (Get_Player_Type () == PLAYERTYPE_GDI) {
 		zone = ScriptZoneGameObj::Find_Closest_Zone (pos, ZoneConstants::TYPE_GDI_TIB_FIELD);
 	} else {
@@ -457,11 +457,11 @@ RefineryGameObj::CnC_Initialize (BaseControllerClass *base)
 	//
 	//	If we can't find a "team" tiberium field, then just find the closest.
 	//
-	if (zone == NULL) {
+	if (zone == nullptr) {
 		zone = ScriptZoneGameObj::Find_Closest_Zone (pos, ZoneConstants::TYPE_TIBERIUM_FIELD);
 	}
 
-	if (zone != NULL) {
+	if (zone != nullptr) {
 		TiberiumField = zone->Get_Bounding_Box ();
 
 		//
@@ -484,11 +484,11 @@ RefineryGameObj::CnC_Initialize (BaseControllerClass *base)
 		//
 		//	Is this an unloading static anim phys?
 		//
-		if (anim_phys_obj != NULL && anim_phys_obj->Peek_Model () != NULL) {
+		if (anim_phys_obj != nullptr && anim_phys_obj->Peek_Model () != nullptr) {
 
 			StringClass name = anim_phys_obj->Peek_Model ()->Get_Name ();
             name.To_Upper();
-			if (::strstr (name, "REF_TIB_DUMP") != NULL) {
+			if (::strstr (name, "REF_TIB_DUMP") != nullptr) {
 
 				//
 				//	Is this the closest one we've found so far?
@@ -525,7 +525,7 @@ RefineryGameObj::Think (void)
 		//
 		//	Create a new harvester (if necessary)
 		//
-		if (	(Harvester == NULL) &&
+		if (	(Harvester == nullptr) &&
 				(DefenseObject.Get_Health() > 0.0f) &&
 				(CombatManager::Is_Gameplay_Permitted()) )
 		{
@@ -611,7 +611,7 @@ RefineryGameObj::Think (void)
 		//
 		//	Allow the harvester to do some per-frame processing
 		//
-		if (Harvester != NULL) {
+		if (Harvester != nullptr) {
 			Harvester->Think ();
 		}
 	}
@@ -629,11 +629,11 @@ RefineryGameObj::Think (void)
 void
 RefineryGameObj::Manage_Money_Trickle_Sound (void)
 {
-	if (MoneyTrickleSound != NULL) {
+	if (MoneyTrickleSound != nullptr) {
 
 		bool same_team = false;
 
-		if (COMBAT_STAR != NULL && BaseController != NULL) {
+		if (COMBAT_STAR != nullptr && BaseController != nullptr) {
 			same_team = (COMBAT_STAR->Get_Player_Type() == BaseController->Get_Player_Type());
 		}
 
@@ -657,7 +657,7 @@ RefineryGameObj::Manage_Money_Trickle_Sound (void)
 	}
 
 	/*
-	if (MoneyTrickleSound != NULL && MoneyTrickleSound->Is_Playing()) {
+	if (MoneyTrickleSound != nullptr && MoneyTrickleSound->Is_Playing()) {
 		Debug_Say(("MoneyTrickleSound Playing\n"));
 	}
 	*/
@@ -676,9 +676,9 @@ RefineryGameObj::Play_Unloading_Animation (bool onoff)
 	//	Lookup the static animation object we need to play
 	//
 	StaticPhysClass *static_phys_obj = PhysicsSceneClass::Get_Instance ()->Find_Static_Object (UnloadAnimationID);
-	if (static_phys_obj != NULL) {
+	if (static_phys_obj != nullptr) {
 		StaticAnimPhysClass *anim_phys_obj = static_phys_obj->As_StaticAnimPhysClass ();
-		if (anim_phys_obj != NULL) {
+		if (anim_phys_obj != nullptr) {
 
 			//
 			//	Configure the animation
@@ -714,10 +714,10 @@ RefineryGameObj::On_Destroyed (void)
 	//
 	//	Kill the harvester
 	//
-	if (Harvester != NULL) {
+	if (Harvester != nullptr) {
 
 		VehicleGameObj * harvy = Get_Harvester_Vehicle();
-		if (harvy != NULL) {
+		if (harvy != nullptr) {
 			OffenseObjectClass default_damager;
 			harvy->Completely_Damaged(default_damager);
 		}
@@ -770,12 +770,12 @@ RefineryGameObj::Set_Harvester_Vehicle (VehicleGameObj *harvester)
 VehicleGameObj *
 RefineryGameObj::Get_Harvester_Vehicle (void)
 {
-	VehicleGameObj *vehicle = NULL;
+	VehicleGameObj *vehicle = nullptr;
 
 	//
 	//	Dig the vehicle game object out of the harvester
 	//
-	if (Harvester != NULL) {
+	if (Harvester != nullptr) {
 		vehicle = Harvester->Get_Vehicle ();
 	}
 

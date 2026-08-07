@@ -135,14 +135,14 @@ RenderObjClass * ENBAssetManager::Create_Render_Obj(const char * name,float Scal
 	sprintf(newname,"#%s!%gH%gS%gV%g",name,Scale,HSV_shift.X,HSV_shift.Y,HSV_shift.Z);
 
 	// see if we got a cached version
-	RenderObjClass *rendobj=NULL;
+	RenderObjClass *rendobj=nullptr;
 	rendobj=WW3DAssetManager::Create_Render_Obj(newname);
 	if (rendobj) return rendobj;
 
 	// create a new one based on
 	// exisiting prototype
 	rendobj=WW3DAssetManager::Create_Render_Obj(name);
-	if (!rendobj) return NULL;
+	if (!rendobj) return nullptr;
 
 	Make_Unique(rendobj,scale,hsv_shift);
 	if (scale) rendobj->Scale(Scale);
@@ -252,8 +252,8 @@ TextureClass * ENBAssetManager::Recolor_Texture(TextureClass *texture, Vector3 &
 {
 	const char *name=texture->Get_Name();
 
-	// if texture is procedural return NULL
-	if (name && name[0]=='!') return NULL;
+	// if texture is procedural return nullptr
+	if (name && name[0]=='!') return nullptr;
 
 	// make sure texture is loaded
 	if (!texture->Is_Initialized())
@@ -264,12 +264,12 @@ TextureClass * ENBAssetManager::Recolor_Texture(TextureClass *texture, Vector3 &
 	texture->Get_Level_Description(desc);
 
 	// if texture is monochrome and no value shifting
-	// return NULL
+	// return nullptr
 	smallsurf=texture->Get_Surface_Level((TextureClass::MipCountType)texture->Get_Mip_Level_Count()-1);
 	if (hsv_shift.Z==0.0f && smallsurf->Is_Monochrome())
 	{
 		REF_PTR_RELEASE(smallsurf);
-		return NULL;
+		return nullptr;
 	}
 	REF_PTR_RELEASE(smallsurf);
 

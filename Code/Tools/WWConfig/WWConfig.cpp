@@ -84,10 +84,10 @@ BOOL CWWConfigApp::InitInstance()
 	//-------------------------------------------------------------------------
 	// Get the Command line parameters.
 	//-------------------------------------------------------------------------
-	const char *cmd = m_lpCmdLine != NULL ? m_lpCmdLine : "";
+	const char *cmd = m_lpCmdLine != nullptr ? m_lpCmdLine : "";
 
 	if (!OpenW3D::Set_Config_File_Path_From_Command_Line(cmd)) {
-		::MessageBoxA(NULL, "Missing value for --ini.", "WWConfig", MB_ICONERROR | MB_OK);
+		::MessageBoxA(nullptr, "Missing value for --ini.", "WWConfig", MB_ICONERROR | MB_OK);
 		return false;
 	}
 

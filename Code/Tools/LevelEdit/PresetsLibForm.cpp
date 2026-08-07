@@ -77,7 +77,7 @@ public:
 		HTREEITEM tree_item					= m_PresetForm->m_TreeCtrl.GetSelectedItem ();
 		PresetClass *preset					= m_PresetForm->Get_Item_Preset (tree_item);
 		DefinitionFactoryClass *factory	= m_PresetForm->Get_Item_Factory (tree_item);
-		if (preset != NULL) {
+		if (preset != nullptr) {
 			m_ID = preset->Get_ID ();
 			m_IsFactory = false;
 		} else {
@@ -150,9 +150,9 @@ static const int TOOLBAR_H_BORDER				= TOOLBAR_H_SPACING * 2;
 //
 /////////////////////////////////////////////////////////////////////////////
 PresetsFormClass::PresetsFormClass(CWnd *parent_wnd)
-	:	m_DragItem (NULL),
+	:	m_DragItem (nullptr),
 		m_IsDragging (false),
-		m_DragImageList (NULL),
+		m_DragImageList (nullptr),
 		CDialog(PresetsFormClass::IDD)
 {
 	//{{AFX_DATA_INIT(PresetsFormClass)
@@ -253,7 +253,7 @@ PresetsFormClass::OnSize
 		ScreenToClient (&toolbar_rect);
 
 		// Move the toolbar so it is in its correct position
-		m_Toolbar.SetWindowPos (NULL,
+		m_Toolbar.SetWindowPos (nullptr,
 								TOOLBAR_H_SPACING,
 								(cy - TOOLBAR_V_SPACING) - toolbar_rect.Height (),
 								cx - TOOLBAR_H_BORDER,
@@ -271,7 +271,7 @@ PresetsFormClass::OnSize
 		//
 		// Resize the tab control to fill the empty contents of the client area
 		//
-		m_TreeCtrl.SetWindowPos (	NULL,
+		m_TreeCtrl.SetWindowPos (	nullptr,
 									0,
 									0,
 									cx-((list_rect.left-parentrect.left) << 1),
@@ -311,7 +311,7 @@ PresetsFormClass::OnInitDialog (void)
 	//
 	CRect parentrect;
 	GetWindowRect (&parentrect);
-	m_Toolbar.SetWindowPos (NULL, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);
+	m_Toolbar.SetWindowPos (nullptr, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);
 	m_Toolbar.Enable_Button (IDC_ADD,		Enable_Button (IDC_ADD));
 	m_Toolbar.Enable_Button (IDC_DELETE,	Enable_Button (IDC_DELETE));
 
@@ -324,8 +324,8 @@ PresetsFormClass::OnInitDialog (void)
 	//
 	//	Select the first item in the tree control
 	//
-	HTREEITEM first_item = m_TreeCtrl.GetNextItem (NULL, TVGN_CHILD);
-	if (first_item != NULL) {
+	HTREEITEM first_item = m_TreeCtrl.GetNextItem (nullptr, TVGN_CHILD);
+	if (first_item != nullptr) {
 		m_TreeCtrl.SelectItem (first_item);
 	}
 
@@ -344,7 +344,7 @@ void
 PresetsFormClass::Reload_Presets (void)
 {
 	m_TreeCtrl.SetRedraw (false);
-	m_TreeCtrl.SelectItem (NULL);
+	m_TreeCtrl.SelectItem (nullptr);
 	m_TreeCtrl.DeleteAllItems ();
 
 	//
@@ -362,7 +362,7 @@ PresetsFormClass::Reload_Presets (void)
 		//	Is there a factory to create this class of defintion?
 		//
 		DefinitionFactoryClass *factory = DefinitionFactoryMgrClass::Find_Factory (PRESET_CATEGORIES[index].clsid);
-		if (factory != NULL) {
+		if (factory != nullptr) {
 
 			//
 			//	Add all presets for this factory into the tree
@@ -377,7 +377,7 @@ PresetsFormClass::Reload_Presets (void)
 			//	Find all the sub-factories
 			//
 			for (	factory = DefinitionFactoryMgrClass::Get_First (PRESET_CATEGORIES[index].clsid);
-					factory != NULL;
+					factory != nullptr;
 					factory = DefinitionFactoryMgrClass::Get_Next (factory, PRESET_CATEGORIES[index].clsid))
 			{
 				//
@@ -407,24 +407,24 @@ void
 PresetsFormClass::Fill_In_Presets (HTREEITEM root_item)
 {
 	DefinitionFactoryClass *factory = Get_Item_Factory (root_item);
-	if (factory != NULL && factory->Is_Displayed ()) {
+	if (factory != nullptr && factory->Is_Displayed ()) {
 		uint32 class_id = factory->Get_Class_ID ();
 
 		//
 		//	Find all the presets that belong to this class
 		//
-		PresetClass *preset = NULL;
+		PresetClass *preset = nullptr;
 		for (	preset = PresetMgrClass::Get_First (class_id, PresetMgrClass::ID_CLASS);
-				preset != NULL;
+				preset != nullptr;
 				preset = PresetMgrClass::Get_Next (preset, class_id, PresetMgrClass::ID_CLASS))
 		{
 
 			//
 			//	Add this preset to the tree
 			//
-			if (preset->Get_Parent () == NULL) {
+			if (preset->Get_Parent () == nullptr) {
 				HTREEITEM tree_item = Insert_Preset (root_item, preset);
-				if (tree_item != NULL) {
+				if (tree_item != nullptr) {
 
 					//
 					//	Recursively fill in this definition's 'children'
@@ -455,7 +455,7 @@ PresetsFormClass::Fill_In_Preset_Children
 	//	Lookup the parent preset
 	//
 	PresetClass *parent_preset = PresetMgrClass::Find_Preset (parent_id);
-	if (parent_preset == NULL) {
+	if (parent_preset == nullptr) {
 		return ;
 	}
 
@@ -465,7 +465,7 @@ PresetsFormClass::Fill_In_Preset_Children
 	int count = parent_preset->Get_Child_Preset_Count ();
 	for (int index = 0; index < count; index ++) {
 		PresetClass *child_preset = parent_preset->Get_Child_Preset (index);
-		if (child_preset != NULL) {
+		if (child_preset != nullptr) {
 
 			//
 			//	Check to make sure we have no recursive links
@@ -481,7 +481,7 @@ PresetsFormClass::Fill_In_Preset_Children
 			//
 			//	Check to make sure the parent is correct
 			//
-			if (parent != NULL && child_preset->Get_Class_ID () != parent->Get_Class_ID ()) {
+			if (parent != nullptr && child_preset->Get_Class_ID () != parent->Get_Class_ID ()) {
 				CString message;
 				message.Format ("Preset '%s' is incorrectly linked as a child of '%s'.\r\n", child_preset->Get_Name (), parent->Get_Name ());
 				MessageBox (message, "Preset Error", MB_ICONERROR | MB_OK | MB_SETFOREGROUND);
@@ -491,7 +491,7 @@ PresetsFormClass::Fill_In_Preset_Children
 			//	Add this preset to the tree
 			//
 			HTREEITEM tree_item = Insert_Preset (root_item, child_preset);
-			if (tree_item != NULL) {
+			if (tree_item != nullptr) {
 
 				//
 				//	Recursively fill in this definition's 'children'
@@ -513,13 +513,13 @@ PresetsFormClass::Fill_In_Preset_Children
 HTREEITEM
 PresetsFormClass::Find_Preset (HTREEITEM root_item, uint32 id)
 {
-	HTREEITEM preset_item = NULL;
+	HTREEITEM preset_item = nullptr;
 
 	//
 	//	Look for the preset in this item's children (recursive)
 	//
 	for (	HTREEITEM tree_item = m_TreeCtrl.GetChildItem (root_item);
-			(tree_item != NULL) && (preset_item == NULL);
+			(tree_item != nullptr) && (preset_item == nullptr);
 			tree_item = m_TreeCtrl.GetNextSiblingItem (tree_item))
 	{
 		DefinitionClass *definition = Get_Item_Definition (tree_item);
@@ -527,7 +527,7 @@ PresetsFormClass::Find_Preset (HTREEITEM root_item, uint32 id)
 		//
 		// Is this the preset we were looking for?
 		//
-		if ((definition != NULL) && (definition->Get_ID () == id)) {
+		if ((definition != nullptr) && (definition->Get_ID () == id)) {
 			preset_item = tree_item;
 		} else if (m_TreeCtrl.ItemHasChildren (tree_item)) {
 
@@ -550,13 +550,13 @@ PresetsFormClass::Find_Preset (HTREEITEM root_item, uint32 id)
 HTREEITEM
 PresetsFormClass::Find_Factory (HTREEITEM root_item, uint32 id)
 {
-	HTREEITEM factory_item = NULL;
+	HTREEITEM factory_item = nullptr;
 
 	//
 	//	Look for the preset in this item's children (recursive)
 	//
 	for (	HTREEITEM tree_item = m_TreeCtrl.GetChildItem (root_item);
-			(tree_item != NULL) && (factory_item == NULL);
+			(tree_item != nullptr) && (factory_item == nullptr);
 			tree_item = m_TreeCtrl.GetNextSiblingItem (tree_item))
 	{
 		DefinitionFactoryClass *factory = Get_Item_Factory (tree_item);
@@ -564,7 +564,7 @@ PresetsFormClass::Find_Factory (HTREEITEM root_item, uint32 id)
 		//
 		// Is this the factory we were looking for?
 		//
-		if ((factory != NULL) && (factory->Get_Class_ID () == id)) {
+		if ((factory != nullptr) && (factory->Get_Class_ID () == id)) {
 			factory_item = tree_item;
 		} else if (m_TreeCtrl.ItemHasChildren (tree_item)) {
 
@@ -591,13 +591,13 @@ PresetsFormClass::Get_Selected_Factory (void)
 	DefinitionFactoryClass *factory	= Get_Item_Factory (curr_item);
 
 	// Does this item represent a definition?
-	if (factory == NULL) {
+	if (factory == nullptr) {
 
 		//
 		//	Find the defintion's factory (if possible)
 		//
 		DefinitionClass *definition = Get_Item_Definition (curr_item);
-		if (definition != NULL) {
+		if (definition != nullptr) {
 			uint32 class_id = definition->Get_Class_ID ();
 			factory = DefinitionFactoryMgrClass::Find_Factory (class_id);
 		}
@@ -619,7 +619,7 @@ PresetsFormClass::Set_Item_Data (HTREEITEM item, DefinitionFactoryClass *factory
 	//	Allocate a new wrapper if we need to
 	//
 	ITEM_DATA *item_data = (ITEM_DATA *)m_TreeCtrl.GetItemData (item);
-	if (item_data == NULL) {
+	if (item_data == nullptr) {
 		item_data = new ITEM_DATA;
 	}
 
@@ -646,7 +646,7 @@ PresetsFormClass::Set_Item_Data (HTREEITEM item, PresetClass *preset)
 	//	Allocate a new wrapper if we need to
 	//
 	ITEM_DATA *item_data = (ITEM_DATA *)m_TreeCtrl.GetItemData (item);
-	if (item_data == NULL) {
+	if (item_data == nullptr) {
 		item_data = new ITEM_DATA;
 	}
 
@@ -669,15 +669,15 @@ PresetsFormClass::Set_Item_Data (HTREEITEM item, PresetClass *preset)
 DefinitionFactoryClass *
 PresetsFormClass::Get_Item_Factory (HTREEITEM item)
 {
-	DefinitionFactoryClass *factory = NULL;
-	if (item != NULL) {
+	DefinitionFactoryClass *factory = nullptr;
+	if (item != nullptr) {
 
 		//
 		//	If this item represents a factory, then return the factory
 		//	pointer to the caller.
 		//
 		ITEM_DATA *item_data = (ITEM_DATA *)m_TreeCtrl.GetItemData (item);
-		if ((item_data != NULL) && (item_data->type == TYPE_FACTORY)) {
+		if ((item_data != nullptr) && (item_data->type == TYPE_FACTORY)) {
 			factory = item_data->factory;
 		}
 	}
@@ -694,15 +694,15 @@ PresetsFormClass::Get_Item_Factory (HTREEITEM item)
 DefinitionClass *
 PresetsFormClass::Get_Item_Definition (HTREEITEM item)
 {
-	DefinitionClass *definition = NULL;
-	if (item != NULL) {
+	DefinitionClass *definition = nullptr;
+	if (item != nullptr) {
 
 		//
 		//	Get the definition from the preset this item
 		// represents
 		//
 		PresetClass *preset = Get_Item_Preset (item);
-		if (preset != NULL) {
+		if (preset != nullptr) {
 			definition = preset->Get_Definition ();
 		}
 	}
@@ -719,15 +719,15 @@ PresetsFormClass::Get_Item_Definition (HTREEITEM item)
 PresetClass *
 PresetsFormClass::Get_Item_Preset (HTREEITEM item)
 {
-	PresetClass *preset = NULL;
-	if (item != NULL) {
+	PresetClass *preset = nullptr;
+	if (item != nullptr) {
 
 		//
 		//	If this item represents a definition, then return the definition
 		//	pointer to the caller.
 		//
 		ITEM_DATA *item_data = (ITEM_DATA *)m_TreeCtrl.GetItemData (item);
-		if ((item_data != NULL) && (item_data->type == TYPE_PRESET)) {
+		if ((item_data != nullptr) && (item_data->type == TYPE_PRESET)) {
 			preset = item_data->preset;
 		}
 	}
@@ -747,7 +747,7 @@ PresetsFormClass::Get_Icon (PresetClass *preset)
 	int icon = FOLDER_ICON;
 
 	DefinitionClass *definition = preset->Get_Definition ();
-	if (definition != NULL) {
+	if (definition != nullptr) {
 		int class_id		= definition->Get_Class_ID ();
 		int superclass_id	= ::SuperClassID_From_ClassID (class_id);
 		switch (superclass_id) {
@@ -838,7 +838,7 @@ PresetsFormClass::Insert_Preset
 	//	Insert a new node into the tree to represent this item
 	//
 	HTREEITEM tree_item = m_TreeCtrl.InsertItem (preset->Get_Name (), icon, icon, root_item);
-	if (tree_item != NULL) {
+	if (tree_item != nullptr) {
 		Set_Item_Data (tree_item, preset);
 
 		bool needs_overlay = (preset->Get_Node_List ().Count () > 0);
@@ -886,7 +886,7 @@ PresetsFormClass::Modify_Preset (void)
 
 	HTREEITEM current_item	= m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset		= Get_Item_Preset (current_item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		StringClass old_name = preset->Get_Name ();
 
@@ -907,7 +907,7 @@ PresetsFormClass::Modify_Preset (void)
 				m_TreeCtrl.SetRedraw (false);
 				m_TreeCtrl.SetItemText (current_item, preset->Get_Name ());
 				m_TreeCtrl.SetRedraw (true);
-				m_TreeCtrl.InvalidateRect (NULL, true);
+				m_TreeCtrl.InvalidateRect (nullptr, true);
 
 				//
 				//	Log the rename operation
@@ -935,7 +935,7 @@ PresetsFormClass::OnModify (void)
 {
 	HTREEITEM current_item	= m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset		= Get_Item_Preset (current_item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		if (preset->Get_IsTemporary () == false) {
 
@@ -954,7 +954,7 @@ PresetsFormClass::OnModify (void)
 				//
 				current_item	= m_TreeCtrl.GetSelectedItem ();
 				preset			= Get_Item_Preset (current_item);
-				if (preset != NULL) {
+				if (preset != nullptr) {
 
 					//
 					//	Show the preset settings
@@ -1032,9 +1032,9 @@ PresetsFormClass::Load_Preset_Libraries (void)
 	//
 	//	Try to load the library for each factory
 	//
-	DefinitionFactoryClass *factory = NULL;
+	DefinitionFactoryClass *factory = nullptr;
 	for (	factory = DefinitionFactoryMgrClass::Get_First ();
-			factory != NULL;
+			factory != nullptr;
 			factory = DefinitionFactoryMgrClass::Get_Next (factory))
 	{
 		if (factory->Is_Displayed ()) {
@@ -1186,7 +1186,7 @@ PresetsFormClass::Build_DDB_File_List
 	//	Loop over all the immediate children
 	//
 	for (	HTREEITEM child_item = m_TreeCtrl.GetChildItem (parent_item);
-			child_item != NULL;
+			child_item != nullptr;
 			child_item = m_TreeCtrl.GetNextSiblingItem (child_item))
 	{
 		//
@@ -1194,7 +1194,7 @@ PresetsFormClass::Build_DDB_File_List
 		// we should have a preset library to match
 		//
 		DefinitionFactoryClass *factory = Get_Item_Factory (child_item);
-		if (factory != NULL) {
+		if (factory != nullptr) {
 
 			//
 			//	Build a filename for this preset library
@@ -1243,7 +1243,7 @@ PresetsFormClass::Save_Preset_Libraries ([[maybe_unused]] HTREEITEM parent_item)
 	//	Loop over all the immediate children
 	//
 	for (	HTREEITEM child_item = m_TreeCtrl.GetChildItem (parent_item);
-			child_item != NULL;
+			child_item != nullptr;
 			child_item = m_TreeCtrl.GetNextSiblingItem (child_item))
 	{
 		//
@@ -1251,7 +1251,7 @@ PresetsFormClass::Save_Preset_Libraries ([[maybe_unused]] HTREEITEM parent_item)
 		// a preset library for all presets of this class ID
 		//
 		DefinitionFactoryClass *factory = Get_Item_Factory (child_item);
-		if (factory != NULL) {
+		if (factory != nullptr) {
 			Save_Global_Presets (factory->Get_Class_ID ());
 		} else if (m_TreeCtrl.ItemHasChildren (child_item)) {
 
@@ -1362,7 +1362,7 @@ PresetsFormClass::Save_Presets (FileClass &file_obj, uint32 class_id, bool class
 	//	Turn saving off for all definitions
 	//
 	for (	DefinitionClass *definition = DefinitionMgrClass::Get_First ();
-			definition != NULL;
+			definition != nullptr;
 			definition = DefinitionMgrClass::Get_Next (definition))
 	{
 		definition->Enable_Save (false);
@@ -1373,9 +1373,9 @@ PresetsFormClass::Save_Presets (FileClass &file_obj, uint32 class_id, bool class
 	// one of the presets.
 	//
 	DEFINITION_LIST defs_to_save;
-	PresetClass *preset = NULL;
+	PresetClass *preset = nullptr;
 	for (	preset = PresetMgrClass::Get_First ();
-			preset != NULL;
+			preset != nullptr;
 			preset = PresetMgrClass::Get_Next (preset))
 	{
 		//
@@ -1389,7 +1389,7 @@ PresetsFormClass::Save_Presets (FileClass &file_obj, uint32 class_id, bool class
 		//
 		for (int index = 0; index < curr_defs.Count (); index ++) {
 			DefinitionClass *definition = curr_defs[index];
-			if (definition != NULL) {
+			if (definition != nullptr) {
 				definition->Enable_Save (true);
 			}
 		}
@@ -1406,7 +1406,7 @@ PresetsFormClass::Save_Presets (FileClass &file_obj, uint32 class_id, bool class
 	//	Turn saving back on for all definitions
 	//
 	for (	DefinitionClass *definition = DefinitionMgrClass::Get_First ();
-			definition != NULL;
+			definition != nullptr;
 			definition = DefinitionMgrClass::Get_Next (definition))
 	{
 		definition->Enable_Save (true);
@@ -1428,7 +1428,7 @@ PresetsFormClass::Save_Presets (FileClass &file_obj, uint32 class_id, bool class
 void
 PresetsFormClass::Reselect_Item (int id, bool is_factory)
 {
-	HTREEITEM tree_item = NULL;
+	HTREEITEM tree_item = nullptr;
 	if (is_factory) {
 		tree_item = Find_Factory (TVI_ROOT, id);
 	} else {
@@ -1450,9 +1450,9 @@ void
 PresetsFormClass::OnAddTemp (void)
 {
 	DefinitionFactoryClass *factory = Get_Selected_Factory ();
-	if (factory != NULL) {
+	if (factory != nullptr) {
 
-		if (Add_New_Preset (NULL, true) != NULL) {
+		if (Add_New_Preset (nullptr, true) != nullptr) {
 			Save_Temp_Presets ();
 		}
 	}
@@ -1470,7 +1470,7 @@ void
 PresetsFormClass::OnAdd (void)
 {
 	DefinitionFactoryClass *factory = Get_Selected_Factory ();
-	if (factory != NULL) {
+	if (factory != nullptr) {
 
 		//
 		//	Check out the definition database
@@ -1483,8 +1483,8 @@ PresetsFormClass::OnAdd (void)
 			//
 			//	Create a new preset
 			//
-			PresetClass *preset = Add_New_Preset (NULL);
-			if (preset != NULL) {
+			PresetClass *preset = Add_New_Preset (nullptr);
+			if (preset != nullptr) {
 
 				//
 				//	Log creation
@@ -1516,7 +1516,7 @@ PresetsFormClass::OnMake (void)
 {
 	HTREEITEM current_item	= m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset		= Get_Item_Preset (current_item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 		::Get_Scene_Editor ()->Create_Node (preset);
 
 		//
@@ -1543,10 +1543,10 @@ PresetsFormClass::OnMake (void)
 PresetClass *
 PresetsFormClass::Add_New_Preset (LPCTSTR name, bool is_temp, bool sel_new)
 {
-	PresetClass *new_preset = NULL;
+	PresetClass *new_preset = nullptr;
 
 	DefinitionFactoryClass *factory = Get_Selected_Factory ();
-	if (factory != NULL) {
+	if (factory != nullptr) {
 
 		HTREEITEM current_item		= m_TreeCtrl.GetSelectedItem ();
 		PresetClass *parent_preset	= Get_Item_Preset (current_item);
@@ -1560,14 +1560,14 @@ PresetsFormClass::Add_New_Preset (LPCTSTR name, bool is_temp, bool sel_new)
 		//
 		//	Give the new preset its parent's values by default
 		//
-		if (parent_preset != NULL) {
+		if (parent_preset != nullptr) {
 			new_preset->Copy_Properties (*parent_preset);
 		}
 
 		//
 		//	Edit the preset's properties
 		//
-		if (name != NULL || new_preset->Show_Properties ()) {
+		if (name != nullptr || new_preset->Show_Properties ()) {
 
 			//
 			//	Add this preset to the framework
@@ -1576,7 +1576,7 @@ PresetsFormClass::Add_New_Preset (LPCTSTR name, bool is_temp, bool sel_new)
 			PresetMgrClass::Add_Preset (new_preset);
 			DefinitionMgrClass::Register_Definition (new_preset->Get_Definition ());
 
-			if (parent_preset != NULL) {
+			if (parent_preset != nullptr) {
 				parent_preset->Add_Child_Preset (new_preset->Get_ID ());
 			}
 
@@ -1588,7 +1588,7 @@ PresetsFormClass::Add_New_Preset (LPCTSTR name, bool is_temp, bool sel_new)
 				m_TreeCtrl.SelectItem (new_item);
 			}
 			m_TreeCtrl.SortChildren (current_item);
-			m_TreeCtrl.InvalidateRect (NULL, true);
+			m_TreeCtrl.InvalidateRect (nullptr, true);
 
 		} else {
 			DefinitionClass *definition = new_preset->Get_Definition ();
@@ -1611,7 +1611,7 @@ PresetsFormClass::OnDelete (void)
 {
 	HTREEITEM current_item	= m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset		= Get_Item_Preset (current_item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		//
 		//	Make sure the user really wants to do this
@@ -1638,7 +1638,7 @@ PresetsFormClass::OnDelete (void)
 				//
 				current_item	= m_TreeCtrl.GetSelectedItem ();
 				preset			= Get_Item_Preset (current_item);
-				if (preset != NULL) {
+				if (preset != nullptr) {
 
 					//
 					//	Log the delete operation
@@ -1660,7 +1660,7 @@ PresetsFormClass::OnDelete (void)
 					//
 					uint32 class_id = 0;
 					DefinitionClass *definition = preset->Get_Definition ();
-					if (definition != NULL) {
+					if (definition != nullptr) {
 						class_id = definition->Get_Class_ID ();
 					}
 
@@ -1671,7 +1671,7 @@ PresetsFormClass::OnDelete (void)
 					bool save_temp_lib = was_temp;
 					for (int index = 0; index < tree_item_list.Count (); index ++) {
 						PresetClass *item_preset = Get_Item_Preset (tree_item_list[index]);
-						if (item_preset != NULL) {
+						if (item_preset != nullptr) {
 							::Get_Scene_Editor ()->Delete_Nodes (item_preset);
 							PresetMgrClass::Remove_Preset (item_preset);
 
@@ -1686,15 +1686,15 @@ PresetsFormClass::OnDelete (void)
 							//
 							//	Unlink the definition
 							//
-							item_preset->Set_Definition (NULL);
+							item_preset->Set_Definition (nullptr);
 
 							//
 							//	Free the definition
 							//
 							DefinitionClass *item_definition = item_preset->Get_Definition ();
-							if (item_definition != NULL) {
+							if (item_definition != nullptr) {
 								DefinitionMgrClass::Unregister_Definition (item_definition);
-								item_preset->Set_Definition (NULL);
+								item_preset->Set_Definition (nullptr);
 								SAFE_DELETE (item_definition);
 							}
 
@@ -1745,7 +1745,7 @@ void
 PresetsFormClass::Sort_Nodes (HTREEITEM root_item, bool recursive)
 {
 	for (	HTREEITEM tree_item = m_TreeCtrl.GetChildItem (root_item);
-			tree_item != NULL;
+			tree_item != nullptr;
 			tree_item = m_TreeCtrl.GetNextSiblingItem (tree_item))
 	{
 		//
@@ -1813,7 +1813,7 @@ PresetsFormClass::Build_Child_List
 	//	Loop over all the immediate children
 	//
 	for (	HTREEITEM child_item = m_TreeCtrl.GetChildItem (parent_item);
-			child_item != NULL;
+			child_item != nullptr;
 			child_item = m_TreeCtrl.GetNextSiblingItem (child_item))
 	{
 		list.Add (child_item);
@@ -1841,18 +1841,18 @@ PresetsFormClass::Enable_Button (int cmd_id)
 	bool retval = false;
 
 	HTREEITEM current_item					= m_TreeCtrl.GetSelectedItem ();
-	if (current_item != NULL) {
+	if (current_item != nullptr) {
 		PresetClass *preset					= Get_Item_Preset (current_item);
 		DefinitionFactoryClass *factory	= Get_Item_Factory (current_item);
 		bool read_only							= ::Get_File_Mgr()->Is_VSS_Read_Only ();
-		bool temp								= (preset != NULL && preset->Get_IsTemporary ()) ? true : false;
+		bool temp								= (preset != nullptr && preset->Get_IsTemporary ()) ? true : false;
 		bool is_proxy_test_folder			= false;
 
 		//
 		//	Determine if this is the proxy-test folder or not (special rules
 		// apply to this folder).
 		//
-		if (preset != NULL) {
+		if (preset != nullptr) {
 			is_proxy_test_folder = preset->Is_A_Parent (PROXY_TESTS_FOLDER);
 		}
 
@@ -1861,7 +1861,7 @@ PresetsFormClass::Enable_Button (int cmd_id)
 		//
 		if (read_only == false && ::Get_File_Mgr ()->Is_Special_User ()) {
 			read_only = true;
-			if (preset != NULL) {
+			if (preset != nullptr) {
 				if (preset->Is_A_Parent (SPECIAL_USER_FOLDER)) {
 					read_only = false;
 
@@ -1891,7 +1891,7 @@ PresetsFormClass::Enable_Button (int cmd_id)
 				break;
 
 			case IDC_MAKE:
-				retval = (preset != NULL);
+				retval = (preset != nullptr);
 				break;
 
 			case IDC_MODIFY:
@@ -1903,21 +1903,21 @@ PresetsFormClass::Enable_Button (int cmd_id)
 				break;
 
 			case IDC_PLAY:
-				retval = (preset != NULL && preset->Is_Valid_Sound_Preset ()) ? true : false;
+				retval = (preset != nullptr && preset->Is_Valid_Sound_Preset ()) ? true : false;
 				break;
 
 			case IDC_UPDATE_VSS:
-				retval = ((preset != NULL) && !read_only);
+				retval = ((preset != nullptr) && !read_only);
 				break;
 
 			case IDC_INFO:
-				retval = (preset != NULL);
+				retval = (preset != nullptr);
 				break;
 
 			case IDC_CONVERT:
-				retval = ((preset != NULL) && temp && !read_only && !is_proxy_test_folder);
-				if (	preset != NULL &&
-						preset->Get_Parent () != NULL &&
+				retval = ((preset != nullptr) && temp && !read_only && !is_proxy_test_folder);
+				if (	preset != nullptr &&
+						preset->Get_Parent () != nullptr &&
 						preset->Get_Parent ()->Get_IsTemporary ())
 				{
 					retval = false;
@@ -1926,7 +1926,7 @@ PresetsFormClass::Enable_Button (int cmd_id)
 
 			case IDM_BATCH_IMPORT_TERRAIN:
 			{
-				if (preset != NULL && preset->Get_Class_ID () == CLASSID_TERRAIN) {
+				if (preset != nullptr && preset->Get_Class_ID () == CLASSID_TERRAIN) {
 					retval = true;
 				}
 			}
@@ -1936,7 +1936,7 @@ PresetsFormClass::Enable_Button (int cmd_id)
 			{
 				retval = (preset && (!read_only || temp));
 
-				if (preset != NULL && preset->Get_Node_List ().Count () == 0) {
+				if (preset != nullptr && preset->Get_Node_List ().Count () == 0) {
 					retval = false;
 				}
 			}
@@ -1948,7 +1948,7 @@ PresetsFormClass::Enable_Button (int cmd_id)
 				//
 				//	Only allow this option for terrain and tile presets
 				//
-				if (preset != NULL) {
+				if (preset != nullptr) {
 					if (	preset->Get_Class_ID () != CLASSID_TERRAIN &&
 							preset->Get_Class_ID () != CLASSID_TILE)
 					{
@@ -2019,8 +2019,8 @@ PresetsFormClass::Propagate_Changes
 
 			ParameterClass *parameter			= info.base_param_list[list_index];
 			ParameterClass *curr_parameter	= info.derived_param_list[list_index];
-			ASSERT (parameter != NULL);
-			ASSERT (curr_parameter != NULL);
+			ASSERT (parameter != nullptr);
+			ASSERT (curr_parameter != nullptr);
 
 			//
 			//	Copy the parameter value from the parent.
@@ -2038,7 +2038,7 @@ PresetsFormClass::Propagate_Changes
 		//	Now reload any nodes in the scene that refer to the
 		// changed preset.
 		//
-		if (info.preset != NULL) {
+		if (info.preset != nullptr) {
 			NodeMgrClass::Reload_Nodes (info.preset);
 		}
 	}
@@ -2078,8 +2078,8 @@ PresetsFormClass::Compare_Derived_Parameters
 	for (int param_index = 0; param_index < param_count; param_index ++) {
 		ParameterClass *parameter			= base_def->Lock_Parameter (param_index);
 		ParameterClass *curr_parameter	= derived_def->Lock_Parameter (param_index);
-		ASSERT (parameter != NULL);
-		ASSERT (curr_parameter != NULL);
+		ASSERT (parameter != nullptr);
+		ASSERT (curr_parameter != nullptr);
 
 		//
 		//	If the parameter values are exactly the same, then
@@ -2103,10 +2103,10 @@ PresetsFormClass::Compare_Derived_Parameters
 			//
 			//	Recursively add parameters from these definitions to the list
 			//
-			if (	base_model_def != NULL && derived_model_def != NULL &&
+			if (	base_model_def != nullptr && derived_model_def != nullptr &&
 					base_model_def->Get_Class_ID () == derived_model_def->Get_Class_ID ())
 			{
-				Compare_Derived_Parameters (NULL, base_model_def, derived_model_def, list);
+				Compare_Derived_Parameters (nullptr, base_model_def, derived_model_def, list);
 			}
 		}
 
@@ -2181,9 +2181,9 @@ PresetsFormClass::OnPlay (void)
 {
 	HTREEITEM tree_item = m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset = Get_Item_Preset (tree_item);
-	if (preset != NULL && preset->Get_Definition () != NULL) {
+	if (preset != nullptr && preset->Get_Definition () != nullptr) {
 
-		AudibleSoundDefinitionClass *definition = NULL;
+		AudibleSoundDefinitionClass *definition = nullptr;
 		definition = (AudibleSoundDefinitionClass *)preset->Get_Definition ();
 
 		//
@@ -2214,7 +2214,7 @@ PresetsFormClass::OnInfo (void)
 {
 	HTREEITEM current_item	= m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset		= Get_Item_Preset (current_item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		//
 		//	Show the (read-only) properties dialog for this preset
@@ -2250,12 +2250,12 @@ PresetsFormClass::OnExtra (void)
 	//
 	//	Make the menu commands owner-draw so we can paint icons next to them
 	//
-	::ModifyMenu (menu, IDC_PLAY, MF_BYCOMMAND | MF_OWNERDRAW, IDC_PLAY, NULL);
-	::ModifyMenu (menu, IDC_CONVERT, MF_BYCOMMAND | MF_OWNERDRAW, IDC_CONVERT, NULL);
-	::ModifyMenu (menu, IDC_UPDATE_VSS, MF_BYCOMMAND | MF_OWNERDRAW, IDC_UPDATE_VSS, NULL);
-	::ModifyMenu (menu, IDM_BATCH_IMPORT_TERRAIN, MF_BYCOMMAND | MF_OWNERDRAW, IDM_BATCH_IMPORT_TERRAIN, NULL);
-	::ModifyMenu (menu, IDM_UPDATE_EMBEDDED_NODE_LIST, MF_BYCOMMAND | MF_OWNERDRAW, IDM_UPDATE_EMBEDDED_NODE_LIST, NULL);
-	::ModifyMenu (menu, IDM_CLEAR_EMBEDDED_NODE_LIST, MF_BYCOMMAND | MF_OWNERDRAW, IDM_CLEAR_EMBEDDED_NODE_LIST, NULL);
+	::ModifyMenu (menu, IDC_PLAY, MF_BYCOMMAND | MF_OWNERDRAW, IDC_PLAY, nullptr);
+	::ModifyMenu (menu, IDC_CONVERT, MF_BYCOMMAND | MF_OWNERDRAW, IDC_CONVERT, nullptr);
+	::ModifyMenu (menu, IDC_UPDATE_VSS, MF_BYCOMMAND | MF_OWNERDRAW, IDC_UPDATE_VSS, nullptr);
+	::ModifyMenu (menu, IDM_BATCH_IMPORT_TERRAIN, MF_BYCOMMAND | MF_OWNERDRAW, IDM_BATCH_IMPORT_TERRAIN, nullptr);
+	::ModifyMenu (menu, IDM_UPDATE_EMBEDDED_NODE_LIST, MF_BYCOMMAND | MF_OWNERDRAW, IDM_UPDATE_EMBEDDED_NODE_LIST, nullptr);
+	::ModifyMenu (menu, IDM_CLEAR_EMBEDDED_NODE_LIST, MF_BYCOMMAND | MF_OWNERDRAW, IDM_CLEAR_EMBEDDED_NODE_LIST, nullptr);
 
 	//
 	//	Disable any buttons if necessary
@@ -2287,7 +2287,7 @@ PresetsFormClass::OnExtra (void)
 	//
 	//	Display the menu
 	//
-	::TrackPopupMenu (menu, TPM_LEFTALIGN | TPM_TOPALIGN, rect.left, rect.bottom, 0, m_hWnd, NULL);
+	::TrackPopupMenu (menu, TPM_LEFTALIGN | TPM_TOPALIGN, rect.left, rect.bottom, 0, m_hWnd, nullptr);
 
 	//
 	//	Cleanup
@@ -2424,7 +2424,7 @@ PresetsFormClass::OnDrawItem
 	LPDRAWITEMSTRUCT	lpDrawItemStruct
 )
 {
-	HICON icon = NULL;
+	HICON icon = nullptr;
 
 	CString text;
 	Get_Menu_Text (lpDrawItemStruct->itemID, text);
@@ -2494,8 +2494,8 @@ PresetsFormClass::OnDrawItem
 
 	::SetBkMode (lpDrawItemStruct->hDC, TRANSPARENT);
 	::DrawState (	lpDrawItemStruct->hDC,
-						NULL,
-						NULL,
+						nullptr,
+						nullptr,
 						(LPARAM)(LPCTSTR)text,
 						0,
 						rect.left + 24,
@@ -2505,8 +2505,8 @@ PresetsFormClass::OnDrawItem
 	//
 	//	Draw the associated icon (if necessary)
 	//
-	if (icon != NULL) {
-		::DrawState ( lpDrawItemStruct->hDC, NULL, NULL, (LPARAM)icon, 0, rect.left + 4, rect.top + 4, 16, 16, DST_ICON | dss_state);
+	if (icon != nullptr) {
+		::DrawState ( lpDrawItemStruct->hDC, nullptr, nullptr, (LPARAM)icon, 0, rect.left + 4, rect.top + 4, 16, 16, DST_ICON | dss_state);
 	}
 
 
@@ -2533,7 +2533,7 @@ PresetsFormClass::OnMeasureItem
 	NONCLIENTMETRICS metrics = { sizeof (NONCLIENTMETRICS), 0 };
 	::SystemParametersInfo (SPI_GETNONCLIENTMETRICS, 0, &metrics, false);
 
-	HDC mem_dc = ::CreateCompatibleDC (NULL);
+	HDC mem_dc = ::CreateCompatibleDC (nullptr);
 	HFONT font = ::CreateFontIndirect (&metrics.lfMenuFont);
 	HFONT old_font = (HFONT)::SelectObject (mem_dc, font);
 
@@ -2560,7 +2560,7 @@ PresetsFormClass::OnConvert (void)
 {
 	HTREEITEM item = m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset = Get_Item_Preset (item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		//
 		//	Make sure the user really wants to do this...
@@ -2581,7 +2581,7 @@ PresetsFormClass::OnConvert (void)
 
 				item = m_TreeCtrl.GetSelectedItem ();
 				preset = Get_Item_Preset (item);
-				if (preset != NULL) {
+				if (preset != nullptr) {
 
 					//
 					//	Change the preset's ID from temp-range to normal-range
@@ -2611,7 +2611,7 @@ PresetsFormClass::OnConvert (void)
 					//	Force a re-paint
 					//
 					m_TreeCtrl.SelectItem (item);
-					m_TreeCtrl.InvalidateRect (NULL, true);
+					m_TreeCtrl.InvalidateRect (nullptr, true);
 				} else if (undo_check_out) {
 					MessageBox ("Unable to find preset.", "Preset Error", MB_ICONERROR | MB_OK);
 					PresetMgrClass::Undo_Database_Check_Out (class_id);
@@ -2634,7 +2634,7 @@ PresetsFormClass::OnUpdateVss (void)
 {
 	HTREEITEM item = m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset = Get_Item_Preset (item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		//
 		//	Show the update-preset dialog
@@ -2662,7 +2662,7 @@ PresetsFormClass::OnClearEmbeddedNodeList (void)
 	//
 	HTREEITEM current_item	= m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset		= Get_Item_Preset (current_item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		if (preset->Get_IsTemporary () == false) {
 
@@ -2685,7 +2685,7 @@ PresetsFormClass::OnClearEmbeddedNodeList (void)
 				//
 				//	Now, free the embedded nodes
 				//
-				if (preset != NULL) {
+				if (preset != nullptr) {
 					preset->Free_Node_List ();
 					Save_Global_Presets (preset->Get_Class_ID ());
 					PresetMgrClass::Add_Dirty_Preset (preset->Get_ID ());
@@ -2704,7 +2704,7 @@ PresetsFormClass::OnClearEmbeddedNodeList (void)
 		Reset_Embedded_Node_Instances (preset);
 		NodeMgrClass::Reload_Nodes (preset);
 
-		if (preset != NULL) {
+		if (preset != nullptr) {
 
 			//
 			//	Update the overlay icon on the preset
@@ -2726,7 +2726,7 @@ PresetsFormClass::OnClearEmbeddedNodeList (void)
 void
 PresetsFormClass::Reset_Embedded_Node_Instances (PresetClass *preset)
 {
-	if (preset == NULL) {
+	if (preset == nullptr) {
 		return ;
 	}
 
@@ -2734,7 +2734,7 @@ PresetsFormClass::Reset_Embedded_Node_Instances (PresetClass *preset)
 	//	Loop over all the nodes in the scene
 	//
 	for (	NodeClass *node = NodeMgrClass::Get_First ();
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node))
 	{
 		//
@@ -2777,7 +2777,7 @@ PresetsFormClass::OnBuildEmbedNodeList (void)
 	//
 	HTREEITEM current_item	= m_TreeCtrl.GetSelectedItem ();
 	PresetClass *preset		= Get_Item_Preset (current_item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		if (preset->Get_IsTemporary () == false) {
 
@@ -2800,7 +2800,7 @@ PresetsFormClass::OnBuildEmbedNodeList (void)
 				//
 				//	Now, update the embedded node information for this preset
 				//
-				if (preset != NULL) {
+				if (preset != nullptr) {
 					Update_Embedded_Nodes (preset);
 					Save_Global_Presets (preset->Get_Class_ID ());
 					PresetMgrClass::Add_Dirty_Preset (preset->Get_ID ());
@@ -2821,7 +2821,7 @@ PresetsFormClass::OnBuildEmbedNodeList (void)
 		//
 		//	Update the overlay icon on the preset
 		//
-		if (preset != NULL) {
+		if (preset != nullptr) {
 			bool needs_overlay = (preset->Get_Node_List ().Count () > 0);
 			TreeView_SetOverlay (m_TreeCtrl, current_item, needs_overlay);
 		}
@@ -2846,7 +2846,7 @@ PresetsFormClass::Update_Embedded_Nodes (PresetClass *preset)
 	//
 	NodeClass *node;
 	for (	node = NodeMgrClass::Get_First ();
-			node != NULL;
+			node != nullptr;
 			node = NodeMgrClass::Get_Next (node))
 	{
 		//
@@ -2860,7 +2860,7 @@ PresetsFormClass::Update_Embedded_Nodes (PresetClass *preset)
 	//
 	//	Generate the node list
 	//
-	if (node != NULL) {
+	if (node != nullptr) {
 		preset->Build_Node_List (node);
 	}
 
@@ -2878,7 +2878,7 @@ PresetsFormClass::OnBatchImportTerrain (void)
 {
 	CFileDialog dialog (	true,
 								".w3d",
-								NULL,
+								nullptr,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT | OFN_EXPLORER,
 								"Westwood 3D Files (*.w3d)|*.w3d||",
 								this);
@@ -2896,7 +2896,7 @@ PresetsFormClass::OnBatchImportTerrain (void)
 		// Loop through all the selected files
 		//
 		POSITION pos = dialog.GetStartPosition ();
-		while (pos != NULL) {
+		while (pos != nullptr) {
 
 			//
 			//	Add this preset to the tree
@@ -2973,7 +2973,7 @@ PresetsFormClass::Add_Terrain_Preset (LPCTSTR filename)
 			//	Add the new preset
 			//
 			PresetClass *preset = Add_New_Preset (preset_name, true, false);
-			if (preset != NULL && preset->Get_Class_ID () == CLASSID_TERRAIN) {
+			if (preset != nullptr && preset->Get_Class_ID () == CLASSID_TERRAIN) {
 
 				//
 				//	Configure the preset
@@ -3009,7 +3009,7 @@ PresetsFormClass::OnBegindragPresetsTree
 		//	Set-up for our drag operation
 		//
 		m_DragItem = tv_info->itemNew.hItem;
-		if (m_DragItem != NULL) {
+		if (m_DragItem != nullptr) {
 
 			m_DragImageList = m_TreeCtrl.CreateDragImage (m_DragItem);
 			m_DragImageList->BeginDrag (0, CPoint (-20, -20));
@@ -3044,7 +3044,7 @@ PresetsFormClass::OnLButtonUp (UINT nFlags, CPoint point)
 		//
 		CImageList::EndDrag ();
 		ReleaseCapture ();
-		m_TreeCtrl.SelectDropTarget (NULL);
+		m_TreeCtrl.SelectDropTarget (nullptr);
 		m_TreeCtrl.SelectItem (m_DragItem);
 
 		//
@@ -3061,7 +3061,7 @@ PresetsFormClass::OnLButtonUp (UINT nFlags, CPoint point)
 			Do_Drop (m_DragItem, drop_target);
 		}
 
-		m_DragItem		= NULL;
+		m_DragItem		= nullptr;
 		m_IsDragging	= false;
 	}
 
@@ -3098,7 +3098,7 @@ PresetsFormClass::OnMouseMove (UINT nFlags, CPoint point)
 		//
 		UINT flags					= TVHT_ONITEM;
 		HTREEITEM drop_target	= m_TreeCtrl.HitTest (tree_pt, &flags);
-		if (drop_target != NULL) {
+		if (drop_target != nullptr) {
 			m_TreeCtrl.SelectDropTarget (drop_target);
 		}
 
@@ -3107,10 +3107,10 @@ PresetsFormClass::OnMouseMove (UINT nFlags, CPoint point)
 		//
 		//	Choose a cursor
 		//
-		if (drop_target == NULL || Is_Drop_OK (drop_target) == false) {
+		if (drop_target == nullptr || Is_Drop_OK (drop_target) == false) {
 			SetCursor (::LoadCursor (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDC_NODROP)));
 		} else {
-			SetCursor (::LoadCursor (NULL, IDC_ARROW));
+			SetCursor (::LoadCursor (nullptr, IDC_ARROW));
 		}
 	}
 
@@ -3131,13 +3131,13 @@ PresetsFormClass::Is_Drag_OK (HTREEITEM drag_item)
 
 	PresetClass *preset	= Get_Item_Preset (drag_item);
 	bool read_only			= ::Get_File_Mgr()->Is_VSS_Read_Only ();
-	bool temp				= (preset != NULL && preset->Get_IsTemporary ()) ? true : false;
+	bool temp				= (preset != nullptr && preset->Get_IsTemporary ()) ? true : false;
 
 	//
 	//	We allow the user to drag a preset if its a temp or they have write
 	// access to the database.
 	//
-	if (preset != NULL && (read_only == false || temp == true)) {
+	if (preset != nullptr && (read_only == false || temp == true)) {
 		retval = true;
 	}
 
@@ -3155,24 +3155,24 @@ PresetsFormClass::Is_Drop_OK (HTREEITEM drop_item)
 {
 	bool retval = false;
 
-	if (m_DragItem != NULL && drop_item != NULL) {
+	if (m_DragItem != nullptr && drop_item != nullptr) {
 
 		PresetClass *drag_preset			= Get_Item_Preset (m_DragItem);
 		PresetClass *drop_preset			= Get_Item_Preset (drop_item);
 		DefinitionFactoryClass *factory	= Get_Item_Factory (drop_item);
-		if (drag_preset != NULL && (drop_preset != NULL || factory != NULL)) {
+		if (drag_preset != nullptr && (drop_preset != nullptr || factory != nullptr)) {
 
 			//
 			//	Check to make sure we don't try to move a preset to one of its children
 			//
-			if (drop_preset == NULL || drop_preset->Is_A_Parent (drag_preset) == false) {
+			if (drop_preset == nullptr || drop_preset->Is_A_Parent (drag_preset) == false) {
 
 				//
 				//	Get information about what 'type' of presets these are
 				//
 				int drag_classid = drag_preset->Get_Class_ID ();
 				int drop_classid = 0;
-				if (drop_preset != NULL) {
+				if (drop_preset != nullptr) {
 					drop_classid = drop_preset->Get_Class_ID ();
 				} else {
 					drop_classid = factory->Get_Class_ID ();
@@ -3183,13 +3183,13 @@ PresetsFormClass::Is_Drop_OK (HTREEITEM drop_item)
 				//
 				if (drag_classid == drop_classid) {
 
-					bool is_drop_temp	= (drop_preset != NULL && drop_preset->Get_IsTemporary ()) ? true : false;
-					bool is_drag_temp	= (drag_preset != NULL && drag_preset->Get_IsTemporary ()) ? true : false;
+					bool is_drop_temp	= (drop_preset != nullptr && drop_preset->Get_IsTemporary ()) ? true : false;
+					bool is_drag_temp	= (drag_preset != nullptr && drag_preset->Get_IsTemporary ()) ? true : false;
 
 					//
 					//	We allow the drop if the target is a factory, or both the drag and drops are non-temp
 					//
-					if (factory != NULL || is_drag_temp || is_drop_temp == false) {
+					if (factory != nullptr || is_drag_temp || is_drop_temp == false) {
 						retval = true;
 					}
 				}
@@ -3212,7 +3212,7 @@ PresetsFormClass::Do_Drop (HTREEITEM drag_item, HTREEITEM drop_item)
 	CWaitCursor wait_cursor;
 
 	PresetClass *drag_preset = Get_Item_Preset (drag_item);
-	bool is_drag_temp	= (drag_preset != NULL && drag_preset->Get_IsTemporary ()) ? true : false;
+	bool is_drag_temp	= (drag_preset != nullptr && drag_preset->Get_IsTemporary ()) ? true : false;
 
 	//
 	//	Does this operation affect only shared presets or only temps?
@@ -3239,9 +3239,9 @@ PresetsFormClass::Do_Drop (HTREEITEM drag_item, HTREEITEM drop_item)
 			//
 			//	Are the drag and drop locations still valid?
 			//
-			if (	drag_preset != NULL &&
+			if (	drag_preset != nullptr &&
 					drag_preset->Get_Definition ()->Get_ID () == drag_preset_id &&
-					drag_item != NULL && drop_item != NULL && drag_item != drop_item)
+					drag_item != nullptr && drop_item != nullptr && drag_item != drop_item)
 			{
 				//
 				//	Perform the operation and save the presets...
@@ -3255,7 +3255,7 @@ PresetsFormClass::Do_Drop (HTREEITEM drag_item, HTREEITEM drop_item)
 				//
 				//	Inform the user that something has changed...
 				//
-				::MessageBox (	NULL,
+				::MessageBox (	nullptr,
 									"Either the drag source or the drop target no longer exists, please try again.",
 									"Drag/Drop Error",
 									MB_OK | MB_ICONERROR);
@@ -3272,7 +3272,7 @@ PresetsFormClass::Do_Drop (HTREEITEM drag_item, HTREEITEM drop_item)
 		//	Simply move the preset and save the temp library
 		//
 		Move_Preset (drag_item, drop_item);
-		if (drag_preset != NULL) {
+		if (drag_preset != nullptr) {
 			Save_Temp_Presets ();
 		}
 	}
@@ -3289,18 +3289,18 @@ PresetsFormClass::Do_Drop (HTREEITEM drag_item, HTREEITEM drop_item)
 void
 PresetsFormClass::Move_Preset (HTREEITEM preset_item, HTREEITEM parent_item)
 {
-	ASSERT (preset_item != NULL);
-	ASSERT (parent_item != NULL);
+	ASSERT (preset_item != nullptr);
+	ASSERT (parent_item != nullptr);
 
 	PresetClass *preset = Get_Item_Preset (preset_item);
-	if (preset != NULL) {
+	if (preset != nullptr) {
 
 		//
 		//	Let the preset know who its new parent is
 		//
 		PresetClass *parent_preset	= Get_Item_Preset (parent_item);
 		preset->Set_Parent (parent_preset);
-		if (parent_preset != NULL) {
+		if (parent_preset != nullptr) {
 			parent_preset->Add_Child_Preset (preset->Get_ID ());
 		}
 
@@ -3312,8 +3312,8 @@ PresetsFormClass::Move_Preset (HTREEITEM preset_item, HTREEITEM parent_item)
 			//
 			//	Get the name of the new parent
 			//
-			const char *parent_name = NULL;
-			if (parent_preset != NULL) {
+			const char *parent_name = nullptr;
+			if (parent_preset != nullptr) {
 				parent_name = parent_preset->Get_Name ();
 			}
 
@@ -3354,7 +3354,7 @@ PresetsFormClass::Copy_Preset_Items (HTREEITEM preset_item, HTREEITEM parent_ite
 	//	Recursive copy all child items
 	//
 	for (	HTREEITEM child_item = m_TreeCtrl.GetChildItem (preset_item);
-			child_item != NULL;
+			child_item != nullptr;
 			child_item = m_TreeCtrl.GetNextSiblingItem (child_item))
 	{
 		Copy_Preset_Items (child_item, new_item);
@@ -3408,9 +3408,9 @@ PresetsFormClass::Export_File_Dependencies (const char *filename)
 		//
 		for (int index = 0; index < entry_list.Count (); index ++) {
 			PresetClass *preset = Get_Item_Preset (entry_list[index]);
-			if (preset != NULL) {
+			if (preset != nullptr) {
 				DefinitionClass *definition = preset->Get_Definition ();
-				if (definition != NULL) {
+				if (definition != nullptr) {
 
 					//
 					//	Generate the list of file's that this preset is dependent on
@@ -3497,7 +3497,7 @@ PresetsFormClass::Build_File_Dependencies_For_Definition
 			//	Recurse into the model's definition (if necessary)
 			//
 			DefinitionClass *model_definition = DefinitionMgrClass::Find_Definition (def_id, false);
-			if (model_definition != NULL) {
+			if (model_definition != nullptr) {
 				Build_File_Dependencies_For_Definition (file_list, model_definition);
 			}
 
@@ -3508,7 +3508,7 @@ PresetsFormClass::Build_File_Dependencies_For_Definition
 			//	Recurse into the physic object's definition (if necessary)
 			//
 			DefinitionClass *phys_definition = DefinitionMgrClass::Find_Definition (def_id, false);
-			if (phys_definition != NULL) {
+			if (phys_definition != nullptr) {
 				Build_File_Dependencies_For_Definition (file_list, phys_definition);
 			}
 		}
@@ -3534,7 +3534,7 @@ PresetsFormClass::Add_Preset (PresetClass *preset)
 	//	Find the root item
 	//
 	HTREEITEM root_item = Find_Factory (TVI_ROOT, class_id);
-	if (root_item != NULL) {
+	if (root_item != nullptr) {
 
 		//
 		//	Add the preset to the tree
@@ -3558,7 +3558,7 @@ PresetsFormClass::Sort_Items (uint32 class_id)
 	//	Find the root item
 	//
 	HTREEITEM root_item = Find_Factory (TVI_ROOT, class_id);
-	if (root_item != NULL) {
+	if (root_item != nullptr) {
 
 		//
 		//	Sort all items under this root

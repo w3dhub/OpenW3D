@@ -128,7 +128,7 @@ SoundPseudo3DClass::Update_Pseudo_Volume (float distance)
 	//
 	// Only do this if the sound is really playing
 	//
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 
 		float volume_mod = Determine_Real_Volume ();
 		float max_distance = Get_DropOff_Radius ();
@@ -167,7 +167,7 @@ SoundPseudo3DClass::Update_Pseudo_Volume (void)
 	MMSLockClass lock;
 
 	// Only do this if the sound is really playing
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 
 		//
 		// Find the difference in the sound position and its listener's position
@@ -198,7 +198,7 @@ SoundPseudo3DClass::Update_Pseudo_Pan (void)
 	//
 	// Only do this if the sound is really playing
 	//
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 
 		//
 		//	Transform the sound's position into 'listener-space'
@@ -260,7 +260,7 @@ SoundPseudo3DClass::On_Frame_Update (unsigned int /* milliseconds */)
 {
 	// If necessary, update the volume based on the distance
 	// from the listener
-	if (m_SoundHandle != NULL) {
+	if (m_SoundHandle != nullptr) {
 		Update_Pseudo_Volume ();
 		Update_Pseudo_Pan ();
 	}

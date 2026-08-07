@@ -30,7 +30,7 @@ WOLStringLookupFunc WOLString::_mLookupFunc = DefaultMapper;
 
 void WOLString::SetLookupFunc(WOLStringLookupFunc func)
 	{
-	if (func == NULL)
+	if (func == nullptr)
 		{
 		_mLookupFunc = DefaultMapper;
 		}

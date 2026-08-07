@@ -898,7 +898,7 @@ DECLARE_SCRIPT (M00_BuildingStateSoundSpeaker, "Sound_Normal:string,Sound_Destro
 				pos.Z += Commands->Get_Random(2, 5);
 
 				explosion_def_name = Get_Parameter("Explosion_Name");
-				Commands->Create_Explosion( explosion_def_name, pos, NULL );
+				Commands->Create_Explosion( explosion_def_name, pos, nullptr );
 
 				float time = Commands->Get_Random( 3, 6 );
 				Commands->Send_Custom_Event( obj, obj, M00_CUSTOM_BUILDING_EXPLODE, 1, time );

@@ -107,8 +107,8 @@ void CWdumpDoc::OnFileOpen()
 	static char szFilter[] = "W3D Files (*.w3d)|*.w3d|WLT Files (*.wlt)|*.wlt|WHT Files (*.wht)|*.wht|WHA Files (*.wha)|*.wha|WTM Files (*.wtm)|*.wtm|All Files (*.*)|*.*||";
 
 	CFileDialog f(	true,
-						NULL,
-						NULL,
+						nullptr,
+						nullptr,
 						OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
 						szFilter);
 

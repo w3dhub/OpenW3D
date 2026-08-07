@@ -184,7 +184,7 @@ CGameSpyQnR::~CGameSpyQnR()
 void CGameSpyQnR::LaunchArcade(void) {
 	const char *akey = "Software\\GameSpy\\GameSpy Arcade";
 	BOOL launched = false;
-	HKEY key = NULL;
+	HKEY key = nullptr;
 	int result = 0;
 
 	result = RegOpenKeyExA(HKEY_CURRENT_USER, akey, 0, KEY_READ, &key);
@@ -195,13 +195,13 @@ void CGameSpyQnR::LaunchArcade(void) {
 		//
 		DWORD data_size = 0;
 		DWORD type = 0;
-		result = ::RegQueryValueExA ((HKEY)key, "InstDir", NULL, &type, NULL, &data_size);
+		result = ::RegQueryValueExA ((HKEY)key, "InstDir", nullptr, &type, nullptr, &data_size);
 		if (result == ERROR_SUCCESS && type == REG_SZ) {
 
 			//
 			//	Read the entry from the registry
 			//
-			::RegQueryValueExA ((HKEY)key, "InstDir", NULL, &type,
+			::RegQueryValueExA ((HKEY)key, "InstDir", nullptr, &type,
 				(LPBYTE)value.Get_Buffer(data_size), &data_size);
 		}
 		if (!value.Is_Empty()) {
@@ -216,7 +216,7 @@ void CGameSpyQnR::LaunchArcade(void) {
 			if (file.Is_Available()) {
 				StringClass params("+svc ");
 				params += gamename;
-				if (((uintptr_t)ShellExecuteA (NULL, "open", value, params, NULL, SW_SHOW)) > 32) {
+				if (((uintptr_t)ShellExecuteA (nullptr, "open", value, params, nullptr, SW_SHOW)) > 32) {
 					launched = true;
 				}
 			}
@@ -232,7 +232,7 @@ void CGameSpyQnR::LaunchArcade(void) {
 		::strcpy(url, "http://www.gamespyarcade.com/features/launch.asp?svcname=ccrenegade&distID=391");
 #endif
 
-		ShellExecuteA (NULL, "open", url, NULL, NULL, SW_SHOW);
+		ShellExecuteA (nullptr, "open", url, nullptr, nullptr, SW_SHOW);
 	}
 }
 void CGameSpyQnR::Shutdown(void) {
@@ -271,7 +271,7 @@ void CGameSpyQnR::Init(void) {
 			if (cUserOptions::PreferredGameSpyNic.Get()) {
 				strcpy(ip, cNetUtil::Address_To_String(cUserOptions::PreferredGameSpyNic.Get()));
 			} else {
-				ip = NULL;
+				ip = nullptr;
 			}
 		} else {
 			strcpy(ip, cNetUtil::Address_To_String(g_ip_override));
@@ -297,7 +297,7 @@ void CGameSpyQnR::Init(void) {
 			gcd_init_qr(query_reporting_rec, cdkey_id);
 		}
 
-		StartTime = time(NULL);
+		StartTime = time(nullptr);
 		m_GSInit = true;
 	}
 #endif
@@ -429,10 +429,10 @@ void CGameSpyQnR::info_callback(char *outbuf, int maxlen)
 
 		int pcount = 0;
 		for (SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ()
-				; player_node != NULL; player_node = player_node->Next ()) {
+				; player_node != nullptr; player_node = player_node->Next ()) {
 
 			cPlayer *player = player_node->Data ();
-			WWASSERT (player != NULL);
+			WWASSERT (player != nullptr);
 
 			if (player->Get_Is_Active().Is_False()) {
 //			if (player->Get_Is_Active().Is_False() || !player->Is_Human()) {
@@ -493,7 +493,7 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 
 //		if (b.Is_Empty()) {
 //			char filename[MAX_PATH];
-//			GetModuleFileNameA(NULL, filename, sizeof(filename));
+//			GetModuleFileNameA(nullptr, filename, sizeof(filename));
 //			VS_FIXEDFILEINFO version;
 //			GetVersionInfo(filename, &version);
 //			int ver = version.dwFileVersionMS;
@@ -507,7 +507,7 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 //		if (!Append_InfoKey_Pair(outbuf, maxlen, "OwnerName", The_Game()->Get_Owner())) break;
 		value.Format("%d", (int)cUserOptions::BandwidthBps.Get());
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "BW", value)) break;
-//		int utime = time(NULL) - StartTime;
+//		int utime = time(nullptr) - StartTime;
 //		value.Format("%d:%d:%d:%d", utime/60/60/24, (utime/60/60)%24, (utime/60)%60, utime%60);
 //		if (!Append_InfoKey_Pair(outbuf, maxlen, "Uptime", value)) break;
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "CSVR", ConsoleBox.Is_Exclusive() ? one : zero)) break;
@@ -528,10 +528,10 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 
 //		cTeam * p_team;
 //		for (SLNode<cTeam> * objnode = cTeamManager::Get_Team_Object_List()->Head()
-//				; objnode != NULL; objnode = objnode->Next()) {
+//				; objnode != nullptr; objnode = objnode->Next()) {
 //
 //			p_team = objnode->Data();
-//			WWASSERT(p_team != NULL);
+//			WWASSERT(p_team != nullptr);
 //
 //			if (p_team->Get_Id() == PLAYERTYPE_GDI) {
 //				value.Format("%.0f", p_team->Get_Score());

@@ -51,7 +51,7 @@ DECLARE_FORCE_LINK (EvaSettings)
 ///////////////////////////////////////////////////////////////////////////////////////////
 //	Static member initialization
 ///////////////////////////////////////////////////////////////////////////////////////////
-EvaSettingsDefClass *		EvaSettingsDefClass::EvaSettings = NULL;
+EvaSettingsDefClass *		EvaSettingsDefClass::EvaSettings = nullptr;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -193,7 +193,7 @@ PersistClass *
 EvaSettingsDefClass::Create (void) const
 {
 	WWASSERT (0);
-	return NULL;
+	return nullptr;
 }
 
 
@@ -290,7 +290,7 @@ EvaSettingsDefClass::Load (ChunkLoadClass &cload)
 	//	Ask the message window to recalculate its size...
 	//
 	MessageWindowClass *message_window = CombatManager::Get_Message_Window ();
-	if (message_window != NULL) {
+	if (message_window != nullptr) {
 		message_window->Clear_Log ();
 		message_window->Reset_Current_Rect ();
 		message_window->Set_Window_Dirty (true);

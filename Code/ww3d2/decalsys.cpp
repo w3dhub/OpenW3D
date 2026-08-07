@@ -173,12 +173,12 @@ DecalGeneratorClass::DecalGeneratorClass(uint32 id,DecalSystemClass * system) :
 	System(system),
 	BackfaceVal(0.0f),
 	ApplyToTranslucentMeshes(false),
-	Material(NULL)
+	Material(nullptr)
 {
 	Material = NEW_REF(MaterialPassClass,());
 
-	WWASSERT(System != NULL);
-	WWASSERT(Material != NULL);
+	WWASSERT(System != nullptr);
+	WWASSERT(Material != nullptr);
 }
 
 
@@ -275,7 +275,7 @@ void DecalGeneratorClass::Set_Mesh_Transform(const Matrix3D & mesh_transform)
 	if (WW3D::Is_Texturing_Enabled()) {
 		float texsize = 64.0f;
 		TextureClass * tex = Material->Peek_Texture();
-		WWASSERT(tex != NULL);
+		WWASSERT(tex != nullptr);
 		if (tex) {
 //			SurfaceClass::SurfaceDescription surface_desc;
 //			tex->Get_Level_Description(surface_desc);

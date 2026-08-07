@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 {
 	HANDLE handle;
 
-	handle = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	handle = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 	if (handle != INVALID_HANDLE_VALUE)  {
 		int retval;		// Return code from IoControl functions.
 		unsigned short * pointer;	// Working pointer to mono RAM.
@@ -91,22 +91,22 @@ int main(int argc, char *argv[])
 		} cursor;			// Cursor positioning parameter info.
 
 		// Prints a line of text to the screen [length of string is 13].
-		WriteFile(handle, "Test Message\n", 13, &retval, NULL);
+		WriteFile(handle, "Test Message\n", 13, &retval, nullptr);
 
 		// Fetches a pointer to the mono memory.
-		DeviceIoControl(handle, (DWORD)IOCTL_MONO_LOCK, NULL, 0, &pointer, sizeof(pointer), &retval, 0);
-		if (pointer != NULL) {
+		DeviceIoControl(handle, (DWORD)IOCTL_MONO_LOCK, nullptr, 0, &pointer, sizeof(pointer), &retval, 0);
+		if (pointer != nullptr) {
 			*pointer = 0x0721;		// '!' character appears in upper left corner (attribute 0x07).
 		}
-		DeviceIoControl(handle, (DWORD)IOCTL_MONO_UNLOCK, NULL, 0, NULL, 0, &retval, 0);
+		DeviceIoControl(handle, (DWORD)IOCTL_MONO_UNLOCK, nullptr, 0, nullptr, 0, &retval, 0);
 
 		// Set cursor to column 5, row 10.
 		cursor.X = 5;
 		cursor.Y = 10;
-		DeviceIoControl(handle, (DWORD)IOCTL_MONO_SET_CURSOR, &cursor, sizeof(cursor), NULL, 0, &retval, 0);
+		DeviceIoControl(handle, (DWORD)IOCTL_MONO_SET_CURSOR, &cursor, sizeof(cursor), nullptr, 0, &retval, 0);
 
 		// Clear the screen.
-		DeviceIoControl(handle, (DWORD)IOCTL_MONO_CLEAR_SCREEN, NULL, 0, NULL, 0, &retval, 0);
+		DeviceIoControl(handle, (DWORD)IOCTL_MONO_CLEAR_SCREEN, nullptr, 0, nullptr, 0, &retval, 0);
 
 		CloseHandle(handle);
 	}

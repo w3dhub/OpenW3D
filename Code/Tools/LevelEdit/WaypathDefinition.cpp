@@ -79,7 +79,7 @@ WaypathDefinitionClass::WaypathDefinitionClass (void)
 		DefinitionClass ()
 
 {
-	ENUM_PARAM (WaypathDefinitionClass, m_PassableObjects, ("All", 1, "Humans", 2, "Ground Vehicles", 3, "Flying Vehicles", 4, NULL));
+	ENUM_PARAM (WaypathDefinitionClass, m_PassableObjects, ("All", 1, "Humans", 2, "Ground Vehicles", 3, "Flying Vehicles", 4, nullptr));
 	return ;
 }
 

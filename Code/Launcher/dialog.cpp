@@ -30,7 +30,7 @@ BOOL CALLBACK Patch_Window_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPar
 HWND Create_Patch_Dialog(void)
 {
   PatchDialog=CreateDialog(Global_instance, MAKEINTRESOURCE(IDD_DIALOG1),
-    NULL, (DLGPROC)Patch_Window_Proc);
+    nullptr, (DLGPROC)Patch_Window_Proc);
 
   ShowWindow(PatchDialog, SW_NORMAL);
   SetForegroundWindow(PatchDialog);
@@ -56,7 +56,7 @@ BOOL CALLBACK Patch_Window_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPar
 
 		case WM_PAINT:
       bmpLoader.drawBmp();
-			ValidateRect(hwnd, NULL);
+			ValidateRect(hwnd, nullptr);
     break;
 
     case WM_COMMAND:

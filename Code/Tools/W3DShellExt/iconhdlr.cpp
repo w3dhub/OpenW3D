@@ -70,7 +70,7 @@ STDMETHODIMP CShellExt::IsDirty()
 
 STDMETHODIMP CShellExt::Load(LPCOLESTR lpszFileName, DWORD /*grfMode*/)
 {
-    WideCharToMultiByte(CP_ACP,0,lpszFileName,-1,m_szFileUserClickedOn, sizeof(m_szFileUserClickedOn), NULL,NULL);
+    WideCharToMultiByte(CP_ACP,0,lpszFileName,-1,m_szFileUserClickedOn, sizeof(m_szFileUserClickedOn), nullptr,nullptr);
     return NOERROR;
 }
 

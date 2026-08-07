@@ -52,7 +52,7 @@
 class ConsoleFunctionClass {
 public:
 	virtual	const char *	Get_Name( void )	= 0;
-   virtual	const char *	Get_Alias( void )	{ return NULL; }//Get_Name(); }
+   virtual	const char *	Get_Alias( void )	{ return nullptr; }//Get_Name(); }
 	virtual	const char *	Get_Help( void ) = 0;
 	virtual	void				Activate( const char * input ) = 0;
 	static	void				Print( const char *format, ... );
@@ -69,7 +69,7 @@ public:
 	static	void	Init( void );
 	static	void	Shutdown( void );
 
-	static	void	Help(	const char * function = NULL );
+	static	void	Help(	const char * function = nullptr );
 	static	int	Get_Function_Count(void);
 	static	void	Next_Verbose_Help_Screen(void);
 	static	void	Verbose_Help_File(void);

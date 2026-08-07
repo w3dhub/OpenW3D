@@ -66,7 +66,7 @@ public:
 	DECLARE_EDITABLE( PowerUpGameObjDef, SimpleGameObjDef );
 
 	// Grant returns true if anything was granted that the grantee didn't already have
-	bool											Grant( SmartGameObj * obj, PowerUpGameObj * p_powerup = NULL, bool hud_display = true ) const ;
+	bool											Grant( SmartGameObj * obj, PowerUpGameObj * p_powerup = nullptr, bool hud_display = true ) const ;
 
 	int											Get_Grant_Weapon_ID (void) const	{ return GrantWeaponID; }
 

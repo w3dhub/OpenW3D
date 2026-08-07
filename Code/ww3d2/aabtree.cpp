@@ -89,10 +89,10 @@
  *=============================================================================================*/
 AABTreeClass::AABTreeClass(void) :
 	NodeCount(0),
-	Nodes(NULL),
+	Nodes(nullptr),
 	PolyCount(0),
-	PolyIndices(NULL),
-	Mesh(NULL)
+	PolyIndices(nullptr),
+	Mesh(nullptr)
 {
 }
 
@@ -138,10 +138,10 @@ AABTreeClass::AABTreeClass(AABTreeBuilderClass * builder)
  *=============================================================================================*/
 AABTreeClass::AABTreeClass(const AABTreeClass & that) :
 	NodeCount(0),
-	Nodes(NULL),
+	Nodes(nullptr),
 	PolyCount(0),
 	PolyIndices(0),
-	Mesh(NULL)
+	Mesh(nullptr)
 {
 	*this = that;
 }
@@ -214,15 +214,15 @@ void AABTreeClass::Reset(void)
 	NodeCount = 0;
 	if (Nodes) {
 		delete[] Nodes;
-		Nodes = NULL;
+		Nodes = nullptr;
 	}
 	PolyCount = 0;
 	if (PolyIndices) {
 		delete[] PolyIndices;
-		PolyIndices = NULL;
+		PolyIndices = nullptr;
 	}
 	if (Mesh) {
-		Mesh = NULL;
+		Mesh = nullptr;
 	}
 }
 
@@ -252,9 +252,9 @@ void AABTreeClass::Build_Tree_Recursive(AABTreeBuilderClass::CullNodeStruct * no
 	/*
 	** If this is a non-leaf node, set up the child indices, otherwise set up the polygon indices
 	*/
-	if (node->Front != NULL) {
+	if (node->Front != nullptr) {
 
-		WWASSERT(node->Back != NULL);		// if we have one child, we better have both!
+		WWASSERT(node->Back != nullptr);		// if we have one child, we better have both!
 		newnode->Set_Front_Child(node->Front->Index);
 		newnode->Set_Back_Child(node->Back->Index);
 

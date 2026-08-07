@@ -65,7 +65,7 @@ public:
 	PersistClass *	Load (ChunkLoadClass &cload) const
 	{
 		SoundNodeClass * new_obj = new SoundNodeClass;
-		SoundNodeClass * old_obj = NULL;
+		SoundNodeClass * old_obj = nullptr;
 
 		//
 		//	Load the object's old pointer
@@ -108,9 +108,9 @@ enum
 //
 //////////////////////////////////////////////////////////////////////////////
 SoundNodeClass::SoundNodeClass (PresetClass *preset)
-	:	PhysObj (NULL),
-		SoundObj (NULL),
-		Sphere (NULL),
+	:	PhysObj (nullptr),
+		SoundObj (nullptr),
+		Sphere (nullptr),
 		OverridePreset (false),
 		UseLegacyLoad (false),
 		NodeClass (preset)
@@ -125,12 +125,12 @@ SoundNodeClass::SoundNodeClass (PresetClass *preset)
 //
 //////////////////////////////////////////////////////////////////////////////
 SoundNodeClass::SoundNodeClass (const SoundNodeClass &src)
-	:	PhysObj (NULL),
-		SoundObj (NULL),
-		Sphere (NULL),
+	:	PhysObj (nullptr),
+		SoundObj (nullptr),
+		Sphere (nullptr),
 		OverridePreset (false),
 		UseLegacyLoad (false),
-		NodeClass (NULL)
+		NodeClass (nullptr)
 {
 	*this = src;
 	return ;
@@ -160,11 +160,11 @@ SoundNodeClass::~SoundNodeClass (void)
 void
 SoundNodeClass::Release_Sound (void)
 {
-	if (SoundObj != NULL) {
+	if (SoundObj != nullptr) {
 		SoundObj->Remove_From_Scene ();
 		SoundObj->Stop ();
 		SoundObj->Release_Ref ();
-		SoundObj = NULL;
+		SoundObj = nullptr;
 	}
 
 	return ;
@@ -189,9 +189,9 @@ SoundNodeClass::Initialize (void)
 	Release_Sound ();
 	MEMBER_RELEASE (PhysObj);
 
-	AudibleSoundDefinitionClass *definition = NULL;
+	AudibleSoundDefinitionClass *definition = nullptr;
 	definition = static_cast<AudibleSoundDefinitionClass *> (m_Preset->Get_Definition ());
-	if (	definition != NULL &&
+	if (	definition != nullptr &&
 			::SuperClassID_From_ClassID (definition->Get_Class_ID ()) == CLASSID_SOUND)
 	{
 		//
@@ -209,8 +209,8 @@ SoundNodeClass::Initialize (void)
 		//	Create the render object this tile depends on
 		//
 		RenderObjClass *render_obj = ::Create_Render_Obj ("SPEAKER");
-		WWASSERT (render_obj != NULL);
-		if (render_obj != NULL) {
+		WWASSERT (render_obj != nullptr);
+		if (render_obj != nullptr) {
 
 			// Create the new physics object
 			PhysObj = new DecorationPhysClass;
@@ -284,11 +284,11 @@ SoundNodeClass::operator= (const SoundNodeClass &src)
 void
 SoundNodeClass::Add_To_Scene (void)
 {
-	if (SoundObj != NULL && SoundObj->Is_In_Scene () == false) {
+	if (SoundObj != nullptr && SoundObj->Is_In_Scene () == false) {
 		SoundObj->Add_To_Scene ();
 	}
 
-	if (Sphere != NULL) {
+	if (Sphere != nullptr) {
 		Sphere->Display_Around_Node (*this);
 	}
 
@@ -305,12 +305,12 @@ SoundNodeClass::Add_To_Scene (void)
 void
 SoundNodeClass::Remove_From_Scene (void)
 {
-	if (SoundObj != NULL && SoundObj->Is_In_Scene ()) {
+	if (SoundObj != nullptr && SoundObj->Is_In_Scene ()) {
 		SoundObj->Stop ();
 		SoundObj->Remove_From_Scene ();
 	}
 
-	if (Sphere != NULL) {
+	if (Sphere != nullptr) {
 		Sphere->Remove_From_Scene ();
 	}
 
@@ -328,7 +328,7 @@ void
 SoundNodeClass::Pre_Export (void)
 {
 	Add_Ref ();
-	if (PhysObj != NULL && m_IsInScene) {
+	if (PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Remove_Object (PhysObj);
 	}
 
@@ -344,7 +344,7 @@ SoundNodeClass::Pre_Export (void)
 void
 SoundNodeClass::Post_Export (void)
 {
-	if (PhysObj != NULL && m_IsInScene) {
+	if (PhysObj != nullptr && m_IsInScene) {
 		::Get_Scene_Editor ()->Add_Dynamic_Object (PhysObj);
 	}
 
@@ -361,7 +361,7 @@ SoundNodeClass::Post_Export (void)
 void
 SoundNodeClass::Show_Attenuation_Spheres (bool onoff)
 {
-	if (onoff && Sphere == NULL) {
+	if (onoff && Sphere == nullptr) {
 
 		Sphere = new AttenuationSphereClass;
 		Sphere->Display_Around_Node (*this);
@@ -371,8 +371,8 @@ SoundNodeClass::Show_Attenuation_Spheres (bool onoff)
 		//
 		//	Determine what color to make the sphere
 		//
-		if (m_Preset != NULL && m_Preset->Get_Definition () != NULL) {
-			AudibleSoundDefinitionClass *definition = NULL;
+		if (m_Preset != nullptr && m_Preset->Get_Definition () != nullptr) {
+			AudibleSoundDefinitionClass *definition = nullptr;
 			definition = static_cast<AudibleSoundDefinitionClass *> (m_Preset->Get_Definition ());
 			if (::SuperClassID_From_ClassID (definition->Get_Class_ID ()) == CLASSID_SOUND) {
 				Sphere->Set_Color (definition->Get_Sphere_Color ());
@@ -381,7 +381,7 @@ SoundNodeClass::Show_Attenuation_Spheres (bool onoff)
 			Sphere->Set_Color (Vector3 (0, 0.75F, 0.75F));
 		}
 
-	} else if (onoff == false && Sphere != NULL) {
+	} else if (onoff == false && Sphere != nullptr) {
 		Sphere->Remove_From_Scene ();
 		MEMBER_RELEASE (Sphere);
 	}
@@ -399,7 +399,7 @@ void
 SoundNodeClass::Set_ID (uint32 id)
 {
 	NodeClass::Set_ID (id);
-	if (SoundObj != NULL) {
+	if (SoundObj != nullptr) {
 		SoundObj->Set_ID (m_ID);
 	}
 
@@ -415,16 +415,16 @@ SoundNodeClass::Set_ID (uint32 id)
 void
 SoundNodeClass::Update_Sound (void)
 {
-	if (m_Preset == NULL) {
+	if (m_Preset == nullptr) {
 		return ;
 	}
 
 	//
 	//	Dig the definition out of the preset
 	//
-	AudibleSoundDefinitionClass *definition = NULL;
+	AudibleSoundDefinitionClass *definition = nullptr;
 	definition = static_cast<AudibleSoundDefinitionClass *> (m_Preset->Get_Definition ());
-	if (definition == NULL) {
+	if (definition == nullptr) {
 		return ;
 	}
 
@@ -451,7 +451,7 @@ SoundNodeClass::Update_Sound (void)
 	//	Create and initialize the sound object
 	//
 	SoundObj = (AudibleSoundClass *)definition->Create ();
-	if (SoundObj != NULL) {
+	if (SoundObj != nullptr) {
 		SoundObj->Set_Transform (m_Transform);
 		SoundObj->Set_ID (m_ID);
 
@@ -459,7 +459,7 @@ SoundNodeClass::Update_Sound (void)
 		//	Make sure the sound object is 'static'
 		//
 		Sound3DClass *sound3d = SoundObj->As_Sound3DClass ();
-		if (sound3d != NULL) {
+		if (sound3d != nullptr) {
 			sound3d->Make_Static (true);
 		}
 
@@ -471,7 +471,7 @@ SoundNodeClass::Update_Sound (void)
 			SoundObj->Set_DropOff_Radius (InstanceSettings.Get_DropOff_Radius ());
 			SoundObj->Set_Start_Offset (InstanceSettings.Get_Start_Offset ());
 			SoundObj->Set_Pitch_Factor (InstanceSettings.Get_Pitch_Factor ());
-			if (sound3d != NULL) {
+			if (sound3d != nullptr) {
 				sound3d->Set_Max_Vol_Radius (InstanceSettings.Get_Max_Vol_Radius ());
 			}
 		}

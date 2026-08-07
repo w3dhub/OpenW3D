@@ -59,7 +59,7 @@ TextureClass * create_projector_texture_from_filename( const char * filename )
 	}
 
 	TextureClass * texture = WW3DAssetManager::Get_Instance()->Get_Texture(tex_name,TextureClass::MIP_LEVELS_1);
-	if (texture == NULL) {
+	if (texture == nullptr) {
 		WWDEBUG_SAY(("Failed to create %s from %s\n", (const char *)tex_name, filename));
 	}
 	return texture;
@@ -73,7 +73,7 @@ TextureClass * create_projector_texture_from_filename( const char * filename )
 ********************************************************************************************/
 
 ProjectorManagerClass::ProjectorManagerClass(void) :
-	Projector(NULL),
+	Projector(nullptr),
 	ProjectorBoneIndex(0)
 {
 }
@@ -88,7 +88,7 @@ void ProjectorManagerClass::Free(void)
 	if (Projector) {
 		PhysicsSceneClass::Get_Instance()->Remove_Texture_Projector(Projector);
 		Projector->Release_Ref();
-		Projector = NULL;
+		Projector = nullptr;
 	}
 	ProjectorBoneIndex = 0;
 }
@@ -96,9 +96,9 @@ void ProjectorManagerClass::Free(void)
 void ProjectorManagerClass::Init(const ProjectorManagerDefClass & def,RenderObjClass * model)
 {
 	Free();
-	WWASSERT(Projector == NULL);
+	WWASSERT(Projector == nullptr);
 
-	if (model == NULL) {
+	if (model == nullptr) {
 		return;
 	}
 
@@ -110,7 +110,7 @@ void ProjectorManagerClass::Init(const ProjectorManagerDefClass & def,RenderObjC
 		Projector = NEW_REF(PhysTexProjectClass, ());
 		Projector->Peek_Material_Pass()->Enable_On_Translucent_Meshes(false);
 
-		if (Projector != NULL) {
+		if (Projector != nullptr) {
 			/*
 			** Set up projection parameters
 			*/
@@ -140,14 +140,14 @@ void ProjectorManagerClass::Init(const ProjectorManagerDefClass & def,RenderObjC
 			*/
 			TextureClass * tex = create_projector_texture_from_filename(def.TextureName);
 
-			if (tex != NULL) {
+			if (tex != nullptr) {
 				tex->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 				tex->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
 				Projector->Set_Texture(tex);
 				tex->Release_Ref();
 			} else {
 				Projector->Release_Ref();
-				Projector = NULL;
+				Projector = nullptr;
 			}
 
 		}
@@ -156,7 +156,7 @@ void ProjectorManagerClass::Init(const ProjectorManagerDefClass & def,RenderObjC
 		** If the projector is animated, resolve the bone name into a bone index and install it into the scene
 		** If it is not animated, add it as a static projector (for more efficient culling)
 		*/
-		if (Projector != NULL) {
+		if (Projector != nullptr) {
 
 			/*
 			** Find the bone
@@ -180,7 +180,7 @@ void ProjectorManagerClass::Init(const ProjectorManagerDefClass & def,RenderObjC
 
 void ProjectorManagerClass::Update_From_Model(RenderObjClass * model)
 {
-	if ((Projector != NULL) && (ProjectorBoneIndex != 0xFFFF)) {
+	if ((Projector != nullptr) && (ProjectorBoneIndex != 0xFFFF)) {
 		const Matrix3D & tm = model->Get_Bone_Transform(ProjectorBoneIndex);
 		Projector->Set_Transform(tm);
 	}

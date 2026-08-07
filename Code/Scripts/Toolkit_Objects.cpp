@@ -119,7 +119,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_RMV, "Receive_Type_Activate:int, Debug_Mode=0:
 			Commands->Debug_Message("M00_Destroy_Object_RMV received custom of type %d and param %d.\n", type, param);
 		if (type == r_type)
 		{
-			if (Commands->Find_Object(param) != NULL)
+			if (Commands->Find_Object(param) != nullptr)
 			{
 				Commands->Destroy_Object(Commands->Find_Object(param));
 				if (debug_mode)
@@ -392,7 +392,7 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 
 	void Damaged( GameObject * obj, GameObject *damager, float /*amount*/) override
 	{
-		if (ignore_next_dmg && damager == NULL)
+		if (ignore_next_dmg && damager == nullptr)
 		{
 			Commands->Set_Health(obj, initial_health);
 		}
@@ -435,7 +435,7 @@ DECLARE_SCRIPT(M00_Permanent_No_Falling_Damage_IML, "")
 
 	void Damaged( GameObject * obj, GameObject *damager, float /*amount*/) override
 	{
-		if (damager == NULL)
+		if (damager == nullptr)
 		{
 			Commands->Set_Health(obj, initial_health);
 		}
@@ -495,7 +495,7 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 			Commands->Action_Play_Animation( obj, params );
 
 			// begin DeathType damage
-			Commands->Apply_Damage( obj, 1.0f, Get_Parameter( "DeathType" ), NULL );
+			Commands->Apply_Damage( obj, 1.0f, Get_Parameter( "DeathType" ), nullptr );
 			}
 		}
 	}
@@ -530,7 +530,7 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 		if((action_id == 1) && (reason == ACTION_COMPLETE_NORMAL))
 		{
 			// animation is complete. kill obj.
-			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", NULL);
+			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", nullptr);
 		}
 	}
 };
@@ -558,7 +558,7 @@ DECLARE_SCRIPT(M00_Vehicle_Regen_DAK, "" )
 			// check to see if health needs to be regenerated.
 			if ( Commands->Get_Health ( obj ) < ( Commands->Get_Max_Health ( obj ) ) )
 			{
-				Commands->Apply_Damage (obj, -2, "RegenHealth", NULL);
+				Commands->Apply_Damage (obj, -2, "RegenHealth", nullptr);
 			}
 			// restart the timer
 			Commands->Send_Custom_Event ( obj, obj, 0, 0, 1 );

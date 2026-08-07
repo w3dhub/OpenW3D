@@ -69,7 +69,7 @@ public:
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
 	TerrainSectionNodeClass (void)	:
-		Terrain (NULL)						{}
+		Terrain (nullptr)						{}
 	~TerrainSectionNodeClass (void)	{}
 
 	//////////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ public:
 	//
 	// From NodeClass
 	//
-	NodeClass *	Clone (void)											{ return NULL; }
+	NodeClass *	Clone (void)											{ return nullptr; }
 	void			Initialize (void)										{}
 	NODE_TYPE	Get_Type (void) const								{ return NODE_TYPE_TERRAIN_SECTION; }
 	int			Get_Icon_Index (void) const						{ return TERRAIN_ICON; }
@@ -121,7 +121,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
-	TerrainNodeClass (PresetClass *preset = NULL);
+	TerrainNodeClass (PresetClass *preset = nullptr);
 	~TerrainNodeClass (void);
 
 	//////////////////////////////////////////////////////////////////
@@ -142,7 +142,7 @@ public:
 	//
 	// From NodeClass
 	//
-	NodeClass *	Clone (void)						{ return NULL; }
+	NodeClass *	Clone (void)						{ return nullptr; }
 	void			Initialize (void);
 	NODE_TYPE	Get_Type (void) const			{ return NODE_TYPE_TERRAIN; }
 	int			Get_Icon_Index (void) const	{ return TERRAIN_ICON; }
@@ -150,9 +150,9 @@ public:
 	void			Remove_From_Scene (void);
 	void			Set_Transform (const Matrix3D &tm);
 	Matrix3D		Get_Transform (void) { return Transform; }
-	PhysClass *	Peek_Physics_Obj (void)	const	{ return NULL; }
+	PhysClass *	Peek_Physics_Obj (void)	const	{ return nullptr; }
 	bool			Is_Static (void) const			{ return true; }
-	void			Add_Vis_Points (VisPointGeneratorClass &generator, RenderObjClass *render_obj = NULL);
+	void			Add_Vis_Points (VisPointGeneratorClass &generator, RenderObjClass *render_obj = nullptr);
 	void			Hide (bool hide);
 	bool			Is_Hidden (void) const;
 	void			Update_Cached_Vis_IDs (void);

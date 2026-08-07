@@ -106,7 +106,7 @@ GotoObjectDialogClass::OnOK (void)
 	int index = Get_Current_Selection ();
 	if (index != -1) {
 		NodeClass *node = (NodeClass *)m_NodeList.GetItemData (index);
-		if (node != NULL) {
+		if (node != nullptr) {
 			::Get_Camera_Mgr ()->Goto_Node (node);
 		}
 	}

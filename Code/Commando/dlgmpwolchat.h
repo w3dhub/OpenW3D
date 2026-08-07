@@ -61,7 +61,7 @@ class MPWolChatMenuClass :
 	public Observer<WWOnline::UserEvent>
 {
 public:
-	static void DoDialog(const RefPtr<WWOnline::ChannelData>& channel = NULL);
+	static void DoDialog(const RefPtr<WWOnline::ChannelData>& channel = nullptr);
 
 	//
 	//	Debug methods

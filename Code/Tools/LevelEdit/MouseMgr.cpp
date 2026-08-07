@@ -85,7 +85,7 @@ MouseMgrClass::~MouseMgrClass (void)
 	// Free the state table
 	for (int mode = 0; mode < MOUSE_MODE::MODE_COUNT; mode ++) {
 		SAFE_DELETE (m_pModeObjects[mode]);
-		m_pModeObjects[mode] = NULL;
+		m_pModeObjects[mode] = nullptr;
 	}
 
 	return ;
@@ -375,7 +375,7 @@ MMObjectManipulateClass::Handle_LButton_Dblclk
 
 	// Find the item the user clicked on
 	NodeClass *node = ::Get_Scene_Editor ()->Find_Node_At_Point (point);
-	if (node != NULL) {
+	if (node != nullptr) {
 
 		//
 		// Display the settings dialog for this node
@@ -746,7 +746,7 @@ MMObjectManipulateClass::Rotate_Selection (CPoint point)
 void
 MMWaypathEditClass::Exit_Mode (void)
 {
-	m_Waypath		= NULL;
+	m_Waypath		= nullptr;
 	m_CurrentPoint	= -1;
 	::Get_Mouse_Mgr ()->Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);
 	return ;
@@ -761,7 +761,7 @@ MMWaypathEditClass::Exit_Mode (void)
 void
 MMWaypathEditClass::On_Mode_Exit (void)
 {
-	if (m_Waypath != NULL && m_CurrentPoint >= 0) {
+	if (m_Waypath != nullptr && m_CurrentPoint >= 0) {
 		m_Waypath->Delete_Point (m_CurrentPoint);
 	}
 
@@ -782,7 +782,7 @@ MMWaypathEditClass::Handle_LButton_Down
 )
 {
 	/*NodeClass *node = ::Get_Scene_Editor ()->Find_Node_At_Point (point);
-	if ((node != NULL) && (node->Get_Type () == NODE_TYPE_WAYPATH)) {
+	if ((node != nullptr) && (node->Get_Type () == NODE_TYPE_WAYPATH)) {
 		WaypathNodeClass *waypath = (WaypathNodeClass *)node;
 	}*/
 
@@ -802,7 +802,7 @@ MMWaypathEditClass::Handle_LButton_Up
 	CPoint	/* point */
 )
 {
-	if (m_Waypath != NULL && m_CurrentPoint >= 0) {
+	if (m_Waypath != nullptr && m_CurrentPoint >= 0) {
 
 		//
 		//	If the user is holding the shift key, then exit the mode...
@@ -873,12 +873,12 @@ MMWaypathEditClass::Handle_Mouse_Move
 	CPoint	point
 )
 {
-	if (m_Waypath != NULL && m_CurrentPoint >= 0) {
+	if (m_Waypath != nullptr && m_CurrentPoint >= 0) {
 
 		//
 		//	Get a pointer to this waypoint
 		//
-		WaypointNodeClass *waypoint = NULL;
+		WaypointNodeClass *waypoint = nullptr;
 		m_Waypath->Get_Point (m_CurrentPoint, &waypoint);
 
 		//
@@ -903,7 +903,7 @@ MMWaypathEditClass::On_Mode_Set (void)
 	// Reset the state
 	::ReleaseCapture ();
 
-	m_Waypath		= NULL;
+	m_Waypath		= nullptr;
 	m_CurrentPoint	= -1;
 	return ;
 }
@@ -933,7 +933,7 @@ MMGrabHandleDragClass::Handle_LButton_Up
 	::Get_Mouse_Mgr ()->Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);
 
 	// Let the node know its done dragging
-	if (m_Node != NULL) {
+	if (m_Node != nullptr) {
 		m_Node->On_Vertex_Drag_End (m_Vertex);
 	}
 
@@ -957,7 +957,7 @@ MMGrabHandleDragClass::Handle_Mouse_Move
 	// Pass this information onto the node so it can process
 	// the 'drag' in whatever fashion it wants
 	//
-	if (m_Node != NULL) {
+	if (m_Node != nullptr) {
 		m_Node->On_Vertex_Drag (m_Vertex, point);
 	}
 
@@ -986,7 +986,7 @@ MMGrabHandleDragClass::Set_Node_Info
 	//
 	// Let the node know its done dragging
 	//
-	if (m_Node != NULL) {
+	if (m_Node != nullptr) {
 		m_Node->On_Vertex_Drag_Begin (m_Vertex);
 	}
 

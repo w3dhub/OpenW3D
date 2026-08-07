@@ -90,7 +90,7 @@ bool Init(void)
 		sprintf(tmp,"Hardware Chipset:      %s\n",RDDescriptions[ri].Get_Hardware_Chipset());
 		strcat(buf,tmp);
 
-		MessageBox(NULL,buf,title,MB_OK);
+		MessageBox(nullptr,buf,title,MB_OK);
 	}
 
 	return true;

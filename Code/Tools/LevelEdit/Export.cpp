@@ -183,7 +183,7 @@ ExporterClass::Make_Temp_Directory (void)
 	//
 	//	Create the directory
 	//
-	::CreateDirectory (TempDirectory, NULL);
+	::CreateDirectory (TempDirectory, nullptr);
 	::Set_Current_Directory (TempDirectory);
 	::SetCurrentDirectory (TempDirectory);
 	return ;
@@ -256,7 +256,7 @@ ExporterClass::Export_Level_File (void)
 	//
 	SaveGameManager::Set_Map_Filename (lsd_filename);
 	SaveGameManager::Save_Level ();
-	SaveGameManager::Save_Game (ldd_filename, NULL);
+	SaveGameManager::Save_Game (ldd_filename, nullptr);
 
 	//
 	//	Now add these files to the mix file
@@ -470,7 +470,7 @@ ExporterClass::Export_Definition_Databases (bool use_temp_strings_library)
 	//	Save the preset library to the temp directory
 	//
 	PresetsFormClass *presets_form = ::Get_Presets_Form ();
-	if (presets_form != NULL) {
+	if (presets_form != nullptr) {
 		CString path = ::Make_Path (TempDirectory, "objects.ddb");
 		presets_form->Save_Presets (path, 0, false, false);
 		always_db_mix_creator.Add_File (path, ::Get_Filename_From_Path (path));
@@ -675,8 +675,8 @@ ExporterClass::Delete_File (LPCTSTR filename)
 {
 	bool retval = false;
 
-	ASSERT (filename != NULL);
-	if (filename != NULL) {
+	ASSERT (filename != nullptr);
+	if (filename != nullptr) {
 
 		//
 		// Strip the readonly bit off if necessary
@@ -759,7 +759,7 @@ ExporterClass::Clean_Directory (LPCTSTR local_dir)
 	//
 	// Close the search handle
 	//
-	if (hfind != NULL) {
+	if (hfind != nullptr) {
 		::FindClose (hfind);
 	}
 
@@ -797,7 +797,7 @@ ExporterClass::Pre_Level_Export (DynamicVectorClass<NodeClass *> &node_list)
 	//
 	::Get_Scene_Editor ()->Re_Partition_Static_Lights ();
 	::Get_Scene_Editor ()->Re_Partition_Audio_System ();
-	::Get_Scene_Editor ()->Set_Selection (NULL);
+	::Get_Scene_Editor ()->Set_Selection (nullptr);
 	::Get_Scene_Editor ()->Display_Vis_Points (false);
 
 	//
@@ -913,7 +913,7 @@ ExporterClass::Add_Files_To_Mod_Package (LPCTSTR full_path)
 	//
 	WIN32_FIND_DATA find_info	= { 0 };
 	BOOL keep_going				= true;
-	HANDLE file_find				= NULL;
+	HANDLE file_find				= nullptr;
 	for (file_find = ::FindFirstFile (search_path, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (file_find, &find_info))
@@ -933,7 +933,7 @@ ExporterClass::Add_Files_To_Mod_Package (LPCTSTR full_path)
 				//
 				//	Skip all lvl files
 				//
-				if (::strstr (find_info.cFileName, ".lvl") == NULL) {
+				if (::strstr (find_info.cFileName, ".lvl") == nullptr) {
 
 					//
 					//	Simply add this file to the mix

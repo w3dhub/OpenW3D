@@ -48,7 +48,7 @@ protected:
 
 
 CloudShadowClass::CloudShadowClass(void) :
-	ShadowTexture(NULL),
+	ShadowTexture(nullptr),
 	TextureWidth(0),
 	TextureHeight(0),
 	UOffset(0.0f),

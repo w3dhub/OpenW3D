@@ -74,28 +74,28 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_RMV, "Objective_ID:int, Obje
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
 			}
-			if ((blip) && (Commands->Find_Object(object_id) != NULL))
+			if ((blip) && (Commands->Find_Object(object_id) != nullptr))
 				Commands->Set_Objective_Radar_Blip_Object(objective_id, Commands->Find_Object(object_id));
 		}
 		else if ((activate == 0) && (hidden == true))
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
 			}
-			if ((blip) && (Commands->Find_Object(object_id) != NULL))
+			if ((blip) && (Commands->Find_Object(object_id) != nullptr))
 				Commands->Set_Objective_Radar_Blip_Object(objective_id, Commands->Find_Object(object_id));
 		}
 	}
@@ -106,14 +106,14 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_RMV, "Objective_ID:int, Obje
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
 			}
-			if ((blip) && (Commands->Find_Object(object_id) != NULL))
+			if ((blip) && (Commands->Find_Object(object_id) != nullptr))
 				Commands->Set_Objective_Radar_Blip_Object(objective_id, Commands->Find_Object(object_id));
 		}
 
@@ -171,11 +171,11 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Locations_RMV, "Objective_ID:int, Ob
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
 			}
 			if (blip)
@@ -185,11 +185,11 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Locations_RMV, "Objective_ID:int, Ob
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
 			}
 			if (blip)
@@ -203,11 +203,11 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Locations_RMV, "Objective_ID:int, Ob
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
 			}
 			if (blip)
@@ -286,11 +286,11 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_Multiple_Triggers_RMV, "Obje
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
 			}
 		}
@@ -298,11 +298,11 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_Multiple_Triggers_RMV, "Obje
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, description_id, nullptr, 0);
 					break;
 			}
 		}
@@ -314,11 +314,11 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_Multiple_Triggers_RMV, "Obje
 		{
 			switch (objective_type)
 			{
-			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 1: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 2: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
-			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, NULL, 0);
+			case 3: Commands->Add_Objective(objective_id, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_PENDING, description_id, nullptr, 0);
 					break;
 			}
 			if (so_far >= number)

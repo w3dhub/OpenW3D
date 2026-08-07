@@ -41,7 +41,7 @@
 
 
 WWUIInputClass::WWUIInputClass(void) :
-	mIMEManager(NULL)
+	mIMEManager(nullptr)
 {
 }
 
@@ -56,7 +56,7 @@ WWUIInputClass::~WWUIInputClass(void)
 
 void WWUIInputClass::InitIME(HWND hwnd)
 {
-	if (mIMEManager == NULL) {
+	if (mIMEManager == nullptr) {
 		mIMEManager = IME::IMEManager::Create(hwnd);
 
 		if (mIMEManager) {

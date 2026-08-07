@@ -59,7 +59,7 @@ DECLARE_SCRIPT(M11_VoltRifleGuy_Script_JDG, "")
 		player_has_volt_rifle = false;
 
 		GameObject * voltPowerupMonitor = Commands->Find_Object ( 101883 );
-		if (voltPowerupMonitor != NULL)
+		if (voltPowerupMonitor != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, voltPowerupMonitor, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );//checking if player has volt rifle
 		}
@@ -163,7 +163,7 @@ DECLARE_SCRIPT(M11_VoltRifle_Script_JDG, "")
 			Commands->Create_Object ( "POW_VoltAutoRifle_Player", spawn_location11 );
 
 			GameObject * voltPowerupMonitor = Commands->Find_Object ( 101883 );
-			if (voltPowerupMonitor != NULL)
+			if (voltPowerupMonitor != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, voltPowerupMonitor, 0, M01_START_ACTING_JDG, 0 );
 			}
@@ -244,10 +244,10 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 
 					else if (action_id == evaNukeConv)
 					{
-						Commands->Add_Objective( M11_FIFTH_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_05, NULL, IDS_Enc_Obj_Primary_M11_05 );
+						Commands->Add_Objective( M11_FIFTH_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_05, nullptr, IDS_Enc_Obj_Primary_M11_05 );
 
 						GameObject * nukeSwitch = Commands->Find_Object ( M11_END_MISSION_SWITCH_JDG );
-						if (nukeSwitch != NULL)
+						if (nukeSwitch != nullptr)
 						{
 							Commands->Set_Objective_Radar_Blip_Object( M11_FIFTH_OBJECTIVE_JDG, nukeSwitch );
 							Commands->Set_Objective_HUD_Info( M11_FIFTH_OBJECTIVE_JDG, 94, "POG_M11_1_04.tga", IDS_POG_SABOTAGE );
@@ -281,9 +281,9 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 						{
 							//Commands->Attach_Script(STAR, "M11_Havocs_Script_JDG", "");
 							missionIntroConv = Commands->Create_Conversation( "M11_Level_Intro_Conversation", 100, 1000, false);
-							Commands->Join_Conversation( NULL, missionIntroConv, false, false, true );
+							Commands->Join_Conversation( nullptr, missionIntroConv, false, false, true );
 							Commands->Join_Conversation( STAR, missionIntroConv, false, false, true );
-							//Commands->Join_Conversation( NULL, missionIntroConv, false, false, true );
+							//Commands->Join_Conversation( nullptr, missionIntroConv, false, false, true );
 							Commands->Start_Conversation( missionIntroConv,  missionIntroConv );
 							Commands->Monitor_Conversation (obj, missionIntroConv);
 						}
@@ -300,8 +300,8 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 						if (STAR)
 						{
 							missionIntroConv02 = Commands->Create_Conversation( "M11_Level_Intro_Conversation02", 100, 1000, false);
-							Commands->Join_Conversation( NULL, missionIntroConv02, false, false, true );
-							Commands->Join_Conversation( NULL, missionIntroConv02, false, false, true );
+							Commands->Join_Conversation( nullptr, missionIntroConv02, false, false, true );
+							Commands->Join_Conversation( nullptr, missionIntroConv02, false, false, true );
 							//Commands->Join_Conversation( STAR, missionIntroConv02, false, false, true );
 							Commands->Start_Conversation( missionIntroConv02,  missionIntroConv02 );
 							Commands->Monitor_Conversation (obj, missionIntroConv02);
@@ -327,7 +327,7 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 					{
 						if (player_has_reached_musuem == false)
 						{
-							Commands->Add_Objective( M11_FIRST_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_02, NULL, IDS_Enc_Obj_Primary_M11_02 );
+							Commands->Add_Objective( M11_FIRST_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_02, nullptr, IDS_Enc_Obj_Primary_M11_02 );
 							Vector3 musemLocation (2.072f, 16.705f, -24.531f);
 							Commands->Set_Objective_HUD_Info_Position( M11_FIRST_OBJECTIVE_JDG, 91, "POG_M11_1_02.tga", IDS_POG_INFILTRATE, musemLocation );
 						}
@@ -341,7 +341,7 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 						//Commands->Send_Custom_Event ( obj, obj, 0, M11_ADD_SECOND_OBJECTIVE_JDG, 5 );
 
 						evaPingedSydneyConv = Commands->Create_Conversation( "M11_EVA_SydneyPinged_Conversation", 100, 1000, false);
-						Commands->Join_Conversation( NULL, evaPingedSydneyConv, false, false, true );;
+						Commands->Join_Conversation( nullptr, evaPingedSydneyConv, false, false, true );;
 						Commands->Start_Conversation( evaPingedSydneyConv,  evaPingedSydneyConv );
 						Commands->Monitor_Conversation (obj, evaPingedSydneyConv);
 
@@ -352,7 +352,7 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 					{
 						Vector3 sydenysLocation (0.000f, 96.000f, -34.250f);
 						//Commands->Add_Objective( M11_SECOND_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_01 );
-						Commands->Add_Objective( M11_SECOND_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_01, NULL, IDS_Enc_Obj_Primary_M11_01 );
+						Commands->Add_Objective( M11_SECOND_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_01, nullptr, IDS_Enc_Obj_Primary_M11_01 );
 						Commands->Set_Objective_HUD_Info_Position( M11_SECOND_OBJECTIVE_JDG, -1, "POG_M11_1_01.tga", IDS_POG_RESCUE, sydenysLocation );
 
 					}
@@ -361,7 +361,7 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 				case M11_ADD_SECOND_OBJECTIVE_POG_JDG: //player's second objective is to locate sydney mobius
 					{
 						GameObject * sydney = Commands->Find_Object ( M11_SIMPLE_SYDNEY_MOBIUS_JDG );
-						if (sydney != NULL)
+						if (sydney != nullptr)
 						{
 							Vector3 sydenysLocation (0.000f, 96.000f, -34.250f);
 							//Commands->Set_Objective_Radar_Blip_Object( M11_SECOND_OBJECTIVE_JDG, sydney );
@@ -381,7 +381,7 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 						Commands->Send_Custom_Event( obj, obj, 0, M11_ADD_FORTH_OBJECTIVE_JDG, 5 );
 
 						//nukeIntroConv = Commands->Create_Conversation( "M11_EVA_Activate_Nuke_Conversation", 100, 1000, false);
-						//Commands->Join_Conversation( NULL, nukeIntroConv, false, false, true );
+						//Commands->Join_Conversation( nullptr, nukeIntroConv, false, false, true );
 						//Commands->Start_Conversation( nukeIntroConv,  nukeIntroConv );
 						//Commands->Monitor_Conversation (obj, nukeIntroConv);
 					}
@@ -389,10 +389,10 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 
 				case M11_ADD_THIRD_OBJECTIVE_JDG: //player's third objective is to acess the power core
 					{
-						Commands->Add_Objective( M11_THIRD_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_03, NULL, IDS_Enc_Obj_Primary_M11_03 );
+						Commands->Add_Objective( M11_THIRD_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_03, nullptr, IDS_Enc_Obj_Primary_M11_03 );
 
 						GameObject * entryZone = Commands->Find_Object ( 100688 );
-						if (entryZone != NULL)
+						if (entryZone != nullptr)
 						{
 							Vector3 pogLocation = Commands->Get_Position ( entryZone );
 							Commands->Set_Objective_Radar_Blip_Object( M11_THIRD_OBJECTIVE_JDG, entryZone );
@@ -406,7 +406,7 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 						Commands->Set_Objective_Status( M11_THIRD_OBJECTIVE_JDG, OBJECTIVE_STATUS_ACCOMPLISHED );
 
 						GameObject * entryZone = Commands->Find_Object ( 100012 );
-						if (entryZone != NULL)
+						if (entryZone != nullptr)
 						{
 							Commands->Destroy_Object ( entryZone );//cleaning up this zone
 						}
@@ -415,10 +415,10 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 
 				case M11_ADD_FORTH_OBJECTIVE_JDG: //player's forth objective is to PROTECT SYDNEY
 					{
-						Commands->Add_Objective( M11_FORTH_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_04, NULL, IDS_Enc_Obj_Primary_M11_04 );
+						Commands->Add_Objective( M11_FORTH_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M11_04, nullptr, IDS_Enc_Obj_Primary_M11_04 );
 
 						GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
-						if (sydney != NULL)
+						if (sydney != nullptr)
 						{
 							Commands->Set_Objective_Radar_Blip_Object( M11_FORTH_OBJECTIVE_JDG, sydney );
 							Commands->Set_Objective_HUD_Info( M11_FORTH_OBJECTIVE_JDG, 93, "POG_M07_1_04.tga", IDS_POG_PROTECT );
@@ -442,7 +442,7 @@ DECLARE_SCRIPT(M11_Mission_Controller_JDG, "")
 				case M11_ADD_FIFTH_OBJECTIVE_JDG: //player's fifth objective is to sabotage the nuclear missle
 					{
 						evaNukeConv = Commands->Create_Conversation( "M11_EVA_Activate_Nuke_Conversation", 100, 1000, false);
-						Commands->Join_Conversation( NULL, evaNukeConv, false, false, true );;
+						Commands->Join_Conversation( nullptr, evaNukeConv, false, false, true );;
 						Commands->Start_Conversation( evaNukeConv,  evaNukeConv );
 						Commands->Monitor_Conversation (obj, evaNukeConv);
 					}
@@ -493,37 +493,37 @@ DECLARE_SCRIPT(M11_Floor01_SecurityTurrets_Controller_JDG, "")
 			GameObject * turret10 = Commands->Find_Object (M11_FLOOR01_SECURITY_TURRET_10_JDG);
 			GameObject * turret12 = Commands->Find_Object (M11_FLOOR01_SECURITY_TURRET_12_JDG);
 
-			if (turret01 != NULL)
+			if (turret01 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 2, 5 );
 				Commands->Send_Custom_Event( obj, turret01, 0, M01_START_ACTING_JDG, delayTimer );
 			}
 
-			if (turret03 != NULL)
+			if (turret03 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 2, 5 );
 				Commands->Send_Custom_Event( obj, turret03, 0, M01_START_ACTING_JDG, delayTimer );
 			}
 
-			if (turret05 != NULL)
+			if (turret05 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 2, 5 );
 				Commands->Send_Custom_Event( obj, turret05, 0, M01_START_ACTING_JDG, delayTimer );
 			}
 
-			if (turret08 != NULL)
+			if (turret08 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 2, 5 );
 				Commands->Send_Custom_Event( obj, turret08, 0, M01_START_ACTING_JDG, delayTimer );
 			}
 
-			if (turret10 != NULL)
+			if (turret10 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 2, 5 );
 				Commands->Send_Custom_Event( obj, turret10, 0, M01_START_ACTING_JDG, delayTimer );
 			}
 
-			if (turret12 != NULL)
+			if (turret12 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 2, 5 );
 				Commands->Send_Custom_Event( obj, turret12, 0, M01_START_ACTING_JDG, delayTimer );
@@ -683,7 +683,7 @@ DECLARE_SCRIPT(M11_Floor01_SecurityTurret_JDG, "")
 		else if (obj && param == M01_YOUR_OPERATOR_IS_DEAD_JDG)
 		{
 			active = false;
-			Commands->Apply_Damage( obj, 10000, "BlamoKiller", NULL );
+			Commands->Apply_Damage( obj, 10000, "BlamoKiller", nullptr );
 		}
 
 		else if (obj && param == M01_MODIFY_YOUR_ACTION_JDG)
@@ -1177,7 +1177,7 @@ DECLARE_SCRIPT(M11_ExternalArtillery_Controller_JDG, "")
 				Vector3 explosion_location = sound_location;
 
 				explosion_location.Z -= 10;
-				Commands->Create_Explosion("Ground Explosions Twiddler", explosion_location, NULL);
+				Commands->Create_Explosion("Ground Explosions Twiddler", explosion_location, nullptr);
 
 				float delayTimer = Commands->Get_Random ( delayTimerMin, delayTimerMax );
 				Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, delayTimer );
@@ -1446,7 +1446,7 @@ DECLARE_SCRIPT(M11_Floor01_FireGuy_JDG, "")
 		myHealth = myHealth * healthFudge;
 
 		Commands->Set_Health ( obj, myHealth );
-		Commands->Apply_Damage( obj, 10, "Flamethrower", NULL );
+		Commands->Apply_Damage( obj, 10, "Flamethrower", nullptr );
 		Commands->Enable_Hibernation( obj, false );
 
 		Commands->Send_Custom_Event ( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 1 );
@@ -1456,7 +1456,7 @@ DECLARE_SCRIPT(M11_Floor01_FireGuy_JDG, "")
 	{
 		if (param == M01_MODIFY_YOUR_ACTION_JDG)
 		{
-			Commands->Apply_Damage( obj, 10, "Flamethrower", NULL );
+			Commands->Apply_Damage( obj, 10, "Flamethrower", nullptr );
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 1 );
 		}
 	}
@@ -1593,7 +1593,7 @@ DECLARE_SCRIPT(M11_NetRunnerRoom_EntryZone_JDG, "")
 		{
 			entered = true;
 			GameObject * exitZone = Commands->Find_Object ( 100228 );
-			if (exitZone != NULL)
+			if (exitZone != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, exitZone, 0, M01_START_ACTING_JDG, 0 );
 			}
@@ -1632,13 +1632,13 @@ DECLARE_SCRIPT(M11_NetRunnerRoom_ExitZone_JDG, "")
 			GameObject * stealthSoldier01 = Commands->Find_Object ( 100225 );
 			GameObject * stealthSoldier02 = Commands->Find_Object ( 100227 );
 
-			if (stealthSoldier01 != NULL)
+			if (stealthSoldier01 != nullptr)
 			{
 				float delayTimer01 = Commands->Get_Random ( 0, 1 );
 				Commands->Send_Custom_Event ( obj, stealthSoldier01, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer01 );
 			}
 
-			if (stealthSoldier02 != NULL)
+			if (stealthSoldier02 != nullptr)
 			{
 				float delayTimer02 = Commands->Get_Random ( 0, 1 );
 				Commands->Send_Custom_Event ( obj, stealthSoldier02, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer02 );
@@ -1663,32 +1663,32 @@ DECLARE_SCRIPT(M11_MuseumLevel_EntryZone_JDG, "")
 			GameObject * museumGuard05 = Commands->Find_Object ( M11_MUSEUM_GUARD_05_JDG );
 			GameObject * museumGuard06 = Commands->Find_Object ( M11_MUSEUM_GUARD_06_JDG );
 
-			if (museumGuard01 != NULL)
+			if (museumGuard01 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard01, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (museumGuard02 != NULL)
+			if (museumGuard02 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard02, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (museumGuard03 != NULL)
+			if (museumGuard03 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard03, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (museumGuard04 != NULL)
+			if (museumGuard04 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard04, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (museumGuard05 != NULL)
+			if (museumGuard05 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard05, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (museumGuard06 != NULL)
+			if (museumGuard06 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard06, 0, M01_START_ACTING_JDG, 0 );
 			}
@@ -1696,12 +1696,12 @@ DECLARE_SCRIPT(M11_MuseumLevel_EntryZone_JDG, "")
 			GameObject * zone01 = Commands->Find_Object ( 100254 );
 			GameObject * zone02 = Commands->Find_Object ( 100255 );
 
-			if (zone01 != NULL)
+			if (zone01 != nullptr)
 			{
 				Commands->Destroy_Object ( zone01 );
 			}
 
-			if (zone02 != NULL)
+			if (zone02 != nullptr)
 			{
 				Commands->Destroy_Object ( zone02 );
 			}
@@ -1822,32 +1822,32 @@ DECLARE_SCRIPT(M11_MuseumLevel_Disable_Spawners_Zone_JDG, "")
 			GameObject * museumGuard05 = Commands->Find_Object ( M11_MUSEUM_GUARD_05_JDG );
 			GameObject * museumGuard06 = Commands->Find_Object ( M11_MUSEUM_GUARD_06_JDG );
 
-			if (museumGuard01 != NULL)
+			if (museumGuard01 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard01, 0, M01_GOTO_IDLE_JDG, 0 );
 			}
 
-			if (museumGuard02 != NULL)
+			if (museumGuard02 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard02, 0, M01_GOTO_IDLE_JDG, 0 );
 			}
 
-			if (museumGuard03 != NULL)
+			if (museumGuard03 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard03, 0, M01_GOTO_IDLE_JDG, 0 );
 			}
 
-			if (museumGuard04 != NULL)
+			if (museumGuard04 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard04, 0, M01_GOTO_IDLE_JDG, 0 );
 			}
 
-			if (museumGuard05 != NULL)
+			if (museumGuard05 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard05, 0, M01_GOTO_IDLE_JDG, 0 );
 			}
 
-			if (museumGuard06 != NULL)
+			if (museumGuard06 != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, museumGuard06, 0, M01_GOTO_IDLE_JDG, 0 );
 			}
@@ -1855,12 +1855,12 @@ DECLARE_SCRIPT(M11_MuseumLevel_Disable_Spawners_Zone_JDG, "")
 			GameObject * zone01 = Commands->Find_Object ( 100324 );
 			GameObject * zone02 = Commands->Find_Object ( 100325 );
 
-			if (zone01 != NULL)
+			if (zone01 != nullptr)
 			{
 				Commands->Destroy_Object ( zone01 );
 			}
 
-			if (zone02 != NULL)
+			if (zone02 != nullptr)
 			{
 				Commands->Destroy_Object ( zone02 );
 			}
@@ -1875,7 +1875,7 @@ DECLARE_SCRIPT(M11_WetBar_NeighborRoom_EntryZone_JDG, "")
 		if (enterer == STAR)
 		{
 			GameObject * controller = Commands->Find_Object ( M11_WETBAR_SPAWNER_CONTROLLER_JDG );
-			if (controller != NULL)
+			if (controller != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, controller, 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 			}
@@ -1911,19 +1911,19 @@ DECLARE_SCRIPT(M11_WetBar_NeighborRoom_SpawnerController_JDG, "")
 			GameObject * spawnedGuy02 = Commands->Find_Object ( spawn_02_ID );
 			GameObject * spawnedGuy03 = Commands->Find_Object ( spawn_03_ID );
 
-			if (spawnedGuy01 == NULL)
+			if (spawnedGuy01 == nullptr)
 			{
 				spawnedGuy01 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_01_JDG );
 				spawn_01_ID = Commands->Get_ID ( spawnedGuy01 );
 			}
 
-			if (spawnedGuy02 == NULL)
+			if (spawnedGuy02 == nullptr)
 			{
 				spawnedGuy02 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_02_JDG );
 				spawn_02_ID = Commands->Get_ID ( spawnedGuy02 );
 			}
 
-			if (spawnedGuy03 == NULL)
+			if (spawnedGuy03 == nullptr)
 			{
 				spawnedGuy03 = Commands->Trigger_Spawner( M11_WETBAR_SPAWNER_03_JDG );
 				spawn_03_ID = Commands->Get_ID ( spawnedGuy03 );
@@ -2079,7 +2079,7 @@ DECLARE_SCRIPT(M11_WarRoom_EntryZone_JDG, "")
 		{
 			GameObject * engineer = Commands->Find_Object ( M11_WARROOM_ENGINEER_JDG );
 
-			if (engineer != NULL)
+			if (engineer != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, engineer, 0, M01_START_ACTING_JDG, 0 );
 			}
@@ -2087,13 +2087,13 @@ DECLARE_SCRIPT(M11_WarRoom_EntryZone_JDG, "")
 			GameObject * turret01 = Commands->Find_Object (M11_WARROOM_SECURITY_TURRET_01_JDG);
 			GameObject * turret02 = Commands->Find_Object (M11_WARROOM_SECURITY_TURRET_02_JDG);
 
-			if (turret01 != NULL)
+			if (turret01 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 2, 5 );
 				Commands->Send_Custom_Event( obj, turret01, 0, M01_START_ACTING_JDG, delayTimer );
 			}
 
-			if (turret02 != NULL)
+			if (turret02 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 2, 5 );
 				Commands->Send_Custom_Event( obj, turret02, 0, M01_START_ACTING_JDG, delayTimer );
@@ -2102,12 +2102,12 @@ DECLARE_SCRIPT(M11_WarRoom_EntryZone_JDG, "")
 			GameObject * zone01 = Commands->Find_Object ( 100628 );
 			GameObject * zone02 = Commands->Find_Object ( 100629 );
 
-			if (zone01 != NULL)
+			if (zone01 != nullptr)
 			{
 				Commands->Destroy_Object ( zone01 );
 			}
 
-			if (zone02 != NULL)
+			if (zone02 != nullptr)
 			{
 				Commands->Destroy_Object ( zone02 );
 			}
@@ -2344,12 +2344,12 @@ DECLARE_SCRIPT(M11_WarRoom_ExitZone_JDG, "")
 			GameObject * zone01 = Commands->Find_Object ( 100363 );
 			GameObject * zone02 = Commands->Find_Object ( 100364 );
 
-			if (zone01 != NULL)
+			if (zone01 != nullptr)
 			{
 				Commands->Destroy_Object ( zone01 );
 			}
 
-			if (zone02 != NULL)
+			if (zone02 != nullptr)
 			{
 				Commands->Destroy_Object ( zone02 );
 			}
@@ -2387,21 +2387,21 @@ DECLARE_SCRIPT(M11_Barracks_SpawnerController_JDG, "")//M11_BARRACKS_SPAWNER_CON
 			GameObject * spawnedGuy02 = Commands->Find_Object ( spawn_02_ID );
 			GameObject * spawnedGuy03 = Commands->Find_Object ( spawn_03_ID );
 
-			if (spawnedGuy01 == NULL)
+			if (spawnedGuy01 == nullptr)
 			{
 				spawnedGuy01 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_01_JDG );
 				Commands->Attach_Script(spawnedGuy01, "M11_Barracks_SpawnedDude_JDG", "");
 				spawn_01_ID = Commands->Get_ID ( spawnedGuy01 );
 			}
 
-			if (spawnedGuy02 == NULL)
+			if (spawnedGuy02 == nullptr)
 			{
 				spawnedGuy02 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_02_JDG );
 				Commands->Attach_Script(spawnedGuy02, "M11_Barracks_SpawnedDude_JDG", "");
 				spawn_02_ID = Commands->Get_ID ( spawnedGuy02 );
 			}
 
-			if (spawnedGuy03 == NULL)
+			if (spawnedGuy03 == nullptr)
 			{
 				spawnedGuy03 = Commands->Trigger_Spawner( M11_BARRACKS_SPAWNER_03_JDG );
 				Commands->Attach_Script(spawnedGuy03, "M11_Barracks_SpawnedDude_JDG", "");
@@ -2521,7 +2521,7 @@ DECLARE_SCRIPT(M11_Barracks_LivingQuarters_T20_EntryZone_JDG, "")//100414 entry 
 			{
 				firstEntry = false;
 				GameObject * mutantReject = Commands->Find_Object ( M11_BARRACKS_MUTANT_REJECT_JDG );
-				if (mutantReject != NULL)
+				if (mutantReject != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, mutantReject, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -2584,7 +2584,7 @@ DECLARE_SCRIPT(M11_Barracks_LivingQuarters_T19_EntryZone_JDG, "")//100404 entry 
 			{
 				firstEntry = false;
 				GameObject * scientist = Commands->Find_Object ( M11_BARRACKS_SCIENTIST_JDG );
-				if (scientist != NULL)
+				if (scientist != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, scientist, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -2788,12 +2788,12 @@ DECLARE_SCRIPT(M11_Barracks_LivingQuarters_T18_EntryZone_JDG, "")//100401 this i
 				GameObject * blackhand = Commands->Find_Object ( M11_BARRACKS_RAGSESSION_BLACKHAND_JDG );
 				GameObject * tech = Commands->Find_Object ( M11_BARRACKS_RAGSESSION_TECH_JDG );
 
-				if (blackhand != NULL)
+				if (blackhand != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, blackhand, 0, M01_START_ACTING_JDG, 0 );
 				}
 
-				if (tech != NULL)
+				if (tech != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, tech, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -2825,7 +2825,7 @@ DECLARE_SCRIPT(M11_Barracks_TechnicianConversation_Blackhand_JDG, "")//M11_BARRA
 			Commands->Innate_Enable(obj);
 
 			GameObject * tech = Commands->Find_Object ( M11_BARRACKS_RAGSESSION_TECH_JDG );
-			if (tech != NULL)
+			if (tech != nullptr)
 			{
 				rag_conv = Commands->Create_Conversation( "M11_Barracks_M18_Conversation_JDG", 100, 50, true);
 				Commands->Join_Conversation( obj, rag_conv, false, true, true );
@@ -2846,7 +2846,7 @@ DECLARE_SCRIPT(M11_Barracks_TechnicianConversation_Blackhand_JDG, "")//M11_BARRA
 			if (action_id == rag_conv)
 			{
 				GameObject * tech = Commands->Find_Object ( M11_BARRACKS_RAGSESSION_TECH_JDG );
-				if (tech != NULL)
+				if (tech != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, tech, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 				}
@@ -2909,7 +2909,7 @@ DECLARE_SCRIPT(M11_Barracks_LivingQuarters_T14_EntryZone_JDG, "")//100399 this i
 				firstEntry = false;
 
 				GameObject * stealthSoldier = Commands->Find_Object ( M11_BARRACKS_STEALTHSOLDIER_JDG );
-				if (stealthSoldier != NULL)
+				if (stealthSoldier != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, stealthSoldier, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -2986,25 +2986,25 @@ DECLARE_SCRIPT(M11_Barracks_LivingQuarters_T17_EntryZone_JDG, "")//100393 this i
 				firstEntry = false;
 
 				GameObject * visceroid = Commands->Find_Object ( 100394 );
-				if (visceroid != NULL)
+				if (visceroid != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, visceroid, 0, M01_START_ACTING_JDG, 1 );
 				}
 
 				GameObject * visceroid02 = Commands->Find_Object ( 101402 );
-				if (visceroid02 != NULL)
+				if (visceroid02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, visceroid02, 0, M01_START_ACTING_JDG, 1 );
 				}
 
 				GameObject * visceroid03 = Commands->Find_Object ( 101403 );
-				if (visceroid03 != NULL)
+				if (visceroid03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, visceroid03, 0, M01_START_ACTING_JDG, 1 );
 				}
 
 				GameObject * visceroid04 = Commands->Find_Object ( 101404 );
-				if (visceroid04 != NULL)
+				if (visceroid04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, visceroid04, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -3044,12 +3044,12 @@ DECLARE_SCRIPT(M11_Barracks_LivingQuarters_T15_EntryZone_JDG, "")//this is a bed
 				firstEntry = false;
 				GameObject * conversationGuy01 = Commands->Find_Object ( M11_BARRACKS_MUTANTCONVERSATION_GUY01_JDG );
 				GameObject * conversationGuy02 = Commands->Find_Object ( M11_BARRACKS_MUTANTCONVERSATION_GUY02_JDG );
-				if (conversationGuy01 != NULL)
+				if (conversationGuy01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, conversationGuy01, 0, M01_START_ACTING_JDG, 0 );
 				}
 
-				if (conversationGuy02 != NULL)
+				if (conversationGuy02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, conversationGuy02, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -3089,7 +3089,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantConversationGuy_01_JDG, "")//M11_BARRACKS_MUTA
 			Commands->Innate_Enable(obj);
 
 			GameObject * conversationGuy02 = Commands->Find_Object ( M11_BARRACKS_MUTANTCONVERSATION_GUY02_JDG );
-			if (obj && conversationGuy02 != NULL)
+			if (obj && conversationGuy02 != nullptr)
 			{
 				mutant_conv = Commands->Create_Conversation( "M11_Barracks_M15_Conversation_JDG", 100, 30, true);
 				Commands->Join_Conversation( obj, mutant_conv, true, true, true );
@@ -3110,7 +3110,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantConversationGuy_01_JDG, "")//M11_BARRACKS_MUTA
 			if (action_id == mutant_conv)
 			{
 				GameObject * conversationGuy02 = Commands->Find_Object ( M11_BARRACKS_MUTANTCONVERSATION_GUY02_JDG );
-				if (conversationGuy02 != NULL)
+				if (conversationGuy02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, conversationGuy02, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 				}
@@ -3178,12 +3178,12 @@ DECLARE_SCRIPT(M11_Barracks_LivingQuarters_T13_EntryZone_JDG, "")//this is entry
 				GameObject * mutant01 = Commands->Find_Object ( M11_BARRACKS_TOILET_MUTANT_01_JDG );
 				GameObject * mutant02 = Commands->Find_Object ( M11_BARRACKS_TOILET_MUTANT_02_JDG );
 
-				if (mutant01 != NULL)
+				if (mutant01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, mutant01, 0, M01_START_ACTING_JDG, 0 );
 				}
 
-				if (mutant02 != NULL)
+				if (mutant02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, mutant02, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -3306,17 +3306,17 @@ DECLARE_SCRIPT(M11_Barracks_LivingQuarters_T16_EntryZone_JDG, "")//100385 this i
 				GameObject * mutant02 = Commands->Find_Object ( M11_BARRACKS_MUTANTUPRISING_MUTANT02_JDG );
 				GameObject * blackhand = Commands->Find_Object ( M11_BARRACKS_MUTANTUPRISING_BLACKHAND_JDG );
 
-				if (mutant01 != NULL)
+				if (mutant01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, mutant01, 0, M01_START_ACTING_JDG, 0 );
 				}
 
-				if (mutant02 != NULL)
+				if (mutant02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, mutant02, 0, M01_START_ACTING_JDG, 0 );
 				}
 
-				if (blackhand != NULL)
+				if (blackhand != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, blackhand, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -3340,22 +3340,22 @@ DECLARE_SCRIPT(M11_Laboratory_EntryZone_JDG, "")
 			GameObject * scientist01 = Commands->Find_Object ( 100449 );
 			GameObject * scientist02 = Commands->Find_Object ( 100958 );
 
-			if (mutant01 != NULL)
+			if (mutant01 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, mutant01, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (mutant02 != NULL)
+			if (mutant02 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, mutant02, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (scientist01 != NULL)
+			if (scientist01 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, scientist01, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (scientist02 != NULL)
+			if (scientist02 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, scientist02, 0, M01_START_ACTING_JDG, 0 );
 			}
@@ -3378,7 +3378,7 @@ DECLARE_SCRIPT(M11_Mutant_TrajectoryBone_JDG, "")//
 	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation(obj, false );
-		Commands->Set_Animation ( obj, "X11E_Trajectory.X11E_Trajectory", false, NULL, 0, 120, false );
+		Commands->Set_Animation ( obj, "X11E_Trajectory.X11E_Trajectory", false, nullptr, 0, 120, false );
 	}
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
@@ -3396,7 +3396,7 @@ DECLARE_SCRIPT(M11_Mutant_ShatterGlass_JDG, "")
 	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation(obj, false );
-		Commands->Set_Animation ( obj, "X11E_Shatter.X11E_Shatter", false, NULL, 0, 120, false );
+		Commands->Set_Animation ( obj, "X11E_Shatter.X11E_Shatter", false, nullptr, 0, 120, false );
 	}
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
@@ -3420,7 +3420,7 @@ DECLARE_SCRIPT(M11_Cryochamber_DestroyedSimple_JDG, "")
 
 	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override
 	{
-		Commands->Set_Animation ( obj, "DSP_CRYOBIGD.DSP_CRYOBIGD", false, NULL, 0, 5, false );
+		Commands->Set_Animation ( obj, "DSP_CRYOBIGD.DSP_CRYOBIGD", false, nullptr, 0, 5, false );
 		Commands->Set_Health ( obj, 0.25f );
 	}
 };
@@ -3438,7 +3438,7 @@ DECLARE_SCRIPT(M11_Turn_On_Mutant_Crypt_Spawners_Zone_JDG, "")
 		if (enterer == STAR)
 		{
 			GameObject * mutantController = Commands->Find_Object ( M11_MUTANT_CRYPT_SPAWNER_CONTROLLER_JDG );
-			if (mutantController != NULL)
+			if (mutantController != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, mutantController, 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 			}
@@ -3606,7 +3606,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 
 	void Created( GameObject * obj ) override
 	{
-		Commands->Select_Weapon(obj, NULL );
+		Commands->Select_Weapon(obj, nullptr );
 		myState = IDLE;
 		float delayTimer = Commands->Get_Random ( 10, 20 );
 		Commands->Send_Custom_Event ( obj, obj, 0, M01_START_ACTING_JDG, delayTimer );
@@ -3619,7 +3619,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 		myState = DEAD;
 
 		GameObject * mutantController = Commands->Find_Object ( M11_MUTANT_CRYPT_SPAWNER_CONTROLLER_JDG );
-		if (mutantController != NULL)
+		if (mutantController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, mutantController, 0, M01_SPAWNER_IS_DEAD_JDG, 0 );
 		}
@@ -3793,7 +3793,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner05_Guy_JDG, "")
 
 	void Created( GameObject * obj ) override
 	{
-		Commands->Select_Weapon(obj, NULL );
+		Commands->Select_Weapon(obj, nullptr );
 		myState = IDLE;
 		float delayTimer = Commands->Get_Random ( 10, 20 );
 		Commands->Send_Custom_Event ( obj, obj, 0, M01_START_ACTING_JDG, delayTimer );
@@ -3805,7 +3805,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner05_Guy_JDG, "")
 		myState = DEAD;
 
 		GameObject * mutantController = Commands->Find_Object ( M11_MUTANT_CRYPT_SPAWNER_CONTROLLER_JDG );
-		if (mutantController != NULL)
+		if (mutantController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, mutantController, 0, M01_SPAWNER_IS_DEAD_JDG, 0 );
 		}
@@ -3986,7 +3986,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner04_Guy_JDG, "")
 
 	void Created( GameObject * obj ) override
 	{
-		Commands->Select_Weapon(obj, NULL );
+		Commands->Select_Weapon(obj, nullptr );
 		myState = IDLE;
 		float delayTimer = Commands->Get_Random ( 10, 20 );
 		Commands->Send_Custom_Event ( obj, obj, 0, M01_START_ACTING_JDG, delayTimer );
@@ -4003,7 +4003,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner04_Guy_JDG, "")
 		myState = DEAD;
 
 		GameObject * mutantController = Commands->Find_Object ( M11_MUTANT_CRYPT_SPAWNER_CONTROLLER_JDG );
-		if (mutantController != NULL)
+		if (mutantController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, mutantController, 0, M01_SPAWNER_IS_DEAD_JDG, 0 );
 		}
@@ -4129,7 +4129,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 
 	void Created( GameObject * obj ) override
 	{
-		Commands->Select_Weapon(obj, NULL );
+		Commands->Select_Weapon(obj, nullptr );
 		myState = IDLE;
 		float delayTimer = Commands->Get_Random ( 10, 20 );
 		Commands->Send_Custom_Event ( obj, obj, 0, M01_START_ACTING_JDG, delayTimer );
@@ -4141,7 +4141,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 		myState = DEAD;
 
 		GameObject * mutantController = Commands->Find_Object ( M11_MUTANT_CRYPT_SPAWNER_CONTROLLER_JDG );
-		if (mutantController != NULL)
+		if (mutantController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, mutantController, 0, M01_SPAWNER_IS_DEAD_JDG, 0 );
 		}
@@ -4324,7 +4324,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner02_Guy_JDG, "")//this script goes on mutan
 
 	void Created( GameObject * obj ) override
 	{
-		Commands->Select_Weapon(obj, NULL );
+		Commands->Select_Weapon(obj, nullptr );
 		myState = IDLE;
 		float delayTimer = Commands->Get_Random ( 10, 20 );
 		Commands->Send_Custom_Event ( obj, obj, 0, M01_START_ACTING_JDG, delayTimer );
@@ -4341,7 +4341,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner02_Guy_JDG, "")//this script goes on mutan
 		myState = DEAD;
 
 		GameObject * mutantController = Commands->Find_Object ( M11_MUTANT_CRYPT_SPAWNER_CONTROLLER_JDG );
-		if (mutantController != NULL)
+		if (mutantController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, mutantController, 0, M01_SPAWNER_IS_DEAD_JDG, 0 );
 		}
@@ -4452,7 +4452,7 @@ DECLARE_SCRIPT(M11_PowerCore_WanderingMutant_JDG, "")//
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		GameObject * myTarget = Commands->Find_Closest_Soldier ( myPosition, 0, 50, true );
 
-		if (myTarget != NULL)
+		if (myTarget != nullptr)
 		{
 			ActionParamsStruct params;
 
@@ -4691,12 +4691,12 @@ DECLARE_SCRIPT(M11_PowerCore_EntryZone_JDG, "")
 			GameObject * zone01 = Commands->Find_Object ( 101327 );
 			GameObject * zone02 = Commands->Find_Object ( 101328 );
 
-			if (zone01 != NULL)
+			if (zone01 != nullptr)
 			{
 				Commands->Destroy_Object ( zone01 );
 			}
 
-			if (zone02 != NULL)
+			if (zone02 != nullptr)
 			{
 				Commands->Destroy_Object ( zone02 );
 			}
@@ -4712,47 +4712,47 @@ DECLARE_SCRIPT(M11_PowerCore_EntryZone_JDG, "")
 			GameObject * stealthGuy08 = Commands->Find_Object ( 100666 );
 			GameObject * stealthGuy09 = Commands->Find_Object ( 100667 );
 
-			if (stealthGuy01 != NULL)
+			if (stealthGuy01 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy01, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (stealthGuy02 != NULL)
+			if (stealthGuy02 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy02, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (stealthGuy03 != NULL)
+			if (stealthGuy03 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy03, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (stealthGuy04 != NULL)
+			if (stealthGuy04 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy04, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (stealthGuy05 != NULL)
+			if (stealthGuy05 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy05, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (stealthGuy06 != NULL)
+			if (stealthGuy06 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy06, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (stealthGuy07 != NULL)
+			if (stealthGuy07 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy07, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (stealthGuy08 != NULL)
+			if (stealthGuy08 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy08, 0, M01_START_ACTING_JDG, 0 );
 			}
 
-			if (stealthGuy09 != NULL)
+			if (stealthGuy09 != nullptr)
 			{
 				Commands->Send_Custom_Event( obj, stealthGuy09, 0, M01_START_ACTING_JDG, 0 );
 			}
@@ -4802,7 +4802,7 @@ DECLARE_SCRIPT(M11_End_First_Objective_Zone_JDG, "")//player has reached museum 
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (M11_MISSION_CONTROLLER_JDG), 0, M11_END_FIRST_OBJECTIVE_JDG, 0 );//
 
 			GameObject * cabalController = Commands->Find_Object (101204);
-			if (cabalController != NULL)
+			if (cabalController != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 5, 10 );
 				Commands->Send_Custom_Event ( obj, cabalController, 0, M01_START_ACTING_JDG, delayTimer );
@@ -4834,7 +4834,7 @@ DECLARE_SCRIPT(M11_Start_Third_Objective_Zone_JDG, "")//player's third objective
 		{
 			entered = true;
 			addThirdObjectiveConv = Commands->Create_Conversation( "M11_Add_Third_Objective_Conversation", 100, 1000, false);
-			Commands->Join_Conversation( NULL, addThirdObjectiveConv, false, false, true );;
+			Commands->Join_Conversation( nullptr, addThirdObjectiveConv, false, false, true );;
 			Commands->Start_Conversation( addThirdObjectiveConv,  addThirdObjectiveConv );
 			Commands->Monitor_Conversation (obj, addThirdObjectiveConv);
 		}
@@ -4868,13 +4868,13 @@ DECLARE_SCRIPT(M11_Start_Fifth_Objective_Zone_JDG, "")//player's fifth objective
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (M11_MISSION_CONTROLLER_JDG), 0, M11_ADD_FIFTH_OBJECTIVE_JDG, 0 );
 
 			GameObject * zoneOne = Commands->Find_Object ( 100105 );
-			if (zoneOne != NULL)
+			if (zoneOne != nullptr)
 			{
 				Commands->Destroy_Object ( zoneOne );//one time only zone--cleaning up
 			}
 
 			GameObject * zoneTwo = Commands->Find_Object ( 100107 );
-			if (zoneTwo != NULL)
+			if (zoneTwo != nullptr)
 			{
 				Commands->Destroy_Object ( zoneTwo );//one time only zone--cleaning up
 			}
@@ -4916,7 +4916,7 @@ DECLARE_SCRIPT(M11_End_Mission_Switch_JDG, "")//this guys ID is M11_END_MISSION_
 	{
 		if (param == M01_START_ACTING_JDG)
 		{
-			Commands->Set_Animation ( obj, "DSP_MINICONSEL.DSP_MINICONSEL", false, NULL, 0, 13, false );
+			Commands->Set_Animation ( obj, "DSP_MINICONSEL.DSP_MINICONSEL", false, nullptr, 0, 13, false );
 		}
 	}
 };
@@ -5035,13 +5035,13 @@ DECLARE_SCRIPT(M11_KanesRoom_SecurityZone_JDG, "")//this guys ID is M11_KANESROO
 			GameObject * turret01 = Commands->Find_Object (M11_KANESROOM_SECURITY_TURRET_01_JDG);
 			GameObject * turret03 = Commands->Find_Object (M11_KANESROOM_SECURITY_TURRET_03_JDG);
 
-			if (turret01 != NULL)
+			if (turret01 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 0, 2 );
 				Commands->Send_Custom_Event( obj, turret01, 0, M01_START_ACTING_JDG, delayTimer );
 			}
 
-			if (turret03 != NULL)
+			if (turret03 != nullptr)
 			{
 				float delayTimer = Commands->Get_Random ( 0, 2 );
 				Commands->Send_Custom_Event( obj, turret03, 0, M01_START_ACTING_JDG, delayTimer );
@@ -5265,7 +5265,7 @@ DECLARE_SCRIPT(M11_Seths_Room_Conversation_Zone_JDG, "")//101103
 		if (enterer == STAR)
 		{
 			int sethConv = Commands->Create_Conversation( "M11_Kane_Regarding_Seth_Conversation", 100, 1000, false);
-			Commands->Join_Conversation( NULL, sethConv, false, false, true );
+			Commands->Join_Conversation( nullptr, sethConv, false, false, true );
 			Commands->Join_Conversation( STAR, sethConv, false, false, true );
 			Commands->Start_Conversation( sethConv,  sethConv );
 
@@ -5339,12 +5339,12 @@ DECLARE_SCRIPT(M11_CeilingRepellers_Controller_JDG, "")//M11_FIRSTFLOOR_REPELER_
 			else if (param == M01_MODIFY_YOUR_ACTION_02_JDG)
 			{
 				GameObject * rope_A = Commands->Find_Object ( rope_A_id );
-				if (rope_A != NULL)
+				if (rope_A != nullptr)
 				{
 					GameObject *controller = Commands->Create_Object("Invisible_Object", ropeA_v3);
 					Commands->Set_Facing ( controller, 75 );
 					Commands->Attach_Script(controller, "Test_Cinematic", "X11D_Repel_Part2.txt");
-					Commands->Set_Animation ( rope_A, "X11D_Rope.X11D_Rope_L", false, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( rope_A, "X11D_Rope.X11D_Rope_L", false, nullptr, 0.0f, -1.0f, false);
 
 					spawned_units++;
 
@@ -5355,12 +5355,12 @@ DECLARE_SCRIPT(M11_CeilingRepellers_Controller_JDG, "")//M11_FIRSTFLOOR_REPELER_
 			else if (param == M01_MODIFY_YOUR_ACTION_03_JDG)
 			{
 				GameObject * rope_B = Commands->Find_Object ( rope_B_id );
-				if (rope_B != NULL)
+				if (rope_B != nullptr)
 				{
 					GameObject *controller = Commands->Create_Object("Invisible_Object", ropeB_v3);
 					Commands->Set_Facing ( controller, -10 );
 					Commands->Attach_Script(controller, "Test_Cinematic", "X11D_Repel_Part2.txt");
-					Commands->Set_Animation ( rope_B, "X11D_Rope.X11D_Rope_L", true, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( rope_B, "X11D_Rope.X11D_Rope_L", true, nullptr, 0.0f, -1.0f, false);
 
 					spawned_units++;
 
@@ -5371,18 +5371,18 @@ DECLARE_SCRIPT(M11_CeilingRepellers_Controller_JDG, "")//M11_FIRSTFLOOR_REPELER_
 			else if (param == M01_MODIFY_YOUR_ACTION_04_JDG)//set rope "A" to idle anim
 			{
 				GameObject * rope_A = Commands->Find_Object ( rope_A_id );
-				if (rope_A != NULL)
+				if (rope_A != nullptr)
 				{
-					Commands->Set_Animation ( rope_A, "X11D_Rope.X11D_Rope_Z", true, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( rope_A, "X11D_Rope.X11D_Rope_Z", true, nullptr, 0.0f, -1.0f, false);
 				}
 			}
 
 			else if (param == M01_MODIFY_YOUR_ACTION_05_JDG)//set rope "B" to idle anim
 			{
 				GameObject * rope_B = Commands->Find_Object ( rope_B_id );
-				if (rope_B != NULL)
+				if (rope_B != nullptr)
 				{
-					Commands->Set_Animation ( rope_B, "X11D_Rope.X11D_Rope_Z", true, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( rope_B, "X11D_Rope.X11D_Rope_Z", true, nullptr, 0.0f, -1.0f, false);
 				}
 			}
 
@@ -5412,7 +5412,7 @@ DECLARE_SCRIPT(M11_CeilingRepellers_RopeA_JDG, "")
 	{
 		Commands->Enable_Hibernation( obj, false );
 		GameObject * myController = Commands->Find_Object ( M11_FIRSTFLOOR_REPELER_CONTROLLER_JDG );
-		if (myController != NULL)
+		if (myController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, myController, 0, M01_ROPE_IS_SENDING_ID_JDG, 0 );
 		}
@@ -5425,7 +5425,7 @@ DECLARE_SCRIPT(M11_CeilingRepellers_RopeB_JDG, "")
 	{
 		Commands->Enable_Hibernation( obj, false );
 		GameObject * myController = Commands->Find_Object ( M11_FIRSTFLOOR_REPELER_CONTROLLER_JDG );
-		if (myController != NULL)
+		if (myController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, myController, 0, M01_WAYPATH_IS_SENDING_ID_JDG, 0 );
 		}
@@ -5445,7 +5445,7 @@ DECLARE_SCRIPT(M11_CeilingRepeller_JDG, "")
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * myController = Commands->Find_Object ( M11_FIRSTFLOOR_REPELER_CONTROLLER_JDG );
-		if (myController != NULL)
+		if (myController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, myController, 0, M01_IVE_BEEN_KILLED_JDG, 0 );
 		}
@@ -5460,18 +5460,18 @@ DECLARE_SCRIPT(M11_Theres_Sydney_Zone_JDG, "")//101327 and 101328
 		{
 			int theresSydneyConversation = Commands->Create_Conversation( "M11_Theres_Sydney_Conversation", 100, 1000, false);
 			Commands->Join_Conversation( STAR, theresSydneyConversation, false, false, false );
-			Commands->Join_Conversation( NULL, theresSydneyConversation, false, false, false );
+			Commands->Join_Conversation( nullptr, theresSydneyConversation, false, false, false );
 			Commands->Start_Conversation( theresSydneyConversation,  theresSydneyConversation );
 
 			GameObject * zone01 = Commands->Find_Object ( 101327 );
 			GameObject * zone02 = Commands->Find_Object ( 101328 );
 
-			if (zone01 != NULL)
+			if (zone01 != nullptr)
 			{
 				Commands->Destroy_Object ( zone01 );
 			}
 
-			if (zone02 != NULL)
+			if (zone02 != nullptr)
 			{
 				Commands->Destroy_Object ( zone02 );
 			}
@@ -5500,11 +5500,11 @@ DECLARE_SCRIPT(M11_End_Third_Objective_Zone_JDG, "")//this guys ID is 100012--us
 			entered = true;
 
 			int powerCoreEntry = Commands->Create_Conversation( "M11_PowerCore_Entry_Conversation", 100, 1000, false);
-			Commands->Join_Conversation( NULL, powerCoreEntry, false, false, false );
+			Commands->Join_Conversation( nullptr, powerCoreEntry, false, false, false );
 			Commands->Start_Conversation( powerCoreEntry,  powerCoreEntry );
 
 			GameObject * mutantController = Commands->Find_Object ( M11_MUTANT_CRYPT_SPAWNER_CONTROLLER_JDG );
-			if (mutantController != NULL)
+			if (mutantController != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, mutantController, 0, M01_QUIT_SPAWNING_PLEASE_JDG, 0 );
 			}
@@ -5557,7 +5557,7 @@ DECLARE_SCRIPT(M11_Temple_Commander_JDG, "")//101250
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 
 		GameObject * hologram01 = Commands->Find_Object ( 100252 );
-		if (hologram01 != NULL)
+		if (hologram01 != nullptr)
 		{
 			ActionParamsStruct params;
 			params.Set_Basic( this, 80, M01_START_ATTACKING_01_JDG );
@@ -5581,13 +5581,13 @@ DECLARE_SCRIPT(M11_Temple_Commander_JDG, "")//101250
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * c130Controller = Commands->Find_Object ( M11_C130_DROPOFF_CONTROLLER_JDG );
-		if (c130Controller != NULL)
+		if (c130Controller != nullptr)
 		{
 			Commands->Destroy_Object ( c130Controller );
 		}
 
 		GameObject * hologramController = Commands->Find_Object ( 101251 );
-		if (hologramController != NULL)
+		if (hologramController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, hologramController, 0, M01_IVE_BEEN_KILLED_JDG, 0 );
 		}
@@ -5623,10 +5623,10 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 		kane_conversation02_playing = false;
 
 		GameObject * hologram01 = Commands->Find_Object ( 100252 );
-		if (hologram01 != NULL)
+		if (hologram01 != nullptr)
 		{
 			GameObject * commander = Commands->Find_Object ( 101250 );
-			if (commander != NULL)
+			if (commander != nullptr)
 			{
 				GameObject * kane01 = Commands->Create_Object_At_Bone ( hologram01, "Nod_Kane_HologramHead", "KANEBONE" );
 				Commands->Disable_All_Collisions ( kane01 );
@@ -5647,7 +5647,7 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 				GameObject * kane01 = Commands->Find_Object ( kane01_ID );
 				GameObject * commander = Commands->Find_Object ( 101250 );
 
-				if (commander != NULL)
+				if (commander != nullptr)
 				{
 					kane_conversation01 = Commands->Create_Conversation( "M11_Kane_and_Blackhand_Conversation_01", 100, 1000, true);
 					Commands->Join_Conversation( kane01, kane_conversation01, false, true, true );
@@ -5668,13 +5668,13 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 					Commands->Stop_Conversation( kane_conversation01 );
 
 					GameObject * commander = Commands->Find_Object ( 101250 );
-					if (commander != NULL)
+					if (commander != nullptr)
 					{
 						Commands->Send_Custom_Event ( obj, commander, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 					}
 
 					GameObject * kane01 = Commands->Find_Object ( kane01_ID );
-					if (kane01 != NULL)
+					if (kane01 != nullptr)
 					{
 						kane_conversation01b = Commands->Create_Conversation( "M11_Kane_and_Havoc_Conversation_01", 90, 30, true);
 						Commands->Join_Conversation( kane01, kane_conversation01b, false, true, true );
@@ -5690,7 +5690,7 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 				else if (kane_conversation01_playing == false)
 				{
 					GameObject * hologram01 = Commands->Find_Object ( 100252 );
-					if (hologram01 != NULL)
+					if (hologram01 != nullptr)
 					{
 						GameObject * kane02 = Commands->Create_Object_At_Bone ( hologram01, "Nod_Kane_HologramHead", "KANEBONE" );
 						Commands->Disable_All_Collisions ( kane02 );
@@ -5725,7 +5725,7 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 						Commands->Stop_Conversation( kane_conversation01 );
 
 						GameObject * kane01 = Commands->Find_Object ( kane01_ID );
-						if (kane01 != NULL)
+						if (kane01 != nullptr)
 						{
 							Commands->Send_Custom_Event ( obj, kane01, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
@@ -5746,13 +5746,13 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 						kane_conversation01_playing = false;
 
 						GameObject * kane01 = Commands->Find_Object ( kane01_ID );
-						if (kane01 != NULL)
+						if (kane01 != nullptr)
 						{
 							Commands->Send_Custom_Event ( obj, kane01, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
 
 						GameObject * commander = Commands->Find_Object ( 101250 );
-						if (commander != NULL)
+						if (commander != nullptr)
 						{
 							Commands->Send_Custom_Event ( obj, commander, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
@@ -5763,7 +5763,7 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 						kane_conversation02_playing = false;
 
 						GameObject * kane01 = Commands->Find_Object ( kane01_ID );
-						if (kane01 != NULL)
+						if (kane01 != nullptr)
 						{
 							Commands->Send_Custom_Event ( obj, kane01, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
@@ -5774,7 +5774,7 @@ DECLARE_SCRIPT(M11_Temple_Hologram_Controller_JDG, "")//101251
 						kane_conversation02_playing = false;
 
 						GameObject * kane02 = Commands->Find_Object ( kane02_ID );
-						if (kane02 != NULL)
+						if (kane02 != nullptr)
 						{
 							Commands->Send_Custom_Event ( obj, kane02, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
@@ -5792,7 +5792,7 @@ DECLARE_SCRIPT(M11_BattleStationAlpha_CommanderEncounter_KaneHead_JDG, "")
 	void Created( GameObject * obj ) override
 	{
 		GameObject * hologramController = Commands->Find_Object ( 101251 );
-		if (hologramController != NULL)
+		if (hologramController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, hologramController, 0, M01_MODIFY_YOUR_ACTION_JDG, 4 );
 		}
@@ -5812,7 +5812,7 @@ DECLARE_SCRIPT(M11_BattleStationAlpha_HavocEncounter_KaneHead_JDG, "")
 	void Created( GameObject * obj ) override
 	{
 		GameObject * hologramController = Commands->Find_Object ( 101251 );
-		if (hologramController != NULL)
+		if (hologramController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, hologramController, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 0 );
 		}
@@ -5831,7 +5831,7 @@ DECLARE_SCRIPT(M11_Temple_Hologram_01_JDG, "")//100252
 {
 	void Created( GameObject * obj ) override
 	{
-		Commands->Set_Animation (obj, "DSP_HOLO_BIG.DSP_HOLO_BIG", true, NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation (obj, "DSP_HOLO_BIG.DSP_HOLO_BIG", true, nullptr, 0.0f, -1.0f, false);
 	}
 };
 
@@ -5842,7 +5842,7 @@ DECLARE_SCRIPT(M11_SecondHolograph_EntryZone_JDG, "")
 		if (enterer == STAR)
 		{
 			GameObject * hologramController = Commands->Find_Object ( 101251 );
-			if (hologramController != NULL)
+			if (hologramController != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, hologramController, 0, M01_MODIFY_YOUR_ACTION_02_JDG, 0 );
 			}
@@ -5935,7 +5935,7 @@ DECLARE_SCRIPT(M11_KaneRoom_KaneEncounter_Zone_JDG, "")//
 		if (enterer == STAR)
 		{
 			GameObject * holograph = Commands->Find_Object ( 101226 );
-			if (holograph != NULL)
+			if (holograph != nullptr)
 			{
 				GameObject * kane = Commands->Create_Object_At_Bone ( holograph, "Nod_Kane_HologramHead_small", "KANEBONE" );
 				Commands->Disable_All_Collisions ( kane );
@@ -6004,7 +6004,7 @@ DECLARE_SCRIPT(M11_KaneRoom_KaneEncounter_Hologram_JDG, "")//101226
 {
 	void Created( GameObject * obj ) override
 	{
-		Commands->Set_Animation (obj, "DSP_HOLO.DSP_HOLO", true, NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation (obj, "DSP_HOLO.DSP_HOLO", true, nullptr, 0.0f, -1.0f, false);
 	}
 };
 
@@ -6135,7 +6135,7 @@ DECLARE_SCRIPT(M11_AblesTomb_TalkZone_JDG, "")//M11_Ables_Tomb_Conversation
 		if (enterer == STAR)
 		{
 			int able_conv = Commands->Create_Conversation( "M11_Ables_Tomb_Conversation", 100, 2000, false);
-			Commands->Join_Conversation( NULL, able_conv, false, false, false );
+			Commands->Join_Conversation( nullptr, able_conv, false, false, false );
 			Commands->Join_Conversation( STAR, able_conv, false, false, false );
 			Commands->Start_Conversation( able_conv, able_conv );
 
@@ -6224,7 +6224,7 @@ DECLARE_SCRIPT(M11_Barracks_Visceroid_Morpher_JDG, "")//
 
 		else if (param == M01_MODIFY_YOUR_ACTION_JDG)
 		{
-			Commands->Apply_Damage( obj, 10000, "TiberiumRaw", NULL );
+			Commands->Apply_Damage( obj, 10000, "TiberiumRaw", nullptr );
 		}
 	}
 };
@@ -6279,7 +6279,7 @@ DECLARE_SCRIPT(M11_Petrova_Script_JDG, "")//Petrova's ID is M11_MUTANT_PETROVA_J
 
 	void Created (GameObject *obj) override
 	{
-		Commands->Select_Weapon ( obj, NULL );
+		Commands->Select_Weapon ( obj, nullptr );
 		midtro01_over = false;
 		CurrentLocation = UNDEFINED_LOCATION;
 		Commands->Innate_Disable (obj);
@@ -6301,7 +6301,7 @@ DECLARE_SCRIPT(M11_Petrova_Script_JDG, "")//Petrova's ID is M11_MUTANT_PETROVA_J
 			Commands->Set_Shield_Strength ( obj, myMaxShield );
 
 			GameObject * midtro01Controller = Commands->Find_Object ( 101449 );
-			if (midtro01Controller != NULL)
+			if (midtro01Controller != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, midtro01Controller, 0, M01_START_ACTING_JDG, 0 );
 			}
@@ -6314,19 +6314,19 @@ DECLARE_SCRIPT(M11_Petrova_Script_JDG, "")//Petrova's ID is M11_MUTANT_PETROVA_J
 		spawn_location.Z = spawn_location.Z + 0.75f;
 
 		GameObject * keycard = Commands->Create_Object ( "Level_03_Keycard", spawn_location );
-		if (keycard != NULL)
+		if (keycard != nullptr)
 		{
 			Commands->Attach_Script(keycard, "M11_Level03Key_Script_JDG", "");
 		}
 
 		GameObject * tauntController = Commands->Find_Object ( 103797 );
-		if (tauntController != NULL)
+		if (tauntController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, tauntController, 0, M01_IVE_BEEN_KILLED_JDG, 0 );
 		}
 
 		GameObject * stealthController = Commands->Find_Object ( 106230 );
-		if (stealthController != NULL)
+		if (stealthController != nullptr)
 		{
 			Commands->Destroy_Object ( stealthController );
 		}
@@ -6374,7 +6374,7 @@ DECLARE_SCRIPT(M11_Petrova_Script_JDG, "")//Petrova's ID is M11_MUTANT_PETROVA_J
 				case M11_PETROVA_START_ACTING_JDG:
 				{
 					GameObject * tauntController = Commands->Find_Object ( 103797 );
-					if (tauntController != NULL)
+					if (tauntController != nullptr)
 					{
 						Commands->Send_Custom_Event ( obj, tauntController, 0, M01_START_ACTING_JDG, 0 );
 					}
@@ -6493,7 +6493,7 @@ DECLARE_SCRIPT(M11_Level03Key_Script_JDG, "")
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			GameObject * midtro01Controller = Commands->Find_Object ( 101449 );
-			if (midtro01Controller != NULL)
+			if (midtro01Controller != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, midtro01Controller, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 			}
@@ -6508,7 +6508,7 @@ DECLARE_SCRIPT(M11_Okay_ToPlay_MidtroZone_JDG, "")
 		if (enterer == STAR)
 		{
 			GameObject * midtro01Controller = Commands->Find_Object ( 101449 );
-			if (midtro01Controller != NULL)
+			if (midtro01Controller != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, midtro01Controller, 0, M01_MODIFY_YOUR_ACTION_02_JDG, 0 );
 			}
@@ -6558,7 +6558,7 @@ DECLARE_SCRIPT(M11_Start_FirstMidtro_Zone_JDG, "")//101449
 				Commands->Set_Is_Rendered( STAR, true );
 
 				GameObject *petrova = Commands->Find_Object ( M11_MUTANT_PETROVA_JDG );
-				if (petrova != NULL)
+				if (petrova != nullptr)
 				{
 					Commands->Set_Is_Rendered( petrova, true );
 					Commands->Send_Custom_Event( obj, petrova, 0, M11_PETROVA_START_ACTING_JDG, 0 );
@@ -6573,12 +6573,12 @@ DECLARE_SCRIPT(M11_Start_FirstMidtro_Zone_JDG, "")//101449
 				//GameObject *visceroid02 = Commands->Find_Object ( 101996 );
 				//GameObject *visceroid03 = Commands->Find_Object ( 101965 );
 
-				if (mutant01 != NULL)
+				if (mutant01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, mutant01, 0, M01_START_ACTING_JDG, 0 );
 				}
 
-				if (mutant02 != NULL)
+				if (mutant02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, mutant02, 0, M01_START_ACTING_JDG, 3 );
 				}
@@ -6586,27 +6586,27 @@ DECLARE_SCRIPT(M11_Start_FirstMidtro_Zone_JDG, "")//101449
 				GameObject * visceroid01 = Commands->Find_Object (101995);
 				GameObject * visceroid02 = Commands->Find_Object (101996);
 
-				if (visceroid01 != NULL)
+				if (visceroid01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, visceroid01, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 				}
 
-				if (visceroid02 != NULL)
+				if (visceroid02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, visceroid02, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 				}
 
-				/*if (visceroid01 != NULL)
+				/*if (visceroid01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, visceroid01, 0, M01_START_ACTING_JDG, 0 );
 				}
 
-				if (visceroid02 != NULL)
+				if (visceroid02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, visceroid02, 0, M01_START_ACTING_JDG, 3 );
 				}
 
-				if (visceroid03 != NULL)
+				if (visceroid03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, visceroid03, 0, M01_START_ACTING_JDG, 5 );
 				}*/
@@ -6615,12 +6615,12 @@ DECLARE_SCRIPT(M11_Start_FirstMidtro_Zone_JDG, "")//101449
 			else if (param == 1)//second midtro is over--set everyone back to visible
 			{
 				GameObject * simpleSydney = Commands->Find_Object (M11_SIMPLE_SYDNEY_MOBIUS_JDG);
-				if (simpleSydney != NULL)
+				if (simpleSydney != nullptr)
 				{
 					Vector3 sydnesLocation  (0.084f, 91.860f, -34.233f);
 
 					GameObject * realSydney = Commands->Find_Object (M11_REAL_SYDNEY_MOBIUS_JDG);
-					if (realSydney != NULL)
+					if (realSydney != nullptr)
 					{
 						Commands->Set_Shield_Strength ( realSydney, 100 );
 						Commands->Set_Obj_Radar_Blip_Shape (realSydney, RADAR_BLIP_SHAPE_HUMAN );
@@ -6644,7 +6644,7 @@ DECLARE_SCRIPT(M11_Start_FirstMidtro_Zone_JDG, "")//101449
 			{
 				entered = true;
 				GameObject *petrova = Commands->Find_Object ( M11_MUTANT_PETROVA_JDG );
-				if (petrova != NULL)
+				if (petrova != nullptr)
 				{
 					Commands->Set_Is_Rendered( petrova, false );
 				}
@@ -6663,12 +6663,12 @@ DECLARE_SCRIPT(M11_Start_FirstMidtro_Zone_JDG, "")//101449
 				GameObject * visceroid01 = Commands->Find_Object (101995);
 				GameObject * visceroid02 = Commands->Find_Object (101996);
 
-				if (visceroid01 != NULL)
+				if (visceroid01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, visceroid01, 0, M01_START_ACTING_JDG, 5 );
 				}
 
-				if (visceroid02 != NULL)
+				if (visceroid02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, visceroid02, 0, M01_START_ACTING_JDG, 5 );
 				}
@@ -6699,7 +6699,7 @@ DECLARE_SCRIPT(M11_PowerCore_TriggerPetrova_EnterZone_JDG, "")
 		{
 			GameObject * petrova = Commands->Find_Object (M11_MUTANT_PETROVA_JDG);
 
-			if (petrova != NULL)
+			if (petrova != nullptr)
 			{
 				Commands->Debug_Message ( "***************************M11-Petrova trigger zone sending custom to petrova--jdg\n" );
 				Commands->Send_Custom_Event( obj, petrova, 0, M11_PETROVA_START_ACTING_JDG, 0 );
@@ -6732,7 +6732,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantUprising_BlackhandGuy_JDG, "")//M11_BARRACKS_M
 			Commands->Innate_Enable(obj);
 
 			GameObject * mutant01 = Commands->Find_Object ( M11_BARRACKS_MUTANTUPRISING_MUTANT01_JDG );
-			if (mutant01 != NULL)
+			if (mutant01 != nullptr)
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, 45, M01_START_ATTACKING_01_JDG);
@@ -6752,7 +6752,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantUprising_BlackhandGuy_JDG, "")//M11_BARRACKS_M
 					if (action_id == M01_START_ATTACKING_01_JDG)
 					{
 						GameObject * mutant02 = Commands->Find_Object ( M11_BARRACKS_MUTANTUPRISING_MUTANT02_JDG );
-						if (mutant02 != NULL)
+						if (mutant02 != nullptr)
 						{
 							ActionParamsStruct params;
 							params.Set_Basic(this, 45, M01_START_ATTACKING_02_JDG);
@@ -6783,7 +6783,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantUprising_Mutant01_JDG, "")//M11_BARRACKS_MUTAN
 			Commands->Innate_Enable(obj);
 			GameObject * blackhand = Commands->Find_Object ( M11_BARRACKS_MUTANTUPRISING_BLACKHAND_JDG );
 
-			if (blackhand != NULL)
+			if (blackhand != nullptr)
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, 45, M01_GOING_TO_HAVOC_JDG);
@@ -6813,7 +6813,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantUprising_Mutant02_JDG, "")//M11_BARRACKS_MUTAN
 			Commands->Innate_Enable(obj);
 			GameObject * blackhand = Commands->Find_Object ( M11_BARRACKS_MUTANTUPRISING_BLACKHAND_JDG );
 
-			if (blackhand != NULL)
+			if (blackhand != nullptr)
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, 45, M01_GOING_TO_HAVOC_JDG);
@@ -6871,7 +6871,7 @@ DECLARE_SCRIPT(M11_Cinematic_Havoc_Script_JDG, "")
 {
 	void Created( GameObject * obj ) override
 	{
-		Commands->Select_Weapon ( obj, NULL );
+		Commands->Select_Weapon ( obj, nullptr );
 	}
 };
 
@@ -6880,7 +6880,7 @@ DECLARE_SCRIPT(M11_Cinematic_Petrova_Script_JDG, "")
 	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Stealth (obj, false);
-		Commands->Select_Weapon ( obj, NULL );
+		Commands->Select_Weapon ( obj, nullptr );
 	}
 };
 
@@ -6889,7 +6889,7 @@ DECLARE_SCRIPT(M11_Sydney_SandM_Machine_Script_JDG, "")//157366
 	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Cinematic_Freeze( obj, false );
-		Commands->Set_Animation ( obj, "DSP_TORTURE.DSP_TORTURE_01", true, NULL, 0.0f, -1.0f, false );
+		Commands->Set_Animation ( obj, "DSP_TORTURE.DSP_TORTURE_01", true, nullptr, 0.0f, -1.0f, false );
 	}
 
 	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /* sender */ ) override
@@ -6900,7 +6900,7 @@ DECLARE_SCRIPT(M11_Sydney_SandM_Machine_Script_JDG, "")//157366
 			{
 				Commands->Enable_Hibernation( obj, false );
 				Commands->Enable_Cinematic_Freeze( obj, false );
-				Commands->Set_Animation ( obj, "DSP_TORTURE.DSP_TORTURE_02", false, NULL, 0.0f, -1.0f, false );
+				Commands->Set_Animation ( obj, "DSP_TORTURE.DSP_TORTURE_02", false, nullptr, 0.0f, -1.0f, false );
 			}
 		}
 	}
@@ -6922,7 +6922,7 @@ DECLARE_SCRIPT(M11_Sydney_SandM_Chair_Script_JDG, "")//101606
 			{
 				Commands->Enable_Hibernation( obj, false );
 				Commands->Enable_Cinematic_Freeze( obj, false );
-				Commands->Set_Animation ( obj, "DSP_TORTURE_TBL.DSP_TORTURE_T01", false, NULL, 0.0f, -1.0f, false );
+				Commands->Set_Animation ( obj, "DSP_TORTURE_TBL.DSP_TORTURE_T01", false, nullptr, 0.0f, -1.0f, false );
 			}
 		}
 	}
@@ -6958,28 +6958,28 @@ DECLARE_SCRIPT(M11_Sydney_SandM_Sydney_Bone_JDG, "")
 			{
 				Commands->Enable_Hibernation( obj, false  );
 				Commands->Debug_Message ( "**********************Sydney bone custom received....going to anim A\n" );
-				Commands->Set_Animation ( obj, "X11C_BN_Sydney.X11C_SYD_A", false, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation ( obj, "X11C_BN_Sydney.X11C_SYD_A", false, nullptr, 0.0f, -1.0f, false);
 			}
 
 			else if (param == M01_MODIFY_YOUR_ACTION_02_JDG)//play animation B
 			{
 				Commands->Enable_Hibernation( obj, false  );
 				Commands->Debug_Message ( "**********************Sydney bone custom received....going to anim B\n" );
-				Commands->Set_Animation ( obj, "X11C_BN_Sydney.X11C_SYD_B", false, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation ( obj, "X11C_BN_Sydney.X11C_SYD_B", false, nullptr, 0.0f, -1.0f, false);
 			}
 
 			else if (param == M01_MODIFY_YOUR_ACTION_03_JDG)//play animation c
 			{
 				Commands->Enable_Hibernation( obj, false  );
 				Commands->Debug_Message ( "**********************Sydney bone custom received....going to anim C\n" );
-				Commands->Set_Animation ( obj, "X11C_BN_Sydney.X11C_SYD_C", false, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation ( obj, "X11C_BN_Sydney.X11C_SYD_C", false, nullptr, 0.0f, -1.0f, false);
 			}
 
 			else if (param == M01_MODIFY_YOUR_ACTION_04_JDG)//play animation d
 			{
 				Commands->Enable_Hibernation( obj, false  );
 				Commands->Debug_Message ( "**********************Sydney bone custom received....going to anim D\n" );
-				Commands->Set_Animation ( obj, "X11C_BN_Sydney.X11C_SYD_D", false, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation ( obj, "X11C_BN_Sydney.X11C_SYD_D", false, nullptr, 0.0f, -1.0f, false);
 			}
 		}
 	}
@@ -6998,7 +6998,7 @@ DECLARE_SCRIPT(M11_SimpleSydney_Script_JDG, "")//M11_SIMPLE_SYDNEY_MOBIUS_JDG	10
 	{
 		Commands->Enable_Cinematic_Freeze( obj, false );
 		GameObject * tortureMachine = Commands->Find_Object ( 157366 );
-		if (tortureMachine != NULL)
+		if (tortureMachine != nullptr)
 		{
 			Vector3 machinePosition = Commands->Get_Position ( tortureMachine );
 			float machineFacing = Commands->Get_Facing ( tortureMachine );
@@ -7023,11 +7023,11 @@ DECLARE_SCRIPT(M11_SimpleSydney_Script_JDG, "")//M11_SIMPLE_SYDNEY_MOBIUS_JDG	10
 			if (param == 0)//now do free sydney anim
 			{
 				GameObject * troopbone = Commands->Find_Object ( bone_id );
-				if (troopbone != NULL)
+				if (troopbone != nullptr)
 				{
 					Commands->Debug_Message ( "**********************Sydney anim D sending custom to bone\n" );
 					Commands->Send_Custom_Event ( obj, troopbone, 0, M01_MODIFY_YOUR_ACTION_04_JDG, 0 );
-					Commands->Set_Animation ( obj, "S_B_HUMAN.H_B_X11C_SYD_D", false, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( obj, "S_B_HUMAN.H_B_X11C_SYD_D", false, nullptr, 0.0f, -1.0f, false);
 				}
 
 				else
@@ -7039,11 +7039,11 @@ DECLARE_SCRIPT(M11_SimpleSydney_Script_JDG, "")//M11_SIMPLE_SYDNEY_MOBIUS_JDG	10
 			else if (param == M01_MODIFY_YOUR_ACTION_JDG)//play animation A
 			{
 				GameObject * troopbone = Commands->Find_Object ( bone_id );
-				if (troopbone != NULL)
+				if (troopbone != nullptr)
 				{
 					Commands->Debug_Message ( "**********************Sydney anim A sending custom to bone\n" );
 					Commands->Send_Custom_Event ( obj, troopbone, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
-					Commands->Set_Animation ( obj, "S_B_HUMAN.H_B_X11C_SYD_A", false, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( obj, "S_B_HUMAN.H_B_X11C_SYD_A", false, nullptr, 0.0f, -1.0f, false);
 				}
 
 				else
@@ -7055,11 +7055,11 @@ DECLARE_SCRIPT(M11_SimpleSydney_Script_JDG, "")//M11_SIMPLE_SYDNEY_MOBIUS_JDG	10
 			else if (param == M01_MODIFY_YOUR_ACTION_02_JDG)//play animation B
 			{
 				GameObject * troopbone = Commands->Find_Object ( bone_id );
-				if (troopbone != NULL)
+				if (troopbone != nullptr)
 				{
 					Commands->Debug_Message ( "**********************Sydney anim B sending custom to bone\n" );
 					Commands->Send_Custom_Event ( obj, troopbone, 0, M01_MODIFY_YOUR_ACTION_02_JDG, 0 );
-					Commands->Set_Animation ( obj, "S_B_HUMAN.H_B_X11C_SYD_B", false, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( obj, "S_B_HUMAN.H_B_X11C_SYD_B", false, nullptr, 0.0f, -1.0f, false);
 				}
 
 				else
@@ -7071,11 +7071,11 @@ DECLARE_SCRIPT(M11_SimpleSydney_Script_JDG, "")//M11_SIMPLE_SYDNEY_MOBIUS_JDG	10
 			else if (param == M01_MODIFY_YOUR_ACTION_03_JDG)//play animation c
 			{
 				GameObject * troopbone = Commands->Find_Object ( bone_id );
-				if (troopbone != NULL)
+				if (troopbone != nullptr)
 				{
 					Commands->Debug_Message ( "**********************Sydney anim C sending custom to bone\n" );
 					Commands->Send_Custom_Event ( obj, troopbone, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 0 );
-					Commands->Set_Animation ( obj, "S_B_HUMAN.H_B_X11C_SYD_C", false, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( obj, "S_B_HUMAN.H_B_X11C_SYD_C", false, nullptr, 0.0f, -1.0f, false);
 				}
 
 				else
@@ -7178,7 +7178,7 @@ DECLARE_SCRIPT(M11_ObeliskBattle_Contoller_JDG, "")//101805
 				}
 				last = random;
 
-				Commands->Create_Explosion ( "Ground Explosions - Harmless", m11ObeliskExplosionLocs[random], NULL );
+				Commands->Create_Explosion ( "Ground Explosions - Harmless", m11ObeliskExplosionLocs[random], nullptr );
 
 				float delayTimer = Commands->Get_Random ( 5, 10 );
 				Commands->Send_Custom_Event ( obj, obj, 0, M01_START_ATTACKING_01_JDG, delayTimer );
@@ -7249,7 +7249,7 @@ DECLARE_SCRIPT(M11_Cell_Mutant02_JDG, "")
 			else if (action_id == M01_WALKING_WAYPATH_01_JDG)
 			{
 				GameObject * petrova = Commands->Find_Object ( M11_MUTANT_PETROVA_JDG );
-				if (petrova != NULL)
+				if (petrova != nullptr)
 				{
 					ActionParamsStruct params;
 
@@ -7334,7 +7334,7 @@ DECLARE_SCRIPT(M11_Cell_Visceroid_JDG, "")
 		else if (param == M01_MODIFY_YOUR_ACTION_JDG)
 		{
 			GameObject * petrova = Commands->Find_Object ( M11_MUTANT_PETROVA_JDG );
-			if (petrova != NULL)
+			if (petrova != nullptr)
 			{
 				ActionParamsStruct params;
 
@@ -7581,7 +7581,7 @@ DECLARE_SCRIPT(M11_Petrova_Taunt_Controller_JDG, "")//103797
 				}
 
 				GameObject * petrova = Commands->Find_Object ( M11_MUTANT_PETROVA_JDG );
-				if (petrova != NULL)
+				if (petrova != nullptr)
 				{
 					Vector3 petrovaLocation = Commands->Get_Position ( petrova );
 					Commands->Create_Sound ( taunt_sound[random], petrovaLocation, petrova );
@@ -7785,7 +7785,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_00, cryoTrajectory_00, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_00, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[0] = Commands->Get_ID ( simpleMutant_00 );
-		if (cryoTrajectory_00 != NULL)
+		if (cryoTrajectory_00 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_00 );
 		}
@@ -7797,7 +7797,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_01, cryoTrajectory_01, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_01, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[1] = Commands->Get_ID ( simpleMutant_01 );
-		if (cryoTrajectory_01 != NULL)
+		if (cryoTrajectory_01 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_01 );
 		}
@@ -7809,7 +7809,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_02, cryoTrajectory_02, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_02, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[2] = Commands->Get_ID ( simpleMutant_02 );
-		if (cryoTrajectory_02 != NULL)
+		if (cryoTrajectory_02 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_02 );
 		}
@@ -7821,7 +7821,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_03, cryoTrajectory_03, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_03, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[3] = Commands->Get_ID ( simpleMutant_03 );
-		if (cryoTrajectory_03 != NULL)
+		if (cryoTrajectory_03 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_03 );
 		}
@@ -7833,7 +7833,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_04, cryoTrajectory_04, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_04, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[4] = Commands->Get_ID ( simpleMutant_04 );
-		if (cryoTrajectory_04 != NULL)
+		if (cryoTrajectory_04 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_04 );
 		}
@@ -7845,7 +7845,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_05, cryoTrajectory_05, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_05, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[5] = Commands->Get_ID ( simpleMutant_05 );
-		if (cryoTrajectory_05 != NULL)
+		if (cryoTrajectory_05 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_05 );
 		}
@@ -7857,7 +7857,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_06, cryoTrajectory_06, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_06, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[6] = Commands->Get_ID ( simpleMutant_06 );
-		if (cryoTrajectory_06 != NULL)
+		if (cryoTrajectory_06 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_06 );
 		}
@@ -7869,7 +7869,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_07, cryoTrajectory_07, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_07, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[7] = Commands->Get_ID ( simpleMutant_07 );
-		if (cryoTrajectory_07 != NULL)
+		if (cryoTrajectory_07 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_07 );
 		}
@@ -7881,7 +7881,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_08, cryoTrajectory_08, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_08, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[8] = Commands->Get_ID ( simpleMutant_08 );
-		if (cryoTrajectory_08 != NULL)
+		if (cryoTrajectory_08 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_08 );
 		}
@@ -7893,7 +7893,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_09, cryoTrajectory_09, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_09, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[9] = Commands->Get_ID ( simpleMutant_09 );
-		if (cryoTrajectory_09 != NULL)
+		if (cryoTrajectory_09 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_09 );
 		}
@@ -7905,7 +7905,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_10, cryoTrajectory_10, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_10, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[10] = Commands->Get_ID ( simpleMutant_10 );
-		if (cryoTrajectory_10 != NULL)
+		if (cryoTrajectory_10 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_10 );
 		}
@@ -7917,7 +7917,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_11, cryoTrajectory_11, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_11, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[11] = Commands->Get_ID ( simpleMutant_11 );
-		if (cryoTrajectory_11 != NULL)
+		if (cryoTrajectory_11 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_11 );
 		}
@@ -7929,7 +7929,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_12, cryoTrajectory_12, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_12, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[12] = Commands->Get_ID ( simpleMutant_12 );
-		if (cryoTrajectory_12 != NULL)
+		if (cryoTrajectory_12 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_12 );
 		}
@@ -7941,7 +7941,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_13, cryoTrajectory_13, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_13, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[13] = Commands->Get_ID ( simpleMutant_13 );
-		if (cryoTrajectory_13 != NULL)
+		if (cryoTrajectory_13 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_13 );
 		}
@@ -7953,7 +7953,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 		Commands->Attach_To_Object_Bone( simpleMutant_14, cryoTrajectory_14, "BN_Trajectory" );
 		Commands->Attach_Script(simpleMutant_14, "M11_LabMutant_Simple_JDG", "");
 		simpleMutant_id[14] = Commands->Get_ID ( simpleMutant_14 );
-		if (cryoTrajectory_14 != NULL)
+		if (cryoTrajectory_14 != nullptr)
 		{
 			Commands->Destroy_Object ( cryoTrajectory_14 );
 		}
@@ -7982,10 +7982,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_00, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_00, "M11_Mutant_TrajectoryBone_JDG", "");//"Mutant_2SF_Templar"
 				Commands->Set_Facing ( cryoTrajectory_00, cryoChamberFacing[0] );
-				if (cryoTrajectory_00 != NULL)
+				if (cryoTrajectory_00 != nullptr)
 				{
 					GameObject * simpleMutant_00 = Commands->Find_Object ( simpleMutant_id[0] );
-					if (simpleMutant_00 != NULL)
+					if (simpleMutant_00 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_00, cryoTrajectory_00, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8000,10 +8000,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_01, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_01, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_01, cryoChamberFacing[1] );
-				if (cryoTrajectory_01 != NULL)
+				if (cryoTrajectory_01 != nullptr)
 				{
 					GameObject * simpleMutant_01 = Commands->Find_Object ( simpleMutant_id[1] );
-					if (simpleMutant_01 != NULL)
+					if (simpleMutant_01 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_01, cryoTrajectory_01, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8018,10 +8018,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_02, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_02, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_02, cryoChamberFacing[2] );
-				if (cryoTrajectory_02 != NULL)
+				if (cryoTrajectory_02 != nullptr)
 				{
 					GameObject * simpleMutant_02 = Commands->Find_Object ( simpleMutant_id[2] );
-					if (simpleMutant_02 != NULL)
+					if (simpleMutant_02 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_02, cryoTrajectory_02, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8036,10 +8036,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_03, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_03, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_03, cryoChamberFacing[3] );
-				if (cryoTrajectory_03 != NULL)
+				if (cryoTrajectory_03 != nullptr)
 				{
 					GameObject * simpleMutant_03 = Commands->Find_Object ( simpleMutant_id[3] );
-					if (simpleMutant_03 != NULL)
+					if (simpleMutant_03 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_03, cryoTrajectory_03, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8054,10 +8054,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_04, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_04, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_04, cryoChamberFacing[4] );
-				if (cryoTrajectory_04 != NULL)
+				if (cryoTrajectory_04 != nullptr)
 				{
 					GameObject * simpleMutant_04 = Commands->Find_Object ( simpleMutant_id[4] );
-					if (simpleMutant_04 != NULL)
+					if (simpleMutant_04 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_04, cryoTrajectory_04, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8072,10 +8072,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_05, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_05, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_05, cryoChamberFacing[5] );
-				if (cryoTrajectory_05 != NULL)
+				if (cryoTrajectory_05 != nullptr)
 				{
 					GameObject * simpleMutant_05 = Commands->Find_Object ( simpleMutant_id[5] );
-					if (simpleMutant_05 != NULL)
+					if (simpleMutant_05 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_05, cryoTrajectory_05, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8090,10 +8090,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_06, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_06, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_06, cryoChamberFacing[6] );
-				if (cryoTrajectory_06 != NULL)
+				if (cryoTrajectory_06 != nullptr)
 				{
 					GameObject * simpleMutant_06 = Commands->Find_Object ( simpleMutant_id[6] );
-					if (simpleMutant_06 != NULL)
+					if (simpleMutant_06 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_06, cryoTrajectory_06, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8108,10 +8108,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_07, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_07, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_07, cryoChamberFacing[7] );
-				if (cryoTrajectory_07 != NULL)
+				if (cryoTrajectory_07 != nullptr)
 				{
 					GameObject * simpleMutant_07 = Commands->Find_Object ( simpleMutant_id[7] );
-					if (simpleMutant_07 != NULL)
+					if (simpleMutant_07 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_07, cryoTrajectory_07, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8126,10 +8126,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_08, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_08, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_08, cryoChamberFacing[8] );
-				if (cryoTrajectory_08 != NULL)
+				if (cryoTrajectory_08 != nullptr)
 				{
 					GameObject * simpleMutant_08 = Commands->Find_Object ( simpleMutant_id[8] );
-					if (simpleMutant_08 != NULL)
+					if (simpleMutant_08 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_08, cryoTrajectory_08, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8144,10 +8144,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_09, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_09, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_09, cryoChamberFacing[9] );
-				if (cryoTrajectory_09 != NULL)
+				if (cryoTrajectory_09 != nullptr)
 				{
 					GameObject * simpleMutant_09 = Commands->Find_Object ( simpleMutant_id[9] );
-					if (simpleMutant_09 != NULL)
+					if (simpleMutant_09 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_09, cryoTrajectory_09, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8162,10 +8162,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_10, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_10, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_10, cryoChamberFacing[10] );
-				if (cryoTrajectory_10 != NULL)
+				if (cryoTrajectory_10 != nullptr)
 				{
 					GameObject * simpleMutant_10 = Commands->Find_Object ( simpleMutant_id[10] );
-					if (simpleMutant_10 != NULL)
+					if (simpleMutant_10 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_10, cryoTrajectory_10, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8180,10 +8180,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_11, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_11, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_11, cryoChamberFacing[11] );
-				if (cryoTrajectory_11 != NULL)
+				if (cryoTrajectory_11 != nullptr)
 				{
 					GameObject * simpleMutant_11 = Commands->Find_Object ( simpleMutant_id[11] );
-					if (simpleMutant_11 != NULL)
+					if (simpleMutant_11 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_11, cryoTrajectory_11, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8198,10 +8198,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_12, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_12, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_12, cryoChamberFacing[12] );
-				if (cryoTrajectory_12 != NULL)
+				if (cryoTrajectory_12 != nullptr)
 				{
 					GameObject * simpleMutant_12 = Commands->Find_Object ( simpleMutant_id[12] );
-					if (simpleMutant_12 != NULL)
+					if (simpleMutant_12 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_12, cryoTrajectory_12, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8216,10 +8216,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_13, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_13, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_13, cryoChamberFacing[13] );
-				if (cryoTrajectory_13 != NULL)
+				if (cryoTrajectory_13 != nullptr)
 				{
 					GameObject * simpleMutant_13 = Commands->Find_Object ( simpleMutant_id[13] );
-					if (simpleMutant_13 != NULL)
+					if (simpleMutant_13 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_13, cryoTrajectory_13, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8234,10 +8234,10 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				Commands->Set_Model ( cryoTrajectory_14, "X11E_Trajectory" );
 				Commands->Attach_Script(cryoTrajectory_14, "M11_Mutant_TrajectoryBone_JDG", "");
 				Commands->Set_Facing ( cryoTrajectory_14, cryoChamberFacing[14] );
-				if (cryoTrajectory_14 != NULL)
+				if (cryoTrajectory_14 != nullptr)
 				{
 					GameObject * simpleMutant_14 = Commands->Find_Object ( simpleMutant_id[14] );
-					if (simpleMutant_14 != NULL)
+					if (simpleMutant_14 != nullptr)
 					{
 						Commands->Attach_To_Object_Bone( simpleMutant_14, cryoTrajectory_14, "BN_Trajectory" );
 						deadMutantCount++;
@@ -8265,7 +8265,7 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 					GameObject * mutant = Commands->Find_Object ( simpleMutant_id[random] );
 					GameObject * cryoChamber = Commands->Find_Object ( cryoChamber_id[random] );
 
-					if (mutant == NULL)
+					if (mutant == nullptr)
 					{
 						Commands->Send_Custom_Event( obj, obj, 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 					}
@@ -8300,49 +8300,49 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				GameObject * cryoChamber_06 = Commands->Find_Object ( cryoChamber_id[6] );
 				GameObject * cryoChamber_07 = Commands->Find_Object ( cryoChamber_id[7] );
 
-				if (cryoChamber_00 != NULL)
+				if (cryoChamber_00 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_00, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_01 != NULL)
+				if (cryoChamber_01 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_01, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_02 != NULL)
+				if (cryoChamber_02 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_02, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_03 != NULL)
+				if (cryoChamber_03 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_03, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_04 != NULL)
+				if (cryoChamber_04 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_04, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_05 != NULL)
+				if (cryoChamber_05 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_05, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_06 != NULL)
+				if (cryoChamber_06 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_06, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_07 != NULL)
+				if (cryoChamber_07 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_07, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
@@ -8359,43 +8359,43 @@ DECLARE_SCRIPT(M11_Lab_Cryochamber_Controller_JDG, "")//100910 M11_LABORATORY_MU
 				GameObject * cryoChamber_13 = Commands->Find_Object ( cryoChamber_id[13] );
 				GameObject * cryoChamber_14 = Commands->Find_Object ( cryoChamber_id[14] );
 
-				if (cryoChamber_08 != NULL)
+				if (cryoChamber_08 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_08, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_09 != NULL)
+				if (cryoChamber_09 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_09, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_10 != NULL)
+				if (cryoChamber_10 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_10, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_11 != NULL)
+				if (cryoChamber_11 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_11, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_12 != NULL)
+				if (cryoChamber_12 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_12, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_13 != NULL)
+				if (cryoChamber_13 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_13, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
 				}
 
-				if (cryoChamber_14 != NULL)
+				if (cryoChamber_14 != nullptr)
 				{
 					float delayTimer = Commands->Get_Random ( 1, 3);
 					Commands->Send_Custom_Event( obj, cryoChamber_14, 0, M01_MODIFY_YOUR_ACTION_JDG, delayTimer );
@@ -8432,8 +8432,8 @@ DECLARE_SCRIPT(M11_Cryochamber_Simple_JDG, "chamber_number:int")
 				destroyed = true;
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				float myFacing = Commands->Get_Facing ( obj );
-				Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, NULL );
-				Commands->Set_Animation ( obj, "DSP_CRYOBIG2.DSP_CRYOBIG2", false, NULL, 0, 15, false );
+				Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, nullptr );
+				Commands->Set_Animation ( obj, "DSP_CRYOBIG2.DSP_CRYOBIG2", false, nullptr, 0, 15, false );
 				Commands->Send_Custom_Event ( obj, Commands->Find_Object ( M11_LABORATORY_MUTANT_CONTROLLER_JDG ), M01_IVE_BEEN_KILLED_JDG, my_number, 0 );
 				Commands->Set_Health ( obj, 1 );
 
@@ -8466,12 +8466,12 @@ DECLARE_SCRIPT(M11_Cryochamber_Simple_JDG, "chamber_number:int")
 
 		if (myHealthPercentage > 25 && destroyed == false)
 		{
-			Commands->Set_Animation ( obj, "DSP_CRYOBIG2.DSP_CRYOBIG2", false, NULL, 0, 9, false );
+			Commands->Set_Animation ( obj, "DSP_CRYOBIG2.DSP_CRYOBIG2", false, nullptr, 0, 9, false );
 		}
 
 		else if (destroyed == true)
 		{
-			Commands->Set_Animation ( obj, "DSP_CRYOBIG2.DSP_CRYOBIG2", false, NULL, 12, 15, false );
+			Commands->Set_Animation ( obj, "DSP_CRYOBIG2.DSP_CRYOBIG2", false, nullptr, 12, 15, false );
 			Commands->Set_Health ( obj, 1 );
 		}
 
@@ -8480,8 +8480,8 @@ DECLARE_SCRIPT(M11_Cryochamber_Simple_JDG, "chamber_number:int")
 			destroyed = true;
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			float myFacing = Commands->Get_Facing ( obj );
-			Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, NULL );
-			Commands->Set_Animation ( obj, "DSP_CRYOBIG2.DSP_CRYOBIG2", false, NULL, 0, 15, false );
+			Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, nullptr );
+			Commands->Set_Animation ( obj, "DSP_CRYOBIG2.DSP_CRYOBIG2", false, nullptr, 0, 15, false );
 			Commands->Send_Custom_Event ( obj, Commands->Find_Object ( M11_LABORATORY_MUTANT_CONTROLLER_JDG ), M01_IVE_BEEN_KILLED_JDG, my_number, 0 );
 			Commands->Set_Health ( obj, 1 );
 
@@ -8511,7 +8511,7 @@ DECLARE_SCRIPT(M11_LabMutant_Simple_JDG, "")
 		freed = false;
 		Commands->Innate_Disable(obj);
 		Commands->Set_Loiters_Allowed( obj, false );
-		Commands->Select_Weapon ( obj, NULL );
+		Commands->Select_Weapon ( obj, nullptr );
 		Commands->Set_Animation_Frame ( obj, "S_A_HUMAN.H_A_822A", 15 );
 	}
 
@@ -8590,12 +8590,12 @@ DECLARE_SCRIPT(M11_LabMutant_Simple_JDG, "")
 			Commands->Set_Model ( cryoTrajectory_00, "X11E_Trajectory" );
 			Commands->Attach_Script(cryoTrajectory_00, "M11_Mutant_TrajectoryBone_JDG", "");//"Mutant_2SF_Templar"
 			Commands->Set_Facing ( cryoTrajectory_00, cryoChamberFacing[param] );
-			if (cryoTrajectory_00 != NULL)
+			if (cryoTrajectory_00 != nullptr)
 			{
 				if (obj)
 				{
 					Commands->Attach_To_Object_Bone( obj, cryoTrajectory_00, "BN_Trajectory" );
-					Commands->Set_Animation ( obj, "S_C_Human.H_C_X11E_Escape", false, NULL, 0, 120, false );
+					Commands->Set_Animation ( obj, "S_C_Human.H_C_X11E_Escape", false, nullptr, 0, 120, false );
 					freed = true;
 				}
 			}
@@ -8607,8 +8607,8 @@ DECLARE_SCRIPT(M11_LabMutant_Simple_JDG, "")
 			{
 				sabotaged = true;
 				freed = true;
-				//Commands->Apply_Damage( obj, 10000, "BlamoKiller", NULL );
-				Commands->Set_Animation ( obj, "S_C_Human.H_C_Tubedie", false, NULL, 0, 22, false );
+				//Commands->Apply_Damage( obj, 10000, "BlamoKiller", nullptr );
+				Commands->Set_Animation ( obj, "S_C_Human.H_C_Tubedie", false, nullptr, 0, 22, false );
 			}
 		}
 	}
@@ -8971,7 +8971,7 @@ DECLARE_SCRIPT(M11_Sydney_Rally_Zone_01_JDG, "")
 		if (enterer == STAR && sydneyInPosition == true)
 		{
 			GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
-			if (sydney != NULL )
+			if (sydney != nullptr )
 			{
 				Commands->Send_Custom_Event( obj, sydney, 0, M01_WALKING_WAYPATH_02_JDG, 0 );
 			}
@@ -9008,7 +9008,7 @@ DECLARE_SCRIPT(M11_Sydney_Rally_Zone_02_JDG, "")
 		if (enterer == STAR && sydneyInPosition == true)
 		{
 			GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
-			if (sydney != NULL )
+			if (sydney != nullptr )
 			{
 				Commands->Send_Custom_Event( obj, sydney, 0, M01_WALKING_WAYPATH_03_JDG, 0 );
 			}
@@ -9045,19 +9045,19 @@ DECLARE_SCRIPT(M11_Sydney_Rally_Zone_03_JDG, "")
 		if (enterer == STAR && sydneyInPosition == true)
 		{
 			GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
-			if (sydney != NULL )
+			if (sydney != nullptr )
 			{
 				Commands->Send_Custom_Event( obj, sydney, 0, M01_WALKING_WAYPATH_05_JDG, 0 );
 			}
 
 			GameObject * zoneOne = Commands->Find_Object ( 100133 );
-			if (zoneOne != NULL)
+			if (zoneOne != nullptr)
 			{
 				Commands->Destroy_Object ( zoneOne );//one time only zone--cleaning up
 			}
 
 			GameObject * zoneTwo = Commands->Find_Object ( 100134 );
-			if (zoneTwo != NULL)
+			if (zoneTwo != nullptr)
 			{
 				Commands->Destroy_Object ( zoneTwo );//one time only zone--cleaning up
 			}
@@ -9092,19 +9092,19 @@ DECLARE_SCRIPT(M11_Sydney_Rally_Zone_03b_JDG, "")
 		if (enterer == STAR && sydneyInPosition == true)
 		{
 			GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
-			if (sydney != NULL )
+			if (sydney != nullptr )
 			{
 				Commands->Send_Custom_Event( obj, sydney, 0, M01_WALKING_WAYPATH_07_JDG, 0 );
 			}
 
 			GameObject * zoneOne = Commands->Find_Object ( 100133 );
-			if (zoneOne != NULL)
+			if (zoneOne != nullptr)
 			{
 				Commands->Destroy_Object ( zoneOne );//one time only zone--cleaning up
 			}
 
 			GameObject * zoneTwo = Commands->Find_Object ( 100134 );
-			if (zoneTwo != NULL)
+			if (zoneTwo != nullptr)
 			{
 				Commands->Destroy_Object ( zoneTwo );//one time only zone--cleaning up
 			}
@@ -9147,19 +9147,19 @@ DECLARE_SCRIPT(M11_Petrova_StealthSoldier_Controller_JDG, "")//106230
 			else if (param == 1)
 			{
 				GameObject * initialSteatlthGuy01 = Commands->Find_Object ( initialSteatlthGuy01_id );
-				if (initialSteatlthGuy01 != NULL)
+				if (initialSteatlthGuy01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, initialSteatlthGuy01, 0, M01_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * initialSteatlthGuy02 = Commands->Find_Object ( initialSteatlthGuy02_id );
-				if (initialSteatlthGuy02 != NULL)
+				if (initialSteatlthGuy02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, initialSteatlthGuy02, 0, M01_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * initialSteatlthGuy03 = Commands->Find_Object ( initialSteatlthGuy03_id );
-				if (initialSteatlthGuy03 != NULL)
+				if (initialSteatlthGuy03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, initialSteatlthGuy03, 0, M01_START_ACTING_JDG, 0 );
 				}
@@ -9218,7 +9218,7 @@ DECLARE_SCRIPT(M11_Petrova_StealthSoldier_Initial01_JDG, "")//M11_PETROVA_STEALT
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * stealthController = Commands->Find_Object ( 106230 );
-		if (stealthController != NULL)
+		if (stealthController != nullptr)
 		{
 			Commands->Send_Custom_Event( obj, stealthController, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 		}
@@ -9254,7 +9254,7 @@ DECLARE_SCRIPT(M11_Petrova_StealthSoldier_Initial02_JDG, "")//M11_PETROVA_STEALT
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * stealthController = Commands->Find_Object ( 106230 );
-		if (stealthController != NULL)
+		if (stealthController != nullptr)
 		{
 			Commands->Send_Custom_Event( obj, stealthController, 0, M01_MODIFY_YOUR_ACTION_02_JDG, 0 );
 		}
@@ -9290,7 +9290,7 @@ DECLARE_SCRIPT(M11_Petrova_StealthSoldier_Initial03_JDG, "")//M11_PETROVA_STEALT
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * stealthController = Commands->Find_Object ( 106230 );
-		if (stealthController != NULL)
+		if (stealthController != nullptr)
 		{
 			Commands->Send_Custom_Event( obj, stealthController, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 0 );
 		}
@@ -9314,7 +9314,7 @@ DECLARE_SCRIPT(M11_Petrova_StealthSoldier_Reinforcement01_JDG, "")//M11_PETROVA_
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * stealthController = Commands->Find_Object ( 106230 );
-		if (stealthController != NULL)
+		if (stealthController != nullptr)
 		{
 			Commands->Send_Custom_Event( obj, stealthController, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 		}
@@ -9337,7 +9337,7 @@ DECLARE_SCRIPT(M11_Petrova_StealthSoldier_Reinforcement02_JDG, "")//M11_PETROVA_
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * stealthController = Commands->Find_Object ( 106230 );
-		if (stealthController != NULL)
+		if (stealthController != nullptr)
 		{
 			Commands->Send_Custom_Event( obj, stealthController, 0, M01_MODIFY_YOUR_ACTION_02_JDG, 0 );
 		}
@@ -9360,7 +9360,7 @@ DECLARE_SCRIPT(M11_Petrova_StealthSoldier_Reinforcement03_JDG, "")//M11_PETROVA_
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * stealthController = Commands->Find_Object ( 106230 );
-		if (stealthController != NULL)
+		if (stealthController != nullptr)
 		{
 			Commands->Send_Custom_Event( obj, stealthController, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 0 );
 		}
@@ -9459,7 +9459,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				Commands->Set_HUD_Help_Text ( IDS_M11DSGN_DSGN1007I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 				second_time_damaged = false;
 				sydney_damaged_conv02 = Commands->Create_Conversation( "M11_Sydney_Damaged_Conversation_02", 90, 1000, true);
-				Commands->Join_Conversation( NULL, sydney_damaged_conv02, false, false, false );
+				Commands->Join_Conversation( nullptr, sydney_damaged_conv02, false, false, false );
 				Commands->Start_Conversation( sydney_damaged_conv02, sydney_damaged_conv02 );
 
 				Commands->Monitor_Conversation( obj, sydney_damaged_conv02 );
@@ -9472,7 +9472,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				Commands->Set_HUD_Help_Text ( IDS_M11DSGN_DSGN1007I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 				third_time_damaged = false;
 				sydney_damaged_conv03 = Commands->Create_Conversation( "M11_Sydney_Damaged_Conversation_03", 90, 1000, true);
-				Commands->Join_Conversation( NULL, sydney_damaged_conv03, false, false, false );
+				Commands->Join_Conversation( nullptr, sydney_damaged_conv03, false, false, false );
 				Commands->Start_Conversation( sydney_damaged_conv03, sydney_damaged_conv03 );
 
 				Commands->Monitor_Conversation( obj, sydney_damaged_conv03 );
@@ -9532,7 +9532,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 					sydney_conv01 = Commands->Create_Conversation( "M11_Initial_Sydney_Conversation_JDG", 100, 1000, false);
 					Commands->Join_Conversation( obj, sydney_conv01, false, true, true );
 					Commands->Join_Conversation( STAR, sydney_conv01, false, false, false );
-					Commands->Join_Conversation( NULL, sydney_conv01, false, false, false );
+					Commands->Join_Conversation( nullptr, sydney_conv01, false, false, false );
 					Commands->Start_Conversation( sydney_conv01, sydney_conv01 );
 
 					Commands->Monitor_Conversation( obj, sydney_conv01 );
@@ -9639,13 +9639,13 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				Commands->Action_Goto(obj, params);
 
 				GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-				if (elevatorDisabler != NULL)
+				if (elevatorDisabler != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevatorController = Commands->Find_Object ( M11_MISSILE_LIFT_CONTROLLER_JDG );
-				if (elevatorController != NULL)
+				if (elevatorController != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, elevatorController, 1, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 					Commands->Send_Custom_Event ( obj, elevatorController, 1, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
@@ -9667,7 +9667,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				Commands->Action_Goto(obj, params);
 
 				GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-				if (elevatorDisabler != NULL)
+				if (elevatorDisabler != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
@@ -9678,7 +9678,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				//Commands->Static_Anim_Phys_Goto_Frame ( M11_MISSILE_LIFT_01_JDG	, 45, "MISS_ELEV1.MISS_ELEV1" );
 
 				GameObject * elevatorController = Commands->Find_Object ( M11_MISSILE_LIFT_CONTROLLER_JDG );
-				if (elevatorController != NULL)
+				if (elevatorController != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, elevatorController, 1, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 					Commands->Send_Custom_Event ( obj, elevatorController, 1, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
@@ -9699,7 +9699,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				Commands->Action_Goto(obj, params);
 
 				//GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-				//if (elevatorDisabler != NULL)
+				//if (elevatorDisabler != nullptr)
 				//{
 				//	Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 				//}
@@ -9717,13 +9717,13 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				Commands->Action_Goto(obj, params);
 
 				GameObject * ropeController = Commands->Find_Object ( 106908 );
-				if (ropeController != NULL)
+				if (ropeController != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, ropeController, 0, M01_START_ACTING_JDG, 3 );
 				}
 
 				//GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-				//if (elevatorDisabler != NULL)
+				//if (elevatorDisabler != nullptr)
 				//{
 				//	Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 				//}
@@ -9741,7 +9741,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				Commands->Action_Goto(obj, params);
 
 				//GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-				//if (elevatorDisabler != NULL)
+				//if (elevatorDisabler != nullptr)
 				//{
 				//	Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 				//}
@@ -9752,7 +9752,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 				sydneys_location = GOING_TO_MISSILE_SWITCH;
 
 				GameObject * nukeSwitch = Commands->Find_Object ( M11_END_MISSION_SWITCH_JDG );
-				if (nukeSwitch != NULL)
+				if (nukeSwitch != nullptr)
 				{
 					Vector3 nukePosition  (-0.113f, 29.391f, 0.046f);
 					Commands->Set_Innate_Is_Stationary ( obj, false );
@@ -9797,7 +9797,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 						Commands->Action_Goto(obj, params);
 
 						GameObject * objectiveController = Commands->Find_Object ( M11_MISSION_CONTROLLER_JDG );
-						if (objectiveController != NULL)
+						if (objectiveController != nullptr)
 						{
 							Commands->Send_Custom_Event( obj, objectiveController, 0, M11_END_SECOND_OBJECTIVE_JDG, 0 );
 						}
@@ -9924,7 +9924,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 					{
 						Commands->Set_Innate_Is_Stationary (obj, true);
 						GameObject * rallyZone01 = Commands->Find_Object ( M11_SYDNEY_RALLY_ZONE_01_JDG );
-						if (rallyZone01 != NULL)
+						if (rallyZone01 != nullptr)
 						{
 							Commands->Send_Custom_Event( obj, rallyZone01, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
@@ -9939,7 +9939,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 					{
 						Commands->Set_Innate_Is_Stationary (obj, true);
 						GameObject * rallyZone02 = Commands->Find_Object ( M11_SYDNEY_RALLY_ZONE_02_JDG );
-						if (rallyZone02 != NULL)
+						if (rallyZone02 != nullptr)
 						{
 							Commands->Send_Custom_Event( obj, rallyZone02, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
@@ -9950,7 +9950,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 						}
 
 						GameObject * objectiveController = Commands->Find_Object ( M11_MISSION_CONTROLLER_JDG );
-						if (objectiveController != NULL)
+						if (objectiveController != nullptr)
 						{
 							Commands->Send_Custom_Event( obj, objectiveController, 0, M11_ADD_FIFTH_OBJECTIVE_JDG, 0 );
 						}
@@ -9960,7 +9960,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 					{
 						Commands->Set_Innate_Is_Stationary (obj, true);
 						GameObject * rallyZone03 = Commands->Find_Object ( M11_SYDNEY_RALLY_ZONE_03A_JDG );
-						if (rallyZone03 != NULL)
+						if (rallyZone03 != nullptr)
 						{
 							Commands->Send_Custom_Event( obj, rallyZone03, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
@@ -9975,7 +9975,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 					{
 						Commands->Set_Innate_Is_Stationary (obj, true);
 						GameObject * rallyZone03 = Commands->Find_Object ( M11_SYDNEY_RALLY_ZONE_03B_JDG );
-						if (rallyZone03 != NULL)
+						if (rallyZone03 != nullptr)
 						{
 							Commands->Send_Custom_Event( obj, rallyZone03, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 						}
@@ -9991,7 +9991,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 						Commands->Set_Innate_Is_Stationary (obj, true);
 
 						GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-						if (elevatorDisabler != NULL)
+						if (elevatorDisabler != nullptr)
 						{
 							Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_START_ACTING_JDG, 0 );
 						}
@@ -10001,7 +10001,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 					else if (action_id == M01_WALKING_WAYPATH_06_JDG)//sydneys at missile switch-play animation
 					{
 						GameObject * nukeconsole = Commands->Find_Object ( 100106 );
-						if (nukeconsole != NULL)
+						if (nukeconsole != nullptr)
 						{
 							Commands->Set_Innate_Is_Stationary (obj, true);
 							params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );
@@ -10016,7 +10016,7 @@ DECLARE_SCRIPT(M11_Sydney_Script_JDG, "")//M11_REAL_SYDNEY_MOBIUS_JDG 100644
 					else if (action_id == M01_DOING_ANIMATION_01_JDG)//play end mission conversation
 					{
 						GameObject * nukeconsole = Commands->Find_Object ( 100106 );
-						if (nukeconsole != NULL)
+						if (nukeconsole != nullptr)
 						{
 							Commands->Send_Custom_Event( obj, nukeconsole, 0, M01_START_ACTING_JDG, 0 );
 						}
@@ -10049,94 +10049,94 @@ DECLARE_SCRIPT(M11_Silo_ElevatorDeactivator_JDG, "")//105192
 			if (param == M11_START_ACTING_JDG)//allow switch usage
 			{
 				GameObject * elevator01_switch01 = Commands->Find_Object ( 101689 );
-				if (elevator01_switch01 != NULL)
+				if (elevator01_switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator01_switch01, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator01_switch02 = Commands->Find_Object ( 101651 );
-				if (elevator01_switch02 != NULL)
+				if (elevator01_switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator01_switch02, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator01_switch03 = Commands->Find_Object ( 101690 );
-				if (elevator01_switch03 != NULL)
+				if (elevator01_switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator01_switch03, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator01_switch04 = Commands->Find_Object ( 101691 );
-				if (elevator01_switch04 != NULL)
+				if (elevator01_switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator01_switch04, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				//101692 101693 101694 101695
 				GameObject * elevator02_switch01 = Commands->Find_Object ( 101692 );
-				if (elevator02_switch01 != NULL)
+				if (elevator02_switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator02_switch01, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator02_switch02 = Commands->Find_Object ( 101693 );
-				if (elevator02_switch02 != NULL)
+				if (elevator02_switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator02_switch02, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator02_switch03 = Commands->Find_Object ( 101694 );
-				if (elevator02_switch03 != NULL)
+				if (elevator02_switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator02_switch03, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator02_switch04 = Commands->Find_Object ( 101695 );
-				if (elevator02_switch04 != NULL)
+				if (elevator02_switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator02_switch04, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				//101717 101718 101719 101720
 				GameObject * elevator03_switch01 = Commands->Find_Object ( 101717 );
-				if (elevator03_switch01 != NULL)
+				if (elevator03_switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator03_switch01, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator03_switch02 = Commands->Find_Object ( 101718 );
-				if (elevator03_switch02 != NULL)
+				if (elevator03_switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator03_switch02, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator03_switch03 = Commands->Find_Object ( 101719 );
-				if (elevator03_switch03 != NULL)
+				if (elevator03_switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator03_switch03, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator03_switch04 = Commands->Find_Object ( 101720 );
-				if (elevator03_switch04 != NULL)
+				if (elevator03_switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator03_switch04, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				//101721 101722 101723
 				GameObject * elevator04_switch01 = Commands->Find_Object ( 101721 );
-				if (elevator04_switch01 != NULL)
+				if (elevator04_switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator04_switch01, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator04_switch02 = Commands->Find_Object ( 101722 );
-				if (elevator04_switch02 != NULL)
+				if (elevator04_switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator04_switch02, 0, M11_START_ACTING_JDG, 0 );
 				}
 
 				GameObject * elevator04_switch03 = Commands->Find_Object ( 101723 );
-				if (elevator04_switch03 != NULL)
+				if (elevator04_switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator04_switch03, 0, M11_START_ACTING_JDG, 0 );
 				}
@@ -10145,94 +10145,94 @@ DECLARE_SCRIPT(M11_Silo_ElevatorDeactivator_JDG, "")//105192
 			if (param == M11_GOTO_IDLE_JDG)//disallow switch usage
 			{
 				GameObject * elevator01_switch01 = Commands->Find_Object ( 101689 );
-				if (elevator01_switch01 != NULL)
+				if (elevator01_switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator01_switch01, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator01_switch02 = Commands->Find_Object ( 101651 );
-				if (elevator01_switch02 != NULL)
+				if (elevator01_switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator01_switch02, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator01_switch03 = Commands->Find_Object ( 101690 );
-				if (elevator01_switch03 != NULL)
+				if (elevator01_switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator01_switch03, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator01_switch04 = Commands->Find_Object ( 101691 );
-				if (elevator01_switch04 != NULL)
+				if (elevator01_switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator01_switch04, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				//101692 101693 101694 101695
 				GameObject * elevator02_switch01 = Commands->Find_Object ( 101692 );
-				if (elevator02_switch01 != NULL)
+				if (elevator02_switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator02_switch01, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator02_switch02 = Commands->Find_Object ( 101693 );
-				if (elevator02_switch02 != NULL)
+				if (elevator02_switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator02_switch02, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator02_switch03 = Commands->Find_Object ( 101694 );
-				if (elevator02_switch03 != NULL)
+				if (elevator02_switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator02_switch03, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator02_switch04 = Commands->Find_Object ( 101695 );
-				if (elevator02_switch04 != NULL)
+				if (elevator02_switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator02_switch04, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				//101717 101718 101719 101720
 				GameObject * elevator03_switch01 = Commands->Find_Object ( 101717 );
-				if (elevator03_switch01 != NULL)
+				if (elevator03_switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator03_switch01, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator03_switch02 = Commands->Find_Object ( 101718 );
-				if (elevator03_switch02 != NULL)
+				if (elevator03_switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator03_switch02, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator03_switch03 = Commands->Find_Object ( 101719 );
-				if (elevator03_switch03 != NULL)
+				if (elevator03_switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator03_switch03, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator03_switch04 = Commands->Find_Object ( 101720 );
-				if (elevator03_switch04 != NULL)
+				if (elevator03_switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator03_switch04, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				//101721 101722 101723
 				GameObject * elevator04_switch01 = Commands->Find_Object ( 101721 );
-				if (elevator04_switch01 != NULL)
+				if (elevator04_switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator04_switch01, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator04_switch02 = Commands->Find_Object ( 101722 );
-				if (elevator04_switch02 != NULL)
+				if (elevator04_switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator04_switch02, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
 
 				GameObject * elevator04_switch03 = Commands->Find_Object ( 101723 );
-				if (elevator04_switch03 != NULL)
+				if (elevator04_switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevator04_switch03, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
@@ -10267,13 +10267,13 @@ DECLARE_SCRIPT(M11_Silo_ElevatorZone01_Top_JDG, "")//100705
 				if (sydney_in_zone == true && havoc_in_zone == true)
 				{
 					GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-					if (elevatorDisabler != NULL)
+					if (elevatorDisabler != nullptr)
 					{
 						Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 					}
 
 					GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
-					if (sydney != NULL )
+					if (sydney != nullptr )
 					{
 						Commands->Send_Custom_Event( obj, sydney, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 					}
@@ -10307,10 +10307,10 @@ DECLARE_SCRIPT(M11_Silo_ElevatorZone02_Top_JDG, "")//100707
 		GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
 		if (enterer == sydney)
 		{
-			if (sydney != NULL )
+			if (sydney != nullptr )
 			{
 				GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-				if (elevatorDisabler != NULL)
+				if (elevatorDisabler != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
@@ -10329,10 +10329,10 @@ DECLARE_SCRIPT(M11_Silo_ElevatorZone03_Top_JDG, "")//100710
 		GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
 		if (enterer == sydney)
 		{
-			if (sydney != NULL )
+			if (sydney != nullptr )
 			{
 				GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-				if (elevatorDisabler != NULL)
+				if (elevatorDisabler != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
@@ -10351,10 +10351,10 @@ DECLARE_SCRIPT(M11_Silo_ElevatorZone04_Top_JDG, "")//100712
 		GameObject * sydney = Commands->Find_Object ( M11_REAL_SYDNEY_MOBIUS_JDG );
 		if (enterer == sydney)
 		{
-			if (sydney != NULL )
+			if (sydney != nullptr )
 			{
 				GameObject * elevatorDisabler = Commands->Find_Object ( 105192 );
-				if (elevatorDisabler != NULL)
+				if (elevatorDisabler != nullptr)
 				{
 					Commands->Send_Custom_Event( obj, elevatorDisabler, 0, M11_GOTO_IDLE_JDG, 0 );
 				}
@@ -10387,7 +10387,7 @@ DECLARE_SCRIPT(M11_ForthFloor_Elevator_Switch_Script_JDG, "")//101689 101651 101
 		if (poker == STAR && sydney_in_motion == false)
 		{
 			GameObject * elevatorController = Commands->Find_Object ( M11_MISSILE_LIFT_CONTROLLER_JDG );
-			if (elevatorController != NULL)
+			if (elevatorController != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, elevatorController, 0, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 			}
@@ -10400,7 +10400,7 @@ DECLARE_SCRIPT(M11_ForthFloor_Elevator_Switch_Script_JDG, "")//101689 101651 101
 		{
 			if (type == 0)//elevator is moving--flash lights
 			{
-				Commands->Set_Animation ( obj, "DSP_DOORSWITCH.DSP_DOORSWITCH", true, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation ( obj, "DSP_DOORSWITCH.DSP_DOORSWITCH", true, nullptr, 0.0f, -1.0f, false);
 			}
 
 			else if (type == 1)//elevator is at top--goto green
@@ -10453,7 +10453,7 @@ DECLARE_SCRIPT(M11_ThirdFloor_Elevator_Switch_Script_JDG, "")//101692 101693 101
 		if (poker == STAR && sydney_in_motion == false)
 		{
 			GameObject * elevatorController = Commands->Find_Object ( M11_MISSILE_LIFT_CONTROLLER_JDG );
-			if (elevatorController != NULL)
+			if (elevatorController != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, elevatorController, 0, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 			}
@@ -10466,7 +10466,7 @@ DECLARE_SCRIPT(M11_ThirdFloor_Elevator_Switch_Script_JDG, "")//101692 101693 101
 		{
 			if (type == 0)//elevator is moving--flash lights
 			{
-				Commands->Set_Animation ( obj, "DSP_DOORSWITCH.DSP_DOORSWITCH", true, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation ( obj, "DSP_DOORSWITCH.DSP_DOORSWITCH", true, nullptr, 0.0f, -1.0f, false);
 			}
 
 			else if (type == 1)//elevator is at top--goto green
@@ -10520,7 +10520,7 @@ DECLARE_SCRIPT(M11_SecondFloor_Elevator_Switch_Script_JDG, "")//101717 101718 10
 		if (poker == STAR && sydney_in_motion == false)
 		{
 			GameObject * elevatorController = Commands->Find_Object ( M11_MISSILE_LIFT_CONTROLLER_JDG );
-			if (elevatorController != NULL)
+			if (elevatorController != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, elevatorController, 0, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 			}
@@ -10533,7 +10533,7 @@ DECLARE_SCRIPT(M11_SecondFloor_Elevator_Switch_Script_JDG, "")//101717 101718 10
 		{
 			if (type == 0)//elevator is moving--flash lights
 			{
-				Commands->Set_Animation ( obj, "DSP_DOORSWITCH.DSP_DOORSWITCH", true, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation ( obj, "DSP_DOORSWITCH.DSP_DOORSWITCH", true, nullptr, 0.0f, -1.0f, false);
 			}
 
 			else if (type == 1)//elevator is at top--goto green
@@ -10586,7 +10586,7 @@ DECLARE_SCRIPT(M11_FirstFloor_Elevator_Switch_Script_JDG, "")//101721 101722 101
 		if (poker == STAR && sydney_in_motion == false)
 		{
 			GameObject * elevatorController = Commands->Find_Object ( M11_MISSILE_LIFT_CONTROLLER_JDG );
-			if (elevatorController != NULL)
+			if (elevatorController != nullptr)
 			{
 				Commands->Send_Custom_Event ( obj, elevatorController, 0, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 			}
@@ -10599,7 +10599,7 @@ DECLARE_SCRIPT(M11_FirstFloor_Elevator_Switch_Script_JDG, "")//101721 101722 101
 		{
 			if (type == 0)//elevator is moving--flash lights
 			{
-				Commands->Set_Animation ( obj, "DSP_DOORSWITCH.DSP_DOORSWITCH", true, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation ( obj, "DSP_DOORSWITCH.DSP_DOORSWITCH", true, nullptr, 0.0f, -1.0f, false);
 			}
 
 			else if (type == 1)//elevator is at top--goto green
@@ -10737,22 +10737,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev4switch03 = Commands->Find_Object ( 101690 );
 				GameObject * lev4switch04 = Commands->Find_Object ( 101691 );
 
-				if (lev4switch01 != NULL)
+				if (lev4switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch01, 0, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch02 != NULL)
+				if (lev4switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch02, 0, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch03 != NULL)
+				if (lev4switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch03, 0, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch04 != NULL)
+				if (lev4switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch04, 0, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -10778,22 +10778,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev3switch03 = Commands->Find_Object ( 101694 );
 				GameObject * lev3switch04 = Commands->Find_Object ( 101695 );
 
-				if (lev3switch01 != NULL)
+				if (lev3switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch01, 0, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch02 != NULL)
+				if (lev3switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch02, 0, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch03 != NULL)
+				if (lev3switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch03, 0, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch04 != NULL)
+				if (lev3switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch04, 0, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -10819,22 +10819,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev2switch03 = Commands->Find_Object ( 101719 );
 				GameObject * lev2switch04 = Commands->Find_Object ( 101720 );
 
-				if (lev2switch01 != NULL)
+				if (lev2switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch01, 0, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch02 != NULL)
+				if (lev2switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch02, 0, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch03 != NULL)
+				if (lev2switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch03, 0, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch04 != NULL)
+				if (lev2switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch04, 0, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -10859,17 +10859,17 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev1switch02 = Commands->Find_Object ( 101722 );
 				GameObject * lev1switch03 = Commands->Find_Object ( 101723 );
 
-				if (lev1switch01 != NULL)
+				if (lev1switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch01, 0, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev1switch02 != NULL)
+				if (lev1switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch02, 0, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev1switch03 != NULL)
+				if (lev1switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch03, 0, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -10893,22 +10893,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev4switch03 = Commands->Find_Object ( 101690 );
 				GameObject * lev4switch04 = Commands->Find_Object ( 101691 );
 
-				if (lev4switch01 != NULL)
+				if (lev4switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch01, 1, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch02 != NULL)
+				if (lev4switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch02, 1, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch03 != NULL)
+				if (lev4switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch03, 1, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch04 != NULL)
+				if (lev4switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch04, 1, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -10924,22 +10924,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev4switch03 = Commands->Find_Object ( 101690 );
 				GameObject * lev4switch04 = Commands->Find_Object ( 101691 );
 
-				if (lev4switch01 != NULL)
+				if (lev4switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch01, 2, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch02 != NULL)
+				if (lev4switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch02, 2, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch03 != NULL)
+				if (lev4switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch03, 2, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev4switch04 != NULL)
+				if (lev4switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev4switch04, 2, M11_PLAYER_HAS_POKED_LEVEL4_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -10960,22 +10960,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev3switch03 = Commands->Find_Object ( 101694 );
 				GameObject * lev3switch04 = Commands->Find_Object ( 101695 );
 
-				if (lev3switch01 != NULL)
+				if (lev3switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch01, 1, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch02 != NULL)
+				if (lev3switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch02, 1, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch03 != NULL)
+				if (lev3switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch03, 1, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch04 != NULL)
+				if (lev3switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch04, 1, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -10991,22 +10991,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev3switch03 = Commands->Find_Object ( 101694 );
 				GameObject * lev3switch04 = Commands->Find_Object ( 101695 );
 
-				if (lev3switch01 != NULL)
+				if (lev3switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch01, 2, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch02 != NULL)
+				if (lev3switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch02, 2, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch03 != NULL)
+				if (lev3switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch03, 2, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev3switch04 != NULL)
+				if (lev3switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev3switch04, 2, M11_PLAYER_HAS_POKED_LEVEL3_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -11027,22 +11027,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev2switch03 = Commands->Find_Object ( 101719 );
 				GameObject * lev2switch04 = Commands->Find_Object ( 101720 );
 
-				if (lev2switch01 != NULL)
+				if (lev2switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch01, 1, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch02 != NULL)
+				if (lev2switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch02, 1, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch03 != NULL)
+				if (lev2switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch03, 1, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch04 != NULL)
+				if (lev2switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch04, 1, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -11058,22 +11058,22 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev2switch03 = Commands->Find_Object ( 101719 );
 				GameObject * lev2switch04 = Commands->Find_Object ( 101720 );
 
-				if (lev2switch01 != NULL)
+				if (lev2switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch01, 2, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch02 != NULL)
+				if (lev2switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch02, 2, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch03 != NULL)
+				if (lev2switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch03, 2, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev2switch04 != NULL)
+				if (lev2switch04 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev2switch04, 2, M11_PLAYER_HAS_POKED_LEVEL2_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -11093,17 +11093,17 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev1switch02 = Commands->Find_Object ( 101722 );
 				GameObject * lev1switch03 = Commands->Find_Object ( 101723 );
 
-				if (lev1switch01 != NULL)
+				if (lev1switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch01, 1, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev1switch02 != NULL)
+				if (lev1switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch02, 1, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev1switch03 != NULL)
+				if (lev1switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch03, 1, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -11118,17 +11118,17 @@ DECLARE_SCRIPT(M11_Elevator_Switch_MasterControllerScript_JDG, "")//101673
 				GameObject * lev1switch02 = Commands->Find_Object ( 101722 );
 				GameObject * lev1switch03 = Commands->Find_Object ( 101723 );
 
-				if (lev1switch01 != NULL)
+				if (lev1switch01 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch01, 2, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev1switch02 != NULL)
+				if (lev1switch02 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch02, 2, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
 
-				if (lev1switch03 != NULL)
+				if (lev1switch03 != nullptr)
 				{
 					Commands->Send_Custom_Event ( obj, lev1switch03, 2, M11_PLAYER_HAS_POKED_LEVEL1_ELEVATOR_SWITCH_JDG, 0 );
 				}
@@ -11185,12 +11185,12 @@ DECLARE_SCRIPT(M11_CeilingRepellers_Controller2_JDG, "")//106908
 			else if (param == M01_MODIFY_YOUR_ACTION_02_JDG)
 			{
 				GameObject * rope_C = Commands->Find_Object ( rope_C_id );
-				if (rope_C != NULL)
+				if (rope_C != nullptr)
 				{
 					GameObject *controller = Commands->Create_Object("Invisible_Object", ropeC_v3);
 					//Commands->Set_Facing ( controller, 75 );
 					Commands->Attach_Script(controller, "Test_Cinematic", "X11D_Repel_Part4.txt");
-					Commands->Set_Animation ( rope_C, "X11D_Rope.X11D_Rope_L", false, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( rope_C, "X11D_Rope.X11D_Rope_L", false, nullptr, 0.0f, -1.0f, false);
 
 					spawned_units++;
 
@@ -11202,9 +11202,9 @@ DECLARE_SCRIPT(M11_CeilingRepellers_Controller2_JDG, "")//106908
 			else if (param == M01_MODIFY_YOUR_ACTION_04_JDG)//set rope "C" to idle anim
 			{
 				GameObject * rope_C = Commands->Find_Object ( rope_C_id );
-				if (rope_C != NULL)
+				if (rope_C != nullptr)
 				{
-					Commands->Set_Animation ( rope_C, "X11D_Rope.X11D_Rope_Z", true, NULL, 0.0f, -1.0f, false);
+					Commands->Set_Animation ( rope_C, "X11D_Rope.X11D_Rope_Z", true, nullptr, 0.0f, -1.0f, false);
 				}
 			}
 
@@ -11228,7 +11228,7 @@ DECLARE_SCRIPT(M11_CeilingRepellers_RopeC_JDG, "")
 	{
 		Commands->Enable_Hibernation( obj, false );
 		GameObject * myController = Commands->Find_Object ( 106908 );
-		if (myController != NULL)
+		if (myController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, myController, 0, M01_ROPE_IS_SENDING_ID_JDG, 0 );
 		}
@@ -11258,7 +11258,7 @@ DECLARE_SCRIPT(M11_CeilingRepeller2_JDG, "")
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		GameObject * myController = Commands->Find_Object ( 106908 );
-		if (myController != NULL)
+		if (myController != nullptr)
 		{
 			Commands->Send_Custom_Event ( obj, myController, 0, M01_IVE_BEEN_KILLED_JDG, 0 );
 		}

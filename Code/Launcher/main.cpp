@@ -267,9 +267,9 @@ int main(int argc, char *argv[])
 	ConfigFile config;
 	FILE* in = fopen(configName, "r");
 
-	if (in == NULL)
+	if (in == nullptr)
 	{
-		MessageBoxA(NULL,"You must run the game from its install directory.",
+		MessageBoxA(nullptr,"You must run the game from its install directory.",
 			"Launcher config file missing",MB_OK);
 		exit(-1);
 	}
@@ -279,7 +279,7 @@ int main(int argc, char *argv[])
 
 	if (ok == false)
 	{
-		MessageBoxA(NULL,"File 'launcher.cfg' is corrupt","Error",MB_OK);
+		MessageBoxA(nullptr,"File 'launcher.cfg' is corrupt","Error",MB_OK);
 		exit(-1);
 	}
 
@@ -350,12 +350,12 @@ int main(int argc, char *argv[])
 		if (cutoffTime == 0)
 		{
 			// We didn't have the FLAG parameter; somebody's been hacking.  No game for you!  Bad hacker!
-			DBGMSG("Saw cutoffTime of 0; real time is " << time(NULL));
-			MessageBoxA(NULL,"File 'launcher.cfg' is corrupt","Error",MB_OK);
+			DBGMSG("Saw cutoffTime of 0; real time is " << time(nullptr));
+			MessageBoxA(nullptr,"File 'launcher.cfg' is corrupt","Error",MB_OK);
 			exit(-1);
 		}
 
-		if (time(NULL) > cutoffTime)
+		if (time(nullptr) > cutoffTime)
 		{
 			// The future is now!  Just run the game.
 			RunGame(argv[0], config, proc);
@@ -401,8 +401,8 @@ void CreatePrimaryWin(char *prefix)
 	wc.cbWndExtra = 0;            // No extra win data
 	wc.hInstance = Global_instance;
 	wc.hIcon=LoadIcon(Global_instance, MAKEINTRESOURCE(IDI_ICON));
-	wc.hCursor = NULL;  /////////LoadCursor( NULL, IDC_ARROW );
-	wc.hbrBackground = NULL;
+	wc.hCursor = nullptr;  /////////LoadCursor( nullptr, IDC_ARROW );
+	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = name;
 	wc.lpszClassName = name;
 	RegisterClassA(&wc);
@@ -412,7 +412,7 @@ void CreatePrimaryWin(char *prefix)
 	*/
 	HWND hwnd = CreateWindowExA(WS_EX_TOPMOST, name, name, WS_POPUP, 0, 0,
 		GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
-		NULL, NULL, Global_instance, NULL);
+		nullptr, nullptr, Global_instance, nullptr);
 
 	if(!hwnd)
 	{
@@ -447,7 +447,7 @@ void myChdir(char *path)
 	int  abc;
 
 	_splitpath( path, drive, dir, file, ext );
-	_makepath ( filepath,   drive, dir, NULL, NULL );
+	_makepath ( filepath,   drive, dir, nullptr, nullptr );
 
 	if ( filepath[ strlen( filepath ) - 1 ] == '\\' )
 	{
@@ -520,7 +520,7 @@ bool Get_Restart_Flag(Process &proc, bool &slave)
 		DWORD data = 0;
 		DWORD data_len = sizeof(data);
 
-		if ((RegQueryValueExA(key, APPLICATION_SUB_KEY_NAME_AUTOSTART, NULL, &type, (LPBYTE)&data, &data_len) == ERROR_SUCCESS) && (type == REG_DWORD)) {
+		if ((RegQueryValueExA(key, APPLICATION_SUB_KEY_NAME_AUTOSTART, nullptr, &type, (LPBYTE)&data, &data_len) == ERROR_SUCCESS) && (type == REG_DWORD)) {
 			return((data != 0) ? true : false);
 		}
 	}

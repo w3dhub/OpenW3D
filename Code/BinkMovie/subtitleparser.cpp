@@ -66,7 +66,7 @@ SubTitleParserClass::TokenHook SubTitleParserClass::mTokenHooks[] =
 	{POSITION_TOKEN, Parse_Position},
 	{COLOR_TOKEN, Parse_Color},
 	{TEXT_TOKEN, Parse_Text},
-	{NULL, NULL}
+	{nullptr, nullptr}
 };
 
 /******************************************************************************
@@ -139,20 +139,20 @@ SubTitleParserClass::~SubTitleParserClass()
 
 DynamicVectorClass<SubTitleClass*>* SubTitleParserClass::Get_Sub_Titles(const char* moviename)
 {
-	DynamicVectorClass<SubTitleClass*>* subTitleCollection = NULL;
+	DynamicVectorClass<SubTitleClass*>* subTitleCollection = nullptr;
 
 	// Find the movie marker
 	if (Find_Movie_Entry(moviename) == true)	{
 		// Allocate container to hold subtitles
 		subTitleCollection = new DynamicVectorClass<SubTitleClass*>;
-		WWASSERT(subTitleCollection != NULL);
+		WWASSERT(subTitleCollection != nullptr);
 
-		if (subTitleCollection != NULL) {
+		if (subTitleCollection != nullptr) {
 			for (;;) {
 				// Retrieve a line from the control file
 				unichar_t* string = Get_Next_Line();
 
-				if ((string != NULL) && (u_strlen(string) > 0)) {
+				if ((string != nullptr) && (u_strlen(string) > 0)) {
 					// Check for subtitle entry markers
 					if ((string[0] == U_CHAR('<')) && (string[u_strlen(string) - 1] == U_CHAR('>'))) {
 						// Trim off markers
@@ -167,9 +167,9 @@ DynamicVectorClass<SubTitleClass*>* SubTitleParserClass::Get_Sub_Titles(const ch
 
 						// Create a new SubTitleClass
 						SubTitleClass* subTitle = new SubTitleClass();
-						WWASSERT(subTitle != NULL);
+						WWASSERT(subTitle != nullptr);
 
-						if (subTitle == NULL) {
+						if (subTitle == nullptr) {
 							WWDEBUG_SAY(("***** Failed to create SubTitleClass!\n"));
 							break;
 						}
@@ -193,7 +193,7 @@ DynamicVectorClass<SubTitleClass*>* SubTitleParserClass::Get_Sub_Titles(const ch
 
 			if (subTitleCollection->Count() == 0) {
 				delete subTitleCollection;
-				subTitleCollection = NULL;
+				subTitleCollection = nullptr;
 			}
 		}
 	}
@@ -221,7 +221,7 @@ DynamicVectorClass<SubTitleClass*>* SubTitleParserClass::Get_Sub_Titles(const ch
 bool SubTitleParserClass::Find_Movie_Entry(const char* moviename)
 {
 	// Convert the moviename into Unicode
-	WWASSERT(moviename != NULL);
+	WWASSERT(moviename != nullptr);
 	unichar_t wideName[32];
 	u_mbtows(wideName, moviename, 32);
 
@@ -230,7 +230,7 @@ bool SubTitleParserClass::Find_Movie_Entry(const char* moviename)
 		unichar_t* string = Get_Next_Line();
 
 		// Terminate if no string read.
-		if (string == NULL) {
+		if (string == nullptr) {
 			break;
 		}
 
@@ -240,7 +240,7 @@ bool SubTitleParserClass::Find_Movie_Entry(const char* moviename)
 			unichar_t* ptr = u_strchr(string, U_CHAR(' '));
 
 			// Check for matching moviename
-			if (ptr != NULL) {
+			if (ptr != nullptr) {
 				u_strtrim(ptr);
 
 				if (u_strcasecmp(ptr, wideName, U_COMPARE_CODE_POINT_ORDER) == 0) {
@@ -278,19 +278,19 @@ bool SubTitleParserClass::Parse_Sub_Title(unichar_t* string, SubTitleClass* subT
 	unichar_t empty = U_CHAR('\0');
 
 	// Parameter check
-	WWASSERT(string != NULL);
-	WWASSERT(subTitle != NULL);
+	WWASSERT(string != nullptr);
+	WWASSERT(subTitle != nullptr);
 
 	for (;;) {
 		// Find token separator
 		unichar_t* separator = u_strchr(string, U_CHAR('='));
 
-		if (separator == NULL) {
+		if (separator == nullptr) {
 			WWDEBUG_SAY(("Error on line %d: syntax error\n", Get_Line_Number()));
 			return false;
 		}
 
-		// NULL terminate token part
+		// nullptr terminate token part
 		*separator++ = 0;
 
 		// Tokens are to the left of the separator
@@ -309,12 +309,12 @@ bool SubTitleParserClass::Parse_Sub_Title(unichar_t* string, SubTitleClass* subT
 			// Use next quote to mark end of parameter
 			separator = u_strchr(param, U_CHAR('"'));
 
-			if (separator == NULL) {
+			if (separator == nullptr) {
 				WWDEBUG_SAY(("Error on line %d: mismatched quotes\n", Get_Line_Number()));
 				return false;
 			}
 
-			// NULL terminate parameter
+			// nullptr terminate parameter
 			*separator++ = 0;
 
 			// Skip any comma following a literal string since we used the trailing
@@ -332,7 +332,7 @@ bool SubTitleParserClass::Parse_Sub_Title(unichar_t* string, SubTitleClass* subT
 			// Look for separator to next token
 			separator = u_strpbrk(param, U_CHAR(", "));
 
-			if (separator != NULL) {
+			if (separator != nullptr) {
 				*separator++ = 0;
 				string = separator;
 			}
@@ -382,17 +382,17 @@ bool SubTitleParserClass::Parse_Sub_Title(unichar_t* string, SubTitleClass* subT
 void SubTitleParserClass::Parse_Token(unichar_t* token, unichar_t* param, SubTitleClass* subTitle)
 {
 	// Parameter check
-	WWASSERT(token != NULL);
-	WWASSERT(subTitle != NULL);
+	WWASSERT(token != nullptr);
+	WWASSERT(subTitle != nullptr);
 
-	if (token != NULL) {
+	if (token != nullptr) {
 		int index = 0;
 
-		while (mTokenHooks[index].Token != NULL) {
+		while (mTokenHooks[index].Token != nullptr) {
 			TokenHook& hook = mTokenHooks[index];
 
 			if (u_strcasecmp(hook.Token, token, U_COMPARE_CODE_POINT_ORDER) == 0) {
-				WWASSERT(subTitle != NULL);
+				WWASSERT(subTitle != nullptr);
 				hook.Handler(param, subTitle);
 				return;
 			}
@@ -415,7 +415,7 @@ void SubTitleParserClass::Parse_Token(unichar_t* token, unichar_t* param, SubTit
 *     NONE
 *
 * RESULTS
-*     String - Pointer to next line of text. NULL if error or EOF.
+*     String - Pointer to next line of text. nullptr if error or EOF.
 *
 ******************************************************************************/
 
@@ -437,7 +437,7 @@ unichar_t* SubTitleParserClass::Get_Next_Line(void)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 
@@ -448,7 +448,7 @@ unsigned int Decode_Time_String(unichar_t* string)
 	#define TICKS_PER_MINUTE (60 * TICKS_PER_SECOND)
 	#define TICKS_PER_HOUR   (60 * TICKS_PER_MINUTE)
 
-	WWASSERT(string != NULL);
+	WWASSERT(string != nullptr);
 
 	unsigned hours = 0, minutes = 0, seconds = 0, hundredth = 0;
 	u_sscanf_u(string, U_CHAR("%u:%u:%u:%u"), &hours, &minutes, &seconds, &hundredth);
@@ -464,8 +464,8 @@ unsigned int Decode_Time_String(unichar_t* string)
 
 void Parse_Time(unichar_t* param, SubTitleClass* subTitle)
 {
-	WWASSERT(param != NULL);
-	WWASSERT(subTitle != NULL);
+	WWASSERT(param != nullptr);
+	WWASSERT(subTitle != nullptr);
 	unsigned int time = Decode_Time_String(param);
 	subTitle->Set_Display_Time(time);
 }
@@ -473,8 +473,8 @@ void Parse_Time(unichar_t* param, SubTitleClass* subTitle)
 
 void Parse_Duration(unichar_t* param, SubTitleClass* subTitle)
 {
-	WWASSERT(param != NULL);
-	WWASSERT(subTitle != NULL);
+	WWASSERT(param != nullptr);
+	WWASSERT(subTitle != nullptr);
 	unsigned int time = Decode_Time_String(param);
 
 	if (time > 0) {
@@ -493,18 +493,18 @@ void Parse_Position(unichar_t* param, SubTitleClass* subTitle)
 			{U_CHAR("Left"), SubTitleClass::Left},
 			{U_CHAR("Right"), SubTitleClass::Right},
 			{U_CHAR("Center"), SubTitleClass::Center},
-			{NULL, SubTitleClass::Center}
+			{nullptr, SubTitleClass::Center}
 	};
 
-	WWASSERT(subTitle != NULL);
-	WWASSERT(param != NULL);
+	WWASSERT(subTitle != nullptr);
+	WWASSERT(param != nullptr);
 
 	unichar_t* ptr = param;
 
 	// Line position
 	unichar_t* separator = u_strchr(ptr, U_CHAR(':'));
 
-	if (separator != NULL) {
+	if (separator != nullptr) {
 		*separator++ = 0;
 		int linePos = 0;
 		u_sscanf_u(ptr, U_CHAR("%d"), &linePos);
@@ -516,7 +516,7 @@ void Parse_Position(unichar_t* param, SubTitleClass* subTitle)
 	SubTitleClass::Alignment align = SubTitleClass::Center;
 	int index = 0;
 
-	while (_alignLookup[index].Name != NULL) {
+	while (_alignLookup[index].Name != nullptr) {
 		if (u_strcasecmp(ptr, _alignLookup[index].Name, U_COMPARE_CODE_POINT_ORDER) == 0) {
 			align = _alignLookup[index].Align;
 			break;
@@ -531,8 +531,8 @@ void Parse_Position(unichar_t* param, SubTitleClass* subTitle)
 
 void Parse_Color(unichar_t* param, SubTitleClass* subTitle)
 {
-	WWASSERT(param != NULL);
-	WWASSERT(subTitle != NULL);
+	WWASSERT(param != nullptr);
+	WWASSERT(subTitle != nullptr);
 
 	unsigned char red = 0, green = 0, blue = 0;
 	u_sscanf_u(param, U_CHAR("%hhu:%hhu:%hhu"), &red, &green, &blue);
@@ -543,8 +543,8 @@ void Parse_Color(unichar_t* param, SubTitleClass* subTitle)
 
 void Parse_Text(unichar_t* param, SubTitleClass* subTitle)
 {
-	WWASSERT(param != NULL);
-	WWASSERT(subTitle != NULL);
+	WWASSERT(param != nullptr);
+	WWASSERT(subTitle != nullptr);
 
 	subTitle->Set_Caption(param);
 }

@@ -81,7 +81,7 @@ LadderData::LadderData(const WOL::Ladder& ladder, int time) :
 	{
 //	WWDEBUG_SAY(("WOL: Instantiating LadderData\n"));
 	memcpy(&mData, &ladder, sizeof(mData));
-	mData.next = NULL;
+	mData.next = nullptr;
 	}
 
 
@@ -128,7 +128,7 @@ bool LadderData::UpdateData(const WOL::Ladder& ladder, int time)
 	if (time > mTimeStamp)
 		{
 		memcpy(&mData, &ladder, sizeof(mData));
-		mData.next = NULL;
+		mData.next = nullptr;
 		return true;
 		}
 

@@ -121,7 +121,7 @@ MainDialogBarClass::OnSize
 		//GetClientRect (&client_rect);
 
 		// Resize the tab control to fill the entire contents of the client area
-		m_TabCtrl.SetWindowPos (NULL, 0, 3, cx, cy - 6, SWP_NOZORDER);
+		m_TabCtrl.SetWindowPos (nullptr, 0, 3, cx, cy - 6, SWP_NOZORDER);
 
 		// Get the display rectangle of the tab control
 		CRect rect;
@@ -135,12 +135,12 @@ MainDialogBarClass::OnSize
 		// Loop through all the tabs in the library
 		//
 		for (int tab = 0; tab < TAB_COUNT; tab ++) {
-			if (m_pTabs[tab] != NULL) {
+			if (m_pTabs[tab] != nullptr) {
 
 				//
 				// Resize this tab
 				//
-				m_pTabs[tab]->SetWindowPos (NULL, rect.left, rect.top,
+				m_pTabs[tab]->SetWindowPos (nullptr, rect.left, rect.top,
 										rect.Width (), rect.Height (), SWP_NOZORDER);
 			}
 		}
@@ -169,14 +169,14 @@ MainDialogBarClass::OnSelchangeLibraryTab
 	if (m_iCurrentTab != newtab) {
 
 		// Is the old tab valid?
-		if (m_pTabs[m_iCurrentTab] != NULL) {
+		if (m_pTabs[m_iCurrentTab] != nullptr) {
 
 			// Hide the contents of the old tab
 			m_pTabs[m_iCurrentTab]->ShowWindow (SW_HIDE);
 		}
 
 		// Is the new tab valid?
-		if (m_pTabs[newtab] != NULL) {
+		if (m_pTabs[newtab] != nullptr) {
 
 			// Show the contents of the new tab
 			m_pTabs[newtab]->ShowWindow (SW_SHOW);
@@ -249,7 +249,7 @@ MainDialogBarClass::Initialize (void)
 	// Loop through and create the tabs
 	//
 	for (int index = 0; index < TAB_COUNT; index ++) {
-		if (m_pTabs[index] != NULL) {
+		if (m_pTabs[index] != nullptr) {
 			m_pTabs[index]->ShowWindow ((index == 0) ? SW_SHOW : SW_HIDE);
 		}
 	}
@@ -262,7 +262,7 @@ BOOL MainDialogBarClass::PreTranslateMessage(MSG* pMsg)
 	// TODO: Add your specialized code here and/or call the base class
 
 	/*CMainFrame *main_wnd = (CMainFrame *)::AfxGetMainWnd ();
-	if (main_wnd !=  NULL) {
+	if (main_wnd !=  nullptr) {
 		HACCEL accel_table = main_wnd->GetDefaultAccelerator ();
 		if (::TranslateAccelerator (main_wnd->m_hWnd, accel_table, pMsg)) {
 			return 1;

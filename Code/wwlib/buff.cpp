@@ -69,7 +69,7 @@ Buffer::Buffer(void * buffer, int size) :
 	Size(size),
 	IsAllocated(false)
 {
-	if (buffer == NULL && size > 0) {
+	if (buffer == nullptr && size > 0) {
 		BufferPtr = new char[size];
 		IsAllocated = true;
 	}
@@ -82,7 +82,7 @@ Buffer::Buffer(char * buffer, int size) :
 	Size(size),
 	IsAllocated(false)
 {
-	if (buffer == NULL && size > 0) {
+	if (buffer == nullptr && size > 0) {
 		BufferPtr = new char[size];
 		IsAllocated = true;
 	}
@@ -95,7 +95,7 @@ Buffer::Buffer(void const * buffer, int size) :
 	Size(size),
 	IsAllocated(false)
 {
-	if (buffer == NULL && size > 0) {
+	if (buffer == nullptr && size > 0) {
 		BufferPtr = new char[size];
 		IsAllocated = true;
 	}
@@ -114,13 +114,13 @@ Buffer::Buffer(void const * buffer, int size) :
  * OUTPUT:  none                                                                               *
  *                                                                                             *
  * WARNINGS:   There is no way to tell if the allocation failed. To verify, call Get_Buffer    *
- *             and compare with NULL.                                                          *
+ *             and compare with nullptr.                                                          *
  *                                                                                             *
  * HISTORY:                                                                                    *
  *   07/29/1996 JLB : Created.                                                                 *
  *=============================================================================================*/
 Buffer::Buffer(int size) :
-	BufferPtr(NULL),
+	BufferPtr(nullptr),
 	Size(size),
 	IsAllocated(false)
 {
@@ -225,7 +225,7 @@ void Buffer::Reset(void)
 	if (IsAllocated) {
 		delete[] (char *)BufferPtr;
 	}
-	BufferPtr = NULL;
+	BufferPtr = nullptr;
 	Size = 0;
 	IsAllocated = false;
 }

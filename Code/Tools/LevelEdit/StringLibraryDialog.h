@@ -43,7 +43,7 @@ class StringLibraryDialogClass : public CDialog, public StringsCategoryViewCallb
 {
 // Construction
 public:
-	StringLibraryDialogClass (CWnd *pParent = NULL);
+	StringLibraryDialogClass (CWnd *pParent = nullptr);
 	~StringLibraryDialogClass (void);
 
 // Dialog Data

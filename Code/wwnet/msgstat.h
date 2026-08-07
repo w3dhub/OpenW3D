@@ -33,10 +33,6 @@
 
 #include "bittype.h"
 
-#ifndef NULL
-#define NULL 0L
-#endif
-
 //-----------------------------------------------------------------------------
 class cMsgStat
 {
