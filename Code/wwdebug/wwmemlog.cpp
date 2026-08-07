@@ -560,7 +560,7 @@ MemLogClass * WWMemoryLogClass::Get_Log(void)
  * HISTORY:                                                                                    *
  *   6/13/2001 8:55PM ST : Created                                                             *
  *=============================================================================================*/
-void __cdecl WWMemoryLogClass::Release_Log(void)
+void WWMemoryLogClass::Release_Log(void)
 {
 	MemLogMutexLockClass lock;
 	if (_TheMemLog) {

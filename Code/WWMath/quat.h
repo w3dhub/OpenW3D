@@ -192,9 +192,9 @@ Quaternion Trackball(float x0, float y0, float x1, float y1, float sphsize);
 
 // Spherical Linear interpolation of quaternions
 //Quaternion Slerp(const Quaternion & a,const Quaternion & b,float t);
-void __cdecl Slerp(Quaternion& result, const Quaternion & a,const Quaternion & b,float t);
+void Slerp(Quaternion& result, const Quaternion & a,const Quaternion & b,float t);
 // Fast slerp is innaccurate but multiple times faster
-void __cdecl Fast_Slerp(Quaternion& result, const Quaternion & a,const Quaternion & b,float t);
+void Fast_Slerp(Quaternion& result, const Quaternion & a,const Quaternion & b,float t);
 
 // Convert a rotation matrix into a quaternion
 Quaternion Build_Quaternion(const Matrix3 & matrix);

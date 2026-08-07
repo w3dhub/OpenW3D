@@ -96,7 +96,7 @@ enum	{
 /*
 **
 */
-void __cdecl SaveGameManager::Save_Game( const char * filename, ... )
+void SaveGameManager::Save_Game( const char * filename, ... )
 {
 	Debug_Say(( "Save Game %s\n", filename ));
 	CurrentGameFilename = filename;
@@ -517,7 +517,7 @@ void	SaveGameManager::Load_Definitions( const char * filename )
 /*
 **
 */
-void __cdecl SaveGameManager::Save_Save_Load_System( const char * filename, ... )
+void SaveGameManager::Save_Save_Load_System( const char * filename, ... )
 {
 	FileClass * file = _TheWritingFileFactory->Get_File( filename );
 	WWASSERT(file);

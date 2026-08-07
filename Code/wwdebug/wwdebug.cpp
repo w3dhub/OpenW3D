@@ -346,7 +346,7 @@ void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
  *   12/11/2001 3:56PM ST : Created                                                            *
  *=============================================================================================*/
 #ifdef WWDEBUG
-void __cdecl _assert(void *expr, void *filename, unsigned lineno)
+void _assert(void *expr, void *filename, unsigned lineno)
 {
 	WWDebug_Assert_Fail((const char*)expr, (const char*)filename, lineno);
 }

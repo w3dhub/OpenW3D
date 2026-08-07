@@ -59,7 +59,7 @@
 *
 ******************************************************************************/
 
-void __cdecl DebugPrint(const char* string, ...)
+void DebugPrint(const char* string, ...)
 	{
 	static char _buffer[1024];
 	static char _filename[512] = "";
@@ -156,7 +156,7 @@ void __cdecl DebugPrint(const char* string, ...)
 *
 ******************************************************************************/
 
-void __cdecl PrintWin32Error(const char* string, ...)
+void PrintWin32Error(const char* string, ...)
 	{
 	static char _buffer[1024];
 

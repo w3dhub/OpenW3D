@@ -536,7 +536,7 @@ void *NewMutex = NULL;
 #ifdef _DEBUG
 #ifdef STEVES_NEW_CATCHER
 
-extern _CRTIMP void * __cdecl operator new(size_t, int, const char *, int);
+extern _CRTIMP void * operator new(size_t, int, const char *, int);
 
 /*
 ** List of addresses to 'watch'. You can stuff them in here and compile or manually poke them in with the debugger at run time.

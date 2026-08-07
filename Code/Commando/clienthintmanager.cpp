@@ -180,7 +180,7 @@ cClientHintManager::Think
 	//
 	// Sort the object list. Lowest priority first.
 	//
-	qsort(object_list, num_objects, sizeof(unsigned int), (int (__cdecl *)(const void *,const void *)) &Priority_Compare);
+	qsort(object_list, num_objects, sizeof(unsigned int), (int (*)(const void *,const void *)) &Priority_Compare);
 
 
 	//
@@ -270,7 +270,7 @@ cClientHintManager::Think
 //
 // Qsort compare function for array of object pointers.
 //
-int __cdecl cClientHintManager::Priority_Compare(const void **object1, const void **object2)
+int cClientHintManager::Priority_Compare(const void **object1, const void **object2)
 {
 	WWASSERT(object1 != NULL);
 	WWASSERT(object2 != NULL);

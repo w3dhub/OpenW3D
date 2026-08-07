@@ -47,7 +47,7 @@ public:
 	static void		Think(void);
 
 private:
-	static int __cdecl Priority_Compare(const void **object1, const void **object2);
+	static int Priority_Compare(const void **object1, const void **object2);
 
 };
 

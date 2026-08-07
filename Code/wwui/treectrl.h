@@ -161,7 +161,7 @@ protected:
 
 	bool				Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int &row_index, int level);
 
-	static int __cdecl	Sort_Callback (const void *elem1, const void *elem2);
+	static int Sort_Callback (const void *elem1, const void *elem2);
 	static int 		Alphabetic_Sort_Callback (TreeCtrlClass *tree_ctrl, TreeItemClass *item1, TreeItemClass *item2, uint32 user_param);
 
 	////////////////////////////////////////////////////////////////

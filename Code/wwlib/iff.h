@@ -40,10 +40,6 @@
 #ifndef IFF_H
 #define IFF_H
 
-#ifndef _WIN32
-#define __cdecl
-#endif
-
 #include	"buff.h"
 #include	<stddef.h>
 
@@ -98,30 +94,30 @@ typedef struct {
 /* The following prototypes are for the file: IFF.CPP								*/
 /*=========================================================================*/
 
-int __cdecl Open_Iff_File(char const *filename);
-void __cdecl Close_Iff_File(int fh);
-unsigned int __cdecl Get_Iff_Chunk_Size(int fh, int id);
-unsigned int __cdecl Read_Iff_Chunk(int fh, int id, void *buffer, unsigned int maxsize);
-void __cdecl Write_Iff_Chunk(int file, int id, void *buffer, int length);
+int Open_Iff_File(char const *filename);
+void Close_Iff_File(int fh);
+unsigned int Get_Iff_Chunk_Size(int fh, int id);
+unsigned int Read_Iff_Chunk(int fh, int id, void *buffer, unsigned int maxsize);
+void Write_Iff_Chunk(int file, int id, void *buffer, int length);
 
 
 /*=========================================================================*/
 /* The following prototypes are for the file: LOADPICT.CPP						*/
 /*=========================================================================*/
 
-//int __cdecl Load_Picture(char const *filename, BufferClass& scratchbuf, BufferClass& destbuf, unsigned char *palette=NULL, PicturePlaneType format=BM_DEFAULT);
+//int Load_Picture(char const *filename, BufferClass& scratchbuf, BufferClass& destbuf, unsigned char *palette=NULL, PicturePlaneType format=BM_DEFAULT);
 
 
 /*=========================================================================*/
 /* The following prototypes are for the file: LOAD.CPP							*/
 /*=========================================================================*/
 
-unsigned int __cdecl Load_Data(char const *name, void *ptr, unsigned int size);
-unsigned int __cdecl Write_Data(char const *name, void *ptr, unsigned int size);
-//void * __cdecl Load_Alloc_Data(char const *name, MemoryFlagType flags);
-unsigned int __cdecl Load_Uncompress(char const *file, Buffer & uncomp_buff, Buffer & dest_buff, void *reserved_data=NULL);
-unsigned int __cdecl Uncompress_Data(void const *src, void *dst);
-void __cdecl Set_Uncomp_Buffer(int buffer_segment, int size_of_buffer);
+unsigned int Load_Data(char const *name, void *ptr, unsigned int size);
+unsigned int Write_Data(char const *name, void *ptr, unsigned int size);
+//void * Load_Alloc_Data(char const *name, MemoryFlagType flags);
+unsigned int Load_Uncompress(char const *file, Buffer & uncomp_buff, Buffer & dest_buff, void *reserved_data=NULL);
+unsigned int Uncompress_Data(void const *src, void *dst);
+void Set_Uncomp_Buffer(int buffer_segment, int size_of_buffer);
 
 /*=========================================================================*/
 /* The following prototypes are for the file: WRITELBM.CPP						*/
@@ -141,19 +137,19 @@ extern "C" {
 /* The following prototypes are for the file: PACK2PLN.ASM						*/
 /*=========================================================================*/
 
-extern void __cdecl Pack_2_Plane(void *buffer, void * pageptr, int planebit);
+extern void Pack_2_Plane(void *buffer, void * pageptr, int planebit);
 
 /*=========================================================================*/
 /* The following prototypes are for the file: LCWCOMP.ASM						*/
 /*=========================================================================*/
 
-extern unsigned int __cdecl LCW_Compress(void *source, void *dest, unsigned int length);
+extern unsigned int LCW_Compress(void *source, void *dest, unsigned int length);
 
 /*=========================================================================*/
 /* The following prototypes are for the file: LCWUNCMP.ASM						*/
 /*=========================================================================*/
 
-extern unsigned int __cdecl LCW_Uncompress(void *source, void *dest, unsigned int length);
+extern unsigned int LCW_Uncompress(void *source, void *dest, unsigned int length);
 
 #ifdef __cplusplus
 }

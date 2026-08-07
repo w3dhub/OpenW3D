@@ -631,7 +631,7 @@ TreeCtrlClass::Sort_Children (TreeItemClass *parent, TREECTRL_SORT_CALLBACK sort
 //	Sort_Callback
 //
 ////////////////////////////////////////////////////////////////
-int __cdecl
+int 
 TreeCtrlClass::Sort_Callback (const void *elem1, const void *elem2)
 {
    WWASSERT (elem1 != NULL);

@@ -409,7 +409,7 @@ public:
 	virtual bool				Is_Type (Type type) const override { return (type == TYPE_ENUM) || ParameterClass::Is_Type (type); }
 
 	// Data manipulation
-	virtual void __cdecl		Add_Values (const char *first_name, int first_value, ...);
+	virtual void Add_Values (const char *first_name, int first_value, ...);
 	virtual void				Add_Value (const char *display_name, int value);
 	virtual int					Get_Count (void) const					{ return m_List.Count (); }
 	virtual const char *		Get_Entry_Name (int index) const		{ return m_List[index].name; }

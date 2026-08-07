@@ -4451,7 +4451,7 @@ RaveshawBossGameObjClass::Add_Lightning_Arc (const Vector3 &start_point, const V
 //	fnSortLightningRodsCallback
 //
 ////////////////////////////////////////////////////////////////
-int __cdecl
+int 
 RaveshawBossGameObjClass::fnSortLightningRodsCallback
 (
 	const void *elem1,

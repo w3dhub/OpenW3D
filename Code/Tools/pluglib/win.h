@@ -71,7 +71,7 @@ extern bool GameInFocus;
 
 #ifdef _DEBUG
 
-void __cdecl Print_Win32Error(unsigned int win32Error);
+void Print_Win32Error(unsigned int win32Error);
 
 #else // _DEBUG
 

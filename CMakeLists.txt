@@ -65,13 +65,8 @@ option(W3D_BUILD_QT_TOOLS "Build Qt-based GUI tools." OFF)
 add_feature_info(QtTools W3D_BUILD_QT_TOOLS "Build Qt front-end tools")
 
 if(NOT WIN32)
-    add_compile_definitions(__cdecl=)
-    add_compile_definitions(__stdcall=)
-    add_compile_definitions(_stdcall=)
     add_compile_definitions(stricmp=strcasecmp)
     add_compile_definitions(strnicmp=strncasecmp)
-    add_compile_definitions(wcsnicmp=wcsncasecmp)
-    add_compile_definitions(wcsicmp=wcscasecmp)
 endif()
 
 include(FetchContent)

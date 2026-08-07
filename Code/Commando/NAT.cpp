@@ -286,23 +286,25 @@ FirewallHelperClass::~FirewallHelperClass(void)
  * HISTORY:                                                                                    *
  *   8/7/2001 2:39PM ST : Created                                                              *
  *=============================================================================================*/
+#ifdef _WIN32
 unsigned int __stdcall FirewallHelperClass::NAT_Thread_Start(void *thisptr)
+#else
+void *FirewallHelperClass::NAT_Thread_Start(void *thisptr)
+#endif
 {
-	unsigned int thread_exit_code = 0;
-
 	Register_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Firewall thread");
 
 #ifdef _MSC_VER
 	__try {
 #endif
-		thread_exit_code = ((FirewallHelperClass*)thisptr)->NAT_Thread_Main_Loop();
+		((FirewallHelperClass*)thisptr)->NAT_Thread_Main_Loop();
 #ifdef _MSC_VER
 	} __except(Exception_Handler(GetExceptionCode(), GetExceptionInformation())) {};
 #endif
 
 	Unregister_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Firewall thread");
 
-	return(thread_exit_code);
+	return(0);
 }
 
 

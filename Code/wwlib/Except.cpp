@@ -185,7 +185,7 @@ static SymGetModuleBaseType				_SymGetModuleBase = NULL;
  * HISTORY:                                                                                    *
  *   8/22/00 11:42AM ST : Created                                                              *
  *=============================================================================================*/
-int __cdecl _purecall(void)
+int _purecall(void)
 {
 	int return_code = 0;
 

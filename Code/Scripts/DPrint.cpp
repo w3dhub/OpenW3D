@@ -65,7 +65,7 @@ extern ScriptCommands* Commands;
 *
 ****************************************************************************/
 
-void __cdecl DebugPrint(const char* string, ...)
+void DebugPrint(const char* string, ...)
 	{
 	static char _buffer[1024];
 	static char _filename[512] = "";

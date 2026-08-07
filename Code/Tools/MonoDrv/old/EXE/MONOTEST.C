@@ -28,7 +28,7 @@
 #define	MESSAGE2	"*** Page 2 ***\n"
 #define	MESSAGE3	"Another line of text.\n"
 
-int __cdecl main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	HANDLE handle1;
 	HANDLE handle2;
