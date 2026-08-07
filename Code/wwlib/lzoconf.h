@@ -117,7 +117,7 @@
 #  define __LZO_MMODEL
 #elif defined(__LZO_MSDOS16)
 #  define __LZO_MMODEL      huge
-#  define __LZO_ENTRY       __cdecl
+#  define __LZO_ENTRY       
 #else
 #  error __LZO_MMODEL
 #endif

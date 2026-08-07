@@ -193,7 +193,7 @@ void PointerRemapClass::Request_Ref_Counted_Pointer_Remap (RefCountClass **point
 ** sort compare function for pointer pair structures
 ** sorts by the old pointer value
 */
-int __cdecl PointerRemapClass::ptr_pair_compare_function(void const * ptr1, void const * ptr2)
+int PointerRemapClass::ptr_pair_compare_function(void const * ptr1, void const * ptr2)
 {
 	void * old1 = ((PointerRemapClass::PtrPairStruct const *)ptr1)->OldPointer;
 	void * old2 = ((PointerRemapClass::PtrPairStruct const *)ptr2)->OldPointer;
@@ -211,7 +211,7 @@ int __cdecl PointerRemapClass::ptr_pair_compare_function(void const * ptr1, void
 ** sort compare function for pointer remap structures
 ** sorts by the old pointer value
 */
-int __cdecl PointerRemapClass::ptr_request_compare_function(void const * ptr1, void const * ptr2)
+int PointerRemapClass::ptr_request_compare_function(void const * ptr1, void const * ptr2)
 {
 	PtrRemapStruct * remap1 = (PtrRemapStruct *)ptr1;
 	PtrRemapStruct * remap2 = (PtrRemapStruct *)ptr2;

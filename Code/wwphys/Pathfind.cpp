@@ -58,7 +58,7 @@
 ///////////////////////////////////////////////////////////////////////////
 //	Local prototypes
 ///////////////////////////////////////////////////////////////////////////
-int __cdecl fnCompareWaypathPortalsCallback (const void *elem1, const void *elem2);
+int fnCompareWaypathPortalsCallback (const void *elem1, const void *elem2);
 bool Find_Intersection_Point (const AABoxClass &box, const Vector3 &p0, const Vector3 &p1, float *percent, Vector3 *intersection_point);
 void Add_New_Portal_To_List (DynamicVectorClass<PathfindWaypathPortalClass *> &portal_list, PathfindSectorClass *dest_sector1, PathfindSectorClass *dest_sector2, int waypath_id, int waypoint_index, const Vector3 &portal_pos, float percent);
 
@@ -1859,7 +1859,7 @@ Find_Intersection_Point
 //	fnCompareWaypathPortalsCallback
 //
 ////////////////////////////////////////////////////////////////
-int __cdecl
+int 
 fnCompareWaypathPortalsCallback
 (
 	const void *elem1,

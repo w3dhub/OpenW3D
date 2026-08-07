@@ -40,7 +40,7 @@ int Print(HANDLE handle, char const * text)
 }
 
 
-int __cdecl main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	HANDLE handle1;
 	HANDLE handle2;

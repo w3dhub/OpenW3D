@@ -925,7 +925,7 @@ DefinitionMgrClass::Get_New_ID (uint32 class_id)
 //	fnCompareDefinitionsCallback
 //
 ////////////////////////////////////////////////////////////////
-int __cdecl
+int 
 DefinitionMgrClass::fnCompareDefinitionsCallback
 (
 	const void *elem1,

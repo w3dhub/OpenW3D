@@ -1645,7 +1645,7 @@ int Ping_Host(unsigned int host_ip, unsigned int my_ip, int times, int payload_s
  * HISTORY:                                                                                    *
  *   10/8/2001 2:13PM ST : Created                                                             *
  *=============================================================================================*/
-int __cdecl Ping_Compare(const void *ping1, const void *ping2)
+int Ping_Compare(const void *ping1, const void *ping2)
 {
 	unsigned int p1 = *((unsigned int*)ping1);
 	unsigned int p2 = *((unsigned int*)ping2);

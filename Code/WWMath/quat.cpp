@@ -250,7 +250,7 @@ Quaternion Axis_To_Quat(const Vector3 &a, float phi)
  * HISTORY:                                                                                    *
  *   02/28/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-void __cdecl Fast_Slerp(Quaternion& res, const Quaternion & p,const Quaternion & q,float alpha)
+void Fast_Slerp(Quaternion& res, const Quaternion & p,const Quaternion & q,float alpha)
 {
 	float beta;			// complementary interploation parameter
 	float theta;		// angle between p and q

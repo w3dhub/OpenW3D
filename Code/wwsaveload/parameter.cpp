@@ -584,7 +584,7 @@ EnumParameterClass::Add_Value (const char *display_name, int value)
 //	Add_Value
 //
 /////////////////////////////////////////////////////////////////////
-void __cdecl
+void 
 EnumParameterClass::Add_Values (const char *first_name, int first_value, ...)
 {
 	m_List.Add (ENUM_VALUE(first_name, first_value));

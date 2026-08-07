@@ -581,7 +581,7 @@ void	ObjectiveManager::Set_Objective_Radar_Blip( int id, PhysicalGameObj * objec
 //	fnCompareObjectivesCallback
 //
 ////////////////////////////////////////////////////////////////
-int __cdecl ObjectiveManager::ObjectiveSortCallback( const void *elem1, const void *elem2 )
+int ObjectiveManager::ObjectiveSortCallback( const void *elem1, const void *elem2 )
 {
    WWASSERT (elem1 != NULL);
    WWASSERT (elem2 != NULL);

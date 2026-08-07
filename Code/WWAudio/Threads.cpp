@@ -203,7 +203,7 @@ WWAudioThreadsClass::Flush_Delayed_Release_Objects (void)
 //	Delayed_Release_Thread_Proc
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl
+void 
 WWAudioThreadsClass::Delayed_Release_Thread_Proc (LPVOID /*param*/)
 {
 	const DWORD base_timeout = 2000;

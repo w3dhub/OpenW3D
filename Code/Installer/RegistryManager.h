@@ -104,11 +104,11 @@ class RegistryManagerClass {
 
 	protected:
 
-		bool __cdecl Get_String (HKEY rootkey, WideStringClass *string, ...);
-		bool __cdecl Get_Value (HKEY rootkey, DWORD *value, ...);
-		bool __cdecl Set_String (HKEY rootkey, const wchar_t *string, ...);
-		bool __cdecl Set_Value (HKEY rootkey, DWORD value, ...);
-		bool __cdecl Get_Key (HKEY rootkey, DWORD keyindex, StringClass *keyname, ...);
+		bool Get_String (HKEY rootkey, WideStringClass *string, ...);
+		bool Get_Value (HKEY rootkey, DWORD *value, ...);
+		bool Set_String (HKEY rootkey, const wchar_t *string, ...);
+		bool Set_Value (HKEY rootkey, DWORD value, ...);
+		bool Get_Key (HKEY rootkey, DWORD keyindex, StringClass *keyname, ...);
 
 		char *WOLKeys [COMPONENT_COUNT];
 };

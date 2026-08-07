@@ -303,7 +303,7 @@ ObjectivesViewerClass::Render (void)
 //	fnCompareObjectivesCallback
 //
 ////////////////////////////////////////////////////////////////
-int __cdecl
+int 
 ObjectivesViewerClass::fnCompareObjectivesCallback
 (
 	const void *elem1,

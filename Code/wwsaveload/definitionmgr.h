@@ -136,7 +136,7 @@ private:
 	//	Private methods
 	/////////////////////////////////////////////////////////////////////
 	static void						Prepare_Definition_Array (void);
-	static int __cdecl			fnCompareDefinitionsCallback (const void *elem1, const void *elem2);
+	static int fnCompareDefinitionsCallback (const void *elem1, const void *elem2);
 
 	/////////////////////////////////////////////////////////////////////
 	//	Static member data

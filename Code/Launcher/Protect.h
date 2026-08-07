@@ -74,9 +74,9 @@ class Protect
 extern "C" {
 #endif
 
-void __cdecl InitializeProtect(void);
-void __cdecl ShutdownProtect(void);
-void __cdecl SendProtectMessage(HANDLE process, DWORD threadID);
+void InitializeProtect(void);
+void ShutdownProtect(void);
+void SendProtectMessage(HANDLE process, DWORD threadID);
 
 #ifdef __cplusplus
 };

@@ -119,7 +119,7 @@ extern	LPDIRECTDRAW2	DirectDraw2Interface;
 /* Prog_End Must be supplied by the user program in startup.cpp				*/
 /*=========================================================================*/
 void Prog_End(void);
-//void __cdecl Exit(INT errorval, const char *message, ...);
+//void Exit(INT errorval, const char *message, ...);
 
 /*=========================================================================*/
 /* The following prototypes are for the file: DELAY.CPP							*/
@@ -138,21 +138,21 @@ extern "C" {
 /* The following prototype is for the file: SHAKESCR.ASM							*/
 /*=========================================================================*/
 
-void __cdecl Shake_Screen(int shakes);
+void Shake_Screen(int shakes);
 
 //void * Build_Fading_Table(PaletteClass const & palette, void * dest, int color, int frac);
-//void * __cdecl Build_Fading_Table(void const *palette, void const *dest, int int color, int int frac);
+//void * Build_Fading_Table(void const *palette, void const *dest, int int color, int int frac);
 
 /*=========================================================================*/
 /* The following prototypes are for the file: DETPROC.ASM						*/
 /*=========================================================================*/
 
-extern WORD __cdecl  Processor(void);
-extern WORD __cdecl Operating_System(void);
+extern WORD  Processor(void);
+extern WORD Operating_System(void);
 
-extern int __cdecl Clip_Rect ( int * x , int * y , int * dw , int * dh ,
+extern int Clip_Rect ( int * x , int * y , int * dw , int * dh ,
 	       	   			 int width , int height ) ;
-extern int __cdecl Confine_Rect ( int * x , int * y , int dw , int dh ,
+extern int Confine_Rect ( int * x , int * y , int dw , int dh ,
 	      	      			 int width , int height ) ;
 
 

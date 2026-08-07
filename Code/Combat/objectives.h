@@ -171,7 +171,7 @@ private:
 
 	static int										NumSpecifiedTertiaryObjectives;
 
-	static	int __cdecl		ObjectiveSortCallback( const void *elem1, const void *elem2 );
+	static	int ObjectiveSortCallback( const void *elem1, const void *elem2 );
 	static	void				Sort_Objectives( void );
 
 	friend class ObjectivesViewerClass;

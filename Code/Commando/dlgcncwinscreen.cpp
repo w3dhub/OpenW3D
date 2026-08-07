@@ -614,7 +614,7 @@ CNCWinScreenMenuClass::Populate_Player_Lists (int team_id, int list_ctrl1_id)
 //	ListSortCallbackk
 //
 ////////////////////////////////////////////////////////////////
-int __cdecl
+int 
 CNCWinScreenMenuClass::ListSortCallback
 (
 	const void *elem1,

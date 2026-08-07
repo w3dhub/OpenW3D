@@ -36,7 +36,7 @@ static char THIS_FILE[] = __FILE__;
 //////////////////////////////////////////////////////////////////////////////
 //	Local prototypes
 //////////////////////////////////////////////////////////////////////////////
-int __cdecl fnCtrlCompareCallback (void const *ptr1, void const *ptr2);
+int fnCtrlCompareCallback (void const *ptr1, void const *ptr2);
 int Rate_Param_Type (ParameterClass::Type type);
 
 
@@ -903,7 +903,7 @@ Rate_Param_Type (ParameterClass::Type type)
 // fnCtrlCompareCallback
 //
 /////////////////////////////////////////////////////////////////////////////
-int __cdecl
+int 
 fnCtrlCompareCallback (void const *ptr1, void const *ptr2)
 {
 	ParameterClass::Type type1 = (*((ParameterCtrlClass **)ptr1))->Get_Type ();
