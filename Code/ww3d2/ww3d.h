@@ -175,11 +175,13 @@ public:
 	static void					Make_Screen_Shot( const char * filename = "ScreenShot");
 	static int					Make_Back_Buffer_Screen_Shot( const char * filename = "ScreenShot");
 	static void					Start_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
+	static bool					Try_Start_Movie_Capture_From_Back_Buffer( const char * filename_base, float frame_rate);
 	static void					Stop_Movie_Capture( void);
 	static void					Toggle_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
 	static void					Start_Single_Frame_Movie_Capture(const char *filename_base = "Frames");
 	static void					Capture_Next_Movie_Frame();
 	static void					Update_Movie_Capture( void);
+	static bool					Try_Update_Movie_Capture_From_Back_Buffer( void);
 	static float				Get_Movie_Capture_Frame_Rate( void);
 	static void					Pause_Movie(bool mode);
 	static bool					Is_Movie_Paused();

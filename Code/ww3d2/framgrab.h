@@ -77,9 +77,19 @@ public:
 
 	void ConvertGrab(void *BitmapPointer);
 	void Grab(void *BitmapPointer);
+	bool TryGrab(void *BitmapPointer);
 
 	int * GetBuffer()			{ return Bitmap; }
 	float	GetFrameRate()			{ return FrameRate; }
+	bool IsReady() const;
+	int GetWidth() const;
+	int GetHeight() const;
+	unsigned int GetRowStride() const;
+	unsigned int GetBufferSize() const;
+
+	static unsigned int CalculateRowStride(int width, int bitdepth);
+	static bool ConvertBGRA32ToBGR24(const void *source, int source_pitch,
+		void *destination, unsigned int destination_stride, int width, int height);
 
 protected:
 	const char *Filename;
