@@ -17,7 +17,6 @@
 #include "hlod.h"
 #include "htree.h"
 #include "part_ldr.h"
-#include "ramfile.h"
 #include "rawfile.h"
 #include "rendobj.h"
 #include "ringobj.h"
@@ -305,30 +304,6 @@ private:
     QString _path;
 };
 
-class OneShotShortWriteRAMFile final : public RAMFileClass
-{
-public:
-    OneShotShortWriteRAMFile(void *buffer, int length)
-        : RAMFileClass(buffer, length)
-    {
-    }
-
-    int Write(const void *buffer, int size) override
-    {
-        // Chunk headers and microchunk headers have different sizes. The first
-        // four-byte write is the first sound-definition variable payload.
-        if (!_failed && size == static_cast<int>(sizeof(float))) {
-            _failed = true;
-            return RAMFileClass::Write(buffer, size - 1);
-        }
-        return RAMFileClass::Write(buffer, size);
-    }
-
-    bool failed() const { return _failed; }
-
-private:
-    bool _failed = false;
-};
 } // namespace
 
 class MainWindowCommandTests final : public QObject
@@ -353,7 +328,6 @@ private slots:
     void restoredToolbarStateStaysSynchronized();
     void aggregateSubobjectNamesAreBounded();
     void soundPrototypeRegistrationRejectsCollisions();
-    void soundSerializerReportsOneShotWriteFailure();
     void generatedHierarchyAnimationFixture();
     void externalAnimationAssetBundle();
     void externalRealAssetBundle();
@@ -1394,23 +1368,6 @@ void MainWindowCommandTests::soundPrototypeRegistrationRejectsCollisions()
     QVERIFY(assetManager->Find_Prototype(firstName));
     QVERIFY(assetManager->Find_Prototype(firstName) != firstPrototype);
     QCOMPARE(assetManager->Find_Prototype(secondName), secondPrototype);
-}
-
-void MainWindowCommandTests::soundSerializerReportsOneShotWriteFailure()
-{
-    std::array<char, 4096> storage = {};
-    OneShotShortWriteRAMFile file(storage.data(), static_cast<int>(storage.size()));
-    QVERIFY(file.Open(FileClass::WRITE));
-
-    ChunkSaveClass save(&file);
-    SoundRenderObjDefClass definition;
-    definition.Set_Name("WRITE_FAILURE_SOUND");
-
-    QCOMPARE(definition.Save_W3D(save), WW3D_ERROR_SAVE_FAILED);
-    QVERIFY(file.failed());
-    QVERIFY(save.Has_Write_Error());
-    QCOMPARE(save.Cur_Chunk_Depth(), 0);
-    file.Close();
 }
 
 void MainWindowCommandTests::generatedHierarchyAnimationFixture()

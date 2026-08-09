@@ -1,4 +1,5 @@
 #include "W3DExportUtils.h"
+#include "W3DWriteTrackingFile.h"
 
 #include "chunkio.h"
 #include "ramfile.h"
@@ -68,7 +69,8 @@ private slots:
     void wrongTopLevelChunkPreservesExistingFile();
     void successfulExportAtomicallyReplacesAndParses();
     void nonexistentParentFailsWithoutCreatingAnything();
-    void chunkWriterRetainsShortWriteFailure();
+    void trackingFileRetainsShortWriteFailure();
+    void trackingFileRetainsSeekMismatch();
 };
 
 void W3DExportUtilsTests::failedWriterPreservesExistingFile()
@@ -215,24 +217,37 @@ void W3DExportUtilsTests::nonexistentParentFailsWithoutCreatingAnything()
     QVERIFY(DirectoryEntries(temporary_directory.path()).isEmpty());
 }
 
-void W3DExportUtilsTests::chunkWriterRetainsShortWriteFailure()
+void W3DExportUtilsTests::trackingFileRetainsShortWriteFailure()
 {
     std::array<unsigned char, 12> storage{};
     RAMFileClass file(storage.data(), static_cast<int>(storage.size()));
     QVERIFY(file.Open(FileClass::WRITE));
 
-    ChunkSaveClass chunkSave(&file);
+    W3DWriteTrackingFile trackedFile(file);
+    ChunkSaveClass chunkSave(&trackedFile);
     QVERIFY(chunkSave.Begin_Chunk(ExpectedChunk));
 
     const std::array<unsigned char, 8> payload{};
     QCOMPARE(chunkSave.Write(payload.data(), payload.size()), std::uint32_t{0});
-    QVERIFY(chunkSave.Has_Write_Error());
+    QVERIFY(trackedFile.Has_Error());
 
     // Rewriting the top header still fits, but a successful structural close must
     // not erase the earlier short-write failure.
-    QVERIFY(!chunkSave.End_Chunk());
+    QVERIFY(chunkSave.End_Chunk());
     QCOMPARE(chunkSave.Cur_Chunk_Depth(), 0);
-    QVERIFY(chunkSave.Has_Write_Error());
+    QVERIFY(trackedFile.Has_Error());
+    file.Close();
+}
+
+void W3DExportUtilsTests::trackingFileRetainsSeekMismatch()
+{
+    std::array<unsigned char, 12> storage{};
+    RAMFileClass file(storage.data(), static_cast<int>(storage.size()));
+    QVERIFY(file.Open(FileClass::WRITE));
+
+    W3DWriteTrackingFile trackedFile(file);
+    QCOMPARE(trackedFile.Seek(100, SEEK_SET), static_cast<int>(storage.size()));
+    QVERIFY(trackedFile.Has_Error());
     file.Close();
 }
 

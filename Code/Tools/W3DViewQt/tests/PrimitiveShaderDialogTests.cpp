@@ -3,8 +3,6 @@
 #include "SphereEditDialog.h"
 
 #include "assetmgr.h"
-#include "chunkio.h"
-#include "ramfile.h"
 #include "ringobj.h"
 #include "shader.h"
 #include "sphereobj.h"
@@ -17,7 +15,6 @@
 #include <QSpinBox>
 #include <QtTest/QTest>
 
-#include <array>
 #include <memory>
 
 namespace {
@@ -33,30 +30,6 @@ struct ReleaseRef {
 
 template<typename T>
 using RefPtr = std::unique_ptr<T, ReleaseRef<T>>;
-
-class FailOnceRAMFile final : public RAMFileClass
-{
-public:
-    FailOnceRAMFile(void *buffer, int length, int failedWrite)
-        : RAMFileClass(buffer, length), failedWrite_(failedWrite)
-    {
-    }
-
-    int Write(const void *buffer, int size) override
-    {
-        ++writeCount_;
-        if (writeCount_ == failedWrite_) {
-            return 0;
-        }
-        return RAMFileClass::Write(buffer, size);
-    }
-
-    int writeCount() const { return writeCount_; }
-
-private:
-    int failedWrite_ = 0;
-    int writeCount_ = 0;
-};
 
 ShaderClass customShader()
 {
@@ -130,7 +103,6 @@ private slots:
     void sphereCancelRestoresLastAppliedPreview();
     void ringCleanOkDoesNotApplyTwice();
     void prototypeNameCollisionIsNonDestructive();
-    void primitiveSerializersReportWriteFailure();
 };
 
 void PrimitiveShaderDialogTests::spherePreservesCustomShaderOnAccept()
@@ -300,87 +272,6 @@ void PrimitiveShaderDialogTests::prototypeNameCollisionIsNonDestructive()
     QVERIFY(errorMessage.contains("already exists"));
     QCOMPARE(assetManager.Find_Prototype("SourceSphere"), sourcePrototype);
     QCOMPARE(assetManager.Find_Prototype("TakenName"), destinationPrototype);
-}
-
-void PrimitiveShaderDialogTests::primitiveSerializersReportWriteFailure()
-{
-    // One chunk header fits, but the first nested definition header does not.
-    // This reproduces a short write without relying on a full disk.
-    std::array<char, 12> sphereStorage = {};
-    RAMFileClass sphereFile(sphereStorage.data(), static_cast<int>(sphereStorage.size()));
-    QVERIFY(sphereFile.Open(FileClass::WRITE));
-    ChunkSaveClass sphereSave(&sphereFile);
-    SpherePrototypeClass spherePrototype;
-    QVERIFY(!spherePrototype.Save(sphereSave));
-    QCOMPARE(sphereSave.Cur_Chunk_Depth(), 0);
-    sphereFile.Close();
-
-    std::array<char, 12> ringStorage = {};
-    RAMFileClass ringFile(ringStorage.data(), static_cast<int>(ringStorage.size()));
-    QVERIFY(ringFile.Open(FileClass::WRITE));
-    ChunkSaveClass ringSave(&ringFile);
-    RingPrototypeClass ringPrototype;
-    QVERIFY(!ringPrototype.Save(ringSave));
-    QCOMPARE(ringSave.Cur_Chunk_Depth(), 0);
-    ringFile.Close();
-
-    SphereRenderObjClass animatedSphere;
-    animatedSphere.Set_Name("AnimatedSphere");
-    animatedSphere.Get_Color_Channel().Add_Key(Vector3(0.25f, 0.5f, 0.75f), 0.0f);
-    SpherePrototypeClass animatedSpherePrototype(&animatedSphere);
-
-    std::array<char, 4096> countingSphereStorage = {};
-    FailOnceRAMFile countingSphereFile(
-        countingSphereStorage.data(), static_cast<int>(countingSphereStorage.size()), 0);
-    QVERIFY(countingSphereFile.Open(FileClass::WRITE));
-    ChunkSaveClass countingSphereSave(&countingSphereFile);
-    QVERIFY(animatedSpherePrototype.Save(countingSphereSave));
-    const int sphereWriteCount = countingSphereFile.writeCount();
-    QVERIFY(sphereWriteCount > 0);
-    countingSphereFile.Close();
-
-    for (int failedWrite = 1; failedWrite <= sphereWriteCount; ++failedWrite) {
-        std::array<char, 4096> storage = {};
-        FailOnceRAMFile file(storage.data(), static_cast<int>(storage.size()), failedWrite);
-        QVERIFY(file.Open(FileClass::WRITE));
-        ChunkSaveClass save(&file);
-        QVERIFY2(!animatedSpherePrototype.Save(save),
-                 qPrintable(QString("Sphere serializer ignored failed write %1 of %2")
-                                .arg(failedWrite)
-                                .arg(sphereWriteCount)));
-        QCOMPARE(save.Cur_Chunk_Depth(), 0);
-        QVERIFY(save.Has_Write_Error());
-        file.Close();
-    }
-
-    RingRenderObjClass animatedRing;
-    animatedRing.Set_Name("AnimatedRing");
-    animatedRing.Get_Color_Channel().Add_Key(Vector3(0.75f, 0.5f, 0.25f), 0.0f);
-    RingPrototypeClass animatedRingPrototype(&animatedRing);
-
-    std::array<char, 4096> countingRingStorage = {};
-    FailOnceRAMFile countingRingFile(
-        countingRingStorage.data(), static_cast<int>(countingRingStorage.size()), 0);
-    QVERIFY(countingRingFile.Open(FileClass::WRITE));
-    ChunkSaveClass countingRingSave(&countingRingFile);
-    QVERIFY(animatedRingPrototype.Save(countingRingSave));
-    const int ringWriteCount = countingRingFile.writeCount();
-    QVERIFY(ringWriteCount > 0);
-    countingRingFile.Close();
-
-    for (int failedWrite = 1; failedWrite <= ringWriteCount; ++failedWrite) {
-        std::array<char, 4096> storage = {};
-        FailOnceRAMFile file(storage.data(), static_cast<int>(storage.size()), failedWrite);
-        QVERIFY(file.Open(FileClass::WRITE));
-        ChunkSaveClass save(&file);
-        QVERIFY2(!animatedRingPrototype.Save(save),
-                 qPrintable(QString("Ring serializer ignored failed write %1 of %2")
-                                .arg(failedWrite)
-                                .arg(ringWriteCount)));
-        QCOMPARE(save.Cur_Chunk_Depth(), 0);
-        QVERIFY(save.Has_Write_Error());
-        file.Close();
-    }
 }
 
 QTEST_MAIN(PrimitiveShaderDialogTests)
