@@ -1,5 +1,7 @@
 #include "W3DExportUtils.h"
 
+#include "W3DWriteTrackingFile.h"
+
 #include "chunkio.h"
 #include "rawfile.h"
 
@@ -169,11 +171,12 @@ bool SaveChunkFileAtomically(const QString &target_path,
 
     bool writer_succeeded = false;
     bool writer_threw = false;
-    bool chunk_write_error = false;
+    bool file_write_error = false;
     QString writer_exception;
     int chunk_depth = 0;
     {
-        ChunkSaveClass chunk_save(&raw_file);
+        W3DWriteTrackingFile tracked_file(raw_file);
+        ChunkSaveClass chunk_save(&tracked_file);
         try {
             writer_succeeded = writer(chunk_save);
         } catch (const std::exception &exception) {
@@ -183,7 +186,7 @@ bool SaveChunkFileAtomically(const QString &target_path,
             writer_threw = true;
         }
         chunk_depth = chunk_save.Cur_Chunk_Depth();
-        chunk_write_error = chunk_save.Has_Write_Error();
+        file_write_error = tracked_file.Has_Error();
     }
     raw_file.Close();
 
@@ -194,9 +197,9 @@ bool SaveChunkFileAtomically(const QString &target_path,
         return Fail(error_message,
                     QStringLiteral("The W3D export writer raised an exception: %1").arg(detail));
     }
-    if (chunk_write_error) {
+    if (file_write_error) {
         return Fail(error_message,
-                    QStringLiteral("The W3D export writer encountered a failed write or invalid chunk operation."));
+                    QStringLiteral("The W3D export writer encountered a failed write or seek."));
     }
     if (!writer_succeeded) {
         return Fail(error_message, QStringLiteral("The W3D export writer reported a failure."));

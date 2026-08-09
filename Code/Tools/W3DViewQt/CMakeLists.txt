@@ -62,6 +62,8 @@ set(W3DVIEW_QT_SRC
     TexturePathDialog.h
     W3DExportUtils.cpp
     W3DExportUtils.h
+    W3DWriteTrackingFile.cpp
+    W3DWriteTrackingFile.h
     W3DViewport.cpp
     W3DViewport.h
     W3DViewQt.qrc
@@ -745,6 +747,8 @@ if(BUILD_TESTING)
         tests/W3DExportUtilsTests.cpp
         W3DExportUtils.cpp
         W3DExportUtils.h
+        W3DWriteTrackingFile.cpp
+        W3DWriteTrackingFile.h
     )
 
     target_include_directories(w3dview_qt_export_utils_tests
