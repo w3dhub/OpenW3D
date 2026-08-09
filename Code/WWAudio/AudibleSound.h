@@ -434,6 +434,10 @@ public:
 	// Accessors
 	virtual const StringClass &			Get_Filename (void) const			{ return m_Filename; }
 	virtual const StringClass &			Get_Display_Text (void) const		{ return m_DisplayText; }
+	float									Get_Priority (void) const			{ return m_Priority; }
+	int										Get_Loop_Count (void) const		{ return m_LoopCount; }
+	bool									Is_3D (void) const					{ return m_Is3D; }
+	int										Get_Type (void) const				{ return m_Type; }
 	virtual float								Get_Max_Vol_Radius (void) const	{ return m_MaxVolRadius; }
 	virtual float								Get_DropOff_Radius (void) const	{ return m_DropOffRadius; }
 	virtual const Vector3 &					Get_Sphere_Color (void) const		{ return m_AttenuationSphereColor; }
