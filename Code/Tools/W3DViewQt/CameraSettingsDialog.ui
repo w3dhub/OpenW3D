@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CameraSettingsDialog</class>
+ <widget class="QDialog" name="CameraSettingsDialog">
+  <property name="windowTitle">
+   <string>Camera Settings</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="hintLabel">
+     <property name="text">
+      <string>Use the controls below to specify the camera's clip planes and aspect ratio.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="clipCheckBox">
+     <property name="text">
+      <string>&amp;Clip Planes</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="clipFormLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="nearClipLabel">
+       <property name="text">
+        <string>&amp;Near:</string>
+       </property>
+       <property name="buddy">
+        <cstring>nearClipSpinBox</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDoubleSpinBox" name="nearClipSpinBox">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="maximum">
+        <double>999999.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="farClipLabel">
+       <property name="text">
+        <string>&amp;Far:</string>
+       </property>
+       <property name="buddy">
+        <cstring>farClipSpinBox</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDoubleSpinBox" name="farClipSpinBox">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>999999.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="fovCheckBox">
+     <property name="text">
+      <string>Field of &amp;View</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="fovFormLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="lensLabel">
+       <property name="text">
+        <string>&amp;Camera Lens:</string>
+       </property>
+       <property name="buddy">
+        <cstring>lensSpinBox</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDoubleSpinBox" name="lensSpinBox">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="suffix">
+        <string> mm</string>
+       </property>
+       <property name="minimum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>200.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="hfovLabel">
+       <property name="text">
+        <string>&amp;Horizontal:</string>
+       </property>
+       <property name="buddy">
+        <cstring>hfovSpinBox</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDoubleSpinBox" name="hfovSpinBox">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="suffix">
+        <string> deg</string>
+       </property>
+       <property name="maximum">
+        <double>180.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="vfovLabel">
+       <property name="text">
+        <string>V&amp;ertical:</string>
+       </property>
+       <property name="buddy">
+        <cstring>vfovSpinBox</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QDoubleSpinBox" name="vfovSpinBox">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="suffix">
+        <string> deg</string>
+       </property>
+       <property name="maximum">
+        <double>180.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

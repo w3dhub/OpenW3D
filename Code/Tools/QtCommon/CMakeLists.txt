@@ -1,6 +1,8 @@
 set(QTCOMMON_SRC
     RecentFiles.cpp
     RecentFiles.h
+    ShortcutHelpers.cpp
+    ShortcutHelpers.h
 )
 
 add_library(qtcommon STATIC)

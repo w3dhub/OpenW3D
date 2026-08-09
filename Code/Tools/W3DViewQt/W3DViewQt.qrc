@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RCC>
+ <qresource prefix="/w3dview">
+  <file alias="app.ico">../W3DView/Res/W3DView.ico</file>
+  <file alias="main-toolbar.bmp">../W3DView/Res/Toolbar.bmp</file>
+  <file alias="animation.ico">../W3DView/Res/icon2.ico</file>
+  <file alias="sound.ico">../W3DView/Res/sound.ico</file>
+  <file alias="play.bmp">../W3DView/Res/play.bmp</file>
+  <file alias="pause.bmp">../W3DView/Res/pause.bmp</file>
+  <file alias="stop.bmp">../W3DView/Res/stop.bmp</file>
+  <file alias="reverse.bmp">../W3DView/Res/reverse.bmp</file>
+  <file alias="ffwd.bmp">../W3DView/Res/ffwd.bmp</file>
+  <file alias="play-selected.bmp">../W3DView/Res/playsel.bmp</file>
+  <file alias="pause-selected.bmp">../W3DView/Res/pausesel.bmp</file>
+  <file alias="stop-selected.bmp">../W3DView/Res/stopsel.bmp</file>
+  <file alias="reverse-selected.bmp">../W3DView/Res/reversesel.bmp</file>
+  <file alias="ffwd-selected.bmp">../W3DView/Res/ffwdsel.bmp</file>
+  <file alias="x-direction.bmp">../W3DView/Res/xdir.bmp</file>
+  <file alias="x-direction-selected.bmp">../W3DView/Res/xdirsel.bmp</file>
+  <file alias="y-direction.bmp">../W3DView/Res/ydir.bmp</file>
+  <file alias="y-direction-selected.bmp">../W3DView/Res/ydirsel.bmp</file>
+  <file alias="z-direction.bmp">../W3DView/Res/zdir.bmp</file>
+  <file alias="z-direction-selected.bmp">../W3DView/Res/zdirsel.bmp</file>
+  <file alias="rotate-z.bmp">../W3DView/Res/rotatez.bmp</file>
+  <file alias="rotate-z-selected.bmp">../W3DView/Res/rotatezsel.bmp</file>
+ </qresource>
+</RCC>
