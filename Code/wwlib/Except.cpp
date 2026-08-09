@@ -185,6 +185,8 @@ static SymGetModuleBaseType				_SymGetModuleBase = nullptr;
  * HISTORY:                                                                                    *
  *   8/22/00 11:42AM ST : Created                                                              *
  *=============================================================================================*/
+// MSVC 2015+ ships _purecall in vcruntime, so avoid a duplicate definition.
+#if !defined(_MSC_VER) || _MSC_VER < 1900
 int _purecall(void)
 {
 	int return_code = 0;
@@ -199,6 +201,7 @@ int _purecall(void)
 
 	return(return_code);
 }
+#endif // _MSC_VER < 1900
 
 
 
@@ -1327,7 +1330,5 @@ bool Is_Trying_To_Exit(void)
 
 
 #endif	//_MSC_VER
-
-
 
 

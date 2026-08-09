@@ -7,6 +7,11 @@ if(WIN32)
         )
 
         FetchContent_MakeAvailable(dx9)
+        if(MSVC)
+            # The prebuilt legacy DxErr.lib still imports _vsnprintf, which
+            # moved to this compatibility library with the Universal CRT.
+            target_link_libraries(d3d9lib INTERFACE legacy_stdio_definitions)
+        endif()
     else()
         add_library(d3d9lib INTERFACE)
         target_link_libraries(d3d9lib INTERFACE d3d9 d3dx9)
@@ -23,4 +28,3 @@ else()
     target_include_directories(d3d9lib INTERFACE "${PROJECT_SOURCE_DIR}/Code/dxvk_wrapper")
     target_include_directories(d3d9lib INTERFACE "${DXVK_INCLUDE_PATH}/dxvk")
 endif()
-
