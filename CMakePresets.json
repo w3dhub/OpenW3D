@@ -41,7 +41,10 @@
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                 "VCPKG_TARGET_TRIPLET": "x64-windows",
                 "VCPKG_INSTALLED_DIR": "C:/vcpkg.installed",
-                "W3D_BUILD_QT_TOOLS": "ON"
+                "W3D_BUILD_QT_TOOLS": "ON",
+                "W3D_BUILD_OPTION_FFMPEG": "ON",
+                "W3D_BUILD_OPTION_OPENAL": "ON",
+                "W3D_BUILD_OPTION_MILES": "OFF"
             }
         },
         {
