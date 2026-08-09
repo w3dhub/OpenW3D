@@ -901,6 +901,11 @@ void DazzleRenderObjClass::Render(RenderInfoClass & rinfo)
 			_dazzle_rendering_enabled &&
 			!DX8Wrapper::Is_Render_To_Texture()	)
 	{
+		if (!types || type >= type_count || !types[type]) {
+			visibility = 0.0f;
+			return;
+		}
+
 		// First check if the dazzle is blinking and is "off"
 		bool is_on = true;
 		DazzleInitClass & ic = types[type]->ic;

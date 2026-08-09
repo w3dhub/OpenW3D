@@ -109,3 +109,27 @@ if (W3D_TOOLS)
         target_link_libraries(wwaudioe PRIVATE milesstub)
     endif()
 endif()
+
+if(BUILD_TESTING AND W3D_BUILD_OPTION_OPENAL)
+    add_executable(wwaudio_openal_tests
+        tests/OpenALAudioTests.cpp
+    )
+
+    target_link_libraries(wwaudio_openal_tests PRIVATE
+        wwaudio
+        ww3d2
+        wwdebug
+        wwlib
+        wwmath
+        wwphys
+        wwsaveload
+        wwcommon
+        version
+        $<$<BOOL:${WIN32}>:winmm>
+    )
+
+    add_test(NAME wwaudio_openal_tests COMMAND wwaudio_openal_tests)
+    set_tests_properties(wwaudio_openal_tests PROPERTIES
+        ENVIRONMENT "ALSOFT_DRIVERS=null"
+    )
+endif()

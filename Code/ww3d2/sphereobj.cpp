@@ -1124,39 +1124,52 @@ bool SpherePrototypeClass::Load (ChunkLoadClass &cload)
 
 bool SpherePrototypeClass::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (W3D_CHUNK_SPHERE);
-
-		csave.Begin_Chunk (CHUNKID_SPHERE_DEF);
-			csave.Write (&Definition, sizeof (Definition));
-		csave.End_Chunk ();
-
-		if (ColorChannel.Get_Key_Count () > 0) {
-			csave.Begin_Chunk (CHUNKID_COLOR_CHANNEL);
-			ColorChannel.Save (csave);
-			csave.End_Chunk ();
+	const auto save_chunk = [&csave](uint32 chunk_id, const auto &save_contents) {
+		const bool began = csave.Begin_Chunk (chunk_id);
+		if (!began) {
+			return false;
 		}
 
-		if (AlphaChannel.Get_Key_Count () > 0) {
-			csave.Begin_Chunk (CHUNKID_ALPHA_CHANNEL);
-			AlphaChannel.Save (csave);
-			csave.End_Chunk ();
-		}
+		const bool saved = save_contents ();
+		const bool ended = csave.End_Chunk ();
+		return saved && ended;
+	};
 
+	const bool began_sphere = csave.Begin_Chunk (W3D_CHUNK_SPHERE);
+	if (!began_sphere) {
+		return false;
+	}
 
-		if (ScaleChannel.Get_Key_Count () > 0) {
-			csave.Begin_Chunk (CHUNKID_SCALE_CHANNEL);
-			ScaleChannel.Save (csave);
-			csave.End_Chunk ();
-		}
+	bool ok = save_chunk (CHUNKID_SPHERE_DEF, [this, &csave]() {
+		return csave.Write (&Definition, sizeof (Definition)) == sizeof (Definition);
+	});
 
-		if (VectorChannel.Get_Key_Count () > 0) {
-			csave.Begin_Chunk (CHUNKID_VECTOR_CHANNEL);
-			VectorChannel.Save (csave);
-			csave.End_Chunk ();
-		}
+	if (ColorChannel.Get_Key_Count () > 0) {
+		ok = save_chunk (CHUNKID_COLOR_CHANNEL, [this, &csave]() {
+			return ColorChannel.Save (csave);
+		}) && ok;
+	}
 
-	csave.End_Chunk ();
-	return true;
+	if (AlphaChannel.Get_Key_Count () > 0) {
+		ok = save_chunk (CHUNKID_ALPHA_CHANNEL, [this, &csave]() {
+			return AlphaChannel.Save (csave);
+		}) && ok;
+	}
+
+	if (ScaleChannel.Get_Key_Count () > 0) {
+		ok = save_chunk (CHUNKID_SCALE_CHANNEL, [this, &csave]() {
+			return ScaleChannel.Save (csave);
+		}) && ok;
+	}
+
+	if (VectorChannel.Get_Key_Count () > 0) {
+		ok = save_chunk (CHUNKID_VECTOR_CHANNEL, [this, &csave]() {
+			return VectorChannel.Save (csave);
+		}) && ok;
+	}
+
+	const bool ended_sphere = csave.End_Chunk ();
+	return ok && ended_sphere && !csave.Has_Write_Error ();
 }
 
 const char * SpherePrototypeClass::Get_Name(void) const
@@ -1614,4 +1627,3 @@ void SphereMeshClass::Free(void)
 }
 
 // EOF - sphereobj.cpp
-

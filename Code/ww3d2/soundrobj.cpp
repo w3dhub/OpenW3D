@@ -581,13 +581,14 @@ SoundRenderObjDefClass::Save_W3D (ChunkSaveClass &csave)
 		//
 		// Attempt to save the different sections of the aggregate definition
 		//
-		if ((Write_Header (csave) == WW3D_ERROR_OK) &&
-			 (Write_Definition (csave) == WW3D_ERROR_OK))
-		{
+		const bool wrote_header = Write_Header (csave) == WW3D_ERROR_OK;
+		const bool wrote_definition = wrote_header &&
+			(Write_Definition (csave) == WW3D_ERROR_OK);
+		const bool ended_chunk = csave.End_Chunk ();
+
+		if (wrote_header && wrote_definition && ended_chunk && !csave.Has_Write_Error ()) {
 			retval = WW3D_ERROR_OK;
 		}
-
-		csave.End_Chunk ();
 	}
 
 	return retval;
@@ -689,12 +690,13 @@ SoundRenderObjDefClass::Write_Header (ChunkSaveClass &csave)
 		//
 		// Write the header out to the chunk
 		//
-		if (csave.Write (&header, sizeof (header)) == sizeof (header)) {
+		const bool wrote_header = csave.Write (&header, sizeof (header)) == sizeof (header);
+
+		// End the header chunk even when its payload failed so the save stack stays balanced.
+		const bool ended_chunk = csave.End_Chunk ();
+		if (wrote_header && ended_chunk && !csave.Has_Write_Error ()) {
 			retval = WW3D_ERROR_OK;
 		}
-
-		// End the header chunk
-		csave.End_Chunk ();
 	}
 
 	return retval;
@@ -715,10 +717,11 @@ SoundRenderObjDefClass::Write_Definition (ChunkSaveClass &csave)
 	// Save the definition to its own chunk
 	//
 	if (csave.Begin_Chunk (W3D_CHUNK_SOUNDROBJ_DEFINITION) == true) {
-		if (Definition.Save (csave)) {
+		const bool wrote_definition = Definition.Save (csave);
+		const bool ended_chunk = csave.End_Chunk ();
+		if (wrote_definition && ended_chunk && !csave.Has_Write_Error ()) {
 			retval = WW3D_ERROR_OK;
 		}
-		csave.End_Chunk ();
 	}
 
 	return retval;
@@ -764,5 +767,4 @@ SoundRenderObjLoaderClass::Load_W3D (ChunkLoadClass &cload)
 
 	return prototype;
 }
-
 

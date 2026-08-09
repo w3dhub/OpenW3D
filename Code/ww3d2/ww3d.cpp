@@ -97,6 +97,7 @@
 #include "statistics.h"
 #include "pointgr.h"
 #include "ffactory.h"
+#include "wwstring.h"
 #include "ini.h"
 #include "dazzle.h"
 #include "meshmdl.h"
@@ -106,6 +107,9 @@
 #include "rddesc.h"
 #include "vector3i.h"
 #include <cstdio>
+#ifdef _WIN32
+#include <d3dx9tex.h>
+#endif
 #include "dx8wrapper.h"
 #include "TARGA.H"
 #include "sortingrenderer.h"
@@ -1238,8 +1242,37 @@ void WW3D::Normalize_Coordinates(int x, int y, float &fx, float &fy)
 }
 
 
+namespace
+{
+int Make_Screen_Shot_Filename(const char *filename_base, StringClass &filename)
+{
+	if (filename_base == nullptr || filename_base[0] == '\0') {
+		return 0;
+	}
+
+	static int frame_number = 1;
+	int screenshot_number = 0;
+	bool done = false;
+	while (!done) {
+		screenshot_number = frame_number++;
+		filename.Format("%s%.2d.tga", filename_base, screenshot_number);
+		FileClass *file = _TheFileFactory->Get_File(filename.Peek_Buffer());
+		if (file != nullptr) {
+			file->Open();
+			done = !file->Is_Available();
+			_TheFileFactory->Return_File(file);
+		} else {
+			done = true;
+		}
+	}
+
+	return screenshot_number;
+}
+}
+
+
 /***********************************************************************************************
- * WW3D::Make_Screen_Shot -- saves a screenshot with the given base filename                   *
+ * WW3D::Make_Screen_Shot -- saves the window's front-buffer image                             *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1253,86 +1286,96 @@ void WW3D::Normalize_Coordinates(int x, int y, float &fx, float &fy)
  *=============================================================================================*/
 void WW3D::Make_Screen_Shot( const char * filename_base )
 {
-
 	WWASSERT(!IsRendering);
 
-	char filename[80];
-
-	static int frame_number = 1;
-
-	bool done = false;
-	while (!done) {
-		sprintf( filename, "%s%.2d.tga", filename_base, frame_number++);
-		FileClass*file=_TheFileFactory->Get_File( filename );
-		if ( file ) {
-			file->Open();
-			done = !file->Is_Available();
-			_TheFileFactory->Return_File( file );
-		} else {
-			done = true;
-		}
+	StringClass filename;
+	if (Make_Screen_Shot_Filename(filename_base, filename) == 0 || _Hwnd == nullptr) {
+		return;
 	}
 
-	WWDEBUG_SAY(( "Creating Screen Shot %s\n", filename ));
-
-	// Lock front buffer and copy
-
-	IDirect3DSurface9 *fb;
-	fb=DX8Wrapper::_Get_DX8_Front_Buffer();
-	D3DSURFACE_DESC desc;
-	fb->GetDesc(&desc);
+	WWDEBUG_SAY(( "Creating Screen Shot %s\n", filename.Peek_Buffer() ));
 
 	RECT bounds;
-	GetWindowRect(_Hwnd,&bounds);
+	if (!GetWindowRect(_Hwnd, &bounds)) {
+		return;
+	}
 
-	D3DLOCKED_RECT lrect;
+	// Preserve the legacy front-buffer capture path for existing callers.
+	IDirect3DSurface9 *front_buffer = DX8Wrapper::_Get_DX8_Front_Buffer();
+	if (front_buffer == nullptr) {
+		return;
+	}
 
-	DX8_ErrorCode(fb->LockRect(&lrect,&bounds,D3DLOCK_READONLY));
+	D3DLOCKED_RECT locked;
+	if (FAILED(front_buffer->LockRect(&locked, &bounds, D3DLOCK_READONLY))) {
+		front_buffer->Release();
+		return;
+	}
 
-	unsigned int x,y,index,index2,width,height;
-
-	width=bounds.right-bounds.left;
-	height=bounds.bottom-bounds.top;
-
-	char *image=new char[3*width*height];
-
-	for (y=0; y<height; y++)
-	{
-		for (x=0; x<width; x++)
-		{
-			// index for image
-			index=3*(x+y*width);
-			// index for fb
-			index2=y*lrect.Pitch+4*x;
-
-			image[index]=*((char *) lrect.pBits + index2+2);
-			image[index+1]=*((char *) lrect.pBits + index2+1);
-			image[index+2]=*((char *) lrect.pBits + index2+0);
+	const unsigned int width = static_cast<unsigned int>(bounds.right - bounds.left);
+	const unsigned int height = static_cast<unsigned int>(bounds.bottom - bounds.top);
+	char *image = new char[3 * width * height];
+	for (unsigned int y = 0; y < height; ++y) {
+		for (unsigned int x = 0; x < width; ++x) {
+			const unsigned int image_index = 3 * (x + y * width);
+			const unsigned int buffer_index = y * locked.Pitch + 4 * x;
+			image[image_index] = *(static_cast<char *>(locked.pBits) + buffer_index + 2);
+			image[image_index + 1] = *(static_cast<char *>(locked.pBits) + buffer_index + 1);
+			image[image_index + 2] = *(static_cast<char *>(locked.pBits) + buffer_index);
 		}
 	}
 
-	fb->Release();
+	front_buffer->UnlockRect();
+	front_buffer->Release();
 
-	Targa targ;
-	memset(&targ.Header,0,sizeof(targ.Header));
-	targ.Header.Width=short(width);
-	targ.Header.Height=short(height);
-	targ.Header.PixelDepth=24;
-	targ.Header.ImageType=TGA_TRUECOLOR;
-	targ.SetImage(image);
-	targ.YFlip();
+	Targa target;
+	memset(&target.Header, 0, sizeof(target.Header));
+	target.Header.Width = static_cast<short>(width);
+	target.Header.Height = static_cast<short>(height);
+	target.Header.PixelDepth = 24;
+	target.Header.ImageType = TGA_TRUECOLOR;
+	target.SetImage(image);
+	target.YFlip();
+	target.Save(filename.Peek_Buffer(), TGAF_IMAGE, false);
+	delete [] image;
+}
 
-	FileClass*file=_TheWritingFileFactory->Get_File( filename );
-	if ( file ) {
-		file->Create();
-		file->Close();
-		_TheWritingFileFactory->Return_File( file );
+
+/***********************************************************************************************
+ * WW3D::Make_Back_Buffer_Screen_Shot -- saves the current render-device back buffer            *
+ *=============================================================================================*/
+int WW3D::Make_Back_Buffer_Screen_Shot( const char * filename_base )
+{
+	WWASSERT(!IsRendering);
+
+#ifdef _WIN32
+	StringClass filename;
+	const int screenshot_number = Make_Screen_Shot_Filename(filename_base, filename);
+	if (screenshot_number == 0) {
+		return 0;
 	}
 
-	targ.Save(filename,TGAF_IMAGE,false);
+	WWDEBUG_SAY(( "Creating Back Buffer Screen Shot %s\n", filename.Peek_Buffer() ));
 
-	delete [] image;
+	IDirect3DDevice9 *device = DX8Wrapper::_Get_D3D_Device8();
+	if (device == nullptr) {
+		return 0;
+	}
 
+	IDirect3DSurface9 *back_buffer = nullptr;
+	if (FAILED(device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &back_buffer)) ||
+		back_buffer == nullptr) {
+		return 0;
+	}
+
+	const HRESULT save_result = D3DXSaveSurfaceToFileA(
+		filename.Peek_Buffer(), D3DXIFF_TGA, back_buffer, nullptr, nullptr);
+	back_buffer->Release();
+	return SUCCEEDED(save_result) ? screenshot_number : 0;
+#else
+	(void)filename_base;
+	return 0;
+#endif
 }
 
 
@@ -1351,20 +1394,33 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
  *=============================================================================================*/
 void WW3D::Start_Movie_Capture( const char * filename_base, float frame_rate )
 {
+	Try_Start_Movie_Capture(filename_base, frame_rate);
+}
+
+
+bool WW3D::Try_Start_Movie_Capture( const char * filename_base, float frame_rate )
+{
 #ifdef _WIN32
-	if (IsCapturing) {
+	if (IsCapturing || Movie != nullptr) {
 		Stop_Movie_Capture();
 	}
-	WWASSERT( !IsCapturing);
-	IsCapturing = true;
+	RecordNextFrame = false;
+
+	if (_Hwnd == nullptr || filename_base == nullptr || filename_base[0] == '\0') {
+		return false;
+	}
 
 	RECT bounds;
-	GetWindowRect(_Hwnd,&bounds);
+	if (!GetWindowRect(_Hwnd, &bounds)) {
+		return false;
+	}
 	int height=bounds.bottom-bounds.top;
 	int width=bounds.right-bounds.left;
 	int depth=24;
 
-	WWASSERT( Movie == nullptr);
+	if (width <= 0 || height <= 0) {
+		return false;
+	}
 
 	if (frame_rate == 0.0f) {
 		frame_rate = 1.0f;
@@ -1373,9 +1429,20 @@ void WW3D::Start_Movie_Capture( const char * filename_base, float frame_rate )
 		PauseRecord = false;
 	}
 
-	Movie = new FrameGrabClass( filename_base, FrameGrabClass::AVI, width, height, depth, frame_rate);
+	FrameGrabClass *movie = new FrameGrabClass(
+		filename_base, FrameGrabClass::AVI, width, height, depth, frame_rate);
+	if (!movie->IsReady()) {
+		delete movie;
+		return false;
+	}
+
+	Movie = movie;
+	IsCapturing = true;
 
 	WWDEBUG_SAY(( "Starting Movie %s\n", filename_base ));
+	return true;
+#else
+	return false;
 #endif
 }
 
@@ -1396,10 +1463,12 @@ void WW3D::Stop_Movie_Capture( void )
 {
 #ifdef _WIN32
 	if (IsCapturing) {
-		IsCapturing = false;
 		WWDEBUG_SAY(( "Stoping Movie\n" ));
+	}
 
-		WWASSERT( Movie != nullptr);
+	IsCapturing = false;
+	RecordNextFrame = false;
+	if (Movie != nullptr) {
 		delete Movie;
 		Movie = nullptr;
 	}
@@ -1515,7 +1584,8 @@ bool WW3D::Is_Movie_Paused()
  *=============================================================================================*/
 bool WW3D::Is_Recording_Next_Frame()
 {
-	return (Movie != 0) && (!PauseRecord || RecordNextFrame);
+	return IsCapturing && Movie != nullptr && Movie->IsReady() &&
+		(!PauseRecord || RecordNextFrame);
 }
 
 
@@ -1533,7 +1603,7 @@ bool WW3D::Is_Recording_Next_Frame()
  *=============================================================================================*/
 bool WW3D::Is_Movie_Ready()
 {
-	return Movie != 0;
+	return IsCapturing && Movie != nullptr && Movie->IsReady();
 }
 
 
@@ -1552,50 +1622,263 @@ bool WW3D::Is_Movie_Ready()
  *=============================================================================================*/
 void WW3D::Update_Movie_Capture( void )
 {
+	Try_Update_Movie_Capture();
+}
+
+
+bool WW3D::Try_Update_Movie_Capture( void )
+{
 #ifdef _WIN32
-	WWASSERT( IsCapturing);
+	if (!Is_Movie_Ready() || _Hwnd == nullptr) {
+		return false;
+	}
+
 	WWPROFILE("WW3D::Update_Movie_Capture");
 	WWDEBUG_SAY(( "Updating\n"));
 
-		// Lock front buffer and copy
-
-	IDirect3DSurface9 *fb;
-	fb=DX8Wrapper::_Get_DX8_Front_Buffer();
-	D3DSURFACE_DESC desc;
-	fb->GetDesc(&desc);
-
 	RECT bounds;
-	GetWindowRect(_Hwnd,&bounds);
+	if (!GetWindowRect(_Hwnd, &bounds)) {
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	const unsigned int width = static_cast<unsigned int>(bounds.right - bounds.left);
+	const unsigned int height = static_cast<unsigned int>(bounds.bottom - bounds.top);
+	if (width != static_cast<unsigned int>(Movie->GetWidth()) ||
+		height != static_cast<unsigned int>(Movie->GetHeight())) {
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	IDirect3DSurface9 *fb = DX8Wrapper::_Get_DX8_Front_Buffer();
+	if (fb == nullptr) {
+		Stop_Movie_Capture();
+		return false;
+	}
 
 	D3DLOCKED_RECT lrect;
+	const HRESULT lock_result = fb->LockRect(&lrect, &bounds, D3DLOCK_READONLY);
+	if (FAILED(lock_result)) {
+		fb->Release();
+		Stop_Movie_Capture();
+		return false;
+	}
 
-	DX8_ErrorCode(fb->LockRect(&lrect,&bounds,D3DLOCK_READONLY));
+	unsigned char *image = reinterpret_cast<unsigned char *>(Movie->GetBuffer());
+	const unsigned int destination_stride = Movie->GetBufferStride();
+	const unsigned int pixel_bytes = width * 3;
+	if (image == nullptr || destination_stride < pixel_bytes) {
+		fb->UnlockRect();
+		fb->Release();
+		Stop_Movie_Capture();
+		return false;
+	}
 
-	unsigned int x,y,index,index2,width,height;
+	for (unsigned int y = 0; y < height; ++y) {
+		unsigned char *destination = image + (height - y - 1) * destination_stride;
+		const unsigned char *source =
+			reinterpret_cast<const unsigned char *>(lrect.pBits) + y * lrect.Pitch;
 
-	width=bounds.right-bounds.left;
-	height=bounds.bottom-bounds.top;
+		for (unsigned int x = 0; x < width; ++x) {
+			destination[3 * x] = source[4 * x];
+			destination[3 * x + 1] = source[4 * x + 1];
+			destination[3 * x + 2] = source[4 * x + 2];
+		}
 
-	char *image=(char *)Movie->GetBuffer();
-
-	for (y=0; y<height; y++)
-	{
-		for (x=0; x<width; x++)
-		{
-			// index for image
-			index=3*(x+(height-y-1)*width);
-			// index for fb
-			index2=y*lrect.Pitch+4*x;
-
-			image[index]=*((char *) lrect.pBits + index2+0);
-			image[index+1]=*((char *) lrect.pBits + index2+1);
-			image[index+2]=*((char *) lrect.pBits + index2+2);
+		if (destination_stride > pixel_bytes) {
+			memset(destination + pixel_bytes, 0, destination_stride - pixel_bytes);
 		}
 	}
 
+	const HRESULT unlock_result = fb->UnlockRect();
 	fb->Release();
+	if (FAILED(unlock_result)) {
+		Stop_Movie_Capture();
+		return false;
+	}
 
-	Movie->Grab(image);
+	if (!Movie->Grab(image)) {
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	return true;
+#else
+	return false;
+#endif
+}
+
+
+/***********************************************************************************************
+ * WW3D::Try_Update_Movie_Capture_From_Back_Buffer -- captures an unpresented render frame      *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ * Call this after End_Render(false), while the swap-chain back buffer still contains the      *
+ * frame. Unlike the legacy front-buffer path, this is independent of window position and      *
+ * desktop occlusion.                                                                          *
+ *=============================================================================================*/
+bool WW3D::Try_Update_Movie_Capture_From_Back_Buffer( void )
+{
+#ifdef _WIN32
+	if (!Is_Movie_Ready()) {
+		return false;
+	}
+
+	IDirect3DDevice9 *device = DX8Wrapper::_Get_D3D_Device8();
+	if (device == nullptr) {
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	IDirect3DSurface9 *back_buffer = nullptr;
+	if (FAILED(device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &back_buffer)) ||
+		back_buffer == nullptr) {
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	D3DSURFACE_DESC desc;
+	const HRESULT desc_result = back_buffer->GetDesc(&desc);
+	if (FAILED(desc_result) ||
+		desc.Width != static_cast<unsigned int>(Movie->GetWidth()) ||
+		desc.Height != static_cast<unsigned int>(Movie->GetHeight())) {
+		back_buffer->Release();
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	IDirect3DSurface9 *resolved_buffer = nullptr;
+	IDirect3DSurface9 *capture_source = back_buffer;
+	if (desc.MultiSampleType != D3DMULTISAMPLE_NONE) {
+		HRESULT result = device->CreateRenderTarget(desc.Width,
+			desc.Height,
+			desc.Format,
+			D3DMULTISAMPLE_NONE,
+			0,
+			FALSE,
+			&resolved_buffer,
+			nullptr);
+		if (SUCCEEDED(result)) {
+			result = device->StretchRect(back_buffer, nullptr, resolved_buffer, nullptr, D3DTEXF_NONE);
+		}
+		if (FAILED(result) || resolved_buffer == nullptr) {
+			if (resolved_buffer != nullptr) {
+				resolved_buffer->Release();
+			}
+			back_buffer->Release();
+			Stop_Movie_Capture();
+			return false;
+		}
+		capture_source = resolved_buffer;
+	}
+
+	IDirect3DSurface9 *staging_buffer = nullptr;
+	HRESULT copy_result = device->CreateOffscreenPlainSurface(desc.Width,
+		desc.Height,
+		desc.Format,
+		D3DPOOL_SYSTEMMEM,
+		&staging_buffer,
+		nullptr);
+	if (SUCCEEDED(copy_result)) {
+		copy_result = device->GetRenderTargetData(capture_source, staging_buffer);
+	}
+
+	if (resolved_buffer != nullptr) {
+		resolved_buffer->Release();
+	}
+	back_buffer->Release();
+	if (FAILED(copy_result) || staging_buffer == nullptr) {
+		if (staging_buffer != nullptr) {
+			staging_buffer->Release();
+		}
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	D3DLOCKED_RECT locked;
+	const HRESULT lock_result = staging_buffer->LockRect(&locked, nullptr, D3DLOCK_READONLY);
+	if (FAILED(lock_result)) {
+		staging_buffer->Release();
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	unsigned char *image = reinterpret_cast<unsigned char *>(Movie->GetBuffer());
+	const unsigned int destination_stride = Movie->GetBufferStride();
+	const unsigned int destination_bytes = desc.Width * 3;
+	bool format_supported = image != nullptr && destination_stride >= destination_bytes;
+	for (unsigned int y = 0; format_supported && y < desc.Height; ++y) {
+		unsigned char *destination = image + (desc.Height - y - 1) * destination_stride;
+		const unsigned char *source =
+			reinterpret_cast<const unsigned char *>(locked.pBits) + y * locked.Pitch;
+
+		for (unsigned int x = 0; x < desc.Width; ++x) {
+			unsigned int red = 0;
+			unsigned int green = 0;
+			unsigned int blue = 0;
+			switch (desc.Format) {
+				case D3DFMT_A8R8G8B8:
+				case D3DFMT_X8R8G8B8:
+					blue = source[4 * x];
+					green = source[4 * x + 1];
+					red = source[4 * x + 2];
+					break;
+				case D3DFMT_A8B8G8R8:
+				case D3DFMT_X8B8G8R8:
+					red = source[4 * x];
+					green = source[4 * x + 1];
+					blue = source[4 * x + 2];
+					break;
+				case D3DFMT_R5G6B5: {
+					const unsigned int pixel = reinterpret_cast<const unsigned short *>(source)[x];
+					blue = ((pixel & 0x1fU) * 255U + 15U) / 31U;
+					green = (((pixel >> 5) & 0x3fU) * 255U + 31U) / 63U;
+					red = (((pixel >> 11) & 0x1fU) * 255U + 15U) / 31U;
+					break;
+				}
+				case D3DFMT_A1R5G5B5:
+				case D3DFMT_X1R5G5B5: {
+					const unsigned int pixel = reinterpret_cast<const unsigned short *>(source)[x];
+					blue = ((pixel & 0x1fU) * 255U + 15U) / 31U;
+					green = (((pixel >> 5) & 0x1fU) * 255U + 15U) / 31U;
+					red = (((pixel >> 10) & 0x1fU) * 255U + 15U) / 31U;
+					break;
+				}
+				case D3DFMT_A2R10G10B10: {
+					const unsigned int pixel = reinterpret_cast<const unsigned int *>(source)[x];
+					blue = ((pixel & 0x3ffU) * 255U + 511U) / 1023U;
+					green = (((pixel >> 10) & 0x3ffU) * 255U + 511U) / 1023U;
+					red = (((pixel >> 20) & 0x3ffU) * 255U + 511U) / 1023U;
+					break;
+				}
+				default:
+					format_supported = false;
+					break;
+			}
+
+			if (!format_supported) {
+				break;
+			}
+			destination[3 * x] = static_cast<unsigned char>(blue);
+			destination[3 * x + 1] = static_cast<unsigned char>(green);
+			destination[3 * x + 2] = static_cast<unsigned char>(red);
+		}
+
+		if (format_supported && destination_stride > destination_bytes) {
+			memset(destination + destination_bytes, 0, destination_stride - destination_bytes);
+		}
+	}
+
+	const HRESULT unlock_result = staging_buffer->UnlockRect();
+	staging_buffer->Release();
+	if (!format_supported || FAILED(unlock_result) || !Movie->Grab(image)) {
+		Stop_Movie_Capture();
+		return false;
+	}
+
+	return true;
+#else
+	return false;
 #endif
 }
 
@@ -1615,7 +1898,7 @@ void WW3D::Update_Movie_Capture( void )
 float	WW3D::Get_Movie_Capture_Frame_Rate( void )
 {
 #ifdef _WIN32
-	if (IsCapturing) {
+	if (Is_Movie_Ready()) {
 		return Movie->GetFrameRate();
 	}
 #endif

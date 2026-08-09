@@ -1261,7 +1261,12 @@ WWAudioClass::Remove_From_Playlist (AudibleSoundClass *sound_obj)
 					//
 					// Add this sound to the 'completed' list
 					//
-					m_CompletedSounds.Add (sound_obj);
+					// A sound can be stopped, replayed, and stopped again before
+					// the next frame drains this deferred-release queue. Keep only
+					// one entry so the playlist's single reference is released once.
+					if (m_CompletedSounds.ID (sound_obj) == -1) {
+						m_CompletedSounds.Add (sound_obj);
+					}
 					retval = true;
 				}
 			}

@@ -725,7 +725,9 @@ AggregateDefClass::Save_W3D (ChunkSaveClass &chunk_save)
 		}
 
 		// Close the aggregate chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3D_ERROR_TYPE return code
@@ -759,7 +761,9 @@ AggregateDefClass::Save_Header (ChunkSaveClass &chunk_save)
 		}
 
 		// End the header chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3D_ERROR_TYPE return code
@@ -796,7 +800,9 @@ AggregateDefClass::Save_Info (ChunkSaveClass &chunk_save)
 		}
 
 		// End the settings chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3D_ERROR_TYPE return code
@@ -851,7 +857,9 @@ AggregateDefClass::Save_Class_Info (ChunkSaveClass &chunk_save)
 		}
 
 		// End the class info chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3D_ERROR_TYPE return code
@@ -889,4 +897,3 @@ AggregateLoaderClass::Load_W3D (ChunkLoadClass &chunk_load)
     // Return a pointer to the prototype
 	 return pprototype;
 }
-

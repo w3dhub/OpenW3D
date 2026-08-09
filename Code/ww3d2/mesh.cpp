@@ -516,7 +516,23 @@ void MeshClass::Scale(float scalex, float scaley, float scalez)
 void	MeshClass::Get_Deformed_Vertices(Vector3 *dst_vert, Vector3 *dst_norm)
 {
 	WWASSERT(Model->Get_Flag(MeshGeometryClass::SKIN));
-	Model->get_deformed_vertices(dst_vert,dst_norm,Container->Get_HTree());
+	const HTreeClass *htree = (Container != nullptr) ? Container->Get_HTree() : nullptr;
+	if (htree == nullptr) {
+		const int vertex_count = Model->Get_Vertex_Count();
+		const Vector3 *src_vert = Model->Get_Vertex_Array();
+		const Vector3 *src_norm = Model->Get_Vertex_Normal_Array();
+		const Matrix3D &world = Get_Transform();
+
+		for (int vi = 0; vi < vertex_count; ++vi) {
+			Matrix3D::Transform_Vector(world, src_vert[vi], &dst_vert[vi]);
+			if (dst_norm) {
+				Matrix3D::Rotate_Vector(world, src_norm[vi], &dst_norm[vi]);
+			}
+		}
+		return;
+	}
+
+	Model->get_deformed_vertices(dst_vert,dst_norm,htree);
 }
 
 
@@ -535,10 +551,19 @@ void	MeshClass::Get_Deformed_Vertices(Vector3 *dst_vert, Vector3 *dst_norm)
 void MeshClass::Get_Deformed_Vertices(Vector3 *dst_vert)
 {
 	WWASSERT(Model->Get_Flag(MeshGeometryClass::SKIN));
-	WWASSERT(Container != nullptr);
-	WWASSERT(Container->Get_HTree() != nullptr);
+	const HTreeClass *htree = (Container != nullptr) ? Container->Get_HTree() : nullptr;
+	if (htree == nullptr) {
+		const int vertex_count = Model->Get_Vertex_Count();
+		const Vector3 *src_vert = Model->Get_Vertex_Array();
+		const Matrix3D &world = Get_Transform();
 
-	Model->get_deformed_vertices(dst_vert,Container->Get_HTree());
+		for (int vi = 0; vi < vertex_count; ++vi) {
+			Matrix3D::Transform_Vector(world, src_vert[vi], &dst_vert[vi]);
+		}
+		return;
+	}
+
+	Model->get_deformed_vertices(dst_vert,htree);
 }
 
 void MeshClass::Compose_Deformed_Vertex_Buffer(
@@ -548,7 +573,45 @@ void MeshClass::Compose_Deformed_Vertex_Buffer(
 	const unsigned* diffuse)
 {
 	WWASSERT(Model->Get_Flag(MeshGeometryClass::SKIN));
-	Model->compose_deformed_vertex_buffer(verts,uv0,uv1,diffuse,Container->Get_HTree());
+	const HTreeClass *htree = (Container != nullptr) ? Container->Get_HTree() : nullptr;
+	if (htree == nullptr) {
+		const int vertex_count = Model->Get_Vertex_Count();
+		const Vector3 *src_vert = Model->Get_Vertex_Array();
+		const Vector3 *src_norm = Model->Get_Vertex_Normal_Array();
+		const Matrix3D &world = Get_Transform();
+
+		for (int vi = 0; vi < vertex_count; ++vi) {
+			Vector3 pos;
+			Vector3 norm;
+			Matrix3D::Transform_Vector(world, src_vert[vi], &pos);
+			Matrix3D::Rotate_Vector(world, src_norm[vi], &norm);
+
+			verts[vi].x = pos[0];
+			verts[vi].y = pos[1];
+			verts[vi].z = pos[2];
+			verts[vi].nx = norm[0];
+			verts[vi].ny = norm[1];
+			verts[vi].nz = norm[2];
+			verts[vi].diffuse = diffuse ? diffuse[vi] : 0;
+			if (uv0) {
+				verts[vi].u1 = uv0[vi][0];
+				verts[vi].v1 = uv0[vi][1];
+			} else {
+				verts[vi].u1 = 0.0f;
+				verts[vi].v1 = 0.0f;
+			}
+			if (uv1) {
+				verts[vi].u2 = uv1[vi][0];
+				verts[vi].v2 = uv1[vi][1];
+			} else {
+				verts[vi].u2 = 0.0f;
+				verts[vi].v2 = 0.0f;
+			}
+		}
+		return;
+	}
+
+	Model->compose_deformed_vertex_buffer(verts,uv0,uv1,diffuse,htree);
 }
 
 /***********************************************************************************************
@@ -1596,7 +1659,6 @@ void MeshClass::Load_User_Lighting (ChunkLoadClass & cload)
 
 	Set_Has_User_Lighting(true);
 }
-
 
 
 

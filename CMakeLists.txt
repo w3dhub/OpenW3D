@@ -12,6 +12,8 @@ endif()
 
 project(commando LANGUAGES C CXX)
 
+include(CTest)
+
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # This file handles extra settings wanted/needed for different compilers.
@@ -77,14 +79,14 @@ endif()
 
 if(W3D_BUILD_OPTION_SDL3)
     include(sdl3)
-    add_compile_definitions(-DOPENW3D_SDL3=1)
+    add_compile_definitions(OPENW3D_SDL3=1)
 elseif(WIN32)
-    add_compile_definitions(-DOPENW3D_WIN32=1)
+    add_compile_definitions(OPENW3D_WIN32=1)
 else()
     message(FATAL_ERROR "Invalid backend")
 endif()
 
-add_compile_definitions(-DWEBBROWSER_ENABLED=$<BOOL:${W3D_BUILD_OPTION_WEBBROWSER}>)
+add_compile_definitions(WEBBROWSER_ENABLED=$<BOOL:${W3D_BUILD_OPTION_WEBBROWSER}>)
 
 if(W3D_BUILD_OPTION_OPENAL)
     include(openal)
@@ -106,7 +108,7 @@ endif()
 
 if(WIN32)
     # Do we want to build with bink for video decoding?
-    cmake_dependent_option(W3D_BUILD_OPTION_BINK "Build with bink." ON NOT W3D_BUILD_OPTION_FFMPEG OFF)
+    cmake_dependent_option(W3D_BUILD_OPTION_BINK "Build with bink." ON "NOT W3D_BUILD_OPTION_FFMPEG" OFF)
     add_feature_info(BinkBuild W3D_BUILD_OPTION_BINK "Build OpenW3D with Bink")
 
     if(W3D_BUILD_OPTION_BINK)
@@ -115,7 +117,7 @@ if(WIN32)
     endif()
 
     # Do we want to build with miles for audio playback?
-    cmake_dependent_option(W3D_BUILD_OPTION_MILES "Build with miles." ON NOT W3D_BUILD_OPTION_OPENAL OFF)
+    cmake_dependent_option(W3D_BUILD_OPTION_MILES "Build with miles." ON "NOT W3D_BUILD_OPTION_OPENAL" OFF)
     add_feature_info(MilesBuild W3D_BUILD_OPTION_MILES "Build OpenW3D with Miles Audio")
 
     if(W3D_BUILD_OPTION_MILES)

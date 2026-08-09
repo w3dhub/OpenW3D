@@ -161,6 +161,7 @@ public:
 	// Micro chunk methods
 	bool					Begin_Micro_Chunk(uint32 id);
 	bool					End_Micro_Chunk();
+	bool					Write_Micro_Chunk(uint32 id, const void *buf, size_t nbytes);
 
 	// Write data into the file
 	uint32				Write(const void *buf, size_t nbytes);
@@ -168,6 +169,7 @@ public:
 	uint32				Write(const IOVector3Struct & v);
 	uint32				Write(const IOVector4Struct & v);
 	uint32				Write(const IOQuaternionStruct & q);
+	bool					Has_Write_Error() const { return WriteError; }
 
 private:
 
@@ -184,6 +186,7 @@ private:
 	bool					InMicroChunk;
 	int					MicroChunkPosition;
 	MicroChunkHeader	MCHeader;
+	bool					WriteError;
 };
 
 
@@ -311,38 +314,26 @@ private:
 */
 #define WRITE_MICRO_CHUNK(csave,id,var) { \
 	static_assert(!std::is_pointer_v<decltype(var)>); \
-	csave.Begin_Micro_Chunk(id); \
-	csave.Write(&var,sizeof(var)); \
-	csave.End_Micro_Chunk(); }
+	csave.Write_Micro_Chunk(id,&var,sizeof(var)); }
 
 #define WRITE_MICRO_CHUNK_PTR(csave,id,var) { \
 	static_assert(std::is_pointer_v<decltype(var)>); \
-	csave.Begin_Micro_Chunk(id); \
 	const uint32 _id_##var = SaveLoadSystemClass::Serialize_Pointer(var); \
-	csave.Write(&_id_##var,sizeof(uint32)); \
-	csave.End_Micro_Chunk(); }
+	csave.Write_Micro_Chunk(id,&_id_##var,sizeof(uint32)); }
 
 #define WRITE_SAFE_MICRO_CHUNK(csave,id,var,type) { \
-	csave.Begin_Micro_Chunk(id);		\
 	static_assert(!std::is_pointer_v<decltype(var)>); \
 	type data = (type)var;				\
-	csave.Write(&data,sizeof(data)); \
-	csave.End_Micro_Chunk(); }
+	csave.Write_Micro_Chunk(id,&data,sizeof(data)); }
 
 #define WRITE_MICRO_CHUNK_STRING(csave,id,var) { \
-	csave.Begin_Micro_Chunk(id); \
-	csave.Write(var, strlen(var) + 1); \
-	csave.End_Micro_Chunk(); }
+	csave.Write_Micro_Chunk(id,var, strlen(var) + 1); }
 
 #define WRITE_MICRO_CHUNK_WWSTRING(csave,id,var) { \
-	csave.Begin_Micro_Chunk(id); \
-	csave.Write((const char *)var, static_cast<size_t>(var.Get_Length ()) + 1); \
-	csave.End_Micro_Chunk(); }
+	csave.Write_Micro_Chunk(id,(const char *)var, static_cast<size_t>(var.Get_Length ()) + 1); }
 
 #define WRITE_MICRO_CHUNK_WIDESTRING(csave,id,var) { \
-	csave.Begin_Micro_Chunk(id); \
-	csave.Write((const unichar_t *)var, (static_cast<size_t>(var.Get_Length ()) + 1) * 2); \
-	csave.End_Micro_Chunk(); }
+	csave.Write_Micro_Chunk(id,(const unichar_t *)var, (static_cast<size_t>(var.Get_Length ()) + 1) * 2); }
 
 
 /*

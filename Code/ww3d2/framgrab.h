@@ -76,20 +76,33 @@ public:
 	virtual ~FrameGrabClass();
 
 	void ConvertGrab(void *BitmapPointer);
-	void Grab(void *BitmapPointer);
+	bool Grab(void *BitmapPointer);
 
 	int * GetBuffer()			{ return Bitmap; }
 	float	GetFrameRate()			{ return FrameRate; }
+	bool IsReady() const			{ return Ready; }
+	HRESULT GetLastError() const	{ return LastError; }
+	int GetWidth() const			{ return Width; }
+	int GetHeight() const			{ return Height; }
+	unsigned int GetBufferStride() const { return BufferStride; }
+	unsigned int GetBufferSize() const { return BitmapInfoHeader.biSizeImage; }
+
+	static unsigned int Calculate_Row_Stride(int width, int bitdepth);
 
 protected:
-	const char *Filename;
 	float			FrameRate;
 
 	MODE Mode;
 	int Counter; // used for incrementing filename cunter, etc.
+	int Width;
+	int Height;
+	unsigned int BufferStride;
+	bool AVIInitialized;
+	bool Ready;
+	HRESULT LastError;
 
-	void GrabAVI(void *BitmapPointer);
-	void GrabRawFrame(void *BitmapPointer);
+	bool GrabAVI(void *BitmapPointer);
+	bool GrabRawFrame(void *BitmapPointer);
 
 	// avi settings
 	PAVIFILE				AVIFile;

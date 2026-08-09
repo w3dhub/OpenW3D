@@ -91,7 +91,7 @@ public:
 protected:
 
 	T	*		FreeListHead;
-	uint32 *	BlockListHead;
+	void *		BlockListHead;
 	int		FreeObjectCount;
 	int		TotalObjectCount;
 	FastCriticalSectionClass ObjectPoolCS;
@@ -211,8 +211,10 @@ ObjectPoolClass<T,BLOCK_SIZE>::~ObjectPoolClass(void)
 	// delete all of the blocks we allocated
 	int block_count = 0;
 	while (BlockListHead != nullptr) {
-		uint32 * next_block = *(uint32 **)BlockListHead;
-		::operator delete(BlockListHead);
+		void * next_block = *(void **)BlockListHead;
+		constexpr size_t block_alignment =
+			alignof(T) > alignof(void *) ? alignof(T) : alignof(void *);
+		::operator delete(BlockListHead, std::align_val_t(block_alignment));
 		BlockListHead = next_block;
 		block_count++;
 	}
@@ -282,18 +284,29 @@ void ObjectPoolClass<T,BLOCK_SIZE>::Free_Object(T * obj)
 template<class T,int BLOCK_SIZE>
 T * ObjectPoolClass<T,BLOCK_SIZE>::Allocate_Object_Memory(void)
 {
+	static_assert(BLOCK_SIZE > 0, "Object pools require a positive block size");
+	static_assert(sizeof(T) >= sizeof(T *),
+		"Object pool slots must be large enough to store a free-list pointer");
+
 	FastCriticalSectionClass::LockClass lock(ObjectPoolCS);
 
 	if ( FreeListHead == 0 ) {
 
 		// No free objects, allocate another block
-		uint32 * tmp_block_head = BlockListHead;
-		BlockListHead = (uint32*)::operator new( sizeof(T) * BLOCK_SIZE + sizeof(uint32 *));
+		void * tmp_block_head = BlockListHead;
+		constexpr size_t block_header_size =
+			(sizeof(void *) + alignof(T) - 1) & ~(alignof(T) - 1);
+		constexpr size_t block_alignment =
+			alignof(T) > alignof(void *) ? alignof(T) : alignof(void *);
+		BlockListHead = ::operator new(
+			sizeof(T) * BLOCK_SIZE + block_header_size,
+			std::align_val_t(block_alignment));
 		// Link this block into the block list
 		*(void **)BlockListHead = tmp_block_head;
 
 		// Link the objects in the block into the free object list
-		FreeListHead = (T*)((uint32**)BlockListHead + 1);
+		FreeListHead = reinterpret_cast<T *>(
+			reinterpret_cast<unsigned char *>(BlockListHead) + block_header_size);
 		for ( int i = 0; i < BLOCK_SIZE; i++ ) {
 			*(T**)(&(FreeListHead[i])) = &(FreeListHead[i+1]);	// link up the elements
 		}

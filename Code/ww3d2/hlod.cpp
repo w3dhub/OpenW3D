@@ -451,7 +451,9 @@ WW3DErrorType HLodDefClass::Save(ChunkSaveClass & csave)
 		}
 
 		// Close the aggregate chunk
-		csave.End_Chunk ();
+		if (!csave.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -500,7 +502,9 @@ WW3DErrorType HLodDefClass::Save_Header(ChunkSaveClass &csave)
 		}
 
 		// End the header chunk
-		csave.End_Chunk ();
+		if (!csave.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -552,12 +556,17 @@ WW3DErrorType HLodDefClass::Save_Lod_Array(ChunkSaveClass &csave)
  *=============================================================================================*/
 WW3DErrorType HLodDefClass::Save_Aggregate_Array(ChunkSaveClass & csave)
 {
-	if (Aggregates.ModelCount > 0) {
-		csave.Begin_Chunk(W3D_CHUNK_HLOD_AGGREGATE_ARRAY);
-		Aggregates.Save_W3D(csave);
-		csave.End_Chunk();
+	if (Aggregates.ModelCount <= 0) {
+		return WW3D_ERROR_OK;
 	}
-	return WW3D_ERROR_OK;
+
+	if (!csave.Begin_Chunk(W3D_CHUNK_HLOD_AGGREGATE_ARRAY)) {
+		return WW3D_ERROR_SAVE_FAILED;
+	}
+
+	const bool saved = Aggregates.Save_W3D(csave);
+	const bool ended = csave.End_Chunk();
+	return saved && ended ? WW3D_ERROR_OK : WW3D_ERROR_SAVE_FAILED;
 }
 
 
@@ -863,7 +872,7 @@ bool HLodDefClass::SubObjectArrayClass::Save_W3D(ChunkSaveClass &csave)
 			ret_val = (csave.Write (&header, sizeof (header)) == sizeof (header));
 
 			// End the header chunk
-			csave.End_Chunk ();
+			ret_val = csave.End_Chunk () && ret_val;
 		}
 
 		if (ret_val) {
@@ -888,13 +897,13 @@ bool HLodDefClass::SubObjectArrayClass::Save_W3D(ChunkSaveClass &csave)
 					ret_val &= (csave.Write (&info, sizeof (info)) == sizeof (info));
 
 					// End the sub-obj chunk
-					csave.End_Chunk ();
+					ret_val = csave.End_Chunk () && ret_val;
 				}
 			}
 		}
 
 		// End the HLOD-Array chunk
-		csave.End_Chunk ();
+		ret_val = csave.End_Chunk () && ret_val;
 	}
 
 	// Return the true/false result code
@@ -3630,4 +3639,3 @@ void HLodClass::Set_Hidden(int onoff)
 	Animatable3DObjClass::Set_Hidden(onoff);
 	return ;
 }
-

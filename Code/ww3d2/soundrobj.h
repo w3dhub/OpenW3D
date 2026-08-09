@@ -181,6 +181,7 @@ public:
 	const char *					Get_Name (void) const					{ return Name; }
 	void								Set_Name (const char *name)			{ Name = name; }
 	SoundRenderObjDefClass *	Clone (void) const						{ return NEW_REF( SoundRenderObjDefClass, (*this) ); }
+	const AudibleSoundDefinitionClass *Peek_Sound_Definition (void) const	{ return &Definition; }
 
 	//
 	//	Initialization
@@ -272,4 +273,3 @@ extern SoundRenderObjLoaderClass		_SoundRenderObjLoader;
 
 
 #endif //__SOUNDROBJ_H
-

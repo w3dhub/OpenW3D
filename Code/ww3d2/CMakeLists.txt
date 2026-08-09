@@ -255,3 +255,28 @@ if (W3D_TOOLS)
 
     target_sources(ww3d2e PRIVATE ${WW3D2_SRC})
 endif()
+
+if(BUILD_TESTING AND WIN32)
+    add_executable(ww3d2_screenshot_api_tests
+        tests/ScreenshotApiTests.cpp
+    )
+
+    target_link_libraries(ww3d2_screenshot_api_tests PRIVATE
+        ww3d2
+        wwcommon
+    )
+
+    add_test(NAME ww3d2_screenshot_api_tests COMMAND ww3d2_screenshot_api_tests)
+
+    add_executable(ww3d2_framegrab_tests
+        tests/FrameGrabTests.cpp
+    )
+
+    target_link_libraries(ww3d2_framegrab_tests PRIVATE
+        ww3d2
+        wwcommon
+        vfw32
+    )
+
+    add_test(NAME ww3d2_framegrab_tests COMMAND ww3d2_framegrab_tests)
+endif()

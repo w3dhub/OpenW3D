@@ -1156,7 +1156,9 @@ ParticleEmitterDefClass::Save_W3D (ChunkSaveClass &chunk_save)
 		}
 
 		// Close the emitter chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1191,7 +1193,9 @@ ParticleEmitterDefClass::Save_Header (ChunkSaveClass &chunk_save)
 		}
 
 		// End the header chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1241,7 +1245,9 @@ ParticleEmitterDefClass::Save_User_Data (ChunkSaveClass &chunk_save)
 		}
 
 		// End the user information chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1270,7 +1276,9 @@ ParticleEmitterDefClass::Save_Info (ChunkSaveClass &chunk_save)
 		}
 
 		// End the settings chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1299,7 +1307,9 @@ ParticleEmitterDefClass::Save_InfoV2 (ChunkSaveClass &chunk_save)
 		}
 
 		// End the settings chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1349,7 +1359,9 @@ ParticleEmitterDefClass::Save_Props (ChunkSaveClass &chunk_save)
 		}
 
 		// End the settings chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1487,7 +1499,9 @@ ParticleEmitterDefClass::Save_Line_Properties (ChunkSaveClass &chunk_save)
 		}
 
 		// End the chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1510,20 +1524,21 @@ ParticleEmitterDefClass::Save_Rotation_Keyframes (ChunkSaveClass & chunk_save)
 	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_ROTATION_KEYFRAMES) == true) {
 
 		// Write the header
-		W3dEmitterRotationHeaderStruct header;
+		W3dEmitterRotationHeaderStruct header = {};
 		header.KeyframeCount = m_RotationKeyframes.NumKeyFrames;
 		header.Random = m_RotationKeyframes.Rand;
 		header.OrientationRandom = m_InitialOrientationRandom;
-		chunk_save.Write (&header, sizeof (W3dEmitterRotationHeaderStruct));
+		bool success =
+			(chunk_save.Write (&header, sizeof (W3dEmitterRotationHeaderStruct)) ==
+			 sizeof (W3dEmitterRotationHeaderStruct));
 
 		// Write the keyframes
-		bool success = true;
 		W3dEmitterRotationKeyframeStruct key;
 
 		// Write the start keyframe
 		key.Time = 0;
 		key.Rotation = m_RotationKeyframes.Start;
-		chunk_save.Write (&key, sizeof (key));
+		success = (chunk_save.Write (&key, sizeof (key)) == sizeof (key)) && success;
 
 		// Write the remaining keyframes
 		for (unsigned int index = 0; (index < header.KeyframeCount) && success; index ++) {
@@ -1535,7 +1550,9 @@ ParticleEmitterDefClass::Save_Rotation_Keyframes (ChunkSaveClass & chunk_save)
 		ret_val = success ? WW3D_ERROR_OK : WW3D_ERROR_SAVE_FAILED;
 
 		// End the chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1559,19 +1576,20 @@ ParticleEmitterDefClass::Save_Frame_Keyframes (ChunkSaveClass & chunk_save)
 	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_FRAME_KEYFRAMES) == true) {
 
 		// Write the header
-		W3dEmitterFrameHeaderStruct header;
+		W3dEmitterFrameHeaderStruct header = {};
 		header.KeyframeCount = m_FrameKeyframes.NumKeyFrames;
 		header.Random = m_FrameKeyframes.Rand;
-		chunk_save.Write (&header, sizeof (W3dEmitterFrameHeaderStruct));
+		bool success =
+			(chunk_save.Write (&header, sizeof (W3dEmitterFrameHeaderStruct)) ==
+			 sizeof (W3dEmitterFrameHeaderStruct));
 
 		// Write the keyframes
-		bool success = true;
 		W3dEmitterFrameKeyframeStruct key;
 
 		// Write the start keyframe
 		key.Time = 0;
 		key.Frame = m_FrameKeyframes.Start;
-		chunk_save.Write (&key, sizeof (key));
+		success = (chunk_save.Write (&key, sizeof (key)) == sizeof (key)) && success;
 
 		// Write the remaining keyframes
 		for (unsigned int index = 0; (index < header.KeyframeCount) && success; index ++) {
@@ -1583,7 +1601,9 @@ ParticleEmitterDefClass::Save_Frame_Keyframes (ChunkSaveClass & chunk_save)
 		ret_val = success ? WW3D_ERROR_OK : WW3D_ERROR_SAVE_FAILED;
 
 		// End the chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
@@ -1606,19 +1626,20 @@ ParticleEmitterDefClass::Save_Blur_Time_Keyframes (ChunkSaveClass & chunk_save)
 	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_BLUR_TIME_KEYFRAMES) == true) {
 
 		// Write the header
-		W3dEmitterBlurTimeHeaderStruct header;
+		W3dEmitterBlurTimeHeaderStruct header = {};
 		header.KeyframeCount = m_BlurTimeKeyframes.NumKeyFrames;
 		header.Random = m_BlurTimeKeyframes.Rand;
-		chunk_save.Write (&header, sizeof (W3dEmitterBlurTimeHeaderStruct));
+		bool success =
+			(chunk_save.Write (&header, sizeof (W3dEmitterBlurTimeHeaderStruct)) ==
+			 sizeof (W3dEmitterBlurTimeHeaderStruct));
 
 		// Write the keyframes
-		bool success = true;
 		W3dEmitterBlurTimeKeyframeStruct key;
 
 		// Write the start keyframe
 		key.Time = 0;
 		key.BlurTime = m_BlurTimeKeyframes.Start;
-		chunk_save.Write (&key, sizeof (key));
+		success = (chunk_save.Write (&key, sizeof (key)) == sizeof (key)) && success;
 
 		// Write the remaining keyframes
 		for (unsigned int index = 0; (index < header.KeyframeCount) && success; index ++) {
@@ -1630,7 +1651,9 @@ ParticleEmitterDefClass::Save_Blur_Time_Keyframes (ChunkSaveClass & chunk_save)
 		ret_val = success ? WW3D_ERROR_OK : WW3D_ERROR_SAVE_FAILED;
 
 		// End the chunk
-		chunk_save.End_Chunk ();
+		if (!chunk_save.End_Chunk ()) {
+			ret_val = WW3D_ERROR_SAVE_FAILED;
+		}
 	}
 
 	// Return the WW3DErrorType return code
