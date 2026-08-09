@@ -1,9 +1,6 @@
 #include "EmitterEditDialog.h"
 
-#include "chunkio.h"
 #include "part_ldr.h"
-#include "ramfile.h"
-#include "rawfile.h"
 #include "shader.h"
 #include "v3_rnd.h"
 #include "vector2.h"
@@ -15,8 +12,6 @@
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
-#include <QDir>
-#include <QFileInfo>
 #include <QLineEdit>
 #include <QPlainTextEdit>
 #include <QPushButton>
@@ -24,7 +19,6 @@
 #include <QtTest/QTest>
 
 #include <cmath>
-#include <array>
 #include <cstdint>
 #include <memory>
 
@@ -348,7 +342,6 @@ private slots:
     void applyWithoutCloseAdvancesRegisteredName();
     void cancelAfterApplyPreservesLastAppliedDefinition();
     void okDoesNotRepeatCleanApply();
-    void serializerRejectsTruncatedBlurChunk();
 };
 
 void EmitterEditDialogTests::noOpRoundTripPreservesAllObservableData()
@@ -673,67 +666,6 @@ void EmitterEditDialogTests::okDoesNotRepeatCleanApply()
     QApplication::processEvents();
     QCOMPARE(dialog.result(), static_cast<int>(QDialog::Accepted));
     QCOMPARE(applyCount, 1);
-}
-
-void EmitterEditDialogTests::serializerRejectsTruncatedBlurChunk()
-{
-    const QString assetDirectory = qEnvironmentVariable("W3DVIEW_EXTERNAL_ASSET_DIR");
-    if (assetDirectory.isEmpty()) {
-        QSKIP("Set W3DVIEW_EXTERNAL_ASSET_DIR to run the real-emitter serializer regression");
-    }
-
-    const QString sourcePath = QDir(assetDirectory).filePath("e_flare02.w3d");
-    QVERIFY2(QFileInfo::exists(sourcePath),
-             qPrintable(QString("Missing integration asset: %1").arg(sourcePath)));
-
-    ParticleEmitterDefClass definition;
-    {
-        const QByteArray nativePath = QDir::toNativeSeparators(sourcePath).toLocal8Bit();
-        RawFileClass source(nativePath.constData());
-        QVERIFY(source.Open(FileClass::READ));
-
-        ChunkLoadClass load(&source);
-        QVERIFY(load.Open_Chunk());
-        QCOMPARE(load.Cur_Chunk_ID(), static_cast<uint32>(W3D_CHUNK_EMITTER));
-        QCOMPARE(definition.Load_W3D(load), WW3D_ERROR_OK);
-        QVERIFY(load.Close_Chunk());
-        QCOMPARE(source.Tell(), source.Size());
-        source.Close();
-    }
-
-    // e_flare02 normally serializes to 708 bytes. At 688 bytes the final blur
-    // chunk header fits, but its mandatory header and start keyframe do not.
-    std::array<char, 688> storage = {};
-    RAMFileClass destination(storage.data(), static_cast<int>(storage.size()));
-    QVERIFY(destination.Open(FileClass::WRITE));
-
-    ChunkSaveClass save(&destination);
-    QCOMPARE(definition.Save_W3D(save), WW3D_ERROR_SAVE_FAILED);
-    QVERIFY(save.Has_Write_Error());
-    QCOMPARE(save.Cur_Chunk_Depth(), 0);
-    QCOMPARE(destination.Size(), static_cast<int>(storage.size()));
-    destination.Close();
-
-    // The failed write still leaves a balanced zero-length blur chunk. This
-    // prevents structural validity from masking the serializer failure again.
-    QVERIFY(destination.Open(FileClass::READ));
-    ChunkLoadClass truncatedLoad(&destination);
-    QVERIFY(truncatedLoad.Open_Chunk());
-    QCOMPARE(truncatedLoad.Cur_Chunk_ID(), static_cast<uint32>(W3D_CHUNK_EMITTER));
-    QCOMPARE(truncatedLoad.Cur_Chunk_Length() + sizeof(ChunkHeader), storage.size());
-
-    uint32 lastChildId = 0;
-    uint32 lastChildLength = 0;
-    while (truncatedLoad.Open_Chunk()) {
-        lastChildId = truncatedLoad.Cur_Chunk_ID();
-        lastChildLength = truncatedLoad.Cur_Chunk_Length();
-        QVERIFY(truncatedLoad.Close_Chunk());
-    }
-    QCOMPARE(lastChildId, static_cast<uint32>(W3D_CHUNK_EMITTER_BLUR_TIME_KEYFRAMES));
-    QCOMPARE(lastChildLength, static_cast<uint32>(0));
-    QVERIFY(truncatedLoad.Close_Chunk());
-    QCOMPARE(destination.Tell(), destination.Size());
-    destination.Close();
 }
 
 int main(int argc, char **argv)

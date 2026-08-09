@@ -20,7 +20,6 @@
 #include "part_emt.h"
 #include "part_ldr.h"
 #include "quat.h"
-#include "rawfile.h"
 #include "refcount.h"
 #include "rendobj.h"
 #include "ringobj.h"
@@ -697,27 +696,28 @@ bool ImportFacialAnimation(const QString &hierarchy, const QString &path)
         new_anim->Release_Ref();
         return false;
     }
+    anim_desc_file.Close();
 
     const QString anim_name = QFileInfo(path).completeBaseName().toUpper();
     const QString new_name = QString("%1.%2").arg(hierarchy, anim_name);
     const QByteArray new_name_bytes = new_name.toLatin1();
     new_anim->Set_Name(new_name_bytes.constData());
 
+    const QString output_path = QDir(QFileInfo(path).absolutePath()).filePath(anim_name + ".w3d");
+    if (!W3DExportUtils::SaveChunkFileAtomically(
+            output_path,
+            W3D_CHUNK_MORPH_ANIMATION,
+            [new_anim](ChunkSaveClass &chunk_save) {
+                return new_anim->Save_W3D(chunk_save) == HMorphAnimClass::OK;
+            })) {
+        new_anim->Release_Ref();
+        return false;
+    }
+
     if (auto *asset_manager = WW3DAssetManager::Get_Instance()) {
         asset_manager->Add_Anim(new_anim);
     }
 
-    const QString output_path = QDir(QFileInfo(path).absolutePath()).filePath(anim_name + ".w3d");
-    const QByteArray output_native = QDir::toNativeSeparators(output_path).toLocal8Bit();
-    RawFileClass animation_file(output_native.constData());
-    if (animation_file.Create() == (int)true &&
-        animation_file.Open(FileClass::WRITE) == (int)true) {
-        ChunkSaveClass csave(&animation_file);
-        new_anim->Save_W3D(csave);
-        animation_file.Close();
-    }
-
-    anim_desc_file.Close();
     new_anim->Release_Ref();
     return true;
 }
