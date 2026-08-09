@@ -255,3 +255,22 @@ if (W3D_TOOLS)
 
     target_sources(ww3d2e PRIVATE ${WW3D2_SRC})
 endif()
+
+if(BUILD_TESTING AND WIN32)
+    add_executable(ww3d2_viewer_inspection_api_tests
+        tests/ViewerInspectionApiTests.cpp
+    )
+
+    target_link_libraries(ww3d2_viewer_inspection_api_tests PRIVATE
+        wwcommon
+        wwdebug
+        wwlib
+        wwmath
+        wwsaveload
+        ww3d2
+        wwaudio
+    )
+
+    add_test(NAME ww3d2_viewer_inspection_api_tests
+        COMMAND ww3d2_viewer_inspection_api_tests)
+endif()
