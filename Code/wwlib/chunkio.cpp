@@ -87,7 +87,8 @@ ChunkSaveClass::ChunkSaveClass(FileClass * file) :
 	File(file),
 	StackIndex(0),
 	InMicroChunk(false),
-	MicroChunkPosition(0)
+	MicroChunkPosition(0),
+	WriteError(false)
 {
 	memset(PositionStack,0,sizeof(PositionStack));
 	memset(HeaderStack,0,sizeof(HeaderStack));
@@ -123,6 +124,9 @@ bool ChunkSaveClass::Begin_Chunk(uint32 id)
 	chunkh.Set_Type(id);
 	chunkh.Set_Size(0);
 	filepos = File->Seek(0);
+	if (filepos < 0) {
+		WriteError = true;
+	}
 
 	PositionStack[StackIndex] = filepos;
 	HeaderStack[StackIndex] = chunkh;
@@ -130,6 +134,7 @@ bool ChunkSaveClass::Begin_Chunk(uint32 id)
 
 	// write a temporary chunk header (size = 0)
 	if (File->Write(&chunkh,sizeof(chunkh)) != sizeof(chunkh)) {
+		WriteError = true;
 		return false;
 	}
 	return true;
@@ -155,6 +160,9 @@ bool ChunkSaveClass::End_Chunk(void)
 
 	// Save the current position
 	int curpos = File->Seek(0);
+	if (curpos < 0) {
+		WriteError = true;
+	}
 
 	// Pop the position and chunk header off the stacks
 	StackIndex--;
@@ -162,8 +170,11 @@ bool ChunkSaveClass::End_Chunk(void)
 	ChunkHeader chunkh = HeaderStack[StackIndex];
 
 	// write the completed header
-	File->Seek(chunkpos,SEEK_SET);
+	if (File->Seek(chunkpos,SEEK_SET) != chunkpos) {
+		WriteError = true;
+	}
 	if (File->Write(&chunkh,sizeof(chunkh)) != sizeof(chunkh)) {
+		WriteError = true;
 		return false;
 	}
 
@@ -173,7 +184,9 @@ bool ChunkSaveClass::End_Chunk(void)
 	}
 
 	// Go back to the end of the file
-	File->Seek(curpos,SEEK_SET);
+	if (File->Seek(curpos,SEEK_SET) != curpos) {
+		WriteError = true;
+	}
 
 	return true;
 }
@@ -207,6 +220,9 @@ bool ChunkSaveClass::Begin_Micro_Chunk(uint32 id)
 	MCHeader.Set_Type(uint8(id));
 	MCHeader.Set_Size(0);
 	MicroChunkPosition = File->Seek(0);
+	if (MicroChunkPosition < 0) {
+		WriteError = true;
+	}
 
 	// Write a temporary chunk header
 	// NOTE: I'm calling the ChunkSaveClass::Write method so that the bytes for
@@ -239,15 +255,23 @@ bool ChunkSaveClass::End_Micro_Chunk(void)
 
 	// Save the current position
 	int curpos = File->Seek(0);
+	if (curpos < 0) {
+		WriteError = true;
+	}
 
 	// Seek back and write the micro chunk header
-	File->Seek(MicroChunkPosition,SEEK_SET);
+	if (File->Seek(MicroChunkPosition,SEEK_SET) != MicroChunkPosition) {
+		WriteError = true;
+	}
 	if (File->Write(&MCHeader,sizeof(MCHeader)) != sizeof(MCHeader)) {
+		WriteError = true;
 		return false;
 	}
 
 	// Go back to the end of the file
-	File->Seek(curpos,SEEK_SET);
+	if (File->Seek(curpos,SEEK_SET) != curpos) {
+		WriteError = true;
+	}
 	InMicroChunk = false;
 	return true;
 }
@@ -281,7 +305,10 @@ uint32 ChunkSaveClass::Write(const void * buf, size_t nbytes)
 	const int nbytes_int = static_cast<int>(clamped_to_int);
 
 	// write the bytes into the file
-	if (File->Write(buf, nbytes_int) != nbytes_int) return 0;
+	if (File->Write(buf, nbytes_int) != nbytes_int) {
+		WriteError = true;
+		return 0;
+	}
 
 	// track them in the wrapping chunk
 	HeaderStack[StackIndex - 1].Add_Size(nbytes32);
@@ -864,4 +891,3 @@ uint32 ChunkLoadClass::Read(IOQuaternionStruct * q)
 	assert(q != nullptr);
 	return Read(q,sizeof(*q));
 }
-

@@ -168,6 +168,7 @@ public:
 	uint32				Write(const IOVector3Struct & v);
 	uint32				Write(const IOVector4Struct & v);
 	uint32				Write(const IOQuaternionStruct & q);
+	bool					Has_Write_Error() const { return WriteError; }
 
 private:
 
@@ -184,6 +185,7 @@ private:
 	bool					InMicroChunk;
 	int					MicroChunkPosition;
 	MicroChunkHeader	MCHeader;
+	bool					WriteError;
 };
 
 

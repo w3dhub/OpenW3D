@@ -195,4 +195,20 @@ if(BUILD_TESTING)
     )
 
     add_test(NAME wwlib_mempool_tests COMMAND wwlib_mempool_tests)
+
+    add_executable(wwlib_chunkio_tests
+        tests/ChunkIOTests.cpp
+    )
+
+    target_link_libraries(wwlib_chunkio_tests PRIVATE
+        wwlib
+        wwdebug
+        wwcommon
+    )
+
+    target_include_directories(wwlib_chunkio_tests PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+    add_test(NAME wwlib_chunkio_tests COMMAND wwlib_chunkio_tests)
 endif()
