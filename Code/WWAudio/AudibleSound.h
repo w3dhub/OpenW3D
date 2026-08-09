@@ -443,6 +443,10 @@ public:
 	virtual float								Get_Pitch_Factor (void) const		{ return m_PitchFactor; }
 	virtual float								Get_Pitch_Factor_Randomizer (void) const	{ return m_PitchFactorRandomizer; }
 	virtual int									Get_Virtual_Channel (void) const	{ return m_VirtualChannel; }
+	virtual float								Get_Priority (void) const			{ return m_Priority; }
+	virtual int									Get_Loop_Count (void) const		{ return m_LoopCount; }
+	virtual bool								Is_3D (void) const					{ return m_Is3D; }
+	virtual int									Get_Type (void) const				{ return m_Type; }
 
 	virtual void								Set_Volume (float volume)				{ m_Volume = volume; }
 	virtual void								Set_Volume_Randomizer (float value)	{ m_VolumeRandomizer = value; }

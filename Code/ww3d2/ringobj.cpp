@@ -1184,38 +1184,52 @@ bool RingPrototypeClass::Load (ChunkLoadClass &cload)
 
 bool RingPrototypeClass::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (W3D_CHUNK_RING);
-
-		csave.Begin_Chunk (CHUNKID_RING_DEF);
-			csave.Write (&Definition, sizeof (Definition));
-		csave.End_Chunk ();
-
-		if (ColorChannel.Get_Key_Count () > 0) {
-			csave.Begin_Chunk (CHUNKID_COLOR_CHANNEL);
-			ColorChannel.Save (csave);
-			csave.End_Chunk ();
+	const auto save_chunk = [&csave](uint32 chunk_id, const auto &save_contents) {
+		const bool began = csave.Begin_Chunk (chunk_id);
+		if (!began) {
+			return false;
 		}
 
-		if (AlphaChannel.Get_Key_Count () > 0) {
-			csave.Begin_Chunk (CHUNKID_ALPHA_CHANNEL);
-			AlphaChannel.Save (csave);
-			csave.End_Chunk ();
-		}
+		const bool saved = save_contents ();
+		const bool ended = csave.End_Chunk ();
+		return saved && ended;
+	};
 
-		if (InnerScaleChannel.Get_Key_Count () > 0) {
-			csave.Begin_Chunk (CHUNKID_INNER_SCALE_CHANNEL);
-			InnerScaleChannel.Save (csave);
-			csave.End_Chunk ();
-		}
+	const bool began_ring = csave.Begin_Chunk (W3D_CHUNK_RING);
+	if (!began_ring) {
+		return false;
+	}
 
-		if (OuterScaleChannel.Get_Key_Count () > 0) {
-			csave.Begin_Chunk (CHUNKID_OUTER_SCALE_CHANNEL);
-			OuterScaleChannel.Save (csave);
-			csave.End_Chunk ();
-		}
+	bool ok = save_chunk (CHUNKID_RING_DEF, [this, &csave]() {
+		return csave.Write (&Definition, sizeof (Definition)) == sizeof (Definition);
+	});
 
-	csave.End_Chunk ();
-	return true;
+	if (ColorChannel.Get_Key_Count () > 0) {
+		ok = save_chunk (CHUNKID_COLOR_CHANNEL, [this, &csave]() {
+			return ColorChannel.Save (csave);
+		}) && ok;
+	}
+
+	if (AlphaChannel.Get_Key_Count () > 0) {
+		ok = save_chunk (CHUNKID_ALPHA_CHANNEL, [this, &csave]() {
+			return AlphaChannel.Save (csave);
+		}) && ok;
+	}
+
+	if (InnerScaleChannel.Get_Key_Count () > 0) {
+		ok = save_chunk (CHUNKID_INNER_SCALE_CHANNEL, [this, &csave]() {
+			return InnerScaleChannel.Save (csave);
+		}) && ok;
+	}
+
+	if (OuterScaleChannel.Get_Key_Count () > 0) {
+		ok = save_chunk (CHUNKID_OUTER_SCALE_CHANNEL, [this, &csave]() {
+			return OuterScaleChannel.Save (csave);
+		}) && ok;
+	}
+
+	const bool ended_ring = csave.End_Chunk ();
+	return ok && ended_ring && !csave.Has_Write_Error ();
 }
 
 RenderObjClass * RingPrototypeClass::Create(void)

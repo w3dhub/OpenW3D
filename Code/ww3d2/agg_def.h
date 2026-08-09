@@ -110,6 +110,7 @@ class AggregateDefClass
 		virtual WW3DErrorType	Load_W3D (ChunkLoadClass &chunk_load);
 		virtual WW3DErrorType	Save_W3D (ChunkSaveClass &chunk_save);
 		const char *				Get_Name (void) const					{ return m_pName; }
+		const char *				Get_Base_Model_Name (void) const		{ return m_Info.BaseModelName; }
 		void							Set_Name (const char *pname)			{ SAFE_FREE (m_pName); m_pName = ::strdup (pname); }
 		RenderObjClass *			Create (void);
 		AggregateDefClass *		Clone (void) const						{ return new AggregateDefClass (*this); }

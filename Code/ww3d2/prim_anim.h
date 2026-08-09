@@ -116,7 +116,7 @@ public:
 	void						Delete_Key (int index);
 	void						Reset (void);
 
-	virtual void			Save (ChunkSaveClass &csave);
+	virtual bool			Save (ChunkSaveClass &csave);
 	virtual void			Load (ChunkLoadClass &cload);
 
 protected:
@@ -271,22 +271,24 @@ PrimitiveAnimationChannelClass<T>::operator= (const PrimitiveAnimationChannelCla
 /////////////////////////////////////////////////////////////////////
 //	Save
 /////////////////////////////////////////////////////////////////////
-template<class T> void
+template<class T> bool
 PrimitiveAnimationChannelClass<T>::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_VARIABLES);
+	if (!csave.Begin_Chunk (CHUNKID_VARIABLES)) {
+		return false;
+	}
 
 		//
 		//	Save each key
 		//
-		for (int index = 0; index < m_Data.Count (); index ++) {
+		bool saved = true;
+		for (int index = 0; (index < m_Data.Count ()) && saved; index ++) {
 			KeyClass &value = m_Data[index];
-			WRITE_MICRO_CHUNK (csave, VARID_KEY, value);
+			saved = csave.Write_Micro_Chunk (VARID_KEY, &value, sizeof (value));
 		}
 
-	csave.End_Chunk ();
-
-	return ;
+	const bool ended = csave.End_Chunk ();
+	return saved && ended && !csave.Has_Write_Error ();
 }
 
 /////////////////////////////////////////////////////////////////////

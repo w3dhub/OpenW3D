@@ -1600,15 +1600,21 @@ AudibleSoundDefinitionClass::Save (ChunkSaveClass &csave)
 	using namespace AUDIBLE_SOUND_DEF_SAVELOAD;
 	bool retval = true;
 
-	csave.Begin_Chunk (CHUNKID_VARIABLES);
-	retval &= Save_Variables (csave);
-	csave.End_Chunk ();
+	bool saved_variables = false;
+	if (csave.Begin_Chunk (CHUNKID_VARIABLES)) {
+		saved_variables = Save_Variables (csave);
+		saved_variables = csave.End_Chunk () && saved_variables;
+	}
+	retval &= saved_variables;
 
-	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
-	retval &= DefinitionClass::Save (csave);
-	csave.End_Chunk ();
+	bool saved_base_class = false;
+	if (csave.Begin_Chunk (CHUNKID_BASE_CLASS)) {
+		saved_base_class = DefinitionClass::Save (csave);
+		saved_base_class = csave.End_Chunk () && saved_base_class;
+	}
+	retval &= saved_base_class;
 
-	return retval;
+	return retval && !csave.Has_Write_Error ();
 }
 
 
@@ -1651,35 +1657,46 @@ bool
 AudibleSoundDefinitionClass::Save_Variables (ChunkSaveClass &csave)
 {
 	using namespace AUDIBLE_SOUND_DEF_SAVELOAD;
+	bool retval = true;
 
 	//
 	//	Save the audible variables
 	//
-	WRITE_MICRO_CHUNK (csave, VARID_PRIORITY,						m_Priority)
-	WRITE_MICRO_CHUNK (csave, VARID_VOLUME,						m_Volume)
-	WRITE_MICRO_CHUNK (csave, VARID_PAN,							m_Pan)
-	WRITE_MICRO_CHUNK (csave, VARID_LOOP_COUNT,					m_LoopCount)
-	WRITE_MICRO_CHUNK (csave, VARID_DROP_OFF,						m_DropOffRadius)
-	WRITE_MICRO_CHUNK (csave, VARID_MAX_VOL,						m_MaxVolRadius)
-	WRITE_MICRO_CHUNK (csave, VARID_TYPE,							m_Type)
-	WRITE_MICRO_CHUNK (csave, VARID_IS3D,							m_Is3D)
-	WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_FILENAME,			m_Filename)
-	WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_DISPLAY_TEXT,	m_DisplayText)
-	WRITE_MICRO_CHUNK (csave, VARID_START_OFFSET,				m_StartOffset);
-	WRITE_MICRO_CHUNK (csave, VARID_PITCH_FACTOR,				m_PitchFactor);
-	WRITE_MICRO_CHUNK (csave, VARID_PITCH_FACTOR_RND,			m_PitchFactorRandomizer);
-	WRITE_MICRO_CHUNK (csave, VARID_VOLUME_RND,					m_VolumeRandomizer);
-	WRITE_MICRO_CHUNK (csave, VARID_VIRTUAL_CHANNEL,			m_VirtualChannel);
+	retval &= csave.Write_Micro_Chunk (VARID_PRIORITY, &m_Priority, sizeof (m_Priority));
+	retval &= csave.Write_Micro_Chunk (VARID_VOLUME, &m_Volume, sizeof (m_Volume));
+	retval &= csave.Write_Micro_Chunk (VARID_PAN, &m_Pan, sizeof (m_Pan));
+	retval &= csave.Write_Micro_Chunk (VARID_LOOP_COUNT, &m_LoopCount, sizeof (m_LoopCount));
+	retval &= csave.Write_Micro_Chunk (VARID_DROP_OFF, &m_DropOffRadius, sizeof (m_DropOffRadius));
+	retval &= csave.Write_Micro_Chunk (VARID_MAX_VOL, &m_MaxVolRadius, sizeof (m_MaxVolRadius));
+	retval &= csave.Write_Micro_Chunk (VARID_TYPE, &m_Type, sizeof (m_Type));
+	retval &= csave.Write_Micro_Chunk (VARID_IS3D, &m_Is3D, sizeof (m_Is3D));
+	retval &= csave.Write_Micro_Chunk (VARID_FILENAME, (const char *)m_Filename,
+		static_cast<size_t>(m_Filename.Get_Length ()) + 1);
+	retval &= csave.Write_Micro_Chunk (VARID_DISPLAY_TEXT, (const char *)m_DisplayText,
+		static_cast<size_t>(m_DisplayText.Get_Length ()) + 1);
+	retval &= csave.Write_Micro_Chunk (VARID_START_OFFSET, &m_StartOffset, sizeof (m_StartOffset));
+	retval &= csave.Write_Micro_Chunk (VARID_PITCH_FACTOR, &m_PitchFactor, sizeof (m_PitchFactor));
+	retval &= csave.Write_Micro_Chunk (VARID_PITCH_FACTOR_RND, &m_PitchFactorRandomizer,
+		sizeof (m_PitchFactorRandomizer));
+	retval &= csave.Write_Micro_Chunk (VARID_VOLUME_RND, &m_VolumeRandomizer,
+		sizeof (m_VolumeRandomizer));
+	retval &= csave.Write_Micro_Chunk (VARID_VIRTUAL_CHANNEL, &m_VirtualChannel,
+		sizeof (m_VirtualChannel));
 
 	//
 	//	Save the logical variables
 	//
-	WRITE_MICRO_CHUNK (csave, VARID_LOGICAL_MASK,				m_LogicalTypeMask)
-	WRITE_MICRO_CHUNK (csave, VARID_LOGICAL_DELAY,				m_LogicalNotifyDelay)
-	WRITE_MICRO_CHUNK (csave, VARID_CREATE_LOGICAL,				m_CreateLogical)
-	WRITE_MICRO_CHUNK (csave, VARID_LOGICAL_DROP_OFF,			m_LogicalDropOffRadius)
-	WRITE_MICRO_CHUNK (csave, VARID_SPHERE_COLOR,				m_AttenuationSphereColor)
-	return true;
+	retval &= csave.Write_Micro_Chunk (VARID_LOGICAL_MASK, &m_LogicalTypeMask,
+		sizeof (m_LogicalTypeMask));
+	retval &= csave.Write_Micro_Chunk (VARID_LOGICAL_DELAY, &m_LogicalNotifyDelay,
+		sizeof (m_LogicalNotifyDelay));
+	retval &= csave.Write_Micro_Chunk (VARID_CREATE_LOGICAL, &m_CreateLogical,
+		sizeof (m_CreateLogical));
+	retval &= csave.Write_Micro_Chunk (VARID_LOGICAL_DROP_OFF, &m_LogicalDropOffRadius,
+		sizeof (m_LogicalDropOffRadius));
+	retval &= csave.Write_Micro_Chunk (VARID_SPHERE_COLOR, &m_AttenuationSphereColor,
+		sizeof (m_AttenuationSphereColor));
+	return retval && !csave.Has_Write_Error ();
 }
 
 

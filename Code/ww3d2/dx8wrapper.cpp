@@ -531,7 +531,17 @@ bool DX8Wrapper::Reset_Device(void)
 		// Reset frame count to reflect the flipping chain being reset by Reset()
 		FrameCount = 0;
 
-		DX8CALL(Reset(&_PresentParameters));
+		const HRESULT reset_result = D3DDevice->Reset(&_PresentParameters);
+		number_of_DX8_calls++;
+		if (FAILED(reset_result)) {
+			IsDeviceLost = true;
+			Non_Fatal_Log_DX8_ErrorCode(reset_result, __FILE__, __LINE__);
+			WWDEBUG_SAY(("Device reset failed (HRESULT 0x%08x)\n",
+				static_cast<unsigned int>(reset_result)));
+			return false;
+		}
+
+		IsDeviceLost = false;
 		DX8TextureManagerClass::Recreate_Textures();
 		Invalidate_Cached_Render_States();
 		Set_Default_Global_Render_States();
@@ -1025,6 +1035,9 @@ const char * DX8Wrapper::Get_Render_Device_Name(int device_index)
 bool DX8Wrapper::Set_Device_Resolution(int width,int height,int /*bits*/,int /*windowed*/, bool /*resize_window*/)
 {
 	if (D3DDevice != nullptr) {
+		const D3DPRESENT_PARAMETERS previous_parameters = _PresentParameters;
+		const int previous_width = ResolutionWidth;
+		const int previous_height = ResolutionHeight;
 
 		if (width != -1) {
 			_PresentParameters.BackBufferWidth = ResolutionWidth = width;
@@ -1033,7 +1046,20 @@ bool DX8Wrapper::Set_Device_Resolution(int width,int height,int /*bits*/,int /*w
 			_PresentParameters.BackBufferHeight = ResolutionHeight = height;
 		}
 // FIXME TODO: support changing windowed status and changing the bit depth
-		return Reset_Device();
+		if (Reset_Device()) {
+			return true;
+		}
+
+		// A failed Reset leaves the device unusable until another Reset succeeds.
+		// Restore the last working presentation parameters and attempt to recover,
+		// while still reporting the requested mode as a failure to the caller.
+		_PresentParameters = previous_parameters;
+		ResolutionWidth = previous_width;
+		ResolutionHeight = previous_height;
+		if (!Reset_Device()) {
+			WWDEBUG_SAY(("Failed to restore the previous device resolution.\n"));
+		}
+		return false;
 	} else {
 		return false;
 	}
@@ -2733,6 +2759,12 @@ unsigned int DX8Wrapper::Get_Free_Texture_RAM()
 // Contrast - controls the difference between the maximum and the minimum of the curve
 void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrate,bool uselimit)
 {
+	// Device/caps can be unavailable during early startup (e.g., Qt viewer settings load).
+	// In that case, ignore gamma updates until initialization completes.
+	if (CurrentCaps == nullptr || _Get_D3D_Device8() == nullptr) {
+		return;
+	}
+
 	gamma=Bound(gamma,0.6f,6.0f);
 	bright=Bound(bright,-0.5f,0.5f);
 	contrast=Bound(contrast,0.5f,2.0f);

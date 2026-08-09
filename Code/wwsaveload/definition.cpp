@@ -61,13 +61,14 @@ enum
 bool
 DefinitionClass::Save (ChunkSaveClass &csave)
 {
-	bool retval = true;
+	bool retval = false;
 
-	csave.Begin_Chunk (CHUNKID_VARIABLES);
-	retval &= Save_Variables (csave);
-	csave.End_Chunk ();
+	if (csave.Begin_Chunk (CHUNKID_VARIABLES)) {
+		retval = Save_Variables (csave);
+		retval = csave.End_Chunk () && retval;
+	}
 
-	return retval;
+	return retval && !csave.Has_Write_Error ();
 }
 
 
@@ -106,9 +107,10 @@ DefinitionClass::Save_Variables (ChunkSaveClass &csave)
 {
 	bool retval = true;
 
-	WRITE_MICRO_CHUNK (csave, VARID_INSTANCEID, m_ID);
-	WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_NAME, m_Name);
-	return retval;
+	retval &= csave.Write_Micro_Chunk (VARID_INSTANCEID, &m_ID, sizeof (m_ID));
+	retval &= csave.Write_Micro_Chunk (VARID_NAME, (const char *)m_Name,
+		static_cast<size_t>(m_Name.Get_Length ()) + 1);
+	return retval && !csave.Has_Write_Error ();
 }
 
 
@@ -160,4 +162,3 @@ DefinitionClass::Set_ID (uint32 id)
 
 	return ;
 }
-
