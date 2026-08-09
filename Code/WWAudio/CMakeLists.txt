@@ -109,3 +109,29 @@ if (W3D_TOOLS)
         target_link_libraries(wwaudioe PRIVATE milesstub)
     endif()
 endif()
+
+if(BUILD_TESTING)
+    add_executable(wwaudio_lifetime_tests
+        tests/WWAudioLifetimeTests.cpp
+    )
+
+    target_link_libraries(wwaudio_lifetime_tests PRIVATE
+        wwaudio
+        ww3d2
+        wwdebug
+        wwlib
+        wwmath
+        wwphys
+        wwsaveload
+        wwcommon
+    )
+
+    if(WIN32)
+        target_link_libraries(wwaudio_lifetime_tests PRIVATE
+            version
+            winmm
+        )
+    endif()
+
+    add_test(NAME wwaudio_lifetime_tests COMMAND wwaudio_lifetime_tests)
+endif()
