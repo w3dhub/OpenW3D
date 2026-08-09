@@ -2420,11 +2420,9 @@ bool W3DViewport::captureMovie(const QString &baseName, float frameRate, QString
         ? QByteArray("Grab")
         : baseName.toLatin1();
 
-    WW3D::Pause_Movie(true);
-    bool capture_ok = WW3D::Try_Start_Movie_Capture(base_bytes.constData(), frameRate);
-    if (capture_ok) {
-        WW3D::Pause_Movie(true);
-    } else if (error) {
+    bool capture_ok = WW3D::Try_Start_Movie_Capture_From_Back_Buffer(
+        base_bytes.constData(), frameRate);
+    if (!capture_ok && error) {
         *error = "Unable to create the AVI movie capture file.";
     }
 
