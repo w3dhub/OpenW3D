@@ -172,40 +172,6 @@ static SymGetModuleBaseType				_SymGetModuleBase = nullptr;
 
 
 /***********************************************************************************************
- * _purecall -- This function overrides the C library Pure Virtual Function Call error         *
- *                                                                                             *
- *                                                                                             *
- *                                                                                             *
- * INPUT:    Nothing                                                                           *
- *                                                                                             *
- * OUTPUT:   0 = no error                                                                      *
- *                                                                                             *
- * WARNINGS: None                                                                              *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   8/22/00 11:42AM ST : Created                                                              *
- *=============================================================================================*/
-// MSVC 2015+ ships _purecall in vcruntime, so avoid a duplicate definition.
-#if !defined(_MSC_VER) || _MSC_VER < 1900
-int _purecall(void)
-{
-	int return_code = 0;
-
-#ifdef WWDEBUG
-	/*
-	** Use debugbreak to cause an exception.
-	*/
-	WWDEBUG_SAY(("Pure Virtual Function call. Oh No!\n"));
-	debugbreak();
-#endif	//_DEBUG_ASSERT
-
-	return(return_code);
-}
-#endif // _MSC_VER < 1900
-
-
-
-/***********************************************************************************************
  * Last_Error_Text -- Get the system error text for GetLastError                                *
  *                                                                                             *
  *                                                                                             *
@@ -1330,5 +1296,3 @@ bool Is_Trying_To_Exit(void)
 
 
 #endif	//_MSC_VER
-
-
