@@ -1510,7 +1510,7 @@ ParticleEmitterDefClass::Save_Rotation_Keyframes (ChunkSaveClass & chunk_save)
 	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_ROTATION_KEYFRAMES) == true) {
 
 		// Write the header
-		W3dEmitterRotationHeaderStruct header;
+		W3dEmitterRotationHeaderStruct header = {};
 		header.KeyframeCount = m_RotationKeyframes.NumKeyFrames;
 		header.Random = m_RotationKeyframes.Rand;
 		header.OrientationRandom = m_InitialOrientationRandom;
@@ -1559,7 +1559,7 @@ ParticleEmitterDefClass::Save_Frame_Keyframes (ChunkSaveClass & chunk_save)
 	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_FRAME_KEYFRAMES) == true) {
 
 		// Write the header
-		W3dEmitterFrameHeaderStruct header;
+		W3dEmitterFrameHeaderStruct header = {};
 		header.KeyframeCount = m_FrameKeyframes.NumKeyFrames;
 		header.Random = m_FrameKeyframes.Rand;
 		chunk_save.Write (&header, sizeof (W3dEmitterFrameHeaderStruct));
@@ -1606,7 +1606,7 @@ ParticleEmitterDefClass::Save_Blur_Time_Keyframes (ChunkSaveClass & chunk_save)
 	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_BLUR_TIME_KEYFRAMES) == true) {
 
 		// Write the header
-		W3dEmitterBlurTimeHeaderStruct header;
+		W3dEmitterBlurTimeHeaderStruct header = {};
 		header.KeyframeCount = m_BlurTimeKeyframes.NumKeyFrames;
 		header.Random = m_BlurTimeKeyframes.Rand;
 		chunk_save.Write (&header, sizeof (W3dEmitterBlurTimeHeaderStruct));

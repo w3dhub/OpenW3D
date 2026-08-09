@@ -272,4 +272,21 @@ if(BUILD_TESTING AND WIN32)
     )
 
     add_test(NAME ww3d2_screenshot_api_tests COMMAND ww3d2_screenshot_api_tests)
+
+    add_executable(ww3d2_emitter_serialization_tests
+        tests/EmitterSerializationTests.cpp
+    )
+
+    target_link_libraries(ww3d2_emitter_serialization_tests PRIVATE
+        wwcommon
+        wwdebug
+        wwlib
+        wwmath
+        wwsaveload
+        ww3d2
+        wwaudio
+    )
+
+    add_test(NAME ww3d2_emitter_serialization_tests
+        COMMAND ww3d2_emitter_serialization_tests)
 endif()
