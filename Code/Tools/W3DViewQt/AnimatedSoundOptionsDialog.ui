@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AnimatedSoundOptionsDialog</class>
+ <widget class="QDialog" name="AnimatedSoundOptionsDialog">
+  <property name="windowTitle">
+   <string>Animated Sound Options</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="instructionsLabel">
+     <property name="text">
+      <string>Use the controls below to configure the animation-triggered sound effect settings for the viewer.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="definitionLibraryLabel">
+       <property name="text">
+        <string>Sound Preset Library Path:</string>
+       </property>
+       <property name="buddy">
+        <cstring>definitionLibraryEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <layout class="QHBoxLayout" name="definitionLibraryLayout">
+       <item>
+        <widget class="QLineEdit" name="definitionLibraryEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="definitionBrowseButton">
+         <property name="text">
+          <string>Browse...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="iniLabel">
+       <property name="text">
+        <string>Animated Sound INI Path:</string>
+       </property>
+       <property name="buddy">
+        <cstring>iniEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <layout class="QHBoxLayout" name="iniLayout">
+       <item>
+        <widget class="QLineEdit" name="iniEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="iniBrowseButton">
+         <property name="text">
+          <string>Browse...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="dataPathLabel">
+       <property name="text">
+        <string>Sound File(s) Path:</string>
+       </property>
+       <property name="buddy">
+        <cstring>dataPathEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <layout class="QHBoxLayout" name="dataPathLayout">
+       <item>
+        <widget class="QLineEdit" name="dataPathEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="dataBrowseButton">
+         <property name="text">
+          <string>Browse...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

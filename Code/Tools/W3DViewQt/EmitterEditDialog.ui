@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EmitterEditDialog</class>
+ <widget class="QDialog" name="EmitterEditDialog">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>960</width><height>720</height></rect>
+  </property>
+  <property name="minimumSize">
+   <size><width>760</width><height>560</height></size>
+  </property>
+  <property name="windowTitle">
+   <string>Emitter Properties</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex"><number>0</number></property>
+     <widget class="QWidget" name="generalTab">
+      <attribute name="title"><string>General</string></attribute>
+      <layout class="QFormLayout" name="generalFormLayout">
+       <property name="fieldGrowthPolicy"><enum>QFormLayout::AllNonFixedFieldsGrow</enum></property>
+       <item row="0" column="0"><widget class="QLabel" name="nameLabel"><property name="text"><string>Name:</string></property></widget></item>
+       <item row="0" column="1"><widget class="QLineEdit" name="nameEdit"/></item>
+       <item row="1" column="0"><widget class="QLabel" name="lifetimeLabel"><property name="text"><string>Particle lifetime:</string></property></widget></item>
+       <item row="1" column="1">
+        <widget class="QWidget" name="lifetimeRow" native="true">
+         <layout class="QHBoxLayout" name="lifetimeLayout">
+          <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+          <item><widget class="QCheckBox" name="useLifetimeCheck"><property name="text"><string>Use lifetime</string></property></widget></item>
+          <item><widget class="QDoubleSpinBox" name="lifetimeSpin"><property name="suffix"><string> s</string></property></widget></item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0"><widget class="QLabel" name="shaderLabel"><property name="text"><string>Shader:</string></property></widget></item>
+       <item row="2" column="1"><widget class="QComboBox" name="shaderCombo"/></item>
+       <item row="3" column="0"><widget class="QLabel" name="renderModeLabel"><property name="text"><string>Rendering mode:</string></property></widget></item>
+       <item row="3" column="1"><widget class="QComboBox" name="renderModeCombo"/></item>
+       <item row="4" column="0"><widget class="QLabel" name="textureLabel"><property name="text"><string>Texture:</string></property></widget></item>
+       <item row="4" column="1">
+        <widget class="QWidget" name="textureRow" native="true">
+         <layout class="QHBoxLayout" name="textureLayout">
+          <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+          <item><widget class="QLineEdit" name="textureEdit"/></item>
+          <item><widget class="QPushButton" name="browseButton"><property name="text"><string>Browse...</string></property></widget></item>
+         </layout>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <spacer name="generalSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>240</height></size></property></spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="particleTab">
+      <attribute name="title"><string>Particle</string></attribute>
+      <layout class="QVBoxLayout" name="particleLayout">
+       <item>
+        <widget class="QGroupBox" name="emissionGroup"><property name="title"><string>Emission</string></property>
+         <layout class="QFormLayout" name="emissionFormLayout">
+          <item row="0" column="0"><widget class="QLabel" name="emissionRateLabel"><property name="text"><string>Emission rate:</string></property></widget></item>
+          <item row="0" column="1"><widget class="QDoubleSpinBox" name="emissionRateSpin"/></item>
+          <item row="1" column="0"><widget class="QLabel" name="burstSizeLabel"><property name="text"><string>Burst size:</string></property></widget></item>
+          <item row="1" column="1"><widget class="QDoubleSpinBox" name="burstSizeSpin"/></item>
+          <item row="2" column="0"><widget class="QLabel" name="maxParticlesLabel"><property name="text"><string>Maximum particles:</string></property></widget></item>
+          <item row="2" column="1">
+           <widget class="QWidget" name="maxParticlesRow" native="true">
+            <layout class="QHBoxLayout" name="maxParticlesLayout">
+             <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+             <item><widget class="QCheckBox" name="limitParticlesCheck"><property name="text"><string>Limit</string></property></widget></item>
+             <item><widget class="QDoubleSpinBox" name="maxParticlesSpin"/></item>
+            </layout>
+           </widget>
+          </item>
+          <item row="3" column="0"><widget class="QLabel" name="fadeTimeLabel"><property name="text"><string>Fade time:</string></property></widget></item>
+          <item row="3" column="1"><widget class="QDoubleSpinBox" name="fadeTimeSpin"><property name="suffix"><string> s</string></property></widget></item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="creationRandomizerGroup"><property name="title"><string>Creation volume</string></property>
+         <layout class="QFormLayout" name="creationRandomizerLayout">
+          <item row="0" column="0"><widget class="QLabel" name="creationTypeLabel"><property name="text"><string>Shape:</string></property></widget></item>
+          <item row="0" column="1"><widget class="QComboBox" name="creationTypeCombo"/></item>
+          <item row="1" column="0"><widget class="QLabel" name="creationValue1Label"><property name="text"><string>Value 1:</string></property></widget></item>
+          <item row="1" column="1"><widget class="QDoubleSpinBox" name="creationValue1Spin"/></item>
+          <item row="2" column="0"><widget class="QLabel" name="creationValue2Label"><property name="text"><string>Value 2:</string></property></widget></item>
+          <item row="2" column="1"><widget class="QDoubleSpinBox" name="creationValue2Spin"/></item>
+          <item row="3" column="0"><widget class="QLabel" name="creationValue3Label"><property name="text"><string>Value 3:</string></property></widget></item>
+          <item row="3" column="1"><widget class="QDoubleSpinBox" name="creationValue3Spin"/></item>
+         </layout>
+        </widget>
+       </item>
+       <item><spacer name="particleSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>120</height></size></property></spacer></item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="physicsTab">
+      <attribute name="title"><string>Physics</string></attribute>
+      <layout class="QVBoxLayout" name="physicsLayout">
+       <item>
+        <widget class="QGroupBox" name="velocityGroup"><property name="title"><string>Starting velocity</string></property>
+         <layout class="QFormLayout" name="velocityFormLayout">
+          <item row="0" column="0"><widget class="QLabel" name="velocityLabel"><property name="text"><string>Velocity:</string></property></widget></item>
+          <item row="0" column="1">
+           <widget class="QWidget" name="velocityRow" native="true">
+            <layout class="QHBoxLayout" name="velocityRowLayout">
+             <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+             <item><widget class="QLabel" name="velocityXLabel"><property name="text"><string>X</string></property></widget></item><item><widget class="QDoubleSpinBox" name="velocityXSpin"/></item>
+             <item><widget class="QLabel" name="velocityYLabel"><property name="text"><string>Y</string></property></widget></item><item><widget class="QDoubleSpinBox" name="velocityYSpin"/></item>
+             <item><widget class="QLabel" name="velocityZLabel"><property name="text"><string>Z</string></property></widget></item><item><widget class="QDoubleSpinBox" name="velocityZSpin"/></item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0"><widget class="QLabel" name="velocityRandomTypeLabel"><property name="text"><string>Randomizer:</string></property></widget></item>
+          <item row="1" column="1"><widget class="QComboBox" name="velocityRandomTypeCombo"/></item>
+          <item row="2" column="0"><widget class="QLabel" name="velocityRandomValue1Label"><property name="text"><string>Value 1:</string></property></widget></item>
+          <item row="2" column="1"><widget class="QDoubleSpinBox" name="velocityRandomValue1Spin"/></item>
+          <item row="3" column="0"><widget class="QLabel" name="velocityRandomValue2Label"><property name="text"><string>Value 2:</string></property></widget></item>
+          <item row="3" column="1"><widget class="QDoubleSpinBox" name="velocityRandomValue2Spin"/></item>
+          <item row="4" column="0"><widget class="QLabel" name="velocityRandomValue3Label"><property name="text"><string>Value 3:</string></property></widget></item>
+          <item row="4" column="1"><widget class="QDoubleSpinBox" name="velocityRandomValue3Spin"/></item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="forcesGroup"><property name="title"><string>Motion</string></property>
+         <layout class="QFormLayout" name="forcesFormLayout">
+          <item row="0" column="0"><widget class="QLabel" name="accelerationLabel"><property name="text"><string>Acceleration:</string></property></widget></item>
+          <item row="0" column="1">
+           <widget class="QWidget" name="accelerationRow" native="true">
+            <layout class="QHBoxLayout" name="accelerationRowLayout">
+             <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+             <item><widget class="QLabel" name="accelXLabel"><property name="text"><string>X</string></property></widget></item><item><widget class="QDoubleSpinBox" name="accelXSpin"/></item>
+             <item><widget class="QLabel" name="accelYLabel"><property name="text"><string>Y</string></property></widget></item><item><widget class="QDoubleSpinBox" name="accelYSpin"/></item>
+             <item><widget class="QLabel" name="accelZLabel"><property name="text"><string>Z</string></property></widget></item><item><widget class="QDoubleSpinBox" name="accelZSpin"/></item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0"><widget class="QLabel" name="outwardVelocityLabel"><property name="text"><string>Outward velocity:</string></property></widget></item>
+          <item row="1" column="1"><widget class="QDoubleSpinBox" name="outwardVelSpin"/></item>
+          <item row="2" column="0"><widget class="QLabel" name="velocityInheritLabel"><property name="text"><string>Velocity inheritance:</string></property></widget></item>
+          <item row="2" column="1"><widget class="QDoubleSpinBox" name="inheritVelSpin"/></item>
+          <item row="3" column="0"><widget class="QLabel" name="gravityLabel"><property name="text"><string>Gravity:</string></property></widget></item>
+          <item row="3" column="1"><widget class="QDoubleSpinBox" name="gravitySpin"/></item>
+          <item row="4" column="0"><widget class="QLabel" name="elasticityLabel"><property name="text"><string>Elasticity:</string></property></widget></item>
+          <item row="4" column="1"><widget class="QDoubleSpinBox" name="elasticitySpin"/></item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="colorTab">
+      <attribute name="title"><string>Color</string></attribute>
+      <layout class="QVBoxLayout" name="colorTabLayout">
+       <item>
+        <widget class="QGroupBox" name="colorGroup"><property name="title"><string>Color keyframes</string></property>
+         <layout class="QVBoxLayout" name="colorGroupLayout">
+          <item>
+           <layout class="QFormLayout" name="colorValuesLayout">
+            <item row="0" column="0"><widget class="QLabel" name="colorStartLabel"><property name="text"><string>Starting color:</string></property></widget></item>
+            <item row="0" column="1"><widget class="QWidget" name="colorStartRow" native="true"><layout class="QHBoxLayout" name="colorStartLayout"><property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property><item><widget class="QLabel" name="colorStartRLabel"><property name="text"><string>R</string></property></widget></item><item><widget class="QDoubleSpinBox" name="colorStartRSpin"/></item><item><widget class="QLabel" name="colorStartGLabel"><property name="text"><string>G</string></property></widget></item><item><widget class="QDoubleSpinBox" name="colorStartGSpin"/></item><item><widget class="QLabel" name="colorStartBLabel"><property name="text"><string>B</string></property></widget></item><item><widget class="QDoubleSpinBox" name="colorStartBSpin"/></item></layout></widget></item>
+            <item row="1" column="0"><widget class="QLabel" name="colorRandomLabel"><property name="text"><string>Randomizer:</string></property></widget></item>
+            <item row="1" column="1"><widget class="QWidget" name="colorRandomRow" native="true"><layout class="QHBoxLayout" name="colorRandomLayout"><property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property><item><widget class="QLabel" name="colorRandomRLabel"><property name="text"><string>R</string></property></widget></item><item><widget class="QDoubleSpinBox" name="colorRandomRSpin"/></item><item><widget class="QLabel" name="colorRandomGLabel"><property name="text"><string>G</string></property></widget></item><item><widget class="QDoubleSpinBox" name="colorRandomGSpin"/></item><item><widget class="QLabel" name="colorRandomBLabel"><property name="text"><string>B</string></property></widget></item><item><widget class="QDoubleSpinBox" name="colorRandomBSpin"/></item></layout></widget></item>
+           </layout>
+          </item>
+          <item><widget class="QTableWidget" name="colorKeysTable"><property name="minimumSize"><size><width>0</width><height>130</height></size></property></widget></item>
+          <item><layout class="QHBoxLayout" name="colorButtonsLayout"><item><spacer name="colorButtonSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item><item><widget class="QPushButton" name="colorAddButton"><property name="text"><string>Add...</string></property></widget></item><item><widget class="QPushButton" name="colorRemoveButton"><property name="text"><string>Remove</string></property></widget></item><item><widget class="QPushButton" name="colorSortButton"><property name="text"><string>Sort</string></property></widget></item></layout></item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="opacityGroup"><property name="title"><string>Opacity keyframes</string></property>
+         <layout class="QVBoxLayout" name="opacityGroupLayout">
+          <item><layout class="QFormLayout" name="opacityValuesLayout"><item row="0" column="0"><widget class="QLabel" name="opacityStartLabel"><property name="text"><string>Starting opacity:</string></property></widget></item><item row="0" column="1"><widget class="QDoubleSpinBox" name="opacityStartSpin"/></item><item row="1" column="0"><widget class="QLabel" name="opacityRandomLabel"><property name="text"><string>Randomizer:</string></property></widget></item><item row="1" column="1"><widget class="QDoubleSpinBox" name="opacityRandomSpin"/></item></layout></item>
+          <item><widget class="QTableWidget" name="opacityKeysTable"><property name="minimumSize"><size><width>0</width><height>130</height></size></property></widget></item>
+          <item><layout class="QHBoxLayout" name="opacityButtonsLayout"><item><spacer name="opacityButtonSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item><item><widget class="QPushButton" name="opacityAddButton"><property name="text"><string>Add...</string></property></widget></item><item><widget class="QPushButton" name="opacityRemoveButton"><property name="text"><string>Remove</string></property></widget></item><item><widget class="QPushButton" name="opacitySortButton"><property name="text"><string>Sort</string></property></widget></item></layout></item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="sizeTab">
+      <attribute name="title"><string>Size</string></attribute>
+      <layout class="QVBoxLayout" name="sizeTabLayout">
+       <item><layout class="QFormLayout" name="sizeValuesLayout"><item row="0" column="0"><widget class="QLabel" name="sizeStartLabel"><property name="text"><string>Starting size:</string></property></widget></item><item row="0" column="1"><widget class="QDoubleSpinBox" name="sizeStartSpin"/></item><item row="1" column="0"><widget class="QLabel" name="sizeRandomLabel"><property name="text"><string>Randomizer:</string></property></widget></item><item row="1" column="1"><widget class="QDoubleSpinBox" name="sizeRandomSpin"/></item></layout></item>
+       <item><widget class="QTableWidget" name="sizeKeysTable"/></item>
+       <item><layout class="QHBoxLayout" name="sizeButtonsLayout"><item><spacer name="sizeButtonSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item><item><widget class="QPushButton" name="sizeAddButton"><property name="text"><string>Add...</string></property></widget></item><item><widget class="QPushButton" name="sizeRemoveButton"><property name="text"><string>Remove</string></property></widget></item><item><widget class="QPushButton" name="sizeSortButton"><property name="text"><string>Sort</string></property></widget></item></layout></item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="userTab">
+      <attribute name="title"><string>User</string></attribute>
+      <layout class="QVBoxLayout" name="userTabLayout">
+       <item><layout class="QFormLayout" name="userFormLayout"><item row="0" column="0"><widget class="QLabel" name="userTypeLabel"><property name="text"><string>Type:</string></property></widget></item><item row="0" column="1"><widget class="QComboBox" name="userTypeCombo"/></item><item row="1" column="0"><widget class="QLabel" name="userStringLabel"><property name="text"><string>Programmer settings:</string></property></widget></item><item row="1" column="1"><widget class="QPlainTextEdit" name="userStringEdit"><property name="placeholderText"><string>User data is preserved exactly, including whitespace and line breaks.</string></property></widget></item></layout></item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="lineTab">
+      <attribute name="title"><string>Line</string></attribute>
+      <layout class="QFormLayout" name="lineFormLayout">
+       <item row="0" column="0"><widget class="QLabel" name="lineMappingLabel"><property name="text"><string>Texture mapping:</string></property></widget></item><item row="0" column="1"><widget class="QComboBox" name="lineMappingCombo"/></item>
+       <item row="1" column="0"><widget class="QLabel" name="lineFlagsLabel"><property name="text"><string>Flags:</string></property></widget></item>
+       <item row="1" column="1"><widget class="QWidget" name="lineFlagsRow" native="true"><layout class="QGridLayout" name="lineFlagsLayout"><property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property><item row="0" column="0"><widget class="QCheckBox" name="lineMergeCheck"><property name="text"><string>Merge intersections</string></property></widget></item><item row="0" column="1"><widget class="QCheckBox" name="lineFreezeCheck"><property name="text"><string>Freeze random</string></property><property name="toolTip"><string>Keep random line offsets fixed in camera space.</string></property></widget></item><item row="1" column="0"><widget class="QCheckBox" name="lineDisableSortingCheck"><property name="text"><string>Disable sorting</string></property></widget></item><item row="1" column="1"><widget class="QCheckBox" name="lineEndCapsCheck"><property name="text"><string>End caps</string></property></widget></item></layout></widget></item>
+       <item row="2" column="0"><widget class="QLabel" name="lineSubdivisionLabel"><property name="text"><string>Subdivision level:</string></property></widget></item><item row="2" column="1"><widget class="QSpinBox" name="lineSubdivisionSpin"/></item>
+       <item row="3" column="0"><widget class="QLabel" name="lineNoiseLabel"><property name="text"><string>Noise amplitude:</string></property></widget></item><item row="3" column="1"><widget class="QDoubleSpinBox" name="lineNoiseSpin"/></item>
+       <item row="4" column="0"><widget class="QLabel" name="lineMergeAbortLabel"><property name="text"><string>Merge abort factor:</string></property></widget></item><item row="4" column="1"><widget class="QDoubleSpinBox" name="lineMergeAbortSpin"/></item>
+       <item row="5" column="0"><widget class="QLabel" name="lineTileLabel"><property name="text"><string>Texture tile factor:</string></property></widget></item><item row="5" column="1"><widget class="QDoubleSpinBox" name="lineTileSpin"/></item>
+       <item row="6" column="0"><widget class="QLabel" name="lineULabel"><property name="text"><string>U offset / second:</string></property></widget></item><item row="6" column="1"><widget class="QDoubleSpinBox" name="lineUSpin"/></item>
+       <item row="7" column="0"><widget class="QLabel" name="lineVLabel"><property name="text"><string>V offset / second:</string></property></widget></item><item row="7" column="1"><widget class="QDoubleSpinBox" name="lineVSpin"/></item>
+       <item row="8" column="0" colspan="2"><spacer name="lineSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>120</height></size></property></spacer></item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="rotationTab">
+      <attribute name="title"><string>Rotation</string></attribute>
+      <layout class="QVBoxLayout" name="rotationTabLayout">
+       <item><layout class="QFormLayout" name="rotationValuesLayout"><item row="0" column="0"><widget class="QLabel" name="rotationStartLabel"><property name="text"><string>Starting rotational velocity:</string></property></widget></item><item row="0" column="1"><widget class="QDoubleSpinBox" name="rotationStartSpin"><property name="suffix"><string> rotations/s</string></property></widget></item><item row="1" column="0"><widget class="QLabel" name="rotationRandomLabel"><property name="text"><string>Velocity randomizer:</string></property></widget></item><item row="1" column="1"><widget class="QDoubleSpinBox" name="rotationRandomSpin"><property name="suffix"><string> rotations/s</string></property></widget></item><item row="2" column="0"><widget class="QLabel" name="orientationRandomLabel"><property name="text"><string>Initial orientation randomizer:</string></property></widget></item><item row="2" column="1"><widget class="QDoubleSpinBox" name="orientationRandomSpin"><property name="suffix"><string> rotations</string></property></widget></item></layout></item>
+       <item><widget class="QTableWidget" name="rotationKeysTable"/></item>
+       <item><layout class="QHBoxLayout" name="rotationButtonsLayout"><item><spacer name="rotationButtonSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item><item><widget class="QPushButton" name="rotationAddButton"><property name="text"><string>Add...</string></property></widget></item><item><widget class="QPushButton" name="rotationRemoveButton"><property name="text"><string>Remove</string></property></widget></item><item><widget class="QPushButton" name="rotationSortButton"><property name="text"><string>Sort</string></property></widget></item></layout></item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="frameTab">
+      <attribute name="title"><string>Frame</string></attribute>
+      <layout class="QVBoxLayout" name="frameTabLayout">
+       <item><layout class="QFormLayout" name="frameValuesLayout"><item row="0" column="0"><widget class="QLabel" name="frameModeLabel"><property name="text"><string>Texture grid layout:</string></property></widget></item><item row="0" column="1"><widget class="QComboBox" name="frameModeCombo"/></item><item row="1" column="0"><widget class="QLabel" name="frameStartLabel"><property name="text"><string>Starting frame / U:</string></property></widget></item><item row="1" column="1"><widget class="QDoubleSpinBox" name="frameStartSpin"/></item><item row="2" column="0"><widget class="QLabel" name="frameRandomLabel"><property name="text"><string>Randomizer:</string></property></widget></item><item row="2" column="1"><widget class="QDoubleSpinBox" name="frameRandomSpin"/></item></layout></item>
+       <item><widget class="QTableWidget" name="frameKeysTable"/></item>
+       <item><layout class="QHBoxLayout" name="frameButtonsLayout"><item><spacer name="frameButtonSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item><item><widget class="QPushButton" name="frameAddButton"><property name="text"><string>Add...</string></property></widget></item><item><widget class="QPushButton" name="frameRemoveButton"><property name="text"><string>Remove</string></property></widget></item><item><widget class="QPushButton" name="frameSortButton"><property name="text"><string>Sort</string></property></widget></item></layout></item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="lineGroupTab">
+      <attribute name="title"><string>Line Group</string></attribute>
+      <layout class="QVBoxLayout" name="lineGroupTabLayout">
+       <item><widget class="QLabel" name="lineGroupHelpLabel"><property name="text"><string>Blur-time keyframes control the length of line-group particle trails.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+       <item><layout class="QFormLayout" name="blurValuesLayout"><item row="0" column="0"><widget class="QLabel" name="blurStartLabel"><property name="text"><string>Starting blur time:</string></property></widget></item><item row="0" column="1"><widget class="QDoubleSpinBox" name="blurStartSpin"/></item><item row="1" column="0"><widget class="QLabel" name="blurRandomLabel"><property name="text"><string>Randomizer:</string></property></widget></item><item row="1" column="1"><widget class="QDoubleSpinBox" name="blurRandomSpin"/></item></layout></item>
+       <item><widget class="QTableWidget" name="blurKeysTable"/></item>
+       <item><layout class="QHBoxLayout" name="blurButtonsLayout"><item><spacer name="blurButtonSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item><item><widget class="QPushButton" name="blurAddButton"><property name="text"><string>Add...</string></property></widget></item><item><widget class="QPushButton" name="blurRemoveButton"><property name="text"><string>Remove</string></property></widget></item><item><widget class="QPushButton" name="blurSortButton"><property name="text"><string>Sort</string></property></widget></item></layout></item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item><widget class="QDialogButtonBox" name="buttonBox"><property name="standardButtons"><set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set></property></widget></item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
