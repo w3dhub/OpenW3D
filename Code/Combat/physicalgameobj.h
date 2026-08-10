@@ -128,7 +128,7 @@ public:
 	virtual	void	Startup( void )	{}
 
 	// Physics
-	WWINLINE PhysClass *	Peek_Physical_Object( void ) const { return PhysObj; }
+	PhysClass *	Peek_Physical_Object( void ) const { return PhysObj; }
 
 	void					Attach_To_Object_Bone( PhysicalGameObj * host, const char * bone_name );
 	bool					Is_Attached_To_An_Object( void ) { return (HostGameObj.Get_Ptr () != nullptr); }
@@ -141,7 +141,7 @@ public:
 	float					Get_Facing(void) const;
 
 	// Display
-	WWINLINE RenderObjClass	*	Peek_Model( void ) { return Peek_Physical_Object()->Peek_Model(); }
+	RenderObjClass	*	Peek_Model( void ) { return Peek_Physical_Object()->Peek_Model(); }
 
 	AnimControlClass*	Get_Anim_Control( void );
 	void					Set_Anim_Control( AnimControlClass * anim_control );

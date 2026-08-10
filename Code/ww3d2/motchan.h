@@ -71,9 +71,9 @@ public:
 	~MotionChannelClass(void);
 
 	bool	Load_W3D(ChunkLoadClass & cload);
-	WWINLINE int Get_Type(void) const { return Type; }
-	WWINLINE int Get_Pivot(void) const { return PivotIdx; }
-	WWINLINE void Set_Pivot(int idx) { PivotIdx=idx; }
+	int Get_Type(void) const { return Type; }
+	int Get_Pivot(void) const { return PivotIdx; }
+	void Set_Pivot(int idx) { PivotIdx=idx; }
 
 private:
 
@@ -89,13 +89,13 @@ private:
 	int		FirstFrame;			// first frame which was non-identity
 	int		LastFrame;			// last frame which was non-identity
 	void Free(void);
-	WWINLINE void set_identity(float * setvec) const;
+	void set_identity(float * setvec) const;
 
 //	friend class HRawAnimClass;
 
 };
 
-WWINLINE void MotionChannelClass::set_identity(float * setvec) const
+inline void MotionChannelClass::set_identity(float * setvec) const
 {
 	if (Type == ANIM_CHANNEL_Q) {
 
@@ -127,9 +127,9 @@ public:
 	~BitChannelClass(void);
 
 	bool	Load_W3D(ChunkLoadClass & cload);
-	WWINLINE int	Get_Type(void) const { return Type; }
-	WWINLINE int	Get_Pivot(void) const { return PivotIdx; }
-	WWINLINE int	Get_Bit(int frame) const;
+	inline int	Get_Type(void) const { return Type; }
+	inline int	Get_Pivot(void) const { return PivotIdx; }
+	inline int	Get_Bit(int frame) const;
 
 private:
 
@@ -147,7 +147,7 @@ private:
 };
 
 
-WWINLINE int BitChannelClass::Get_Bit(int frame) const
+inline int BitChannelClass::Get_Bit(int frame) const
 {
 	if ((frame < FirstFrame) || (frame > LastFrame)) {
 

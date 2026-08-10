@@ -212,7 +212,7 @@ protected:
 //////////////////////////////////////////////////////////////////////
 //	Get_Point_Index_X
 //////////////////////////////////////////////////////////////////////
-WWINLINE int
+inline int
 EditableHeightfieldClass::Get_Point_Index_X (float x_pos, bool clamp)
 {
 	int point_x = WWMath::Float_To_Int_Floor (x_pos / Density);
@@ -230,7 +230,7 @@ EditableHeightfieldClass::Get_Point_Index_X (float x_pos, bool clamp)
 //////////////////////////////////////////////////////////////////////
 //	Get_Point_Index_Y
 //////////////////////////////////////////////////////////////////////
-WWINLINE int
+inline int
 EditableHeightfieldClass::Get_Point_Index_Y (float y_pos, bool clamp)
 {
 	int point_y = WWMath::Float_To_Int_Floor (y_pos / Density);
@@ -248,7 +248,7 @@ EditableHeightfieldClass::Get_Point_Index_Y (float y_pos, bool clamp)
 //////////////////////////////////////////////////////////////////////
 //	Get_Quad_Index_X
 //////////////////////////////////////////////////////////////////////
-WWINLINE int
+inline int
 EditableHeightfieldClass::Get_Quad_Index_X (float x_pos, bool clamp)
 {
 	int quad_x = WWMath::Float_To_Int_Floor (x_pos / Density);
@@ -266,7 +266,7 @@ EditableHeightfieldClass::Get_Quad_Index_X (float x_pos, bool clamp)
 //////////////////////////////////////////////////////////////////////
 //	Get_Quad_Index_Y
 //////////////////////////////////////////////////////////////////////
-WWINLINE int
+inline int
 EditableHeightfieldClass::Get_Quad_Index_Y (float y_pos, bool clamp)
 {
 	int quad_y = WWMath::Float_To_Int_Floor (y_pos / Density);
@@ -284,7 +284,7 @@ EditableHeightfieldClass::Get_Quad_Index_Y (float y_pos, bool clamp)
 //////////////////////////////////////////////////////////////////////
 //	Is_Valid_Quad
 //////////////////////////////////////////////////////////////////////
-WWINLINE bool
+inline bool
 EditableHeightfieldClass::Is_Valid_Quad (int x, int y)
 {
 	bool retval = false;

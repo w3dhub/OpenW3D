@@ -251,7 +251,7 @@ protected:
 //////////////////////////////////////////////////////////////////////
 //	Collide_Quad
 //////////////////////////////////////////////////////////////////////
-WWINLINE bool
+inline bool
 RenegadeTerrainPatchClass::Collide_Quad
 (
 	const LineSegClass &	line_seg,
@@ -339,7 +339,7 @@ RenegadeTerrainPatchClass::Collide_Quad
 //////////////////////////////////////////////////////////////////////
 //	Set_Vertex_Pos
 //////////////////////////////////////////////////////////////////////
-WWINLINE void
+inline void
 RenegadeTerrainPatchClass::Set_Vertex_Pos (int x, int y, const Vector3 &pos)
 {
 	//
@@ -366,7 +366,7 @@ RenegadeTerrainPatchClass::Set_Vertex_Pos (int x, int y, const Vector3 &pos)
 //////////////////////////////////////////////////////////////////////
 //	Get_Quad_Index_X
 //////////////////////////////////////////////////////////////////////
-WWINLINE int
+inline int
 RenegadeTerrainPatchClass::Get_Quad_Index_X (float x_pos, bool clamp)
 {
 	int quad_x = WWMath::Float_To_Int_Floor ((x_pos - BoundingBoxMin.X) / Density);
@@ -384,7 +384,7 @@ RenegadeTerrainPatchClass::Get_Quad_Index_X (float x_pos, bool clamp)
 //////////////////////////////////////////////////////////////////////
 //	Get_Quad_Index_Y
 //////////////////////////////////////////////////////////////////////
-WWINLINE int
+inline int
 RenegadeTerrainPatchClass::Get_Quad_Index_Y (float y_pos, bool clamp)
 {
 	int quad_y = WWMath::Float_To_Int_Floor ((y_pos - BoundingBoxMin.Y) / Density);
@@ -402,7 +402,7 @@ RenegadeTerrainPatchClass::Get_Quad_Index_Y (float y_pos, bool clamp)
 //////////////////////////////////////////////////////////////////////
 //	Get_Grid_Line_Pos_X
 //////////////////////////////////////////////////////////////////////
-WWINLINE float
+inline float
 RenegadeTerrainPatchClass::Get_Grid_Line_Pos_X (int grid_line_index)
 {
 	return BoundingBoxMin.X + (grid_line_index * Density);
@@ -411,7 +411,7 @@ RenegadeTerrainPatchClass::Get_Grid_Line_Pos_X (int grid_line_index)
 //////////////////////////////////////////////////////////////////////
 //	Get_Grid_Line_Pos_Y
 //////////////////////////////////////////////////////////////////////
-WWINLINE float
+inline float
 RenegadeTerrainPatchClass::Get_Grid_Line_Pos_Y (int grid_line_index)
 {
 	return BoundingBoxMin.Y + (grid_line_index * Density);
@@ -420,7 +420,7 @@ RenegadeTerrainPatchClass::Get_Grid_Line_Pos_Y (int grid_line_index)
 //////////////////////////////////////////////////////////////////////
 //	Get_Inverse_Transform
 //////////////////////////////////////////////////////////////////////
-WWINLINE void
+inline void
 RenegadeTerrainPatchClass::Get_Inverse_Transform (Matrix3D &tm)
 {
 	Get_Transform ().Get_Orthogonal_Inverse (tm);
@@ -430,7 +430,7 @@ RenegadeTerrainPatchClass::Get_Inverse_Transform (Matrix3D &tm)
 //////////////////////////////////////////////////////////////////////
 //	Is_Valid_Quad
 //////////////////////////////////////////////////////////////////////
-WWINLINE bool
+inline bool
 RenegadeTerrainPatchClass::Is_Valid_Quad (int x, int y)
 {
 	bool retval = false;

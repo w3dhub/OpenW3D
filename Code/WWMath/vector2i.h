@@ -51,52 +51,52 @@ public:
 	int		I;
 	int		J;
 
-	WWINLINE Vector2i(void);
-	WWINLINE Vector2i(int i,int j);
+	Vector2i(void);
+	Vector2i(int i,int j);
 
-	WWINLINE void Set(int i, int j);
+	void Set(int i, int j);
 
-	WWINLINE void Swap(Vector2i & other);
+	void Swap(Vector2i & other);
 
-	WWINLINE bool			operator== (const Vector2i & v) const;
-	WWINLINE bool			operator!= (const Vector2i& v) const;
-	WWINLINE const	int&	operator[] (int n) const;
-	WWINLINE int&			operator[] (int n);
+	bool			operator== (const Vector2i & v) const;
+	bool			operator!= (const Vector2i& v) const;
+	const	int&	operator[] (int n) const;
+	int&			operator[] (int n);
 };
 
 
-WWINLINE Vector2i::Vector2i(void)
+inline Vector2i::Vector2i(void)
 {
 }
 
-WWINLINE Vector2i::Vector2i(int i,int j)
+inline Vector2i::Vector2i(int i,int j)
 {
 	I = i; J = j;
 }
 
-WWINLINE bool Vector2i::operator == (const Vector2i & v) const
+inline bool Vector2i::operator == (const Vector2i & v) const
 {
 	return (I == v.I && J == v.J );
 }
 
-WWINLINE bool Vector2i::operator !=	(const Vector2i& v) const
+inline bool Vector2i::operator !=	(const Vector2i& v) const
 {
 	return !(I == v.I && J == v.J);
 }
 
-WWINLINE const int& Vector2i::operator[] (int n) const
+inline const int& Vector2i::operator[] (int n) const
 {
 	return ((int*)this)[n];
 }
 
-WWINLINE int& Vector2i::operator[] (int n)
+inline int& Vector2i::operator[] (int n)
 {
 	return ((int*)this)[n];
 }
 
-WWINLINE void Vector2i::Set(int i, int j) { I = i; J = j; }
+inline void Vector2i::Set(int i, int j) { I = i; J = j; }
 
-WWINLINE void Vector2i::Swap(Vector2i & other)
+inline void Vector2i::Swap(Vector2i & other)
 {
 	// this could use MMX..
 

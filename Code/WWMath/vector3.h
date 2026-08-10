@@ -93,98 +93,98 @@ public:
 
 
 	// Constructors
-	WWINLINE Vector3(void) {};
-	WWINLINE Vector3(const Vector3 & v) { X = v.X; Y = v.Y; Z = v.Z; }
-	WWINLINE Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	WWINLINE Vector3(const float vector[3]) { X = vector[0]; Y = vector[1]; Z = vector[2]; }
+	Vector3(void) {};
+	Vector3(const Vector3 & v) { X = v.X; Y = v.Y; Z = v.Z; }
+	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
+	Vector3(const float vector[3]) { X = vector[0]; Y = vector[1]; Z = vector[2]; }
 
 	// Assignment
-	WWINLINE Vector3 & operator = (const Vector3 & v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	WWINLINE void	Set(float x, float y, float z) { X = x; Y = y; Z = z; }
-	WWINLINE void	Set(const Vector3 & that) { X = that.X; Y = that.Y; Z = that.Z; }
+	Vector3 & operator = (const Vector3 & v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
+	void	Set(float x, float y, float z) { X = x; Y = y; Z = z; }
+	void	Set(const Vector3 & that) { X = that.X; Y = that.Y; Z = that.Z; }
 
 	// Array access
-	WWINLINE float &	operator [](int i) { return (&X)[i]; }
-	WWINLINE const float &  operator [](int i) const { return (&X)[i]; }
+	float &	operator [](int i) { return (&X)[i]; }
+	const float &  operator [](int i) const { return (&X)[i]; }
 
 	// normalize, compute length
 	void	Normalize(void);
-	WWINLINE float	Length(void) const;
-	WWINLINE float	Length2(void) const;
+	float	Length(void) const;
+	float	Length2(void) const;
 	float Quick_Length(void) const;
 	void  Scale(const Vector3 & scale);
 
 	// rotation, (warning, modifies this vector!)
-	WWINLINE void	Rotate_X(float angle);
-	WWINLINE void	Rotate_X(float s_angle,float c_angle);
-	WWINLINE void	Rotate_Y(float angle);
-	WWINLINE void	Rotate_Y(float s_angle,float c_angle);
-	WWINLINE void	Rotate_Z(float angle);
-	WWINLINE void	Rotate_Z(float s_angle,float c_angle);
+	void	Rotate_X(float angle);
+	void	Rotate_X(float s_angle,float c_angle);
+	void	Rotate_Y(float angle);
+	void	Rotate_Y(float s_angle,float c_angle);
+	void	Rotate_Z(float angle);
+	void	Rotate_Z(float s_angle,float c_angle);
 
 	// unary operators
-	WWINLINE Vector3 operator-() const { return(Vector3(-X,-Y,-Z)); }
-	WWINLINE Vector3 operator+() const { return *this; }
+	Vector3 operator-() const { return(Vector3(-X,-Y,-Z)); }
+	Vector3 operator+() const { return *this; }
 
-	WWINLINE Vector3 & operator += (const Vector3 & v) { X += v.X; Y += v.Y; Z += v.Z; return *this; }
-	WWINLINE Vector3 & operator -= (const Vector3 & v) { X -= v.X; Y -= v.Y; Z -= v.Z; return *this; }
-	WWINLINE Vector3 & operator *= (float k) { X = X*k; Y=Y*k; Z=Z*k; return *this; }
-	WWINLINE Vector3 & operator /= (float k) { float ook=1.0f/k; X=X*ook; Y=Y*ook; Z=Z*ook; return *this; }
+	Vector3 & operator += (const Vector3 & v) { X += v.X; Y += v.Y; Z += v.Z; return *this; }
+	Vector3 & operator -= (const Vector3 & v) { X -= v.X; Y -= v.Y; Z -= v.Z; return *this; }
+	Vector3 & operator *= (float k) { X = X*k; Y=Y*k; Z=Z*k; return *this; }
+	Vector3 & operator /= (float k) { float ook=1.0f/k; X=X*ook; Y=Y*ook; Z=Z*ook; return *this; }
 
 	// scalar multiplication, division
-	WWINLINE friend Vector3 operator * (const Vector3 &a,float k);
-	WWINLINE friend Vector3 operator * (float k,const Vector3 &a);
-	WWINLINE friend Vector3 operator / (const Vector3 &a,float k);
+	friend Vector3 operator * (const Vector3 &a,float k);
+	friend Vector3 operator * (float k,const Vector3 &a);
+	friend Vector3 operator / (const Vector3 &a,float k);
 
 	// vector addition,subtraction
-	WWINLINE friend Vector3 operator + (const Vector3 &a,const Vector3 &b);
-	WWINLINE friend Vector3 operator - (const Vector3 &a,const Vector3 &b);
+	friend Vector3 operator + (const Vector3 &a,const Vector3 &b);
+	friend Vector3 operator - (const Vector3 &a,const Vector3 &b);
 
 	// Equality operators
 	friend bool operator == (const Vector3 &a,const Vector3 &b);
 	friend bool operator != (const Vector3 &a,const Vector3 &b);
-   WWINLINE friend bool Equal_Within_Epsilon(const Vector3 &a,const Vector3 &b,float epsilon);
+   friend bool Equal_Within_Epsilon(const Vector3 &a,const Vector3 &b,float epsilon);
 
 	// dot product / inner product
-	WWINLINE friend float operator * (const Vector3 &a,const Vector3 &b);
-	static WWINLINE float Dot_Product(const Vector3 &a,const Vector3 &b);
+	friend float operator * (const Vector3 &a,const Vector3 &b);
+	static float Dot_Product(const Vector3 &a,const Vector3 &b);
 
 	// cross product / outer product
-	static WWINLINE Vector3 Cross_Product(const Vector3 &a,const Vector3 &b);
-	static WWINLINE void Cross_Product(const Vector3 &a,const Vector3 &b,Vector3 * result);
-	static WWINLINE float Cross_Product_X(const Vector3 &a,const Vector3 &b);
-	static WWINLINE float Cross_Product_Y(const Vector3 &a,const Vector3 &b);
-	static WWINLINE float Cross_Product_Z(const Vector3 &a,const Vector3 &b);
+	static Vector3 Cross_Product(const Vector3 &a,const Vector3 &b);
+	static void Cross_Product(const Vector3 &a,const Vector3 &b,Vector3 * result);
+	static float Cross_Product_X(const Vector3 &a,const Vector3 &b);
+	static float Cross_Product_Y(const Vector3 &a,const Vector3 &b);
+	static float Cross_Product_Z(const Vector3 &a,const Vector3 &b);
 
 	// add and subtract without return by value
-	static WWINLINE void Add(const Vector3 & a,const Vector3 & b,Vector3 * c);
-	static WWINLINE void Subtract(const Vector3 & a,const Vector3 & b,Vector3 * c);
+	static void Add(const Vector3 & a,const Vector3 & b,Vector3 * c);
+	static void Subtract(const Vector3 & a,const Vector3 & b,Vector3 * c);
 
 	// Line intersection functions.
-	static WWINLINE float Find_X_At_Y(float y, const Vector3 &p1, const Vector3 &p2);
-	static WWINLINE float Find_X_At_Z(float z, const Vector3 &p1, const Vector3 &p2);
-	static WWINLINE float Find_Y_At_X(float x, const Vector3 &p1, const Vector3 &p2);
-	static WWINLINE float Find_Y_At_Z(float z, const Vector3 &p1, const Vector3 &p2);
-	static WWINLINE float Find_Z_At_X(float x, const Vector3 &p1, const Vector3 &p2);
-	static WWINLINE float Find_Z_At_Y(float z, const Vector3 &p1, const Vector3 &p2);
+	static float Find_X_At_Y(float y, const Vector3 &p1, const Vector3 &p2);
+	static float Find_X_At_Z(float z, const Vector3 &p1, const Vector3 &p2);
+	static float Find_Y_At_X(float x, const Vector3 &p1, const Vector3 &p2);
+	static float Find_Y_At_Z(float z, const Vector3 &p1, const Vector3 &p2);
+	static float Find_Z_At_X(float x, const Vector3 &p1, const Vector3 &p2);
+	static float Find_Z_At_Y(float z, const Vector3 &p1, const Vector3 &p2);
 
 	// make this vector the min or max of itself and the passed vector
-	WWINLINE void Update_Min(const Vector3 & a);
-	WWINLINE void Update_Max(const Vector3 & a);
-	WWINLINE void Cap_Absolute_To(const Vector3 & a);
+	void Update_Min(const Vector3 & a);
+	void Update_Max(const Vector3 & a);
+	void Cap_Absolute_To(const Vector3 & a);
 
 	// verify that none of the members of this vector are invalid floats
-	WWINLINE bool Is_Valid(void) const;
+	bool Is_Valid(void) const;
 
-	static WWINLINE float Quick_Distance(const Vector3 &p1, const Vector3 &p2);
-	static WWINLINE float Distance(const Vector3 &p1, const Vector3 &p2);
+	static float Quick_Distance(const Vector3 &p1, const Vector3 &p2);
+	static float Distance(const Vector3 &p1, const Vector3 &p2);
 
 	// Linearly interpolate two Vector3's
 	static void Lerp(const Vector3 & a, const Vector3 & b, float alpha,Vector3 * set_result);
 
 	// Color Conversion
-	WWINLINE unsigned	int	Convert_To_ABGR( void ) const;
-	WWINLINE unsigned	int	Convert_To_ARGB( void ) const;
+	unsigned	int	Convert_To_ABGR( void ) const;
+	unsigned	int	Convert_To_ARGB( void ) const;
 };
 
 
@@ -200,12 +200,12 @@ public:
  * HISTORY:                                                               *
  *   02/24/1997 GH  : Created.                                            *
  *========================================================================*/
-WWINLINE Vector3 operator * (const Vector3 &a,float k)
+inline Vector3 operator * (const Vector3 &a,float k)
 {
 	return Vector3((a.X * k),(a.Y * k),(a.Z * k));
 }
 
-WWINLINE Vector3 operator * (float k, const Vector3 &a)
+inline Vector3 operator * (float k, const Vector3 &a)
 {
 	return Vector3((a.X * k),(a.Y * k),(a.Z * k));
 }
@@ -221,7 +221,7 @@ WWINLINE Vector3 operator * (float k, const Vector3 &a)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE Vector3 operator / (const Vector3 &a,float k)
+inline Vector3 operator / (const Vector3 &a,float k)
 {
 	float ook = 1.0f/k;
 	return Vector3((a.X * ook),(a.Y * ook),(a.Z * ook));
@@ -239,7 +239,7 @@ WWINLINE Vector3 operator / (const Vector3 &a,float k)
  * HISTORY:                                                               *
  *   02/24/1997 GH  : Created.                                            *
  *========================================================================*/
-WWINLINE Vector3 operator + (const Vector3 &a,const Vector3 &b)
+inline Vector3 operator + (const Vector3 &a,const Vector3 &b)
 {
 	return Vector3(
 							a.X+b.X,
@@ -260,7 +260,7 @@ WWINLINE Vector3 operator + (const Vector3 &a,const Vector3 &b)
  * HISTORY:                                                               *
  *   02/24/1997 GH  : Created.                                            *
  *========================================================================*/
-WWINLINE Vector3 operator - (const Vector3 &a,const Vector3 &b)
+inline Vector3 operator - (const Vector3 &a,const Vector3 &b)
 {
 	return Vector3(
 							a.X-b.X,
@@ -280,14 +280,14 @@ WWINLINE Vector3 operator - (const Vector3 &a,const Vector3 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE float operator * (const Vector3 &a,const Vector3 &b)
+inline float operator * (const Vector3 &a,const Vector3 &b)
 {
 	return	a.X*b.X +
 				a.Y*b.Y +
 				a.Z*b.Z;
 }
 
-WWINLINE float Vector3::Dot_Product(const Vector3 &a,const Vector3 &b)
+inline float Vector3::Dot_Product(const Vector3 &a,const Vector3 &b)
 {
 	return a*b;
 }
@@ -304,7 +304,7 @@ WWINLINE float Vector3::Dot_Product(const Vector3 &a,const Vector3 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE bool operator == (const Vector3 &a,const Vector3 &b)
+inline bool operator == (const Vector3 &a,const Vector3 &b)
 {
 	return ( (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z));
 }
@@ -320,7 +320,7 @@ WWINLINE bool operator == (const Vector3 &a,const Vector3 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE bool operator != (const Vector3 &a,const Vector3 &b)
+inline bool operator != (const Vector3 &a,const Vector3 &b)
 {
 	return ( (a.X != b.X) || (a.Y != b.Y) || (a.Z != b.Z));
 }
@@ -336,7 +336,7 @@ WWINLINE bool operator != (const Vector3 &a,const Vector3 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE bool Equal_Within_Epsilon(const Vector3 &a,const Vector3 &b,float epsilon)
+inline bool Equal_Within_Epsilon(const Vector3 &a,const Vector3 &b,float epsilon)
 {
    return(	(WWMath::Fabs(a.X - b.X) < epsilon) &&
 				(WWMath::Fabs(a.Y - b.Y) < epsilon) &&
@@ -355,7 +355,7 @@ WWINLINE bool Equal_Within_Epsilon(const Vector3 &a,const Vector3 &b,float epsil
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE Vector3 Vector3::Cross_Product(const Vector3 &a,const Vector3 &b)
+inline Vector3 Vector3::Cross_Product(const Vector3 &a,const Vector3 &b)
 {
 	return Vector3(
 		(a.Y * b.Z - a.Z * b.Y),
@@ -364,7 +364,7 @@ WWINLINE Vector3 Vector3::Cross_Product(const Vector3 &a,const Vector3 &b)
 	);
 }
 
-WWINLINE void Vector3::Cross_Product(const Vector3 &a,const Vector3 &b,Vector3 * set_result)
+inline void Vector3::Cross_Product(const Vector3 &a,const Vector3 &b,Vector3 * set_result)
 {
 	assert(set_result != &a);
 	set_result->X = (a.Y * b.Z - a.Z * b.Y);
@@ -372,17 +372,17 @@ WWINLINE void Vector3::Cross_Product(const Vector3 &a,const Vector3 &b,Vector3 *
 	set_result->Z = (a.X * b.Y - a.Y * b.X);
 }
 
-WWINLINE float Vector3::Cross_Product_X(const Vector3 &a,const Vector3 &b)
+inline float Vector3::Cross_Product_X(const Vector3 &a,const Vector3 &b)
 {
    return a.Y * b.Z - a.Z * b.Y;
 }
 
-WWINLINE float Vector3::Cross_Product_Y(const Vector3 &a,const Vector3 &b)
+inline float Vector3::Cross_Product_Y(const Vector3 &a,const Vector3 &b)
 {
    return a.Z * b.X - a.X * b.Z;
 }
 
-WWINLINE float Vector3::Cross_Product_Z(const Vector3 &a,const Vector3 &b)
+inline float Vector3::Cross_Product_Z(const Vector3 &a,const Vector3 &b)
 {
    return a.X * b.Y - a.Y * b.X;
 }
@@ -398,7 +398,7 @@ WWINLINE float Vector3::Cross_Product_Z(const Vector3 &a,const Vector3 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE void Vector3::Normalize()
+inline void Vector3::Normalize()
 {
 	float len2 = Length2();
 	if (len2 != 0.0f) {
@@ -409,7 +409,7 @@ WWINLINE void Vector3::Normalize()
 	}
 }
 
-WWINLINE Vector3 Normalize(const Vector3 & vec)
+inline Vector3 Normalize(const Vector3 & vec)
 {
 	float len2 = vec.Length2();
 	if (len2 != 0.0f) {
@@ -430,7 +430,7 @@ WWINLINE Vector3 Normalize(const Vector3 & vec)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE float Vector3::Length() const
+inline float Vector3::Length() const
 {
 	return WWMath::Sqrt(Length2());
 }
@@ -446,7 +446,7 @@ WWINLINE float Vector3::Length() const
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE float Vector3::Length2() const
+inline float Vector3::Length2() const
 {
 	return X*X + Y*Y + Z*Z;
 }
@@ -464,7 +464,7 @@ WWINLINE float Vector3::Length2() const
  * HISTORY:                                                                                    *
  *   7/15/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE float Vector3::Quick_Length(void) const
+inline float Vector3::Quick_Length(void) const
 {
 	// this method of approximating the length comes from Graphics Gems 1 and
 	// supposedly gives an error of +/- 8%
@@ -493,7 +493,7 @@ WWINLINE float Vector3::Quick_Length(void) const
  * HISTORY:                                                                                    *
  *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Swap(Vector3 & a,Vector3 & b)
+inline void Swap(Vector3 & a,Vector3 & b)
 {
 	Vector3 tmp(a);
 	a = b;
@@ -512,7 +512,7 @@ WWINLINE void Swap(Vector3 & a,Vector3 & b)
  * HISTORY:                                                                                    *
  *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE Vector3 Lerp(const Vector3 & a, const Vector3 & b, float alpha)
+inline Vector3 Lerp(const Vector3 & a, const Vector3 & b, float alpha)
 {
    return Vector3(
       (a.X + (b.X - a.X)*alpha),
@@ -534,7 +534,7 @@ WWINLINE Vector3 Lerp(const Vector3 & a, const Vector3 & b, float alpha)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Lerp(const Vector3 & a, const Vector3 & b, float alpha,Vector3 * set_result)
+inline void Lerp(const Vector3 & a, const Vector3 & b, float alpha,Vector3 * set_result)
 {
 	assert(set_result != nullptr);
 	set_result->X = (a.X + (b.X - a.X)*alpha);
@@ -542,7 +542,7 @@ WWINLINE void Lerp(const Vector3 & a, const Vector3 & b, float alpha,Vector3 * s
    set_result->Z = (a.Z + (b.Z - a.Z)*alpha);
 }
 
-WWINLINE void Vector3::Lerp(const Vector3 & a, const Vector3 & b, float alpha,Vector3 * set_result)
+inline void Vector3::Lerp(const Vector3 & a, const Vector3 & b, float alpha,Vector3 * set_result)
 {
 	assert(set_result != nullptr);
 	set_result->X = (a.X + (b.X - a.X)*alpha);
@@ -562,7 +562,7 @@ WWINLINE void Vector3::Lerp(const Vector3 & a, const Vector3 & b, float alpha,Ve
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Add(const Vector3 &a,const Vector3 &b,Vector3 * set_result)
+inline void Vector3::Add(const Vector3 &a,const Vector3 &b,Vector3 * set_result)
 {
 	assert(set_result != nullptr);
 	set_result->X = a.X + b.X;
@@ -583,7 +583,7 @@ WWINLINE void Vector3::Add(const Vector3 &a,const Vector3 &b,Vector3 * set_resul
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Subtract(const Vector3 &a,const Vector3 &b,Vector3 * set_result)
+inline void Vector3::Subtract(const Vector3 &a,const Vector3 &b,Vector3 * set_result)
 {
 	assert(set_result != nullptr);
 	set_result->X = a.X - b.X;
@@ -604,7 +604,7 @@ WWINLINE void Vector3::Subtract(const Vector3 &a,const Vector3 &b,Vector3 * set_
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Update_Min(const Vector3 & a)
+inline void Vector3::Update_Min(const Vector3 & a)
 {
 	if (a.X < X) X = a.X;
 	if (a.Y < Y) Y = a.Y;
@@ -624,7 +624,7 @@ WWINLINE void Vector3::Update_Min(const Vector3 & a)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Update_Max(const Vector3 & a)
+inline void Vector3::Update_Max(const Vector3 & a)
 {
 	if (a.X > X) X = a.X;
 	if (a.Y > Y) Y = a.Y;
@@ -643,7 +643,7 @@ WWINLINE void Vector3::Update_Max(const Vector3 & a)
  * HISTORY:                                                                                    *
  *   11/29/99   wst : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Cap_Absolute_To(const Vector3 & a)
+inline void Vector3::Cap_Absolute_To(const Vector3 & a)
 {
 	if (X > 0)
 	{
@@ -686,7 +686,7 @@ WWINLINE void Vector3::Cap_Absolute_To(const Vector3 & a)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Scale(const Vector3 & scale)
+inline void Vector3::Scale(const Vector3 & scale)
 {
 	X *= scale.X;
 	Y *= scale.Y;
@@ -706,7 +706,7 @@ WWINLINE void Vector3::Scale(const Vector3 & scale)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Rotate_X(float angle)
+inline void Vector3::Rotate_X(float angle)
 {
 	Rotate_X(sinf(angle),cosf(angle));
 }
@@ -724,7 +724,7 @@ WWINLINE void Vector3::Rotate_X(float angle)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Rotate_X(float s_angle,float c_angle)
+inline void Vector3::Rotate_X(float s_angle,float c_angle)
 {
 	float tmp_y = Y;
 	float tmp_z = Z;
@@ -746,7 +746,7 @@ WWINLINE void Vector3::Rotate_X(float s_angle,float c_angle)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Rotate_Y(float angle)
+inline void Vector3::Rotate_Y(float angle)
 {
 	Rotate_Y(sinf(angle),cosf(angle));
 }
@@ -764,7 +764,7 @@ WWINLINE void Vector3::Rotate_Y(float angle)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Rotate_Y(float s_angle,float c_angle)
+inline void Vector3::Rotate_Y(float s_angle,float c_angle)
 {
 	float tmp_x = X;
 	float tmp_z = Z;
@@ -786,7 +786,7 @@ WWINLINE void Vector3::Rotate_Y(float s_angle,float c_angle)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Rotate_Z(float angle)
+inline void Vector3::Rotate_Z(float angle)
 {
 	Rotate_Z(sinf(angle),cosf(angle));
 }
@@ -804,7 +804,7 @@ WWINLINE void Vector3::Rotate_Z(float angle)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Vector3::Rotate_Z(float s_angle,float c_angle)
+inline void Vector3::Rotate_Z(float s_angle,float c_angle)
 {
 	float tmp_x = X;
 	float tmp_y = Y;
@@ -826,32 +826,32 @@ WWINLINE void Vector3::Rotate_Z(float s_angle,float c_angle)
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE bool Vector3::Is_Valid(void) const
+inline bool Vector3::Is_Valid(void) const
 {
 	return (WWMath::Is_Valid_Float(X) && WWMath::Is_Valid_Float(Y) && WWMath::Is_Valid_Float(Z));
 }
 
-WWINLINE float Vector3::Find_X_At_Y(float y, const Vector3 &p1, const Vector3 &p2)
+inline float Vector3::Find_X_At_Y(float y, const Vector3 &p1, const Vector3 &p2)
 {
 	return(p1.X + ((y - p1.Y) * ((p2.X - p1.X) / (p2.Y - p1.Y))));
 }
-WWINLINE float Vector3::Find_X_At_Z(float z, const Vector3 &p1, const Vector3 &p2)
+inline float Vector3::Find_X_At_Z(float z, const Vector3 &p1, const Vector3 &p2)
 {
 	return(p1.X + ((z - p1.Z) * ((p2.X - p1.X) / (p2.Z - p1.Z))));
 }
-WWINLINE float Vector3::Find_Y_At_X(float x, const Vector3 &p1, const Vector3 &p2)
+inline float Vector3::Find_Y_At_X(float x, const Vector3 &p1, const Vector3 &p2)
 {
 	return(p1.Y + ((x - p1.X) * ((p2.Y - p1.Y) / (p2.X - p1.X))));
 }
-WWINLINE float Vector3::Find_Y_At_Z(float z, const Vector3 &p1, const Vector3 &p2)
+inline float Vector3::Find_Y_At_Z(float z, const Vector3 &p1, const Vector3 &p2)
 {
 	return(p1.Y + ((z - p1.Z) * ((p2.Y - p1.Y) / (p2.Z - p1.Z))));
 }
-WWINLINE float Vector3::Find_Z_At_X(float x, const Vector3 &p1, const Vector3 &p2)
+inline float Vector3::Find_Z_At_X(float x, const Vector3 &p1, const Vector3 &p2)
 {
 	return(p1.Z + ((x - p1.X) * ((p2.Z - p1.Z) / (p2.X - p1.X))));
 }
-WWINLINE float Vector3::Find_Z_At_Y(float y, const Vector3 &p1, const Vector3 &p2)
+inline float Vector3::Find_Z_At_Y(float y, const Vector3 &p1, const Vector3 &p2)
 {
 	return(p1.Z + ((y - p1.Y) * ((p2.Z - p1.Z) / (p2.Y - p1.Y))));
 }
@@ -865,7 +865,7 @@ WWINLINE float Vector3::Find_Z_At_Y(float y, const Vector3 &p1, const Vector3 &p
  * HISTORY:                                                                                    *
  *   11/29/1999MLL: Created.                                                                   *
  *=============================================================================================*/
-WWINLINE float Vector3::Distance(const Vector3 &p1, const Vector3 &p2)
+inline float Vector3::Distance(const Vector3 &p1, const Vector3 &p2)
 {
 	Vector3	temp;
 	temp = p1 - p2;
@@ -881,7 +881,7 @@ WWINLINE float Vector3::Distance(const Vector3 &p1, const Vector3 &p2)
  * HISTORY:                                                                                    *
  *   11/29/1999MLL: Created.                                                                   *
  *=============================================================================================*/
-WWINLINE float Vector3::Quick_Distance(const Vector3 &p1, const Vector3 &p2)
+inline float Vector3::Quick_Distance(const Vector3 &p1, const Vector3 &p2)
 {
 	Vector3	temp;
 	temp = p1 - p2;
@@ -897,7 +897,7 @@ WWINLINE float Vector3::Quick_Distance(const Vector3 &p1, const Vector3 &p2)
  * HISTORY:                                                                                    *
  *   11/29/1999MLL: Created.                                                                   *
  *=============================================================================================*/
-WWINLINE unsigned int	Vector3::Convert_To_ABGR( void ) const
+inline unsigned int	Vector3::Convert_To_ABGR( void ) const
 {
 	return (unsigned(255)<<24) |
 			 (unsigned(Z*255.0f)<<16) |
@@ -914,7 +914,7 @@ WWINLINE unsigned int	Vector3::Convert_To_ABGR( void ) const
  * HISTORY:                                                                                    *
  *   11/29/1999MLL: Created.                                                                   *
  *=============================================================================================*/
-WWINLINE unsigned int	Vector3::Convert_To_ARGB( void ) const
+inline unsigned int	Vector3::Convert_To_ARGB( void ) const
 {
 	return (unsigned(255)<<24) |
 			 (unsigned(X*255.0f)<<16) |

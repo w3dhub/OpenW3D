@@ -87,8 +87,8 @@ public:
 	int					Load_W3D(ChunkLoadClass & cload);
 	void					Init_Default(void);
 
-	WWINLINE const char *		Get_Name(void)								const { return Name; }
-	WWINLINE int					Num_Pivots(void)							const { return NumPivots; }
+	const char *		Get_Name(void)								const { return Name; }
+	int					Num_Pivots(void)							const { return NumPivots; }
 	int					Get_Bone_Index(const char * name)	const;
 	const char *		Get_Bone_Name(int boneid)				const;
 	int					Get_Parent_Index(int bone_indx)		const;
@@ -109,10 +109,10 @@ public:
 	void					Combo_Update(		const Matrix3D &		root,
 													HAnimComboClass *		anim);
 
-	WWINLINE const Matrix3D	&	Get_Transform(int pivot) const;
-	WWINLINE bool					Get_Visibility(int pivot) const;
+	const Matrix3D	&	Get_Transform(int pivot) const;
+	bool					Get_Visibility(int pivot) const;
 
-	WWINLINE const Matrix3D &	Get_Root_Transform(void) const;
+	const Matrix3D &	Get_Root_Transform(void) const;
 
 	// User control over a bone.  While a bone is captured, you can over-ride the
 	// animation transform used by the bone.
@@ -164,12 +164,12 @@ private:
 	friend class MeshClass;
 };
 
-WWINLINE const Matrix3D &	HTreeClass::Get_Root_Transform(void) const
+inline const Matrix3D &	HTreeClass::Get_Root_Transform(void) const
 {
 	return Pivot[0].Transform;
 }
 
-WWINLINE bool HTreeClass::Get_Visibility(int pivot) const
+inline bool HTreeClass::Get_Visibility(int pivot) const
 {
 	WWASSERT(pivot >= 0);
 	WWASSERT(pivot < NumPivots);
@@ -188,7 +188,7 @@ WWINLINE bool HTreeClass::Get_Visibility(int pivot) const
  * HISTORY:                                                                                    *
  *   08/11/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE const Matrix3D & HTreeClass::Get_Transform(int pivot) const
+inline const Matrix3D & HTreeClass::Get_Transform(int pivot) const
 {
 	assert(pivot >= 0);
 	assert(pivot < NumPivots);

@@ -332,11 +332,11 @@ public:
 	GapFillerClass(const GapFillerClass& that);
 	~GapFillerClass();
 
-	WWINLINE const TriIndex* Get_Polygon_Array() const { return PolygonArray; }
-	WWINLINE unsigned Get_Polygon_Count() const { return PolygonCount; }
-	WWINLINE TextureClass** Get_Texture_Array(int pass, int stage) const { return TextureArray[pass][stage]; }
-	WWINLINE VertexMaterialClass** Get_Material_Array(int pass) const { return MaterialArray[pass]; }
-	WWINLINE ShaderClass* Get_Shader_Array(int pass) const { return ShaderArray[pass]; }
+	const TriIndex* Get_Polygon_Array() const { return PolygonArray; }
+	unsigned Get_Polygon_Count() const { return PolygonCount; }
+	TextureClass** Get_Texture_Array(int pass, int stage) const { return TextureArray[pass][stage]; }
+	VertexMaterialClass** Get_Material_Array(int pass) const { return MaterialArray[pass]; }
+	ShaderClass* Get_Shader_Array(int pass) const { return ShaderArray[pass]; }
 
 	void Add_Polygon(unsigned polygon_index,unsigned vidx1,unsigned vidx2, unsigned vidx3);
 	void Shrink_Buffers();

@@ -70,45 +70,45 @@ public:
 
 
 	// Constructors
-	WWINLINE Vector4(void) {};
-	WWINLINE Vector4(const Vector4 & v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; }
-	WWINLINE Vector4(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	WWINLINE Vector4(const float vector[4]) { X = vector[0]; Y = vector[1]; Z = vector[2]; W = vector[3]; }
+	Vector4(void) {};
+	Vector4(const Vector4 & v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; }
+	Vector4(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
+	Vector4(const float vector[4]) { X = vector[0]; Y = vector[1]; Z = vector[2]; W = vector[3]; }
 
 	// Assignment
-	WWINLINE Vector4 & operator = (const Vector4 & v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	WWINLINE void	Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
+	Vector4 & operator = (const Vector4 & v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
+	void	Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
 
 	// Array access
-	WWINLINE float &	operator [](int i) { return (&X)[i]; }
-	WWINLINE const float &  operator [](int i) const { return (&X)[i]; }
+	float &	operator [](int i) { return (&X)[i]; }
+	const float &  operator [](int i) const { return (&X)[i]; }
 
 	// normalize, compute length
 	void	Normalize(void);
-	WWINLINE float	Length(void) const;
-	WWINLINE float Length2(void) const;
+	float	Length(void) const;
+	float Length2(void) const;
 
 	// unary operators
-	WWINLINE Vector4 operator-() const { return(Vector4(-X,-Y,-Z,-W)); }
-	WWINLINE Vector4 operator+() const { return *this; }
+	Vector4 operator-() const { return(Vector4(-X,-Y,-Z,-W)); }
+	Vector4 operator+() const { return *this; }
 
-	WWINLINE Vector4 & operator += (const Vector4 & v) { X += v.X; Y += v.Y; Z += v.Z; W += v.W; return *this; }
-	WWINLINE Vector4 & operator -= (const Vector4 & v) { X -= v.X; Y -= v.Y; Z -= v.Z; W += v.W; return *this; }
-	WWINLINE Vector4 & operator *= (float k) { X = X*k; Y=Y*k; Z=Z*k; W=W*k; return *this; }
-	WWINLINE Vector4 & operator /= (float k) { k=1.0f/k; X = X*k; Y=Y*k; Z=Z*k; W=W*k; return *this; }
+	Vector4 & operator += (const Vector4 & v) { X += v.X; Y += v.Y; Z += v.Z; W += v.W; return *this; }
+	Vector4 & operator -= (const Vector4 & v) { X -= v.X; Y -= v.Y; Z -= v.Z; W += v.W; return *this; }
+	Vector4 & operator *= (float k) { X = X*k; Y=Y*k; Z=Z*k; W=W*k; return *this; }
+	Vector4 & operator /= (float k) { k=1.0f/k; X = X*k; Y=Y*k; Z=Z*k; W=W*k; return *this; }
 
 	// scalar multiplication, division
-	WWINLINE friend Vector4 operator * (const Vector4 &a,float k);
-	WWINLINE friend Vector4 operator * (float k,const Vector4 &a);
-	WWINLINE friend Vector4 operator / (const Vector4 &a,float k);
+	friend Vector4 operator * (const Vector4 &a,float k);
+	friend Vector4 operator * (float k,const Vector4 &a);
+	friend Vector4 operator / (const Vector4 &a,float k);
 
 	// vector addition,subtraction
-	WWINLINE friend Vector4 operator + (const Vector4 &a,const Vector4 &b);
-	WWINLINE friend Vector4 operator - (const Vector4 &a,const Vector4 &b);
+	friend Vector4 operator + (const Vector4 &a,const Vector4 &b);
+	friend Vector4 operator - (const Vector4 &a,const Vector4 &b);
 
 	// dot product / inner product
-	WWINLINE friend float operator * (const Vector4 &a,const Vector4 &b);
-	static WWINLINE float Dot_Product(const Vector4 &a,const Vector4 &b);
+	friend float operator * (const Vector4 &a,const Vector4 &b);
+	static float Dot_Product(const Vector4 &a,const Vector4 &b);
 
 	// Equality operators
 	friend bool operator == (const Vector4 &a,const Vector4 &b);
@@ -119,7 +119,7 @@ public:
 	static void Lerp(const Vector4 & a, const Vector4 & b, float alpha,Vector4 * set_result);
 
 	// verify that none of the members of this vector are invalid floats
-	WWINLINE bool Is_Valid(void) const;
+	bool Is_Valid(void) const;
 };
 
 /**************************************************************************
@@ -134,12 +134,12 @@ public:
  * HISTORY:                                                               *
  *   02/24/1997 GH  : Created.                                            *
  *========================================================================*/
-WWINLINE Vector4 operator * (const Vector4 &a,float k)
+inline Vector4 operator * (const Vector4 &a,float k)
 {
 	return Vector4((a.X * k),(a.Y * k),(a.Z * k),(a.W * k));
 }
 
-WWINLINE Vector4 operator * (float k, const Vector4 &a)
+inline Vector4 operator * (float k, const Vector4 &a)
 {
 	return a*k;
 }
@@ -155,7 +155,7 @@ WWINLINE Vector4 operator * (float k, const Vector4 &a)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE Vector4 operator / (const Vector4 &a,float k)
+inline Vector4 operator / (const Vector4 &a,float k)
 {
 	float ook=1.0f/k;
 	return Vector4((a[0] * ook),(a[1] * ook),(a[2] * ook),(a[3] * ook));
@@ -173,7 +173,7 @@ WWINLINE Vector4 operator / (const Vector4 &a,float k)
  * HISTORY:                                                               *
  *   02/24/1997 GH  : Created.                                            *
  *========================================================================*/
-WWINLINE Vector4 operator + (const Vector4 &a,const Vector4 &b)
+inline Vector4 operator + (const Vector4 &a,const Vector4 &b)
 {
 	return Vector4(
 							a[0]+b[0],
@@ -195,7 +195,7 @@ WWINLINE Vector4 operator + (const Vector4 &a,const Vector4 &b)
  * HISTORY:                                                               *
  *   02/24/1997 GH  : Created.                                            *
  *========================================================================*/
-WWINLINE Vector4 operator - (const Vector4 &a,const Vector4 &b)
+inline Vector4 operator - (const Vector4 &a,const Vector4 &b)
 {
 	return Vector4(
 							a[0]-b[0],
@@ -216,7 +216,7 @@ WWINLINE Vector4 operator - (const Vector4 &a,const Vector4 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE float operator * (const Vector4 &a,const Vector4 &b)
+inline float operator * (const Vector4 &a,const Vector4 &b)
 {
 	return	a[0]*b[0] +
 				a[1]*b[1] +
@@ -224,7 +224,7 @@ WWINLINE float operator * (const Vector4 &a,const Vector4 &b)
 				a[3]*b[3];
 }
 
-WWINLINE float Vector4::Dot_Product(const Vector4 &a,const Vector4 &b)
+inline float Vector4::Dot_Product(const Vector4 &a,const Vector4 &b)
 {
 	return a*b;
 }
@@ -241,7 +241,7 @@ WWINLINE float Vector4::Dot_Product(const Vector4 &a,const Vector4 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE bool operator == (const Vector4 &a,const Vector4 &b)
+inline bool operator == (const Vector4 &a,const Vector4 &b)
 {
 	return ( (a[0] == b[0]) && (a[1] == b[1]) && (a[2] == b[2]) && (a[3] == b[3]));
 }
@@ -257,7 +257,7 @@ WWINLINE bool operator == (const Vector4 &a,const Vector4 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE bool operator != (const Vector4 &a,const Vector4 &b)
+inline bool operator != (const Vector4 &a,const Vector4 &b)
 {
 	return ( (a[0] != b[0]) || (a[1] != b[1]) || (a[2] != b[2]) || (a[3] != b[3]));
 }
@@ -273,7 +273,7 @@ WWINLINE bool operator != (const Vector4 &a,const Vector4 &b)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE void Vector4::Normalize()
+inline void Vector4::Normalize()
 {
 	float len2 = Length2();
 	if (len2 != 0.0f) {
@@ -285,7 +285,7 @@ WWINLINE void Vector4::Normalize()
 	}
 }
 
-WWINLINE Vector4 Normalize(const Vector4 & vec)
+inline Vector4 Normalize(const Vector4 & vec)
 {
 	float len2 = vec.Length2();
 	if (len2 != 0.0f) {
@@ -306,7 +306,7 @@ WWINLINE Vector4 Normalize(const Vector4 & vec)
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE float Vector4::Length() const
+inline float Vector4::Length() const
 {
 	return WWMath::Sqrt(Length2());
 }
@@ -322,7 +322,7 @@ WWINLINE float Vector4::Length() const
  *                                                                        *
  * HISTORY:                                                               *
  *========================================================================*/
-WWINLINE float Vector4::Length2() const
+inline float Vector4::Length2() const
 {
 	return X*X + Y*Y + Z*Z + W*W;
 }
@@ -340,7 +340,7 @@ WWINLINE float Vector4::Length2() const
  * HISTORY:                                                                                    *
  *   06/02/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Swap(Vector4 & a,Vector4 & b)
+inline void Swap(Vector4 & a,Vector4 & b)
 {
 	Vector4 tmp(a);
 	a = b;
@@ -359,7 +359,7 @@ WWINLINE void Swap(Vector4 & a,Vector4 & b)
  * HISTORY:                                                                                    *
  *   01/14/1999 NH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE Vector4 Lerp(const Vector4 & a, const Vector4 & b, float alpha)
+inline Vector4 Lerp(const Vector4 & a, const Vector4 & b, float alpha)
 {
    return Vector4(
       (a.X + (b.X - a.X)*alpha),
@@ -369,7 +369,7 @@ WWINLINE Vector4 Lerp(const Vector4 & a, const Vector4 & b, float alpha)
    );
 }
 
-WWINLINE Vector4 Vector4::Lerp(const Vector4 & a, const Vector4 & b, float alpha)
+inline Vector4 Vector4::Lerp(const Vector4 & a, const Vector4 & b, float alpha)
 {
    return Vector4(
       (a.X + (b.X - a.X)*alpha),
@@ -379,7 +379,7 @@ WWINLINE Vector4 Vector4::Lerp(const Vector4 & a, const Vector4 & b, float alpha
    );
 }
 
-WWINLINE void Vector4::Lerp(const Vector4 & a, const Vector4 & b, float alpha,Vector4 * set_result)
+inline void Vector4::Lerp(const Vector4 & a, const Vector4 & b, float alpha,Vector4 * set_result)
 {
    set_result->X = (a.X + (b.X - a.X)*alpha);
 	set_result->Y = (a.Y + (b.Y - a.Y)*alpha);
@@ -402,7 +402,7 @@ WWINLINE void Vector4::Lerp(const Vector4 & a, const Vector4 & b, float alpha,Ve
  * HISTORY:                                                                                    *
  *   10/18/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE bool Vector4::Is_Valid(void) const
+inline bool Vector4::Is_Valid(void) const
 {
 	return (WWMath::Is_Valid_Float(X) && WWMath::Is_Valid_Float(Y) && WWMath::Is_Valid_Float(Z) && WWMath::Is_Valid_Float(W));
 }

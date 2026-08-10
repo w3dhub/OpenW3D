@@ -471,7 +471,7 @@ protected:
 	friend class RenderObjProxyClass;
 };
 
-WWINLINE const SphereClass & RenderObjClass::Get_Bounding_Sphere(void) const
+inline const SphereClass & RenderObjClass::Get_Bounding_Sphere(void) const
 {
 	if (!(Bits & BOUNDING_VOLUMES_VALID)) {
 		Update_Cached_Bounding_Volumes();
@@ -479,7 +479,7 @@ WWINLINE const SphereClass & RenderObjClass::Get_Bounding_Sphere(void) const
 	return CachedBoundingSphere;
 }
 
-WWINLINE const AABoxClass & RenderObjClass::Get_Bounding_Box(void) const
+inline const AABoxClass & RenderObjClass::Get_Bounding_Box(void) const
 {
 	if (!(Bits & BOUNDING_VOLUMES_VALID)) {
 		Update_Cached_Bounding_Volumes();
@@ -499,7 +499,7 @@ WWINLINE const AABoxClass & RenderObjClass::Get_Bounding_Box(void) const
  * HISTORY:                                                               *
  *   09/22/1997 PWG : Created.                                            *
  *========================================================================*/
-WWINLINE float Bound_Degrees(float angle)
+inline float Bound_Degrees(float angle)
 {
 	while (angle > 359) angle -= 360;
 	while (angle < 0) angle += 360;
@@ -521,40 +521,40 @@ WWINLINE float Bound_Degrees(float angle)
  * HISTORY:                                                                                    *
  *   2/25/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE const Matrix3D & RenderObjClass::Get_Transform(void) const
+inline const Matrix3D & RenderObjClass::Get_Transform(void) const
 {
 	Validate_Transform();
 	return Transform;
 }
 
-WWINLINE const Matrix3D & RenderObjClass::Get_Transform(bool &is_transform_identity) const
+inline const Matrix3D & RenderObjClass::Get_Transform(bool &is_transform_identity) const
 {
 	Validate_Transform();
 	is_transform_identity=IsTransformIdentity;
 	return Transform;
 }
 
-WWINLINE bool RenderObjClass::Is_Transform_Identity() const
+inline bool RenderObjClass::Is_Transform_Identity() const
 {
 	Validate_Transform();
 	return IsTransformIdentity;
 }
 
 // Warning: Be sure to call this function only if the transform is known to be valid!
-WWINLINE const Matrix3D & RenderObjClass::Get_Transform_No_Validity_Check(void) const
+inline const Matrix3D & RenderObjClass::Get_Transform_No_Validity_Check(void) const
 {
 	return Transform;
 }
 
 // Warning: Be sure to call this function only if the transform is known to be valid!
-WWINLINE const Matrix3D & RenderObjClass::Get_Transform_No_Validity_Check(bool& is_transform_identity) const
+inline const Matrix3D & RenderObjClass::Get_Transform_No_Validity_Check(bool& is_transform_identity) const
 {
 	is_transform_identity=IsTransformIdentity;
 	return Transform;
 }
 
 // Warning: Be sure to call this function only if the transform is known to be valid!
-WWINLINE bool RenderObjClass::Is_Transform_Identity_No_Validity_Check() const
+inline bool RenderObjClass::Is_Transform_Identity_No_Validity_Check() const
 {
 	return IsTransformIdentity;
 }

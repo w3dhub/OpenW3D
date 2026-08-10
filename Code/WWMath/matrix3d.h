@@ -129,105 +129,105 @@ class	Matrix3D
 public:
 
 	// Constructors
-	WWINLINE Matrix3D(void) {}
+	Matrix3D(void) {}
 
-	WWINLINE explicit Matrix3D(bool init) { if (init) Make_Identity(); }
+	explicit Matrix3D(bool init) { if (init) Make_Identity(); }
 
-	WWINLINE explicit Matrix3D(float m[12]);
+	explicit Matrix3D(float m[12]);
 
-	WWINLINE explicit Matrix3D(
+	explicit Matrix3D(
 		float m11,float m12,float m13,float m14,
 		float m21,float m22,float m23,float m24,
 		float m31,float m32,float m33,float m34
 	);
 
-	WWINLINE explicit Matrix3D(
+	explicit Matrix3D(
 		const Vector3	&x,		// x-axis unit vector
 		const Vector3	&y,		// y-axis unit vector
 		const Vector3	&z,		// z-axis unit vector
 		const Vector3	&pos		// position
 	);
 
-	WWINLINE explicit Matrix3D(
+	explicit Matrix3D(
 		const Vector3	&axis,
 		float angle
 	);
 
-	WWINLINE explicit Matrix3D(
+	explicit Matrix3D(
 		const Vector3	&axis,
 		float sine,
 		float cosine
 	);
 
-	WWINLINE explicit Matrix3D(
+	explicit Matrix3D(
 		const Matrix3 & rotation,
 		const Vector3 & position
 	);
 
-	WWINLINE explicit Matrix3D(
+	explicit Matrix3D(
 		const Quaternion & rotation,
 		const Vector3 & position
 	);
 
 	// Creates identity rotation w. given position.
-	WWINLINE explicit Matrix3D(const Vector3 & position);
+	explicit Matrix3D(const Vector3 & position);
 
 	// Copy constructor
-	WWINLINE Matrix3D(const Matrix3D & m);
+	Matrix3D(const Matrix3D & m);
 
 	// Assignment operator
-	WWINLINE Matrix3D & operator = (const Matrix3D & m);
+	Matrix3D & operator = (const Matrix3D & m);
 
 	// Init functions
-	WWINLINE void Set(float m[12]);
+	void Set(float m[12]);
 
-	WWINLINE void Set(
+	void Set(
 		float m11,float m12,float m13,float m14,
 		float m21,float m22,float m23,float m24,
 		float m31,float m32,float m33,float m34
 	);
 
-	WWINLINE void Set(
+	void Set(
 		const Vector3	&x,		// x-axis unit vector
 		const Vector3	&y,		// y-axis unit vector
 		const Vector3	&z,		// z-axis unit vector
 		const Vector3	&pos		// position
 	);
 
-	WWINLINE void Set(const Vector3 & axis,float angle);
+	void Set(const Vector3 & axis,float angle);
 
-	WWINLINE void Set(const Vector3 & axis,float sine,float cosine);
+	void Set(const Vector3 & axis,float sine,float cosine);
 
 	void Set(const Matrix3 & rotation,const Vector3 & position);
 
 	void Set(const Quaternion & rotation,const Vector3 & position);
 
 	// Creates identity rotation w. given position.
-	WWINLINE void Set(const Vector3 & position);
+	void Set(const Vector3 & position);
 
 	// access functions:
- 	WWINLINE Vector4 & operator [] (int i) { return Row[i]; }
-	WWINLINE const Vector4 & operator [] (int i) const { return Row[i]; }
+ 	Vector4 & operator [] (int i) { return Row[i]; }
+	const Vector4 & operator [] (int i) const { return Row[i]; }
 
-	WWINLINE Vector3 Get_Translation(void) const { return Vector3(Row[0][3],Row[1][3],Row[2][3]); }
-	WWINLINE void Get_Translation(Vector3 * set) const { set->X = Row[0][3]; set->Y = Row[1][3]; set->Z = Row[2][3]; }
-	WWINLINE void Set_Translation(const Vector3 & t)  { Row[0][3] = t[0]; Row[1][3] = t[1];Row[2][3] = t[2]; }
+	Vector3 Get_Translation(void) const { return Vector3(Row[0][3],Row[1][3],Row[2][3]); }
+	void Get_Translation(Vector3 * set) const { set->X = Row[0][3]; set->Y = Row[1][3]; set->Z = Row[2][3]; }
+	void Set_Translation(const Vector3 & t)  { Row[0][3] = t[0]; Row[1][3] = t[1];Row[2][3] = t[2]; }
 
 	void Set_Rotation(const Matrix3 & m);
 	void Set_Rotation(const Quaternion & q);
 
-	WWINLINE float Get_X_Translation(void) const { return Row[0][3]; };
-	WWINLINE float Get_Y_Translation(void) const { return Row[1][3]; };
-	WWINLINE float Get_Z_Translation(void) const { return Row[2][3]; };
+	float Get_X_Translation(void) const { return Row[0][3]; };
+	float Get_Y_Translation(void) const { return Row[1][3]; };
+	float Get_Z_Translation(void) const { return Row[2][3]; };
 
-	WWINLINE void Set_X_Translation(float x) { Row[0][3] = x; };
-	WWINLINE void Set_Y_Translation(float y) { Row[1][3] = y; };
-	WWINLINE void Set_Z_Translation(float z) { Row[2][3] = z; };
+	void Set_X_Translation(float x) { Row[0][3] = x; };
+	void Set_Y_Translation(float y) { Row[1][3] = y; };
+	void Set_Z_Translation(float z) { Row[2][3] = z; };
 
-	WWINLINE void Adjust_Translation(const Vector3 & t) { Row[0][3] += t[0]; Row[1][3] += t[1]; Row[2][3] += t[2]; };
-	WWINLINE void Adjust_X_Translation(float x) { Row[0][3] += x; };
-	WWINLINE void Adjust_Y_Translation(float y) { Row[1][3] += y; };
-	WWINLINE void Adjust_Z_Translation(float z) { Row[2][3] += z; };
+	void Adjust_Translation(const Vector3 & t) { Row[0][3] += t[0]; Row[1][3] += t[1]; Row[2][3] += t[2]; };
+	void Adjust_X_Translation(float x) { Row[0][3] += x; };
+	void Adjust_Y_Translation(float y) { Row[1][3] += y; };
+	void Adjust_Z_Translation(float z) { Row[2][3] += z; };
 
 	// These functions will give you the approximate amount that the
 	// matrix has been rotated about a given axis.  These functions
@@ -240,7 +240,7 @@ public:
 	// Each of the transformation methods performs an
 	// "optimized" post-multiplication with the current matrix.
 	// All angles are assumed to be radians.
-	WWINLINE void	Make_Identity(void);
+	void	Make_Identity(void);
 	void	Translate(float x,float y,float z);
 	void	Translate(const Vector3 &t);
    void  Translate_X(float x);
@@ -258,26 +258,26 @@ public:
 	// !! The Matrix Inverse function, only works
 	// !! with Orthogonal Matrices, for optimization purposes
 	// !!
-	WWINLINE void	Scale(float scale);					 // uniform scale all 3 axis
-	WWINLINE void	Scale(float x, float y, float z); // separate input for each axis
-	WWINLINE void	Scale(Vector3 &scale);				 // scale each axis
+	void	Scale(float scale);					 // uniform scale all 3 axis
+	void	Scale(float x, float y, float z); // separate input for each axis
+	void	Scale(Vector3 &scale);				 // scale each axis
 
 
 	// Each of these performs an "optimized" pre-multiplication with the
 	// current matrix. All angles are assumed to be radians. The "In_Place"
 	// versions do not affect the translation part of the matrix,
-	WWINLINE void	Pre_Rotate_X(float theta);
-	WWINLINE void	Pre_Rotate_Y(float theta);
-	WWINLINE void 	Pre_Rotate_Z(float theta);
-	WWINLINE void	Pre_Rotate_X(float s,float c);
-	WWINLINE void	Pre_Rotate_Y(float s,float c);
-	WWINLINE void	Pre_Rotate_Z(float s,float c);
-	WWINLINE void	In_Place_Pre_Rotate_X(float theta);
-	WWINLINE void	In_Place_Pre_Rotate_Y(float theta);
-	WWINLINE void 	In_Place_Pre_Rotate_Z(float theta);
-	WWINLINE void	In_Place_Pre_Rotate_X(float s,float c);
-	WWINLINE void	In_Place_Pre_Rotate_Y(float s,float c);
-	WWINLINE void	In_Place_Pre_Rotate_Z(float s,float c);
+	void	Pre_Rotate_X(float theta);
+	void	Pre_Rotate_Y(float theta);
+	void 	Pre_Rotate_Z(float theta);
+	void	Pre_Rotate_X(float s,float c);
+	void	Pre_Rotate_Y(float s,float c);
+	void	Pre_Rotate_Z(float s,float c);
+	void	In_Place_Pre_Rotate_X(float theta);
+	void	In_Place_Pre_Rotate_Y(float theta);
+	void 	In_Place_Pre_Rotate_Z(float theta);
+	void	In_Place_Pre_Rotate_X(float s,float c);
+	void	In_Place_Pre_Rotate_Y(float s,float c);
+	void	In_Place_Pre_Rotate_Z(float s,float c);
 
 	// Points the negative Z axis at the target t.  Assumes that
 	// the "world" uses x-y as the ground and z as altitude.
@@ -295,12 +295,12 @@ public:
 	Vector3 Inverse_Rotate_Vector(const Vector3 &vect) const;
 
 	// these get the a vector representing the direction an axis is pointing
-	WWINLINE Vector3 Get_X_Vector() const { return Vector3(Row[0][0], Row[1][0], Row[2][0]); }
-	WWINLINE Vector3 Get_Y_Vector() const { return Vector3(Row[0][1], Row[1][1], Row[2][1]); }
-	WWINLINE Vector3 Get_Z_Vector() const { return Vector3(Row[0][2], Row[1][2], Row[2][2]); }
-	WWINLINE void Get_X_Vector(Vector3 * set_x) const { set_x->Set(Row[0][0], Row[1][0], Row[2][0]); }
-	WWINLINE void Get_Y_Vector(Vector3 * set_y) const { set_y->Set(Row[0][1], Row[1][1], Row[2][1]); }
-	WWINLINE void Get_Z_Vector(Vector3 * set_z) const { set_z->Set(Row[0][2], Row[1][2], Row[2][2]); }
+	Vector3 Get_X_Vector() const { return Vector3(Row[0][0], Row[1][0], Row[2][0]); }
+	Vector3 Get_Y_Vector() const { return Vector3(Row[0][1], Row[1][1], Row[2][1]); }
+	Vector3 Get_Z_Vector() const { return Vector3(Row[0][2], Row[1][2], Row[2][2]); }
+	void Get_X_Vector(Vector3 * set_x) const { set_x->Set(Row[0][0], Row[1][0], Row[2][0]); }
+	void Get_Y_Vector(Vector3 * set_y) const { set_y->Set(Row[0][1], Row[1][1], Row[2][1]); }
+	void Get_Z_Vector(Vector3 * set_z) const { set_z->Set(Row[0][2], Row[1][2], Row[2][2]); }
 
 	// Get the inverse of the matrix.
 	// TODO: currently the "intended-to-be" general inverse function just calls
@@ -320,14 +320,14 @@ public:
 
 	// matrix multiplication without temporaries
 	static void	Multiply(const Matrix3D &A,const Matrix3D &B,Matrix3D * set_result);
-	static WWINLINE void	Transform_Vector(const Matrix3D & tm,const Vector3 & in,Vector3 * out);
-	static WWINLINE void	Rotate_Vector(const Matrix3D & tm,const Vector3 & in,Vector3 * out);
+	static void	Transform_Vector(const Matrix3D & tm,const Vector3 & in,Vector3 * out);
+	static void	Rotate_Vector(const Matrix3D & tm,const Vector3 & in,Vector3 * out);
 
 	// transform a vector by the inverse of this matrix (note: assumes the matrix
 	// is orthogonal; if you've manually scaled or sheared the matrix this function
 	// will not give correct results)
-	static WWINLINE void	Inverse_Transform_Vector(const Matrix3D & tm,const Vector3 & in,Vector3 * out);
-	static WWINLINE void	Inverse_Rotate_Vector(const Matrix3D & tm,const Vector3 & in,Vector3 * out);
+	static void	Inverse_Transform_Vector(const Matrix3D & tm,const Vector3 & in,Vector3 * out);
+	static void	Inverse_Rotate_Vector(const Matrix3D & tm,const Vector3 & in,Vector3 * out);
 
 	// Solve a linear system of 3 equations and 3 unknowns.  The result of this function is
 	// that the 3x3 portion of the matrix is inverted and the final column is your answer...
@@ -353,7 +353,7 @@ protected:
 
 	Vector4			Row[3];
 
-	WWINLINE friend Vector3 operator * (const Matrix3D &A,const Vector3 &a);
+	friend Vector3 operator * (const Matrix3D &A,const Vector3 &a);
 };
 
 
@@ -388,14 +388,14 @@ Matrix3D Lerp(const Matrix3D &A, const Matrix3D &B, float factor);
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE Matrix3D::Matrix3D(float m[12])
+inline Matrix3D::Matrix3D(float m[12])
 {
 	Row[0].Set(m[0],m[1],m[2],m[3]);
 	Row[1].Set(m[4],m[5],m[6],m[7]);
 	Row[2].Set(m[8],m[9],m[10],m[11]);
 }
 
-WWINLINE Matrix3D::Matrix3D
+inline Matrix3D::Matrix3D
 (
 	float m11,float m12,float m13,float m14,
 	float m21,float m22,float m23,float m24,
@@ -407,7 +407,7 @@ WWINLINE Matrix3D::Matrix3D
 	Row[2].Set(m31,m32,m33,m34);
 }
 
-WWINLINE Matrix3D::Matrix3D
+inline Matrix3D::Matrix3D
 (
 	const Vector3	&x,		// x-axis unit vector
 	const Vector3	&y,		// y-axis unit vector
@@ -418,33 +418,33 @@ WWINLINE Matrix3D::Matrix3D
 	Set(x,y,z,pos);
 }
 
-WWINLINE Matrix3D::Matrix3D(const Vector3 & axis,float angle)
+inline Matrix3D::Matrix3D(const Vector3 & axis,float angle)
 {
 	Set(axis,angle);
 }
 
-WWINLINE Matrix3D::Matrix3D(const Vector3 & axis,float sine,float cosine)
+inline Matrix3D::Matrix3D(const Vector3 & axis,float sine,float cosine)
 {
 	Set(axis,sine,cosine);
 }
 
-WWINLINE Matrix3D::Matrix3D(const Matrix3 & rot,const Vector3 & pos)
+inline Matrix3D::Matrix3D(const Matrix3 & rot,const Vector3 & pos)
 {
 	Set(rot,pos);
 }
 
-WWINLINE Matrix3D::Matrix3D(const Quaternion & rot,const Vector3 & pos)
+inline Matrix3D::Matrix3D(const Quaternion & rot,const Vector3 & pos)
 {
 	Set(rot,pos);
 }
 
-WWINLINE Matrix3D::Matrix3D(const Vector3 & position)
+inline Matrix3D::Matrix3D(const Vector3 & position)
 {
 	Set(position);
 }
 
 // Copy Constructor
-WWINLINE Matrix3D::Matrix3D(const Matrix3D & m)
+inline Matrix3D::Matrix3D(const Matrix3D & m)
 {
 	Row[0] = m.Row[0];
 	Row[1] = m.Row[1];
@@ -452,7 +452,7 @@ WWINLINE Matrix3D::Matrix3D(const Matrix3D & m)
 }
 
 // Assignment operator
-WWINLINE Matrix3D & Matrix3D::operator = (const Matrix3D & m)
+inline Matrix3D & Matrix3D::operator = (const Matrix3D & m)
 {
 	Row[0] = m.Row[0];
 	Row[1] = m.Row[1];
@@ -473,7 +473,7 @@ WWINLINE Matrix3D & Matrix3D::operator = (const Matrix3D & m)
  * HISTORY:                                                                                    *
  *   2/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Set(float m[12])
+inline void Matrix3D::Set(float m[12])
 {
 	Row[0].Set(m[0],m[1],m[2],m[3]);
 	Row[1].Set(m[4],m[5],m[6],m[7]);
@@ -493,7 +493,7 @@ WWINLINE void Matrix3D::Set(float m[12])
  * HISTORY:                                                                                    *
  *   2/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Set(		float m11,float m12,float m13,float m14,
+inline void Matrix3D::Set(		float m11,float m12,float m13,float m14,
 										float m21,float m22,float m23,float m24,
 										float m31,float m32,float m33,float m34)
 {
@@ -515,7 +515,7 @@ WWINLINE void Matrix3D::Set(		float m11,float m12,float m13,float m14,
  * HISTORY:                                                                                    *
  *   2/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Set(		const Vector3	&x,		// x-axis unit vector
+inline void Matrix3D::Set(		const Vector3	&x,		// x-axis unit vector
 										const Vector3	&y,		// y-axis unit vector
 										const Vector3	&z,		// z-axis unit vector
 										const Vector3	&pos)		// position
@@ -538,7 +538,7 @@ WWINLINE void Matrix3D::Set(		const Vector3	&x,		// x-axis unit vector
  * HISTORY:                                                                                    *
  *   2/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Set(const Vector3 & axis,float angle)
+inline void Matrix3D::Set(const Vector3 & axis,float angle)
 {
 	float c = cosf(angle);
 	float s = sinf(angle);
@@ -558,7 +558,7 @@ WWINLINE void Matrix3D::Set(const Vector3 & axis,float angle)
  * HISTORY:                                                                                    *
  *   2/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Set(const Vector3 & axis,float s,float c)
+inline void Matrix3D::Set(const Vector3 & axis,float s,float c)
 {
 	assert(WWMath::Fabs(axis.Length2() - 1.0f) < 0.001f);
 
@@ -597,7 +597,7 @@ WWINLINE void Matrix3D::Set(const Vector3 & axis,float s,float c)
  * HISTORY:                                                                                    *
  *   2/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Set(const Vector3 & position)
+inline void Matrix3D::Set(const Vector3 & position)
 {
 	Row[0].Set(1.0f,0.0f,0.0f,position[0]);
 	Row[1].Set(0.0f,1.0f,0.0f,position[1]);
@@ -617,7 +617,7 @@ WWINLINE void Matrix3D::Set(const Vector3 & position)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Make_Identity(void)
+inline void Matrix3D::Make_Identity(void)
 {
 	Row[0].Set(1.0f,0.0f,0.0f,0.0f);
 	Row[1].Set(0.0f,1.0f,0.0f,0.0f);
@@ -637,7 +637,7 @@ WWINLINE void Matrix3D::Make_Identity(void)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Translate(float x,float y,float z)
+inline void Matrix3D::Translate(float x,float y,float z)
 {
 	Row[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);
 	Row[1][3]  += (float)(Row[1][0]*x + Row[1][1]*y + Row[1][2]*z);
@@ -657,7 +657,7 @@ WWINLINE void Matrix3D::Translate(float x,float y,float z)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Translate(const Vector3 &t)
+inline void Matrix3D::Translate(const Vector3 &t)
 {
 	Row[0][3]  += Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2];
 	Row[1][3]  += Row[1][0]*t[0] + Row[1][1]*t[1] + Row[1][2]*t[2];
@@ -677,7 +677,7 @@ WWINLINE void Matrix3D::Translate(const Vector3 &t)
  * HISTORY:                                                                                    *
  *   07/06/1998 NH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Translate_X(float x)
+inline void Matrix3D::Translate_X(float x)
 {
 	Row[0][3]  += (float)(Row[0][0]*x);
 	Row[1][3]  += (float)(Row[1][0]*x);
@@ -697,7 +697,7 @@ WWINLINE void Matrix3D::Translate_X(float x)
  * HISTORY:                                                                                    *
  *   07/06/1998 NH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Translate_Y(float y)
+inline void Matrix3D::Translate_Y(float y)
 {
 	Row[0][3]  += (float)(Row[0][1]*y);
 	Row[1][3]  += (float)(Row[1][1]*y);
@@ -717,7 +717,7 @@ WWINLINE void Matrix3D::Translate_Y(float y)
  * HISTORY:                                                                                    *
  *   07/06/1998 NH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Translate_Z(float z)
+inline void Matrix3D::Translate_Z(float z)
 {
 	Row[0][3]  += (float)(Row[0][2]*z);
 	Row[1][3]  += (float)(Row[1][2]*z);
@@ -737,7 +737,7 @@ WWINLINE void Matrix3D::Translate_Z(float z)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Rotate_X(float theta)
+inline void Matrix3D::Rotate_X(float theta)
 {
 	float tmp1,tmp2;
 	float s,c;
@@ -774,7 +774,7 @@ WWINLINE void Matrix3D::Rotate_X(float theta)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Rotate_X(float s,float c)
+inline void Matrix3D::Rotate_X(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -805,7 +805,7 @@ WWINLINE void Matrix3D::Rotate_X(float s,float c)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Rotate_Y(float theta)
+inline void Matrix3D::Rotate_Y(float theta)
 {
 	float tmp1,tmp2;
 	float s,c;
@@ -841,7 +841,7 @@ WWINLINE void Matrix3D::Rotate_Y(float theta)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Rotate_Y(float s,float c)
+inline void Matrix3D::Rotate_Y(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -872,7 +872,7 @@ WWINLINE void Matrix3D::Rotate_Y(float s,float c)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Rotate_Z(float theta)
+inline void Matrix3D::Rotate_Z(float theta)
 {
 	float tmp1,tmp2;
 	float c,s;
@@ -908,7 +908,7 @@ WWINLINE void Matrix3D::Rotate_Z(float theta)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Rotate_Z(float s,float c)
+inline void Matrix3D::Rotate_Z(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -942,7 +942,7 @@ WWINLINE void Matrix3D::Rotate_Z(float s,float c)
 // !! The Matrix Inverse function, only works
 // !! with Orthogonal Matrices, for optimization purposes
 // !!
-WWINLINE void	Matrix3D::Scale(float scale)
+inline void	Matrix3D::Scale(float scale)
 {	// uniform scale all 3 axis
 	// X
 	Row[0][0] *= scale;
@@ -974,7 +974,7 @@ WWINLINE void	Matrix3D::Scale(float scale)
 // !! The Matrix Inverse function, only works
 // !! with Orthogonal Matrices, for optimization purposes
 // !!
-WWINLINE void	Matrix3D::Scale(float x, float y, float z)
+inline void	Matrix3D::Scale(float x, float y, float z)
 { // separate input for each axis
 	// X
 	Row[0][0] *= x;
@@ -1006,7 +1006,7 @@ WWINLINE void	Matrix3D::Scale(float x, float y, float z)
 // !! The Matrix Inverse function, only works
 // !! with Orthogonal Matrices, for optimization purposes
 // !!
-WWINLINE void	Matrix3D::Scale(Vector3 &scale)
+inline void	Matrix3D::Scale(Vector3 &scale)
 { // scale each axis
 	Scale(scale.X, scale.Y, scale.Z);
 }
@@ -1024,7 +1024,7 @@ WWINLINE void	Matrix3D::Scale(Vector3 &scale)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Pre_Rotate_X(float theta)
+inline void Matrix3D::Pre_Rotate_X(float theta)
 {
 	float tmp1,tmp2;
 	float c,s;
@@ -1062,7 +1062,7 @@ WWINLINE void Matrix3D::Pre_Rotate_X(float theta)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Pre_Rotate_Y(float theta)
+inline void Matrix3D::Pre_Rotate_Y(float theta)
 {
 	float tmp1,tmp2;
 	float c,s;
@@ -1100,7 +1100,7 @@ WWINLINE void Matrix3D::Pre_Rotate_Y(float theta)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Pre_Rotate_Z(float theta)
+inline void Matrix3D::Pre_Rotate_Z(float theta)
 {
 	float tmp1,tmp2;
 	float c,s;
@@ -1139,7 +1139,7 @@ WWINLINE void Matrix3D::Pre_Rotate_Z(float theta)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Pre_Rotate_X(float s,float c)
+inline void Matrix3D::Pre_Rotate_X(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -1174,7 +1174,7 @@ WWINLINE void Matrix3D::Pre_Rotate_X(float s,float c)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Pre_Rotate_Y(float s,float c)
+inline void Matrix3D::Pre_Rotate_Y(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -1209,7 +1209,7 @@ WWINLINE void Matrix3D::Pre_Rotate_Y(float s,float c)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::Pre_Rotate_Z(float s,float c)
+inline void Matrix3D::Pre_Rotate_Z(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -1243,7 +1243,7 @@ WWINLINE void Matrix3D::Pre_Rotate_Z(float s,float c)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::In_Place_Pre_Rotate_X(float theta)
+inline void Matrix3D::In_Place_Pre_Rotate_X(float theta)
 {
 	float tmp1,tmp2;
 	float c,s;
@@ -1277,7 +1277,7 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_X(float theta)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::In_Place_Pre_Rotate_Y(float theta)
+inline void Matrix3D::In_Place_Pre_Rotate_Y(float theta)
 {
 	float tmp1,tmp2;
 	float c,s;
@@ -1311,7 +1311,7 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_Y(float theta)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::In_Place_Pre_Rotate_Z(float theta)
+inline void Matrix3D::In_Place_Pre_Rotate_Z(float theta)
 {
 	float tmp1,tmp2;
 	float c,s;
@@ -1346,7 +1346,7 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_Z(float theta)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::In_Place_Pre_Rotate_X(float s,float c)
+inline void Matrix3D::In_Place_Pre_Rotate_X(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -1377,7 +1377,7 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_X(float s,float c)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::In_Place_Pre_Rotate_Y(float s,float c)
+inline void Matrix3D::In_Place_Pre_Rotate_Y(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -1408,7 +1408,7 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_Y(float s,float c)
  * HISTORY:                                                                                    *
  *   07/1/1999 NH  : Created.                                                                  *
  *=============================================================================================*/
-WWINLINE void Matrix3D::In_Place_Pre_Rotate_Z(float s,float c)
+inline void Matrix3D::In_Place_Pre_Rotate_Z(float s,float c)
 {
 	float tmp1,tmp2;
 
@@ -1437,7 +1437,7 @@ WWINLINE void Matrix3D::In_Place_Pre_Rotate_Z(float s,float c)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE Matrix3D operator * (const Matrix3D &A,const Matrix3D &B)
+inline Matrix3D operator * (const Matrix3D &A,const Matrix3D &B)
 {
 	Matrix3D C;
 	float tmp1,tmp2,tmp3;
@@ -1489,7 +1489,7 @@ WWINLINE Matrix3D operator * (const Matrix3D &A,const Matrix3D &B)
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE Vector3 operator * (const Matrix3D &A,const Vector3 &a)
+inline Vector3 operator * (const Matrix3D &A,const Vector3 &a)
 {
 #if 0
 	return Vector3
@@ -1521,7 +1521,7 @@ WWINLINE Vector3 operator * (const Matrix3D &A,const Vector3 &a)
  * HISTORY:                                                                                    *
  *   04/29/1998 NH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE bool operator == (const Matrix3D &A, const Matrix3D &B)
+inline bool operator == (const Matrix3D &A, const Matrix3D &B)
 {
    for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 4; j++) {
@@ -1544,13 +1544,13 @@ WWINLINE bool operator == (const Matrix3D &A, const Matrix3D &B)
  * HISTORY:                                                                                    *
  *   04/29/1998 NH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE bool operator != (const Matrix3D &A, const Matrix3D &B)
+inline bool operator != (const Matrix3D &A, const Matrix3D &B)
 {
    return !(A == B);
 }
 
 
-WWINLINE void Matrix3D::Transform_Vector(const Matrix3D & A,const Vector3 & in,Vector3 * out)
+inline void Matrix3D::Transform_Vector(const Matrix3D & A,const Vector3 & in,Vector3 * out)
 {
 	Vector3 tmp;
 	Vector3 * v;
@@ -1568,7 +1568,7 @@ WWINLINE void Matrix3D::Transform_Vector(const Matrix3D & A,const Vector3 & in,V
 	out->Z = (A[2][0] * v->X + A[2][1] * v->Y + A[2][2] * v->Z + A[2][3]);
 }
 
-WWINLINE void	Matrix3D::Rotate_Vector(const Matrix3D & A,const Vector3 & in,Vector3 * out)
+inline void	Matrix3D::Rotate_Vector(const Matrix3D & A,const Vector3 & in,Vector3 * out)
 {
 	Vector3 tmp;
 	Vector3 * v;
@@ -1586,7 +1586,7 @@ WWINLINE void	Matrix3D::Rotate_Vector(const Matrix3D & A,const Vector3 & in,Vect
 	out->Z = (A[2][0] * v->X + A[2][1] * v->Y + A[2][2] * v->Z);
 }
 
-WWINLINE void	Matrix3D::Inverse_Transform_Vector(const Matrix3D & A,const Vector3 & in,Vector3 * out)
+inline void	Matrix3D::Inverse_Transform_Vector(const Matrix3D & A,const Vector3 & in,Vector3 * out)
 {
 	Vector3 tmp;
 	Vector3 * v;
@@ -1603,7 +1603,7 @@ WWINLINE void	Matrix3D::Inverse_Transform_Vector(const Matrix3D & A,const Vector
 	Matrix3D::Inverse_Rotate_Vector(A, diff, out);
 }
 
-WWINLINE void	Matrix3D::Inverse_Rotate_Vector(const Matrix3D & A,const Vector3 & in,Vector3 * out)
+inline void	Matrix3D::Inverse_Rotate_Vector(const Matrix3D & A,const Vector3 & in,Vector3 * out)
 {
 	Vector3 tmp;
 	Vector3 * v;
