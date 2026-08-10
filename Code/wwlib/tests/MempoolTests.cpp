@@ -1,21 +1,29 @@
 #include "mempool.h"
 
+#include <cstddef>
 #include <cstdint>
 #include <iostream>
 #include <vector>
 
 namespace {
 
-struct alignas(32) PooledValue
+constexpr std::size_t PoolAlignment = 32;
+
+struct alignas(PoolAlignment) PooledValue
 {
     std::uintptr_t first = 0;
     std::uintptr_t second = 0;
+    std::byte padding[PoolAlignment - (2 * sizeof(std::uintptr_t))] = {};
 };
 
-struct alignas(32) AutoPooledValue : public AutoPoolClass<AutoPooledValue, 3>
+struct alignas(PoolAlignment) AutoPooledValue : public AutoPoolClass<AutoPooledValue, 3>
 {
     std::uintptr_t value = 0;
+    std::byte padding[PoolAlignment - sizeof(std::uintptr_t)] = {};
 };
+
+static_assert(sizeof(PooledValue) == PoolAlignment);
+static_assert(sizeof(AutoPooledValue) == PoolAlignment);
 
 } // namespace
 
