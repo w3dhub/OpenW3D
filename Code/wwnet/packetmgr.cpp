@@ -52,6 +52,18 @@
 #include "socket_wrapper.h"
 #include <algorithm>
 
+#ifndef _MSC_VER
+#if defined __has_builtin && __has_builtin(__builtin_bswap32)
+#define _byteswap_ulong __builtin_bswap32
+#else
+unsigned int _byteswap_ulong(unsigned int value)
+{
+	return (((value & 0xff000000u) >> 24) | ((value & 0x00ff0000u) >> 8) | ((value & 0x0000ff00u) << 8)
+            | ((value & 0x000000ffu) << 24));
+}
+#endif
+#endif
+
 /*
 ** Single instance of PacketManagerClass.
 */

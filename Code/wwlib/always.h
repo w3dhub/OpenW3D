@@ -104,13 +104,6 @@ void operator delete(void *p, size_t size) noexcept;
 #if !defined(_WIN32)
 #include <alloca.h>
 
-#ifndef _byteswap_ulong
-inline unsigned int _byteswap_ulong(unsigned int value)
-{
-	return __builtin_bswap32(value);
-}
-#endif
-
 #ifndef _alloca
 #define _alloca(size) alloca(size)
 #endif
