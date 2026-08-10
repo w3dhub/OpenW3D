@@ -263,7 +263,7 @@ volatile unsigned					_MemLogSemaphore = 0;
 /*
 ** Use this code to get access to the mutex...
 */
-WWINLINE void * Get_Mem_Log_Mutex(void)
+void * Get_Mem_Log_Mutex(void)
 {
 #if MEMLOG_USE_MUTEX
 
@@ -286,7 +286,7 @@ WWINLINE void * Get_Mem_Log_Mutex(void)
 #endif
 }
 
-WWINLINE void Lock_Mem_Log_Mutex(void)
+void Lock_Mem_Log_Mutex(void)
 {
 #if MEMLOG_USE_MUTEX
 
@@ -329,7 +329,7 @@ WWINLINE void Lock_Mem_Log_Mutex(void)
 #endif
 }
 
-WWINLINE void Unlock_Mem_Log_Mutex(void)
+void Unlock_Mem_Log_Mutex(void)
 {
 #if MEMLOG_USE_MUTEX
 

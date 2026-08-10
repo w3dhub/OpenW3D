@@ -63,24 +63,24 @@ public:
 
 public:
 
-	WWINLINE Quaternion(void) {};
-	WWINLINE explicit Quaternion(bool init) { if (init) { X = 0.0f; Y = 0.0f; Z = 0.0f; W = 1.0f; } }
-	WWINLINE explicit Quaternion(float a, float b, float c, float d) { X=a; Y=b; Z=c; W=d; }
-	WWINLINE explicit Quaternion(const Vector3 & axis,float angle);
-	WWINLINE Quaternion & operator=(const Quaternion & source);
+	Quaternion(void) {};
+	explicit Quaternion(bool init) { if (init) { X = 0.0f; Y = 0.0f; Z = 0.0f; W = 1.0f; } }
+	explicit Quaternion(float a, float b, float c, float d) { X=a; Y=b; Z=c; W=d; }
+	explicit Quaternion(const Vector3 & axis,float angle);
+	Quaternion & operator=(const Quaternion & source);
 
-	WWINLINE void		Set(float a = 0.0, float b = 0.0, float c = 0.0, float d = 1.0) { X = a; Y = b; Z = c; W = d; }
-	WWINLINE void		Make_Identity(void) { Set(); };
-	WWINLINE void		Scale(float s) { X = (float)(s*X); Y = (float)(s*Y); Z = (float)(s*Z); W = (float)(s*W); }
+	void		Set(float a = 0.0, float b = 0.0, float c = 0.0, float d = 1.0) { X = a; Y = b; Z = c; W = d; }
+	void		Make_Identity(void) { Set(); };
+	void		Scale(float s) { X = (float)(s*X); Y = (float)(s*Y); Z = (float)(s*Z); W = (float)(s*W); }
 
 	// Array access
-	WWINLINE float &	operator [](int i) { return (&X)[i]; }
-	WWINLINE const float &  operator [](int i) const { return (&X)[i]; }
+	float &	operator [](int i) { return (&X)[i]; }
+	const float &  operator [](int i) const { return (&X)[i]; }
 
 	// Unary operators.
 	// Remember that q and -q represent the same 3D rotation.
-	WWINLINE Quaternion operator-() const { return(Quaternion(-X,-Y,-Z,-W)); }
-	WWINLINE Quaternion operator+() const { return *this; }
+	Quaternion operator-() const { return(Quaternion(-X,-Y,-Z,-W)); }
+	Quaternion operator+() const { return *this; }
 
 	// Every 3D rotation can be expressed by two different quaternions,  This
 	// function makes the current quaternion convert itself to the representation
@@ -88,10 +88,10 @@ public:
 	Quaternion & Make_Closest(const Quaternion & qto);
 
 	// Square of the magnitude of the quaternion
-	WWINLINE float Length2(void) const { return (X*X + Y*Y + Z*Z + W*W); }
+	float Length2(void) const { return (X*X + Y*Y + Z*Z + W*W); }
 
 	// Magnitude of the quaternion
-	WWINLINE float Length(void) const { return WWMath::Sqrt(Length2()); }
+	float Length(void) const { return WWMath::Sqrt(Length2()); }
 
 	// Make the quaternion unit length
 	void Normalize(void);
@@ -105,51 +105,51 @@ public:
 	void	Randomize(void);
 
 	// transform (rotate) a vector with this quaternion
-	WWINLINE Vector3	Rotate_Vector(const Vector3 & v) const;
-	WWINLINE void		Rotate_Vector(const Vector3 & v,Vector3 * set_result) const;
+	Vector3	Rotate_Vector(const Vector3 & v) const;
+	void		Rotate_Vector(const Vector3 & v,Vector3 * set_result) const;
 
 	// verify that none of the members of this quaternion are invalid floats
 	bool		Is_Valid(void) const;
 };
 
 // Inverse of the quaternion (1/q)
-WWINLINE Quaternion Inverse(const Quaternion & a)
+inline Quaternion Inverse(const Quaternion & a)
 {
 	return Quaternion(-a[0],-a[1],-a[2],a[3]);
 }
 
 // Conjugate of the quaternion
-WWINLINE Quaternion Conjugate(const Quaternion & a)
+inline Quaternion Conjugate(const Quaternion & a)
 {
 	return Quaternion(-a[0],-a[1],-a[2],a[3]);
 }
 
 // Add two quaternions
-WWINLINE Quaternion operator + (const Quaternion & a,const Quaternion & b)
+inline Quaternion operator + (const Quaternion & a,const Quaternion & b)
 {
 	return Quaternion(a[0] + b[0], a[1] + b[1], a[2] + b[2], a[3] + b[3]);
 }
 
 // Subract two quaternions
-WWINLINE Quaternion operator - (const Quaternion & a,const Quaternion & b)
+inline Quaternion operator - (const Quaternion & a,const Quaternion & b)
 {
 	return Quaternion(a[0] - b[0], a[1] - b[1], a[2] - b[2], a[3] - b[3]);
 }
 
 // Multiply a quaternion by a scalar:
-WWINLINE Quaternion operator * (float scl, const Quaternion & a)
+inline Quaternion operator * (float scl, const Quaternion & a)
 {
 	return Quaternion(scl*a[0], scl*a[1], scl*a[2], scl*a[3]);
 }
 
 // Multiply a quaternion by a scalar
-WWINLINE Quaternion operator * (const Quaternion & a, float scl)
+inline Quaternion operator * (const Quaternion & a, float scl)
 {
 	return scl*a;
 }
 
 // Multiply two quaternions
-WWINLINE Quaternion operator * (const Quaternion & a,const Quaternion & b)
+inline Quaternion operator * (const Quaternion & a,const Quaternion & b)
 {
 	return Quaternion
 	(
@@ -161,13 +161,13 @@ WWINLINE Quaternion operator * (const Quaternion & a,const Quaternion & b)
 }
 
 // Divide two quaternions
-WWINLINE Quaternion operator / (const Quaternion & a,const Quaternion & b)
+inline Quaternion operator / (const Quaternion & a,const Quaternion & b)
 {
 	return a * Inverse(b);
 }
 
 // Normalized version of the quaternion
-WWINLINE Quaternion Normalize(const Quaternion & a)
+inline Quaternion Normalize(const Quaternion & a)
 {
 	float mag = a.Length();
 	if (0.0f == mag) {
@@ -222,7 +222,7 @@ void Slerp_Setup(const Quaternion & p,const Quaternion & q,SlerpInfoStruct * sle
 void Cached_Slerp(const Quaternion & p,const Quaternion & q,float alpha,SlerpInfoStruct * slerpinfo,Quaternion * set_q);
 Quaternion Cached_Slerp(const Quaternion & p,const Quaternion & q,float alpha,SlerpInfoStruct * slerpinfo);
 
-WWINLINE Vector3 Quaternion::Rotate_Vector(const Vector3 & v) const
+inline Vector3 Quaternion::Rotate_Vector(const Vector3 & v) const
 {
 	float x = W*v.X + (Y*v.Z - v.Y*Z);
 	float y = W*v.Y - (X*v.Z - v.X*Z);
@@ -237,7 +237,7 @@ WWINLINE Vector3 Quaternion::Rotate_Vector(const Vector3 & v) const
 	);
 }
 
-WWINLINE void Quaternion::Rotate_Vector(const Vector3 & v,Vector3 * result) const
+inline void Quaternion::Rotate_Vector(const Vector3 & v,Vector3 * result) const
 {
 	assert(result != nullptr);
 
@@ -251,7 +251,7 @@ WWINLINE void Quaternion::Rotate_Vector(const Vector3 & v,Vector3 * result) cons
 	result->Z = w*(-Z) + W*z + (x*(-Y) - (-X)*y);
 }
 
-WWINLINE bool Quaternion::Is_Valid(void) const
+inline bool Quaternion::Is_Valid(void) const
 {
 	return (	WWMath::Is_Valid_Float(X) &&
 				WWMath::Is_Valid_Float(Y) &&
@@ -259,7 +259,7 @@ WWINLINE bool Quaternion::Is_Valid(void) const
 				WWMath::Is_Valid_Float(W) );
 }
 
-WWINLINE bool Equal_Within_Epsilon(const Quaternion &a, const Quaternion &b, float epsilon)
+inline bool Equal_Within_Epsilon(const Quaternion &a, const Quaternion &b, float epsilon)
 {
    return(	(WWMath::Fabs(a.X - b.X) < epsilon) &&
 				(WWMath::Fabs(a.Y - b.Y) < epsilon) &&
@@ -279,7 +279,7 @@ WWINLINE bool Equal_Within_Epsilon(const Quaternion &a, const Quaternion &b, flo
  * HISTORY:                                                                                    *
  *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE Quaternion & Quaternion::operator = (const Quaternion & source)
+inline Quaternion & Quaternion::operator = (const Quaternion & source)
 {
   X = source[0];
   Y = source[1];

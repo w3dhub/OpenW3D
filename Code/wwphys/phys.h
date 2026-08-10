@@ -359,7 +359,7 @@ public:
 	virtual void					Set_Model(RenderObjClass * model);
 	void								Set_Model_By_Name(const char * model_type_name);
 	RenderObjClass *				Get_Model(void);
-	WWINLINE RenderObjClass *	Peek_Model(void) { return Model; }
+	RenderObjClass *	Peek_Model(void) { return Model; }
 
 	/*
 	** Set the name of this physics model instance

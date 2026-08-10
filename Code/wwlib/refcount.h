@@ -134,7 +134,7 @@ public:
 	** to this object.
 	*/
 #ifdef NDEBUG
-	WWINLINE void Add_Ref(void)										{ NumRefs++; }
+	void Add_Ref(void)										{ NumRefs++; }
 #else
 	void Add_Ref(void);
 #endif
@@ -143,7 +143,7 @@ public:
 	** Release_Ref, call this function when you no longer need the pointer
 	** to this object.
 	*/
-	WWINLINE void		Release_Ref(void)							{
+	void		Release_Ref(void)							{
 																				#ifndef NDEBUG
 																				Dec_Total_Refs(this);
 																				#endif

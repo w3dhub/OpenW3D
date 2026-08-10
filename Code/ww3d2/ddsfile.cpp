@@ -310,7 +310,7 @@ void DDSFileClass::Copy_Level_To_Surface(
 
 // ----------------------------------------------------------------------------
 
-WWINLINE static unsigned RGB565_To_ARGB8888(unsigned short rgb)
+inline static unsigned RGB565_To_ARGB8888(unsigned short rgb)
 {
 	unsigned rgba=0;
 	rgba|=unsigned(rgb&0x001f)<<3;
@@ -321,7 +321,7 @@ WWINLINE static unsigned RGB565_To_ARGB8888(unsigned short rgb)
 
 // ----------------------------------------------------------------------------
 
-WWINLINE static unsigned Combine_Colors(unsigned col1, unsigned col2, unsigned rel)
+inline static unsigned Combine_Colors(unsigned col1, unsigned col2, unsigned rel)
 {
 	const unsigned R_B_MASK=0x00ff00ff;
 	const unsigned G_MASK=0x0000ff00;

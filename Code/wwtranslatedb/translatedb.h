@@ -142,8 +142,8 @@ public:
 	static const unichar_t *			Get_String (uint32 id);
 	static const unichar_t *			Get_String (const char *id_desc);
 	static const char *			Get_English_String (uint32 id);
-	WWINLINE static TDBObjClass *	Find_Object (uint32 id);
-	WWINLINE static TDBObjClass * Find_Object (const char *id_desc);
+	static TDBObjClass *	Find_Object (uint32 id);
+	static TDBObjClass * Find_Object (const char *id_desc);
 
 
 	//
@@ -370,7 +370,7 @@ TranslateDBClass::Get_English_String (uint32 id)
 //	Find_Object
 //
 //////////////////////////////////////////////////////////////
-WWINLINE TDBObjClass *
+inline TDBObjClass *
 TranslateDBClass::Find_Object (const char *id_desc)
 {
 	StringClass lower_case_name(id_desc,true);
@@ -381,7 +381,7 @@ TranslateDBClass::Find_Object (const char *id_desc)
 //////////////////////////////////////////////////////////////
 //	Find_Object
 //////////////////////////////////////////////////////////////
-WWINLINE TDBObjClass *
+inline TDBObjClass *
 TranslateDBClass::Find_Object (uint32 id)
 {
 	TDBObjClass *object = nullptr;

@@ -39,18 +39,18 @@
 class cDemoSupport
 {
 public:
-	static __forceinline void Security_Check(void);
+	static void Security_Check(void);
 
 private:
 };
 
 //-----------------------------------------------------------------------------
 //
-// Use __forceinline to give the hackers marginally more of a sense of accomplishment.
+// Use inline to give the hackers marginally more of a sense of accomplishment.
 // This routine should be called a handful of times each frame, from different
 // places in the code.
 //
-__forceinline void
+inline void
 cDemoSupport::Security_Check
 (
 	void

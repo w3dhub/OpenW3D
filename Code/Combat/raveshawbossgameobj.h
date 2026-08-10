@@ -190,7 +190,7 @@ protected:
 	void									Link_Stealth_Soldier_To_Hand (void);
 	void									Link_Thrown_Object_To_Hands (void);
 	SimpleGameObj *					Find_Object_To_Throw (void);
-	WWINLINE SoldierGameObj *		Peek_Stealth_Soldier (void);
+	SoldierGameObj *		Peek_Stealth_Soldier (void);
 	void									Verify_Stealth_Soldier (void);
 
 	void									Link_Player_To_Hands (void);
@@ -485,7 +485,7 @@ private:
 ///////////////////////////////////////////////////////////////////
 //	Peek_Stealth_Soldier
 ///////////////////////////////////////////////////////////////////
-WWINLINE SoldierGameObj *
+SoldierGameObj *
 RaveshawBossGameObjClass::Peek_Stealth_Soldier (void)
 {
 	SoldierGameObj *soldier = nullptr;

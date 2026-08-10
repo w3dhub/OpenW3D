@@ -253,7 +253,7 @@ protected:
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void* FastFixedAllocator::Alloc()
+inline void* FastFixedAllocator::Alloc()
 {
 	TotalAllocationCount++;
 	TotalAllocatedSize+=esize;
@@ -271,7 +271,7 @@ WWINLINE void* FastFixedAllocator::Alloc()
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void FastFixedAllocator::Free(void* pAlloc)
+inline void FastFixedAllocator::Free(void* pAlloc)
 {
 	TotalAllocationCount--;
 	TotalAllocatedSize-=esize;
@@ -286,7 +286,7 @@ WWINLINE void FastFixedAllocator::Free(void* pAlloc)
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE FastFixedAllocator::FastFixedAllocator(unsigned int n) : esize(1), TotalHeapSize(0), TotalAllocatedSize(0), TotalAllocationCount(0)
+inline FastFixedAllocator::FastFixedAllocator(unsigned int n) : esize(1), TotalHeapSize(0), TotalAllocatedSize(0), TotalAllocationCount(0)
 {
    head   = 0;
    chunks = 0;
@@ -299,7 +299,7 @@ WWINLINE FastFixedAllocator::FastFixedAllocator(unsigned int n) : esize(1), Tota
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE FastFixedAllocator::~FastFixedAllocator()
+inline FastFixedAllocator::~FastFixedAllocator()
 {
    Chunk* n = chunks;
    while(n){
@@ -315,7 +315,7 @@ WWINLINE FastFixedAllocator::~FastFixedAllocator()
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void FastFixedAllocator::Init(unsigned int n)
+inline void FastFixedAllocator::Init(unsigned int n)
 {
    esize = (n<sizeof(Link*) ? sizeof(Link*) : n);
 }
@@ -326,7 +326,7 @@ WWINLINE void FastFixedAllocator::Init(unsigned int n)
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void FastFixedAllocator::grow()
+inline void FastFixedAllocator::grow()
 {
    Chunk* n = new Chunk;
    n->next  = chunks;
@@ -386,7 +386,7 @@ protected:
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-WWINLINE unsigned FastAllocatorGeneral::Get_Total_Heap_Size()
+inline unsigned FastAllocatorGeneral::Get_Total_Heap_Size()
 {
 	int size=AllocatedWithMalloc;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
@@ -396,7 +396,7 @@ WWINLINE unsigned FastAllocatorGeneral::Get_Total_Heap_Size()
 	return size;
 }
 
-WWINLINE unsigned FastAllocatorGeneral::Get_Total_Allocated_Size()
+inline unsigned FastAllocatorGeneral::Get_Total_Allocated_Size()
 {
 	int size=AllocatedWithMalloc;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
@@ -406,7 +406,7 @@ WWINLINE unsigned FastAllocatorGeneral::Get_Total_Allocated_Size()
 	return size;
 }
 
-WWINLINE unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
+inline unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
 {
 	int count=AllocatedWithMallocCount;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
@@ -422,7 +422,7 @@ WWINLINE unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void* FastAllocatorGeneral::Alloc(size_t n)
+inline void* FastAllocatorGeneral::Alloc(size_t n)
 {
    void* pMemory;
 	static int re_entrancy=0;
@@ -470,7 +470,7 @@ WWINLINE void* FastAllocatorGeneral::Alloc(size_t n)
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void FastAllocatorGeneral::Free(void* pAlloc)
+inline void FastAllocatorGeneral::Free(void* pAlloc)
 {
    if (pAlloc) {
       unsigned int* n = ((unsigned int*)pAlloc)-1; //Subtract four bytes and the count is stored there.
@@ -500,7 +500,7 @@ WWINLINE void FastAllocatorGeneral::Free(void* pAlloc)
 //  (2) realloc(pblock, 0) is equivalent to free(pblock) (except that nullptr is returned).
 //  (3) if the realloc() fails, the object pointed to by pblock is left unchanged.
 //
-WWINLINE void* FastAllocatorGeneral::Realloc(void* pAlloc, size_t n){
+inline void* FastAllocatorGeneral::Realloc(void* pAlloc, size_t n){
    if(n){
 		WWASSERT(n <= std::numeric_limits<unsigned int>::max());
       void* const pNewAlloc = Alloc(n);      //Allocate the new memory. This never fails.
@@ -600,9 +600,9 @@ extern FastAllocatorGeneral* generalAllocator;
 #endif
 
 template<class T>
-WWINLINE bool operator==(const FastSTLAllocator<T>&, const FastSTLAllocator<T>&) { return true;  }
+inline bool operator==(const FastSTLAllocator<T>&, const FastSTLAllocator<T>&) { return true;  }
 template<class T>
-WWINLINE bool operator!=(const FastSTLAllocator<T>&, const FastSTLAllocator<T>&) { return false; }
+inline bool operator!=(const FastSTLAllocator<T>&, const FastSTLAllocator<T>&) { return false; }
 ///////////////////////////////////////////////////////////////////////////////
 
 

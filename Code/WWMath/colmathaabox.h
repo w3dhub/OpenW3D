@@ -63,7 +63,7 @@
  * HISTORY:                                                                                    *
  *   3/14/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE CollisionMath::OverlapType CollisionMath::Overlap_Test(const AABoxClass & box,const Vector3 & point)
+inline CollisionMath::OverlapType CollisionMath::Overlap_Test(const AABoxClass & box,const Vector3 & point)
 {
 	if (WWMath::Fabs(point.X - box.Center.X) > box.Extent.X) return POS;
 	if (WWMath::Fabs(point.Y - box.Center.Y) > box.Extent.Y) return POS;
@@ -84,7 +84,7 @@ WWINLINE CollisionMath::OverlapType CollisionMath::Overlap_Test(const AABoxClass
  * HISTORY:                                                                                    *
  *   11/19/99   gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE CollisionMath::OverlapType CollisionMath::Overlap_Test(const AABoxClass & box,const AABoxClass & box2)
+inline CollisionMath::OverlapType CollisionMath::Overlap_Test(const AABoxClass & box,const AABoxClass & box2)
 {
 	Vector3 dc;
 	Vector3::Subtract(box2.Center,box.Center,&dc);

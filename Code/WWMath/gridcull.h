@@ -183,7 +183,7 @@ protected:
 
 	bool					map_point_to_cell(const Vector3 & pt,int & set_i,int & set_j,int & set_k);
 	bool					map_point_to_address(const Vector3 & pt,int & set_address);
-	WWINLINE int			map_indices_to_address(int i,int j,int k);
+	int			map_indices_to_address(int i,int j,int k);
 	void					clamp_indices_to_grid(int * i,int * j,int * k);
 
 	int					total_cell_count(void);
@@ -302,7 +302,7 @@ private:
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void GridCullSystemClass::clamp_indices_to_grid(int * i,int * j,int * k)
+inline void GridCullSystemClass::clamp_indices_to_grid(int * i,int * j,int * k)
 {
 	if (*i < 0) *i = 0;
 	if (*i >= CellCount[0]) *i = CellCount[0] - 1;
@@ -325,7 +325,7 @@ WWINLINE void GridCullSystemClass::clamp_indices_to_grid(int * i,int * j,int * k
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE bool GridCullSystemClass::map_point_to_cell(const Vector3 & pt,int & set_i,int & set_j,int & set_k)
+inline bool GridCullSystemClass::map_point_to_cell(const Vector3 & pt,int & set_i,int & set_j,int & set_k)
 {
 	Vector3 dp = pt - Origin;
 	set_i = int(WWMath::Floor(dp.X * OOCellDim.X));
@@ -353,7 +353,7 @@ WWINLINE bool GridCullSystemClass::map_point_to_cell(const Vector3 & pt,int & se
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE bool GridCullSystemClass::map_point_to_address(const Vector3 & pt,int &set_address)
+inline bool GridCullSystemClass::map_point_to_address(const Vector3 & pt,int &set_address)
 {
 	int i,j,k;
 	bool res = map_point_to_cell(pt,i,j,k);
@@ -380,7 +380,7 @@ WWINLINE bool GridCullSystemClass::map_point_to_address(const Vector3 & pt,int &
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE int GridCullSystemClass::map_indices_to_address(int i,int j,int k)
+inline int GridCullSystemClass::map_indices_to_address(int i,int j,int k)
 {
 	return i + j*CellCount[0] + k*CellCount[0]*CellCount[1];
 }
@@ -398,7 +398,7 @@ WWINLINE int GridCullSystemClass::map_indices_to_address(int i,int j,int k)
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE int GridCullSystemClass::total_cell_count(void)
+inline int GridCullSystemClass::total_cell_count(void)
 {
 	return CellCount[0] * CellCount[1] * CellCount[2];
 }
@@ -416,7 +416,7 @@ WWINLINE int GridCullSystemClass::total_cell_count(void)
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void	GridCullSystemClass::compute_box(int i,int j,int k,AABoxClass * set_box)
+inline void	GridCullSystemClass::compute_box(int i,int j,int k,AABoxClass * set_box)
 {
 	WWASSERT(set_box != nullptr);
 	WWASSERT((i >= 0) && (j >= 0) && (k >= 0));
@@ -448,7 +448,7 @@ WWINLINE void	GridCullSystemClass::compute_box(int i,int j,int k,AABoxClass * se
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void	GridCullSystemClass::compute_box(const GridCullSystemClass::VolumeStruct & vol, AABoxClass * set_box)
+inline void	GridCullSystemClass::compute_box(const GridCullSystemClass::VolumeStruct & vol, AABoxClass * set_box)
 {
 	WWASSERT(set_box != nullptr);
 	WWASSERT((vol.Min[0] >= 0) && (vol.Min[1] >= 0) && (vol.Min[2] >= 0));
@@ -482,7 +482,7 @@ WWINLINE void	GridCullSystemClass::compute_box(const GridCullSystemClass::Volume
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void GridCullSystemClass::init_volume
+inline void GridCullSystemClass::init_volume
 (
 	const Vector3 &		bound_min,
 	const Vector3 &		bound_max,
@@ -527,7 +527,7 @@ WWINLINE void GridCullSystemClass::init_volume
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void GridCullSystemClass::init_volume(const LineSegClass & line,VolumeStruct * set_volume)
+inline void GridCullSystemClass::init_volume(const LineSegClass & line,VolumeStruct * set_volume)
 {
 	Vector3 min_pt,max_pt;
 	min_pt.X = WWMath::Min(line.Get_P0().X,line.Get_P1().X);
@@ -552,7 +552,7 @@ WWINLINE void GridCullSystemClass::init_volume(const LineSegClass & line,VolumeS
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void GridCullSystemClass::init_volume(const AABoxClass & box,VolumeStruct * set_volume)
+inline void GridCullSystemClass::init_volume(const AABoxClass & box,VolumeStruct * set_volume)
 {
 	init_volume(box.Center - box.Extent,box.Center + box.Extent,set_volume);
 }
@@ -570,7 +570,7 @@ WWINLINE void GridCullSystemClass::init_volume(const AABoxClass & box,VolumeStru
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void GridCullSystemClass::init_volume(const OBBoxClass & box,VolumeStruct * set_volume)
+inline void GridCullSystemClass::init_volume(const OBBoxClass & box,VolumeStruct * set_volume)
 {
 	Vector3 aaextent;
 	box.Compute_Axis_Aligned_Extent(&aaextent);
@@ -590,7 +590,7 @@ WWINLINE void GridCullSystemClass::init_volume(const OBBoxClass & box,VolumeStru
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void GridCullSystemClass::init_volume(const FrustumClass & frustum,VolumeStruct * set_volume)
+inline void GridCullSystemClass::init_volume(const FrustumClass & frustum,VolumeStruct * set_volume)
 {
 	init_volume(frustum.Get_Bound_Min(),frustum.Get_Bound_Max(),set_volume);
 }
@@ -607,7 +607,7 @@ WWINLINE void GridCullSystemClass::init_volume(const FrustumClass & frustum,Volu
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-WWINLINE GridCullSystemClass::VolumeStruct::VolumeStruct(void)
+inline GridCullSystemClass::VolumeStruct::VolumeStruct(void)
 {
 }
 
@@ -624,7 +624,7 @@ WWINLINE GridCullSystemClass::VolumeStruct::VolumeStruct(void)
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE GridCullSystemClass::VolumeStruct::VolumeStruct(int i0,int j0,int k0,int i1,int j1,int k1)
+inline GridCullSystemClass::VolumeStruct::VolumeStruct(int i0,int j0,int k0,int i1,int j1,int k1)
 {
 	Min[0] = i0;
 	Min[1] = j0;
@@ -650,7 +650,7 @@ WWINLINE GridCullSystemClass::VolumeStruct::VolumeStruct(int i0,int j0,int k0,in
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE bool GridCullSystemClass::VolumeStruct::Is_Leaf(void) const
+inline bool GridCullSystemClass::VolumeStruct::Is_Leaf(void) const
 {
 	return ((Max[0]-Min[0] == 1) && (Max[1]-Min[1] == 1) && (Max[2]-Min[2] == 1));
 }
@@ -668,7 +668,7 @@ WWINLINE bool GridCullSystemClass::VolumeStruct::Is_Leaf(void) const
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE bool GridCullSystemClass::VolumeStruct::Is_Empty(void) const
+inline bool GridCullSystemClass::VolumeStruct::Is_Empty(void) const
 {
 	return ((Max[0]-Min[0] <= 0) || (Max[1]-Min[1] <= 0) || (Max[2]-Min[2] <= 0));
 }
@@ -686,7 +686,7 @@ WWINLINE bool GridCullSystemClass::VolumeStruct::Is_Empty(void) const
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-WWINLINE void GridCullSystemClass::VolumeStruct::Split(VolumeStruct & v0,VolumeStruct & v1) const
+inline void GridCullSystemClass::VolumeStruct::Split(VolumeStruct & v0,VolumeStruct & v1) const
 {
 	// find the longest dimension
 	int split_axis = 0;

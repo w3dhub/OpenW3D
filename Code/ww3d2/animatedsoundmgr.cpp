@@ -60,7 +60,7 @@ DynamicVectorClass<AnimatedSoundMgrClass::ANIM_SOUND_LIST *>					AnimatedSoundMg
 //////////////////////////////////////////////////////////////////////
 //	Local inlines
 //////////////////////////////////////////////////////////////////////
-static WWINLINE INIClass *
+static inline INIClass *
 Get_INI (const char *filename)
 {
 	INIClass *ini = nullptr;

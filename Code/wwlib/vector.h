@@ -81,13 +81,13 @@ template<class T>
 class VectorClass
 {
 	public:
-		WWINLINE VectorClass(NoInitClass const &) {};
+		VectorClass(NoInitClass const &) {};
 		VectorClass(int size=0, T const * array=0);
 		VectorClass(VectorClass<T> const &);		// Copy constructor.
 		virtual ~VectorClass(void);
 
-		WWINLINE T & operator[](int index) {  assert(unsigned(index) < unsigned(VectorMax));return(Vector[index]); }
-		WWINLINE T const & operator[](int index) const { assert(unsigned(index) < unsigned(VectorMax));return(Vector[index]);  }
+		T & operator[](int index) {  assert(unsigned(index) < unsigned(VectorMax));return(Vector[index]); }
+		T const & operator[](int index) const { assert(unsigned(index) < unsigned(VectorMax));return(Vector[index]);  }
 
 		VectorClass<T> & operator = (VectorClass<T> const &); // Assignment operator.
 
@@ -95,7 +95,7 @@ class VectorClass
 
 		virtual bool Resize(int newsize, T const * array=0);
 		virtual void Clear(void);
-		WWINLINE int Length(void) const {return VectorMax;};
+		int Length(void) const {return VectorMax;};
 		virtual int ID(T const * ptr);	// Pointer based identification.
 		virtual int ID(T const & ptr);	// Value based identification.
 

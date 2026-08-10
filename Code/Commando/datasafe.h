@@ -563,8 +563,8 @@ class GenericDataSafeClass
 		static void Decrypt(void *data, int size, unsigned int key = SimpleKey, bool do_checksum = true);
 		static void Mem_Copy_Encrypt(void *dest, void *src, int size, bool do_checksum);
 		static void Mem_Copy_Decrypt(void *dest, void *src, int size, bool do_checksum);
-		static __forceinline void Security_Check(void);
-		static __forceinline void Security_Fault(void);
+		static void Security_Check(void);
+		static void Security_Fault(void);
 		static void Say_Security_Fault(void);
 
 		/*
@@ -619,7 +619,7 @@ class GenericDataSafeClass
 		class ThreadLockClass
 		{
 			public:
-				__forceinline ThreadLockClass(void) {
+				ThreadLockClass(void) {
 #ifdef WWDEBUG
 					if (GenericDataSafeClass::PreferredThread != ThreadClass::Get_Current_Thread_ID()) {
 						WWDEBUG_SAY(("DATASAFE.H - PreferredThread = %08X, GetCurrentThreadId() == %08X\n", GenericDataSafeClass::PreferredThread, ThreadClass::Get_Current_Thread_ID()));
@@ -1003,7 +1003,7 @@ inline int GenericDataSafeClass::Get_Type_Size(int type)
 /***********************************************************************************************
  * GenericDataSafeClass::Security_Fault -- Security fault handler                              *
  *                                                                                             *
- *   __forceinline used to make sure there are multiple copies of this code. It's bloaty       *
+ *   inline used to make sure there are multiple copies of this code. It's bloaty       *
  *   but it makes it harder to hack out (but only a little bit)                                *
  *                                                                                             *
  *                                                                                             *
@@ -1016,7 +1016,7 @@ inline int GenericDataSafeClass::Get_Type_Size(int type)
  * HISTORY:                                                                                    *
  *   7/9/2001 2:20PM ST : Created                                                              *
  *=============================================================================================*/
-__forceinline void GenericDataSafeClass::Security_Fault(void)
+inline void GenericDataSafeClass::Security_Fault(void)
 {
 	WWDEBUG_SAY(("Data Safe:Security fault\n"));
 	CRCErrors++;
@@ -1029,7 +1029,7 @@ __forceinline void GenericDataSafeClass::Security_Fault(void)
 /***********************************************************************************************
  * GenericDataSafeClass::Security_Check -- Look for security problems.                         *
  *                                                                                             *
- *   __forceinline used to make sure there are multiple copies of this code. It's bloaty       *
+ *   inline used to make sure there are multiple copies of this code. It's bloaty       *
  *   but it makes it harder to hack out (but only a little bit)                                *
  *                                                                                             *
  *                                                                                             *
@@ -1042,7 +1042,7 @@ __forceinline void GenericDataSafeClass::Security_Fault(void)
  * HISTORY:                                                                                    *
  *   7/9/2001 1:08PM ST : Created                                                              *
  *=============================================================================================*/
-__forceinline void GenericDataSafeClass::Security_Check(void)
+inline void GenericDataSafeClass::Security_Check(void)
 {
 	ThreadLockClass locker;
 

@@ -103,37 +103,37 @@ static void			Init(void);
 static void			Shutdown(void);
 
 // These are meant to be a collection of small math utility functions to be optimized at some point.
-static WWINLINE float Fabs(float val)
+static float Fabs(float val)
 {
 	int value=*(int*)&val;
 	value&=0x7fffffff;
 	return *(float*)&value;
 }
 
-static WWINLINE int Float_To_Int_Chop(const float& f);
-static WWINLINE int Float_To_Int_Floor(const float& f);
+static int Float_To_Int_Chop(const float& f);
+static int Float_To_Int_Floor(const float& f);
 
-static WWINLINE int Float_To_Long(float f);
-static WWINLINE float Cos(float val);
-static WWINLINE double Cos(double val);
-static WWINLINE float Sin(float val);
-static WWINLINE double Sin(double val);
-static WWINLINE float Tan(float val);
-static WWINLINE double Tan(double val);
-static WWINLINE float Sqrt(float val);
-static WWINLINE double Sqrt(double val);
-static WWINLINE float Inv_Sqrt(float a);
+static int Float_To_Long(float f);
+static float Cos(float val);
+static double Cos(double val);
+static float Sin(float val);
+static double Sin(double val);
+static float Tan(float val);
+static double Tan(double val);
+static float Sqrt(float val);
+static double Sqrt(double val);
+static float Inv_Sqrt(float a);
 
 
-static WWINLINE float Fast_Sin(float val);
-static WWINLINE float Fast_Inv_Sin(float val);
-static WWINLINE float Fast_Cos(float val);
-static WWINLINE float Fast_Inv_Cos(float val);
+static float Fast_Sin(float val);
+static float Fast_Inv_Sin(float val);
+static float Fast_Cos(float val);
+static float Fast_Inv_Cos(float val);
 
-static WWINLINE float Fast_Acos(float val);
-static WWINLINE float Acos(float val);
-static WWINLINE float Fast_Asin(float val);
-static WWINLINE float Asin(float val);
+static float Fast_Acos(float val);
+static float Acos(float val);
+static float Fast_Asin(float val);
+static float Asin(float val);
 
 
 static float		Atan(float x) { return atanf(x); }
@@ -173,7 +173,7 @@ static bool			Is_Valid_Double(double x);
 
 };
 
-WWINLINE float WWMath::Sign(float val)
+inline float WWMath::Sign(float val)
 {
 	if (val > 0.0f) {
 		return +1.0f;
@@ -184,38 +184,38 @@ WWINLINE float WWMath::Sign(float val)
 	return 0.0f;
 }
 
-WWINLINE bool WWMath::Fast_Is_Float_Positive(const float & val)
+inline bool WWMath::Fast_Is_Float_Positive(const float & val)
 {
 	return !((*(int *)(&val)) & 0x80000000);
 }
 
-WWINLINE float WWMath::Random_Float(float min,float max)
+inline float WWMath::Random_Float(float min,float max)
 {
 	return Random_Float() * (max-min) + min;
 }
 
-WWINLINE float WWMath::Clamp(float val, float min /*= 0.0f*/, float max /*= 1.0f*/)
+inline float WWMath::Clamp(float val, float min /*= 0.0f*/, float max /*= 1.0f*/)
 {
 	if(val < min) return min;
 	if(val > max) return max;
 	return val;
 }
 
-WWINLINE double WWMath::Clamp(double val, double min /*= 0.0f*/, double max /*= 1.0f*/)
+inline double WWMath::Clamp(double val, double min /*= 0.0f*/, double max /*= 1.0f*/)
 {
 	if(val < min) return min;
 	if(val > max) return max;
 	return val;
 }
 
-WWINLINE int WWMath::Clamp_Int(int val, int min_val, int max_val)
+inline int WWMath::Clamp_Int(int val, int min_val, int max_val)
 {
 	if(val < min_val) return min_val;
 	if(val > max_val) return max_val;
 	return val;
 }
 
-WWINLINE float WWMath::Wrap(float val, float min /*= 0.0f*/, float max /*= 1.0f*/)
+inline float WWMath::Wrap(float val, float min /*= 0.0f*/, float max /*= 1.0f*/)
 {
 	// Implemented as an if rather than a while, to long loops
 	if ( val >= max )	val -= (max-min);
@@ -230,7 +230,7 @@ WWINLINE float WWMath::Wrap(float val, float min /*= 0.0f*/, float max /*= 1.0f*
 	return val;
 }
 
-WWINLINE double WWMath::Wrap(double val, double min /*= 0.0f*/, double max /*= 1.0f*/)
+inline double WWMath::Wrap(double val, double min /*= 0.0f*/, double max /*= 1.0f*/)
 {
 	// Implemented as an if rather than a while, to long loops
 	if ( val >= max )	val -= (max-min);
@@ -244,30 +244,30 @@ WWINLINE double WWMath::Wrap(double val, double min /*= 0.0f*/, double max /*= 1
 	return val;
 }
 
-WWINLINE float WWMath::Min(float a, float b)
+inline float WWMath::Min(float a, float b)
 {
 	if (a<b) return a;
 	return b;
 }
 
-WWINLINE float WWMath::Max(float a, float b)
+inline float WWMath::Max(float a, float b)
 {
 	if (a>b) return a;
 	return b;
 }
 
-WWINLINE float WWMath::Lerp(float a, float b, float lerp )
+inline float WWMath::Lerp(float a, float b, float lerp )
 {
 	return (a + (b - a)*lerp);
 }
 
-WWINLINE double WWMath::Lerp(double a, double b, float lerp )
+inline double WWMath::Lerp(double a, double b, float lerp )
 {
 	return (a + (b - a)*lerp);
 }
 
 
-WWINLINE bool WWMath::Is_Valid_Float(float x)
+inline bool WWMath::Is_Valid_Float(float x)
 {
 	unsigned int * plong = (unsigned int *)(&x);
 	unsigned int exponent = ((*plong) & 0x7F800000) >> (32-9);
@@ -279,7 +279,7 @@ WWINLINE bool WWMath::Is_Valid_Float(float x)
 	return true;
 }
 
-WWINLINE bool WWMath::Is_Valid_Double(double x)
+inline bool WWMath::Is_Valid_Double(double x)
 {
 	unsigned int * plong = (unsigned int *)(&x) + 1;
 	unsigned int exponent = ((*plong) & 0x7FF00000) >> (32-12);
@@ -295,12 +295,12 @@ WWINLINE bool WWMath::Is_Valid_Double(double x)
 // Float to int
 // ----------------------------------------------------------------------------
 
-WWINLINE int WWMath::Float_To_Long(float f)
+inline int WWMath::Float_To_Long(float f)
 {
 	return (int) (f + 0.5f);
 }
 
-WWINLINE int WWMath::Float_To_Long(double f)
+inline int WWMath::Float_To_Long(double f)
 {
 	return (int) f;
 }
@@ -309,12 +309,12 @@ WWINLINE int WWMath::Float_To_Long(double f)
 // Cos
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Cos(float val)
+inline float WWMath::Cos(float val)
 {
 	return cosf(val);
 }
 
-WWINLINE double WWMath::Cos(double val)
+inline double WWMath::Cos(double val)
 {
 	return cos(val);
 }
@@ -323,12 +323,12 @@ WWINLINE double WWMath::Cos(double val)
 // Sin
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Sin(float val)
+inline float WWMath::Sin(float val)
 {
 	return sinf(val);
 }
 
-WWINLINE double WWMath::Sin(double val)
+inline double WWMath::Sin(double val)
 {
 	return sin(val);
 }
@@ -337,12 +337,12 @@ WWINLINE double WWMath::Sin(double val)
 // Tan
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Tan(float val)
+inline float WWMath::Tan(float val)
 {
 	return tanf(val);
 }
 
-WWINLINE double WWMath::Tan(double val)
+inline double WWMath::Tan(double val)
 {
 	return tan(val);
 }
@@ -351,7 +351,7 @@ WWINLINE double WWMath::Tan(double val)
 // Fast, table based sin
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Fast_Sin(float val)
+inline float WWMath::Fast_Sin(float val)
 {
 	val*=float(SIN_TABLE_SIZE) / (2.0f * WWMATH_PI);
 
@@ -369,7 +369,7 @@ WWINLINE float WWMath::Fast_Sin(float val)
 // Fast, table based 1.0f/sin
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Fast_Inv_Sin(float val)
+inline float WWMath::Fast_Inv_Sin(float val)
 {
 #if 0 // TODO: more testing, not reliable!
 	float index = val * float(SIN_TABLE_SIZE) / (2.0f * WWMATH_PI);
@@ -398,7 +398,7 @@ WWINLINE float WWMath::Fast_Inv_Sin(float val)
 // Fast, table based cos
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Fast_Cos(float val)
+inline float WWMath::Fast_Cos(float val)
 {
 	val+=(WWMATH_PI * 0.5f);
 	val*=float(SIN_TABLE_SIZE) / (2.0f * WWMATH_PI);
@@ -417,7 +417,7 @@ WWINLINE float WWMath::Fast_Cos(float val)
 // Fast, table based 1.0f/cos
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Fast_Inv_Cos(float val)
+inline float WWMath::Fast_Inv_Cos(float val)
 {
 #if 0 // TODO: more testing, not reliable!
 	float index = val + (WWMATH_PI * 0.5f);
@@ -445,7 +445,7 @@ WWINLINE float WWMath::Fast_Inv_Cos(float val)
 // Fast, table based arc cos
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Fast_Acos(float val)
+inline float WWMath::Fast_Acos(float val)
 {
 	// Near -1 and +1, the table becomes too inaccurate
 	if (WWMath::Fabs(val) > 0.975f) {
@@ -473,7 +473,7 @@ WWINLINE float WWMath::Fast_Acos(float val)
 // Arc cos
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Acos(float val)
+inline float WWMath::Acos(float val)
 {
 	return (float)acos(val);
 }
@@ -482,7 +482,7 @@ WWINLINE float WWMath::Acos(float val)
 // Fast, table based arc sin
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Fast_Asin(float val)
+inline float WWMath::Fast_Asin(float val)
 {
 	// Near -1 and +1, the table becomes too inaccurate
 	if (WWMath::Fabs(val) > 0.975f) {
@@ -510,7 +510,7 @@ WWINLINE float WWMath::Fast_Asin(float val)
 // Arc sin
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Asin(float val)
+inline float WWMath::Asin(float val)
 {
 	return (float)asin(val);
 }
@@ -519,17 +519,17 @@ WWINLINE float WWMath::Asin(float val)
 // Sqrt
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Sqrt(float val)
+inline float WWMath::Sqrt(float val)
 {
 	return sqrtf(val);
 }
 
-WWINLINE double WWMath::Sqrt(double val)
+inline double WWMath::Sqrt(double val)
 {
 	return sqrt(val);
 }
 
-WWINLINE int WWMath::Float_To_Int_Chop(const float& f)
+inline int WWMath::Float_To_Int_Chop(const float& f)
 {
     int a	= *reinterpret_cast<const int*>(&f);				// take bit pattern of float into a register
     int sign	= (a>>31);												// sign = 0xFFFFFFFF if original value is negative, 0 if positive
@@ -539,7 +539,7 @@ WWINLINE int WWMath::Float_To_Int_Chop(const float& f)
     return ((r ^ (sign)) - sign ) &~ (exponent>>31);			// add original sign. If exponent was negative, make return value 0.
 }
 
-WWINLINE int WWMath::Float_To_Int_Floor (const float& f)
+inline int WWMath::Float_To_Int_Floor (const float& f)
 {
 	int a			= *reinterpret_cast<const int*>(&f);			// take bit pattern of float into a register
 	int sign		= (a>>31);												// sign = 0xFFFFFFFF if original value is negative, 0 if positive
@@ -559,7 +559,7 @@ WWINLINE int WWMath::Float_To_Int_Floor (const float& f)
 // Inverse square root
 // ----------------------------------------------------------------------------
 
-WWINLINE float WWMath::Inv_Sqrt(float val)
+inline float WWMath::Inv_Sqrt(float val)
 {
 	return 1.0f / (float)sqrt(val);
 }

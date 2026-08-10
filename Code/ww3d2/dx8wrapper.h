@@ -116,7 +116,7 @@ extern bool _DX8SingleThreaded;
 void DX8_Assert();
 void Log_DX8_ErrorCode(HRESULT res);
 
-WWINLINE void DX8_ErrorCode(HRESULT res)
+inline void DX8_ErrorCode(HRESULT res)
 {
 	if (res==D3D_OK) return;
 	Log_DX8_ErrorCode(res);
@@ -163,7 +163,7 @@ struct RenderStateStruct
 **
 ** DX8 interface wrapper class.  This encapsulates the DX8 interface; adding redundant state
 ** detection, stat tracking, etc etc.  In general, we will wrap all DX8 calls with at least
-** an WWINLINE function so that we can add stat tracking, etc if needed.  Direct access to the
+** an inline function so that we can add stat tracking, etc if needed.  Direct access to the
 ** D3D device will require "friend" status and should be granted only in extreme circumstances :-)
 */
 class DX8Wrapper
@@ -277,8 +277,8 @@ public:
 	static void Set_Light_Environment(LightEnvironmentClass* light_env);
 	static void Set_Fog(bool enable, const Vector3 &color, float start, float end);
 
-	static WWINLINE const D3DLIGHT9& Peek_Light(unsigned index);
-	static WWINLINE bool Is_Light_Enabled(unsigned index);
+	static const D3DLIGHT9& Peek_Light(unsigned index);
+	static bool Is_Light_Enabled(unsigned index);
 
 	// Deferred
 
@@ -572,7 +572,7 @@ protected:
 };
 
 
-WWINLINE void DX8Wrapper::_Set_DX8_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4& m)
+inline void DX8Wrapper::_Set_DX8_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4& m)
 {
 	SNAPSHOT_SAY(("DX8 - SetTransform\n"));
 	DX8_RECORD_MATRIX_CHANGE();
@@ -580,14 +580,14 @@ WWINLINE void DX8Wrapper::_Set_DX8_Transform(D3DTRANSFORMSTATETYPE transform,con
 }
 
 
-WWINLINE void DX8Wrapper::_Set_DX8_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m)
+inline void DX8Wrapper::_Set_DX8_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m)
 {
 	SNAPSHOT_SAY(("DX8 - SetTransform\n"));
 	DX8_RECORD_MATRIX_CHANGE();
 	DX8CALL(SetTransform(transform,(D3DMATRIX*)&m));
 }
 
-WWINLINE void DX8Wrapper::_Get_DX8_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4& m)
+inline void DX8Wrapper::_Get_DX8_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4& m)
 {
 	DX8CALL(GetTransform(transform,(D3DMATRIX*)&m));
 }
@@ -598,7 +598,7 @@ WWINLINE void DX8Wrapper::_Get_DX8_Transform(D3DTRANSFORMSTATETYPE transform, Ma
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void DX8Wrapper::Set_Index_Buffer_Index_Offset(unsigned offset)
+inline void DX8Wrapper::Set_Index_Buffer_Index_Offset(unsigned offset)
 {
 	if (render_state.index_base_offset==offset) return;
 	render_state.index_base_offset=static_cast<unsigned short>(offset);
@@ -613,7 +613,7 @@ WWINLINE void DX8Wrapper::Set_Index_Buffer_Index_Offset(unsigned offset)
 // This function should be called rarely - once per scene would be appropriate.
 // ----------------------------------------------------------------------------
 
-WWINLINE void DX8Wrapper::Set_Fog(bool enable, const Vector3 &color, float start, float end)
+inline void DX8Wrapper::Set_Fog(bool enable, const Vector3 &color, float start, float end)
 {
 	// Set global states
 	FogEnable = enable;
@@ -636,7 +636,7 @@ WWINLINE void DX8Wrapper::Set_Fog(bool enable, const Vector3 &color, float start
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void DX8Wrapper::Set_DX8_Material(const D3DMATERIAL9* mat)
+inline void DX8Wrapper::Set_DX8_Material(const D3DMATERIAL9* mat)
 {
 	DX8_RECORD_MATERIAL_CHANGE();
 	WWASSERT(mat);
@@ -644,7 +644,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Material(const D3DMATERIAL9* mat)
 	DX8CALL(SetMaterial(mat));
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT9* light)
+inline void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT9* light)
 {
 	if (light) {
 		DX8_RECORD_LIGHT_CHANGE();
@@ -661,7 +661,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT9* light)
 	}
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value)
+inline void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value)
 {
 	// Can't monitor state changes because setShader call to GERD may change the states!
 	if (TextureStageStates[stage][(unsigned int)state]==value) return;
@@ -681,13 +681,13 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURE
 	DX8_RECORD_TEXTURE_STAGE_STATE_CHANGE();
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_N_Patch_Mode(float segments)
+inline void DX8Wrapper::Set_DX8_N_Patch_Mode(float segments)
 {
 	// TODO: proper state tracking!
 	DX8CALL(SetNPatchMode(segments));
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_Texture_Sampler_State(unsigned sampler, D3DSAMPLERSTATETYPE state, unsigned value)
+inline void DX8Wrapper::Set_DX8_Texture_Sampler_State(unsigned sampler, D3DSAMPLERSTATETYPE state, unsigned value)
 {
 	// Can't monitor state changes because setShader call to GERD may change the states!
 	if (TextureSamplerStates[sampler][(unsigned int)state]==value) return;
@@ -707,7 +707,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture_Sampler_State(unsigned sampler, D3DSAM
     DX8_RECORD_SAMPLER_STATE_CHANGE();
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture9* texture)
+inline void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture9* texture)
 {
 	if (Textures[stage]==texture) return;
 
@@ -720,7 +720,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTextu
 	DX8_RECORD_TEXTURE_CHANGE();
 }
 
-WWINLINE void DX8Wrapper::_Copy_DX8_Rects(
+inline void DX8Wrapper::_Copy_DX8_Rects(
   IDirect3DSurface9* pSourceSurface,
   CONST RECT* pSourceRectsArray,
   UINT cRects,
@@ -737,14 +737,14 @@ WWINLINE void DX8Wrapper::_Copy_DX8_Rects(
 	}
 }
 
-WWINLINE void DX8Wrapper::_Read_Texture(
+inline void DX8Wrapper::_Read_Texture(
   IDirect3DSurface9* pSourceSurface,
   IDirect3DSurface9* pDestinationSurface)
 {
 	DX8CALL(GetRenderTargetData(pSourceSurface, pDestinationSurface));
 }
 
-WWINLINE Vector4 DX8Wrapper::Convert_Color(unsigned color)
+inline Vector4 DX8Wrapper::Convert_Color(unsigned color)
 {
 	Vector4 col;
 	col[3]=((color&0xff000000)>>24)/255.0f;
@@ -756,7 +756,7 @@ WWINLINE Vector4 DX8Wrapper::Convert_Color(unsigned color)
 }
 
 #if defined _MSC_VER && _MSC_VER > 1200 // The ASM function clobber the stack under certain optimisation levels in newer MSVC.
-WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color, const float alpha)
+inline unsigned int DX8Wrapper::Convert_Color(const Vector3& color, const float alpha)
 {
 	WWASSERT(color.X<=1.0f);
 	WWASSERT(color.Y<=1.0f);
@@ -769,7 +769,7 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color, const floa
 
 	return D3DCOLOR_COLORVALUE(color.X,color.Y,color.Z,alpha);
 }
-WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
+inline unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 {
 	WWASSERT(color.X<=1.0f);
 	WWASSERT(color.Y<=1.0f);
@@ -783,7 +783,7 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 	return D3DCOLOR_COLORVALUE(color.X,color.Y,color.Z,color.W);
 }
 
-WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
+inline void DX8Wrapper::Clamp_Color(Vector4& color)
 {
 	for (int i = 0; i < 4; ++i) {
 		float f = (color[i] < 0.0f) ? 0.0f : color[i];
@@ -799,7 +799,7 @@ WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
+inline unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
 {
 	constexpr float scale = 255.0f;
 	unsigned int col;
@@ -818,7 +818,7 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
+inline void DX8Wrapper::Clamp_Color(Vector4& color)
 {
 	for (int i=0;i<4;++i) {
 		float f=(color[i]<0.0f) ? 0.0f : color[i];
@@ -832,37 +832,37 @@ WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
+inline unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 {
 	return Convert_Color(reinterpret_cast<const Vector3&>(color),color[3]);
 }
 #endif
 
-WWINLINE unsigned int DX8Wrapper::Convert_Color_Clamp(const Vector4& color)
+inline unsigned int DX8Wrapper::Convert_Color_Clamp(const Vector4& color)
 {
 	Vector4 clamped_color=color;
 	DX8Wrapper::Clamp_Color(clamped_color);
 	return Convert_Color(reinterpret_cast<const Vector3&>(clamped_color),clamped_color[3]);
 }
 
-WWINLINE void DX8Wrapper::Set_Alpha (const float alpha, unsigned int &color)
+inline void DX8Wrapper::Set_Alpha (const float alpha, unsigned int &color)
 {
 	unsigned char *component = (unsigned char*) &color;
 
 	component [3] = static_cast<unsigned char>(255.0f * alpha);
 }
 
-WWINLINE void DX8Wrapper::Get_Render_State(RenderStateStruct& state)
+inline void DX8Wrapper::Get_Render_State(RenderStateStruct& state)
 {
 	state=render_state;
 }
 
-WWINLINE void DX8Wrapper::Get_Shader(ShaderClass& shader)
+inline void DX8Wrapper::Get_Shader(ShaderClass& shader)
 {
 	shader=render_state.shader;
 }
 
-WWINLINE void DX8Wrapper::Set_Texture(unsigned stage,TextureClass* texture)
+inline void DX8Wrapper::Set_Texture(unsigned stage,TextureClass* texture)
 {
 	WWASSERT(stage<MAX_TEXTURE_STAGES);
 	if (texture==render_state.Textures[stage]) return;
@@ -870,21 +870,21 @@ WWINLINE void DX8Wrapper::Set_Texture(unsigned stage,TextureClass* texture)
 	render_state_changed|=(TEXTURE0_CHANGED<<stage);
 }
 
-WWINLINE void DX8Wrapper::Set_Material(const VertexMaterialClass* material)
+inline void DX8Wrapper::Set_Material(const VertexMaterialClass* material)
 {
 	if (material==render_state.material) return;
 	REF_PTR_SET(render_state.material,const_cast<VertexMaterialClass*>(material));
 	render_state_changed|=MATERIAL_CHANGED;
 }
 
-WWINLINE void DX8Wrapper::Set_Shader(const ShaderClass& shader)
+inline void DX8Wrapper::Set_Shader(const ShaderClass& shader)
 {
 	if (!ShaderClass::ShaderDirty && ((unsigned&)shader==(unsigned&)render_state.shader)) return;
 	render_state.shader=shader;
 	render_state_changed|=SHADER_CHANGED;
 }
 
-WWINLINE void DX8Wrapper::Set_Projection_Transform_With_Z_Bias(const Matrix4& matrix, float znear, float zfar)
+inline void DX8Wrapper::Set_Projection_Transform_With_Z_Bias(const Matrix4& matrix, float znear, float zfar)
 {
 	ZFar=zfar;
 	ZNear=znear;
@@ -903,7 +903,7 @@ WWINLINE void DX8Wrapper::Set_Projection_Transform_With_Z_Bias(const Matrix4& ma
 	}
 }
 
-WWINLINE void DX8Wrapper::Set_Pseudo_ZBias(int zbias)
+inline void DX8Wrapper::Set_Pseudo_ZBias(int zbias)
 {
 	if (zbias==ZBias) return;
 	if (zbias>15) zbias=15;
@@ -918,7 +918,7 @@ WWINLINE void DX8Wrapper::Set_Pseudo_ZBias(int zbias)
 	DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&tmp));
 }
 
-WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4& m)
+inline void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4& m)
 {
 	switch ((int)transform) {
 	case D3DTS_WORLD:
@@ -949,7 +949,7 @@ WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Ma
 	}
 }
 
-WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m)
+inline void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m)
 {
 	Matrix4 m2(m);
 	switch ((int)transform) {
@@ -971,31 +971,31 @@ WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Ma
 	}
 }
 
-WWINLINE void DX8Wrapper::Set_World_Identity()
+inline void DX8Wrapper::Set_World_Identity()
 {
 	if (render_state_changed&(unsigned)WORLD_IDENTITY) return;
 	render_state.world.Make_Identity();
 	render_state_changed|=(unsigned)WORLD_CHANGED|(unsigned)WORLD_IDENTITY;
 }
 
-WWINLINE void DX8Wrapper::Set_View_Identity()
+inline void DX8Wrapper::Set_View_Identity()
 {
 	if (render_state_changed&(unsigned)VIEW_IDENTITY) return;
 	render_state.view.Make_Identity();
 	render_state_changed|=(unsigned)VIEW_CHANGED|(unsigned)VIEW_IDENTITY;
 }
 
-WWINLINE bool DX8Wrapper::Is_World_Identity()
+inline bool DX8Wrapper::Is_World_Identity()
 {
 	return !!(render_state_changed&(unsigned)WORLD_IDENTITY);
 }
 
-WWINLINE bool DX8Wrapper::Is_View_Identity()
+inline bool DX8Wrapper::Is_View_Identity()
 {
 	return !!(render_state_changed&(unsigned)VIEW_IDENTITY);
 }
 
-WWINLINE void DX8Wrapper::Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4& m)
+inline void DX8Wrapper::Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4& m)
 {
 	D3DMATRIX mat;
 
@@ -1016,7 +1016,7 @@ WWINLINE void DX8Wrapper::Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4
 	}
 }
 
-WWINLINE void DX8Wrapper::Set_Light(unsigned index, const D3DLIGHT9* light)
+inline void DX8Wrapper::Set_Light(unsigned index, const D3DLIGHT9* light)
 {
 	if (light) {
 		render_state.Lights[index]=*light;
@@ -1028,18 +1028,18 @@ WWINLINE void DX8Wrapper::Set_Light(unsigned index, const D3DLIGHT9* light)
 	render_state_changed|=(LIGHT0_CHANGED<<index);
 }
 
-WWINLINE const D3DLIGHT9& DX8Wrapper::Peek_Light(unsigned index)
+inline const D3DLIGHT9& DX8Wrapper::Peek_Light(unsigned index)
 {
 	return render_state.Lights[index];;
 }
 
-WWINLINE bool DX8Wrapper::Is_Light_Enabled(unsigned index)
+inline bool DX8Wrapper::Is_Light_Enabled(unsigned index)
 {
 	return render_state.LightEnable[index];
 }
 
 
-WWINLINE void DX8Wrapper::Set_Render_State(const RenderStateStruct& state)
+inline void DX8Wrapper::Set_Render_State(const RenderStateStruct& state)
 {
 	if (render_state.index_buffer) {
 		render_state.index_buffer->Release_Engine_Ref();
@@ -1061,7 +1061,7 @@ WWINLINE void DX8Wrapper::Set_Render_State(const RenderStateStruct& state)
 	}
 }
 
-WWINLINE void DX8Wrapper::Release_Render_State()
+inline void DX8Wrapper::Release_Render_State()
 {
 	if (render_state.index_buffer) {
 		render_state.index_buffer->Release_Engine_Ref();
@@ -1078,7 +1078,7 @@ WWINLINE void DX8Wrapper::Release_Render_State()
 }
 
 
-WWINLINE RenderStateStruct::RenderStateStruct()
+inline RenderStateStruct::RenderStateStruct()
 	:
 	material(0),
 	vertex_buffer(0),
@@ -1087,7 +1087,7 @@ WWINLINE RenderStateStruct::RenderStateStruct()
 	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i) Textures[i]=0;
 }
 
-WWINLINE RenderStateStruct::~RenderStateStruct()
+inline RenderStateStruct::~RenderStateStruct()
 {
 	REF_PTR_RELEASE(material);
 	REF_PTR_RELEASE(vertex_buffer);
@@ -1096,7 +1096,7 @@ WWINLINE RenderStateStruct::~RenderStateStruct()
 }
 
 
-WWINLINE RenderStateStruct& RenderStateStruct::operator= (const RenderStateStruct& src)
+inline RenderStateStruct& RenderStateStruct::operator= (const RenderStateStruct& src)
 {
 	REF_PTR_SET(material,src.material);
 	REF_PTR_SET(vertex_buffer,src.vertex_buffer);

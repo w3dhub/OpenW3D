@@ -69,9 +69,9 @@ class SysTimeClass
 		/*
 		** Get. Use everywhere you would use timeGetTime
 		*/
-		__forceinline unsigned int Get(void);
-		__forceinline unsigned int operator () (void) {return(Get());}
-		__forceinline operator unsigned int(void) {return(Get());}
+		unsigned int Get(void);
+		unsigned int operator () (void) {return(Get());}
+		operator unsigned int(void) {return(Get());}
 
 		/*
 		** Use periodically (like every few days!) to make sure the timer doesn't wrap.
@@ -114,7 +114,7 @@ extern SysTimeClass SystemTime;
  * HISTORY:                                                                                    *
  *   10/25/2001 1:38PM ST : Created                                                            *
  *=============================================================================================*/
-__forceinline unsigned int SysTimeClass::Get(void)
+inline unsigned int SysTimeClass::Get(void)
 {
 	/*
 	** This has to be static here since we don't know if we will get called in a global constructor of another object before our
