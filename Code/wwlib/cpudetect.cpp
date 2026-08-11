@@ -21,11 +21,27 @@
 #include "wwdebug.h"
 #include "thread.h"
 #include "mpu.h"
+#if defined(_WIN32)
 #include <windows.h>
+#else
+#include <sys/sysinfo.h>
+#include <sys/utsname.h>
+#include <stdio.h>
+// Stub out Windows OS version platform IDs; Linux Init_OS sets OSVersionPlatformId=3
+// so all switch statements on OSVersionPlatformId fall through to the default case.
+#define VER_PLATFORM_WIN32s        0
+#define VER_PLATFORM_WIN32_WINDOWS 1
+#define VER_PLATFORM_WIN32_NT      2
+#endif
 #include "systimer.h"
 
 #if CPU_X86 || CPU_X86_64
+#if defined(_MSC_VER)
 #include <intrin.h>
+#else
+#include <x86intrin.h>
+#include <cpuid.h>
+#endif
 #endif
 
 #if CPU_X86 || CPU_X86_64
@@ -890,6 +906,7 @@ void CPUDetectClass::Init_Processor_Features()
 
 void CPUDetectClass::Init_Memory()
 {
+#if defined(_WIN32)
 	MEMORYSTATUS mem;
 	GlobalMemoryStatus(&mem);
 	TotalPhysicalMemory=mem.dwTotalPhys;
@@ -898,10 +915,22 @@ void CPUDetectClass::Init_Memory()
 	AvailablePageMemory=mem.dwAvailPageFile;
 	TotalVirtualMemory=mem.dwTotalVirtual;
 	AvailableVirtualMemory=mem.dwAvailVirtual;
+#else
+	struct sysinfo si = {};
+	if (sysinfo(&si) == 0) {
+		TotalPhysicalMemory     = (unsigned)(si.totalram  * si.mem_unit);
+		AvailablePhysicalMemory = (unsigned)(si.freeram   * si.mem_unit);
+		TotalPageMemory         = (unsigned)(si.totalswap * si.mem_unit);
+		AvailablePageMemory     = (unsigned)(si.freeswap  * si.mem_unit);
+		TotalVirtualMemory      = (unsigned)((si.totalram  + si.totalswap) * si.mem_unit);
+		AvailableVirtualMemory  = (unsigned)((si.freeram   + si.freeswap)  * si.mem_unit);
+	}
+#endif
 }
 
 void CPUDetectClass::Init_OS()
 {
+#if defined(_WIN32)
 	// GetVersionEx only returns the version of Windows it was manifested for since Windows 8.
 	// RtlGetVersion returns the correct information at least at the time of writing.
 	typedef LONG(WINAPI * RtlGetVersionFuncPtr)(PRTL_OSVERSIONINFOW);
@@ -927,6 +956,17 @@ void CPUDetectClass::Init_OS()
 	OSVersionBuildNumber = 0;
 	OSVersionPlatformId = 2;
     OSVersionExtraInfo = "";
+#else
+	struct utsname uts = {};
+	if (uname(&uts) == 0) {
+		OSVersionExtraInfo = uts.release;
+		sscanf(uts.release, "%u.%u.%u",
+			&OSVersionNumberMajor,
+			&OSVersionNumberMinor,
+			&OSVersionBuildNumber);
+	}
+	OSVersionPlatformId = 3; // No Windows platform match; switches fall to default
+#endif
 }
 
 bool CPUDetectClass::CPUID(
@@ -940,17 +980,19 @@ bool CPUDetectClass::CPUID(
 	if (!Has_CPUID_Instruction()) {
 		return false;	// Most processors since 486 have CPUID...
 	}
+#if defined(_MSC_VER)
 	int cpuInfo[4];
 	__cpuid(cpuInfo, cpuid_type);
-
 	u_eax_=cpuInfo[0];
 	u_ebx_=cpuInfo[1];
 	u_ecx_=cpuInfo[2];
 	u_edx_=cpuInfo[3];
-
+#else
+	__cpuid(cpuid_type, u_eax_, u_ebx_, u_ecx_, u_edx_);
+#endif
 	return true;
 #else
-	return false
+	return false;
 #endif
 }
 
@@ -1059,9 +1101,13 @@ void CPUDetectClass::Init_Compact_Log()
 {
 	StringClass work(0,true);
 
+#if defined(_WIN32)
 	TIME_ZONE_INFORMATION time_zone;
 	GetTimeZoneInformation(&time_zone);
 	COMPACTLOG(("%d\t",time_zone.Bias));
+#else
+	COMPACTLOG(("0\t"));
+#endif
 
 	OSInfoStruct os_info;
 	Get_OS_Info(os_info,OSVersionPlatformId,OSVersionNumberMajor,OSVersionNumberMinor,OSVersionBuildNumber);

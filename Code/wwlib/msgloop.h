@@ -40,6 +40,8 @@
 #ifndef MSGLOOP_H
 #define MSGLOOP_H
 
+#if defined(_WIN32)
+
 #include <windows.h>
 
 // Main message handler.
@@ -55,5 +57,7 @@ void Remove_Accelerator(HACCEL accelerator);
 
 // General purpose message intercept handler.
 extern bool (*Message_Intercept_Handler)(MSG &msg);
+
+#endif // _WIN32
 
 #endif

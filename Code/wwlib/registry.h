@@ -110,10 +110,11 @@ public:
 
 private:
 
+#if defined(_WIN32)
 	static void Delete_Registry_Values(HKEY key);
-	static void Save_Registry_Tree(char *path, INIClass *ini);
 	static void Save_Registry_Values(HKEY key, char *path, INIClass *ini);
-
+#endif
+	static void Save_Registry_Tree(char *path, INIClass *ini);
 
 	void *	Key;
 	bool	IsValid;
