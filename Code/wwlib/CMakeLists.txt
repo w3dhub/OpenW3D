@@ -178,3 +178,21 @@ if(WIN32)
 endif()
 
 target_sources(wwlib PRIVATE ${WWLIB_SRC})
+
+if(BUILD_TESTING)
+    add_executable(wwlib_mempool_tests
+        tests/MempoolTests.cpp
+    )
+
+    target_link_libraries(wwlib_mempool_tests PRIVATE
+        wwlib
+        wwdebug
+        wwcommon
+    )
+
+    target_include_directories(wwlib_mempool_tests PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+    add_test(NAME wwlib_mempool_tests COMMAND wwlib_mempool_tests)
+endif()
