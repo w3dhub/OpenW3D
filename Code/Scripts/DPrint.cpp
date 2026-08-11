@@ -87,7 +87,7 @@ void DebugPrint(const char* string, ...)
 		else
 			{
 			// Send string to debugger
-			OutputDebugStringA(_buffer);
+			fprintf(stderr, "%s", _buffer);
 			}
 
 #if 0
