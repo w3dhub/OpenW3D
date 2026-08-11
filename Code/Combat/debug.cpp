@@ -213,7 +213,7 @@ void	DebugManager::Display( char const *buffer )
 	}
 
 	if ( EnabledDevices & DEBUG_DEVICE_WINDOWS ) {
-		OutputDebugStringA( buffer );		// puts it in the MSVC debug window
+		fprintf(stderr, "%s",  buffer );		// puts it in the MSVC debug window
 	}
 }
 

@@ -369,7 +369,7 @@ void CGameSpyQnR::basic_callback(char *outbuf, int maxlen)
 #ifdef WWDEBUG
 	StringClass tstr(true);
 	tstr.Format("GS_QnR -- Basic callback, sent: %s\n",outbuf);
-	OutputDebugStringA(tstr.Peek_Buffer());
+	fprintf(stderr, "%s", tstr.Peek_Buffer());
 #endif
 	WWDEBUG_SAY(("<--GS_QnR -- Basic callback\n"));
 
@@ -452,7 +452,7 @@ void CGameSpyQnR::info_callback(char *outbuf, int maxlen)
 #ifdef WWDEBUG
 	StringClass tstr(true);
 	tstr.Format("GS_QnR -- Info callback, sent: %s\n",outbuf);
-	OutputDebugStringA(tstr.Peek_Buffer());
+	fprintf(stderr, "%s", tstr.Peek_Buffer());
 #endif
 	WWDEBUG_SAY(("<--GS_QnR -- Info callback\n"));
 
@@ -555,7 +555,7 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 #ifdef WWDEBUG
 	StringClass tstr(true);
 	tstr.Format("GS_QnR -- Rules callback, sent: %s\n",outbuf);
-	OutputDebugStringA(tstr.Peek_Buffer());
+	fprintf(stderr, "%s", tstr.Peek_Buffer());
 #endif
 	WWDEBUG_SAY(("<--GS_QnR -- Rules callback\n"));
 
