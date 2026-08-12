@@ -666,7 +666,7 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 
 	StringClass cur_dir = cPathUtil::GetWorkingDirectory(true);
 	StringClass new_dir = cur_dir + "Data";
-	SetCurrentDirectoryA(new_dir);
+	cPathUtil::SetWorkingDirectory(new_dir);
 
 	WIN32_FIND_DATAA find_data;
 	HANDLE handle=FindFirstFileA("*.mix",&find_data);
@@ -681,7 +681,7 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 			}
 		}
 	}
-	SetCurrentDirectoryA(cur_dir);
+	cPathUtil::SetWorkingDirectory(cur_dir);
 
 	// First generate thumbnails for always.dat
 	Update_Thumbnail_File("always.dat",display_message_box);
