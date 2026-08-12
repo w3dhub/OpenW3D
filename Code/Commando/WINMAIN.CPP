@@ -96,6 +96,7 @@
 #include "openw3d.h"
 #include "ini.h"
 #include "soutil.h"
+#include "pathutil.h"
 
 #ifdef _DEBUG
 #include	<crtdbg.h>
@@ -801,12 +802,12 @@ bool Set_Working_Directory(void)
 		_makepath(path_buffer, drive, dir, nullptr, nullptr);
 		gamedir = path_buffer;
 	}
-	return !!SetCurrentDirectoryA(gamedir);
+	return cPathUtil::SetWorkingDirectory(gamedir);
 #elif defined(OPENW3D_SDL3)
 	if (gamedir == nullptr || gamedir[0] == '\0') {
 		gamedir = SDL_GetBasePath();
 	}
-	return !chdir(gamedir);
+	return cPathUtil::SetWorkingDirectory(gamedir);
 #else
 	assert(0);
 #endif
