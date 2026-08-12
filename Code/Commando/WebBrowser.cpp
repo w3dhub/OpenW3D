@@ -170,7 +170,7 @@ bool WebBrowser::InstallPrerequisites(void)
 
 			if (ERROR_SUCCESS != result || (strcmp(valueData, data) != 0))
 				{
-				result = RegSetValueExA(key, valueName, nullptr, REG_SZ, (CONST BYTE*)valueData,
+				result = RegSetValueExA(key, valueName, 0, REG_SZ, (CONST BYTE*)valueData,
 					(strlen(valueData) + 1));
 
 				if (ERROR_SUCCESS != result)
