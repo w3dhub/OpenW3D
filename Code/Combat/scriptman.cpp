@@ -44,6 +44,7 @@
 #include "ffactorylist.h"
 #include "rawfile.h"
 #include "gametype.h"
+#include "soutil.h"
 #include <stdio.h>
 #include <win.h>
 
@@ -60,7 +61,7 @@ ScriptCommands* EngineCommands = nullptr;
 /*
 **
 */
-HINSTANCE hDLL = nullptr;
+SharedObject *hDLL = nullptr;
 LPFN_CREATE_SCRIPT ScriptManager::ScriptCreateFunct = nullptr;
 LPFN_DESTROY_SCRIPT ScriptManager::ScriptDestroyFunct = nullptr;
 SimpleDynVecClass<ScriptClass *> ScriptManager::ActiveScriptList;
@@ -113,10 +114,7 @@ void ScriptManager::Shutdown(void)
 		ActiveScriptList.Delete(0);
 	}
 
-	if (hDLL != nullptr) {
-		FreeLibrary(hDLL);
-		hDLL = nullptr;
-	}
+	delete hDLL;
 	hDLL = nullptr;
 }
 
@@ -169,7 +167,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 		return;
 	}
 
-	hDLL = ::LoadLibraryA(dll_filename);
+	hDLL = SharedObject::LoadObject(dll_filename);
 
 	if (hDLL == nullptr) {
 		Debug_Say(("Cound not load DLL file %s\n", dll_filename));
@@ -177,7 +175,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 	}
 
 	// Get create script function
-	ScriptCreateFunct = (LPFN_CREATE_SCRIPT)GetProcAddress(hDLL, LPSTR_CREATE_SCRIPT);
+	ScriptCreateFunct = (LPFN_CREATE_SCRIPT)hDLL->LoadFunction(LPSTR_CREATE_SCRIPT);
 	assert(ScriptCreateFunct != nullptr);
 
 	if (!ScriptCreateFunct) {
@@ -185,7 +183,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 	}
 
 	// Get destroy script function
-	ScriptDestroyFunct = (LPFN_DESTROY_SCRIPT)GetProcAddress(hDLL, LPSTR_DESTROY_SCRIPT);
+	ScriptDestroyFunct = (LPFN_DESTROY_SCRIPT)hDLL->LoadFunction(LPSTR_DESTROY_SCRIPT);
 	assert(ScriptDestroyFunct != nullptr);
 
 	if (!ScriptDestroyFunct) {
@@ -194,7 +192,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 
 	// Initialize request script destroy function
 	LPFN_SET_REQUEST_DESTROY_FUNC set_request_destroy_func =
-		(LPFN_SET_REQUEST_DESTROY_FUNC)GetProcAddress(hDLL, LPSTR_SET_REQUEST_DESTROY_FUNC);
+		(LPFN_SET_REQUEST_DESTROY_FUNC)hDLL->LoadFunction(LPSTR_SET_REQUEST_DESTROY_FUNC);
 	assert(set_request_destroy_func != nullptr);
 
 	if (set_request_destroy_func != nullptr) {
@@ -206,7 +204,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 	// Initialize script commands if not being run from the editor
 	if (CombatManager::Are_Observers_Active()) {
 		LPFN_SET_SCRIPT_COMMANDS set_commands_func =
-			(LPFN_SET_SCRIPT_COMMANDS)GetProcAddress(hDLL, LPSTR_SET_SCRIPT_COMMANDS);
+			(LPFN_SET_SCRIPT_COMMANDS)hDLL->LoadFunction(LPSTR_SET_SCRIPT_COMMANDS);
 		assert(set_commands_func != nullptr);
 
 		if (set_commands_func != nullptr) {
