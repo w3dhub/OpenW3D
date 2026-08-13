@@ -117,6 +117,7 @@ void ScriptManager::Shutdown(void)
 		FreeLibrary(hDLL);
 		hDLL = nullptr;
 	}
+	hDLL = nullptr;
 }
 
 
@@ -167,55 +168,6 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 	{
 		return;
 	}
-
-#ifndef	PARAM_EDITING_ON	// Only do this in the *game*
-
-	// Check if we have a mod, if so, un-pack the scripts from the PKG (if present)
-	FileFactoryClass * mod_pkg = FileFactoryListClass::Get_Instance()->Peek_Temp_FileFactory();
-	if (mod_pkg != nullptr) {
-		FileClass * scripts_dll = mod_pkg->Get_File( dll_filename );
-		if ((scripts_dll != nullptr) && (scripts_dll->Is_Available())) {
-
-			const char * _TMP_SCRIPTS_DLL_FILENAME = "_MOD_SCRIPTS.DLL";
-
-			scripts_dll->Open(FileClass::READ);
-			RawFileClass unpacked_scripts(_TMP_SCRIPTS_DLL_FILENAME);
-
-			if (unpacked_scripts.Create()) {
-
-				unpacked_scripts.Open(FileClass::WRITE);
-
-				// Copy the dll from the PKG (mix) file into our temporary _scripts directory
-				static char buffer[16000];
-				size_t scripts_size = scripts_dll->Size();
-				size_t cur_pos = 0;
-				while (cur_pos < scripts_size) {
-					size_t remaining = scripts_size - cur_pos;
-					size_t requested = remaining;
-					if (requested > sizeof(buffer)) {
-						requested = sizeof(buffer);
-					}
-					int read_count = scripts_dll->Read(buffer, static_cast<int>(requested));
-					if (read_count <= 0) {
-						break;
-					}
-					unpacked_scripts.Write(buffer, read_count);
-					cur_pos += static_cast<size_t>(read_count);
-				}
-
-
-				// change 'dll_filename' so that we load the newly created dll
-				if (cur_pos == scripts_size) {
-					dll_filename = _TMP_SCRIPTS_DLL_FILENAME;
-				}
-
-				unpacked_scripts.Close();
-			}
-			scripts_dll->Close();
-			mod_pkg->Return_File(scripts_dll);
-		}
-	}
-#endif
 
 	hDLL = ::LoadLibraryA(dll_filename);
 
