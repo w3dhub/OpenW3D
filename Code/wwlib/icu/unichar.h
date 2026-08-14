@@ -37,7 +37,7 @@ inline size_t u_mbtows(unichar_t* dst, const char* src, size_t len)
 	UErrorCode error = U_ZERO_ERROR;
 	u_strFromUTF8(dst, int32_t(len), &length, src, -1, &error);
 
-	if (size_t(length) > len) {
+	if (dst != nullptr && size_t(length) > len) {
 		return size_t(-1);
 	}
 
@@ -50,7 +50,7 @@ inline size_t u_wstomb(char* dst, const unichar_t* src, size_t len)
 	UErrorCode error = U_ZERO_ERROR;
 	u_strToUTF8(dst, int32_t(len), &length, src, -1, &error);
 
-	if (size_t(length) > len) {
+	if (dst != nullptr && size_t(length) > len) {
 		return size_t(-1);
 	}
 
