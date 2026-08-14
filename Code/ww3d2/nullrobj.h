@@ -52,7 +52,7 @@ class Null3DObjClass : public RenderObjClass
 {
 public:
 
-	Null3DObjClass(const char * name = "nullptr");
+	Null3DObjClass(const char * name = "NULL");
 	Null3DObjClass(const Null3DObjClass & src);
 	Null3DObjClass & operator = (const Null3DObjClass & that);
 
