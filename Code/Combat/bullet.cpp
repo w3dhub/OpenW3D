@@ -551,7 +551,7 @@ void BulletClass::Init( const BulletDataClass & data, float progress_time, const
 		// If no name is given, lets create the nullptr render obj
 		if ( model == nullptr ) {
 			Debug_Say(( "Bullet Not Found \"%s\" \n", BulletData.AmmoDefinition->ModelName.Peek_Buffer() ));
-			model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj( "nullptr" );
+			model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj( "NULL" );
 
 		}
 
@@ -581,7 +581,7 @@ void BulletClass::Init( const BulletDataClass & data, float progress_time, const
 
 	float duration = (float) BulletData.AmmoDefinition->Range / (float) BulletData.AmmoDefinition->Velocity;
 	if (duration <= 0.0) {
-		Debug_Say(( "nullptr DURATION\n" ));
+		Debug_Say(( "NULL DURATION\n" ));
 	}
 	Projectile->Set_Lifetime( duration * 1.2f );
 	Projectile->Set_Position( data.Position );

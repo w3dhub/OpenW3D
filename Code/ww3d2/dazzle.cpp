@@ -1467,15 +1467,15 @@ PersistClass *	DazzlePersistFactoryClass::Load(ChunkLoadClass & cload) const
 	RenderObjClass * new_obj = NEW_REF(DazzleRenderObjClass,(dazzle_type));
 
 	/*
-	** If we failed to create it, replace it with a nullptr
+	** If we failed to create it, replace it with a NULL
 	*/
 	if (new_obj == nullptr) {
 		static int count = 0;
 		if ( ++count < 10 ) {
 			WWDEBUG_SAY(("DazzlePersistFactory failed to create dazzle of type: %s!!\r\n",dazzle_type));
-			WWDEBUG_SAY(("Replacing it with a nullptr render object!\r\n"));
+			WWDEBUG_SAY(("Replacing it with a NULL render object!\r\n"));
 		}
-		new_obj = WW3DAssetManager::Get_Instance()->Create_Render_Obj("nullptr");
+		new_obj = WW3DAssetManager::Get_Instance()->Create_Render_Obj("NULL");
 	}
 
 	WWASSERT(new_obj != nullptr);

@@ -265,8 +265,8 @@ void	SimpleGameObj::On_Post_Load( void )
 	// so we can put game-specific behavior into this function without messing up the level
 	// editor.
 	if ( Get_Definition().IsEditorObject ) {
-		// Switch to a nullptr model
-		Peek_Physical_Object()->Set_Model_By_Name( "nullptr" );
+		// Switch to a NULL model
+		Peek_Physical_Object()->Set_Model_By_Name( "NULL" );
 		// Add clear anim_control
 		if ( Get_Anim_Control() != nullptr ) {
 			Get_Anim_Control()->Set_Model( Peek_Model() );
