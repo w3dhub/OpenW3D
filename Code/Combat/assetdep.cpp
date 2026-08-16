@@ -311,7 +311,7 @@ AssetDependencyManager::Load_Assets (ChunkLoadClass &cload)
 ////////////////////////////////////////////////////////////////////////////
 void Get_Filename_From_Path (StringClass& new_filename, const char *path)
 {
-	new_filename = cPathUtil::ExtractFilename(path);
+	new_filename = cPathUtil::ExtractFilename(path).string().c_str();
 }
 
 

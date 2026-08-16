@@ -348,15 +348,14 @@ AggregateDefClass::Load_Assets (const char *passet_name)
 	if (passet_name != nullptr) {
 
 		// Determine what the current working directory is
-		StringClass path = cPathUtil::GetWorkingDirectory(true);
+		std::filesystem::path path = cPathUtil::GetWorkingDirectory() / passet_name;
 
 		// Assume the filename is simply the "asset name" + the w3d extension
-		path += passet_name;
 		path += ".w3d";
 
 		// If the file exists, then load it into the asset manager.
 		if (cPathUtil::PathExists(path)) {
-			retval = WW3DAssetManager::Get_Instance()->Load_3D_Assets (path);
+			retval = WW3DAssetManager::Get_Instance()->Load_3D_Assets (path.string().c_str());
 		}
 	}
 

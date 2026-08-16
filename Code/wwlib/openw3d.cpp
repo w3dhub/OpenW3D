@@ -19,22 +19,14 @@
 #include "openw3d.h"
 
 #include "ini.h"
+#include "pathutil.h"
 #include "wwstring.h"
 
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
-#include <filesystem>
 #include <string>
-#include <system_error>
 #include <vector>
-
-#if defined(OPENW3D_WIN32)
-#include <windows.h>
-#include <shlobj.h>
-#elif defined(OPENW3D_SDL3)
-#include <SDL3/SDL_filesystem.h>
-#endif
 
 namespace
 {
@@ -86,84 +78,6 @@ namespace
 		return args;
 	}
 
-	std::filesystem::path Get_Current_Directory()
-	{
-		std::error_code error;
-		std::filesystem::path current_dir = std::filesystem::current_path(error);
-		return error ? std::filesystem::path() : current_dir;
-	}
-
-	std::filesystem::path Make_Absolute_Path(const char *path)
-	{
-		if (path == nullptr || path[0] == '\0') {
-			return std::filesystem::path();
-		}
-
-		std::filesystem::path resolved(path);
-		if (!resolved.is_absolute()) {
-			resolved = Get_Current_Directory() / resolved;
-		}
-
-		return resolved.lexically_normal();
-	}
-
-	std::filesystem::path Get_Executable_Directory()
-	{
-#if defined(OPENW3D_WIN32)
-		char path[32768] = { 0 };
-		DWORD length = GetModuleFileNameA(nullptr, path, ARRAY_SIZE(path));
-		if (length > 0 && length < ARRAY_SIZE(path)) {
-			return std::filesystem::path(path).parent_path();
-		}
-#elif defined(OPENW3D_SDL3)
-		const char *base_path = SDL_GetBasePath();
-		if (base_path != nullptr && base_path[0] != '\0') {
-			return std::filesystem::path(base_path);
-		}
-#endif
-
-		return Get_Current_Directory();
-	}
-
-	std::filesystem::path Get_User_Config_Directory()
-	{
-#if defined(OPENW3D_WIN32)
-		const char *appdata = std::getenv("APPDATA");
-		if (appdata != nullptr && appdata[0] != '\0') {
-			return Make_Absolute_Path(appdata) / CONFIG_ORGANIZATION / CONFIG_APPLICATION;
-		}
-
-		std::filesystem::path appdata_path;
-		HMODULE shfolder = LoadLibraryA("shfolder.dll");
-		if (shfolder != nullptr) {
-			typedef HRESULT(__stdcall *SHGetFolderPathAType)(HWND, int, HANDLE, DWORD, LPSTR);
-			SHGetFolderPathAType get_folder_path =
-				(SHGetFolderPathAType)GetProcAddress(shfolder, "SHGetFolderPathA");
-			if (get_folder_path != nullptr) {
-				char path[MAX_PATH] = { 0 };
-				if (get_folder_path(nullptr, CSIDL_APPDATA, nullptr, 0, path) == S_OK) {
-					appdata_path = std::filesystem::path(path);
-				}
-			}
-			FreeLibrary(shfolder);
-		}
-
-		return appdata_path.empty() ? std::filesystem::path() : appdata_path / CONFIG_ORGANIZATION / CONFIG_APPLICATION;
-#elif defined(OPENW3D_SDL3)
-		char *pref_path = SDL_GetPrefPath(CONFIG_ORGANIZATION, CONFIG_APPLICATION);
-		if (pref_path != nullptr && pref_path[0] != '\0') {
-			const std::filesystem::path config_path(pref_path);
-			SDL_free(pref_path);
-			return config_path;
-		}
-		SDL_free(pref_path);
-
-		return std::filesystem::path();
-#else
-	#error OpenW3D does not have an implementation of Get_User_Config_Directory() for this platform
-#endif
-	}
-
 	std::filesystem::path Get_Default_Config_File_Path()
 	{
 		const char *config_override = std::getenv("OPENW3D_CONFIG_INI");
@@ -171,36 +85,24 @@ namespace
 			config_override = std::getenv("RENEGADE_CONFIG_INI");
 		}
 		if (config_override != nullptr && config_override[0] != '\0') {
-			return Make_Absolute_Path(config_override);
+			return cPathUtil::MakeAbsolutePath(config_override);
 		}
 
-		const std::filesystem::path executable_dir = Get_Executable_Directory();
+		const std::filesystem::path executable_dir = cPathUtil::GetExecutableDirectory();
 		const std::filesystem::path portable_config = executable_dir / W3D_CONF_FILENAME;
-		std::error_code error;
-		if (std::filesystem::exists(portable_config, error) && !error) {
+		if (cPathUtil::PathExists(portable_config)) {
 			return portable_config;
 		}
 
 #if defined(OPENW3D_WIN32) || defined(OPENW3D_SDL3)
-		std::filesystem::path config_dir = Get_User_Config_Directory();
+		std::filesystem::path config_dir =
+			cPathUtil::GetUserConfigDirectory(CONFIG_ORGANIZATION, CONFIG_APPLICATION);
 		if (!config_dir.empty()) {
 			return config_dir / W3D_CONF_FILENAME;
 		}
 #endif
 
 		return portable_config;
-	}
-
-	bool Ensure_Config_Directory_Exists(const std::filesystem::path &config_path)
-	{
-		const std::filesystem::path parent_path = config_path.parent_path();
-		if (parent_path.empty()) {
-			return true;
-		}
-
-		std::error_code error;
-		std::filesystem::create_directories(parent_path, error);
-		return !error;
 	}
 
 	void Store_Config_File_Path(const std::filesystem::path &path, bool is_override)
@@ -214,7 +116,7 @@ namespace
 
 void OpenW3D::Set_Config_File_Path_Override(const char *path)
 {
-	Store_Config_File_Path(Make_Absolute_Path(path), true);
+	Store_Config_File_Path(cPathUtil::MakeAbsolutePath(path), true);
 }
 
 bool OpenW3D::Set_Config_File_Path_From_Command_Line(int argc, char *argv[])
@@ -294,7 +196,7 @@ void OpenW3D::Append_Config_File_Arg(StringClass &command_line)
 bool OpenW3D::Save_Config(const INIClass &ini)
 {
 	const std::filesystem::path config_path = Get_Config_File_Path();
-	if (!Ensure_Config_Directory_Exists(config_path)) {
+	if (!cPathUtil::EnsureDirectoryExists(config_path.parent_path())) {
 		return false;
 	}
 

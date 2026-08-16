@@ -664,8 +664,8 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 	// Collect all mix file names
 	DynamicVectorClass<StringClass> mix_names;
 
-	StringClass cur_dir = cPathUtil::GetWorkingDirectory(true);
-	StringClass new_dir = cur_dir + "Data";
+	const std::filesystem::path cur_dir = cPathUtil::GetWorkingDirectory();
+	const std::filesystem::path new_dir = cur_dir / "Data";
 	cPathUtil::SetWorkingDirectory(new_dir);
 
 	WIN32_FIND_DATAA find_data;
