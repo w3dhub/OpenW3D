@@ -214,11 +214,7 @@ int main(int argc, char *argv[])
 
 #if WEBBROWSER_ENABLED
 #ifdef _DEBUG // Denzil - DO NOT COMPILE INTO FINAL BUILD
-	bool webInstalled = WebBrowser::InstallPrerequisites();
-
-	if (!webInstalled) {
-		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING, "Embedded browser prerequisites missing\n\nBrowser functionality questionable.\n\n(Please call Denzil @ 27272)", "Renegade Warning!");
-	}
+	WebBrowser::InstallPrerequisites();
 #endif // WWDEBUG
 #endif // WEBBROWSER_ENABLED
 

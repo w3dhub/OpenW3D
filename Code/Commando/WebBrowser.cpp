@@ -102,9 +102,6 @@ bool WebBrowser::InstallPrerequisites(void)
 		if (!success)
 			{
 			WWDEBUG_SAY(("Failed to register WOLBrowser.dll!\n"));
-			::Show_Message_Box(MESSAGEBOX_BUTTON_OK | MESSAGEBOX_SEVERITY_WARNING,
-					"WOLBrowser.dll not registered!\n\nDefaulting to external browser.",
-					"Renegade Warning!");
 			return false;
 			}
 		}
@@ -116,9 +113,6 @@ bool WebBrowser::InstallPrerequisites(void)
 	if (ERROR_SUCCESS != result)
 		{
 		WWDEBUG_SAY(("URL entry not in the registry\n"));
-		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING,
-				"Embedded Browser prerequisite error!\n\nURL key not found.",
-				"Renegade Warning!");
 
 		// Attempt to create the key.
 		result = RegCreateKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_URL, 0, nullptr,
@@ -127,9 +121,6 @@ bool WebBrowser::InstallPrerequisites(void)
 		if (ERROR_SUCCESS != result)
 			{
 			WWDEBUG_SAY(("Failed to create URL entry in registry\n"));
-			::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING,
-					"Failed to create Embedded Browser URLS\n\nURL key not found.",
-					"Renegade Warning!");
 			return false;
 			}
 
@@ -176,10 +167,6 @@ bool WebBrowser::InstallPrerequisites(void)
 				if (ERROR_SUCCESS != result)
 					{
 					WWDEBUG_SAY(("Failed to create URL entry '%s' in registry\n", valueName));
-					char errorMsg[256];
-					sprintf(errorMsg, "Embedded Browser prerequisite error!\n\nURL key '%s'", valueName);
-					::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING,
-						errorMsg, "Renegade Warning!");
 					break;
 					}
 				}
