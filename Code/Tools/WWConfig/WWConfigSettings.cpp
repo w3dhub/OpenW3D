@@ -6,6 +6,7 @@
 #include "dx8wrapper.h"
 #include "cpudetect.h"
 #include "formconv.h"
+#include "openw3d.h"
 #include "wwstring.h"
 
 #include "../../Combat/specialbuilds.h"
@@ -66,6 +67,25 @@ constexpr const char *kValueNameTextureRes = "Texture_Resolution";
 constexpr const char *kValueNameSurfaceEffect = "Surface_Effect_Detail";
 constexpr const char *kValueNameParticleDetail = "Particle_Detail";
 
+// Keep these INI names aligned with the OpenW3D configuration schema.
+constexpr const char *kIniRenderDeviceName = "Name";
+constexpr const char *kIniRenderDeviceWidth = "Width";
+constexpr const char *kIniRenderDeviceHeight = "Height";
+constexpr const char *kIniRenderDeviceDepth = "Depth";
+constexpr const char *kIniRenderDeviceWindowed = "Windowed";
+constexpr const char *kIniRenderDeviceTextureDepth = "TextureDepth";
+
+constexpr const char *kIniValueNameDynLOD = "DynamicLODBudget";
+constexpr const char *kIniValueNameStaticLOD = "StaticLODBudget";
+constexpr const char *kIniValueNameDynShadows = "DynamicProjectors";
+constexpr const char *kIniValueNameTextureFilter = "TextureFilterMode";
+constexpr const char *kIniValueNamePrelitMode = "PrelitMode";
+constexpr const char *kIniValueNameShadowMode = "ShadowMode";
+constexpr const char *kIniValueNameStaticShadows = "StaticProjectors";
+constexpr const char *kIniValueNameTextureRes = "TextureResolution";
+constexpr const char *kIniValueNameSurfaceEffect = "SurfaceEffectDetail";
+constexpr const char *kIniValueNameParticleDetail = "ParticleDetail";
+
 constexpr const char *kValueNameAudioStereo = "stereo";
 constexpr const char *kValueNameAudioBits = "bits";
 constexpr const char *kValueNameAudioHertz = "hertz";
@@ -79,13 +99,23 @@ constexpr const char *kValueNameAudioSoundVolume = "sound volume";
 constexpr const char *kValueNameAudioDialogVolume = "dialog volume";
 constexpr const char *kValueNameAudioCinematicVolume = "cinematic volume";
 constexpr const char *kValueNameAudioSpeakerType = "speaker type";
+
+constexpr const char *kIniValueNameAudioStereo = "Stereo";
+constexpr const char *kIniValueNameAudioBits = "Bits";
+constexpr const char *kIniValueNameAudioHertz = "Hertz";
+constexpr const char *kIniValueNameAudioDevice = "DeviceName";
+constexpr const char *kIniValueNameAudioMusicEnabled = "MusicEnabled";
+constexpr const char *kIniValueNameAudioSoundEnabled = "SoundEnabled";
+constexpr const char *kIniValueNameAudioDialogEnabled = "DialogEnabled";
+constexpr const char *kIniValueNameAudioCinematicEnabled = "CinematicEnabled";
+constexpr const char *kIniValueNameAudioMusicVolume = "MusicVolume";
+constexpr const char *kIniValueNameAudioSoundVolume = "SoundVolume";
+constexpr const char *kIniValueNameAudioDialogVolume = "DialogVolume";
+constexpr const char *kIniValueNameAudioCinematicVolume = "CinematicVolume";
+constexpr const char *kIniValueNameAudioSpeakerType = "SpeakerType";
 constexpr const char *kValueNameDriverWarningDisabled = "DriverVersionCheckDisabled";
 
 constexpr int kVolumeScale = 100;
-
-constexpr const char *kIniSectionRender = "Render";
-constexpr const char *kIniSectionSound = "Sound";
-constexpr const char *kIniSectionSettings = "System Settings";
 
 bool SaveIni(INIClass &ini)
 {
@@ -95,21 +125,21 @@ bool SaveIni(INIClass &ini)
 
 bool LoadRenderSettingsFromIni(INIClass &ini, RenderSettings &settings)
 {
-    if (!ini.Is_Loaded() || !ini.Section_Present(kIniSectionSettings)) {
+    if (!ini.Is_Loaded() || !ini.Section_Present(W3D_SECTION_SYSTEM)) {
         return false;
     }
 
-    settings.dynamicLOD = ini.Get_Int(kIniSectionSettings, kValueNameDynLOD, settings.dynamicLOD);
-    settings.staticLOD = ini.Get_Int(kIniSectionSettings, kValueNameStaticLOD, settings.staticLOD);
-    settings.dynamicShadows = ini.Get_Int(kIniSectionSettings, kValueNameDynShadows, settings.dynamicShadows);
-    settings.staticShadows = ini.Get_Int(kIniSectionSettings, kValueNameStaticShadows, settings.staticShadows);
-    settings.prelitMode = ini.Get_Int(kIniSectionSettings, kValueNamePrelitMode, settings.prelitMode);
-    settings.textureFilter = ini.Get_Int(kIniSectionSettings, kValueNameTextureFilter, settings.textureFilter);
-    settings.shadowMode = ini.Get_Int(kIniSectionSettings, kValueNameShadowMode, settings.shadowMode);
-    settings.textureResolution = ini.Get_Int(kIniSectionSettings, kValueNameTextureRes, settings.textureResolution);
-    settings.surfaceEffect = ini.Get_Int(kIniSectionSettings, kValueNameSurfaceEffect, settings.surfaceEffect);
-    settings.particleDetail = ini.Get_Int(kIniSectionSettings, kValueNameParticleDetail, settings.particleDetail);
-    settings.lightingMode = ini.Get_Int(kIniSectionSettings, kValueNamePrelitMode, settings.lightingMode);
+    settings.dynamicLOD = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameDynLOD, settings.dynamicLOD);
+    settings.staticLOD = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameStaticLOD, settings.staticLOD);
+    settings.dynamicShadows = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameDynShadows, settings.dynamicShadows);
+    settings.staticShadows = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameStaticShadows, settings.staticShadows);
+    settings.prelitMode = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNamePrelitMode, settings.prelitMode);
+    settings.textureFilter = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameTextureFilter, settings.textureFilter);
+    settings.shadowMode = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameShadowMode, settings.shadowMode);
+    settings.textureResolution = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameTextureRes, settings.textureResolution);
+    settings.surfaceEffect = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameSurfaceEffect, settings.surfaceEffect);
+    settings.particleDetail = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameParticleDetail, settings.particleDetail);
+    settings.lightingMode = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNamePrelitMode, settings.lightingMode);
 
     return true;
 }
@@ -138,16 +168,16 @@ bool LoadRenderSettingsFromRegistry(RenderSettings &settings)
 
 void SaveRenderSettingsToIni(const RenderSettings &settings, INIClass &ini)
 {
-    ini.Put_Int(kIniSectionSettings, kValueNameDynLOD, settings.dynamicLOD);
-    ini.Put_Int(kIniSectionSettings, kValueNameStaticLOD, settings.staticLOD);
-    ini.Put_Int(kIniSectionSettings, kValueNameDynShadows, settings.dynamicShadows);
-    ini.Put_Int(kIniSectionSettings, kValueNameStaticShadows, settings.staticShadows);
-    ini.Put_Int(kIniSectionSettings, kValueNamePrelitMode, settings.prelitMode);
-    ini.Put_Int(kIniSectionSettings, kValueNameTextureFilter, settings.textureFilter);
-    ini.Put_Int(kIniSectionSettings, kValueNameShadowMode, settings.shadowMode);
-    ini.Put_Int(kIniSectionSettings, kValueNameTextureRes, settings.textureResolution);
-    ini.Put_Int(kIniSectionSettings, kValueNameSurfaceEffect, settings.surfaceEffect);
-    ini.Put_Int(kIniSectionSettings, kValueNameParticleDetail, settings.particleDetail);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameDynLOD, settings.dynamicLOD);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameStaticLOD, settings.staticLOD);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameDynShadows, settings.dynamicShadows);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameStaticShadows, settings.staticShadows);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNamePrelitMode, settings.prelitMode);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameTextureFilter, settings.textureFilter);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameShadowMode, settings.shadowMode);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameTextureRes, settings.textureResolution);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameSurfaceEffect, settings.surfaceEffect);
+    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameParticleDetail, settings.particleDetail);
 }
 
 bool SaveRenderSettingsToRegistry(const RenderSettings &settings)
@@ -173,21 +203,21 @@ bool SaveRenderSettingsToRegistry(const RenderSettings &settings)
 
 bool LoadVideoSettingsFromIni(INIClass &ini, VideoSettings &settings)
 {
-    if (!ini.Is_Loaded() || !ini.Section_Present(kIniSectionRender)) {
+    if (!ini.Is_Loaded() || !ini.Section_Present(W3D_SECTION_RENDER)) {
         return false;
     }
 
     char deviceName[256] = {};
-    ini.Get_String(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_NAME, "", deviceName, sizeof(deviceName));
+    ini.Get_String(W3D_SECTION_RENDER, kIniRenderDeviceName, "", deviceName, sizeof(deviceName));
     if (deviceName[0] != '\0') {
         settings.deviceName = deviceName;
     }
 
-    const int width = ini.Get_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_WIDTH, -1);
-    const int height = ini.Get_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_HEIGHT, -1);
-    const int bitDepth = ini.Get_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_DEPTH, -1);
-    const int windowed = ini.Get_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_WINDOWED, settings.windowed ? 1 : 0);
-    const int textureDepth = ini.Get_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH, -1);
+    const int width = ini.Get_Int(W3D_SECTION_RENDER, kIniRenderDeviceWidth, -1);
+    const int height = ini.Get_Int(W3D_SECTION_RENDER, kIniRenderDeviceHeight, -1);
+    const int bitDepth = ini.Get_Int(W3D_SECTION_RENDER, kIniRenderDeviceDepth, -1);
+    const int windowed = ini.Get_Int(W3D_SECTION_RENDER, kIniRenderDeviceWindowed, settings.windowed ? 1 : 0);
+    const int textureDepth = ini.Get_Int(W3D_SECTION_RENDER, kIniRenderDeviceTextureDepth, -1);
 
     if (width > 0) {
         settings.width = width;
@@ -244,12 +274,12 @@ bool LoadVideoSettingsFromRegistry(VideoSettings &settings)
 
 void SaveVideoSettingsToIni(const VideoSettings &settings, INIClass &ini)
 {
-    ini.Put_String(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_NAME, settings.deviceName.c_str());
-    ini.Put_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_WIDTH, settings.width);
-    ini.Put_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_HEIGHT, settings.height);
-    ini.Put_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_DEPTH, settings.bitDepth);
-    ini.Put_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_WINDOWED, settings.windowed ? 1 : 0);
-    ini.Put_Int(kIniSectionRender, VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH, settings.textureDepth);
+    ini.Put_String(W3D_SECTION_RENDER, kIniRenderDeviceName, settings.deviceName.c_str());
+    ini.Put_Int(W3D_SECTION_RENDER, kIniRenderDeviceWidth, settings.width);
+    ini.Put_Int(W3D_SECTION_RENDER, kIniRenderDeviceHeight, settings.height);
+    ini.Put_Int(W3D_SECTION_RENDER, kIniRenderDeviceDepth, settings.bitDepth);
+    ini.Put_Int(W3D_SECTION_RENDER, kIniRenderDeviceWindowed, settings.windowed ? 1 : 0);
+    ini.Put_Int(W3D_SECTION_RENDER, kIniRenderDeviceTextureDepth, settings.textureDepth);
 }
 
 bool SaveVideoSettingsToRegistry(const VideoSettings &settings)
@@ -270,28 +300,28 @@ bool SaveVideoSettingsToRegistry(const VideoSettings &settings)
 
 bool LoadAudioSettingsFromIni(INIClass &ini, AudioSettings &settings)
 {
-    if (!ini.Is_Loaded() || !ini.Section_Present(kIniSectionSound)) {
+    if (!ini.Is_Loaded() || !ini.Section_Present(W3D_SECTION_SOUND)) {
         return false;
     }
 
     char deviceName[256] = {};
-    ini.Get_String(kIniSectionSound, kValueNameAudioDevice, "", deviceName, sizeof(deviceName));
+    ini.Get_String(W3D_SECTION_SOUND, kIniValueNameAudioDevice, "", deviceName, sizeof(deviceName));
     if (deviceName[0] != '\0') {
         settings.deviceName = deviceName;
     }
 
-    settings.stereo = ini.Get_Int(kIniSectionSound, kValueNameAudioStereo, settings.stereo ? 1 : 0) != 0;
-    settings.bitDepth = ini.Get_Int(kIniSectionSound, kValueNameAudioBits, settings.bitDepth);
-    settings.sampleRate = ini.Get_Int(kIniSectionSound, kValueNameAudioHertz, settings.sampleRate);
-    settings.musicEnabled = ini.Get_Int(kIniSectionSound, kValueNameAudioMusicEnabled, settings.musicEnabled ? 1 : 0) != 0;
-    settings.soundEnabled = ini.Get_Int(kIniSectionSound, kValueNameAudioSoundEnabled, settings.soundEnabled ? 1 : 0) != 0;
-    settings.dialogEnabled = ini.Get_Int(kIniSectionSound, kValueNameAudioDialogEnabled, settings.dialogEnabled ? 1 : 0) != 0;
-    settings.cinematicEnabled = ini.Get_Int(kIniSectionSound, kValueNameAudioCinematicEnabled, settings.cinematicEnabled ? 1 : 0) != 0;
-    settings.soundVolume = std::clamp(ini.Get_Int(kIniSectionSound, kValueNameAudioSoundVolume, static_cast<int>(settings.soundVolume * kVolumeScale)) / static_cast<float>(kVolumeScale), 0.0f, 1.0f);
-    settings.musicVolume = std::clamp(ini.Get_Int(kIniSectionSound, kValueNameAudioMusicVolume, static_cast<int>(settings.musicVolume * kVolumeScale)) / static_cast<float>(kVolumeScale), 0.0f, 1.0f);
-    settings.dialogVolume = std::clamp(ini.Get_Int(kIniSectionSound, kValueNameAudioDialogVolume, static_cast<int>(settings.dialogVolume * kVolumeScale)) / static_cast<float>(kVolumeScale), 0.0f, 1.0f);
-    settings.cinematicVolume = std::clamp(ini.Get_Int(kIniSectionSound, kValueNameAudioCinematicVolume, static_cast<int>(settings.cinematicVolume * kVolumeScale)) / static_cast<float>(kVolumeScale), 0.0f, 1.0f);
-    settings.speakerType = ini.Get_Int(kIniSectionSound, kValueNameAudioSpeakerType, settings.speakerType);
+    settings.stereo = ini.Get_Int(W3D_SECTION_SOUND, kIniValueNameAudioStereo, settings.stereo ? 1 : 0) != 0;
+    settings.bitDepth = ini.Get_Int(W3D_SECTION_SOUND, kIniValueNameAudioBits, settings.bitDepth);
+    settings.sampleRate = ini.Get_Int(W3D_SECTION_SOUND, kIniValueNameAudioHertz, settings.sampleRate);
+    settings.musicEnabled = ini.Get_Int(W3D_SECTION_SOUND, kIniValueNameAudioMusicEnabled, settings.musicEnabled ? 1 : 0) != 0;
+    settings.soundEnabled = ini.Get_Int(W3D_SECTION_SOUND, kIniValueNameAudioSoundEnabled, settings.soundEnabled ? 1 : 0) != 0;
+    settings.dialogEnabled = ini.Get_Int(W3D_SECTION_SOUND, kIniValueNameAudioDialogEnabled, settings.dialogEnabled ? 1 : 0) != 0;
+    settings.cinematicEnabled = ini.Get_Int(W3D_SECTION_SOUND, kIniValueNameAudioCinematicEnabled, settings.cinematicEnabled ? 1 : 0) != 0;
+    settings.soundVolume = std::clamp(ini.Get_Float(W3D_SECTION_SOUND, kIniValueNameAudioSoundVolume, settings.soundVolume), 0.0f, 1.0f);
+    settings.musicVolume = std::clamp(ini.Get_Float(W3D_SECTION_SOUND, kIniValueNameAudioMusicVolume, settings.musicVolume), 0.0f, 1.0f);
+    settings.dialogVolume = std::clamp(ini.Get_Float(W3D_SECTION_SOUND, kIniValueNameAudioDialogVolume, settings.dialogVolume), 0.0f, 1.0f);
+    settings.cinematicVolume = std::clamp(ini.Get_Float(W3D_SECTION_SOUND, kIniValueNameAudioCinematicVolume, settings.cinematicVolume), 0.0f, 1.0f);
+    settings.speakerType = ini.Get_Int(W3D_SECTION_SOUND, kIniValueNameAudioSpeakerType, settings.speakerType);
 
     return true;
 }
@@ -327,19 +357,19 @@ bool LoadAudioSettingsFromRegistry(AudioSettings &settings)
 
 void SaveAudioSettingsToIni(const AudioSettings &settings, INIClass &ini)
 {
-    ini.Put_String(kIniSectionSound, kValueNameAudioDevice, settings.deviceName.c_str());
-    ini.Put_Int(kIniSectionSound, kValueNameAudioStereo, settings.stereo ? 1 : 0);
-    ini.Put_Int(kIniSectionSound, kValueNameAudioBits, settings.bitDepth);
-    ini.Put_Int(kIniSectionSound, kValueNameAudioHertz, settings.sampleRate);
-    ini.Put_Int(kIniSectionSound, kValueNameAudioMusicEnabled, settings.musicEnabled ? 1 : 0);
-    ini.Put_Int(kIniSectionSound, kValueNameAudioSoundEnabled, settings.soundEnabled ? 1 : 0);
-    ini.Put_Int(kIniSectionSound, kValueNameAudioDialogEnabled, settings.dialogEnabled ? 1 : 0);
-    ini.Put_Int(kIniSectionSound, kValueNameAudioCinematicEnabled, settings.cinematicEnabled ? 1 : 0);
-    ini.Put_Int(kIniSectionSound, kValueNameAudioSoundVolume, static_cast<int>(std::clamp(settings.soundVolume, 0.0f, 1.0f) * kVolumeScale));
-    ini.Put_Int(kIniSectionSound, kValueNameAudioMusicVolume, static_cast<int>(std::clamp(settings.musicVolume, 0.0f, 1.0f) * kVolumeScale));
-    ini.Put_Int(kIniSectionSound, kValueNameAudioDialogVolume, static_cast<int>(std::clamp(settings.dialogVolume, 0.0f, 1.0f) * kVolumeScale));
-    ini.Put_Int(kIniSectionSound, kValueNameAudioCinematicVolume, static_cast<int>(std::clamp(settings.cinematicVolume, 0.0f, 1.0f) * kVolumeScale));
-    ini.Put_Int(kIniSectionSound, kValueNameAudioSpeakerType, settings.speakerType);
+    ini.Put_String(W3D_SECTION_SOUND, kIniValueNameAudioDevice, settings.deviceName.c_str());
+    ini.Put_Int(W3D_SECTION_SOUND, kIniValueNameAudioStereo, settings.stereo ? 1 : 0);
+    ini.Put_Int(W3D_SECTION_SOUND, kIniValueNameAudioBits, settings.bitDepth);
+    ini.Put_Int(W3D_SECTION_SOUND, kIniValueNameAudioHertz, settings.sampleRate);
+    ini.Put_Int(W3D_SECTION_SOUND, kIniValueNameAudioMusicEnabled, settings.musicEnabled ? 1 : 0);
+    ini.Put_Int(W3D_SECTION_SOUND, kIniValueNameAudioSoundEnabled, settings.soundEnabled ? 1 : 0);
+    ini.Put_Int(W3D_SECTION_SOUND, kIniValueNameAudioDialogEnabled, settings.dialogEnabled ? 1 : 0);
+    ini.Put_Int(W3D_SECTION_SOUND, kIniValueNameAudioCinematicEnabled, settings.cinematicEnabled ? 1 : 0);
+    ini.Put_Float(W3D_SECTION_SOUND, kIniValueNameAudioSoundVolume, std::clamp(settings.soundVolume, 0.0f, 1.0f));
+    ini.Put_Float(W3D_SECTION_SOUND, kIniValueNameAudioMusicVolume, std::clamp(settings.musicVolume, 0.0f, 1.0f));
+    ini.Put_Float(W3D_SECTION_SOUND, kIniValueNameAudioDialogVolume, std::clamp(settings.dialogVolume, 0.0f, 1.0f));
+    ini.Put_Float(W3D_SECTION_SOUND, kIniValueNameAudioCinematicVolume, std::clamp(settings.cinematicVolume, 0.0f, 1.0f));
+    ini.Put_Int(W3D_SECTION_SOUND, kIniValueNameAudioSpeakerType, settings.speakerType);
 }
 
 bool SaveAudioSettingsToRegistry(const AudioSettings &settings)
@@ -372,27 +402,19 @@ namespace WWConfig
 {
 std::string GetConfigFilePath()
 {
+    if (const char *envPath = std::getenv("OPENW3D_CONFIG_INI")) {
+        if (*envPath != '\0') {
+            return std::string(envPath);
+        }
+    }
+
     if (const char *envPath = std::getenv("RENEGADE_CONFIG_INI")) {
         if (*envPath != '\0') {
             return std::string(envPath);
         }
     }
 
-#ifdef _WIN32
-    char modulePath[MAX_PATH] = {};
-    if (GetModuleFileNameA(nullptr, modulePath, MAX_PATH) > 0) {
-        std::string path(modulePath);
-        const size_t slash = path.find_last_of("\\/");
-        if (slash != std::string::npos) {
-            path.resize(slash + 1);
-        } else {
-            path.clear();
-        }
-        return path + "Renegade.ini";
-    }
-#endif
-
-    return std::string("Renegade.ini");
+    return std::string(W3D_CONF_FILE);
 }
 
 bool LoadRenderSettings(RenderSettings &settings)
@@ -610,7 +632,7 @@ bool IsDriverWarningDisabled()
 {
     const std::string iniPath = GetConfigFilePath();
     INIClass ini(iniPath.c_str());
-    const int disabled = ini.Get_Int(kIniSectionRender, kValueNameDriverWarningDisabled, 0);
+    const int disabled = ini.Get_Int(W3D_SECTION_RENDER, kValueNameDriverWarningDisabled, 0);
     return disabled >= 87;
 }
 
@@ -618,7 +640,7 @@ void SetDriverWarningDisabled(bool disabled)
 {
     const std::string iniPath = GetConfigFilePath();
     INIClass ini(iniPath.c_str());
-    ini.Put_Int(kIniSectionRender, kValueNameDriverWarningDisabled, disabled ? 87 : 0);
+    ini.Put_Int(W3D_SECTION_RENDER, kValueNameDriverWarningDisabled, disabled ? 87 : 0);
     SaveIni(ini);
 }
 
