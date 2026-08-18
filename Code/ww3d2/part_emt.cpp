@@ -107,8 +107,8 @@ ParticleEmitterClass::ParticleEmitterClass(float emit_rate, unsigned int burst_s
 	// However, it is capped both by the particle cap and by the maximum buffer size, if these are
 	// active.
 	int max_num = int(BurstSize * emit_rate * (max_age + 1));
-	if (max_particles > 0) max_num = MIN(max_num, max_particles);
-	if (max_buffer_size > 0) max_num = MIN(max_num, max_buffer_size);
+	if (max_particles > 0) max_num = std::min(max_num, max_particles);
+	if (max_buffer_size > 0) max_num = std::min(max_num, max_buffer_size);
 	max_num = std::max(max_num, 2);	// max_num of 1 causes problems
 
 	Buffer = new ParticleBufferClass(this, max_num, color, opacity, size, rotation, orient_rnd,

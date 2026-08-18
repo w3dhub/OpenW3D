@@ -624,10 +624,10 @@ void SurfaceClass::FindBB(Vector2i *min,Vector2i*max)
 			unsigned char myalpha=alpha[size-1];
 			myalpha=(myalpha>>(8-alphabits)) & mask;
 			if (myalpha) {
-				realmin.I = MIN(realmin.I, x);
-				realmax.I = MAX(realmax.I, x);
-				realmin.J = MIN(realmin.J, y);
-				realmax.J = MAX(realmax.J, y);
+				realmin.I = std::min(realmin.I, x);
+				realmax.I = std::max(realmax.I, x);
+				realmin.J = std::min(realmin.J, y);
+				realmax.J = std::max(realmax.J, y);
 			}
 		}
 	}

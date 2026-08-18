@@ -59,8 +59,8 @@ class TGAToDXTClass
 		unsigned			BufferSize;		// Size of buffer in bytes.
 		unsigned			BufferCount;	// No. of bytes written to buffer.
 
-	friend void ReadDTXnFile (DWORD count, void *buffer);
-	friend void WriteDTXnFile (DWORD datacount, void *data);
+	friend void ReadDTXnFile (unsigned count, void *buffer);
+	friend void WriteDTXnFile (unsigned datacount, void *data);
 };
 
 

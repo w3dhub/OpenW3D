@@ -1695,10 +1695,10 @@ void SoldierGameObj::Apply_Control( void )
 		}
 
 		if ( LadderUpMask ) {
-			up_down = MIN( up_down, 0 );
+			up_down = std::min( up_down, 0.0f );
 		}
 		if ( LadderDownMask ) {
-			up_down = MAX( up_down, 0 );
+			up_down = std::max( up_down, 0.0f );
 		}
 
 		// when on ladder, clear all velocity
@@ -4049,7 +4049,7 @@ void	SoldierGameObj::Exit_Destroyed_Vehicle( int seat_num, const Vector3 & vehic
 	HumanState.Set_State( HumanStateClass::UPRIGHT );
 
 	Vector3 extent = Peek_Human_Phys()->Get_Collision_Box().Extent;
-	float width = MAX( extent.X, extent.Y ) * 1.1f;
+	float width = std::max( extent.X, extent.Y ) * 1.1f;
 
 	if ( Peek_Model() ) {
 		Peek_Model()->Set_Hidden( false );

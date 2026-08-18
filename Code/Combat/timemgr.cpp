@@ -173,7 +173,7 @@ void	TimeManager::Update_Frame_Time()
 	RealFrameTicks = ticks - LastTicks;
 	LastTicks = ticks;
 
-	FrameTicks = MIN( FrameTicks, (TICKS_PER_SECOND / SLOWEST_FPS) );
+	FrameTicks = std::min( FrameTicks, (TICKS_PER_SECOND / SLOWEST_FPS) );
 
 	if ( WW3D::Get_Movie_Capture_Frame_Rate() != 0.0f ) {
 		FrameTicks = int(TICKS_PER_SECOND / WW3D::Get_Movie_Capture_Frame_Rate());

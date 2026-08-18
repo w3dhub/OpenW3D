@@ -72,22 +72,6 @@ void operator delete(void *p, size_t size) noexcept;
 #endif	//STEVES_NEW_CATCHER
 #endif	//_DEBUG
 
-/*
-** Define the MIN and MAX macros.
-** NOTE: Joe used to #include <minmax.h> in the various compiler header files.  This
-** header defines 'min' and 'max' macros which conflict with the surrender code so
-** I'm relpacing all occurances of 'min' and 'max with 'MIN' and 'MAX'.  For code which
-** is out of our domain (e.g. Max sdk) I'm declaring template functions for 'min' and 'max'
-*/
-
-#ifndef MAX
-#define MAX(a,b)            (((a) > (b)) ? (a) : (b))
-#endif
-
-#ifndef MIN
-#define MIN(a,b)            (((a) < (b)) ? (a) : (b))
-#endif
-
 /**********************************************************************
 **	This macro serves as a general way to determine the number of elements
 **	within an array.
