@@ -59,7 +59,7 @@ add_feature_info(FFMpegBuild W3D_BUILD_OPTION_FFMPEG "Build OpenW3D with FFMpeg"
 cmake_dependent_option(W3D_BUILD_OPTION_OPENAL "Build with openal." ON W3D_BUILD_OPTION_FFMPEG OFF)
 add_feature_info(OpenALBuild W3D_BUILD_OPTION_OPENAL "Build OpenW3D with OpenAL")
 
-# Do we want to build with freetype and fontconfig for font rendering?
+# Do we want to build with freetype for font rendering?
 cmake_dependent_option(W3D_BUILD_OPTION_FREETYPE "Build with freetype." OFF WIN32 ON)
 add_feature_info(FreetypeBuild W3D_BUILD_OPTION_FREETYPE "Build OpenW3D with freetype")
 
