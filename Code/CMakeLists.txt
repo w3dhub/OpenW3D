@@ -66,7 +66,7 @@ else()
     )
 endif()
 
-if(TARGET Freetype::Freetype AND TARGET Fontconfig::Fontconfig)
+if(TARGET Freetype::Freetype)
     target_compile_definitions(wwcommon INTERFACE OPENW3D_FREETYPE_BUILD)
 endif()
 
