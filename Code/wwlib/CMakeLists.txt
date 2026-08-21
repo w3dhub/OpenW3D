@@ -29,6 +29,7 @@ set(WWLIB_SRC
     mutex.cpp
     nstrdup.cpp
     openw3d.cpp
+    pathutil.cpp
     pipe.cpp
     pk.cpp
     ramfile.cpp
@@ -104,6 +105,7 @@ set(WWLIB_SRC
     nstrdup.h
     ntree.h
     openw3d.h
+    pathutil.h
     pipe.h
     pk.h
     point.h
