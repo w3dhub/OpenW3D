@@ -173,6 +173,7 @@ public:
 	** These functions allow you to create screenshots and movies.
 	*/
 	static void					Make_Screen_Shot( const char * filename = "ScreenShot");
+	static int					Make_Back_Buffer_Screen_Shot( const char * filename = "ScreenShot");
 	static void					Start_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
 	static void					Stop_Movie_Capture( void);
 	static void					Toggle_Movie_Capture( const char * filename_base = "Movie", float frame_rate = 15);
