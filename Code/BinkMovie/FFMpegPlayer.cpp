@@ -16,7 +16,7 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "FFMpegPlayer.h"
-#include "FFMpegFile.h"
+#include "FFmpegFile.h"
 #include "formconv.h"
 #include "dx8wrapper.h"
 #include "subtitlemanager.h"
