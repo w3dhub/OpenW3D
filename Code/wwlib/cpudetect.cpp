@@ -21,15 +21,26 @@
 #include "wwdebug.h"
 #include "thread.h"
 #include "mpu.h"
+#include <cinttypes>
 #include <windows.h>
 #include "systimer.h"
 
 #if CPU_X86 || CPU_X86_64
+#if defined(_WIN32)
 #include <intrin.h>
+#else
+#include <cpuid.h>
+#endif
 #endif
 
+#if defined(OPENW3D_WIN32)
 #if CPU_X86 || CPU_X86_64
 #define READ_TSC() __rdtsc()
+#else
+#error "READ_TSC() unimplemented for current cpu"
+#endif
+#elif defined(OPENW3D_SDL3)
+#include <SDL3/SDL.h>
 #else
 #error "READ_TSC() unimplemented for current cpu"
 #endif
@@ -69,13 +80,14 @@ struct OSInfoStruct {
 */
 };
 
+#ifdef OPENW3D_WIN32
 static void Get_OS_Info(
 	OSInfoStruct& os_info,
 	unsigned OSVersionPlatformId,
 	unsigned OSVersionNumberMajor,
 	unsigned OSVersionNumberMinor,
 	unsigned OSVersionBuildNumber);
-
+#endif
 
 StringClass CPUDetectClass::ProcessorLog;
 StringClass CPUDetectClass::CompactLog;
@@ -84,7 +96,7 @@ int CPUDetectClass::ProcessorType;
 int CPUDetectClass::ProcessorFamily;
 int CPUDetectClass::ProcessorModel;
 int CPUDetectClass::ProcessorRevision;
-int CPUDetectClass::ProcessorSpeed;
+uint64_t CPUDetectClass::ProcessorSpeed;
 int64_t CPUDetectClass::ProcessorTicksPerSecond;	// Ticks per second
 double CPUDetectClass::InvProcessorTicksPerSecond;	// 1.0 / Ticks per second
 
@@ -104,17 +116,23 @@ unsigned CPUDetectClass::L1InstructionTraceCacheSize;
 unsigned CPUDetectClass::L1InstructionTraceCacheSetAssociative;
 
 unsigned CPUDetectClass::TotalPhysicalMemory;
+#ifdef OPENW3D_WIN32
 unsigned CPUDetectClass::AvailablePhysicalMemory;
 unsigned CPUDetectClass::TotalPageMemory;
 unsigned CPUDetectClass::AvailablePageMemory;
 unsigned CPUDetectClass::TotalVirtualMemory;
 unsigned CPUDetectClass::AvailableVirtualMemory;
+#endif
 
+#ifdef OPENW3D_WIN32
 unsigned CPUDetectClass::OSVersionNumberMajor;
 unsigned CPUDetectClass::OSVersionNumberMinor;
 unsigned CPUDetectClass::OSVersionBuildNumber;
 unsigned CPUDetectClass::OSVersionPlatformId;
 StringClass CPUDetectClass::OSVersionExtraInfo;
+#elif defined(OPENW3D_SDL3)
+StringClass CPUDetectClass::PlatformName;
+#endif
 
 bool CPUDetectClass::HasCPUIDInstruction=false;
 bool CPUDetectClass::HasRDTSCInstruction=false;
@@ -151,24 +169,32 @@ const char* CPUDetectClass::Get_Processor_Manufacturer_Name()
 	return ManufacturerNames[ProcessorManufacturer];
 }
 
-static unsigned Calculate_Processor_Speed(int64_t& ticks_per_second)
+static uint64_t Calculate_Processor_Speed(int64_t& ticks_per_second)
 {
+#if defined(OPENW3D_WIN32)
 	struct {
-		int64_t timer0;
-		int64_t timer1;
-	} Time;
+		int64_t tick0;
+		int64_t tick1;
+	} Ticks;
 
-	Time.timer0 = READ_TSC();
+	Ticks.tick0 = READ_TSC();
+	static constexpr unsigned PERIOD = 200;
 
 	unsigned start=TIMEGETTIME();
-	unsigned elapsed;
+	unsigned elapsed_time;
 	do {
-		Time.timer1 = READ_TSC();
-	} while ((elapsed=TIMEGETTIME()-start)<200);
+		Ticks.tick1 = READ_TSC();
+	} while ((elapsed_time=TIMEGETTIME()-start)<PERIOD);
 
-	int64_t t=Time.timer1-Time.timer0;
-	ticks_per_second=(1000/200)*t;	// Ticks per second
-	return unsigned(t/(elapsed*1000));
+	int64_t delta_ticks = Ticks.tick1 - Ticks.tick0;
+	ticks_per_second = (1000 / PERIOD) * delta_ticks;	// Ticks per second
+	return unsigned(delta_ticks / (elapsed_time * 1000));
+#elif defined(OPENW3D_SDL3)
+	ticks_per_second = SDL_GetPerformanceFrequency();
+	return ticks_per_second;
+#else
+#error "Not implemented"
+#endif
 }
 
 void CPUDetectClass::Init_Processor_Speed()
@@ -177,12 +203,13 @@ void CPUDetectClass::Init_Processor_Speed()
 		ProcessorSpeed=0;
 		return;
 	}
+	static constexpr int SAMPLE_COUNT = 5;
 
 	// Loop until two subsequent samples are within 5% of each other (max 5 iterations).
-	unsigned speed1=Calculate_Processor_Speed(ProcessorTicksPerSecond);
-	unsigned total_speed=speed1;
-	for (int i=0;i<5;++i) {
-		unsigned speed2=Calculate_Processor_Speed(ProcessorTicksPerSecond);
+	uint64_t speed1=Calculate_Processor_Speed(ProcessorTicksPerSecond);
+	uint64_t total_speed=speed1;
+	for (int i=0;i<SAMPLE_COUNT;++i) {
+		uint64_t speed2=Calculate_Processor_Speed(ProcessorTicksPerSecond);
 		float rel=float(speed1)/float(speed2);
 		if (rel>=0.95f && rel<=1.05f) {
 			ProcessorSpeed=(speed1+speed2)/2;
@@ -193,7 +220,7 @@ void CPUDetectClass::Init_Processor_Speed()
 		total_speed+=speed2;
 	}
 	// If no two subsequent samples where close enough, use intermediate
-	ProcessorSpeed=total_speed/6;
+	ProcessorSpeed=total_speed/(SAMPLE_COUNT+1);
 	InvProcessorTicksPerSecond=1.0/double(ProcessorTicksPerSecond);
 }
 
@@ -890,18 +917,25 @@ void CPUDetectClass::Init_Processor_Features()
 
 void CPUDetectClass::Init_Memory()
 {
+#if defined(OPENW3D_WIN32)
 	MEMORYSTATUS mem;
 	GlobalMemoryStatus(&mem);
-	TotalPhysicalMemory=mem.dwTotalPhys;
-	AvailablePhysicalMemory=mem.dwAvailPhys;
-	TotalPageMemory=mem.dwTotalPageFile;
-	AvailablePageMemory=mem.dwAvailPageFile;
-	TotalVirtualMemory=mem.dwTotalVirtual;
-	AvailableVirtualMemory=mem.dwAvailVirtual;
+	TotalPhysicalMemory = mem.dwTotalPhys;
+	AvailablePhysicalMemory = mem.dwAvailPhys;
+	TotalPageMemory = mem.dwTotalPageFile;
+	AvailablePageMemory = mem.dwAvailPageFile;
+	TotalVirtualMemory = mem.dwTotalVirtual;
+	AvailableVirtualMemory = mem.dwAvailVirtual;
+#elif defined(OPENW3D_SDL3)
+	TotalPhysicalMemory = SDL_GetSystemRAM();
+#else
+#error "Not implemented"
+#endif
 }
 
 void CPUDetectClass::Init_OS()
 {
+#if defined(OPENW3D_WIN32)
 	// GetVersionEx only returns the version of Windows it was manifested for since Windows 8.
 	// RtlGetVersion returns the correct information at least at the time of writing.
 	typedef LONG(WINAPI * RtlGetVersionFuncPtr)(PRTL_OSVERSIONINFOW);
@@ -927,6 +961,10 @@ void CPUDetectClass::Init_OS()
 	OSVersionBuildNumber = 0;
 	OSVersionPlatformId = 2;
     OSVersionExtraInfo = "";
+#elif defined(OPENW3D_SDL3)
+	PlatformName = SDL_GetPlatform();
+#else
+#endif
 }
 
 bool CPUDetectClass::CPUID(
@@ -940,6 +978,7 @@ bool CPUDetectClass::CPUID(
 	if (!Has_CPUID_Instruction()) {
 		return false;	// Most processors since 486 have CPUID...
 	}
+#ifdef _WIN32
 	int cpuInfo[4];
 	__cpuid(cpuInfo, cpuid_type);
 
@@ -947,6 +986,9 @@ bool CPUDetectClass::CPUID(
 	u_ebx_=cpuInfo[1];
 	u_ecx_=cpuInfo[2];
 	u_edx_=cpuInfo[3];
+#else
+	__cpuid(cpuid_type, u_eax_, u_ebx_, u_ecx_, u_edx_);
+#endif
 
 	return true;
 #else
@@ -960,6 +1002,7 @@ void CPUDetectClass::Init_Processor_Log()
 {
 	StringClass work(0,true);
 
+#if defined(OPENW3D_WIN32)
 	SYSLOG(("Operating System: "));
 	switch (OSVersionPlatformId) {
 	case VER_PLATFORM_WIN32s: SYSLOG(("Windows 3.1")); break;
@@ -968,15 +1011,19 @@ void CPUDetectClass::Init_Processor_Log()
 	}
 	SYSLOG(("\r\n"));
 
-	SYSLOG(("Operating system version %d.%d\r\n",OSVersionNumberMajor,OSVersionNumberMinor));
-	SYSLOG(("Operating system build: %d.%d.%d\r\n",
+	SYSLOG(("Windows version %d.%d\r\n",OSVersionNumberMajor,OSVersionNumberMinor));
+	SYSLOG(("Windows build: %d.%d.%d\r\n",
 		(OSVersionBuildNumber&0xff000000)>>24,
 		(OSVersionBuildNumber&0xff0000)>>16,
 		(OSVersionBuildNumber&0xffff)));
-	SYSLOG(("OS-Info: %s\r\n",OSVersionExtraInfo.Peek_Buffer()));
+	SYSLOG(("Windows extra info: %s\r\n",OSVersionExtraInfo.Peek_Buffer()));
+#elif defined(OPENW3D_SDL3)
+	SYSLOG(("SDL3 Platform %s\r\n", PlatformName.Peek_Buffer()));
+#else
+#endif
 
 	SYSLOG(("Processor: %s\r\n",CPUDetectClass::Get_Processor_String()));
-	SYSLOG(("Clock speed: ~%dMHz\r\n",CPUDetectClass::Get_Processor_Speed()));
+	SYSLOG(("Clock speed: ~%" PRIu64 "MHz\r\n",CPUDetectClass::Get_Processor_Speed()));
 	StringClass cpu_type(0,true);
 	switch (CPUDetectClass::Get_Processor_Type()) {
 	case 0: cpu_type="Original OEM"; break;
@@ -989,11 +1036,13 @@ void CPUDetectClass::Init_Processor_Log()
 	SYSLOG(("\r\n"));
 
 	SYSLOG(("Total physical memory: %dMb\r\n",Get_Total_Physical_Memory()/(1024*1024)));
+#ifdef OPENW3D_WIN32
 	SYSLOG(("Available physical memory: %dMb\r\n",Get_Available_Physical_Memory()/(1024*1024)));
 	SYSLOG(("Total page file size: %dMb\r\n",Get_Total_Page_File_Size()/(1024*1024)));
 	SYSLOG(("Total available page file size: %dMb\r\n",Get_Available_Page_File_Size()/(1024*1024)));
 	SYSLOG(("Total virtual memory: %dMb\r\n",Get_Total_Virtual_Memory()/(1024*1024)));
 	SYSLOG(("Available virtual memory: %dMb\r\n",Get_Available_Virtual_Memory()/(1024*1024)));
+#endif
 
 	SYSLOG(("\r\n"));
 
@@ -1058,6 +1107,8 @@ void CPUDetectClass::Init_Processor_Log()
 void CPUDetectClass::Init_Compact_Log()
 {
 	StringClass work(0,true);
+#if defined(OPENW3D_WIN32)
+	COMPACTLOG(("WIN32\t"));
 
 	TIME_ZONE_INFORMATION time_zone;
 	GetTimeZoneInformation(&time_zone);
@@ -1073,6 +1124,19 @@ void CPUDetectClass::Init_Compact_Log()
 	else {
 		COMPACTLOG(("%s\t",os_info.SubCode));
 	}
+#elif defined(OPENW3D_SDL3)
+	COMPACTLOG(("SDL3\t"));
+
+	SDL_Time now = 0;
+	SDL_DateTime datetime_now;
+	SDL_GetCurrentTime(&now);
+	SDL_TimeToDateTime(now, &datetime_now, true);
+	COMPACTLOG(("%d\t", datetime_now.utc_offset));
+
+	COMPACTLOG(("%s\t", PlatformName.Peek_Buffer()));
+#else
+#error "Not implemented"
+#endif
 
 	COMPACTLOG(("%s\t%d\t",Get_Processor_Manufacturer_Name(),Get_Processor_Speed()));
 
@@ -1106,7 +1170,8 @@ public:
 } _CPU_Detect_Init;
 
 
-OSInfoStruct Windows9xVersionTable[]={
+#ifdef OPENW3D_WIN32
+static OSInfoStruct Windows9xVersionTable[]={
 	{"WIN95",	"FINAL",		"Windows 95",								4,0,950,			4,0,950		},
 	{"WIN95",	"A",			"Windows 95a OSR1 final Update",		4,0,950,			4,0,951		},
 	{"WIN95",	"B20OEM",	"Windows 95B OSR 2.0 final OEM",		4,0,950,			4,0,1111		},
@@ -1319,3 +1384,4 @@ void Get_OS_Info(
 		return;
 	}
 }
+#endif
