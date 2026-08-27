@@ -173,7 +173,7 @@ public:
 
 	// Note that processor speed is only calculated at start and could change during execution, so
 	// this number is not to be relied on!
-	inline static int Get_Processor_Speed() { return ProcessorSpeed; }
+	inline static uint64_t Get_Processor_Speed() { return ProcessorSpeed; }
 	inline static int64_t Get_Processor_Ticks_Per_Second() { return ProcessorTicksPerSecond; }	// Ticks per second
 	inline static double Get_Inv_Processor_Ticks_Per_Second() { return InvProcessorTicksPerSecond; }	// 1.0 / Ticks per second
 
@@ -201,11 +201,13 @@ public:
 
 	// System memory
 	static unsigned Get_Total_Physical_Memory() { return TotalPhysicalMemory; }
+#if defined(OPENW3D_WIN32)
 	static unsigned Get_Available_Physical_Memory() { return AvailablePhysicalMemory; }
 	static unsigned Get_Total_Page_File_Size() { return TotalPageMemory; }
 	static unsigned Get_Available_Page_File_Size() { return AvailablePageMemory; }
 	static unsigned Get_Total_Virtual_Memory() { return TotalVirtualMemory; }
 	static unsigned Get_Available_Virtual_Memory() { return AvailableVirtualMemory; }
+#endif
 
 	static unsigned Get_Processor_Type() { return ProcessorType; }
 
@@ -253,7 +255,7 @@ private:
 	static int ProcessorFamily;
 	static int ProcessorModel;
 	static int ProcessorRevision;
-	static int ProcessorSpeed;
+	static uint64_t ProcessorSpeed;
 	static int64_t ProcessorTicksPerSecond;	// Ticks per second
 	static double InvProcessorTicksPerSecond;	// 1.0 / Ticks per second
 
@@ -292,11 +294,15 @@ private:
 	static unsigned TotalVirtualMemory;
 	static unsigned AvailableVirtualMemory;
 
+#ifdef OPENW3D_WIN32
 	static unsigned OSVersionNumberMajor;
 	static unsigned OSVersionNumberMinor;
 	static unsigned OSVersionBuildNumber;
 	static unsigned OSVersionPlatformId;
 	static StringClass OSVersionExtraInfo;
+#elif defined(OPENW3D_SDL3)
+	static StringClass PlatformName;
+#endif
 
 	static bool HasCPUIDInstruction;
 	static bool HasRDTSCInstruction;
