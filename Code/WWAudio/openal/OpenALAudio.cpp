@@ -17,7 +17,7 @@
 */
 
 #include "OpenALAudio.h"
-#include "FFmpegBuffer.h"
+#include "FFMpegBuffer.h"
 #include "OpenALHandle.h"
 #include "SoundScene.h"
 #include "Threads.h"
