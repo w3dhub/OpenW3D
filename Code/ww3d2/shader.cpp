@@ -357,7 +357,7 @@ void ShaderClass::Report_Unable_To_Fog ([[maybe_unused]] const char *source)
 		_reportcount++;
 	} else {
 		if (_reportcount == maxreportcount) {
-			WWDEBUG_SAY ((unabletofogmoretext));
+			WWDEBUG_SAY (("%s", unabletofogmoretext));
 			_reportcount++;
 		}
 	}

@@ -172,9 +172,9 @@ void	ConsoleFunctionClass::Print( const char *format, ... )
 	string.Format_Args( format, arg_list );
 	if (Get_Text_Display()) {
 		WWASSERT( Get_Text_Display() );
-		Get_Text_Display()->Print_System( string );
+		Get_Text_Display()->Print_System( "%s", string.Peek_Buffer() );
 	}
-	ConsoleBox.Print(string.Peek_Buffer());
+	ConsoleBox.Print("%s", string.Peek_Buffer());
 	va_end (arg_list);
 }
 
@@ -358,7 +358,7 @@ public:
 			else {
 				tmp.Format("Texture %s (id=%d) set not flashing\n",tfc->Get_File_Name(),tfc->ID());
 			}
-			Print(tmp);
+			Print("%s", tmp.Peek_Buffer());
 		}
 #endif //WW3D_DX8
 	}
@@ -392,7 +392,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -406,7 +406,7 @@ public:
 		const char *_statusstring [2] = {"Fog disabled\n", "Fog enabled\n"};
 
 		WeatherMgrClass::Set_Fog_Enable (!WeatherMgrClass::Get_Fog_Enable());
-		Print (_statusstring [WeatherMgrClass::Get_Fog_Enable()]);
+		Print ("%s", _statusstring [WeatherMgrClass::Get_Fog_Enable()]);
 	}
 };
 
@@ -457,7 +457,7 @@ class LightLODConsoleFunctionClass : public ConsoleFunctionClass {
 		if (sscanf(input, "%f", &inten) == 1) {
 			COMBAT_SCENE->Set_Lighting_LOD_Cutoff(inten);
 		}
-		Print("Lighting LOD: %d\r\n",COMBAT_SCENE->Get_Lighting_LOD_Cutoff());
+		Print("Lighting LOD: %2.2f\r\n",COMBAT_SCENE->Get_Lighting_LOD_Cutoff());
 	}
 };
 
@@ -752,7 +752,7 @@ class ShadowResolutionConsoleFunctionClass : public ConsoleFunctionClass
 	{
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
 		scene->Set_Shadow_Resolution(int(strtof(input, nullptr)));
-		Print("shadow resolution set to: %f\n",scene->Get_Shadow_Resolution());
+		Print("shadow resolution set to: %u\n",scene->Get_Shadow_Resolution());
 	}
 };
 
@@ -764,7 +764,7 @@ class ShadowCountConsoleFunctionClass : public ConsoleFunctionClass
 	{
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
 		scene->Set_Max_Simultaneous_Shadows(int(strtof(input, nullptr)));
-		Print("simultaneous shadow count set to: %f\n",scene->Get_Max_Simultaneous_Shadows());
+		Print("simultaneous shadow count set to: %u\n",scene->Get_Max_Simultaneous_Shadows());
 	}
 };
 
@@ -876,7 +876,7 @@ public:
 
          Print( "One Shot Kills: %s\n", osk ? "ON" : "OFF");
 		} else {
-         Print(Get_Help());
+         Print("%s",Get_Help());
 		}
 	}
 };
@@ -898,7 +898,7 @@ public:
 			sprintf(open_command, "data/%s.ini", filename);
 			cNetwork::Shell_Command(open_command);
 		} else {
-		   Print(Get_Help());
+		   Print("%s",Get_Help());
 		}
 	}
 };
@@ -945,7 +945,7 @@ public:
 		};
 
 		WW3D::Expose_Prelit (!WW3D::Expose_Prelit());
-		Print (_comment [WW3D::Expose_Prelit() ? 1 : 0]);
+		Print ("%s", _comment [WW3D::Expose_Prelit() ? 1 : 0]);
 	}
 };
 
@@ -1302,7 +1302,7 @@ public:
 		if (cNetwork::I_Am_God()) {
 			PlayerTerminalClass::Get_Instance ()->Display_Default_Terminal_For_Player (COMBAT_STAR);
 		} else {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 		}
 	}
 };
@@ -1605,8 +1605,8 @@ public:
 			DebugManager::Disable_Type( (DebugManager::DebugType)-1 );
 			sprintf(str, "All Debug Types Disabled\n" );
 		}
-		Print(str);
-		Debug_Say((str));
+		Print("%s", str);
+		Debug_Say(("%s", str));
 	}
 };
 
@@ -1655,7 +1655,7 @@ public:
 			cChangeTeamEvent * p_event = new cChangeTeamEvent;
 			p_event->Init();
 		} else {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 		}
 	}
 };
@@ -1718,7 +1718,7 @@ public:
 		*/
 
       if (IS_SOLOPLAY || !cNetwork::I_Am_Server() || ::strlen(input) == 0) {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		} else {
 			cConsoleCommandEvent * p_event = new cConsoleCommandEvent;
 			p_event->Init(input);
@@ -1738,7 +1738,7 @@ public:
 			cCsConsoleCommandEvent * p_event = new cCsConsoleCommandEvent;
 			p_event->Init(input);
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -1768,7 +1768,7 @@ public:
 			cUserOptions::MaxFacingPenalty.Set(f);
          Print( "MaxFacingPenalty set to %5.2f.", f);
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -1786,7 +1786,7 @@ public:
 			cUserOptions::IrrelevancePenalty.Set(f);
          Print( "IrrelevancePenalty set to %5.2f.", f);
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -1802,7 +1802,7 @@ public:
 		} else if (!stricmp(input, "failure")) {
 			CombatManager::Mission_Complete(false);
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -1821,7 +1821,7 @@ public:
 			cMoneyEvent * p_money = new cMoneyEvent;
 			p_money->Init(amount);
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -1840,7 +1840,7 @@ public:
 			cScoreEvent * p_score = new cScoreEvent;
 			p_score->Init(amount);
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -1870,7 +1870,7 @@ public:
          cNetwork::Set_Simulated_Packet_Loss_Pc((int)percentage);
 			ConsoleFunctionManager::Parse_Input("clear ns"); // reset stats
       } else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
       }
    }
 };
@@ -1887,7 +1887,7 @@ public:
 			bool is_enabled = cSbboManager::Toggle_Is_Enabled();
 			Print("cSbboManager %s enabled.\n", is_enabled ? "IS" : "is NOT");
 		} else {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 		}
 	}
 };
@@ -2057,7 +2057,7 @@ public:
          cNetwork::Set_Desired_Frame_Sleep_Ms(desired_sleep);
          Print( "Frame sleep set to %d ms.", desired_sleep );
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -2074,7 +2074,7 @@ public:
          cNetwork::Set_Simulated_Packet_Duplication_Pc((int)percentage);
 			ConsoleFunctionManager::Parse_Input("clear ns"); // reset stats
       } else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
       }
    }
 };
@@ -2095,7 +2095,7 @@ public:
          min_latency_ms <= max_latency_ms) {
          cNetwork::Set_Simulated_Latency_Range_Ms(min_latency_ms, max_latency_ms);
       } else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
       }
 	}
 };
@@ -2113,7 +2113,7 @@ public:
          cNetwork::Set_Spam_Count(spam_count);
          //Print( "Spam Count set to %d ms.", desired_sleep );
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -2174,7 +2174,7 @@ public:
 			cUserOptions::ClientHintFactor.Set(chf);
          Print( "ClientHintFactor set to %5.2f.", chf);
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -2204,7 +2204,7 @@ public:
 				}
 			}
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -2246,7 +2246,7 @@ public:
 			}
 
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -2274,7 +2274,7 @@ public:
 		      Print("Failed to create %s.", input);
          }
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -2342,7 +2342,7 @@ public:
 				Print("Use FREE_WEAPONS instead in a multiplayer game.\n");
 			}
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -2366,7 +2366,7 @@ public:
 
 		} else {
 
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -2812,7 +2812,7 @@ public:
 				}
 			}
 		} else {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 		}
 	}
 };
@@ -2918,7 +2918,7 @@ public:
 
 		/*
 		if (!cNetwork::I_Am_Server()) {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 			return;
 		}
 		*/
@@ -2943,7 +2943,7 @@ public:
 				}
 				return;
 			} else if (!cNetwork::I_Am_Server()) {
-				Print(Get_Help());
+				Print("%s", Get_Help());
 				return;
 			}
 
@@ -2995,7 +2995,7 @@ public:
 			Print("Killed a total of %d objects. Hope you're happy now.\n", count);
 
 		} else {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 			Print("\n  Object types: vehicles, soldiers, commandos, powerups, c4s, armeds, smarts, all\n");
 		}
 	}
@@ -3226,7 +3226,7 @@ public:
 			TimeManager::Set_Time_Scale( scale );
 			Print( "TimeScaling %f\n", scale );
 		} else {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 		}
 	}
 };
@@ -3286,7 +3286,7 @@ public:
 	virtual	void Activate( const char * /* input */ ) override {
 		static char dump_buffer[1024];
 		GenericDataSafeClass::Dump_Safe_Stats(dump_buffer, 1024);
-		Print(dump_buffer);
+		Print("%s", dump_buffer);
 	}
 };
 
@@ -3477,8 +3477,8 @@ public:
 			DebugManager::Disable_Device( (DebugManager::DebugDevice)-1 );
 			sprintf(str, "All Debug Devices Disabled\n" );
 		}
-		Print(str);
-		Debug_Say((str));
+		Print("%s", str);
+		Debug_Say(("%s", str));
 	}
 };
 
@@ -3496,7 +3496,7 @@ public:
 			cScTextObj * p_message = new cScTextObj;
 			p_message->Init(widestring, TEXT_MESSAGE_PUBLIC, true, HOST_TEXT_SENDER, -1);
 		} else {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 		}
 	}
 };
@@ -3516,7 +3516,7 @@ public:
 			cScTextObj *event_obj = new cScTextObj;
 			event_obj->Init(widestring, TEXT_MESSAGE_PUBLIC, false, HOST_TEXT_SENDER, -1);
 		} else {
-			Print(Get_Help());
+			Print("%s", Get_Help());
 		}
 	}
 };
@@ -3687,7 +3687,7 @@ public:
 			p_event->Init(amount, p_recipient->Get_Id());
 
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -3851,7 +3851,7 @@ public:
 			cUserOptions::NetUpdateRate.Set(rate);
          Print( "NetUpdateRate set to %d.", rate);
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -3926,27 +3926,25 @@ public:
 
 					char buf[256];
 					sprintf(buf, "     Map : %s\n", The_Game()->Get_Map_Name().Peek_Buffer());
-					ConsoleBox.Print(buf);
+					ConsoleBox.Print("%s", buf);
 
 					sprintf(buf, "    Time : %d.%02d.%02d\n", hours, minutes, seconds);
-					ConsoleBox.Print(buf);
+					ConsoleBox.Print("%s", buf);
 
 					sprintf(buf, "     Fps : %d\n", cNetwork::Get_Fps());
-					ConsoleBox.Print(buf);
+					ConsoleBox.Print("%s", buf);
 
 					sprintf(buf, "     GDI : %d/%d players      %d points\n",
 						cPlayerManager::Tally_Team_Size(PLAYERTYPE_GDI),
 						The_Game()->Get_Max_Players(),
 						(int)cTeamManager::Find_Team(PLAYERTYPE_GDI)->Get_Score());
-					ConsoleBox.Print(buf);
+					ConsoleBox.Print("%s", buf);
 
 					sprintf(buf, "     NOD : %d/%d players      %d points\n",
 						cPlayerManager::Tally_Team_Size(PLAYERTYPE_NOD),
 						The_Game()->Get_Max_Players(),
 						(int)cTeamManager::Find_Team(PLAYERTYPE_NOD)->Get_Score());
-					ConsoleBox.Print(buf);
-
-					ConsoleBox.Print("\n");
+					ConsoleBox.Print("%s\n", buf);
 				}
 			}
 		}
@@ -4409,7 +4407,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -4440,7 +4438,7 @@ public:
 
 		} else {
 
-			Print(Get_Help());
+			Print("%s", Get_Help());
 		}
 	}
 };
@@ -4473,7 +4471,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -4539,7 +4537,7 @@ public:
 
 		} else {
 
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -4623,7 +4621,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -4659,7 +4657,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -4678,7 +4676,7 @@ public:
 			p_warp->Init(player_name);
 
 		} else {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		}
 	}
 };
@@ -4692,7 +4690,7 @@ public:
 		cPlayer * p_player = cPlayerManager::Find_Player(input);
 
 		if (!cNetwork::I_Am_Server() || p_player == nullptr) {
-		   Print(Get_Help());
+		   Print("%s", Get_Help());
 		} else {
 
 			ULONG ip = p_player->Get_Ip_Address();
@@ -4736,7 +4734,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -4768,7 +4766,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -4800,7 +4798,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -4843,7 +4841,7 @@ public:
 				// Do nothing.
 				break;
 		}
-		if (success) Print (feedbackstring);
+		if (success) Print ("%s", feedbackstring);
 	}
 };
 
@@ -5238,7 +5236,7 @@ void	ConsoleFunctionManager::Help(	const char * function_name )
 			strcat( string, function->Get_Name() );
 			if ( ( strlen( string ) > (sizeof( string ) / 2) ) || (index == FunctionList.Count()-1) ) {
 				strcat( string, "\n" );
-				Print( string );
+				Print( "%s", string );
 				*string = 0;
 			}
 		}
@@ -5247,7 +5245,7 @@ void	ConsoleFunctionManager::Help(	const char * function_name )
 		for (	int index = 0; index < FunctionList.Count(); index++) {
 			ConsoleFunctionClass * function = FunctionList[index];
 			if ( !stricmp( function->Get_Name(), function_name ) ) {
-		      Print( function->Get_Help() );
+		      Print( "%s", function->Get_Help() );
 				return;
 			}
 		}
@@ -5481,8 +5479,8 @@ void	ConsoleFunctionManager::Print( const char *format, ... )
 	string.Format_Args( format, arg_list );
 	if (Get_Text_Display()) {
 		WWASSERT( Get_Text_Display() );
-		Get_Text_Display()->Print_System( string );
+		Get_Text_Display()->Print_System( "%s", string.Peek_Buffer() );
 	}
-	ConsoleBox.Print(string.Peek_Buffer());
+	ConsoleBox.Print("%s", string.Peek_Buffer());
 	va_end (arg_list);
 }

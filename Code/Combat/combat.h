@@ -171,9 +171,9 @@ public:
 
 	// Latency support
 	static	void	Set_Last_Round_Trip_Ping_Ms( DWORD ping )		{ LastRoundTripPingMs = ping; }
-	static	DWORD	Get_Last_Round_Trip_Ping_Ms( void )				{ return LastRoundTripPingMs; }
+	static	unsigned int	Get_Last_Round_Trip_Ping_Ms( void )				{ return LastRoundTripPingMs; }
 	static	void	Set_Avg_Round_Trip_Ping_Ms( DWORD ping )		{ AvgRoundTripPingMs = ping; }
-	static	DWORD	Get_Avg_Round_Trip_Ping_Ms( void )				{ return AvgRoundTripPingMs; }
+	static	unsigned int	Get_Avg_Round_Trip_Ping_Ms( void )				{ return AvgRoundTripPingMs; }
 
 	// Network Handler Functions
 	static	void	Set_Combat_Network_Handler( CombatNetworkHandlerClass * handler )	{ NetworkHandler = handler; }
@@ -337,8 +337,8 @@ private:
 	/*
 	** Latency Support
 	*/
-	static DWORD	LastRoundTripPingMs;
-	static DWORD	AvgRoundTripPingMs;
+	static unsigned int	LastRoundTripPingMs;
+	static unsigned int	AvgRoundTripPingMs;
 
 	static StringClass	LastLSDName;
 

@@ -107,6 +107,6 @@ void DX8PolygonRendererClass::Log()
 		vertex_index_range,
 		mmc->ident,
 		mmc->Get_Name());
-*/	WWDEBUG_SAY((work));
+*/	WWDEBUG_SAY(("%s", work.Peek_Buffer()));
 }
 

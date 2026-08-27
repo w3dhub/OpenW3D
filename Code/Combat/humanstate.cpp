@@ -1454,7 +1454,7 @@ void	HumanStateClass::Complete_Jump( void )
 		if (	(HumanPhys->Peek_Ground_Object() != nullptr) &&
 				(HumanPhys->Peek_Ground_Object()->As_ElevatorPhysClass() != nullptr))
 		{
-			Debug_Say(( "Fell onto an elevator, no damage!\n", scale ));
+			Debug_Say(( "Fell onto an elevator, no damage!\n" ));
 			scale = 0.0f;
 		}
 

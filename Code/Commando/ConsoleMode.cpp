@@ -391,7 +391,7 @@ void ConsoleModeClass::Print_Maybe(char const * string, ...)
  *=============================================================================================*/
 void ConsoleModeClass::Static_Print_Maybe(char const * string, ...)
 {
-	ConsoleBox.Print_Maybe(string);
+	ConsoleBox.Print_Maybe("%s", string);
 }
 
 
@@ -923,7 +923,7 @@ void ConsoleModeClass::Update_Profile(StringClass profile_string)
 			/*
 			** Print out the profile info.
 			*/
-			Print(str);
+			Print("%s", str);
 
 			/*
 			** Move the cursor back up to the original position.

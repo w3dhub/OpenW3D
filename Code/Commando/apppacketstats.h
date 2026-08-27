@@ -54,23 +54,23 @@ public:
 	static void				Update_Object_Tally(void);
 
 	static void				Increment_Packets_Sent(BYTE app_packet_type);
-	static void				Increment_Bits_Sent(BYTE app_packet_type, DWORD bits);
-	static void				Increment_Bits_Sent_Tier(BYTE app_packet_type, PACKET_TIER_ENUM tier, DWORD bits);
+	static void				Increment_Bits_Sent(BYTE app_packet_type, unsigned int bits);
+	static void				Increment_Bits_Sent_Tier(BYTE app_packet_type, PACKET_TIER_ENUM tier, unsigned int bits);
 
-	static DWORD			Get_Packets_Sent(BYTE app_packet_type);
-	static DWORD			Get_Bits_Sent(BYTE app_packet_type);
-	static DWORD			Get_Bits_Sent_Tier(BYTE app_packet_type, PACKET_TIER_ENUM tier);
+	static unsigned int		Get_Packets_Sent(BYTE app_packet_type);
+	static unsigned int		Get_Bits_Sent(BYTE app_packet_type);
+	static unsigned int		Get_Bits_Sent_Tier(BYTE app_packet_type, PACKET_TIER_ENUM tier);
 
-	static DWORD			Get_Object_Tally(BYTE app_packet_type);
+	static unsigned int		Get_Object_Tally(BYTE app_packet_type);
 
 	static StringClass &	Get_Heading(void);
 	static StringClass &	Get_Description(BYTE app_packet_type);
 
 private:
-	static DWORD			PacketsSent[APPPACKETTYPE_COUNT];
-	static DWORD			BitsSent[APPPACKETTYPE_COUNT];
-	static DWORD			BitsSentTier[APPPACKETTYPE_COUNT][PACKET_TIER_COUNT];
-	static DWORD			ObjectTally[APPPACKETTYPE_COUNT];
+	static unsigned int		PacketsSent[APPPACKETTYPE_COUNT];
+	static unsigned int		BitsSent[APPPACKETTYPE_COUNT];
+	static unsigned int		BitsSentTier[APPPACKETTYPE_COUNT][PACKET_TIER_COUNT];
+	static unsigned int		ObjectTally[APPPACKETTYPE_COUNT];
 
 	static StringClass	WorkingString;
 };

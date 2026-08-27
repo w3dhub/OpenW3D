@@ -532,10 +532,10 @@ WWPROFILE( "Input Active" );
 					"total size of textures: %d.%dMb\n"
 					"\n"
 					"total lightmaps: %5d\n"
-					"total size of lightmaps: %dMb\n"
+					"total size of lightmaps: %d.%dMb\n"
 					"\n"
 					"total procedural textures: %5d\n"
-					"total size of procedural textures: %dMb\n"
+					"total size of procedural textures: %d.%dMb\n"
 					,
 					TextureClass::_Get_Total_Texture_Count(),
 					red_size>>20,

@@ -283,10 +283,10 @@ void PlayerInfoLog::Append_To_Log(PlayerDataClass* data)
 	ADD_HISTORY(("Powerups collected: %d\r\n",data->Get_Powerups_Collected()));
 	ADD_HISTORY(("Vehicles destroyed: %d\r\n",data->Get_Vehiclies_Destroyed()));
 	ADD_HISTORY(("Buildings destroyed: %d\r\n",data->Get_Building_Destroyed()));
-	ADD_HISTORY(("Time in vehicles: %d\r\n",data->Get_Vehicle_Time()));
+	ADD_HISTORY(("Time in vehicles: %2.2f\r\n",data->Get_Vehicle_Time()));
 	ADD_HISTORY(("Kills from vehicles: %d\r\n",data->Get_Kills_From_Vehicle()));
 	ADD_HISTORY(("Squishes: %d\r\n",data->Get_Squishes()));
-	ADD_HISTORY(("Credits granted: %d\r\n",data->Get_Credit_Grant()));
+	ADD_HISTORY(("Credits granted: %2.2f\r\n",data->Get_Credit_Grant()));
 	ADD_HISTORY(("Times reloaded: %d\r\n",CombatManager::Get_Reload_Count()));
 	ADD_HISTORY(("Cheats used: %s\r\n",CheatMgrClass::Get_Instance()->Was_Cheat_Used( CheatMgrClass::ALL_CHEATS ) ? "Yes" : "No"));
 	ADD_HISTORY(("Secondary objectives completed: %d\r\n",ObjectiveManager::Get_Num_Completed_Objectives( ObjectiveManager::TYPE_SECONDARY )));

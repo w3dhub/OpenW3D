@@ -459,7 +459,7 @@ void DirectInput::ReadKeyboard( void )
 				continue;
 
 			} else {
-				Debug_Say(( "DirectInput GetDeviceState FAILED %x\n", hr ));
+				Debug_Say(( "DirectInput GetDeviceState FAILED 0x%lx\n", hr ));
 				return;
 			}
 		}
@@ -575,7 +575,7 @@ void DirectInput::ReadMouse( void )
 				continue;
 
 			} else {
-				Debug_Say(( "DirectInput mouse GetDeviceState FAILED %x\n", hr ));
+				Debug_Say(( "DirectInput mouse GetDeviceState FAILED 0x%lx\n", hr ));
 				return;
 			}
 		}
@@ -685,7 +685,7 @@ retry_joystick:
 
 	hr = DIJoystickDevice->GetDeviceState( sizeof(DIJoystickState), (LPVOID)&DIJoystickState );
 	if FAILED(hr) {
-		Debug_Say(( "DirectInput GetDeviceState FAILED %x\n", hr ));
+		Debug_Say(( "DirectInput GetDeviceState FAILED 0x%lx\n", hr ));
 		return;
 	}
 

@@ -1061,7 +1061,7 @@ void CPUDetectClass::Init_Compact_Log()
 
 	TIME_ZONE_INFORMATION time_zone;
 	GetTimeZoneInformation(&time_zone);
-	COMPACTLOG(("%d\t",time_zone.Bias));
+	COMPACTLOG(("%ld\t",time_zone.Bias));
 
 	OSInfoStruct os_info;
 	Get_OS_Info(os_info,OSVersionPlatformId,OSVersionNumberMajor,OSVersionNumberMinor,OSVersionBuildNumber);

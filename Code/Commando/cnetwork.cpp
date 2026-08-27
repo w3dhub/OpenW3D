@@ -883,8 +883,8 @@ void cNetwork::Update(void)
 	//
 	// Watch out for unexpected slow frames. They may interrupt networking.
 	//
-	static DWORD last_time_ms = TIMEGETTIME();
-	DWORD time_now_ms = TIMEGETTIME();
+	static unsigned int last_time_ms = TIMEGETTIME();
+	unsigned int time_now_ms = TIMEGETTIME();
 	if (time_now_ms - last_time_ms > 2000) {
 		Debug_Say(("\n***cNetwork::Update: warning, think # %d was slow (%u ms)\n\n",
 			ThinkCount,

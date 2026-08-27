@@ -994,7 +994,7 @@ void DlgWOLSettings::SetLocaleCombo(WOL::Locale locale)
 
 	if (combo)
 		{
-		WWDEBUG_SAY(("LocaleCombo = %ld\n", locale));
+		WWDEBUG_SAY(("LocaleCombo = %d\n", static_cast<int>(locale)));
 		combo->Set_Curr_Sel((int)locale);
 		}
 	}

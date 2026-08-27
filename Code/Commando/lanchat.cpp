@@ -238,7 +238,7 @@ void cLanChat::Process_Position_Broadcast(cPacket & packet)
 
       packet.Flush();
 
-		WWDEBUG_SAY(("*** LAN NICKNAME COLLISION (%s) ***\n", sender.Peek_Buffer()));
+		WWDEBUG_SAY(("*** LAN NICKNAME COLLISION (%S) ***\n", sender.Peek_Buffer()));
 
 		DlgMpChangeLanNickname::DoDialog();
 

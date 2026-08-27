@@ -1653,7 +1653,7 @@ unsigned short FirewallHelperClass::Get_Next_Mangled_Source_Port(unsigned short 
 			** Make sure it isn't my address (should never be, even with players from behind the same firewall).
 			*/
 			if (!ConnectionHistory[h].Is_IP_Equal(ExternalAddress)) {
-				WWDEBUG_SAY(("FirewallHelper - same port regardless of dest ip - using port %d from connection to %s ; %d\n", (unsigned int) MangledPortHistory[h], ConnectionHistory[h].As_String()));
+				WWDEBUG_SAY(("FirewallHelper - same port regardless of dest ip - using port %d from connection to %s\n", (unsigned int) MangledPortHistory[h], ConnectionHistory[h].As_String()));
 				return(MangledPortHistory[h]);
 			}
 		}

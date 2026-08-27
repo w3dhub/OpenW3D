@@ -125,11 +125,11 @@ void cDiagnostics::Show_Object_Tally(void)
 
 	Add_Diagnostic("");
 	Add_Diagnostic("Object stats (reset with APTR command):");
-	Add_Diagnostic(cAppPacketStats::Get_Heading());
+	Add_Diagnostic("%s", cAppPacketStats::Get_Heading().Peek_Buffer());
 
 	for (BYTE i = 0; i < APPPACKETTYPE_COUNT; i++)
 	{
-		Add_Diagnostic(cAppPacketStats::Get_Description(i));
+		Add_Diagnostic("%s", cAppPacketStats::Get_Description(i).Peek_Buffer());
 	}
 }
 
@@ -336,13 +336,13 @@ void cDiagnostics::Render(void)
 	if (cDevOptions::ShowDiagnostics.Is_True()) {
 
 		if (cNetwork::I_Am_Server()) {
-			Add_Diagnostic("BBO (server):       %d bps\n", cNetwork::PServerConnection->Get_Bandwidth_Budget_Out());
+			Add_Diagnostic("BBO (server):       %u bps\n", cNetwork::PServerConnection->Get_Bandwidth_Budget_Out());
 		}
 
 		if (cNetwork::I_Am_Client()) {
-			Add_Diagnostic("BBO (client):       %d bps\n", cNetwork::PClientConnection->Get_Bandwidth_Budget_Out());
-			Add_Diagnostic("CSC Last Ping:      %d ms", CombatManager::Get_Last_Round_Trip_Ping_Ms());
-			Add_Diagnostic("CSC Avg. Ping:      %d ms", CombatManager::Get_Avg_Round_Trip_Ping_Ms());
+			Add_Diagnostic("BBO (client):       %u bps\n", cNetwork::PClientConnection->Get_Bandwidth_Budget_Out());
+			Add_Diagnostic("CSC Last Ping:      %u ms", CombatManager::Get_Last_Round_Trip_Ping_Ms());
+			Add_Diagnostic("CSC Avg. Ping:      %u ms", CombatManager::Get_Avg_Round_Trip_Ping_Ms());
 		}
 
 		int low		= 0;

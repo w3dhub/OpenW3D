@@ -226,7 +226,7 @@ bool Set_Script_Commands(ScriptCommandsClass* commands)
 			|| (Commands->Version != SCRIPT_COMMANDS_VERSION)) {
 
 		DebugPrint("***** Invalid script commands (Expected Version %d, Size %d)\n",
-			SCRIPT_COMMANDS_VERSION, sizeof(ScriptCommands));
+			SCRIPT_COMMANDS_VERSION, static_cast<int>(sizeof(ScriptCommands)));
 		Commands->Debug_Message("******** Incorrect Script Commands Version\n");
 		return false;
 	}

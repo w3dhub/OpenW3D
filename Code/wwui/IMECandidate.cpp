@@ -174,7 +174,7 @@ void IMECandidate::Read(void)
 				ImmGetCandidateList(imc, mIndex, mCandidates, mCandidateSize);
 				}
 
-			WWDEBUG_SAY(("IMECandidate: Index %d, Style %08lX, Selection %d, PageStart %d, PageSize %d, Count %d\n",
+			WWDEBUG_SAY(("IMECandidate: Index %d, Style %08X, Selection %d, PageStart %d, PageSize %d, Count %d\n",
 				mIndex, GetStyle(), GetSelection(), GetPageStart(), GetPageSize(), GetCount()));
 			}
 

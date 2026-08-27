@@ -372,7 +372,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	}
 
 	if (!symbols_available)	{
-		DebugString ("Exception Handler: SymInitialize failed with code %d - %s\n", GetLastError(), Last_Error_Text());
+		DebugString ("Exception Handler: SymInitialize failed with code 0x%lx - %s\n", GetLastError(), Last_Error_Text());
 	} else {
 		if (_SymSetOptions != nullptr) {
 			_SymSetOptions(SYMOPT_DEFERRED_LOADS | SYMOPT_UNDNAME);
@@ -387,7 +387,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 
 		if (!symload) {
 			assert(_SymLoadModule != nullptr);
-			DebugString ("Exception Handler: SymLoad failed for module %s with code %d - %s\n", module_name, GetLastError(), Last_Error_Text());
+			DebugString ("Exception Handler: SymLoad failed for module %s with code 0x%lx - %s\n", module_name, GetLastError(), Last_Error_Text());
 		}
 	}
 
@@ -412,7 +412,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 		access_read_write = e_info->ExceptionRecord->ExceptionInformation[0];  // 0=read, 1=write
 		access_address = e_info->ExceptionRecord->ExceptionInformation[1];
 	} else {
-		DebugString ("Exception Handler: Exception code is %d\n", e_info->ExceptionRecord->ExceptionCode);
+		DebugString ("Exception Handler: Exception code is 0x%lx\n", e_info->ExceptionRecord->ExceptionCode);
 	}
 
 	/*
@@ -459,7 +459,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 		} else {
 			DebugString ("Exception Handler: Failed to get symbol for " STR(ARCH_REG_IP) "\r\n");
 			if (_SymGetSymFromAddr != nullptr) {
-				DebugString ("Exception Handler: SymGetSymFromAddr failed with code %d - %s\n", GetLastError(), Last_Error_Text());
+				DebugString ("Exception Handler: SymGetSymFromAddr failed with code 0x%lx - %s\n", GetLastError(), Last_Error_Text());
 			}
 			sprintf (scrap, "Exception occurred at %p\r\n", (FARPROC)context->ARCH_REG_IP);
 		}

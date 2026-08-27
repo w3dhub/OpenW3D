@@ -866,7 +866,7 @@ void WolGameModeClass::Evaluate_Clans(cGameData* theGame)
 				unsigned int hostClanID = host->GetSquadID();
 				theGame->Set_Clan(0, hostClanID);
 
-				WWDEBUG_SAY(("CLANS: Assigning slot 0 to '%S' (host) clan #%lu\n", (const unichar_t*)host->GetName(), hostClanID));
+				WWDEBUG_SAY(("CLANS: Assigning slot 0 to '%S' (host) clan #%u\n", host->GetName().Peek_Buffer(), hostClanID));
 			}
 
 			// Determine which clans are in the game.
@@ -887,7 +887,7 @@ void WolGameModeClass::Evaluate_Clans(cGameData* theGame)
 						WWASSERT(slot != -1 && "More clans in game than slots available");
 
 						if (slot != -1) {
-							WWDEBUG_SAY(("CLANS: Assigning slot %d to clan #%lu\n",  slot, userClanID));
+							WWDEBUG_SAY(("CLANS: Assigning slot %d to clan #%u\n",  slot, userClanID));
 							theGame->Set_Clan(slot, userClanID);
 						}
 					}
@@ -1506,8 +1506,8 @@ void WolGameModeClass::HandleNotification(UserEvent& event)
 							int slot = mTheGame->Find_Free_Clan_Slot();
 
 							if (slot != -1) {
-								WWDEBUG_SAY(("CLANS: Slot %d filled by '%S' Clan #%lu\n", slot,
-									(const unichar_t*)user->GetName(), userClanID));
+								WWDEBUG_SAY(("CLANS: Slot %d filled by '%S' Clan #%u\n", slot,
+									user->GetName().Peek_Buffer(), userClanID));
 
 								mTheGame->Set_Clan(slot, userClanID);
 							}
@@ -1522,7 +1522,7 @@ void WolGameModeClass::HandleNotification(UserEvent& event)
 						// competing clans then kick him.
 						if (!mTheGame->Is_Clan_Competing(userClanID)) {
 							WWDEBUG_SAY(("CLANS: Game closed. Kicking user '%S'\n",
-								(const unichar_t*)user->GetName()));
+								user->GetName().Peek_Buffer()));
 
 							mWOLSession->KickUser(user->GetName());
 							requestDetails = false;
@@ -1620,7 +1620,7 @@ void WolGameModeClass::HandleNotification(GameStartEvent& start)
 
 	if (start.IsSuccess()) {
 		mGameID = start.GetGameID();
-		WWDEBUG_SAY(("GameID = %ld\n", mGameID));
+		WWDEBUG_SAY(("GameID = %u\n", mGameID));
 	}
 }
 
@@ -1659,9 +1659,9 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 
 			// Game info sent as: MapCRC Seconds remaining
 			StringClass info(0, true);
-			info.Format("GINFO:%08lx %.4f", mapCRC, seconds);
+			info.Format("GINFO:%08x %.4f", mapCRC, seconds);
 
-			WWDEBUG_SAY(("%S\n", info.Peek_Buffer()));
+			WWDEBUG_SAY(("%s\n", info.Peek_Buffer()));
 			mWOLSession->SendPrivateGameOptions(requestor, info);
 
 			//-----------------------------------------------------------------------
@@ -1681,7 +1681,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 
 				info.Format("TINFO:%d %d", teamID, teamScore);
 
-				WWDEBUG_SAY(("%S\n", info.Peek_Buffer()));
+				WWDEBUG_SAY(("%s\n", info.Peek_Buffer()));
 				mWOLSession->SendPrivateGameOptions(requestor, info);
 
 				teamNode = teamNode->Next();

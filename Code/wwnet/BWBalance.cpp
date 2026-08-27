@@ -391,7 +391,7 @@ void BandwidthBalancerClass::Adjust_Connection_Budget(cConnection *connection)
 			ULONG bbo = connection->Get_Bandwidth_Budget_Out();
 			ULONG new_bbo = (bbo * 9) / 10;
 			connection->Set_Bandwidth_Budget_Out(new_bbo);
-			WWDEBUG_SAY(("*** WARNING BandwidthBalancerClass - Adjusting Server connection BBO from %d to %d due to send overflow ***\n", bbo, new_bbo));
+			WWDEBUG_SAY(("*** WARNING BandwidthBalancerClass - Adjusting Server connection BBO from %lu to %lu due to send overflow ***\n", bbo, new_bbo));
 		}
 	}
 }

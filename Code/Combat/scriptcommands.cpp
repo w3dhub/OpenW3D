@@ -112,7 +112,7 @@ void	Debug_Message( [[maybe_unused]] const char *format, ... )
 	StringClass string(true);
 	string.Format_Args( format, arg_list );
 	va_end (arg_list);
-	Debug_Script(( (const char *)string ));
+	Debug_Script(( "%s", string.Peek_Buffer() ));
 #endif
 }
 
@@ -642,7 +642,7 @@ void	Send_Custom_Event( GameObject * from, GameObject * to, int type, intptr_t p
 	SCRIPT_TRACE((	"ST>Send_Custom_Event( %d, %d %d, %d )\n", from->Get_ID(), to->Get_ID(), type, param ));
 #else
 	SCRIPT_PTR_CHECK( to );
-	SCRIPT_TRACE(("ST>Send_Custom_Event( %d, %d %d, %d )\n",
+	SCRIPT_TRACE(("ST>Send_Custom_Event( %d, %d %d, %lld )\n",
 		((from != nullptr) ? from->Get_ID() : 0), to->Get_ID(), type, param));
 #endif
 
@@ -759,7 +759,7 @@ void	Set_Model( GameObject * obj, const char * model_name )
 	}
 
 //	Matrix3D tm = pgobj->Get_Transform();
-	SCRIPT_TRACE((	"ST>Set_Model( %d, %s, %d )\n", obj->Get_ID(), model_name == nullptr ? "nullptr" : model_name ));
+	SCRIPT_TRACE((	"ST>Set_Model( %d, %s )\n", obj->Get_ID(), model_name == nullptr ? "nullptr" : model_name ));
 	if (pgobj->As_SoldierGameObj() ) {
 		// For soldiers, call Set_Model, so the anim control will be updated
 		pgobj->As_SoldierGameObj()->Set_Model( model_name );
@@ -844,7 +844,7 @@ void	Set_Animation( GameObject * obj, const char * anim_name, bool looping, cons
 				cinobj->Set_Object_Dirty_Bit( NetworkObjectClass::BIT_RARE, true );
 
 			} else {
-				WWDEBUG_SAY(("Error! cinematic game obj %s not using DynamicAnimPhys.\r\n"));
+				WWDEBUG_SAY(("Error! cinematic game obj %s not using DynamicAnimPhys.\r\n", cinobj->Get_Definition().Get_Name() ? cinobj->Get_Definition().Get_Name() : anim_name));
 			}
 
 		} else {
@@ -2218,7 +2218,7 @@ void	Innate_Force_State_Enemy_Seen( GameObject * obj, GameObject * enemy )
 
 void	Static_Anim_Phys_Goto_Frame( int obj_id, float frame, const char * anim_name )
 {
-	SCRIPT_TRACE((	"ST>Static_Anim_Phys_Goto_Frame( %d, %d )\n", obj_id, frame ));
+	SCRIPT_TRACE((	"ST>Static_Anim_Phys_Goto_Frame( %d, %2.2f )\n", obj_id, frame ));
 
 	StaticPhysClass * spc = COMBAT_SCENE->Find_Static_Object( obj_id );
 	if ( spc != nullptr ) {
@@ -2341,7 +2341,7 @@ GameObject * Trigger_Spawner( int id )
 void	Enable_Engine( GameObject* object, bool onoff )
 {
 	SCRIPT_PTR_CHECK( object );
-	SCRIPT_TRACE((	"ST>Enable_Engine( %d, %d )\n", object, onoff ));
+	SCRIPT_TRACE((	"ST>Enable_Engine( %p, %d )\n", object, onoff ));
 
 	PhysicalGameObj *physical_obj = object->As_PhysicalGameObj ();
 	if ( physical_obj != nullptr ) {
@@ -2364,7 +2364,7 @@ int	Get_Difficulty_Level( void )
 void	Grant_Key( GameObject* object, int key, bool grant = true )
 {
 	SCRIPT_PTR_CHECK( object );
-	SCRIPT_TRACE((	"ST>Grant_Key( %d, %d )\n", object->Get_ID(), key, grant ));
+	SCRIPT_TRACE((	"ST>Grant_Key( %d, %d, %d )\n", object->Get_ID(), key, grant ));
 
 	SoldierGameObj * soldier = nullptr;
 	if ( object->As_SmartGameObj() != nullptr ) {

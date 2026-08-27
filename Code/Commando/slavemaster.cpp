@@ -310,7 +310,7 @@ void SlaveMasterClass::Wait_For_Slave_Shutdown(void)
 					if (SlaveServers[i].ProcessInfo) {
 						WWDEBUG_SAY(("Terminating process %d due to timeout\n", SlaveServers[i].ProcessInfo->Pid()));
 						if (!SlaveServers[i].ProcessInfo->Kill()) {
-							WWDEBUG_SAY(("Failed to get process handle for termination - error code %d\n", GetLastError()));
+							WWDEBUG_SAY(("Failed to get process handle for termination - error code 0x%lx\n", GetLastError()));
 						}
 						num_running++;
 					}
@@ -609,7 +609,7 @@ void SlaveMasterClass::Startup_Slaves(void)
 								}
 
 							} else {
-								WWDEBUG_SAY(("Failed to start slave process - error code %d\n", GetLastError()));
+								WWDEBUG_SAY(("Failed to start slave process - error code 0x%lx\n", GetLastError()));
 								SlaveServers[i].IsRunning = false;
 							}
 						}

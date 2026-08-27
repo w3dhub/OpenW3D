@@ -199,7 +199,7 @@ void Log_DX8_ErrorCode(HRESULT res)
 	const char *error_string = DXGetErrorStringA(res);
 
 	if (error_string != nullptr) {
-		WWDEBUG_SAY((error_string));
+		WWDEBUG_SAY(("%s", error_string));
 	}
 
 	WWASSERT(0);
@@ -1556,13 +1556,13 @@ void DX8Wrapper::Flip_To_Primary(void)
 					resetAttempts++;
 				}
 			} else {
-				WWDEBUG_SAY(("Flipping: %ld\n", FrameCount));
+				WWDEBUG_SAY(("Flipping: %u\n", FrameCount));
 				hr = _Get_D3D_Device8()->Present(nullptr, nullptr, nullptr, nullptr);
 
 				if (SUCCEEDED(hr)) {
 					IsDeviceLost=false;
 					FrameCount++;
-					WWDEBUG_SAY(("Flip to primary succeeded %ld\n", FrameCount));
+					WWDEBUG_SAY(("Flip to primary succeeded %u\n", FrameCount));
 				}
 				else {
 					IsDeviceLost=true;

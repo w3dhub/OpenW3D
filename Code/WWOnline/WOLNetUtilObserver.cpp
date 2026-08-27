@@ -403,7 +403,7 @@ void NetUtilObserver::ProcessLadderListResults(WOL::Ladder* list, int timeStamp)
 			unichar_t ladderName[64];
 			u_mbtows(ladderName, (const char*)wolLadder->login_name, sizeof(wolLadder->login_name));
 
-			WWDEBUG_SAY(("WOL: LadderInfo [%08lX] Requested '%S', Received '%S'\n", type, requestName, ladderName));
+			WWDEBUG_SAY(("WOL: LadderInfo [%08X] Requested '%S', Received '%S'\n", static_cast<int>(type), requestName, ladderName));
 
 			// If the ladder name matches the requested name then there is ladder info available.
 			bool hasLadderData = (u_strcasecmp(requestName, ladderName, U_COMPARE_CODE_POINT_ORDER) == 0);

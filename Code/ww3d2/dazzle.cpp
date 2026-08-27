@@ -1451,7 +1451,7 @@ PersistClass *	DazzlePersistFactoryClass::Load(ChunkLoadClass & cload) const
 				break;
 
 			default:
-				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",__FILE__,__LINE__));
+				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		};
 		cload.Close_Chunk();

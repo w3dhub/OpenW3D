@@ -2144,7 +2144,7 @@ void cConnection::Service_Read()
 }
 
 //-----------------------------------------------------------------------------
-void cConnection::Set_Bandwidth_Budget_Out(ULONG bw_budget)
+void cConnection::Set_Bandwidth_Budget_Out(unsigned int bw_budget)
 {
 	//WWASSERT(bw_budget >= 0);
 	BandwidthBudgetOut = bw_budget;
@@ -2227,7 +2227,7 @@ void cConnection::Service_Send(bool is_urgent)
 			BandwidthBalancer.Adjust(this, IsDedicatedServer);
 		} else {
 
-			ULONG bps_per_rhost = (ULONG) (BandwidthBudgetOut / (float) num_real_remote_hosts);
+			unsigned int bps_per_rhost = (unsigned int) (BandwidthBudgetOut / (float) num_real_remote_hosts);
 
 			for (int rhost_id = MinRHost; rhost_id <= MaxRHost; rhost_id++) {
 				if (PRHost[rhost_id] != nullptr) {

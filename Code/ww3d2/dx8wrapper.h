@@ -711,7 +711,7 @@ inline void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture
 {
 	if (Textures[stage]==texture) return;
 
-	SNAPSHOT_SAY(("DX8 - SetTexture(%x) \n",texture));
+	SNAPSHOT_SAY(("DX8 - SetTexture(%p) \n",texture));
 
 	if (Textures[stage]) Textures[stage]->Release();
 	Textures[stage] = texture;
