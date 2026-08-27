@@ -28,6 +28,7 @@
 #include "soundhandle.h"
 
 #include <AL/al.h>
+#include <limits>
 #include <unordered_map>
 #include <vector>
 
@@ -40,7 +41,8 @@ class OpenALHandleClass final : public SoundHandleClass
 {
 	friend class OpenALAudioClass;
 	static constexpr ALsizei OAL_BUFFER_COUNT = 4;
-	static constexpr ALuint INVALID_OAL_HANDLE = UINT_MAX;
+	static constexpr ALuint INVALID_OAL_HANDLE = std::numeric_limits<ALuint>::max();
+	static constexpr unsigned INFINITE_LOOP_COUNT = std::numeric_limits<unsigned>::max();
 
 public:
 	OpenALHandleClass();
@@ -81,7 +83,7 @@ private:
 	void Clear_Static_Buffer();
 	void Reset_Stream_State();
 	unsigned int Buffer_Duration_MS(unsigned int bytes) const;
-	bool Is_Infinite_Loop() const { return SampleLoopCount == UINT_MAX; }
+	bool Is_Infinite_Loop() const { return SampleLoopCount == INFINITE_LOOP_COUNT; }
 
 	static void Set_Sample_User(ALuint handle, AudibleSoundClass *user = nullptr);
 	static AudibleSoundClass *Get_Sample_User(ALuint handle);

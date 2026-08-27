@@ -208,7 +208,7 @@ float OpenALHandleClass::Get_Sample_Volume()
 void OpenALHandleClass::Set_Sample_Loop_Count(unsigned count)
 {
 	WWDEBUG_SAY(("Sample %s requested to loop %u times.\n", Buffer != nullptr ? Buffer->Get_Filename() : "<null>", count));
-	SampleLoopCount = count == 0 ? UINT_MAX : count;
+	SampleLoopCount = count == 0 ? INFINITE_LOOP_COUNT : count;
 	if (Buffer != nullptr && !Buffer->Is_Streaming()) {
 		alSourcei(SampleHandle, AL_LOOPING, count == 0 ? AL_TRUE : AL_FALSE);
 	}
