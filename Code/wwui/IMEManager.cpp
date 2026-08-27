@@ -686,11 +686,11 @@ LRESULT IMEManager::IMENotify(WPARAM wParam, LPARAM lParam)
 						{
 						if (conversionMode & _convModes[flgidx].flag)
 							{
-							WWDEBUG_SAY((_convModes[flgidx].ondesc));
+							WWDEBUG_SAY(("%s", _convModes[flgidx].ondesc));
 							}
 						else
 							{
-							WWDEBUG_SAY((_convModes[flgidx].offdesc));
+							WWDEBUG_SAY(("%s", _convModes[flgidx].offdesc));
 							}
 
 						flgidx++;
@@ -741,11 +741,11 @@ LRESULT IMEManager::IMENotify(WPARAM wParam, LPARAM lParam)
 						{
 						if (sentenceMode & _sModes[flgidx].flag)
 							{
-							WWDEBUG_SAY((_sModes[flgidx].ondesc));
+							WWDEBUG_SAY(("%s", _sModes[flgidx].ondesc));
 							}
 						else
 							{
-							WWDEBUG_SAY((_sModes[flgidx].offdesc));
+							WWDEBUG_SAY(("%s", _sModes[flgidx].offdesc));
 							}
 
 						flgidx++;

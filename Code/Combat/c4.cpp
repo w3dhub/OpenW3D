@@ -339,7 +339,7 @@ CollisionReactionType	C4GameObj::Collision_Occurred( const CollisionEventClass &
 			// if this is a static anim, then try to stick to it
 			if (event.OtherObj->As_StaticAnimPhysClass() != nullptr) {
 
-				Debug_Say(( "Sticking to static anim object %p (%p)\n", event.OtherObj ));
+				Debug_Say(( "Sticking to static anim object %p\n", event.OtherObj ));
 				REF_PTR_SET(StuckStaticAnimObj,(StaticAnimPhysClass *)event.OtherObj);
 
 				StuckBone = 0;

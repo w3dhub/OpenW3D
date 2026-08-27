@@ -62,7 +62,7 @@ DDSFileClass::DDSFileClass(const char* name,unsigned reduction_factor)
 	// Verify the structure size matches the read size
 	if (read_bytes!=SurfaceDesc.Size) {
 		StringClass tmp(0,true);
-		tmp.Format("File %s loading failed.\nTried to read %d bytes, got %d. (SurfDesc.size=%d)\n",name,sizeof(LegacyDDSURFACEDESC2),read_bytes,SurfaceDesc.Size);
+		tmp.Format("File %s loading failed.\nTried to read %d bytes, got %d. (SurfDesc.size=%d)\n",name,(int)sizeof(LegacyDDSURFACEDESC2),read_bytes,SurfaceDesc.Size);
 		WWASSERT_PRINT(0,tmp);
 		return;
 	}

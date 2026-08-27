@@ -164,14 +164,14 @@ cStackDump::Print_Call_Stack
 		if (symload == 0 && GetLastError() != 0)
 		{
 			assert(_SymLoadModule != nullptr);
-			WWDEBUG_SAY(("  SymLoad failed for module %s with code %d - %s.\n",
+			WWDEBUG_SAY(("  SymLoad failed for module %s with code 0x%lx - %s.\n",
 				module_name, GetLastError(), Last_Error_Text()));
 		}
 	}
 	else
 	{
 		WWDEBUG_SAY(("  Symbols are NOT available.\n"));
-		WWDEBUG_SAY(("  SymInitialize failed with code %d - %s.\n", GetLastError(), Last_Error_Text()));
+		WWDEBUG_SAY(("  SymInitialize failed with code 0x%lx - %s.\n", GetLastError(), Last_Error_Text()));
 	}
 
 	if (num_addresses > 0)
@@ -206,14 +206,12 @@ cStackDump::Print_Call_Stack
 					{
 						::sprintf(symbuf, "%s", symptr->Name);
 					}
-					WWDEBUG_SAY((symbuf));
+					WWDEBUG_SAY(("%s", symbuf));
 				}
 			}
 			else
 			{
-				char symbuf[256];
-				::sprintf(symbuf, "%p", (void *)temp_addr);
-				WWDEBUG_SAY((symbuf));
+				WWDEBUG_SAY(("%p", reinterpret_cast<void *>(temp_addr)));
 			}
 
 			WWDEBUG_SAY(("\n"));

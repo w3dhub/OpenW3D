@@ -59,7 +59,7 @@ class cEncoderList
 				static_cast<double>(resolution));
 
 			WWDEBUG_SAY(("cEncoderList::Set_Precision for type %d: %d -> %d bits\n",
-				type, sizeof(T) * 8, EncoderTypes[type].Get_Bit_Precision()));
+				type, static_cast<int>(sizeof(T) * 8), EncoderTypes[type].Get_Bit_Precision()));
 
 			//
 			// Return maximum representation error

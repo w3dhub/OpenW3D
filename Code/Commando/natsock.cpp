@@ -143,7 +143,7 @@ bool SocketHandlerClass::Open(int inport, int outport)
 	if (Socket == INVALID_SOCKET) {
 		return(false);
 	}
-	DebugString(("SocketHandlerClass - Socket %d opened OK\n", Socket));
+	DebugString(("SocketHandlerClass - Socket %d opened OK\n", static_cast<int>(Socket)));
 
 	/*
 	** Bind our UDP socket to our UDP port number
@@ -284,7 +284,7 @@ void SocketHandlerClass::Close(void)
 	}
 
 	if (Socket != INVALID_SOCKET) {
-		DebugString(("SocketHandlerClass - Closing socket %d bound to port %d\n", Socket, IncomingPort));
+		DebugString(("SocketHandlerClass - Closing socket %d bound to port %d\n", static_cast<int>(Socket), IncomingPort));
 		if (closesocket(Socket) != 0) {
 			DebugString(("SocketHandlerClass - closesocket failed with error code %d\n", LAST_ERROR));
 		}

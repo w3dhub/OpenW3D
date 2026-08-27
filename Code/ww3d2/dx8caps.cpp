@@ -552,43 +552,43 @@ void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIE
 		break;
 	case VENDOR_NVIDIA:
 		DeviceId=(unsigned)Get_NVidia_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesNVidia[DeviceId]));
-		COMPACTLOG((DeviceNamesNVidia[DeviceId]));
+		DXLOG(("%s", DeviceNamesNVidia[DeviceId]));
+		COMPACTLOG(("%s", DeviceNamesNVidia[DeviceId]));
 		break;
 	case VENDOR_ATI:
 		DeviceId=(unsigned)Get_ATI_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesATI[DeviceId]));
-		COMPACTLOG((DeviceNamesATI[DeviceId]));
+		DXLOG(("%s", DeviceNamesATI[DeviceId]));
+		COMPACTLOG(("%s", DeviceNamesATI[DeviceId]));
 		break;
 	case VENDOR_INTEL:
 		DeviceId=(unsigned)Get_Intel_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesIntel[DeviceId]));
-		COMPACTLOG((DeviceNamesIntel[DeviceId]));
+		DXLOG(("%s", DeviceNamesIntel[DeviceId]));
+		COMPACTLOG(("%s", DeviceNamesIntel[DeviceId]));
 		break;
 	case VENDOR_S3:
 		DeviceId=(unsigned)Get_S3_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesS3[DeviceId]));
-		COMPACTLOG((DeviceNamesS3[DeviceId]));
+		DXLOG(("%s", DeviceNamesS3[DeviceId]));
+		COMPACTLOG(("%s", DeviceNamesS3[DeviceId]));
 		break;
 	case VENDOR_POWERVR:
 		DeviceId=(unsigned)Get_PowerVR_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesPowerVR[DeviceId]));
-		COMPACTLOG((DeviceNamesPowerVR[DeviceId]));
+		DXLOG(("%s", DeviceNamesPowerVR[DeviceId]));
+		COMPACTLOG(("%s", DeviceNamesPowerVR[DeviceId]));
 		break;
 	case VENDOR_MATROX:
 		DeviceId=(unsigned)Get_Matrox_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNamesMatrox[DeviceId]));
-		COMPACTLOG((DeviceNamesMatrox[DeviceId]));
+		DXLOG(("%s", DeviceNamesMatrox[DeviceId]));
+		COMPACTLOG(("%s", DeviceNamesMatrox[DeviceId]));
 		break;
 	case VENDOR_3DFX:
 		DeviceId=(unsigned)Get_3Dfx_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNames3Dfx[DeviceId]));
-		COMPACTLOG((DeviceNames3Dfx[DeviceId]));
+		DXLOG(("%s", DeviceNames3Dfx[DeviceId]));
+		COMPACTLOG(("%s", DeviceNames3Dfx[DeviceId]));
 		break;
 	case VENDOR_3DLABS:
 		DeviceId=(unsigned)Get_3DLabs_Device(adapter_id.DeviceId);
-		DXLOG((DeviceNames3DLabs[DeviceId]));
-		COMPACTLOG((DeviceNames3DLabs[DeviceId]));
+		DXLOG(("%s", DeviceNames3DLabs[DeviceId]));
+		COMPACTLOG(("%s", DeviceNames3DLabs[DeviceId]));
 		break;
 	}
 
@@ -596,12 +596,12 @@ void DX8Caps::Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIE
 
 	DXLOG(("\r\n"));
 
-	DXLOG(("Vendor id: 0x%x\r\n",adapter_id.VendorId));
-	DXLOG(("Device id: 0x%x\r\n",adapter_id.DeviceId));
-	DXLOG(("SubSys id: 0x%x\r\n",adapter_id.SubSysId));
-	DXLOG(("Revision: %d\r\n",adapter_id.Revision));
+	DXLOG(("Vendor id: 0x%lx\r\n",adapter_id.VendorId));
+	DXLOG(("Device id: 0x%lx\r\n",adapter_id.DeviceId));
+	DXLOG(("SubSys id: 0x%lx\r\n",adapter_id.SubSysId));
+	DXLOG(("Revision: %lu\r\n",adapter_id.Revision));
 
-	DXLOG(("GUID = {0x%x, 0x%x, 0x%x}, {0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x}\r\n",
+	DXLOG(("GUID = {0x%lx, 0x%x, 0x%x}, {0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x, 0x%2.2x}\r\n",
 		adapter_id.DeviceIdentifier.Data1,
 		adapter_id.DeviceIdentifier.Data2,
 		adapter_id.DeviceIdentifier.Data3,

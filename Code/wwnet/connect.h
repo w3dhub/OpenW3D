@@ -111,8 +111,8 @@ class cConnection
       bool Is_Established() const;
 		void Service_Read();
 		void Service_Send(bool is_urgent = false);
-		ULONG Get_Bandwidth_Budget_Out() const {return BandwidthBudgetOut;}
-		void Set_Bandwidth_Budget_Out(ULONG bw_budget);
+		unsigned int Get_Bandwidth_Budget_Out() const {return BandwidthBudgetOut;}
+		void Set_Bandwidth_Budget_Out(unsigned int bw_budget);
       void Destroy_Connection(int rhost_id);
 		void Init_Stats();
       double Get_Threshold_Priority(int rhost_id);
@@ -211,7 +211,7 @@ class cConnection
       int MaximumLatencyMs;
       int RefusalPacketSendId; // server
       int HighestRefusalPacketRcvId; // client
-		ULONG BandwidthBudgetOut;
+		unsigned int BandwidthBudgetOut;
       SList<cPacket> PacketList;
 		int ServiceCount;
 		bool IsBadConnection;

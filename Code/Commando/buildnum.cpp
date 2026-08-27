@@ -303,8 +303,7 @@ const char *BuildInfoClass::Composite_Build_Info(void)
  *=============================================================================================*/
 void BuildInfoClass::Log_Build_Info(void)
 {
-	WWDEBUG_SAY((Composite_Build_Info()));
-	WWDEBUG_SAY(("\n"));
+	WWDEBUG_SAY(("%s\n", Composite_Build_Info()));
 }
 
 

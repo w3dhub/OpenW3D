@@ -691,7 +691,7 @@ STDMETHODIMP ChatObserver::OnChannelList(HRESULT result, WOL::Channel* inChannel
 
 	while (wolChannel)
 		{
-		WWDEBUG_SAY(("WOL: Channel '%s:%ld'\n", (const char*)wolChannel->name, wolChannel->type));
+		WWDEBUG_SAY(("WOL: Channel '%s:%d'\n", reinterpret_cast<const char*>(wolChannel->name), wolChannel->type));
 
 		ChannelList* curList = nullptr;
 		ChannelList* newList = nullptr;
@@ -1995,7 +1995,7 @@ STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
 		return S_OK;
 		}
 
-	WWDEBUG_SAY(("WOL: OnGameStart GameID %ld, Channel '%s'\n", gameID, (char*)inChannel->name));
+	WWDEBUG_SAY(("WOL: OnGameStart GameID %d, Channel '%s'\n", gameID, reinterpret_cast<const char*>(inChannel->name)));
 
 	// Make sure the channel is the one we have joined.
 	bool channelOkay = false;
@@ -2626,7 +2626,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 
 		if (squad.IsValid())
 			{
-			WWDEBUG_SAY(("WOL: Squad %s found for %S\n", squad->GetAbbr(), (const unichar_t*)pending));
+			WWDEBUG_SAY(("WOL: Squad %s found for %S\n", squad->GetAbbr(), static_cast<const unichar_t*>(pending)));
 
 			// First character of user names cannot be numbers. Therefore if it is a number
 			// then process the request by ID. Otherwise process the request by name.
@@ -2665,7 +2665,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 			}
 		else
 			{
-			WWDEBUG_SAY(("WOL: Squad not found for '%S'\n", (const unichar_t*)pending));
+			WWDEBUG_SAY(("WOL: Squad not found for '%S'\n", static_cast<const unichar_t*>(pending)));
 			}
 
 		Session::SquadRequestColl::iterator first = mOuter->mSquadPending.begin();
@@ -2708,7 +2708,7 @@ STDMETHODIMP ChatObserver::OnUserLocale(HRESULT result, WOL::User* inUsers)
 
 	while (wolUser)
 		{
-		WWDEBUG_SAY(("WOL: OnUserLocale '%s' %ld\n", wolUser->name, wolUser->locale));
+		WWDEBUG_SAY(("WOL: OnUserLocale '%s' %d\n", wolUser->name, static_cast<int>(wolUser->locale)));
 
 		WOL::Locale locale = wolUser->locale;
 		WWASSERT(locale >= WOL::LOC_UNKNOWN && locale <= WOL::LOC_TURKEY && "OnUserLocale Locale out of range!");
@@ -2842,7 +2842,7 @@ STDMETHODIMP ChatObserver::OnUserTeam(HRESULT result, WOL::User* inUsers)
 
 	while (wolUser)
 		{
-		WWDEBUG_SAY(("WOL: OnUserTeam '%s' %ld\n", wolUser->name, wolUser->locale));
+		WWDEBUG_SAY(("WOL: OnUserTeam '%s' %d\n", wolUser->name, static_cast<int>(wolUser->locale)));
 
 		// Update the users locale.
 		unichar_t username[64];
@@ -3488,7 +3488,7 @@ STDMETHODIMP ChatObserver::OnChannelListEntry(HRESULT result, WOL::Channel* wolC
 		return S_OK;
 		}
 
-	WWDEBUG_SAY(("WOL: ChannelEntry '%s:%ld'\n", (const char*)wolChannel->name, wolChannel->type));
+	WWDEBUG_SAY(("WOL: ChannelEntry '%s:%d'\n", wolChannel->name, wolChannel->type));
 
 	// Get code for game channels
 	RefPtrConst<Product> product = Product::Current();

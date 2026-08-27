@@ -526,7 +526,7 @@ void BandwidthCheckerClass::Check(void)
 		*/
 #ifdef _DEBUG
 		PackedBandwidthType packed = Get_Packed_Bandwidth();
-		WWDEBUG_SAY(("Packed bandwidth as string = %s\n", Get_Bandwidth_As_String(packed)));
+		WWDEBUG_SAY(("Packed bandwidth as string = %S\n", Get_Bandwidth_As_String(packed)));
 #endif //_DEBUG
 
 	}

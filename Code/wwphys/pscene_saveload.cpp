@@ -381,7 +381,7 @@ void PhysicsSceneClass::Load_LDD_Variables(ChunkLoadClass & cload)
 			OBSOLETE_MICRO_CHUNK(PSCENE_DD_VARIABLE_DYNAMICPOLYBUDGET);
 			OBSOLETE_MICRO_CHUNK(PSCENE_DD_VARIABLE_STATICPOLYBUDGET);
 			default:
-				WWDEBUG_SAY(("Unhandled Micro Chunk: 0x%x in file &s, line %d\n",cload.Cur_Micro_Chunk_ID(),__FILE__,__LINE__));
+				WWDEBUG_SAY(("Unhandled Micro Chunk: 0x%x in file %s, line %d\n",cload.Cur_Micro_Chunk_ID(),__FILE__,__LINE__));
 		}
 		cload.Close_Micro_Chunk();
 	}
@@ -536,7 +536,7 @@ void PhysicsSceneClass::Load_Static_Lights(ChunkLoadClass & cload)
 			obj->Release_Ref();
 
 		} else {
-			WWDEBUG_SAY(("Unhandled Chunk: 0x%x in file &s, line %d\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
+			WWDEBUG_SAY(("Unhandled Chunk: 0x%x in file %s, line %d\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 			cload.Close_Chunk();
 		}
 	}
@@ -637,7 +637,7 @@ void PhysicsSceneClass::Load_Dynamic_Objects(ChunkLoadClass & cload)
 			obj->Release_Ref();
 
 		} else {
-			WWDEBUG_SAY(("Unhandled Chunk: 0x%x in file &s, line %d\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
+			WWDEBUG_SAY(("Unhandled Chunk: 0x%x in file %s, line %d\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 			cload.Close_Chunk();
 		}
 	}

@@ -1225,7 +1225,7 @@ RefPtr<ChannelData> Session::FindGameChannel(const char* channelName)
 
 RefPtr<WaitCondition> Session::CreateChannel(const unichar_t* name, const unichar_t* password, int type)
 	{
-	WWDEBUG_SAY(("WOL: CreateChannel '%S' Type %ld\n", name, type));
+	WWDEBUG_SAY(("WOL: CreateChannel '%S' Type %d\n", name, type));
 
 	if (mCurrentConnectionStatus != ConnectionConnected)
 		{
@@ -2095,7 +2095,7 @@ void Session::MakeSquadRequests(void)
 				{
 				unsigned int squadID;
 				u_sscanf_u(request, U_CHAR("%u"), &squadID);
-				WWDEBUG_SAY(("WOL: SquadInfo requested for ID %ld\n", squadID));
+				WWDEBUG_SAY(("WOL: SquadInfo requested for ID %d\n", squadID));
 				hr = mChat->RequestSquadInfo(squadID);
 				}
 			else

@@ -289,7 +289,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 				AnimSoundLists.Add (sound_list);
 
 			} else {
-				WWDEBUG_SAY (("AnimatedSoundMgrClass::Initialize -- No sounds added for %d!\n", animation_name.Peek_Buffer ()));
+				WWDEBUG_SAY (("AnimatedSoundMgrClass::Initialize -- No sounds added for %s!\n", animation_name.Peek_Buffer ()));
 				delete sound_list;
 			}
 		}

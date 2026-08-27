@@ -106,12 +106,12 @@ cSbboManager::Think
 
 		if (SlowSamples >= 10 && PoorRatios >= 10) {
 
-			ULONG sbbo = cNetwork::PServerConnection->Get_Bandwidth_Budget_Out();
+			unsigned int sbbo = cNetwork::PServerConnection->Get_Bandwidth_Budget_Out();
 			if (sbbo >= 64000)
 			{
 				sbbo = ULONG(sbbo * 0.90);
 				cNetwork::PServerConnection->Set_Bandwidth_Budget_Out(sbbo);
-				Debug_Say(("cSbboManager::Think: reducing sbbo to %d\n", sbbo));
+				Debug_Say(("cSbboManager::Think: reducing sbbo to %u\n", sbbo));
 				SlowSamples = 0;
 				PoorRatios = 0;
 			}

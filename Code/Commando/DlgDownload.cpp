@@ -408,8 +408,8 @@ void DlgDownload::UpdateProgress(DownloadEvent& event)
 				{
 				ConsoleBox.Print("\nDownload complete\n");
 				}
-			WWDEBUG_SAY(("DlgDownload: Successful '%s' Elapsed time: %ld ms\n",
-				download->GetFilename(), (TIMEGETTIME() - mStartTime)));
+			WWDEBUG_SAY(("DlgDownload: Successful '%s' Elapsed time: %d ms\n",
+				download->GetFilename(), static_cast<unsigned int>(TIMEGETTIME() - mStartTime)));
 
 			mDownloading = false;
 			break;

@@ -366,28 +366,28 @@ void GameResField::DebugDump(void)
 		case TYPE_UNSIGNED_CHAR:
 			{
 			short data = *((unsigned char*)mData);
-			WWDEBUG_SAY(("[%4s] %ld\n", id, data));
+			WWDEBUG_SAY(("[%4s] %d\n", id, data));
 			}
 			break;
 
 		case TYPE_SHORT:
-			WWDEBUG_SAY(("[%4s] %d\n", id, *((short*)mData)));
+			WWDEBUG_SAY(("[%4s] %d\n", id, *reinterpret_cast<short*>(mData)));
 			break;
 
 		case TYPE_LONG:
-			WWDEBUG_SAY(("[%4s] %ld\n", id, *((int*)mData)));
+			WWDEBUG_SAY(("[%4s] %d\n", id, *reinterpret_cast<int*>(mData)));
 			break;
 
 		case TYPE_UNSIGNED_SHORT:
-			WWDEBUG_SAY(("[%4s] %u\n", id, *((unsigned short*)mData)));
+			WWDEBUG_SAY(("[%4s] %u\n", id, *reinterpret_cast<unsigned short*>(mData)));
 			break;
 
 		case TYPE_UNSIGNED_LONG:
-			WWDEBUG_SAY(("[%4s] %lu\n", id, *((unsigned int*)mData)));
+			WWDEBUG_SAY(("[%4s] %u\n", id, *reinterpret_cast<unsigned int*>(mData)));
 			break;
 
 		case TYPE_STRING:
-			WWDEBUG_SAY(("[%4s] '%s'\n", id, mData));
+			WWDEBUG_SAY(("[%4s] '%s'\n", id, static_cast<const char *>(mData)));
 			break;
 
 		default:

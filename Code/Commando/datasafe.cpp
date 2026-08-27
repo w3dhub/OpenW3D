@@ -1297,7 +1297,7 @@ void GenericDataSafeClass::Print_Safe_Stats_To_Debug_Output(void)
 	if (cDevOptions::LogDataSafe.Is_True()) {
 		char temp[8192];
 		Dump_Safe_Stats(temp, 8192);
-		WWDEBUG_SAY((temp));
+		WWDEBUG_SAY(("%s", temp));
 	}
 #endif	//WWDEBUG
 }

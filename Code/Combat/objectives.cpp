@@ -496,11 +496,11 @@ void	ObjectiveManager::Set_Objective_Status( int id, int status )
 		objective->Status = status;
 
 		if ( status == STATUS_FAILED ) {
-			DIAG_LOG(( "OBFA", "%d; %s", id, objective->Status_To_Name() ));
+			DIAG_LOG(( "OBFA", "%d; %S", id, objective->Status_To_Name() ));
 		}
 
 		if ( status == STATUS_ACCOMPLISHED ) {
-			DIAG_LOG(( "OBCO", "%d; %s", id, objective->Status_To_Name() ));
+			DIAG_LOG(( "OBCO", "%d; %S", id, objective->Status_To_Name() ));
 		}
 
 		objective->Update_Object_Blip();

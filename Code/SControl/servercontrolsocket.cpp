@@ -138,7 +138,7 @@ bool ServerControlSocketClass::Open(int port, bool loopback, unsigned int ip)
 	if (Socket == INVALID_SOCKET) {
 		return(false);
 	}
-	DebugString(("ServerControlSocketClass - Socket %d opened OK\n", Socket));
+	DebugString(("ServerControlSocketClass - Socket %d opened OK\n", static_cast<int>(Socket)));
 
 	/*
 	** Bind our UDP socket to our UDP port number
@@ -220,7 +220,7 @@ bool ServerControlSocketClass::Open(int port, bool loopback, unsigned int ip)
 void ServerControlSocketClass::Close(void)
 {
 	if (Socket != INVALID_SOCKET) {
-		DebugString(("ServerControlSocketClass - Closing socket %d bound to port %d\n", Socket, Port));
+		DebugString(("ServerControlSocketClass - Closing socket %d bound to port %d\n", static_cast<int>(Socket), Port));
 		if (closesocket(Socket) != 0) {
 			DebugString(("ServerControlSocketClass - closesocket failed with error code %d\n", LAST_ERROR));
 		}

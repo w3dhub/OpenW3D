@@ -290,7 +290,7 @@ void SendGameResults(unsigned int gameID, cGameData* theGame, SList<cPlayer>* pl
 	unsigned int sig_offset = 0;
 	unsigned char* packet = stats.Create_Comms_Packet(packetSize, nullptr, sig_offset);
 
-	WWDEBUG_SAY(("Sending game results packet. Size = %lu\n", packetSize));
+	WWDEBUG_SAY(("Sending game results packet. Size = %u\n", packetSize));
 
 #if(0)
 #ifdef _DEBUG

@@ -626,9 +626,9 @@ bool PacketManagerClass::Take_Packet(unsigned char *packet, int packet_len, unsi
 				NumPackets++;
 				//WWDEBUG_SAY(("NumPackets = %d (added packet at index %d)\n", NumPackets, index));
 				if (NumPackets > NumSendBuffers - 4) {
-					WWDEBUG_SAY(("***WARNING*** Outgoing packet buffer full - NumPackets = %d\n", NumPackets, index));
+					WWDEBUG_SAY(("***WARNING*** Outgoing packet buffer full - NumPackets = %d\n", NumPackets));
 					Flush(true);
-					WWDEBUG_SAY(("NumPackets = %d after flush\n", NumPackets, index));
+					WWDEBUG_SAY(("NumPackets = %d after flush\n", NumPackets));
 				}
 				Register_Packet_Out(dest_ip, dest_port, 0, packet_len + UDP_HEADER_SIZE);
 				return(true);
@@ -1181,7 +1181,7 @@ WWPROFILE("Pmgr Get");
 				crc = _byteswap_ulong(crc);
 #endif //(0)
 				if (crc != *((unsigned int*)packet_buffer)) {
-					WWDEBUG_SAY(("PMC::Get_Packet: Socket %d, received packet %d bytes long from %s\n", socket, bytes, Addr_As_String(&addr)));
+					WWDEBUG_SAY(("PMC::Get_Packet: Socket %d, received packet %d bytes long from %s\n", static_cast<int>(socket), bytes, Addr_As_String(&addr)));
 					WWDEBUG_SAY(("PMC::Get_Packet: *** PACKET WRAPPER CRC ERROR ***"));
 					NumReceivePackets = 0;
 				} else {

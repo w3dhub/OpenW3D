@@ -860,7 +860,7 @@ void CombatGameModeClass::Load_Level( void )
 			ffuse/(1000*1000),(ffuse/10000)%1000,ffuse%1000, ffuse/(1024*1024),
 			actualuse/(1000*1000),(actualuse/1000)%1000,actualuse%1000, actualuse/(1024*1024),
 			count);
-		WWDEBUG_SAY((working_string));
+		WWDEBUG_SAY(("%s", working_string.Peek_Buffer()));
 	}
 }
 
