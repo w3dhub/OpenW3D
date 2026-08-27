@@ -42,6 +42,7 @@
 #include "rawfile.h"
 #include "assetmgr.h"
 #include "ww3d.h"
+#include <filesystem>
 #include <stdlib.h>
 
 
@@ -79,9 +80,9 @@ SubTitleManagerClass* SubTitleManagerClass::Create(const char* filename, const c
 		instance->Set_Font(font);
 
 		// Retrieve moviename
-		char fname[_MAX_FNAME];
-		_splitpath(filename, nullptr, nullptr, fname, nullptr);
-		bool loaded = instance->Load_Sub_Titles(fname, subtitlefilename);
+		std::filesystem::path fs_filename = filename;
+		auto fname = fs_filename.stem().generic_string();
+		bool loaded = instance->Load_Sub_Titles(fname.c_str(), subtitlefilename);
 
 		if (loaded == false) {
 			delete instance;
