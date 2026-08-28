@@ -71,6 +71,7 @@ jobs:
                --target
                scripts
                bandtest
+               scontrol
                wwsaveload
                wwmath
                wwutil

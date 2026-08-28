@@ -45,6 +45,13 @@
 #include	"servercontrolsocket.h"
 #include "systimer.h"
 #include <algorithm>
+#include <thread>
+
+#ifdef _WIN32
+using SocketLength = int;
+#else
+using SocketLength = socklen_t;
+#endif
 
 /*
 ** All instances are tracked here.
@@ -155,8 +162,8 @@ bool ServerControlSocketClass::Open(int port, bool loopback, unsigned int ip)
 	}
 
 	DebugString(("ServerControlSocketClass - About to bind the UDP socket to port %d\n", port));
-	if (bind (Socket, (LPSOCKADDR)&addr, sizeof(addr) ) == SOCKET_ERROR) {
-		DebugString(("ServerControlSocketClass - bind failed with error code %d\n", WSAGetLastError()));
+	if (bind (Socket, (sockaddr*)&addr, sizeof(addr) ) == SOCKET_ERROR) {
+		DebugString(("ServerControlSocketClass - bind failed with error code %d\n", LAST_ERROR));
 		Close();
 		return(false);
 	}
@@ -315,7 +322,7 @@ void ServerControlSocketClass::Discard_Out_Buffers(void)
 void ServerControlSocketClass::Clear_Socket_Error(void)
 {
 	unsigned int error_code;
-	int length = 4;
+	SocketLength length = sizeof(error_code);
 
 	if (Socket != INVALID_SOCKET) {
 		getsockopt (Socket, SOL_SOCKET, SO_ERROR, (char*)&error_code, &length);
@@ -733,7 +740,7 @@ void ServerControlSocketClass::Service(void)
 {
 	u_long bytes;
 	struct sockaddr_in addr;
-	int addr_len;
+	SocketLength addr_len;
 	WinsockBufferType *packet;
 	int result;
 	unsigned int timeout_check = TIMEGETTIME();
@@ -748,7 +755,7 @@ void ServerControlSocketClass::Service(void)
 			break;
 		}
 		times++;
-		Sleep(0);
+		std::this_thread::yield();
 
 		/*
 		**
@@ -778,7 +785,7 @@ void ServerControlSocketClass::Service(void)
 				** Call recvfrom function to get the outstanding packet.
 				*/
 				addr_len = sizeof(addr);
-				result = recvfrom(Socket, (char*)ReceiveBuffer, sizeof(ReceiveBuffer), 0, (LPSOCKADDR)&addr, &addr_len);
+				result = recvfrom(Socket, (char*)ReceiveBuffer, sizeof(ReceiveBuffer), 0, (sockaddr*)&addr, &addr_len);
 
 				/*
 				** See if we got an error.
@@ -864,7 +871,7 @@ void ServerControlSocketClass::Service(void)
 			break;
 		}
 		times++;
-		Sleep(0);
+		std::this_thread::yield();
 
 		/*
 		** Get a pointer to the first packet.
@@ -888,7 +895,7 @@ void ServerControlSocketClass::Service(void)
 		/*
 		** Send it.
 		*/
-		result = sendto(Socket, ((char const *)packet->Buffer) - sizeof(packet->CRC), packet->BufferLen + sizeof(packet->CRC), 0, (LPSOCKADDR)&addr, sizeof (addr));
+		result = sendto(Socket, ((char const *)packet->Buffer) - sizeof(packet->CRC), packet->BufferLen + sizeof(packet->CRC), 0, (const sockaddr*)&addr, sizeof (addr));
 
 		if (result == SOCKET_ERROR){
 			if (LAST_ERROR != WSAEWOULDBLOCK) {
@@ -900,7 +907,7 @@ void ServerControlSocketClass::Service(void)
 				** No more room for outgoing packets.
 				*/
 				DebugString(("ServerControlSocketClass - sendto returned WSAEWOULDBLOCK\n"));
-				Sleep(0);
+				std::this_thread::yield();
 			}
 			break;
 		}
