@@ -48,9 +48,7 @@
 #include <thread>
 
 #ifdef _WIN32
-using SocketLength = int;
-#else
-using SocketLength = socklen_t;
+typedef int socklen_t;
 #endif
 
 /*
@@ -322,7 +320,7 @@ void ServerControlSocketClass::Discard_Out_Buffers(void)
 void ServerControlSocketClass::Clear_Socket_Error(void)
 {
 	unsigned int error_code;
-	SocketLength length = sizeof(error_code);
+	socklen_t length = sizeof(error_code);
 
 	if (Socket != INVALID_SOCKET) {
 		getsockopt (Socket, SOL_SOCKET, SO_ERROR, (char*)&error_code, &length);
@@ -740,7 +738,7 @@ void ServerControlSocketClass::Service(void)
 {
 	u_long bytes;
 	struct sockaddr_in addr;
-	SocketLength addr_len;
+	socklen_t addr_len;
 	WinsockBufferType *packet;
 	int result;
 	unsigned int timeout_check = TIMEGETTIME();
