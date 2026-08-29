@@ -43,6 +43,7 @@
 #include "pathutil.h"
 #include "bittype.h"
 #include <algorithm>
+#include <filesystem>
 
 /*
 **
@@ -309,19 +310,17 @@ MixFileFactoryClass::Flush_Changes (void)
 		return ;
 	}
 
+	std::filesystem::path mix_filename = MixFilename.Peek_Buffer();
+
 	//
 	//	Get the path of the mix file
 	//
-	char drive[_MAX_DRIVE] = { 0 };
-	char dir[_MAX_DIR] = { 0 };
-	::_splitpath (MixFilename, drive, dir, nullptr, nullptr);
-	StringClass path	= drive;
-	path					+= dir;
+	std::filesystem::path path = mix_filename.parent_path();
 
 	//
 	//	Try to find a temp filename
 	//
-	StringClass full_path;
+	std::filesystem::path full_path;
 	if (Get_Temp_Filename (path, full_path)) {
 		MixFileCreator new_mix_file (full_path);
 
@@ -365,8 +364,11 @@ MixFileFactoryClass::Flush_Changes (void)
 	//
 	//	Delete the old mix file and rename the new one
 	//
-	::DeleteFileA (MixFilename);
-	::MoveFileA (full_path, MixFilename);
+	std::error_code ec;
+	std::filesystem::remove(mix_filename, ec);
+	WWASSERT(!ec && "Failed to remove the previous MIX file");
+	std::filesystem::rename(full_path, mix_filename, ec);
+	WWASSERT(!ec && "Failed to move the temporary MIX back to its final location");
 
 	//
 	//	Reset the lists
@@ -381,18 +383,19 @@ MixFileFactoryClass::Flush_Changes (void)
 **
 */
 bool
-MixFileFactoryClass::Get_Temp_Filename (const char *path, StringClass &full_path)
+MixFileFactoryClass::Get_Temp_Filename (const std::filesystem::path &path, std::filesystem::path &full_path)
 {
 	bool retval = false;
 
-	StringClass temp_path	= path;
-	temp_path					+= "_tmpmix";
+	std::filesystem::path temp_path	= path;
+	StringClass filename;
 
 	//
 	//	Try to find a unique temp filename
 	//
 	for (int index = 0; index < 20; index ++) {
-		full_path.Format ("%s%.2d.dat", (const char *)temp_path, index + 1);
+		filename.Format ("_tmpmix%.2d.dat", index + 1);
+		full_path = path / filename.Peek_Buffer();
 		if (!cPathUtil::PathExists (full_path)) {
 			retval = true;
 			break;
@@ -407,6 +410,11 @@ MixFileFactoryClass::Get_Temp_Filename (const char *path, StringClass &full_path
 **
 */
 SimpleFileFactoryClass _SimpleFileFactory;
+
+MixFileCreator::MixFileCreator( const std::filesystem::path & path )
+	: MixFileCreator(path.generic_string().c_str())
+{
+}
 
 MixFileCreator::MixFileCreator( const char * filename )
 {
@@ -597,30 +605,22 @@ void	MixFileCreator::Add_File( const char * filename, FileClass *file )
 */
 void	Add_Files( const char * dir, MixFileCreator & mix )
 {
-	BOOL bcontinue = true;
-	HANDLE hfile_find;
-	WIN32_FIND_DATAA find_info = {0};
 	StringClass path;
 	path.Format( "data/makemix/%s*.*", dir );
 	WWDEBUG_SAY(( "Adding files from %s\n", path.Peek_Buffer() ));
 
-	for (hfile_find = ::FindFirstFileA( path, &find_info);
-		 (hfile_find != INVALID_HANDLE_VALUE) && bcontinue;
-		  bcontinue = ::FindNextFileA(hfile_find, &find_info)) {
-		if ( find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) {
-			if ( find_info.cFileName[0] != '.' ) {
-				StringClass	sub_path;
-				sub_path.Format( "%s%s/", dir, find_info.cFileName );
-				Add_Files( sub_path, mix );
-			}
-		} else {
-			StringClass name;
-			name.Format( "%s%s", dir, find_info.cFileName );
-			StringClass	source;
-			source.Format( "makemix/%s", name.Peek_Buffer() );
-			mix.Add_File( source, name );
-//			WWDEBUG_SAY(( "Adding file from %s %s\n", source, name ));
+	std::error_code ec;
+	for (auto & dir_entry : std::filesystem::recursive_directory_iterator{dir, ec}) {
+		if (!dir_entry.is_regular_file()) {
+			continue;
 		}
+		StringClass name;
+		name.Format( "%s", dir_entry.path().generic_string().c_str() );
+		StringClass	source;
+		source.Format( "makemix/%s", name.Peek_Buffer() );
+
+		mix.Add_File( source, name );
+//		WWDEBUG_SAY(( "Adding file from %s %s\n", source, name ));
 	}
 }
 
