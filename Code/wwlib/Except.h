@@ -82,6 +82,12 @@ typedef struct tThreadInfoType {
 } ThreadInfoType;
 
 
+#else
+
+#define Is_Trying_To_Exit() false
+#define Register_Thread_ID(ID, NAME)
+#define Unregister_Thread_ID(ID, NAME)
+#define Set_Exit_On_Exception(V)
 
 #endif	//_MSC_VER
 
