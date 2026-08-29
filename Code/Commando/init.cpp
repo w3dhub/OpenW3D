@@ -282,7 +282,11 @@ void Commando_Assert_Handler(const char * message)
 	// If the exception handler is try to quit the game then don't show an assert.
 	//
 	if (Is_Trying_To_Exit()) {
+#ifdef _WIN32
 		ExitProcess(0);
+#else
+		_exit(0);
+#endif
 	}
 
 	//

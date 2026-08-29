@@ -308,7 +308,11 @@ void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
 		// If the exception handler is try to quit the game then don't show an assert.
 		*/
 		if (Is_Trying_To_Exit()) {
+#ifdef _WIN32
 			ExitProcess(0);
+#else
+			_exit(0);
+#endif
 		}
 
       char assertbuf[4096];
