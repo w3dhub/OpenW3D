@@ -289,4 +289,15 @@ if(BUILD_TESTING AND WIN32)
 
     add_test(NAME ww3d2_emitter_serialization_tests
         COMMAND ww3d2_emitter_serialization_tests)
+
+    add_executable(ww3d2_framegrab_tests
+        tests/FrameGrabTests.cpp
+        framgrab.cpp
+    )
+    target_link_libraries(ww3d2_framegrab_tests PRIVATE
+        wwcommon
+        vfw32
+        winmm
+    )
+    add_test(NAME ww3d2_framegrab_tests COMMAND ww3d2_framegrab_tests)
 endif()
