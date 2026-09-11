@@ -865,14 +865,14 @@ GameInitMgrClass::Initialize_WOL (void)
 {
 #ifndef MULTIPLAYERDEMO
 
-#ifdef _WIN64
+#if !defined(_WIN32) || defined(_WIN64)
 	// WOLAPI COM binaries are 32-bit only; bail out early in 64-bit builds.
 	ConsoleBox.Print("Westwood Online is not available in 64-bit builds. Returning to main menu.\n");
 	RenegadeDialogMgrClass::Goto_Location (RenegadeDialogMgrClass::LOC_MAIN_MENU);
 	cGameType::Set_Game_Type(GAMETYPE_NONE);
 	Mode = MODE_UNKNOWN;
 	return;
-#endif
+#else
 
 	WWDEBUG_SAY (("GameInitMgrClass::Initialize_WOL\n"));
 
@@ -895,7 +895,7 @@ GameInitMgrClass::Initialize_WOL (void)
 	IsServerRequired	= false;
 	Mode					= MODE_WOL;
 	return ;
-
+#endif
 #endif // !MULTIPLAYERDEMO
 }
 
