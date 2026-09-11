@@ -362,9 +362,10 @@ bool WideStringClass::Convert_From (const char *text)
 {
 	if (text != nullptr) {
 		size_t length = u_mbtows(nullptr, text, 0);
+		WWASSERT(length <= INT_MAX);
 
 		if (length > 0 && length != size_t(-1)) {
-			length = u_mbtows(Get_Buffer(length), text, length);
+			length = u_mbtows(Get_Buffer(int(length)), text, length);
 
 			if (length > 0 && length != size_t(-1)) {
 				Store_Length(length - 1);

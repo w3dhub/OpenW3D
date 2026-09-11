@@ -495,7 +495,7 @@ MPChatChildDialogClass::Complete_Player_Name (const unichar_t *typed_name, WideS
 		//
 		//	Is this the best match so far?
 		//
-		if (::u_strncasecmp (player_name, typed_name, typed_len, U_COMPARE_CODE_POINT_ORDER) == 0) {
+		if (::u_strncasecmp (player_name, typed_name, int(typed_len), U_COMPARE_CODE_POINT_ORDER) == 0) {
 			if (	completed_name.Get_Length () == 0 ||
 					::u_strcasecmp (player_name, completed_name, U_COMPARE_CODE_POINT_ORDER) < 0)
 			{

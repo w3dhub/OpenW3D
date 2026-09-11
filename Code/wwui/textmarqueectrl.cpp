@@ -430,7 +430,8 @@ TextMarqueeCtrlClass::Read_Tag (const unichar_t *text, CREDIT_LINE &line)
 					//	Store the color
 					//
 					line.Color	= RGB_TO_INT32 ((uint8)color[0], (uint8)color[1], (uint8)color[2]);
-					retval		= index;
+					WWASSERT(index <= INT_MAX);
+					retval		= int(index);
 				}
 
 				break;

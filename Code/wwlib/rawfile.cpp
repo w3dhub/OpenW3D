@@ -672,7 +672,7 @@ int RawFileClass::Read(void * buffer, int size)
 		#if defined(OPENW3D_WIN32)
 			readok=ReadFile(Handle, buffer, size, &(DWORD&)bytesread, nullptr);
 		#elif defined(OPENW3D_SDL3)
-			bytesread = SDL_ReadIO(Handle, buffer, size);
+			bytesread = int(SDL_ReadIO(Handle, buffer, size));
 			if (bytesread == 0) {
 				readok = (SDL_GetIOStatus(Handle) != SDL_IO_STATUS_ERROR);
 			}
@@ -748,7 +748,7 @@ int RawFileClass::Write(void const * buffer, int size)
 			Error(GetLastError(), false, Filename);
 		}
 	#elif defined(OPENW3D_SDL3)
-		byteswritten = SDL_WriteIO(Handle, buffer, size);
+		byteswritten = int(SDL_WriteIO(Handle, buffer, size));
 		if (byteswritten != size) {
 	        writeok = (SDL_GetIOStatus(Handle) != SDL_IO_STATUS_ERROR);
 		}
