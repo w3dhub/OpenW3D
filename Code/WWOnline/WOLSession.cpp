@@ -71,12 +71,12 @@ RefPtr<Session> Session::_mInstance;
 *
 ******************************************************************************/
 
-RefPtr<Session> Session::GetInstance(bool okToCreate)
+RefPtr<Session> Session::GetInstance([[maybe_unused]] bool okToCreate)
 	{
-#ifdef _WIN64
+#if !defined(_WIN32) || defined(_WIN64)
 		WWDEBUG_SAY(("WOL: Disabled in 64-bit builds (missing 64-bit WOLAPI).\n"));
 		return RefPtr<Session>();
-#endif
+#else
 	if (okToCreate && !_mInstance.IsValid())
 		{
 		_mInstance = new Session;
@@ -87,7 +87,8 @@ RefPtr<Session> Session::GetInstance(bool okToCreate)
 			}
 		}
 
-	return _mInstance;
+	return _mInstance;	
+#endif
 	}
 
 
