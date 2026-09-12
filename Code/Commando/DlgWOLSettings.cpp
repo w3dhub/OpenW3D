@@ -1096,7 +1096,7 @@ void DlgWOLSettings::On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int ct
 
  			if (profile)
 				{
-				int side = combo->Get_Item_Data(newSel);
+				int side = int(combo->Get_Item_Data(newSel));
 				profile->SetSidePreference(side);
 				}
 			}

@@ -45,6 +45,7 @@
 
 #include "always.h"
 #include "wwstring.h"
+#include <stdint.h>
 
 #if defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) ||defined( __i386) || defined(_M_IX86)
 #define CPU_X86 1
@@ -200,13 +201,13 @@ public:
 	static unsigned Get_L1_Instruction_Trace_Cache_Set_Associative() { return L1InstructionTraceCacheSetAssociative; }
 
 	// System memory
-	static unsigned Get_Total_Physical_Memory() { return TotalPhysicalMemory; }
+	static uint64_t Get_Total_Physical_Memory() { return TotalPhysicalMemory; }
 #if defined(OPENW3D_WIN32)
-	static unsigned Get_Available_Physical_Memory() { return AvailablePhysicalMemory; }
-	static unsigned Get_Total_Page_File_Size() { return TotalPageMemory; }
-	static unsigned Get_Available_Page_File_Size() { return AvailablePageMemory; }
-	static unsigned Get_Total_Virtual_Memory() { return TotalVirtualMemory; }
-	static unsigned Get_Available_Virtual_Memory() { return AvailableVirtualMemory; }
+	static uint64_t Get_Available_Physical_Memory() { return AvailablePhysicalMemory; }
+	static uint64_t Get_Total_Page_File_Size() { return TotalPageMemory; }
+	static uint64_t Get_Available_Page_File_Size() { return AvailablePageMemory; }
+	static uint64_t Get_Total_Virtual_Memory() { return TotalVirtualMemory; }
+	static uint64_t Get_Available_Virtual_Memory() { return AvailableVirtualMemory; }
 #endif
 
 	static unsigned Get_Processor_Type() { return ProcessorType; }
@@ -287,12 +288,12 @@ private:
 	static unsigned L1InstructionTraceCacheSize;
 	static unsigned L1InstructionTraceCacheSetAssociative;
 
-	static unsigned TotalPhysicalMemory;
-	static unsigned AvailablePhysicalMemory;
-	static unsigned TotalPageMemory;
-	static unsigned AvailablePageMemory;
-	static unsigned TotalVirtualMemory;
-	static unsigned AvailableVirtualMemory;
+	static uint64_t TotalPhysicalMemory;
+	static uint64_t AvailablePhysicalMemory;
+	static uint64_t TotalPageMemory;
+	static uint64_t AvailablePageMemory;
+	static uint64_t TotalVirtualMemory;
+	static uint64_t AvailableVirtualMemory;
 
 #ifdef OPENW3D_WIN32
 	static unsigned OSVersionNumberMajor;

@@ -1548,7 +1548,7 @@ const unichar_t* Get_Parameter_From_String(const unichar_t* command, WideStringC
 		}
 
 	// Return the string contents to the caller
-	int length = ((curr_pos + 1) - command);
+	int length = int((curr_pos + 1) - command);
 
 	if (length > 0)
 		{

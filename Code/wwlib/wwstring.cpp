@@ -207,7 +207,7 @@ StringClass::Free_String (void)
 			//
 			FastCriticalSectionClass::LockClass m(m_Mutex);
 
-			unsigned index=(buffer_base - temp_base) / MAX_TEMP_BYTES;
+			unsigned index=unsigned(buffer_base - temp_base) / MAX_TEMP_BYTES;
 			unsigned mask=1<<index;
 			ReservedMask&=~mask;
 		}

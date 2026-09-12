@@ -655,7 +655,7 @@ void	Send_Custom_Event( GameObject * from, GameObject * to, int type, intptr_t p
 				observer_list[ index ]->Custom( to, type, param, from );
 			}
 		} else {
-			to->Start_Custom_Timer( from, delay, type, param );
+			to->Start_Custom_Timer( from, delay, type, int(param) );
 		}
 	}
 }

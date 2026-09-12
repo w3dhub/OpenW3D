@@ -572,7 +572,7 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
 		*/
 		case WM_CHAR:
 			//Debug_Say(("WM_CHAR %d\n", wParam));
-			Input::Console_Add_Key( wParam );
+			Input::Console_Add_Key( int(wParam) );
 			break;
 
 		/*

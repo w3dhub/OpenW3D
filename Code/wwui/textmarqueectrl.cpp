@@ -471,7 +471,7 @@ TextMarqueeCtrlClass::Read_Line (const unichar_t *text, CREDIT_LINE &line)
 		//	Check to see if this character ends the
 		//
 		if (ch == U_CHAR('\n') || ch == 0) {
-			int len = text - text_start;
+			int len = int(text - text_start);
 //			::strncpyW (line.Text.Get_Buffer (len + 1), text_start, len + 1);
 
 			unichar_t* buffer = line.Text.Get_Buffer(len + 1);

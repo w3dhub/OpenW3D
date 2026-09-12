@@ -293,9 +293,9 @@ bool WOLQuickMatch::SendClientInfo(void)
 	uint64_t speed = CPUDetectClass::Get_Processor_Speed();
 
 	// Get amount of physical memory
-	MEMORYSTATUS memStatus;
-	GlobalMemoryStatus(&memStatus);
-	unsigned int memory = (memStatus.dwTotalPhys / 1048576);
+	MEMORYSTATUSEX memStatus;
+	GlobalMemoryStatusEx(&memStatus);
+	uint64_t memory = (memStatus.ullTotalPhys / 1048576);
 
 	//-------------------------------------------------------------------------
 	// Gather pings
@@ -330,7 +330,7 @@ bool WOLQuickMatch::SendClientInfo(void)
 	// Generate client information message
 	//-------------------------------------------------------------------------
 	WideStringClass clientMsg(256, true);
-	clientMsg.Format(U_CHAR("CINFO VER=%" PRIu32 " CPU=%" PRIu64 " MEM=%lu TPOINTS=%ld PLAYED=%lu PINGS=%S"),
+	clientMsg.Format(U_CHAR("CINFO VER=%" PRIu32 " CPU=%" PRIu64 " MEM=%" PRIu64 "TPOINTS=%ld PLAYED=%lu PINGS=%S"),
 		ver, speed, memory, tpoints, played, pseudoPings);
 
 	WWDEBUG_SAY(("WOLQuickMatch: '%S'\n", (const unichar_t*)clientMsg));

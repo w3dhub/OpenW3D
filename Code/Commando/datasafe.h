@@ -463,7 +463,7 @@ class DataSafeEntryTypeClass
 		/*
 		** A unique number used to match and assign type IDs. This can come from anywhere as long as it's different for every type.
 		*/
-		unsigned int TypeCode;
+		uintptr_t TypeCode;
 
 		/*
 		** This is the user friendly ID that is stored along with entries in the data safe and returned in the handle that's
@@ -773,7 +773,7 @@ class DataSafeClass : public GenericDataSafeClass
 		/*
 		** Type identification.
 		*/
-		static int Get_Type_ID(unsigned int type_code, int size);
+		static int Get_Type_ID(uintptr_t type_code, int size);
 		static uintptr_t Get_Type_Code(void);
 
 		/*
@@ -1384,7 +1384,7 @@ uintptr_t DataSafeClass<T>::Get_Type_Code(void)
  *   6/27/2001 12:44PM ST : Created                                                            *
  *=============================================================================================*/
 template <class T>
-int DataSafeClass<T>::Get_Type_ID(unsigned int type_code, int size)
+int DataSafeClass<T>::Get_Type_ID(uintptr_t type_code, int size)
 {
 	int id = 0;
 

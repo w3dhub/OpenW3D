@@ -154,7 +154,7 @@ EvaObjectivesTabClass::Update_Curr_Objective_Controls (void)
 	//
 	int curr_sel = list_ctrl->Get_Curr_Sel ();
 	if (curr_sel >= 0) {
-		Objective *objective = ObjectiveManager::Get_Objective (list_ctrl->Get_Entry_Data (curr_sel, 0));
+		Objective *objective = ObjectiveManager::Get_Objective (int(list_ctrl->Get_Entry_Data (curr_sel, 0)));
 		if (objective != nullptr) {
 
 			//
@@ -266,8 +266,8 @@ EvaObjectivesTabClass::ListSortCallback
 {
 	int count = list_ctrl->Get_Entry_Count ();
 
-	Objective *objective1 = ObjectiveManager::Get_Objective (list_ctrl->Get_Entry_Data (item_index1, 0));
-	Objective *objective2 = ObjectiveManager::Get_Objective (list_ctrl->Get_Entry_Data (item_index2, 0));
+	Objective *objective1 = ObjectiveManager::Get_Objective (int(list_ctrl->Get_Entry_Data (item_index1, 0)));
+	Objective *objective2 = ObjectiveManager::Get_Objective (int(list_ctrl->Get_Entry_Data (item_index2, 0)));
 
 	int result = 0;
 

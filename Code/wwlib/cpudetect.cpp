@@ -115,13 +115,13 @@ unsigned CPUDetectClass::L1InstructionCacheSetAssociative;
 unsigned CPUDetectClass::L1InstructionTraceCacheSize;
 unsigned CPUDetectClass::L1InstructionTraceCacheSetAssociative;
 
-unsigned CPUDetectClass::TotalPhysicalMemory;
+uint64_t CPUDetectClass::TotalPhysicalMemory;
 #ifdef OPENW3D_WIN32
-unsigned CPUDetectClass::AvailablePhysicalMemory;
-unsigned CPUDetectClass::TotalPageMemory;
-unsigned CPUDetectClass::AvailablePageMemory;
-unsigned CPUDetectClass::TotalVirtualMemory;
-unsigned CPUDetectClass::AvailableVirtualMemory;
+uint64_t CPUDetectClass::AvailablePhysicalMemory;
+uint64_t CPUDetectClass::TotalPageMemory;
+uint64_t CPUDetectClass::AvailablePageMemory;
+uint64_t CPUDetectClass::TotalVirtualMemory;
+uint64_t CPUDetectClass::AvailableVirtualMemory;
 #endif
 
 #ifdef OPENW3D_WIN32
@@ -918,14 +918,14 @@ void CPUDetectClass::Init_Processor_Features()
 void CPUDetectClass::Init_Memory()
 {
 #if defined(OPENW3D_WIN32)
-	MEMORYSTATUS mem;
-	GlobalMemoryStatus(&mem);
-	TotalPhysicalMemory = mem.dwTotalPhys;
-	AvailablePhysicalMemory = mem.dwAvailPhys;
-	TotalPageMemory = mem.dwTotalPageFile;
-	AvailablePageMemory = mem.dwAvailPageFile;
-	TotalVirtualMemory = mem.dwTotalVirtual;
-	AvailableVirtualMemory = mem.dwAvailVirtual;
+	MEMORYSTATUSEX mem;
+	GlobalMemoryStatusEx(&mem);
+	TotalPhysicalMemory = mem.ullTotalPhys;
+	AvailablePhysicalMemory = mem.ullAvailPhys;
+	TotalPageMemory = mem.ullTotalPageFile;
+	AvailablePageMemory = mem.ullAvailPageFile;
+	TotalVirtualMemory = mem.ullTotalVirtual;
+	AvailableVirtualMemory = mem.ullAvailVirtual;
 #elif defined(OPENW3D_SDL3)
 	TotalPhysicalMemory = SDL_GetSystemRAM();
 #else

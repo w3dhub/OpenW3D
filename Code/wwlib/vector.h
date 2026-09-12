@@ -310,7 +310,8 @@ template<class T>
 inline int VectorClass<T>::ID(T const * ptr)
 {
 	if (!IsValid) return(0);
-	return(((uintptr_t)ptr - (uintptr_t)&(*this)[0]) / sizeof(T));
+	assert((((uintptr_t)ptr - (uintptr_t)&(*this)[0]) / sizeof(T)) <= INT_MAX);
+	return int(((uintptr_t)ptr - (uintptr_t)&(*this)[0]) / sizeof(T));
 }
 
 

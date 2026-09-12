@@ -413,7 +413,7 @@ int PacketManagerClass::Build_Delta_Packet_Patch(unsigned char *base_packet, uns
 		/*
 		** Calculate the size of the whole delta patch.
 		*/
-		int patch_size = (delta_bytes_ptr - delta_packet) + num_diff_bytes;
+		int patch_size = int(delta_bytes_ptr - delta_packet) + num_diff_bytes;
 
 		return(patch_size);
 	}
@@ -545,7 +545,7 @@ int PacketManagerClass::Reconstruct_From_Delta(unsigned char *base_packet, unsig
 	/*
 	** Work out how many delta bytes we processed - it's needed for meta packet decoding.
 	*/
-	delta_size = (patch_bytes - delta_packet) + num_patches;
+	delta_size = int(patch_bytes - delta_packet) + num_patches;
 
 	/*
 	** Copy the patch bytes into the correct positions.
@@ -1086,7 +1086,7 @@ bool PacketManagerClass::Break_Packet(unsigned char *packet, int original_packet
 		}
 	}
 
-	int bytes_pulled_from_packet = packet_ptr - packet;
+	int bytes_pulled_from_packet = int(packet_ptr - packet);
 
 	/*
 	** More packets in this buffer?

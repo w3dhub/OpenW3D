@@ -91,11 +91,11 @@ bool WWUIInputClass::ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 
 	switch (msg) {
 		case WM_KEYDOWN:
-			return DialogMgrClass::On_Key_Down(wParam, lParam);
+			return DialogMgrClass::On_Key_Down(int(wParam), int(lParam));
 			break;
 
 		case WM_KEYUP:
-			return DialogMgrClass::On_Key_Up(wParam);
+			return DialogMgrClass::On_Key_Up(int(wParam));
 			break;
 
 		case WM_CHAR:

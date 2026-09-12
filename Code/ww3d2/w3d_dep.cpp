@@ -523,7 +523,7 @@ static void Get_W3D_Name (const char *filename, char *w3d_name)
 	// Copy all characters from start to end (excluding 'end')
 	// into the w3d_name buffer. Then capitalize the string.
 	memset(w3d_name, 0, W3D_NAME_LEN);	// blank out the buffer
-	int num_chars = end - start;
+	int num_chars = int(end - start);
 	strncpy(w3d_name, start, num_chars < W3D_NAME_LEN ? num_chars : W3D_NAME_LEN-1);
     openw3d::string_to_upper(w3d_name);
 }

@@ -92,7 +92,7 @@ static WideStringClass TranslateDialogString(const unichar_t *text)
 			StringClass ascii_string_id;
 			wide_string_id.Convert_To(ascii_string_id);
 			const unichar_t *translation = TRANSLATE_BY_DESC(ascii_string_id);
-			result.Erase(string_id - result.Peek_Buffer(), result.Get_Length());
+			result.Erase(int(string_id - result.Peek_Buffer()), result.Get_Length());
 			result += translation;
 		}
 	}
