@@ -9,6 +9,9 @@ class QComboBox;
 class QLabel;
 class QListWidget;
 class QSlider;
+namespace Ui {
+class AudioPage;
+}
 
 class AudioPage : public QWidget
 {
@@ -16,6 +19,7 @@ class AudioPage : public QWidget
 
 public:
     explicit AudioPage(WWConfigBackend &backend, QWidget *parent = nullptr);
+    ~AudioPage() override;
 
     void refresh();
     bool save();
@@ -26,6 +30,7 @@ private:
     void updateSettingsFromControls();
     void setVolumeRow(QSlider *slider, QCheckBox *check, float value, bool enabled);
 
+    Ui::AudioPage *m_ui = nullptr;
     WWConfigBackend &m_backend;
     AudioSettings m_settings;
     bool m_blockSignals = false;

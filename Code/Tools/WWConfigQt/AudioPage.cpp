@@ -1,18 +1,15 @@
 #include "AudioPage.h"
+#include "ui_AudioPage.h"
 
 #include <algorithm>
 #include <cmath>
 
-#include <QAbstractItemView>
 #include <QCheckBox>
 #include <QComboBox>
-#include <QFormLayout>
-#include <QGridLayout>
 #include <QGroupBox>
 #include <QLabel>
 #include <QListWidget>
 #include <QSlider>
-#include <QVBoxLayout>
 
 namespace
 {
@@ -45,90 +42,34 @@ int SampleRateFromIndex(int index)
 
 AudioPage::AudioPage(WWConfigBackend &backend, QWidget *parent)
     : QWidget(parent),
+      m_ui(new Ui::AudioPage),
       m_backend(backend)
 {
     buildUi();
     refresh();
 }
 
+AudioPage::~AudioPage()
+{
+    delete m_ui;
+}
+
 void AudioPage::buildUi()
 {
-    auto *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(6, 6, 6, 6);
-    layout->setSpacing(8);
-
-    auto *deviceGroup = new QGroupBox(tr("Device"), this);
-    auto *deviceLayout = new QGridLayout(deviceGroup);
-    deviceLayout->setContentsMargins(6, 6, 6, 6);
-    deviceLayout->setHorizontalSpacing(6);
-    deviceLayout->setVerticalSpacing(4);
-
-    deviceLayout->addWidget(new QLabel(tr("Driver:"), deviceGroup), 0, 0, Qt::AlignLeft);
-    m_driverList = new QListWidget(deviceGroup);
-    m_driverList->setUniformItemSizes(true);
-    m_driverList->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_driverList->setMinimumHeight(60);
-    deviceLayout->addWidget(m_driverList, 0, 1, 1, 2);
-
-    deviceLayout->setColumnStretch(1, 1);
-    layout->addWidget(deviceGroup);
-
-    auto *volumeGroup = new QGroupBox(tr("Volume"), this);
-    auto *volumeLayout = new QGridLayout(volumeGroup);
-    volumeLayout->setContentsMargins(6, 6, 6, 6);
-    volumeLayout->setHorizontalSpacing(6);
-    volumeLayout->setVerticalSpacing(4);
-
-    auto createRow = [&](int row, const QString &labelText, QCheckBox *&check, QSlider *&slider) {
-        check = new QCheckBox(labelText, volumeGroup);
-        slider = new QSlider(Qt::Horizontal, volumeGroup);
-        slider->setRange(0, 100);
-        slider->setTickInterval(10);
-        volumeLayout->addWidget(check, row, 0, Qt::AlignLeft);
-        volumeLayout->addWidget(slider, row, 1);
-    };
-
-    createRow(0, tr("Sound Effects"), m_soundEnableCheck, m_soundSlider);
-    createRow(1, tr("Music"), m_musicEnableCheck, m_musicSlider);
-    createRow(2, tr("Dialog"), m_dialogEnableCheck, m_dialogSlider);
-    createRow(3, tr("Cinematic"), m_cinematicEnableCheck, m_cinematicSlider);
-
-    volumeLayout->setColumnStretch(1, 1);
-    layout->addWidget(volumeGroup);
-
-    auto *playbackGroup = new QGroupBox(tr("Playback"), this);
-    auto *playbackLayout = new QGridLayout(playbackGroup);
-    playbackLayout->setContentsMargins(6, 6, 6, 6);
-    playbackLayout->setHorizontalSpacing(8);
-    playbackLayout->setVerticalSpacing(4);
-
-    m_qualityCombo = new QComboBox(playbackGroup);
-    m_qualityCombo->addItems({tr("8-bit"), tr("16-bit")});
-    playbackLayout->addWidget(new QLabel(tr("Quality"), playbackGroup), 0, 0, Qt::AlignLeft);
-    playbackLayout->addWidget(m_qualityCombo, 1, 0);
-
-    m_rateCombo = new QComboBox(playbackGroup);
-    m_rateCombo->addItems({tr("11 kHz"), tr("22 kHz"), tr("44 kHz")});
-    playbackLayout->addWidget(new QLabel(tr("Playback Rate"), playbackGroup), 0, 1, Qt::AlignLeft);
-    playbackLayout->addWidget(m_rateCombo, 1, 1);
-
-    m_speakerCombo = new QComboBox(playbackGroup);
-    m_speakerCombo->addItems({tr("2 Speaker"), tr("Headphones"), tr("Surround"), tr("4 Speaker")});
-    playbackLayout->addWidget(new QLabel(tr("Speaker Setup"), playbackGroup), 0, 2, Qt::AlignLeft);
-    playbackLayout->addWidget(m_speakerCombo, 1, 2);
-
-    playbackLayout->setColumnStretch(0, 1);
-    playbackLayout->setColumnStretch(1, 1);
-    playbackLayout->setColumnStretch(2, 1);
-    layout->addWidget(playbackGroup);
-
-    m_stereoCheck = new QCheckBox(tr("Stereo playback"), this);
-    layout->addWidget(m_stereoCheck, 0, Qt::AlignLeft);
-
-    auto *note = new QLabel(tr("Press OK to save audio changes to Renegade.ini."), this);
-    note->setWordWrap(true);
-    layout->addWidget(note);
-    layout->addStretch();
+    m_ui->setupUi(this);
+    m_driverList = m_ui->driverList;
+    m_stereoCheck = m_ui->stereoCheck;
+    m_qualityCombo = m_ui->qualityCombo;
+    m_rateCombo = m_ui->rateCombo;
+    m_speakerCombo = m_ui->speakerCombo;
+    m_soundEnableCheck = m_ui->soundEnableCheck;
+    m_musicEnableCheck = m_ui->musicEnableCheck;
+    m_dialogEnableCheck = m_ui->dialogEnableCheck;
+    m_cinematicEnableCheck = m_ui->cinematicEnableCheck;
+    m_soundSlider = m_ui->soundSlider;
+    m_musicSlider = m_ui->musicSlider;
+    m_dialogSlider = m_ui->dialogSlider;
+    m_cinematicSlider = m_ui->cinematicSlider;
 
     auto applyOnChange = [this]() {
         updateSettingsFromControls();

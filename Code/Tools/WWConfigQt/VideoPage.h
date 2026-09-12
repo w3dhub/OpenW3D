@@ -11,6 +11,9 @@ class QComboBox;
 class QLabel;
 class QListWidget;
 class QSlider;
+namespace Ui {
+class VideoPage;
+}
 
 class VideoPage : public QWidget
 {
@@ -18,6 +21,7 @@ class VideoPage : public QWidget
 
 public:
     explicit VideoPage(WWConfigBackend &backend, QWidget *parent = nullptr);
+    ~VideoPage() override;
 
     void refresh();
     bool save();
@@ -33,6 +37,7 @@ private:
 
     const VideoAdapterInfo *currentAdapter() const;
 
+    Ui::VideoPage *m_ui = nullptr;
     WWConfigBackend &m_backend;
     VideoSettings m_settings;
     std::vector<VideoAdapterInfo> m_adapters;

@@ -36,12 +36,16 @@ class QTableView;
 class QTreeView;
 class QStandardItemModel;
 class QToolBar;
+namespace Ui {
+class WDumpMainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow() override;
     bool loadFile(const QString &path);
 
 protected:
@@ -70,6 +74,7 @@ private:
 
     static constexpr int kMaxRecentFiles = 10;
 
+    Ui::WDumpMainWindow *_ui = nullptr;
     wdump::ChunkFile _file;
     QString _currentFile;
     QString _findString;

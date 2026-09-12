@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PerformancePage</class>
+ <widget class="QWidget" name="PerformancePage">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>420</width><height>400</height></rect></property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="spacing"><number>8</number></property>
+   <property name="leftMargin"><number>4</number></property><property name="topMargin"><number>4</number></property>
+   <property name="rightMargin"><number>4</number></property><property name="bottomMargin"><number>4</number></property>
+   <item><widget class="QGroupBox" name="detailGroup">
+    <property name="title"><string>Detail</string></property>
+    <layout class="QGridLayout" name="detailLayout" columnstretch="0,1,0">
+     <item row="0" column="0"><widget class="QLabel" name="lowFastLabel"><property name="text"><string>Low (fastest)</string></property></widget></item>
+     <item row="0" column="1"><widget class="QSlider" name="overallSlider">
+      <property name="accessibleName"><string>Overall detail</string></property><property name="maximum"><number>3</number></property>
+      <property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickPosition"><enum>QSlider::TicksBelow</enum></property><property name="tickInterval"><number>1</number></property>
+     </widget></item>
+     <item row="0" column="2"><widget class="QLabel" name="highSlowLabel"><property name="text"><string>High (slowest)</string></property><property name="alignment"><set>Qt::AlignRight|Qt::AlignVCenter</set></property></widget></item>
+     <item row="1" column="0" colspan="2"><widget class="QCheckBox" name="expertCheck"><property name="text"><string>&amp;Expert Mode</string></property></widget></item>
+     <item row="1" column="2"><widget class="QPushButton" name="autoButton"><property name="text"><string>&amp;Auto Config</string></property></widget></item>
+    </layout>
+   </widget></item>
+   <item><widget class="QGroupBox" name="expertGroup">
+    <property name="title"><string>Expert Settings</string></property>
+    <layout class="QGridLayout" name="expertLayout" columnstretch="0,0,1,0">
+      <item row="0" column="0"><widget class="QLabel" name="geometryLabel"><property name="text"><string>Geometry Detail</string></property><property name="buddy"><cstring>geometrySlider</cstring></property></widget></item>
+      <item row="0" column="1"><widget class="QLabel" name="geometryLowLabel"><property name="text"><string>Low</string></property></widget></item>
+      <item row="0" column="2"><widget class="QSlider" name="geometrySlider"><property name="accessibleName"><string>Geometry Detail</string></property><property name="maximum"><number>2</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickPosition"><enum>QSlider::TicksBelow</enum></property><property name="tickInterval"><number>1</number></property></widget></item>
+      <item row="0" column="3"><widget class="QLabel" name="geometryHighLabel"><property name="text"><string>High</string></property></widget></item>
+      <item row="1" column="0"><widget class="QLabel" name="shadowLabel"><property name="text"><string>Character Shadows</string></property><property name="buddy"><cstring>shadowSlider</cstring></property></widget></item>
+      <item row="1" column="1"><widget class="QLabel" name="shadowLowLabel"><property name="text"><string>Low</string></property></widget></item>
+      <item row="1" column="2"><widget class="QSlider" name="shadowSlider"><property name="accessibleName"><string>Character Shadows</string></property><property name="maximum"><number>3</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickPosition"><enum>QSlider::TicksBelow</enum></property><property name="tickInterval"><number>1</number></property></widget></item>
+      <item row="1" column="3"><widget class="QLabel" name="shadowHighLabel"><property name="text"><string>High</string></property></widget></item>
+      <item row="2" column="0"><widget class="QLabel" name="textureLabel"><property name="text"><string>Texture Detail</string></property><property name="buddy"><cstring>textureSlider</cstring></property></widget></item>
+      <item row="2" column="1"><widget class="QLabel" name="textureLowLabel"><property name="text"><string>Low</string></property></widget></item>
+      <item row="2" column="2"><widget class="QSlider" name="textureSlider"><property name="accessibleName"><string>Texture Detail</string></property><property name="maximum"><number>2</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickPosition"><enum>QSlider::TicksBelow</enum></property><property name="tickInterval"><number>1</number></property></widget></item>
+      <item row="2" column="3"><widget class="QLabel" name="textureHighLabel"><property name="text"><string>High</string></property></widget></item>
+      <item row="3" column="0"><widget class="QLabel" name="particleLabel"><property name="text"><string>Particle Detail</string></property><property name="buddy"><cstring>particleSlider</cstring></property></widget></item>
+      <item row="3" column="1"><widget class="QLabel" name="particleLowLabel"><property name="text"><string>Low</string></property></widget></item>
+      <item row="3" column="2"><widget class="QSlider" name="particleSlider"><property name="accessibleName"><string>Particle Detail</string></property><property name="maximum"><number>2</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickPosition"><enum>QSlider::TicksBelow</enum></property><property name="tickInterval"><number>1</number></property></widget></item>
+      <item row="3" column="3"><widget class="QLabel" name="particleHighLabel"><property name="text"><string>High</string></property></widget></item>
+      <item row="4" column="0"><widget class="QLabel" name="surfaceLabel"><property name="text"><string>Surface Effect Detail</string></property><property name="buddy"><cstring>surfaceSlider</cstring></property></widget></item>
+      <item row="4" column="1"><widget class="QLabel" name="surfaceLowLabel"><property name="text"><string>Low</string></property></widget></item>
+      <item row="4" column="2"><widget class="QSlider" name="surfaceSlider"><property name="accessibleName"><string>Surface Effect Detail</string></property><property name="maximum"><number>2</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickPosition"><enum>QSlider::TicksBelow</enum></property><property name="tickInterval"><number>1</number></property></widget></item>
+      <item row="4" column="3"><widget class="QLabel" name="surfaceHighLabel"><property name="text"><string>High</string></property></widget></item>
+     <item row="5" column="0"><widget class="QLabel" name="lightingLabel"><property name="text"><string>Lighting Mode</string></property><property name="buddy"><cstring>lightingCombo</cstring></property></widget></item>
+     <item row="5" column="1" colspan="3"><widget class="QComboBox" name="lightingCombo"/></item>
+     <item row="6" column="0"><widget class="QLabel" name="filterLabel"><property name="text"><string>Texture Filter</string></property><property name="buddy"><cstring>filterCombo</cstring></property></widget></item>
+     <item row="6" column="1" colspan="3"><widget class="QComboBox" name="filterCombo"/></item>
+     <item row="7" column="0" colspan="4"><widget class="QCheckBox" name="terrainCheck"><property name="text"><string>&amp;Terrain Casts Shadows</string></property></widget></item>
+    </layout>
+   </widget></item>
+   <item><spacer name="bottomSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+  </layout>
+ </widget>
+ <tabstops><tabstop>overallSlider</tabstop><tabstop>expertCheck</tabstop><tabstop>autoButton</tabstop><tabstop>geometrySlider</tabstop><tabstop>shadowSlider</tabstop><tabstop>textureSlider</tabstop><tabstop>particleSlider</tabstop><tabstop>surfaceSlider</tabstop><tabstop>lightingCombo</tabstop><tabstop>filterCombo</tabstop><tabstop>terrainCheck</tabstop></tabstops>
+ <resources/>
+ <connections/>
+</ui>

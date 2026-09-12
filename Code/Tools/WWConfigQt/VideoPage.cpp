@@ -1,23 +1,18 @@
 #include "VideoPage.h"
+#include "ui_VideoPage.h"
 
 #include <algorithm>
 #include <cstdlib>
 #include <limits>
 
-#include <QAbstractItemView>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QFontMetrics>
-#include <QGridLayout>
-#include <QFormLayout>
-#include <QGroupBox>
-#include <QHBoxLayout>
 #include <QLabel>
 #include <QListWidget>
 #include <QSizePolicy>
 #include <QStyle>
 #include <QSlider>
-#include <QVBoxLayout>
 
 namespace
 {
@@ -35,71 +30,30 @@ QString AdapterDisplayName(const VideoAdapterInfo &adapter)
 
 VideoPage::VideoPage(WWConfigBackend &backend, QWidget *parent)
     : QWidget(parent),
+      m_ui(new Ui::VideoPage),
       m_backend(backend)
 {
     buildUi();
     refresh();
 }
 
+VideoPage::~VideoPage()
+{
+    delete m_ui;
+}
+
 void VideoPage::buildUi()
 {
-    auto *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(4, 4, 4, 4);
-    layout->setSpacing(8);
-
-    auto *deviceGroup = new QGroupBox(tr("Device"), this);
-    auto *deviceLayout = new QVBoxLayout(deviceGroup);
-
-    auto *driverRow = new QHBoxLayout();
-    auto *driverIcon = new QLabel(deviceGroup);
-    driverIcon->setPixmap(style()->standardIcon(QStyle::SP_ComputerIcon).pixmap(20, 20));
-    driverIcon->setFixedSize(20, 20);
-    driverRow->addWidget(driverIcon);
-    driverRow->addWidget(new QLabel(tr("Driver:"), deviceGroup));
-    driverRow->addStretch();
-    deviceLayout->addLayout(driverRow);
-
-    m_driverList = new QListWidget(deviceGroup);
-    m_driverList->setUniformItemSizes(true);
-    m_driverList->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_driverList->setMinimumHeight(64);
-    deviceLayout->addWidget(m_driverList);
-
-    layout->addWidget(deviceGroup);
-
-    auto *displayGroup = new QGroupBox(tr("Display"), this);
-    auto *displayLayout = new QGridLayout(displayGroup);
-    displayLayout->setHorizontalSpacing(6);
-    displayLayout->setVerticalSpacing(4);
-
-    displayLayout->addWidget(new QLabel(tr("Resolution:"), displayGroup), 0, 0);
-    m_resolutionSlider = new QSlider(Qt::Horizontal, displayGroup);
-    m_resolutionSlider->setRange(0, 0);
-    m_resolutionSlider->setTickPosition(QSlider::TicksBelow);
-    m_resolutionSlider->setTickInterval(1);
-    displayLayout->addWidget(m_resolutionSlider, 0, 1);
-    m_resolutionValue = new QLabel(tr("N/A"), displayGroup);
-    m_resolutionValue->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    m_resolutionValue->setFixedWidth(m_resolutionValue->fontMetrics().horizontalAdvance(QStringLiteral("9999 x 9999")) + 8);
-    m_resolutionValue->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-    displayLayout->addWidget(m_resolutionValue, 0, 2);
-
-    displayLayout->addWidget(new QLabel(tr("Color Depth:"), displayGroup), 1, 0);
-    m_bitDepthCombo = new QComboBox(displayGroup);
-    displayLayout->addWidget(m_bitDepthCombo, 1, 1, 1, 2);
-
-    m_windowedCheck = new QCheckBox(tr("Windowed Mode"), displayGroup);
-    displayLayout->addWidget(m_windowedCheck, 2, 0, 1, 3);
-
-    m_textureDepthLabel = new QLabel(tr("Texture depth: --"), displayGroup);
-    displayLayout->addWidget(m_textureDepthLabel, 3, 0, 1, 3);
-
-    layout->addWidget(displayGroup);
-
-    auto *note = new QLabel(tr("Press OK to save video changes to Renegade.ini."), this);
-    note->setWordWrap(true);
-    layout->addWidget(note);
-    layout->addStretch();
+    m_ui->setupUi(this);
+    m_driverList = m_ui->driverList;
+    m_bitDepthCombo = m_ui->bitDepthCombo;
+    m_resolutionSlider = m_ui->resolutionSlider;
+    m_resolutionValue = m_ui->resolutionValue;
+    m_windowedCheck = m_ui->windowedCheck;
+    m_textureDepthLabel = m_ui->textureDepthLabel;
+    m_ui->driverIcon->setPixmap(style()->standardIcon(QStyle::SP_ComputerIcon).pixmap(20, 20));
+    m_resolutionValue->setMinimumWidth(
+        m_resolutionValue->fontMetrics().horizontalAdvance(QStringLiteral("9999 x 9999")) + 8);
 
     connect(m_driverList, &QListWidget::currentRowChanged, this, [this](int) {
         if (m_blockSignals) {

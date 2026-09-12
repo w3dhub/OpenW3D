@@ -9,6 +9,9 @@ class QComboBox;
 class QPushButton;
 class QSlider;
 class QGroupBox;
+namespace Ui {
+class PerformancePage;
+}
 
 class PerformancePage : public QWidget
 {
@@ -16,6 +19,7 @@ class PerformancePage : public QWidget
 
 public:
     explicit PerformancePage(WWConfigBackend &backend, QWidget *parent = nullptr);
+    ~PerformancePage() override;
 
     void refresh();
     bool save();
@@ -37,6 +41,7 @@ private:
     int comboValue(const QComboBox *combo, int fallback) const;
     static void setComboValue(QComboBox *combo, int value, int fallback);
 
+    Ui::PerformancePage *m_ui = nullptr;
     WWConfigBackend &m_backend;
     RenderSettings m_settings;
     VideoSettings m_videoSettings;
