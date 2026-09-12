@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AudioPage</class>
+ <widget class="QWidget" name="AudioPage">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>420</width><height>400</height></rect></property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="spacing"><number>8</number></property>
+   <property name="leftMargin"><number>6</number></property><property name="topMargin"><number>6</number></property>
+   <property name="rightMargin"><number>6</number></property><property name="bottomMargin"><number>6</number></property>
+   <item><widget class="QGroupBox" name="deviceGroup">
+    <property name="title"><string>Device</string></property>
+    <layout class="QGridLayout" name="deviceLayout" columnstretch="0,1">
+     <property name="leftMargin"><number>6</number></property><property name="topMargin"><number>6</number></property>
+     <property name="rightMargin"><number>6</number></property><property name="bottomMargin"><number>6</number></property>
+     <item row="0" column="0"><widget class="QLabel" name="driverLabel"><property name="text"><string>&amp;Driver:</string></property><property name="buddy"><cstring>driverList</cstring></property></widget></item>
+     <item row="0" column="1"><widget class="QListWidget" name="driverList">
+      <property name="minimumSize"><size><width>0</width><height>60</height></size></property>
+      <property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property>
+      <property name="uniformItemSizes"><bool>true</bool></property>
+     </widget></item>
+    </layout>
+   </widget></item>
+   <item><widget class="QGroupBox" name="volumeGroup">
+    <property name="title"><string>Volume</string></property>
+    <layout class="QGridLayout" name="volumeLayout" columnstretch="0,1">
+     <property name="leftMargin"><number>6</number></property><property name="topMargin"><number>6</number></property>
+     <property name="rightMargin"><number>6</number></property><property name="bottomMargin"><number>6</number></property>
+     <property name="horizontalSpacing"><number>6</number></property><property name="verticalSpacing"><number>4</number></property>
+     <item row="0" column="0"><widget class="QCheckBox" name="soundEnableCheck"><property name="text"><string>&amp;Sound Effects</string></property></widget></item>
+     <item row="0" column="1"><widget class="QSlider" name="soundSlider"><property name="accessibleName"><string>Sound effects volume</string></property><property name="maximum"><number>100</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickInterval"><number>10</number></property></widget></item>
+     <item row="1" column="0"><widget class="QCheckBox" name="musicEnableCheck"><property name="text"><string>&amp;Music</string></property></widget></item>
+     <item row="1" column="1"><widget class="QSlider" name="musicSlider"><property name="accessibleName"><string>Music volume</string></property><property name="maximum"><number>100</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickInterval"><number>10</number></property></widget></item>
+     <item row="2" column="0"><widget class="QCheckBox" name="dialogEnableCheck"><property name="text"><string>D&amp;ialog</string></property></widget></item>
+     <item row="2" column="1"><widget class="QSlider" name="dialogSlider"><property name="accessibleName"><string>Dialog volume</string></property><property name="maximum"><number>100</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickInterval"><number>10</number></property></widget></item>
+     <item row="3" column="0"><widget class="QCheckBox" name="cinematicEnableCheck"><property name="text"><string>&amp;Cinematic</string></property></widget></item>
+     <item row="3" column="1"><widget class="QSlider" name="cinematicSlider"><property name="accessibleName"><string>Cinematic volume</string></property><property name="maximum"><number>100</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="tickInterval"><number>10</number></property></widget></item>
+    </layout>
+   </widget></item>
+   <item><widget class="QGroupBox" name="playbackGroup">
+    <property name="title"><string>Playback</string></property>
+    <layout class="QGridLayout" name="playbackLayout" columnstretch="1,1,1">
+     <property name="leftMargin"><number>6</number></property><property name="topMargin"><number>6</number></property>
+     <property name="rightMargin"><number>6</number></property><property name="bottomMargin"><number>6</number></property>
+     <property name="horizontalSpacing"><number>8</number></property><property name="verticalSpacing"><number>4</number></property>
+     <item row="0" column="0"><widget class="QLabel" name="qualityLabel"><property name="text"><string>&amp;Quality</string></property><property name="buddy"><cstring>qualityCombo</cstring></property></widget></item>
+     <item row="0" column="1"><widget class="QLabel" name="rateLabel"><property name="text"><string>Playback &amp;Rate</string></property><property name="buddy"><cstring>rateCombo</cstring></property></widget></item>
+     <item row="0" column="2"><widget class="QLabel" name="speakerLabel"><property name="text"><string>Speaker Set&amp;up</string></property><property name="buddy"><cstring>speakerCombo</cstring></property></widget></item>
+     <item row="1" column="0"><widget class="QComboBox" name="qualityCombo">
+      <item><property name="text"><string>8-bit</string></property></item><item><property name="text"><string>16-bit</string></property></item>
+     </widget></item>
+     <item row="1" column="1"><widget class="QComboBox" name="rateCombo">
+      <item><property name="text"><string>11 kHz</string></property></item><item><property name="text"><string>22 kHz</string></property></item><item><property name="text"><string>44 kHz</string></property></item>
+     </widget></item>
+     <item row="1" column="2"><widget class="QComboBox" name="speakerCombo">
+      <item><property name="text"><string>2 Speaker</string></property></item><item><property name="text"><string>Headphones</string></property></item><item><property name="text"><string>Surround</string></property></item><item><property name="text"><string>4 Speaker</string></property></item>
+     </widget></item>
+    </layout>
+   </widget></item>
+   <item><widget class="QCheckBox" name="stereoCheck"><property name="text"><string>Stereo pla&amp;yback</string></property></widget></item>
+   <item><spacer name="bottomSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>driverList</tabstop><tabstop>soundEnableCheck</tabstop><tabstop>soundSlider</tabstop>
+  <tabstop>musicEnableCheck</tabstop><tabstop>musicSlider</tabstop><tabstop>dialogEnableCheck</tabstop><tabstop>dialogSlider</tabstop>
+  <tabstop>cinematicEnableCheck</tabstop><tabstop>cinematicSlider</tabstop><tabstop>qualityCombo</tabstop><tabstop>rateCombo</tabstop><tabstop>speakerCombo</tabstop><tabstop>stereoCheck</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

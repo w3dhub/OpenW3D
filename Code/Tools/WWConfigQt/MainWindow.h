@@ -7,6 +7,9 @@ class WWConfigBackend;
 class PerformancePage;
 class VideoPage;
 class AudioPage;
+namespace Ui {
+class WWConfigMainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
@@ -14,13 +17,15 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(WWConfigBackend &backend, QWidget *parent = nullptr);
+    ~MainWindow() override;
 
 private:
     void setupUi();
-    void saveChanges();
+    bool saveChanges();
     void updateStatusText();
     void refreshTabs();
 
+    Ui::WWConfigMainWindow *m_ui = nullptr;
     WWConfigBackend &m_backend;
     QTabWidget *m_tabWidget = nullptr;
     PerformancePage *m_performancePage = nullptr;
