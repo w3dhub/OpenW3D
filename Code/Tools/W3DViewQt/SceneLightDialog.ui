@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SceneLightDialog</class>
+ <widget class="QDialog" name="SceneLightDialog">
+  <property name="windowTitle">
+   <string>Scene Light</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="channelGroupBox">
+     <property name="title">
+      <string>&amp;Channel</string>
+     </property>
+     <layout class="QVBoxLayout" name="channelLayout">
+      <item>
+       <layout class="QHBoxLayout" name="channelButtonLayout">
+        <item>
+         <widget class="QRadioButton" name="diffuseRadioButton">
+          <property name="text">
+           <string>&amp;Diffuse</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="specularRadioButton">
+          <property name="text">
+           <string>S&amp;pecular</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="bothRadioButton">
+          <property name="text">
+           <string>&amp;Both</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="channelSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="colorLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="redLabel">
+          <property name="text">
+           <string>&amp;Red</string>
+          </property>
+          <property name="buddy">
+           <cstring>redSlider</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QFrame" name="redGradientFrame">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>8</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 black, stop:1 red); border: 1px solid palette(mid);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QSlider" name="redSlider">
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="greenLabel">
+          <property name="text">
+           <string>Gree&amp;n</string>
+          </property>
+          <property name="buddy">
+           <cstring>greenSlider</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QFrame" name="greenGradientFrame">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>8</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 black, stop:1 lime); border: 1px solid palette(mid);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QSlider" name="greenSlider">
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="blueLabel">
+          <property name="text">
+           <string>Bl&amp;ue</string>
+          </property>
+          <property name="buddy">
+           <cstring>blueSlider</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QFrame" name="blueGradientFrame">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>8</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 black, stop:1 blue); border: 1px solid palette(mid);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="QSlider" name="blueSlider">
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="2">
+         <widget class="QCheckBox" name="grayscaleCheckBox">
+          <property name="text">
+           <string>&amp;Grayscale</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="lightPropertiesLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="intensityLabel">
+       <property name="text">
+        <string>&amp;Intensity:</string>
+       </property>
+       <property name="buddy">
+        <cstring>intensitySlider</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QSlider" name="intensitySlider">
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="distanceLabel">
+       <property name="text">
+        <string>Dis&amp;tance:</string>
+       </property>
+       <property name="buddy">
+        <cstring>distanceSpinBox</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDoubleSpinBox" name="distanceSpinBox">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="maximum">
+        <double>1000000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="attenuationGroupBox">
+     <property name="title">
+      <string>&amp;Attenuation</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QFormLayout" name="attenuationLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="attenuationStartLabel">
+        <property name="text">
+         <string>&amp;Start:</string>
+        </property>
+        <property name="buddy">
+         <cstring>attenuationStartSpinBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="attenuationStartSpinBox">
+        <property name="decimals">
+         <number>2</number>
+        </property>
+        <property name="maximum">
+         <double>1000000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="attenuationEndLabel">
+        <property name="text">
+         <string>&amp;End:</string>
+        </property>
+        <property name="buddy">
+         <cstring>attenuationEndSpinBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="attenuationEndSpinBox">
+        <property name="decimals">
+         <number>2</number>
+        </property>
+        <property name="maximum">
+         <double>1000000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="repositionHintLabel">
+     <property name="text">
+      <string>To reposition the scene light, hold Ctrl and drag with the left mouse button in the viewport. Ctrl+right-drag changes its distance.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

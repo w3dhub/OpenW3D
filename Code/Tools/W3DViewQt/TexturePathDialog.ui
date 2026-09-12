@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TexturePathDialog</class>
+ <widget class="QDialog" name="TexturePathDialog">
+  <property name="windowTitle">
+   <string>Texture Paths</string>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="path1Label">
+     <property name="text">
+      <string>Path &amp;1:</string>
+     </property>
+     <property name="buddy">
+      <cstring>path1LineEdit</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <layout class="QHBoxLayout" name="path1Layout">
+     <item>
+      <widget class="QLineEdit" name="path1LineEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="path1BrowseButton">
+       <property name="text">
+        <string>Browse...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="path2Label">
+     <property name="text">
+      <string>Path &amp;2:</string>
+     </property>
+     <property name="buddy">
+      <cstring>path2LineEdit</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QHBoxLayout" name="path2Layout">
+     <item>
+      <widget class="QLineEdit" name="path2LineEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="path2BrowseButton">
+       <property name="text">
+        <string>Browse...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

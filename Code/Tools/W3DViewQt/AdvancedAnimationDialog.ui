@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdvancedAnimationDialog</class>
+ <widget class="QDialog" name="AdvancedAnimationDialog">
+  <property name="windowTitle">
+   <string>Advanced Animation</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <widget class="QWidget" name="mixingTab">
+      <attribute name="title">
+       <string>Mixing</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="mixingLayout">
+       <item>
+        <widget class="QLabel" name="mixingLabel">
+         <property name="text">
+          <string>Select animations to mix:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="mixingListWidget">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="reportTab">
+      <attribute name="title">
+       <string>Report</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="reportLayout">
+       <item>
+        <widget class="QTableWidget" name="reportTableWidget">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::NoSelection</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
