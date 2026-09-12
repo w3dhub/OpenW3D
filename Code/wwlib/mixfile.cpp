@@ -43,6 +43,7 @@
 #include "pathutil.h"
 #include "bittype.h"
 #include <algorithm>
+#include <filesystem>
 
 /*
 **
@@ -309,20 +310,22 @@ MixFileFactoryClass::Flush_Changes (void)
 		return ;
 	}
 
+	std::filesystem::path mix_filename = MixFilename.Peek_Buffer();
+
 	//
 	//	Get the path of the mix file
 	//
-	char drive[_MAX_DRIVE] = { 0 };
-	char dir[_MAX_DIR] = { 0 };
-	::_splitpath (MixFilename, drive, dir, nullptr, nullptr);
-	StringClass path	= drive;
-	path					+= dir;
+	std::filesystem::path path = mix_filename.parent_path();
 
 	//
 	//	Try to find a temp filename
 	//
-	StringClass full_path;
-	if (Get_Temp_Filename (path, full_path)) {
+	std::filesystem::path full_path;
+	if (!Get_Temp_Filename (path, full_path)) {
+		WWDEBUG_SAY(( "Unable to create a temporary MIX filename\n" ));
+		return;
+	}
+	{
 		MixFileCreator new_mix_file (full_path);
 
 		//
@@ -365,8 +368,26 @@ MixFileFactoryClass::Flush_Changes (void)
 	//
 	//	Delete the old mix file and rename the new one
 	//
-	::DeleteFileA (MixFilename);
-	::MoveFileA (full_path, MixFilename);
+	std::error_code ec;
+	std::filesystem::remove(mix_filename, ec);
+	if (ec) {
+		WWDEBUG_SAY((
+			"Unable to remove MIX file %s: %s\n",
+			mix_filename.generic_string().c_str(),
+			ec.message().c_str()
+		));
+		return;
+	}
+	std::filesystem::rename(full_path, mix_filename, ec);
+	if (ec) {
+		WWDEBUG_SAY((
+			"Unable to rename temporary MIX file %s to %s: %s\n",
+			full_path.generic_string().c_str(),
+			mix_filename.generic_string().c_str(),
+			ec.message().c_str()
+		));
+		return;
+	}
 
 	//
 	//	Reset the lists
@@ -381,18 +402,18 @@ MixFileFactoryClass::Flush_Changes (void)
 **
 */
 bool
-MixFileFactoryClass::Get_Temp_Filename (const char *path, StringClass &full_path)
+MixFileFactoryClass::Get_Temp_Filename (const std::filesystem::path &path, std::filesystem::path &full_path)
 {
 	bool retval = false;
 
-	StringClass temp_path	= path;
-	temp_path					+= "_tmpmix";
+	StringClass filename;
 
 	//
 	//	Try to find a unique temp filename
 	//
 	for (int index = 0; index < 20; index ++) {
-		full_path.Format ("%s%.2d.dat", (const char *)temp_path, index + 1);
+		filename.Format ("_tmpmix%.2d.dat", index + 1);
+		full_path = path / filename.Peek_Buffer();
 		if (!cPathUtil::PathExists (full_path)) {
 			retval = true;
 			break;
@@ -407,6 +428,11 @@ MixFileFactoryClass::Get_Temp_Filename (const char *path, StringClass &full_path
 **
 */
 SimpleFileFactoryClass _SimpleFileFactory;
+
+MixFileCreator::MixFileCreator( const std::filesystem::path & path )
+	: MixFileCreator(path.generic_string().c_str())
+{
+}
 
 MixFileCreator::MixFileCreator( const char * filename )
 {
@@ -597,29 +623,64 @@ void	MixFileCreator::Add_File( const char * filename, FileClass *file )
 */
 void	Add_Files( const char * dir, MixFileCreator & mix )
 {
-	BOOL bcontinue = true;
-	HANDLE hfile_find;
-	WIN32_FIND_DATAA find_info = {0};
-	StringClass path;
-	path.Format( "data/makemix/%s*.*", dir );
-	WWDEBUG_SAY(( "Adding files from %s\n", path.Peek_Buffer() ));
+	const std::filesystem::path input_root = "DATA/makemix";
+	const std::filesystem::path search_root = input_root / dir;
 
-	for (hfile_find = ::FindFirstFileA( path, &find_info);
-		 (hfile_find != INVALID_HANDLE_VALUE) && bcontinue;
-		  bcontinue = ::FindNextFileA(hfile_find, &find_info)) {
-		if ( find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) {
-			if ( find_info.cFileName[0] != '.' ) {
-				StringClass	sub_path;
-				sub_path.Format( "%s%s/", dir, find_info.cFileName );
-				Add_Files( sub_path, mix );
-			}
-		} else {
+	WWDEBUG_SAY((
+		"Adding files from %s\n",
+		search_root.generic_string().c_str()
+	));
+
+	std::error_code ec;
+	std::filesystem::recursive_directory_iterator iterator(search_root, ec);
+
+	if (ec) {
+		WWDEBUG_SAY((
+			"Unable to read directory %s: %s\n",
+			search_root.generic_string().c_str(),
+			ec.message().c_str()
+		));
+		return;
+	}
+	const std::filesystem::recursive_directory_iterator end;
+
+	while (iterator != end) {
+		const auto &dir_entry = *iterator;
+		std::error_code entry_ec;
+		const bool is_regular_file = dir_entry.is_regular_file(entry_ec);
+		if (entry_ec) {
+			WWDEBUG_SAY((
+				"Unable to inspect filesystem entry %s: %s\n",
+				dir_entry.path().generic_string().c_str(),
+				entry_ec.message().c_str()
+			));
+			return;
+		}
+
+		if (is_regular_file) {
+			const std::filesystem::path name_path =
+				dir_entry.path().lexically_relative(input_root);
+
+			const std::filesystem::path source_path =
+				std::filesystem::path("makemix") / name_path;
+
 			StringClass name;
-			name.Format( "%s%s", dir, find_info.cFileName );
-			StringClass	source;
-			source.Format( "makemix/%s", name.Peek_Buffer() );
+			name.Format( "%s", name_path.generic_string().c_str() );
+
+			StringClass source;
+			source.Format( "%s", source_path.generic_string().c_str() );
+
 			mix.Add_File( source, name );
-//			WWDEBUG_SAY(( "Adding file from %s %s\n", source, name ));
+		}
+
+		iterator.increment(ec);
+		if (ec) {
+			WWDEBUG_SAY((
+				"Unable to continue reading directory %s: %s\n",
+				search_root.generic_string().c_str(),
+				ec.message().c_str()
+			));
+			return;
 		}
 	}
 }

@@ -50,6 +50,7 @@
 #endif
 
 #include "vector.h"
+#include <filesystem>
 
 class FileClass;
 
@@ -93,7 +94,7 @@ private:
 	//
 	//	Utility functions
 	//
-	bool		Get_Temp_Filename (const char *path, StringClass &full_path);
+	bool		Get_Temp_Filename (const std::filesystem::path &path, std::filesystem::path &full_path);
 
 	struct FileInfoStruct {
 		bool operator== (const FileInfoStruct &/* src*/)	{ return false; }
@@ -132,6 +133,7 @@ private:
 class	MixFileCreator {
 
 public:
+	MixFileCreator( const std::filesystem::path &filename );
 	MixFileCreator( const char * filename );
 	~MixFileCreator( void );
 
