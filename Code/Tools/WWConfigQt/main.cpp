@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationVersion(QStringLiteral("0.1"));
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(QObject::tr("Renegade configuration (Qt prototype)"));
+    parser.setApplicationDescription(QObject::tr("Renegade configuration"));
     parser.addHelpOption();
     parser.addVersionOption();
 
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
         const auto answer = QMessageBox::question(
             nullptr,
             QObject::tr("Auto Config"),
-            QObject::tr("No Renegade.ini was found. Run Auto Config now?"),
+            QObject::tr("No configuration file was found at:\n%1\n\nRun Auto Config now?").arg(configPath),
             QMessageBox::Yes | QMessageBox::No,
             QMessageBox::Yes);
         if (answer == QMessageBox::Yes) {

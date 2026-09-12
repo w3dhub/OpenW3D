@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WWConfigMainWindow</class>
+ <widget class="QMainWindow" name="WWConfigMainWindow">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>480</width><height>560</height></rect></property>
+  <property name="minimumSize"><size><width>440</width><height>520</height></size></property>
+  <property name="windowTitle"><string>Renegade Config</string></property>
+  <property name="windowIcon"><iconset resource="resources.qrc"><normaloff>:/wwconfig/wwconfig.ico</normaloff>:/wwconfig/wwconfig.ico</iconset></property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="mainLayout" stretch="0,1,0">
+    <property name="spacing"><number>6</number></property>
+    <property name="leftMargin"><number>8</number></property>
+    <property name="topMargin"><number>8</number></property>
+    <property name="rightMargin"><number>8</number></property>
+    <property name="bottomMargin"><number>8</number></property>
+    <item>
+     <widget class="QLabel" name="banner">
+      <property name="sizePolicy"><sizepolicy hsizetype="Expanding" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
+      <property name="minimumSize"><size><width>0</width><height>40</height></size></property>
+      <property name="styleSheet"><string notr="true">background-color: black; color: white;</string></property>
+      <property name="frameShape"><enum>QFrame::Panel</enum></property>
+      <property name="frameShadow"><enum>QFrame::Sunken</enum></property>
+      <property name="pixmap"><pixmap resource="resources.qrc">:/wwconfig/logo.bmp</pixmap></property>
+      <property name="alignment"><set>Qt::AlignCenter</set></property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex"><number>0</number></property>
+      <property name="documentMode"><bool>true</bool></property>
+      <widget class="QWidget" name="videoTab">
+       <attribute name="title"><string>Video</string></attribute>
+       <layout class="QVBoxLayout" name="videoPageLayout">
+        <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property>
+        <property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="audioTab">
+       <attribute name="title"><string>Audio</string></attribute>
+       <layout class="QVBoxLayout" name="audioPageLayout">
+        <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property>
+        <property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="performanceTab">
+       <attribute name="title"><string>Performance</string></attribute>
+       <layout class="QVBoxLayout" name="performancePageLayout">
+        <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property>
+        <property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item><widget class="QDialogButtonBox" name="buttonBox"><property name="standardButtons"><set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set></property></widget></item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops><tabstop>tabWidget</tabstop><tabstop>buttonBox</tabstop></tabstops>
+ <resources><include location="resources.qrc"/></resources>
+ <connections/>
+</ui>

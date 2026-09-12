@@ -1,16 +1,10 @@
 #include "MainWindow.h"
+#include "ui_MainWindow.h"
 
-#include <QFrame>
-#include <QHBoxLayout>
-#include <QIcon>
-#include <QLabel>
-#include <QPalette>
-#include <QPixmap>
-#include <QPushButton>
-#include <QSize>
+#include <QDialogButtonBox>
+#include <QMessageBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
-#include <QWidget>
 
 #include "WWConfigBackend.h"
 #include "PerformancePage.h"
@@ -20,86 +14,50 @@
 
 MainWindow::MainWindow(WWConfigBackend &backend, QWidget *parent)
     : QMainWindow(parent),
+      m_ui(new Ui::WWConfigMainWindow),
       m_backend(backend)
 {
     setupUi();
     updateStatusText();
 }
 
-void MainWindow::setupUi()
+MainWindow::~MainWindow()
 {
-    auto *central = new QWidget(this);
-    auto *layout = new QVBoxLayout(central);
-    layout->setContentsMargins(8, 8, 8, 8);
-    layout->setSpacing(6);
-
-    auto *banner = new QLabel(central);
-    banner->setFrameShape(QFrame::Panel);
-    banner->setFrameShadow(QFrame::Sunken);
-    banner->setAlignment(Qt::AlignCenter);
-    banner->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    QPalette bannerPalette = banner->palette();
-    bannerPalette.setColor(QPalette::Window, Qt::black);
-    bannerPalette.setColor(QPalette::WindowText, Qt::white);
-    banner->setAutoFillBackground(true);
-    banner->setPalette(bannerPalette);
-    QPixmap logo(QStringLiteral(":/wwconfig/logo.bmp"));
-    if (!logo.isNull()) {
-        banner->setPixmap(logo);
-        banner->setScaledContents(false);
-        banner->setMinimumHeight(logo.height());
-    } else {
-        banner->setText(tr("Renegade Config"));
-        banner->setMinimumHeight(40);
-    }
-    layout->addWidget(banner);
-
-    m_tabWidget = new QTabWidget(central);
-    m_tabWidget->setDocumentMode(true);
-    layout->addWidget(m_tabWidget);
-
-    m_videoPage = new VideoPage(m_backend, m_tabWidget);
-    m_tabWidget->addTab(m_videoPage, tr("Video"));
-
-    m_audioPage = new AudioPage(m_backend, m_tabWidget);
-    m_tabWidget->addTab(m_audioPage, tr("Audio"));
-
-    m_performancePage = new PerformancePage(m_backend, m_tabWidget);
-    m_tabWidget->addTab(m_performancePage, tr("Performance"));
-
-    auto *buttonRow = new QHBoxLayout();
-    buttonRow->addStretch();
-    auto *okButton = new QPushButton(tr("OK"), central);
-    auto *cancelButton = new QPushButton(tr("Cancel"), central);
-    buttonRow->addWidget(okButton);
-    buttonRow->addWidget(cancelButton);
-    layout->addLayout(buttonRow);
-
-    connect(okButton, &QPushButton::clicked, this, [this]() {
-        saveChanges();
-        close();
-    });
-    connect(cancelButton, &QPushButton::clicked, this, &QWidget::close);
-
-    setCentralWidget(central);
-    const QSize windowSize(420, 480);
-    resize(windowSize);
-    setMinimumSize(windowSize);
-    setWindowTitle(tr("Renegade Config"));
-    setWindowIcon(QIcon(QStringLiteral(":/wwconfig/wwconfig.ico")));
+    delete m_ui;
 }
 
-void MainWindow::saveChanges()
+void MainWindow::setupUi()
 {
-    if (m_videoPage) {
-        m_videoPage->save();
+    m_ui->setupUi(this);
+    m_tabWidget = m_ui->tabWidget;
+
+    m_videoPage = new VideoPage(m_backend, m_tabWidget);
+    m_ui->videoPageLayout->addWidget(m_videoPage);
+    m_audioPage = new AudioPage(m_backend, m_tabWidget);
+    m_ui->audioPageLayout->addWidget(m_audioPage);
+    m_performancePage = new PerformancePage(m_backend, m_tabWidget);
+    m_ui->performancePageLayout->addWidget(m_performancePage);
+
+    connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, [this]() {
+        if (saveChanges()) {
+            close();
+        }
+    });
+    connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QWidget::close);
+}
+
+bool MainWindow::saveChanges()
+{
+    const bool videoSaved = m_videoPage->save();
+    const bool audioSaved = m_audioPage->save();
+    const bool performanceSaved = m_performancePage->save();
+    if (!videoSaved || !audioSaved || !performanceSaved) {
+        QMessageBox::warning(this, tr("Save Settings"),
+                             tr("Some settings could not be saved. Check that the configuration location is writable:\n%1")
+                                 .arg(m_backend.configPath()));
+        return false;
     }
-    if (m_audioPage) {
-        m_audioPage->save();
-    }
-    if (m_performancePage) {
-        m_performancePage->save();
-    }
+    return true;
 }
 
 void MainWindow::updateStatusText()
@@ -114,13 +72,7 @@ void MainWindow::updateStatusText()
 
 void MainWindow::refreshTabs()
 {
-    if (m_performancePage) {
-        m_performancePage->refresh();
-    }
-    if (m_videoPage) {
-        m_videoPage->refresh();
-    }
-    if (m_audioPage) {
-        m_audioPage->refresh();
-    }
+    m_performancePage->refresh();
+    m_videoPage->refresh();
+    m_audioPage->refresh();
 }
