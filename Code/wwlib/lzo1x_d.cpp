@@ -214,7 +214,7 @@ match_done:
 
 eof_found:
 	assert(t == 1);
-	*out_len = op - out;
+	*out_len = lzo_uint(op - out);
 	return (ip == ip_end ? LZO_E_OK : LZO_E_ERROR);
 }
 

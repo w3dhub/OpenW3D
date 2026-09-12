@@ -346,7 +346,7 @@ int* StripOptimizerClass::Combine_Strips (const int* strips, int strip_count)
 
 	delete[] tmp;
 //	WWASSERT(check == (o-out-1));
-	*out = (o-out-1);						// set length
+	*out = int(o-out-1);						// set length
 	return out;
 }
 
@@ -994,7 +994,7 @@ int* Stripify::stripify  (const Vector3i* inTris, int N)
 //	printf ("total indices = %d\n",nLen);
 //	printf ("total swaps   = %d\n",nSwaps);
 
-	int		len		= o-out;											// allocation length
+	int		len		= int(o-out);											// allocation length
 	int*	rOut	= new int[len+1];
 
 	*rOut = strip_count;													// first entry is number of strips

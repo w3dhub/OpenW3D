@@ -491,7 +491,7 @@ CNCPurchaseMainMenuClass::Purchase (void)
 				case IDC_ENLISTED_PURCHASE_03:
 				case IDC_ENLISTED_PURCHASE_04:
 				{
-					VendorClass::Purchase_Item (COMBAT_STAR, VendorClass::TYPE_ENLISTED_CHARACTER, ctrl->Get_User_Data ());
+					VendorClass::Purchase_Item (COMBAT_STAR, VendorClass::TYPE_ENLISTED_CHARACTER, int(ctrl->Get_User_Data ()));
 					break;
 				}
 

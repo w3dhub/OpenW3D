@@ -564,7 +564,7 @@ MPLanHostBasicOptionsTabClass::On_Apply (void)
 
 	if (combo) {
 		int curSel = combo->Get_Curr_Sel();
-		int side = combo->Get_Item_Data(curSel);
+		int side = int(combo->Get_Item_Data(curSel));
 		cNetInterface::Set_Side_Preference(side);
 	}
 

@@ -341,7 +341,7 @@ const unichar_t* Get_Parameter_From_String(const unichar_t* command, WideStringC
 	}
 
 	// Return the string contents to the caller
-	int length = ((curr_pos + 1) - command);
+	int length = int((curr_pos + 1) - command);
 
 	if (length > 0) {
 		unichar_t* buffer = param.Get_Buffer(length + 1);
@@ -602,7 +602,7 @@ MPChatChildDialogClass::Find_Current_Command(const unichar_t* message, int& star
 		//
 		const unichar_t *command_start = ::u_strrchr (message, U_CHAR('/'));
 		if (command_start != nullptr) {
-			start_index = command_start - message;
+			start_index = int(command_start - message);
 			command_start ++;
 
 			//
@@ -614,7 +614,7 @@ MPChatChildDialogClass::Find_Current_Command(const unichar_t* message, int& star
 				end_index = static_cast<int>(::u_strlen (message));
 				retval = true;
 			} else if (caret_pos <= (first_space - message)) {
-				end_index = (first_space - message);
+				end_index = int(first_space - message);
 				retval = true;
 			}
 		}

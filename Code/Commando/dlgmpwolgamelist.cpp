@@ -1145,7 +1145,7 @@ void MPWolGameListMenuClass::HandleNotification(WWOnline::SquadEvent& event)
 
 				for (int index = 0; index < count; ++index)
 					{
-					int marker = detailsList->Get_Entry_Data(index, 0);
+					int marker = int(detailsList->Get_Entry_Data(index, 0));
 
 					if (CLAN_ENTRY_MARKER == marker)
 						{
@@ -1339,10 +1339,10 @@ void MPWolGameListMenuClass::SortGameChannels(int column, bool isAscending, unsi
 
 int FlagsSortCallback(ListCtrlClass* list, int index1, int index2, uint32 mask)
 	{
-	uint32 flags1 = list->Get_Entry_Data(index1, COL_ICON);
+	uint32 flags1 = uint32(list->Get_Entry_Data(index1, COL_ICON));
 	flags1 &= mask;
 
-	uint32 flags2 = list->Get_Entry_Data(index2, COL_ICON);
+	uint32 flags2 = uint32(list->Get_Entry_Data(index2, COL_ICON));
 	flags2 &= mask;
 
 	if (flags1 && !flags2)
@@ -1356,8 +1356,8 @@ int FlagsSortCallback(ListCtrlClass* list, int index1, int index2, uint32 mask)
 	else if (flags1 && flags2)
 		{
 		// Secondary sort by ping time
-		int ping1 = list->Get_Entry_Data(index1, COL_PING);
-		int ping2 = list->Get_Entry_Data(index2, COL_PING);
+		int ping1 = int(list->Get_Entry_Data(index1, COL_PING));
+		int ping2 = int(list->Get_Entry_Data(index2, COL_PING));
 
 		int delta = (ping1 - ping2);
 
@@ -1405,8 +1405,8 @@ int NumericSortCallback(ListCtrlClass* list, int index1, int index2, uint32 para
 	// Sort by numeric value stored in entry data field
 	int	column = LOWORD(param);
 
-	uint32 data1 = list->Get_Entry_Data(index1, column);
-	uint32 data2 = list->Get_Entry_Data(index2, column);
+	uint32 data1 = uint32(list->Get_Entry_Data(index1, column));
+	uint32 data2 = uint32(list->Get_Entry_Data(index2, column));
 
 	int retval = (data1 - data2);
 
@@ -1423,8 +1423,8 @@ int NumericSortCallback(ListCtrlClass* list, int index1, int index2, uint32 para
 		if (column != COL_PING)
 			{
 			// Secondary sort by ping time
-			data1 = list->Get_Entry_Data(index1, COL_PING);
-			data2 = list->Get_Entry_Data(index2, COL_PING);
+			data1 = uint32(list->Get_Entry_Data(index1, COL_PING));
+			data2 = uint32(list->Get_Entry_Data(index2, COL_PING));
 
 			retval = (data1 - data2);
 
@@ -1490,8 +1490,8 @@ int AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param)
 	// If the strings match then secondary sort by ping time.
 	if (retval == 0)
 		{
-		uint32 data1 = list->Get_Entry_Data(index1, COL_PING);
-		uint32 data2 = list->Get_Entry_Data(index2, COL_PING);
+		uint32 data1 = uint32(list->Get_Entry_Data(index1, COL_PING));
+		uint32 data2 = uint32(list->Get_Entry_Data(index2, COL_PING));
 
 		retval = (data1 - data2);
 

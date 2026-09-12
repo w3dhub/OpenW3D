@@ -464,7 +464,7 @@ bool IMEManager::ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPara
 
 		// Sent when composition status has changed in response to a keystroke.
 		case WM_IME_COMPOSITION:
-			DoComposition(wParam, lParam);
+			DoComposition(int(wParam), int(lParam));
 			break;
 
 		// Sent when composition has closed.
@@ -762,17 +762,17 @@ LRESULT IMEManager::IMENotify(WPARAM wParam, LPARAM lParam)
 
 		// Open the candidate window (lParam = candidate flags)
 		case IMN_OPENCANDIDATE:
-			OpenCandidate(lParam);
+			OpenCandidate(int(lParam));
 			break;
 
 		// Close the candidate window. (lParam = candidate flags)
 		case IMN_CLOSECANDIDATE:
-			CloseCandidate(lParam);
+			CloseCandidate(int(lParam));
 			break;
 
 		// Changing the contents of the candidate window (lParam = candidate flags)
 		case IMN_CHANGECANDIDATE:
-			ChangeCandidate(lParam);
+			ChangeCandidate(int(lParam));
 			break;
 
 		// Candidate processing is finished; moving the candidate window
@@ -1789,7 +1789,7 @@ int IMEManager::ConvertAttrForUnicode(unsigned char* mbcs, unsigned char* attr)
 		mbsPtr = _mbsinc(mbsPtr);
 		}
 
-	return (attrPtr - attr);
+	return int(attrPtr - attr);
 	}
 
 
@@ -1837,7 +1837,7 @@ int IMEManager::ConvertClauseForUnicode(unsigned char* mbcs, int length, unsigne
 	clause[index] = static_cast<unsigned long>(_mbslen(mbcs));
 	++index;
 
-	return (&clause[index] - clause);
+	return int(&clause[index] - clause);
 	}
 
 } // namespace IME

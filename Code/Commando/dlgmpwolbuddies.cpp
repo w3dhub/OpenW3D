@@ -519,7 +519,7 @@ MPWolBuddiesMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int /
 			Enable_Dlg_Item(IDC_MP_WOL_BUDDIES_DELETE_BUTTON, true);
 
 			// Adjust the buttons based upon the location of the selected buddy.
-			int location = list->Get_Entry_Data(newsel, COL_LOCATION);
+			int location = int(list->Get_Entry_Data(newsel, COL_LOCATION));
 			Adjust_Buttons_For_Buddy_Location(location);
 		} else {
 			// If unselecting then disable delete button
@@ -544,7 +544,7 @@ MPWolBuddiesMenuClass::On_ListCtrl_DblClk(ListCtrlClass* list_ctrl, int ctrl_id,
 
 		if (curr_sel != -1) {
 			//	Get the location associated with this entry
-			int location = list_ctrl->Get_Entry_Data(curr_sel, COL_LOCATION);
+			int location = int(list_ctrl->Get_Entry_Data(curr_sel, COL_LOCATION));
 
 			switch (location) {
 				// Simply page the selected user
