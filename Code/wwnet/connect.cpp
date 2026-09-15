@@ -28,8 +28,6 @@
 
 #include "connect.h" // I WANNA BE FIRST!
 
-//#include <stdlib.h>
-
 #include "systimer.h"
 
 #include "systimer.h"
@@ -57,7 +55,6 @@
 
 #ifdef WWDEBUG
 #include "Combat/crandom.h"
-
 int cConnection::LatencyAddLow = 0;
 int cConnection::LatencyAddHigh = 0;
 int cConnection::CurrentLatencyAdd = 0;
@@ -1409,81 +1406,6 @@ int cConnection::Receive_Wrapper(cPacket & packet)
 	return ret_code;
 }
 
-/*
-//------------------------------------------------------------------------------------
-void cConnection::Handle_Send_Resource_Failure(int rhost_id)
-{
-   if (rhost_id != INVALID_RHOST_ID) {
-		WWASSERT(PRHost[rhost_id] != nullptr);
-		PRHost[rhost_id]->Get_Stats().StatSample[STAT_SendFailureCount]++;
-   }
-
-	int orgbuffersize;
-	int newbuffersize;
-	socklen_t opt_len;
-
-	opt_len = static_cast<socklen_t>(sizeof(orgbuffersize));
-   WSA_CHECK(wwnet::SocketGetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
-      reinterpret_cast<char *>(&orgbuffersize), &opt_len));
-
-	static int time_of_last_reset = 0;
-	int time_now = TIMEGETTIME();
-
-	Clear_Resend_Counts();
-
-	if (time_now - time_of_last_reset > 5000) {
-
-		failcount++;
-
-		float failure_ratio;
-		if (succcount == 0) {
-			failure_ratio = 1;
-		} else {
-			failure_ratio = failcount / (float) succcount;
-		}
-
-		succcount = 0;
-		failcount = 0;
-		extern int g_c_wouldblock;
-		extern int g_c_nobufs;
-		g_c_wouldblock = 0;
-		g_c_nobufs = 0;
-
-		if (orgbuffersize < 1000000) {
-         //
-         // 2-pronged approach. Firstly, increase send buffer size.
-         // Secondly, if it was a significant failure, immediately
-         // reduce bw out.
-         //
-
-				newbuffersize = 4 * orgbuffersize;
-				opt_len = static_cast<socklen_t>(sizeof(newbuffersize));
-				WSA_CHECK(wwnet::SocketSetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
-					reinterpret_cast<const char *>(&newbuffersize), opt_len));
-
-				opt_len = static_cast<socklen_t>(sizeof(newbuffersize));
-				WSA_CHECK(wwnet::SocketGetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
-					reinterpret_cast<char *>(&newbuffersize), &opt_len));
-
-			WWDEBUG_SAY(("SO_SNDBUF %d -> %d\n",
-				orgbuffersize, newbuffersize));
-
-         if (failure_ratio > 0.05f) {
-				time_of_last_reset = time_now;
-         }
-		} else {
-         //
-         // If we max out the send buffer and are still getting fails here
-         // then we need to throttle back our output through this socket.
-         //
-         if (failure_ratio > 0.05f) {
-				time_of_last_reset = time_now;
-			}
-		}
-	}
-}
-*/
-
 //------------------------------------------------------------------------------------
 void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p_address)
 {
@@ -1504,9 +1426,6 @@ void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p
 		packet.Set_Num_Sends(packet.Get_Num_Sends() + 1);
 	}
 
-	//static int succcount = 0;
-	//static int failcount = 0;
-
    for (int i = 0; i < packet.Get_Num_Sends(); i++) {
 
       int ret_code;
@@ -1517,8 +1436,6 @@ void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p
       }
 
 		if (SEND_RESOURCE_FAILURE(ret_code)) {
-
-			//Handle_Send_Resource_Failure(rhost_id);
 			WWDEBUG_SAY(("WARNING: cConnection::Send_Packet_To_Address : SEND_RESOURCE_FAILURE\n"));
 
       } else {
