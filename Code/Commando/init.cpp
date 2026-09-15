@@ -929,7 +929,7 @@ bool Game_Init(void)
 	bool dinput_avail = (ConsoleBox.Is_Exclusive()) ? false : true;
 
 	Input::Init(dinput_avail);
-	Input::Load_Registry( APPLICATION_SUB_KEY_NAME_CONTROLS );
+	Input::Load_Settings( APPLICATION_SUB_KEY_NAME_CONTROLS );
 	InputConfigMgrClass::Initialize();
 
 	//
