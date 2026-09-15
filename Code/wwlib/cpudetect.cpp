@@ -1138,7 +1138,7 @@ void CPUDetectClass::Init_Compact_Log()
 #error "Not implemented"
 #endif
 
-	COMPACTLOG(("%s\t%d\t",Get_Processor_Manufacturer_Name(),Get_Processor_Speed()));
+	COMPACTLOG(("%s\t%" PRIu64 "\t",Get_Processor_Manufacturer_Name(),Get_Processor_Speed()));
 
 	COMPACTLOG(("%d\t",Get_Total_Physical_Memory()/(1024*1024)+1));
 

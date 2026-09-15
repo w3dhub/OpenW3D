@@ -50,24 +50,24 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //	Registry value names
 ////////////////////////////////////////////////////////////////////////////////////////////////
-static const char VALUE_NAME_IS_STEREO[]				= "stereo";
-static const char VALUE_NAME_BITS[]					= "bits";
-static const char VALUE_NAME_HERTZ[]					= "hertz";
-static const char VALUE_NAME_DEVICE_NAME[]			= "device name";
-static const char VALUE_NAME_MUSIC_ENABLED[]		= "music enabled";
-static const char VALUE_NAME_SOUND_ENABLED[]		= "sound enabled";
-static const char VALUE_NAME_DIALOG_ENABLED[]		= "dialog enabled";
-static const char VALUE_NAME_CINEMATIC_ENABLED[]	= "cinematic enabled";
-static const char VALUE_NAME_MUSIC_VOL[]				= "music volume";
-static const char VALUE_NAME_SOUND_VOL[]				= "sound volume";
-static const char VALUE_NAME_DIALOG_VOL[]			= "dialog volume";
-static const char VALUE_NAME_CINEMATIC_VOL[]		= "cinematic volume";
-static const char VALUE_NAME_SPEAKER_TYPE[]			= "speaker type";
+static const char VALUE_NAME_IS_STEREO[]			= "Stereo";
+static const char VALUE_NAME_BITS[]					= "Bits";
+static const char VALUE_NAME_HERTZ[]				= "Hertz";
+static const char VALUE_NAME_DEVICE_NAME[]			= "DeviceName";
+static const char VALUE_NAME_MUSIC_ENABLED[]		= "MusicEnabled";
+static const char VALUE_NAME_SOUND_ENABLED[]		= "SoundEnabled";
+static const char VALUE_NAME_DIALOG_ENABLED[]		= "Dialognabled";
+static const char VALUE_NAME_CINEMATIC_ENABLED[]	= "CinematicEnabled";
+static const char VALUE_NAME_MUSIC_VOL[]			= "MusicVolume";
+static const char VALUE_NAME_SOUND_VOL[]			= "SoundVolume";
+static const char VALUE_NAME_DIALOG_VOL[]			= "DialogVolume";
+static const char VALUE_NAME_CINEMATIC_VOL[]		= "CinematicVolume";
+static const char VALUE_NAME_SPEAKER_TYPE[]			= "SpeakerType";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //	INI names
 ////////////////////////////////////////////////////////////////////////////////////////////////
-static const char WWAUDIO_INI_FILENAME[]				= "WWAudio.ini";
+static const char WWAUDIO_INI_FILENAME[]			= "WWAudio.ini";
 static const char WWAUDIO_INI_RELATIVE_PATHNAME[]	= "Data/WWAudio.ini";
 static const char INI_DEFAULT_VOLUME_SECTION[]		= "Default Volume";
 static const char INI_MUSIC_VOLUME_ENTRY[]			= "MUSIC_VOLUME";
@@ -75,7 +75,7 @@ static const char INI_SOUND_VOLUME_ENTRY[]			= "SOUND_VOLUME";
 static const char INI_DIALOG_VOLUME_ENTRY[]			= "DIALOG_VOLUME";
 static const char INI_CINEMATIC_VOLUME_ENTRY[]		= "CINEMATIC_VOLUME";
 
-static constexpr int	MAX_VIRTUAL_CHANNELS				= 100;
+static constexpr int MAX_VIRTUAL_CHANNELS		= 100;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //	Static member initialization
@@ -1444,7 +1444,7 @@ WWAudioClass::Load_From_Registry
 	RegistryClass registry (subkey_name);
 	if (registry.Is_Valid ()) {
 
-		int defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume;
+		float defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume;
 
 		//
 		//	Read the device name into a string object
@@ -1473,14 +1473,10 @@ WWAudioClass::Load_From_Registry
 		//
 		//	Read the volume information
 		//
-		music_volume		= registry.Get_Int (VALUE_NAME_MUSIC_VOL, defaultmusicvolume) / 100.0F;
-		sound_volume		= registry.Get_Int (VALUE_NAME_SOUND_VOL, defaultsoundvolume) / 100.0F;
-		dialog_volume		= registry.Get_Int (VALUE_NAME_DIALOG_VOL, defaultdialogvolume) / 100.0F;
-		cinematic_volume	= registry.Get_Int (VALUE_NAME_CINEMATIC_VOL, defaultcinematicvolume) / 100.0F;
-		music_volume		= std::clamp (music_volume, 0.0F, 1.0F);
-		sound_volume		= std::clamp (sound_volume, 0.0F, 1.0F);
-		dialog_volume		= std::clamp (dialog_volume, 0.0F, 1.0F);
-		cinematic_volume	= std::clamp (cinematic_volume, 0.0F, 1.0F);
+		music_volume		= std::clamp (registry.Get_Float (VALUE_NAME_MUSIC_VOL, defaultmusicvolume), 0.0f, 1.0f);
+		sound_volume		= std::clamp (registry.Get_Float (VALUE_NAME_SOUND_VOL, defaultsoundvolume), 0.0f, 1.0f);
+		dialog_volume		= std::clamp (registry.Get_Float (VALUE_NAME_DIALOG_VOL, defaultdialogvolume), 0.0f, 1.0f);
+		cinematic_volume	= std::clamp (registry.Get_Float (VALUE_NAME_CINEMATIC_VOL, defaultcinematicvolume), 0.0f, 1.0f);
 
 		//
 		//	Misc
@@ -1537,10 +1533,10 @@ WWAudioClass::Save_To_Registry
 		registry.Set_Int (VALUE_NAME_SOUND_ENABLED,		sound_enabled);
 		registry.Set_Int (VALUE_NAME_DIALOG_ENABLED,		dialog_enabled);
 		registry.Set_Int (VALUE_NAME_CINEMATIC_ENABLED,	cinematic_enabled);
-		registry.Set_Int (VALUE_NAME_MUSIC_VOL,			music_volume * 100);
-		registry.Set_Int (VALUE_NAME_SOUND_VOL,			sound_volume * 100);
-		registry.Set_Int (VALUE_NAME_DIALOG_VOL,			dialog_volume * 100);
-		registry.Set_Int (VALUE_NAME_CINEMATIC_VOL,		cinematic_volume * 100);
+		registry.Set_Float (VALUE_NAME_MUSIC_VOL,			music_volume);
+		registry.Set_Float (VALUE_NAME_SOUND_VOL,			sound_volume);
+		registry.Set_Float (VALUE_NAME_DIALOG_VOL,			dialog_volume);
+		registry.Set_Float (VALUE_NAME_CINEMATIC_VOL,		cinematic_volume);
 		registry.Set_Int (VALUE_NAME_SPEAKER_TYPE,		speaker_type);
 
 		retval = true;
@@ -1555,10 +1551,10 @@ WWAudioClass::Save_To_Registry
 //	Load_Default_Volume
 //
 ////////////////////////////////////////////////////////////////////////////////////////////
-void WWAudioClass::Load_Default_Volume (int &defaultmusicvolume, int &defaultsoundvolume, int &defaultdialogvolume, int &defaultcinematicvolume)
+void WWAudioClass::Load_Default_Volume (float &defaultmusicvolume, float &defaultsoundvolume, float &defaultdialogvolume, float &defaultcinematicvolume)
 {
-	const int minsetting =   0;
-	const int maxsetting = 100;
+	const float minsetting = 0.0f;
+	const float maxsetting = 1.0f;
 
 	// IML: If the audio INI has not yet been loaded then do it now.
 	if (AudioIni == nullptr) {
@@ -1568,10 +1564,10 @@ void WWAudioClass::Load_Default_Volume (int &defaultmusicvolume, int &defaultsou
 		}
 	}
 
-	defaultmusicvolume	  = std::min(maxsetting, std::max(minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_MUSIC_VOLUME_ENTRY, 31)));
-	defaultsoundvolume	  = std::min(maxsetting, std::max(minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_SOUND_VOLUME_ENTRY, 43)));
-	defaultdialogvolume	  = std::min(maxsetting, std::max(minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_DIALOG_VOLUME_ENTRY, 50)));
-	defaultcinematicvolume = std::min(maxsetting, std::max(minsetting, AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_CINEMATIC_VOLUME_ENTRY, 100)));
+	defaultmusicvolume	  = std::clamp(static_cast<float>(AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_MUSIC_VOLUME_ENTRY, 31)) / 100.0f, minsetting, maxsetting);
+	defaultsoundvolume	  = std::clamp(static_cast<float>(AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_SOUND_VOLUME_ENTRY, 43)) / 100.0f, minsetting, maxsetting);
+	defaultdialogvolume	  = std::clamp(static_cast<float>(AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_DIALOG_VOLUME_ENTRY, 50)) / 100.0f, minsetting, maxsetting);
+	defaultcinematicvolume = std::clamp(static_cast<float>(AudioIni->Get_Int (INI_DEFAULT_VOLUME_SECTION, INI_CINEMATIC_VOLUME_ENTRY, 100)) / 100.0f, minsetting, maxsetting);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////

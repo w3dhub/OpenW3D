@@ -68,40 +68,40 @@
 
 extern char *Build_Registry_Location_String(const char *base, const char *modifier, const char *sub);
 
-#define	APPLICATION_SUB_KEY_NAME							Build_Registry_Location_String(APP_SUB_KEY, nullptr, "")
+#define	APPLICATION_SUB_KEY_NAME						"Application"
 
-#define	APPLICATION_SUB_KEY_NAME_RENDER					Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Render")
-#define	APPLICATION_SUB_KEY_NAME_OPTIONS					Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Options")
-#define	APPLICATION_SUB_KEY_NAME_DEBUG					Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Debug")
-#define	APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS		Build_Registry_Location_String(APP_SUB_KEY, nullptr, "System Settings")
-#define	APPLICATION_SUB_KEY_NAME_CONTROLS				Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Controls")
-#define	APPLICATION_SUB_KEY_NAME_SOUND					Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Sound")
-#define	APPLICATION_SUB_KEY_NAME_MOVIES					Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Movies")
-#define	APPLICATION_SUB_KEY_NAME_WOLSETTINGS			Build_Registry_Location_String(APP_SUB_KEY, nullptr, "WOLSettings")
-#define	APPLICATION_SUB_KEY_NAME_MISSION_RANKS			Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Ranks")
-#define	APPLICATION_SUB_KEY_NAME_INPUT					Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Input")
-#define	APPLICATION_SUB_KEY_NAME_GAMESPY					Build_Registry_Location_String(APP_SUB_KEY, nullptr, "GameSpy")
-#define	APPLICATION_SUB_KEY_NAME_WOLSETTINGS			Build_Registry_Location_String(APP_SUB_KEY, nullptr, "WOLSettings")
-#define	APPLICATION_SUB_KEY_NAME_URL						Build_Registry_Location_String(APP_SUB_KEY, nullptr, "WOLSettings\\URL")
-#define	APPLICATION_SUB_KEY_NAME_LOGINS					Build_Registry_Location_String(APP_SUB_KEY, nullptr, "WOLSettings\\Logins")
-#define	APPLICATION_SUB_KEY_NAME_QUICKMATCH				Build_Registry_Location_String(APP_SUB_KEY, nullptr, "WOLSettings\\QuickMatch")
-#define	APPLICATION_SUB_KEY_NAME_IGNORE_LIST			Build_Registry_Location_String(APP_SUB_KEY, nullptr, "WOLSettings\\Ignore List")
-#define	APPLICATION_SUB_KEY_NAME_SERVER_LIST			Build_Registry_Location_String(APP_SUB_KEY, nullptr, "WOLSettings\\Servers")
-#define	APPLICATION_SUB_KEY_NAME_SKIN_LIST				Build_Registry_Location_String(APP_SUB_KEY, nullptr, "MP Settings\\Skins")
+#define	APPLICATION_SUB_KEY_NAME_RENDER					"RenderDevice"
+#define	APPLICATION_SUB_KEY_NAME_OPTIONS				"Options"
+#define	APPLICATION_SUB_KEY_NAME_DEBUG					"Debug"
+#define	APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS		"System"
+#define	APPLICATION_SUB_KEY_NAME_CONTROLS				"Controls"
+#define	APPLICATION_SUB_KEY_NAME_SOUND					"Sound"
+#define	APPLICATION_SUB_KEY_NAME_MOVIES					"Movies"
+#define	APPLICATION_SUB_KEY_NAME_WOLSETTINGS			"WOLSettings"
+#define	APPLICATION_SUB_KEY_NAME_MISSION_RANKS			"Ranks"
+#define	APPLICATION_SUB_KEY_NAME_INPUT					"Input"
+#define	APPLICATION_SUB_KEY_NAME_GAMESPY				"GameSpy"
+#define	APPLICATION_SUB_KEY_NAME_WOLSETTINGS			"WOLSettings"
+#define	APPLICATION_SUB_KEY_NAME_URL					"WOLSettings/URL"
+#define	APPLICATION_SUB_KEY_NAME_LOGINS					"WOLSettings/Logins"
+#define	APPLICATION_SUB_KEY_NAME_QUICKMATCH				"WOLSettings/QuickMatch"
+#define	APPLICATION_SUB_KEY_NAME_IGNORE_LIST			"WOLSettings/Ignore List"
+#define	APPLICATION_SUB_KEY_NAME_SERVER_LIST			"WOLSettings/Servers"
+#define	APPLICATION_SUB_KEY_NAME_SKIN_LIST				"MP Settings/Skins"
 
-#define	APPLICATION_SUB_KEY_NAME_NETOPTIONS				Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Networking\\Options")
-#define	APPLICATION_SUB_KEY_NAME_NETDEBUG				Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Networking\\Debug")
-#define	APPLICATION_SUB_KEY_NAME_NET_FIREWALL			Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Networking\\Firewall")
-#define	APPLICATION_SUB_KEY_NAME_NET_SLAVE				Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Networking\\Slave")
-#define	APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL	Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Networking\\ServerControl")
+#define	APPLICATION_SUB_KEY_NAME_NETOPTIONS				"Networking/Options"
+#define	APPLICATION_SUB_KEY_NAME_NETDEBUG				"Networking/Debug"
+#define	APPLICATION_SUB_KEY_NAME_NET_FIREWALL			"Networking/Firewall"
+#define	APPLICATION_SUB_KEY_NAME_NET_SLAVE				"Networking/Slave"
+#define	APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL		"Networking/ServerControl"
 
-#define	COMBAT_SUB_KEY_NAME_DEBUG							Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Debug")
+#define	COMBAT_SUB_KEY_NAME_DEBUG						APPLICATION_SUB_KEY_NAME_DEBUG
 
-#define	APPLICATION_SUB_KEY_NAME_BANDTEST				Build_Registry_Location_String(APP_SUB_KEY, nullptr, "Bandtest")
+#define	APPLICATION_SUB_KEY_NAME_BANDTEST				"Bandtest"
 
-#define  RENEGADE_BASE_SKU										3072
-#define	RENEGADE_FDS_SKU										12288
-#define	RENEGADE_DEMO_SKU										13056
+#define RENEGADE_BASE_SKU								3072
+#define	RENEGADE_FDS_SKU								12288
+#define	RENEGADE_DEMO_SKU								13056
 
 
 #endif

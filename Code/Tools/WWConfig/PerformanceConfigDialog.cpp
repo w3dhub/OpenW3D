@@ -125,38 +125,38 @@ PERFORMANCE_SETTING _PerformanceLevels[MAX_PERFORMANCE_LEVELS][MAX_EXPERT_OPTION
 
 /*
 #ifdef MULTIPLAYERDEMO
-const char *KEY_NAME_SETTINGS				= "Software\\Westwood\\RenegadeMPDemo\\System Settings";
-const char *KEY_NAME_OPTIONS				= "Software\\Westwood\\RenegadeMPDemo\\Options";
+const char *KEY_NAME_SETTINGS				= "MPDemo/System";
+const char *KEY_NAME_OPTIONS				= "MPDemo/Options";
 #else
-const char *KEY_NAME_SETTINGS				= "Software\\Westwood\\Renegade\\System Settings";
-const char *KEY_NAME_OPTIONS				= "Software\\Westwood\\Renegade\\Options";
+const char *KEY_NAME_SETTINGS				= "System";
+const char *KEY_NAME_OPTIONS				= "Options";
 #endif // MULTIPLAYERDEMO
 */
 
 #if	defined(FREEDEDICATEDSERVER)
-const char *KEY_NAME_SETTINGS				= "Software\\Westwood\\RenegadeFDS\\System Settings";
-const char *KEY_NAME_OPTIONS				= "Software\\Westwood\\RenegadeFDS\\Options";
+const char *KEY_NAME_SETTINGS				= "FDS/System";
+const char *KEY_NAME_OPTIONS				= "FDS/Options";
 #elif defined(MULTIPLAYERDEMO)
-const char *KEY_NAME_SETTINGS				= "Software\\Westwood\\RenegadeMPDemo\\System Settings";
-const char *KEY_NAME_OPTIONS				= "Software\\Westwood\\RenegadeMPDemo\\Options";
+const char *KEY_NAME_SETTINGS				= "MPDemo/System";
+const char *KEY_NAME_OPTIONS				= "MPDemo/Options";
 #elif defined(BETACLIENT)
-const char *KEY_NAME_SETTINGS				= "Software\\Westwood\\RenegadeBeta\\System Settings";
-const char *KEY_NAME_OPTIONS				= "Software\\Westwood\\RenegadeBeta\\Options";
+const char *KEY_NAME_SETTINGS				= "Beta/System";
+const char *KEY_NAME_OPTIONS				= "Beta/Options";
 #else
-const char *KEY_NAME_SETTINGS				= "Software\\Westwood\\Renegade\\System Settings";
-const char *KEY_NAME_OPTIONS				= "Software\\Westwood\\Renegade\\Options";
+const char *KEY_NAME_SETTINGS				= "System";
+const char *KEY_NAME_OPTIONS				= "Options";
 #endif
 
-const char *VALUE_NAME_DYN_LOD			= "Dynamic_LOD_Budget";
-const char *VALUE_NAME_STATIC_LOD		= "Static_LOD_Budget";
-const char *VALUE_NAME_DYN_SHADOWS		= "Dynamic_Projectors";
-const char *VALUE_NAME_TEXTURE_FILTER	= "Texture_Filter_Mode";
-const char *VALUE_NAME_PRELIT_MODE		= "Prelit_Mode";
-const char *VALUE_NAME_SHADOW_MODE		= "Shadow_Mode";
-const char *VALUE_NAME_STATIC_SHADOWS	= "Static_Projectors";
-const char *VALUE_NAME_TEXTURE_RES		= "Texture_Resolution";
-const char *VALUE_NAME_SURFACE_EFFECT	= "Surface_Effect_Detail";
-const char *VALUE_NAME_PARTICLE_DETAIL	= "Particle_Detail";
+const char *VALUE_NAME_DYN_LOD			= "DynamicLODBudget";
+const char *VALUE_NAME_STATIC_LOD		= "StaticLODBudget";
+const char *VALUE_NAME_DYN_SHADOWS		= "DynamicProjectors";
+const char *VALUE_NAME_TEXTURE_FILTER	= "TextureFilterMode";
+const char *VALUE_NAME_PRELIT_MODE		= "PrelitMode";
+const char *VALUE_NAME_SHADOW_MODE		= "ShadowMode";
+const char *VALUE_NAME_STATIC_SHADOWS	= "StaticProjectors";
+const char *VALUE_NAME_TEXTURE_RES		= "TextureResolution";
+const char *VALUE_NAME_SURFACE_EFFECT	= "SurfaceEffect_Detail";
+const char *VALUE_NAME_PARTICLE_DETAIL	= "ParticleDetail";
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -754,7 +754,7 @@ void AutoConfigSettings()
 	RegistryClass registry (KEY_NAME_SETTINGS);
 	if (!registry.Is_Valid()) return;
 
-	// Access registry key "Render"
+	// Access registry key "RenderDevice"
 	RegistryClass render_registry(RENEGADE_SUB_KEY_NAME_RENDER);
 	if ( !render_registry.Is_Valid() ) {
 		return;

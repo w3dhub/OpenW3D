@@ -39,17 +39,18 @@ class cRegistryBool
       cRegistryBool(const char *registry_location, const char *key_name,
 			bool initial_value = false);
 
-      bool Toggle(void);
+      bool Toggle();
       bool Set(bool value);
-      bool Get(void) const          {return Value == 1;}
-      bool Is_True(void) const      {return Value == 1;}
-      bool Is_False(void) const     {return Value == 0;}
+      bool Get();
+      bool Is_True()     {return Get() == 1;}
+      bool Is_False()    {return Get() == 0;}
 
 	private:
 
       int Value;
       char RegistryLocation[400];
       char KeyName[100];
+      bool Initialized;
 };
 
 //-----------------------------------------------------------------------------

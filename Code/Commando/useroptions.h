@@ -60,9 +60,7 @@ class cUserOptions
 
 		static void Set_Bandwidth_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
 		static BANDWIDTH_TYPE_ENUM Get_Bandwidth_Type(void);
-		static void Set_Bandwidth_Bps(int bandwidth_bbs);
-
-		static void Reread(void);
+		static void Set_Bandwidth_Bps(int bandwidth_bbs);;
 
 		static cRegistryString GameDir;
 

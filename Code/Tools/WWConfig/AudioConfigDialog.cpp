@@ -46,20 +46,20 @@ enum
 
 /*
 #ifdef MULTIPLAYERDEMO
-const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Software\\Westwood\\RenegadeMPDemo\\Sound";
+const char *RENEGADE_SUB_KEY_NAME_AUDIO = "MPDemo/Sound";
 #else
-const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Software\\Westwood\\Renegade\\Sound";
+const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Sound";
 #endif // MULTIPLAYERDEMO
 */
 
 #if	defined(FREEDEDICATEDSERVER)
-const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Software\\Westwood\\RenegadeFDS\\Sound";
+const char *RENEGADE_SUB_KEY_NAME_AUDIO = "FDS/Sound";
 #elif defined(MULTIPLAYERDEMO)
-const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Software\\Westwood\\RenegadeMPDemo\\Sound";
+const char *RENEGADE_SUB_KEY_NAME_AUDIO = "MPDemo/Sound";
 #elif defined(BETACLIENT)
-const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Software\\Westwood\\RenegadeBeta\\Sound";
+const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Beta/Sound";
 #else
-const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Software\\Westwood\\Renegade\\Sound";
+const char *RENEGADE_SUB_KEY_NAME_AUDIO = "Sound";
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

@@ -63,12 +63,12 @@
 /*
 ** Registry value names
 */
-#define	VALUE_NAME_RENDER_DEVICE_NAME					"RenderDeviceName"
-#define	VALUE_NAME_RENDER_DEVICE_WIDTH				"RenderDeviceWidth"
-#define	VALUE_NAME_RENDER_DEVICE_HEIGHT				"RenderDeviceHeight"
-#define	VALUE_NAME_RENDER_DEVICE_DEPTH				"RenderDeviceDepth"
-#define	VALUE_NAME_RENDER_DEVICE_WINDOWED			"RenderDeviceWindowed"
-#define	VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH		"RenderDeviceTextureDepth"
+#define	VALUE_NAME_RENDER_DEVICE_NAME				"Name"
+#define	VALUE_NAME_RENDER_DEVICE_WIDTH				"Width"
+#define	VALUE_NAME_RENDER_DEVICE_HEIGHT				"Height"
+#define	VALUE_NAME_RENDER_DEVICE_DEPTH				"Depth"
+#define	VALUE_NAME_RENDER_DEVICE_WINDOWED			"Windowed"
+#define	VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH		"TextureDepth"
 
 const unsigned MAX_TEXTURE_STAGES=2;
 

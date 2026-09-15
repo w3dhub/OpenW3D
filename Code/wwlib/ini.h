@@ -130,7 +130,7 @@ class INIClass {
 		char const * Get_Entry(char const * section, int index) const;
 
 		/*
-		**	Cound how many entries with the indicated prefix followed by a number exist in the section.
+		**	Count how many entries with the indicated prefix followed by a number exist in the section.
 		*/
 		unsigned Enumerate_Entries(const char * section, const char * entry_prefix, unsigned startnumber = 0, unsigned endnumber = (unsigned) -1);
 
@@ -157,8 +157,6 @@ class INIClass {
 		TPoint2D<int> const Get_Point(char const * section, char const * entry, TPoint2D<int> const & defvalue) const;
 		TPoint3D<float> const Get_Point(char const * section, char const * entry, TPoint3D<float> const & defvalue) const;
 		TPoint2D<float> const Get_Point(char const * section, char const * entry, TPoint2D<float> const & defvalue) const;
-
-
 
 		/*
 		**	Put a data type to the section and entry specified.
@@ -224,8 +222,8 @@ class INIClass {
 		/*
 		**	Ensure that the copy constructor and assignment operator never exist.
 		*/
-		INIClass(INIClass const & rvalue);
-		INIClass operator = (INIClass const & rvalue);
+		INIClass(INIClass const & rvalue) = delete;
+		INIClass operator = (INIClass const & rvalue) = delete;
 
 		/*
 		** The name of the file we were loaded from (if applicable).

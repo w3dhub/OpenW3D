@@ -747,7 +747,7 @@ DlgConfigAudioTabClass::On_Frame_Update (void)
 void
 DlgConfigAudioTabClass::Set_Default_Volumes (void)
 {
-	int defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume;
+	float defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume;
 
 	SliderCtrlClass *snd_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_SOUND_EFFECTS_SLIDER);
 	SliderCtrlClass *mus_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_MUSIC_SLIDER);
@@ -757,10 +757,10 @@ DlgConfigAudioTabClass::Set_Default_Volumes (void)
 	// IML: Get the default settings from the audio system.
 	WWAudioClass::Get_Instance()->Load_Default_Volume (defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume);
 
-	snd_vol_slider->Set_Pos (defaultsoundvolume);
-	mus_vol_slider->Set_Pos (defaultmusicvolume);
-	dia_vol_slider->Set_Pos (defaultdialogvolume);
-	cin_vol_slider->Set_Pos (defaultcinematicvolume);
+	snd_vol_slider->Set_Pos (static_cast<int>(defaultsoundvolume * 100));
+	mus_vol_slider->Set_Pos (static_cast<int>(defaultmusicvolume * 100));
+	dia_vol_slider->Set_Pos (static_cast<int>(defaultdialogvolume * 100));
+	cin_vol_slider->Set_Pos (static_cast<int>(defaultcinematicvolume * 100));
 
 	return ;
 }

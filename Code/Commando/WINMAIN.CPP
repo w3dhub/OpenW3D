@@ -155,6 +155,16 @@ int main(int argc, char *argv[])
 {
 	WWMemoryLogClass::Init();	// This switches memlog from static to dynamic allocations mode
 
+	// The INI config path must be configured as early as possible.
+	if (!OpenW3D::Set_Config_File_Path_From_Command_Line(argc, argv)) {
+		fprintf(stderr, "Missing --ini argument\n");
+		cUserOptions::Print_Command_Line_Help(true);
+		return 1;
+	}
+
+	// Resolve the config file path before later arguments can change the working directory.
+	OpenW3D::Get_Config_File_Path();
+
 #ifdef _DEBUG
 	/*
 	**	Setup to track memory heap integrity and check for

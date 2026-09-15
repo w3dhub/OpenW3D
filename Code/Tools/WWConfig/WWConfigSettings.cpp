@@ -18,54 +18,54 @@
 
 #ifndef RENEGADE_SUB_KEY_NAME_RENDER
 #if defined(FREEDEDICATEDSERVER)
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\RenegadeFDS\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "FDS/RenderDevice"
 #elif defined(MULTIPLAYERDEMO)
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\RenegadeMPDemo\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "MPDemo/RenderDevice"
 #elif defined(BETACLIENT)
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\RenegadeBeta\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "Beta/RenderDevice"
 #else
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\Renegade\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "RenderDevice"
 #endif
 #endif
 
 #ifndef RENEGADE_SUB_KEY_NAME_AUDIO
 #if defined(FREEDEDICATEDSERVER)
-#define RENEGADE_SUB_KEY_NAME_AUDIO "Software\\Westwood\\RenegadeFDS\\Sound"
+#define RENEGADE_SUB_KEY_NAME_AUDIO "FDS/Sound"
 #elif defined(MULTIPLAYERDEMO)
-#define RENEGADE_SUB_KEY_NAME_AUDIO "Software\\Westwood\\RenegadeMPDemo\\Sound"
+#define RENEGADE_SUB_KEY_NAME_AUDIO "MPDemo/Sound"
 #elif defined(BETACLIENT)
-#define RENEGADE_SUB_KEY_NAME_AUDIO "Software\\Westwood\\RenegadeBeta\\Sound"
+#define RENEGADE_SUB_KEY_NAME_AUDIO "Beta/Sound"
 #else
-#define RENEGADE_SUB_KEY_NAME_AUDIO "Software\\Westwood\\Renegade\\Sound"
+#define RENEGADE_SUB_KEY_NAME_AUDIO "Sound"
 #endif
 #endif
 
 namespace
 {
 #if	defined(FREEDEDICATEDSERVER)
-constexpr const char *kKeyNameSettings = "Software\\Westwood\\RenegadeFDS\\System Settings";
-constexpr const char *kKeyNameOptions = "Software\\Westwood\\RenegadeFDS\\Options";
+constexpr const char *kKeyNameSettings = "FDS/System";
+constexpr const char *kKeyNameOptions = "FDS/Options";
 #elif defined(MULTIPLAYERDEMO)
-constexpr const char *kKeyNameSettings = "Software\\Westwood\\RenegadeMPDemo\\System Settings";
-constexpr const char *kKeyNameOptions = "Software\\Westwood\\RenegadeMPDemo\\Options";
+constexpr const char *kKeyNameSettings = "MPDemo/System";
+constexpr const char *kKeyNameOptions = "MPDemo/Options";
 #elif defined(BETACLIENT)
-constexpr const char *kKeyNameSettings = "Software\\Westwood\\RenegadeBeta\\System Settings";
-constexpr const char *kKeyNameOptions = "Software\\Westwood\\RenegadeBeta\\Options";
+constexpr const char *kKeyNameSettings = "Beta/System";
+constexpr const char *kKeyNameOptions = "Beta/Options";
 #else
-constexpr const char *kKeyNameSettings = "Software\\Westwood\\Renegade\\System Settings";
-constexpr const char *kKeyNameOptions = "Software\\Westwood\\Renegade\\Options";
+constexpr const char *kKeyNameSettings = "System";
+constexpr const char *kKeyNameOptions = "Options";
 #endif
 
-constexpr const char *kValueNameDynLOD = "Dynamic_LOD_Budget";
-constexpr const char *kValueNameStaticLOD = "Static_LOD_Budget";
-constexpr const char *kValueNameDynShadows = "Dynamic_Projectors";
-constexpr const char *kValueNameTextureFilter = "Texture_Filter_Mode";
-constexpr const char *kValueNamePrelitMode = "Prelit_Mode";
-constexpr const char *kValueNameShadowMode = "Shadow_Mode";
-constexpr const char *kValueNameStaticShadows = "Static_Projectors";
-constexpr const char *kValueNameTextureRes = "Texture_Resolution";
-constexpr const char *kValueNameSurfaceEffect = "Surface_Effect_Detail";
-constexpr const char *kValueNameParticleDetail = "Particle_Detail";
+constexpr const char *kValueNameDynLOD = "DynamicLODBudget";
+constexpr const char *kValueNameStaticLOD = "StaticLODBudget";
+constexpr const char *kValueNameDynShadows = "DynamicProjectors";
+constexpr const char *kValueNameTextureFilter = "TextureFilterMode";
+constexpr const char *kValueNamePrelitMode = "PrelitMode";
+constexpr const char *kValueNameShadowMode = "ShadowMode";
+constexpr const char *kValueNameStaticShadows = "StaticProjectors";
+constexpr const char *kValueNameTextureRes = "TextureResolution";
+constexpr const char *kValueNameSurfaceEffect = "SurfaceEffectDetail";
+constexpr const char *kValueNameParticleDetail = "ParticleDetail";
 
 // Keep these INI names aligned with the OpenW3D configuration schema.
 constexpr const char *kIniRenderDeviceName = "Name";
@@ -86,19 +86,19 @@ constexpr const char *kIniValueNameTextureRes = "TextureResolution";
 constexpr const char *kIniValueNameSurfaceEffect = "SurfaceEffectDetail";
 constexpr const char *kIniValueNameParticleDetail = "ParticleDetail";
 
-constexpr const char *kValueNameAudioStereo = "stereo";
-constexpr const char *kValueNameAudioBits = "bits";
-constexpr const char *kValueNameAudioHertz = "hertz";
-constexpr const char *kValueNameAudioDevice = "device name";
-constexpr const char *kValueNameAudioMusicEnabled = "music enabled";
-constexpr const char *kValueNameAudioSoundEnabled = "sound enabled";
-constexpr const char *kValueNameAudioDialogEnabled = "dialog enabled";
-constexpr const char *kValueNameAudioCinematicEnabled = "cinematic enabled";
-constexpr const char *kValueNameAudioMusicVolume = "music volume";
-constexpr const char *kValueNameAudioSoundVolume = "sound volume";
-constexpr const char *kValueNameAudioDialogVolume = "dialog volume";
-constexpr const char *kValueNameAudioCinematicVolume = "cinematic volume";
-constexpr const char *kValueNameAudioSpeakerType = "speaker type";
+constexpr const char *kValueNameAudioStereo = "Stereo";
+constexpr const char *kValueNameAudioBits = "Bits";
+constexpr const char *kValueNameAudioHertz = "Hertz";
+constexpr const char *kValueNameAudioDevice = "DeviceName";
+constexpr const char *kValueNameAudioMusicEnabled = "MusicEnabled";
+constexpr const char *kValueNameAudioSoundEnabled = "SoundEnabled";
+constexpr const char *kValueNameAudioDialogEnabled = "DialogEnabled";
+constexpr const char *kValueNameAudioCinematicEnabled = "CinematicEnabled";
+constexpr const char *kValueNameAudioMusicVolume = "MusicVolume";
+constexpr const char *kValueNameAudioSoundVolume = "SoundVolume";
+constexpr const char *kValueNameAudioDialogVolume = "DialogVolume";
+constexpr const char *kValueNameAudioCinematicVolume = "CinematicVolume";
+constexpr const char *kValueNameAudioSpeakerType = "SpeakerType";
 
 constexpr const char *kIniValueNameAudioStereo = "Stereo";
 constexpr const char *kIniValueNameAudioBits = "Bits";
@@ -123,27 +123,6 @@ bool SaveIni(INIClass &ini)
     return ini.Save(path.c_str()) >= 0;
 }
 
-bool LoadRenderSettingsFromIni(INIClass &ini, RenderSettings &settings)
-{
-    if (!ini.Is_Loaded() || !ini.Section_Present(W3D_SECTION_SYSTEM)) {
-        return false;
-    }
-
-    settings.dynamicLOD = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameDynLOD, settings.dynamicLOD);
-    settings.staticLOD = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameStaticLOD, settings.staticLOD);
-    settings.dynamicShadows = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameDynShadows, settings.dynamicShadows);
-    settings.staticShadows = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameStaticShadows, settings.staticShadows);
-    settings.prelitMode = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNamePrelitMode, settings.prelitMode);
-    settings.textureFilter = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameTextureFilter, settings.textureFilter);
-    settings.shadowMode = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameShadowMode, settings.shadowMode);
-    settings.textureResolution = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameTextureRes, settings.textureResolution);
-    settings.surfaceEffect = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameSurfaceEffect, settings.surfaceEffect);
-    settings.particleDetail = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNameParticleDetail, settings.particleDetail);
-    settings.lightingMode = ini.Get_Int(W3D_SECTION_SYSTEM, kIniValueNamePrelitMode, settings.lightingMode);
-
-    return true;
-}
-
 bool LoadRenderSettingsFromRegistry(RenderSettings &settings)
 {
     RegistryClass registry(kKeyNameSettings);
@@ -164,20 +143,6 @@ bool LoadRenderSettingsFromRegistry(RenderSettings &settings)
     settings.lightingMode = registry.Get_Int(kValueNamePrelitMode, settings.lightingMode);
 
     return true;
-}
-
-void SaveRenderSettingsToIni(const RenderSettings &settings, INIClass &ini)
-{
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameDynLOD, settings.dynamicLOD);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameStaticLOD, settings.staticLOD);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameDynShadows, settings.dynamicShadows);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameStaticShadows, settings.staticShadows);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNamePrelitMode, settings.prelitMode);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameTextureFilter, settings.textureFilter);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameShadowMode, settings.shadowMode);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameTextureRes, settings.textureResolution);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameSurfaceEffect, settings.surfaceEffect);
-    ini.Put_Int(W3D_SECTION_SYSTEM, kIniValueNameParticleDetail, settings.particleDetail);
 }
 
 bool SaveRenderSettingsToRegistry(const RenderSettings &settings)
@@ -346,10 +311,10 @@ bool LoadAudioSettingsFromRegistry(AudioSettings &settings)
     settings.soundEnabled = registry.Get_Int(kValueNameAudioSoundEnabled, settings.soundEnabled ? 1 : 0) != 0;
     settings.dialogEnabled = registry.Get_Int(kValueNameAudioDialogEnabled, settings.dialogEnabled ? 1 : 0) != 0;
     settings.cinematicEnabled = registry.Get_Int(kValueNameAudioCinematicEnabled, settings.cinematicEnabled ? 1 : 0) != 0;
-    settings.soundVolume = std::clamp(registry.Get_Int(kValueNameAudioSoundVolume, static_cast<int>(settings.soundVolume * kVolumeScale)) / static_cast<float>(kVolumeScale), 0.0f, 1.0f);
-    settings.musicVolume = std::clamp(registry.Get_Int(kValueNameAudioMusicVolume, static_cast<int>(settings.musicVolume * kVolumeScale)) / static_cast<float>(kVolumeScale), 0.0f, 1.0f);
-    settings.dialogVolume = std::clamp(registry.Get_Int(kValueNameAudioDialogVolume, static_cast<int>(settings.dialogVolume * kVolumeScale)) / static_cast<float>(kVolumeScale), 0.0f, 1.0f);
-    settings.cinematicVolume = std::clamp(registry.Get_Int(kValueNameAudioCinematicVolume, static_cast<int>(settings.cinematicVolume * kVolumeScale)) / static_cast<float>(kVolumeScale), 0.0f, 1.0f);
+    settings.soundVolume = std::clamp(registry.Get_Float(kValueNameAudioSoundVolume, settings.soundVolume), 0.0f, 1.0f);
+    settings.musicVolume = std::clamp(registry.Get_Float(kValueNameAudioMusicVolume, settings.musicVolume), 0.0f, 1.0f);
+    settings.dialogVolume = std::clamp(registry.Get_Float(kValueNameAudioDialogVolume, settings.dialogVolume), 0.0f, 1.0f);
+    settings.cinematicVolume = std::clamp(registry.Get_Float(kValueNameAudioCinematicVolume, settings.cinematicVolume), 0.0f, 1.0f);
     settings.speakerType = registry.Get_Int(kValueNameAudioSpeakerType, settings.speakerType);
 
     return true;
@@ -387,10 +352,10 @@ bool SaveAudioSettingsToRegistry(const AudioSettings &settings)
     registry.Set_Int(kValueNameAudioSoundEnabled, settings.soundEnabled ? 1 : 0);
     registry.Set_Int(kValueNameAudioDialogEnabled, settings.dialogEnabled ? 1 : 0);
     registry.Set_Int(kValueNameAudioCinematicEnabled, settings.cinematicEnabled ? 1 : 0);
-    registry.Set_Int(kValueNameAudioSoundVolume, static_cast<int>(std::clamp(settings.soundVolume, 0.0f, 1.0f) * kVolumeScale));
-    registry.Set_Int(kValueNameAudioMusicVolume, static_cast<int>(std::clamp(settings.musicVolume, 0.0f, 1.0f) * kVolumeScale));
-    registry.Set_Int(kValueNameAudioDialogVolume, static_cast<int>(std::clamp(settings.dialogVolume, 0.0f, 1.0f) * kVolumeScale));
-    registry.Set_Int(kValueNameAudioCinematicVolume, static_cast<int>(std::clamp(settings.cinematicVolume, 0.0f, 1.0f) * kVolumeScale));
+    registry.Set_Float(kValueNameAudioSoundVolume, std::clamp(settings.soundVolume, 0.0f, 1.0f));
+    registry.Set_Float(kValueNameAudioMusicVolume, std::clamp(settings.musicVolume, 0.0f, 1.0f));
+    registry.Set_Float(kValueNameAudioDialogVolume, std::clamp(settings.dialogVolume, 0.0f, 1.0f));
+    registry.Set_Float(kValueNameAudioCinematicVolume, std::clamp(settings.cinematicVolume, 0.0f, 1.0f));
     registry.Set_Int(kValueNameAudioSpeakerType, settings.speakerType);
 
     return true;
@@ -419,24 +384,12 @@ std::string GetConfigFilePath()
 
 bool LoadRenderSettings(RenderSettings &settings)
 {
-    const std::string iniPath = GetConfigFilePath();
-    INIClass ini(iniPath.c_str());
-    if (LoadRenderSettingsFromIni(ini, settings)) {
-        return true;
-    }
-
     return LoadRenderSettingsFromRegistry(settings);
 }
 
 bool SaveRenderSettings(const RenderSettings &settings)
 {
-    const std::string iniPath = GetConfigFilePath();
-    INIClass ini(iniPath.c_str());
-    SaveRenderSettingsToIni(settings, ini);
-    const bool iniSaved = SaveIni(ini);
-
-    const bool registrySaved = SaveRenderSettingsToRegistry(settings);
-    return iniSaved || registrySaved;
+    return SaveRenderSettingsToRegistry(settings);
 }
 
 static void InitializeAdapterSelection(IDirect3D9 **outD3D, D3DCAPS9 *outCaps, D3DADAPTER_IDENTIFIER9 *outAdapterId, D3DFORMAT &displayFormat)
