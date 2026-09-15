@@ -1586,8 +1586,8 @@ EnumParameterCtrlClass::Read_Data (HWND /*parent_wnd*/)
 {
 	int cur_sel = m_ComboBox.GetCurSel ();
 	if (cur_sel >= 0) {
-		int value = m_ComboBox.GetItemData (cur_sel);
-		m_Parameter->Set_Selected_Value (value);
+		DWORD_PTR value = m_ComboBox.GetItemData (cur_sel);
+		m_Parameter->Set_Selected_Value (int(value));
 	}
 
 	return ;

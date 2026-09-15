@@ -131,7 +131,7 @@ RingGeneralPropPageClass::Add_Shader_To_Combo
 	LPCTSTR			name
 )
 {
-	int index = SendDlgItemMessage (IDC_SHADER_COMBO, CB_ADDSTRING, 0, (LPARAM)name);
+	LRESULT index = SendDlgItemMessage (IDC_SHADER_COMBO, CB_ADDSTRING, 0, (LPARAM)name);
 	if (index != CB_ERR) {
 		SendDlgItemMessage (IDC_SHADER_COMBO, CB_SETITEMDATA, (WPARAM)index, (LPARAM)&shader);
 
@@ -209,7 +209,7 @@ RingGeneralPropPageClass::OnApply (void)
 	//
 	//	Get the shader from the combobox
 	//
-	int index = SendDlgItemMessage (IDC_SHADER_COMBO, CB_GETCURSEL);
+	int index = int(SendDlgItemMessage (IDC_SHADER_COMBO, CB_GETCURSEL));
 	if (index != CB_ERR) {
 		ShaderClass *shader = (ShaderClass *)SendDlgItemMessage (IDC_SHADER_COMBO, CB_GETITEMDATA, (WPARAM)index);
 		if (shader != nullptr) {

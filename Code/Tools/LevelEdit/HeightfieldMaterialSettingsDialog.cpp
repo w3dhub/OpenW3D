@@ -155,7 +155,7 @@ HeightfieldMaterialSettingsDialogClass::OnOK (void)
 		material->Set_Texture (texture_path);
 		material->Set_Meters_Per_Tile (meters_per_tile);
 		material->Mirror_UVs (IsDlgButtonChecked (IDC_MIRROR_CHECK) == 1);
-		material->Set_Surface_Type (SendDlgItemMessage (IDC_SURFACE_TYPE_COMBO, CB_GETCURSEL));
+		material->Set_Surface_Type (int(SendDlgItemMessage (IDC_SURFACE_TYPE_COMBO, CB_GETCURSEL)));
 
 	} else {
 

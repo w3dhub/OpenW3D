@@ -180,7 +180,7 @@ void
 CDeviceSelectionDialog::OnOK (void)
 {
 	// Ask the combobox for its current selection
-	m_iDeviceIndex = m_deviceListComboBox.GetItemData (m_deviceListComboBox.GetCurSel ());
+	m_iDeviceIndex = int(m_deviceListComboBox.GetItemData (m_deviceListComboBox.GetCurSel ()));
 	m_iBitsPerPixel = (SendDlgItemMessage (IDC_COLORDEPTH_16, BM_GETCHECK) != 0) ? 16 : 24;
 
 	// Get the device name of the currently selected device
@@ -240,7 +240,7 @@ CDeviceSelectionDialog::DoModal (void)
 
 	// Show the dialog and allow the user to select the device
 	if (bFoundDevice == false) {
-		iReturn = CDialog::DoModal ();
+		iReturn = int(CDialog::DoModal ());
 	}
 
 	// Return the integer return code

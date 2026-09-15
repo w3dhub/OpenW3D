@@ -250,7 +250,7 @@ PresetClass::Show_Properties (bool read_only)
 	//
 	// Show the property sheet
 	//
-	UINT ret_code = prop_sheet.DoModal ();
+	INT_PTR ret_code = prop_sheet.DoModal ();
 
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);

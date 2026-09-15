@@ -244,7 +244,7 @@ LevelSettingsDialogClass::Fill_Script_Combobox (int ctrl_id, const char *default
 			//
 			// Add this script to the combobox
 			//
-			int item_index = SendDlgItemMessage (ctrl_id, CB_ADDSTRING, 0, (LPARAM)script->Get_Name ());
+			LRESULT item_index = SendDlgItemMessage (ctrl_id, CB_ADDSTRING, 0, (LPARAM)script->Get_Name ());
 			SendDlgItemMessage (ctrl_id, CB_SETITEMDATA, (WPARAM)item_index, (LPARAM)script);
 
 			//

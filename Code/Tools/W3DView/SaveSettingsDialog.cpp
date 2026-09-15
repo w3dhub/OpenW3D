@@ -231,9 +231,9 @@ CSaveSettingsDialog::FixOKEnableState (void)
 {
     // Determine which (if any) checkboxes are checked
     int iValidSel = 0;
-    iValidSel += SendDlgItemMessage (IDC_LIGHTING_CHECKBOX, BM_GETCHECK);
-    iValidSel += SendDlgItemMessage (IDC_BACKGROUND_CHECKBOX, BM_GETCHECK);
-    iValidSel += SendDlgItemMessage (IDC_CAMERA_CHECKBOX, BM_GETCHECK);
+    iValidSel += int(SendDlgItemMessage (IDC_LIGHTING_CHECKBOX, BM_GETCHECK));
+    iValidSel += int(SendDlgItemMessage (IDC_BACKGROUND_CHECKBOX, BM_GETCHECK));
+    iValidSel += int(SendDlgItemMessage (IDC_CAMERA_CHECKBOX, BM_GETCHECK));
 
     // Is the dialog in a valid state?
     if ((iValidSel > 0) &&

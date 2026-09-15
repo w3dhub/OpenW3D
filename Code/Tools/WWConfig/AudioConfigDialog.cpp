@@ -409,12 +409,12 @@ AudioConfigDialogClass::Apply_Changes (void)
 	//
 	//	Get the stereo flag from the dialog
 	//
-	is_stereo = bool(SendDlgItemMessage (IDC_STEREO_CHECK, BM_GETCHECK) == 1);
+	is_stereo = SendDlgItemMessage (IDC_STEREO_CHECK, BM_GETCHECK) == 1;
 
 	//
 	//	Get the playback bit rate from the dialog
 	//
-	int quality_cursel = SendDlgItemMessage (IDC_QUALITY_COMBO, CB_GETCURSEL);
+	LRESULT quality_cursel = SendDlgItemMessage (IDC_QUALITY_COMBO, CB_GETCURSEL);
 	if (quality_cursel == 0) {
 		bits = 8;
 	} else if (quality_cursel == 1) {
@@ -424,7 +424,7 @@ AudioConfigDialogClass::Apply_Changes (void)
 	//
 	//	Get the playback rate from the controls
 	//
-	int rate_cursel = SendDlgItemMessage (IDC_RATE_COMBO, CB_GETCURSEL);
+	LRESULT rate_cursel = SendDlgItemMessage (IDC_RATE_COMBO, CB_GETCURSEL);
 	if (rate_cursel == 0) {
 		hertz = 11025;
 	} else if (rate_cursel == 1) {
@@ -434,7 +434,7 @@ AudioConfigDialogClass::Apply_Changes (void)
 	}
 
 	// Get the speaker setup from the controls.
-	speaker_type = SendDlgItemMessage (IDC_SPEAKER_COMBO, CB_GETCURSEL);
+	speaker_type = int(SendDlgItemMessage (IDC_SPEAKER_COMBO, CB_GETCURSEL));
 
 	//
 	//	Store these settings in the registry

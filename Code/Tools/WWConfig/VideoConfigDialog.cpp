@@ -400,13 +400,13 @@ VideoConfigDialogClass::Update_Color_Combo (void)
 		//
 		//	Check to see if this string is already in the combobox
 		//
-		int item_index = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_FINDSTRINGEXACT, 0, (LPARAM)(LPCTSTR)color_string);
+		LRESULT item_index = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_FINDSTRINGEXACT, 0, (LPARAM)(LPCTSTR)color_string);
 		if (item_index == CB_ERR) {
 
 			//
 			//	Add this entry to the combobox
 			//
-			int add_index = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_ADDSTRING, 0, (LPARAM)(LPCTSTR)color_string);
+			LRESULT add_index = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_ADDSTRING, 0, (LPARAM)(LPCTSTR)color_string);
 			if (add_index != CB_ERR) {
 				SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_SETITEMDATA, (WPARAM)add_index, (LPARAM)res_desc.BitDepth);
 
@@ -426,7 +426,7 @@ VideoConfigDialogClass::Update_Color_Combo (void)
 	//
 	if (!selected) {
 		SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_SETCURSEL, 0);
-		CurrentBitDepth = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_GETITEMDATA, 0);
+		CurrentBitDepth = int(SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_GETITEMDATA, 0));
 		if (CurrentBitDepth <= 0) {
 			CurrentBitDepth = 16;
 		}
@@ -596,13 +596,13 @@ ResolutionSortCallback (const void *elem1, const void *elem2)
 void
 VideoConfigDialogClass::OnSelchangeBitdepthCombo (void)
 {
-	int index = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_GETCURSEL);
+	LRESULT index = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_GETCURSEL);
 	if (index != CB_ERR) {
 
 		//
 		//	Update the current bit depth
 		//
-		CurrentBitDepth = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_GETITEMDATA, (WPARAM)index);
+		CurrentBitDepth = int(SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_GETITEMDATA, (WPARAM)index));
 		if (CurrentBitDepth <= 0) {
 			CurrentBitDepth = 16;
 		}

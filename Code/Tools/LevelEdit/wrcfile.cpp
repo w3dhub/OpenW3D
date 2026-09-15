@@ -91,7 +91,7 @@ int WinResourceFileClass::Read(void *buffer, int size)
 	if (!FilePtr) return 0;
 
 	if (FilePtr + size > EndOfFile) {
-		size = EndOfFile - FilePtr;
+		size = int(EndOfFile - FilePtr);
 	}
 	memcpy(buffer,FilePtr,size);
 	FilePtr += size;
@@ -121,12 +121,12 @@ int WinResourceFileClass::Seek(int pos, int dir)
 		FilePtr = FileBytes;
 	}
 
-	return FilePtr - FileBytes;
+	return int(FilePtr - FileBytes);
 }
 
 int WinResourceFileClass::Size(void)
 {
-	return EndOfFile - FileBytes;
+	return int(EndOfFile - FileBytes);
 }
 
 void WinResourceFileClass::Error(int /*error*/, int /*canretry*/, char const * /*filename*/)

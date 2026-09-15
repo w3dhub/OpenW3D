@@ -555,7 +555,7 @@ PerformanceConfigDialogClass::Get_Settings (DynamicVectorClass<int> &settings)
 		//
 		//	Determine what the value of this control is
 		//
-		int curr_value = 0;
+		LRESULT curr_value = 0;
 		int ctrl_id = _PerformanceLevels[0][index].ctrl_id;
 		switch (ctrl_id) {
 
@@ -590,7 +590,7 @@ PerformanceConfigDialogClass::Get_Settings (DynamicVectorClass<int> &settings)
 		//
 		//	Add this value to the list
 		//
-		settings.Add (curr_value);
+		settings.Add (int(curr_value));
 	}
 
 	return ;
@@ -691,14 +691,14 @@ PerformanceConfigDialogClass::Apply_Changes (void)
 	int texture_red		= 	m_TextureDetailSlider.GetPos ();
 	int surface_effect	= 	m_SurfaceEffectsSlider.GetPos ();
 	int particle_detail	= 	m_ParticleSlider.GetPos ();
-	int static_shadows	= SendDlgItemMessage (IDC_TERRAIN_SHADOW_CHECK, BM_GETCHECK);
-	int prelit_mode		= SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_GETCURSEL);
+	LRESULT static_shadows	= SendDlgItemMessage (IDC_TERRAIN_SHADOW_CHECK, BM_GETCHECK);
+	LRESULT prelit_mode		= SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_GETCURSEL);
 	// If card can't do multi-pass, value 1 means multi-texture (multi-pass selection is missing from the combo box)
 	if (!CanDoMultiPass) {
 		if (prelit_mode==1) prelit_mode=WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE;
 	}
 
-	int texture_filter	= SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_GETCURSEL);
+	LRESULT texture_filter	= SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_GETCURSEL);
 
 	//
 	//	Determine a good LOD budget to use
@@ -725,10 +725,10 @@ PerformanceConfigDialogClass::Apply_Changes (void)
 		registry.Set_Int (VALUE_NAME_STATIC_LOD, lod_budget);
 
 		registry.Set_Int (VALUE_NAME_DYN_SHADOWS, (shadow_mode != PhysicsSceneClass::SHADOW_MODE_NONE));
-		registry.Set_Int (VALUE_NAME_STATIC_SHADOWS, static_shadows);
+		registry.Set_Int (VALUE_NAME_STATIC_SHADOWS, int(static_shadows));
 
-		registry.Set_Int (VALUE_NAME_PRELIT_MODE, prelit_mode);
-		registry.Set_Int (VALUE_NAME_TEXTURE_FILTER, texture_filter);
+		registry.Set_Int (VALUE_NAME_PRELIT_MODE, int(prelit_mode));
+		registry.Set_Int (VALUE_NAME_TEXTURE_FILTER, int(texture_filter));
 		registry.Set_Int (VALUE_NAME_SHADOW_MODE, shadow_mode);
 		registry.Set_Int (VALUE_NAME_TEXTURE_RES, std::max (2 - texture_red, 0));
 		registry.Set_Int (VALUE_NAME_SURFACE_EFFECT, surface_effect);
@@ -740,10 +740,10 @@ PerformanceConfigDialogClass::Apply_Changes (void)
 	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_LOD, lod_budget);
 
 	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_DYN_SHADOWS, (shadow_mode != PhysicsSceneClass::SHADOW_MODE_NONE));
-	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, static_shadows);
+	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, int(static_shadows));
 
-	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, prelit_mode);
-	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, texture_filter);
+	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, int(prelit_mode));
+	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, int(texture_filter));
 	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, shadow_mode);
 	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_RES, std::max (2 - texture_red, 0));
 	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_SURFACE_EFFECT, surface_effect);
@@ -1183,9 +1183,9 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 
 			// Get the current selection
 			char cur_sel_string[256];
-			unsigned sel=SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_GETCURSEL, 0, 0);
+			LRESULT sel=SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_GETCURSEL, 0, 0);
 			if (sel!=CB_ERR) {
-				SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_GETLBTEXT, sel, (LPARAM)cur_sel_string);
+				SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_GETLBTEXT, (WPARAM)sel, (LPARAM)cur_sel_string);
 			}
 			else {
 				cur_sel_string[0]=0;
@@ -1205,7 +1205,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 			}
 
 			// Try to set the previous selection
-			unsigned res=SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_FINDSTRINGEXACT, WPARAM(-1), (LPARAM)cur_sel_string);
+			LRESULT res=SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_FINDSTRINGEXACT, WPARAM(-1), (LPARAM)cur_sel_string);
 			if (res==CB_ERR) {
 				if (sel==0) res=0;
 				else {
@@ -1213,7 +1213,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 					if (sel<res) res=sel;
 				}
 			}
-			SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_SETCURSEL, res, 0);
+			SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_SETCURSEL, (WPARAM)res, 0);
 
 			//
 			//	Populate the texture filtering combobox
@@ -1222,7 +1222,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 			// Get the current selection
 			sel=SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_GETCURSEL, 0, 0);
 			if (sel!=CB_ERR) {
-				SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_GETLBTEXT, sel, (LPARAM)cur_sel_string);
+				SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_GETLBTEXT, (WPARAM)sel, (LPARAM)cur_sel_string);
 			}
 			else {
 				cur_sel_string[0]=0;
@@ -1247,7 +1247,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 					if (sel<res) res=sel;
 				}
 			}
-			SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_SETCURSEL, res, 0);
+			SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_SETCURSEL, (WPARAM)res, 0);
 
 			d3d->Release();
 

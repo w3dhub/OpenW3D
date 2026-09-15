@@ -84,7 +84,7 @@ END_MESSAGE_MAP()
 INT_PTR
 WelcomeDialogClass::DoModal (void)
 {
-	int iret = IDOK;
+	INT_PTR iret = IDOK;
 
 	// Should this dialog be displayed?
 	if (theApp.GetProfileInt (CONFIG_KEY, SHOW_WELCOME_VALUE, 1)) {

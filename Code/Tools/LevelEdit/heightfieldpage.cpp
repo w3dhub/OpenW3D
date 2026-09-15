@@ -296,7 +296,7 @@ HeightfieldPageClass::OnCommand (WPARAM wParam, LPARAM lParam)
 
 			case IDC_BRUSH_TYPE_COMBO:
 			{
-				int curr_sel = SendDlgItemMessage (IDC_BRUSH_TYPE_COMBO, CB_GETCURSEL);
+				LRESULT curr_sel = SendDlgItemMessage (IDC_BRUSH_TYPE_COMBO, CB_GETCURSEL);
 				HeightfieldEditorClass::Set_Mode ((HeightfieldEditorClass::EDITING_MODE)curr_sel);
 				break;
 			}

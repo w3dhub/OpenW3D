@@ -1844,7 +1844,7 @@ ColorBarClass::Set_User_Data (int index, uintptr_t data)
 uintptr_t
 ColorBarClass::Get_User_Data (int index)
 {
-	DWORD data = 0;
+	uintptr_t data = 0;
 	if ((index >= 0) && (index < m_iColorPoints)) {
 		data = m_ColorPoints[index].user_data;
 	}

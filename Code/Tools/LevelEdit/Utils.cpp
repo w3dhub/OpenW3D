@@ -1077,9 +1077,9 @@ Pump_Messages (void)
 typedef struct
 {
 	LPVOID ThreadProc;
-	DWORD dwparam1;
-	DWORD dwparam2;
-	DWORD dwparam3;
+	DWORD_PTR dwparam1;
+	DWORD_PTR dwparam2;
+	DWORD_PTR dwparam3;
 	HRESULT *presult;
 	HWND *phmain_wnd;
 	HANDLE hevent;
@@ -1121,9 +1121,9 @@ void
 Create_Worker_Thread
 (
 	MY_THREADPROC fnthread_proc,
-	DWORD dwparam1,
-	DWORD dwparam2,
-	DWORD dwparam3,
+	DWORD_PTR dwparam1,
+	DWORD_PTR dwparam2,
+	DWORD_PTR dwparam3,
 	HRESULT *presult
 )
 {
@@ -1468,7 +1468,7 @@ Fill_Node_Instance_Combo
 		  node = node_mgr.Get_Next (node)) {
 
 		// Add this node to the combobox
-		int index = ::SendMessage (hcombobox, CB_ADDSTRING, (WPARAM)0, (LPARAM)node->Get_Name ());
+		LRESULT index = ::SendMessage (hcombobox, CB_ADDSTRING, (WPARAM)0, (LPARAM)node->Get_Name ());
 		if (index != CB_ERR) {
 			::SendMessage (hcombobox, CB_SETITEMDATA, (WPARAM)index, (LPARAM)node);
 
@@ -1503,7 +1503,7 @@ Fill_Group_Combo
 		if (pgroup != nullptr) {
 
 			// Add this group to the combobox
-			int retval = ::SendMessage (hcombobox, CB_ADDSTRING, (WPARAM)0, (LPARAM)(LPCTSTR)pgroup->Get_Name ());
+			LRESULT retval = ::SendMessage (hcombobox, CB_ADDSTRING, (WPARAM)0, (LPARAM)(LPCTSTR)pgroup->Get_Name ());
 			if (retval != CB_ERR) {
 				::SendMessage (hcombobox, CB_SETITEMDATA, (WPARAM)retval, (LPARAM)pgroup);
 

@@ -313,7 +313,7 @@ CMainFrame::OnExportFiles (void)
 					// If the filename contains a /, create the directory
 					if ( ::strchr( filenames[index], '\\' ) != nullptr ) {
 						StringClass dest_folder = dest_name;
-						int length = ::strrchr( dest_folder, '\\' ) - dest_folder;
+						int length = int(::strrchr( dest_folder, '\\' ) - dest_folder);
 						dest_folder.Erase( length, dest_folder.Get_Length() - length );
 						result = (int)::CreateDirectory( dest_folder, nullptr );
 						error = ::GetLastError();

@@ -188,7 +188,7 @@ ResolutionDialogClass::OnOK (void)
 		//
 		//	Index into the resolution list for this device...
 		//
-		int index = m_ListCtrl.GetItemData (list_index);
+		int index = int(m_ListCtrl.GetItemData (list_index));
 		if (index >= 0) {
 
 			//

@@ -166,7 +166,7 @@ ObjectNodeClass::Show_Settings_Dialog (void)
 	prop_sheet.Add_Page (&scripts_tab);
 
 	// Show the property sheet
-	UINT ret_code = prop_sheet.DoModal ();
+	INT_PTR ret_code = prop_sheet.DoModal ();
 	if (ret_code == IDOK) {
 
 		//
