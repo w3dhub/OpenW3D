@@ -5564,7 +5564,7 @@ DECLARE_SCRIPT(M01_Tank_Entering_Tunnel_Zone_JDG, "")//this guys ID is
 	{
 		if (type == M01_MEDIUM_TANK_IS_HERE_JDG  )
 		{
-			gdi_medium_tank = param;
+			gdi_medium_tank = int(param);
 		}
 	}
 
@@ -7998,7 +7998,7 @@ DECLARE_SCRIPT(M01_BarnArea_AI_ExitZone_JDG, "")//112015 -- tunnel 112016 -- sha
 	{
 		if (type == M01_ROPE_IS_SENDING_ID_JDG)
 		{
-			hovercraftGuyId = param;
+			hovercraftGuyId = int(param);
 		}
 	}
 
@@ -8840,7 +8840,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_03_GDI_JDG, "")
 	{
 		if (type == M01_MODIFY_YOUR_ACTION_JDG)
 		{
-			buggy_id = param;
+			buggy_id = int(param);
 
 			GameObject * buggy = Commands->Find_Object ( buggy_id );
 			if (buggy != nullptr)
@@ -8880,7 +8880,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_04_GDI_JDG, "")
 	{
 		if (type == M01_MODIFY_YOUR_ACTION_JDG)
 		{
-			buggy_id = param;
+			buggy_id = int(param);
 
 			GameObject * buggy = Commands->Find_Object ( buggy_id );
 			if (buggy != nullptr)
@@ -9032,13 +9032,13 @@ DECLARE_SCRIPT(M01_BuggyScript_New_JDG, "")
 
 		if (type == M01_MODIFY_YOUR_ACTION_02_JDG)
 		{
-			minigunner01_id = param;
+			minigunner01_id = int(param);
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_MODIFY_YOUR_ACTION_04_JDG, 0 );
 		}
 
 		else if (type == M01_MODIFY_YOUR_ACTION_03_JDG)
 		{
-			minigunner02_id = param;
+			minigunner02_id = int(param);
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_MODIFY_YOUR_ACTION_04_JDG, 0 );
 		}
 
@@ -9505,7 +9505,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 
 		else if ((type == M01_PLAYER_IS_ATTACKING_ME_JDG) && (thisGuysState == ESCORTING) )
 		{
-			GameObject * myTarget = Commands->Find_Object ( param );
+			GameObject * myTarget = Commands->Find_Object ( int(param) );
 			if (myTarget != nullptr)
 			{
 				params.Set_Basic( this, 100, M01_GOING_TO_HAVOC_JDG );
@@ -9772,7 +9772,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 
 		else if ((type == M01_PLAYER_IS_ATTACKING_ME_JDG) && (thisGuysState == ESCORTING) )
 		{
-			GameObject * myTarget = Commands->Find_Object ( param );
+			GameObject * myTarget = Commands->Find_Object ( int(param) );
 			if (myTarget != nullptr)
 			{
 				params.Set_Basic( this, 100, M01_GOING_TO_HAVOC_JDG );
@@ -10034,7 +10034,7 @@ DECLARE_SCRIPT(M01_COMM_Chinook_Spawned_Soldier_GDI, "")
 
 		else if ((type == M01_PLAYER_IS_ATTACKING_ME_JDG) && (thisGuysState == ESCORTING) )
 		{
-			GameObject * myTarget = Commands->Find_Object ( param );
+			GameObject * myTarget = Commands->Find_Object ( int(param) );
 			if (myTarget != nullptr)
 			{
 				params.Set_Basic( this, 100, M01_GOING_TO_HAVOC_JDG );
@@ -18272,7 +18272,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Turret_01_Script_JDG, "")//M01_TURRETBEACH_TURRET
 
 		else if (type == M01_FODDER_HOVERCRAFT_IS_HERE)
 		{
-			fodderHovercraft_ID = param;
+			fodderHovercraft_ID = int(param);
 			GameObject * fodderHovercraft = Commands->Find_Object ( fodderHovercraft_ID );
 
 			if (fodderHovercraft != nullptr)

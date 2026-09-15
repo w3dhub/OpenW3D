@@ -1983,7 +1983,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 			}
 			else
 			{
-				mendoza_id = param;
+				mendoza_id = int(param);
 			}
 		}
 	}
@@ -3147,7 +3147,7 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 		{
 			// A specific area is requesting a forced spawn if possible.
 
-			Check_Respawns (param);
+			Check_Respawns (int(param));
 		}
 		else if (type == 103)
 		{
@@ -3197,13 +3197,13 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 		{
 			// A request to spawn a new vehicle for the commando has been made.
 
-			Replacement_Vehicle (obj, param);
+			Replacement_Vehicle (obj, int(param));
 		}
 		else if (type == 112)
 		{
 			// A player controlled vehicle has been destroyed, turn on the ability to make a new one
 
-			replacement_vehicle = param;
+			replacement_vehicle = int(param);
 		}
 		else if (type == 113)
 		{

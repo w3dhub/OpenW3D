@@ -340,7 +340,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 							// Object is attempting to prompt another custom send.
 
 							object_prompts [prompt_value][0] = sender_id;
-							object_prompts [prompt_value][1] = param;
+							object_prompts [prompt_value][1] = int(param);
 						}
 						break;
 					}

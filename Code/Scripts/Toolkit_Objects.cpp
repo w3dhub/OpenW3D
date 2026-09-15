@@ -119,9 +119,9 @@ DECLARE_SCRIPT(M00_Object_Destroy_RMV, "Receive_Type_Activate:int, Debug_Mode=0:
 			Commands->Debug_Message("M00_Destroy_Object_RMV received custom of type %d and param %d.\n", type, param);
 		if (type == r_type)
 		{
-			if (Commands->Find_Object(param) != nullptr)
+			if (Commands->Find_Object(int(param)) != nullptr)
 			{
-				Commands->Destroy_Object(Commands->Find_Object(param));
+				Commands->Destroy_Object(Commands->Find_Object(int(param)));
 				if (debug_mode)
 					Commands->Debug_Message("M00_Destroy_Object_RMV - Object %d destroyed.\n", param);
 			} else

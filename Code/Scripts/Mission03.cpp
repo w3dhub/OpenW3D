@@ -3208,7 +3208,7 @@ DECLARE_SCRIPT(M03_Chinook_Drop_Soldiers_GDI, "Controller_ID:int")
 	{
 		GameObject *soldier;
 
-		soldier = Commands->Find_Object(param);
+		soldier = Commands->Find_Object(int(param));
 		if (type > 4000)
 		{
 			if (soldier)
@@ -3841,7 +3841,7 @@ DECLARE_SCRIPT(M03_Alternate_Sam_Site, "Chinook_Controller_ID:int")
 		{
 			return;
 		}
-		GameObject *chinook = Commands->Find_Object(param);
+		GameObject *chinook = Commands->Find_Object(int(param));
 		GameObject *target = Commands->Create_Object("Invisible_Object", Vector3(5,5,5));
 		if (chinook) {
 			char parameters[40];
@@ -5086,7 +5086,7 @@ DECLARE_SCRIPT(M03_SAM_Site_Logic, "")
 	{
 		if (type == M00_CUSTOM_SAM_SITE_IGNORE && current < 10 && current >= 0)
 		{
-			ignore_ids[current++] = param;
+			ignore_ids[current++] = int(param);
 		}
 	}
 };
@@ -6604,7 +6604,7 @@ DECLARE_SCRIPT(M03_Beach_Reinforce, "")
 	{
 		if (type == LOCATION)
 		{
-			current_loc = param;
+			current_loc = int(param);
 		}
 
 		if (type == BASE)
@@ -6699,7 +6699,7 @@ DECLARE_SCRIPT(M03_Engineer_Target, "")
 	{
 		if (type == ENGINEER)
 		{
-			engineer = param;
+			engineer = int(param);
 		}
 	};
 

@@ -1844,7 +1844,7 @@ DECLARE_SCRIPT(M08_Destroy_Stealth_Trap, "")
 
 		if(type == M08_UNIT_ID)
 		{
-			stealth_tank_id = param;
+			stealth_tank_id = int(param);
 		}
 	};
 
@@ -3777,7 +3777,7 @@ DECLARE_SCRIPT(M08_Petra_B_Controller, "")  //100346
 	{
 		if(type == M08_PLAYER_VEHICLE_ID)
 		{
-			player_vehicle_id = param;
+			player_vehicle_id = int(param);
 		}
 		if(type == M08_PETRA_B_UNIT_STATUS)
 		{
@@ -4161,7 +4161,7 @@ DECLARE_SCRIPT(M08_Petra_C_Controller, "")  //100389
 	{
 		if(type == M08_PLAYER_VEHICLE_ID)
 		{
-			player_vehicle_id = param;
+			player_vehicle_id = int(param);
 		}
 		if(type == M08_PETRA_C_UNIT_STATUS)
 		{
@@ -5871,7 +5871,7 @@ DECLARE_SCRIPT(M08_Move_Sakura, "Movement_Loc=0:int")
 		ActionParamsStruct params;
 		if(type == M08_SAKURA_ID)
 		{
-			sakura_id = param;
+			sakura_id = int(param);
 		}
 
 	}
@@ -6270,7 +6270,7 @@ DECLARE_SCRIPT(M08_Apache_Controller, "")
 			apache_id[param] = 0;
 			if (!destroyed[param])
 			{
-				Commands->Start_Timer(obj, this, 40.0f, param);
+				Commands->Start_Timer(obj, this, 40.0f, int(param));
 			}
 			else
 			{
@@ -6286,7 +6286,7 @@ DECLARE_SCRIPT(M08_Apache_Controller, "")
 			{
 				Return_To_Helipad(area);
 			}
-			area = param;
+			area = int(param);
 			if (area > -1)
 			{
 				Attack_Player(area);

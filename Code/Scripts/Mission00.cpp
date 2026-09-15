@@ -336,7 +336,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 			}
 		case (MTU_TYPE_HEALTH_POWERUP_ADD):
 			{
-				sydney_health_pow = param;
+				sydney_health_pow = int(param);
 				break;
 			}
 		case (MTU_TYPE_HEALTH_POWERUP_SUBTRACT):
@@ -362,7 +362,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 			}
 		case (MTU_TYPE_ARMOR_POWERUP_ADD):
 			{
-				sydney_armor_pow = param;
+				sydney_armor_pow = int(param);
 				break;
 			}
 		case (MTU_TYPE_ARMOR_POWERUP_SUBTRACT):
@@ -3914,7 +3914,7 @@ DECLARE_SCRIPT (MSK_Controller, "")
 	{
 		if (type == MSK_SOLDIER_DEAD)
 		{
-			Commands->Trigger_Spawner(param);
+			Commands->Trigger_Spawner(int(param));
 		}
 	}
 };

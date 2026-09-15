@@ -383,7 +383,7 @@ DECLARE_SCRIPT(M00_Global_Objective_Controller_RMV, "Set_Type:int, Set_Status:in
 		}
 		else if (type == remove)
 		{
-			Commands->Remove_Objective(param);
+			Commands->Remove_Objective(int(param));
 		}
 	}
 };

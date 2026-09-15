@@ -781,7 +781,7 @@ DECLARE_SCRIPT(PDS_Test_Inventory, "")
 			//
 			for (int index = 0; index < INVENTORY_MAX; index ++) {
 				if (Inventory[index] == INVENTORY_EMPTY) {
-					Inventory[index] = param;
+					Inventory[index] = int(param);
 					break;
 				}
 			}
