@@ -154,7 +154,7 @@ BOOL EmitterLinePropPageClass::OnApply()
 	m_UPerSec = ::GetDlgItemFloat (m_hWnd, IDC_UPERSEC_EDIT);
 	m_VPerSec = ::GetDlgItemFloat (m_hWnd, IDC_VPERSEC_EDIT);
 
-	m_MappingMode = SendDlgItemMessage (IDC_MAPMODE_COMBO, CB_GETCURSEL);
+	m_MappingMode = int(SendDlgItemMessage (IDC_MAPMODE_COMBO, CB_GETCURSEL));
 	m_MergeIntersections = !!SendDlgItemMessage (IDC_MERGE_INTERSECTIONS_CHECK, BM_GETCHECK);
 	m_EndCaps = !!SendDlgItemMessage (IDC_END_CAPS_CHECK, BM_GETCHECK);
 	m_DisableSorting = !!SendDlgItemMessage (IDC_DISABLE_SORTING_CHECK, BM_GETCHECK);

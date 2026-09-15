@@ -207,7 +207,7 @@ EmitterPhysicsPropPageClass::OnNotify
 	if ((pheader != nullptr) && (pheader->code == UDN_DELTAPOS)) {
 		LPNMUPDOWN pupdown = (LPNMUPDOWN)lParam;
 		::Update_Spinner_Buddy (pheader->hwndFrom, pupdown->iDelta);
-		On_Setting_Changed (wParam);
+		On_Setting_Changed (UINT(wParam));
 	}
 
 	// Allow the base class to process this message

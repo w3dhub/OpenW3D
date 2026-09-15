@@ -179,7 +179,7 @@ void
 CDeviceSelectionDialog::OnOK (void)
 {
 	// Ask the combobox for its current selection
-	m_iDeviceIndex = m_deviceListComboBox.GetItemData (m_deviceListComboBox.GetCurSel ());
+	m_iDeviceIndex = int(m_deviceListComboBox.GetItemData (m_deviceListComboBox.GetCurSel ()));
 	m_iBitsPerPixel = (SendDlgItemMessage (IDC_COLORDEPTH_16, BM_GETCHECK) != 0) ? 16 : 24;
 
 	// Get the device name of the currently selected device
@@ -205,7 +205,7 @@ INT_PTR
 CDeviceSelectionDialog::DoModal (void)
 {
 	BOOL bFoundDevice = false;
-	int iReturn = IDOK;
+	INT_PTR iReturn = IDOK;
 
 	// Get the name of the last used device driver from the registry
 	m_DriverName = theApp.GetProfileString ("Config", "DeviceName");

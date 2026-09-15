@@ -256,8 +256,8 @@ PresetListDialogClass::OnOK (void)
 
 	int count = m_PresetListCtrl.GetItemCount ();
 	for (int index = 0; index < count; index ++) {
-		int preset_id = m_PresetListCtrl.GetItemData (index);
-		m_List->Add (preset_id);
+		DWORD_PTR preset_id = m_PresetListCtrl.GetItemData (index);
+		m_List->Add (int(preset_id));
 	}
 
 	CDialog::OnOK ();
@@ -671,9 +671,9 @@ void PresetListDialogClass::OnSelchangeTypeCombo()
 		//
 		//	Repopulate the tree control if the type changed
 		//
-		uint32 new_class_id = m_ComboBox.GetItemData (cur_sel);
+		DWORD_PTR new_class_id = m_ComboBox.GetItemData (cur_sel);
 		if (new_class_id != m_ClassID) {
-			m_ClassID = new_class_id;
+			m_ClassID = uint32(new_class_id);
 			Populate_Preset_Tree ();
 		}
 	}

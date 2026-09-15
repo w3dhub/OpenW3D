@@ -511,7 +511,7 @@ WaypointNodeClass::Show_Settings_Dialog (void)
 	prop_sheet.Add_Page (&path_tab);
 
 	// Show the property sheet
-	UINT ret_code = prop_sheet.DoModal ();
+	INT_PTR ret_code = prop_sheet.DoModal ();
 	if (ret_code == IDOK && m_Waypath != nullptr) {
 		m_Waypath->Update_Line ();
 	}

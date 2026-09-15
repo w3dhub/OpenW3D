@@ -417,8 +417,8 @@ OverlapPageClass::OnDblclkOverlapTree
 		//
 		//	Lookup the node from its ID
 		//
-		int node_id = m_TreeCtrl.GetItemData (tree_item);
-		NodeClass *node = NodeMgrClass::Find_Node (node_id);
+		DWORD_PTR node_id = m_TreeCtrl.GetItemData (tree_item);
+		NodeClass *node = NodeMgrClass::Find_Node (uint32(node_id));
 		if (node != nullptr) {
 
 			//
@@ -451,7 +451,7 @@ OverlapPageClass::OnItemexpandedOverlapTree
 	// If this is a folder, then change its image based
 	// on its expanded state.
 	//
-	uint32 node_id = m_TreeCtrl.GetItemData (pNMTreeView->itemNew.hItem);
+	DWORD_PTR node_id = m_TreeCtrl.GetItemData (pNMTreeView->itemNew.hItem);
 	if (node_id == 0) {
 		if (pNMTreeView->itemNew.state & TVIS_EXPANDED) {
 			m_TreeCtrl.SetItemImage (pNMTreeView->itemNew.hItem, OPEN_FOLDER_ICON, OPEN_FOLDER_ICON);

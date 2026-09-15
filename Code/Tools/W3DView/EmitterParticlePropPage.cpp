@@ -289,7 +289,7 @@ EmitterParticlePropPageClass::OnCommand
 void
 EmitterParticlePropPageClass::OnMaxParticlesCheck (void)
 {
-	BOOL enable = SendDlgItemMessage (IDC_MAX_PARTICLES_CHECK, BM_GETCHECK);
+	BOOL enable = BOOL(SendDlgItemMessage (IDC_MAX_PARTICLES_CHECK, BM_GETCHECK));
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_MAX_PARTICLES_EDIT), enable);
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_MAX_PARTICLES_SPIN), enable);
 

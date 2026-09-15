@@ -194,7 +194,7 @@ CAnimationSpeed::OnBlend (void)
     if (pCDoc)
     {
         // Turn on/off the blending option
-        pCDoc->SetAnimationBlend (SendDlgItemMessage (IDC_BLEND, BM_GETCHECK));
+        pCDoc->SetAnimationBlend (BOOL(SendDlgItemMessage (IDC_BLEND, BM_GETCHECK)));
     }
 
     return ;

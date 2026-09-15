@@ -111,7 +111,7 @@ ScriptEditDialogClass::OnInitDialog (void)
 			//
 			// Add this script to the combobox
 			//
-			int item_index = SendDlgItemMessage (IDC_SCRIPT_NAME, CB_ADDSTRING, 0, (LPARAM)script->Get_Name ());
+			LRESULT item_index = SendDlgItemMessage (IDC_SCRIPT_NAME, CB_ADDSTRING, 0, (LPARAM)script->Get_Name ());
 			SendDlgItemMessage (IDC_SCRIPT_NAME, CB_SETITEMDATA, (WPARAM)item_index, (LPARAM)script);
 
 			//
@@ -184,9 +184,9 @@ void
 ScriptEditDialogClass::Switch_Value_Control_Type (void)
 {
 	// Get the parameter index and use it to determine the new combo type
-	int index = SendDlgItemMessage (IDC_PARAM_NAME_COMBO, CB_GETCURSEL);
+	LRESULT index = SendDlgItemMessage (IDC_PARAM_NAME_COMBO, CB_GETCURSEL);
 	if (index != CB_ERR) {
-		Switch_Value_Control_Type (index);
+		Switch_Value_Control_Type (int(index));
 	}
 
 	return ;
@@ -422,7 +422,7 @@ ScriptEditDialogClass::OnSelChangeParamNameCombo (void)
 	Save_Current_Value ();
 
 	// Get the parameter index
-	m_CurrentParamIndex = SendDlgItemMessage (IDC_PARAM_NAME_COMBO, CB_GETCURSEL);
+	m_CurrentParamIndex = int(SendDlgItemMessage (IDC_PARAM_NAME_COMBO, CB_GETCURSEL));
 	if (m_CurrentParamIndex != CB_ERR) {
 
 		// Reset the dialog controls to reflect this parameter
@@ -443,7 +443,7 @@ void
 ScriptEditDialogClass::OnSelChangeScriptName (void)
 {
 	// Get the current selection
-	int index = SendDlgItemMessage (IDC_SCRIPT_NAME, CB_GETCURSEL);
+	LRESULT index = SendDlgItemMessage (IDC_SCRIPT_NAME, CB_GETCURSEL);
 	if (index != CB_ERR) {
 		EditScriptClass *script = (EditScriptClass *)SendDlgItemMessage (IDC_SCRIPT_NAME, CB_GETITEMDATA, index);
 		if (script != nullptr) {

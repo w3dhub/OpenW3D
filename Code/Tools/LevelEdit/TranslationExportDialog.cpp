@@ -98,7 +98,7 @@ TranslationExportDialogClass::OnOK (void)
 	//
 	//	Export the data...
 	//
-	int lang_id = SendDlgItemMessage (IDC_LANG_COMBO, CB_GETCURSEL);
+	LRESULT lang_id = SendDlgItemMessage (IDC_LANG_COMBO, CB_GETCURSEL);
 	if (lang_id >= 0) {
 
 		//
@@ -109,7 +109,7 @@ TranslationExportDialogClass::OnOK (void)
 		//
 		//	Switch the database to the requested language...
 		//
-		TranslateDBClass::Set_Current_Language (lang_id);
+		TranslateDBClass::Set_Current_Language (int(lang_id));
 		TranslateDBClass::Enable_Single_Language_Export (true);
 
 		//

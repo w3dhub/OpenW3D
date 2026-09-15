@@ -148,7 +148,7 @@ ExportPresetsDialogClass::OnOK (void)
 		//	Lookup the class ID of the selected preset category
 		//
 		HTREEITEM selected_item = m_TreeCtrl.GetSelectedItem ();
-		int class_id = 0;
+		DWORD_PTR class_id = 0;
 		if (selected_item != nullptr) {
 			class_id = m_TreeCtrl.GetItemData (selected_item);
 		}
@@ -160,7 +160,7 @@ ExportPresetsDialogClass::OnOK (void)
 			//
 			//	Export the settings to the given filename
 			//
-			PresetExportClass::Export (class_id, filename);
+			PresetExportClass::Export (uint32(class_id), filename);
 			CDialog::OnOK ();
 		}
 	}
