@@ -1890,7 +1890,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		// What zone is the star in?
 		if(type == MX0_STAR_AREA)
 		{
-			star_area = param;
+			star_area = int(param);
 			if(star_area == 1 && !area4_activated)
 			{
 				area4_activated = true;
@@ -2518,7 +2518,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 
 		if(type == MX0_VEHICLE_MOVE)
 		{
-			loc = param;
+			loc = int(param);
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
 			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (attack_loc [loc])), speed, 5.0f );
 			params.Set_Attack(Commands->Find_Object(1500024), 0.0f, 0.0f, true);
@@ -2672,7 +2672,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		{
 			if (able_to_fire)
 			{
-				GameObject * target_obj = Commands->Find_Object (param);
+				GameObject * target_obj = Commands->Find_Object (int(param));
 				if (target_obj)
 				{
 					Vector3 enemy_position = Commands->Get_Position (target_obj);
@@ -2684,7 +2684,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 					float max_range = Get_Float_Parameter("Max_Range");
 					if ((difference > 15.0f) && (distance < max_range))
 					{
-						current_target = param;
+						current_target = int(param);
 						able_to_fire = false;
 						Commands->Start_Timer (obj, this, 2.5f, 1);
 						GameObject * effect = Commands->Find_Object (powerup_effect_id);
@@ -2899,7 +2899,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 
 		if(type == MX0_SOLDIER_MOVE)
 		{
-			loc = param;
+			loc = int(param);
 			bool move_crouched = Commands->Get_Random_Int(0, 1) ? false : true;
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, MX0_SOLDIER_MOVE );
 			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (attack_loc [loc])), speed, 5.0f );
@@ -3114,7 +3114,7 @@ DECLARE_SCRIPT (MX0_Nod_RocketSoldier_DLS, "Stationary_Point=0:int")
 		if(type == MX0_SPECIFIC_ACTION)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
-			params.Set_Attack (Commands->Find_Object(param), 150.0f, 0.0f, 1);
+			params.Set_Attack (Commands->Find_Object(int(param)), 150.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			params.AttackForceFire = true;
 			Commands->Action_Attack( obj, params );

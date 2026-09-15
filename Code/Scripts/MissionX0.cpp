@@ -286,7 +286,7 @@ DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001
 
 		if (type == COUNTER)
 		{
-			count = param;
+			count = int(param);
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (engineer1), COUNT_UP, count, 0.0f );
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (engineer2), COUNT_UP, count, 0.0f );
 		}
@@ -295,12 +295,12 @@ DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001
 		{
 			if (eng_num == 0)
 			{
-				engineer1 = param;
+				engineer1 = int(param);
 				eng_num++;
 			}
 			else
 			{
-				engineer2 = param;
+				engineer2 = int(param);
 			}
 		}
 
@@ -621,7 +621,7 @@ DECLARE_SCRIPT (MX0_Engineer1, "Damage_multiplier:float")
 	{
 		if (type == CROUCH_WANDER)
 		{
-			GameObject * sniper1 = Commands->Find_Object (param);
+			GameObject * sniper1 = Commands->Find_Object (int(param));
 
 			Commands->Unlock_Soldier_Facing (obj);
 
@@ -681,12 +681,12 @@ DECLARE_SCRIPT (MX0_Engineer1, "Damage_multiplier:float")
 
 		if (type == COUNT_UP)
 		{
-			count = param;
+			count = int(param);
 		}
 
 		if (type == LEAD)
 		{
-			point_id = param;
+			point_id = int(param);
 
 			ActionParamsStruct params;
 
@@ -895,7 +895,7 @@ DECLARE_SCRIPT (MX0_Engineer2, "Damage_multiplier:float")
 	{
 		if (type == CROUCH_WANDER)
 		{
-			sniper_1 = param;
+			sniper_1 = int(param);
 			Commands->Start_Timer (obj, this, 5.0f, CROUCH_GOTO);
 		}
 
@@ -938,12 +938,12 @@ DECLARE_SCRIPT (MX0_Engineer2, "Damage_multiplier:float")
 
 		if (type == COUNT_UP)
 		{
-			count = param;
+			count = int(param);
 		}
 
 		if (type == LEAD)
 		{
-			point_id = param;
+			point_id = int(param);
 
 			ActionParamsStruct params;
 
@@ -999,12 +999,12 @@ DECLARE_SCRIPT(MX0_Engineer_Goto, "GotoDest1:int, GotoDest2:int, Count:int")
 	{
 		if (type == RETURN_ENGINEER1)
 		{
-			Commands->Send_Custom_Event( obj, Commands->Find_Object (param), LEAD, Get_Int_Parameter("GotoDest1"), 0.0f );
+			Commands->Send_Custom_Event( obj, Commands->Find_Object (int(param)), LEAD, Get_Int_Parameter("GotoDest1"), 0.0f );
 		}
 
 		if (type == RETURN_ENGINEER2)
 		{
-			Commands->Send_Custom_Event( obj, Commands->Find_Object (param), LEAD, Get_Int_Parameter("GotoDest2"), 0.0f );
+			Commands->Send_Custom_Event( obj, Commands->Find_Object (int(param)), LEAD, Get_Int_Parameter("GotoDest2"), 0.0f );
 		}
 	}
 
@@ -1044,12 +1044,12 @@ DECLARE_SCRIPT(MX0_Engineer_Goto2, "GotoDest1:int, GotoDest2:int, Count:int")
 	{
 		if (type == RETURN_ENGINEER1)
 		{
-			Commands->Send_Custom_Event( obj, Commands->Find_Object (param), LEAD, Get_Int_Parameter("GotoDest1"), 0.0f );
+			Commands->Send_Custom_Event( obj, Commands->Find_Object (int(param)), LEAD, Get_Int_Parameter("GotoDest1"), 0.0f );
 		}
 
 		if (type == RETURN_ENGINEER2)
 		{
-			Commands->Send_Custom_Event( obj, Commands->Find_Object (param), LEAD, Get_Int_Parameter("GotoDest2"), 0.0f );
+			Commands->Send_Custom_Event( obj, Commands->Find_Object (int(param)), LEAD, Get_Int_Parameter("GotoDest2"), 0.0f );
 		}
 
 		if (type == SEND_EM)
@@ -1511,7 +1511,7 @@ DECLARE_SCRIPT(MX0_GDI_ORCA, "" )
 
 		if ( type == M00_SEND_OBJECT_ID )
 		{
-			Trooper_One_Id  = param;
+			Trooper_One_Id  = int(param);
 		}
 	}
 };
@@ -2320,7 +2320,7 @@ DECLARE_SCRIPT ( MX0_A03_NOD_TROOPER_TIB_DEATH, "" )
 	{
 		if ( type == M00_SEND_OBJECT_ID )
 		{
-			Trooper_One_Id  = param;
+			Trooper_One_Id  = int(param);
 		}
 	}
 
@@ -2583,7 +2583,7 @@ DECLARE_SCRIPT( MX0_A03_FIRST_PLAYER_ZONE, "" )
 	{
 		if ( type == M00_SEND_OBJECT_ID )
 		{
-			Trooper_One_Id  = param;
+			Trooper_One_Id  = int(param);
 		}
 	}
 };
@@ -2668,7 +2668,7 @@ DECLARE_SCRIPT ( MX0_A03_END_ZONE, "" )
 
 		if ( type == M00_SEND_OBJECT_ID )
 		{
-			Trooper_One_Id  = param;
+			Trooper_One_Id  = int(param);
 		}
 	}
 };

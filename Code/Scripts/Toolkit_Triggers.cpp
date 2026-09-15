@@ -1363,7 +1363,7 @@ DECLARE_SCRIPT(M00_Trigger_State_Sequence_RAD, "Start_Now=0:int, Receive_Type:in
 			{
 				// Adjust to this numbered state.
 
-				state_num = param;
+				state_num = int(param);
 
 				if (state_num > Get_Int_Parameter("Num_States"))
 				{

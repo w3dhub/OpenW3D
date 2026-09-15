@@ -158,12 +158,12 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 			}
 		case (MX0_A02_CUSTOM_TYPE_GET_SNIPER_01_ID):
 			{
-				MX0_A01_NOD_SNIPER_01 = param;
+				MX0_A01_NOD_SNIPER_01 = int(param);
 				break;
 			}
 		case (MX0_A02_CUSTOM_TYPE_GET_SNIPER_02_ID):
 			{
-				MX0_A01_NOD_SNIPER_02 = param;
+				MX0_A01_NOD_SNIPER_02 = int(param);
 				break;
 			}
 		case (MX0_A02_CUSTOM_TYPE_MAIN_STARTUP):
@@ -411,7 +411,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 		case (MX0_A02_CUSTOM_TYPE_SOLDIER_KILLED_NOD):
 			{
 
-				GameObject * soldier = Commands->Find_Object (param);
+				GameObject * soldier = Commands->Find_Object (int(param));
 				if (soldier)
 				{
 					if (soldier_congrats_loop > 3)
@@ -1542,7 +1542,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 				}
 			case (MX0_A02_CUSTOM_TYPE_REGISTER_ACTOR_ID):
 				{
-					my_register_id = param;
+					my_register_id = int(param);
 					break;
 				}
 			case (MX0_A02_CUSTOM_TYPE_DAMAGE_ON):
@@ -1570,7 +1570,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 				{
 					if (default_state)
 					{
-						GameObject * target = Commands->Find_Object (param);
+						GameObject * target = Commands->Find_Object (int(param));
 						if (target)
 						{
 							ActionParamsStruct params;
@@ -1589,13 +1589,13 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 				}
 			case (MX0_A02_CUSTOM_TYPE_PRE_AMBIENT):
 				{
-					MX0_A02_Say_Something (obj, param, false);
+					MX0_A02_Say_Something (obj, int(param), false);
 					break;
 				}
 			case (MX0_A02_CUSTOM_KILL_SNIPER_01):
 				{
 					default_state = false;
-					GameObject * sniper = Commands->Find_Object (param);
+					GameObject * sniper = Commands->Find_Object (int(param));
 					if (sniper)
 					{
 						MX0_A02_NOD_SNIPER_01 = Commands->Get_ID (sniper);
@@ -1629,7 +1629,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 			case (MX0_A02_CUSTOM_KILL_SNIPER_02):
 				{
 					default_state = false;
-					GameObject * sniper = Commands->Find_Object (param);
+					GameObject * sniper = Commands->Find_Object (int(param));
 					if (sniper)
 					{
 						MX0_A02_NOD_SNIPER_02 = Commands->Get_ID (sniper);
@@ -1690,7 +1690,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 				{
 					if (default_state)
 					{
-						int speech_num = MX0_A02_SPEECH_GDI_PLAYER_CONGRATS_01 + param;
+						int speech_num = MX0_A02_SPEECH_GDI_PLAYER_CONGRATS_01 + int(param);
 						MX0_A02_Say_Something (obj, speech_num, false);
 					}
 					break;
@@ -1699,7 +1699,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 				{
 					if (default_state)
 					{
-						int speech_num = MX0_A02_SPEECH_GDI_SOLDIER_CONGRATS_01 + param;
+						int speech_num = MX0_A02_SPEECH_GDI_SOLDIER_CONGRATS_01 + int(param);
 						MX0_A02_Say_Something (obj, speech_num, false);
 					}
 					break;
@@ -1717,7 +1717,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 				}
 			case (MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_01):
 				{
-					GameObject * target = Commands->Find_Object (param);
+					GameObject * target = Commands->Find_Object (int(param));
 					if (target)
 					{
 						ActionParamsStruct params;
@@ -1734,7 +1734,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 				}
 			case (MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_02):
 				{
-					GameObject * target = Commands->Find_Object (param);
+					GameObject * target = Commands->Find_Object (int(param));
 					if (target)
 					{
 						ActionParamsStruct params;
@@ -1746,7 +1746,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 				}
 			case (MX0_A02_CUSTOM_TYPE_GET_APC_ID):
 				{
-					GameObject * apc = Commands->Find_Object (param);
+					GameObject * apc = Commands->Find_Object (int(param));
 					if (apc)
 					{
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
@@ -1909,10 +1909,10 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 			case (MX0_A02_CUSTOM_TYPE_ENGINEER_MOVETOTANK):
 				{
 					MX0_A02_Say_Something (obj, MX0_A02_SPEECH_ENGINEER_TANK_01, false);
-					GameObject * tank = Commands->Find_Object (param);
+					GameObject * tank = Commands->Find_Object (int(param));
 					if (tank)
 					{
-						medtank_id = param;
+						medtank_id = int(param);
 						GameObject * moveloc = Commands->Find_Object (MX0_A02_MOVE_OBJ_06);
 						if (moveloc)
 						{

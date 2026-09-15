@@ -1086,7 +1086,7 @@ DECLARE_SCRIPT(M07_Dead6_Engineer, "")  // Hotwire
 
 		if(type == M07_MOVE_HOTWIRE && !dont_move)
 		{
-			current_move_loc = param;
+			current_move_loc = int(param);
 
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), HOTWIRE_MOVE_LOC);
 			params.Set_Movement (Commands->Find_Object(move_loc[current_move_loc]), RUN, 3.0f);
@@ -2535,7 +2535,7 @@ DECLARE_SCRIPT(M07_SAM_Site_Logic, "")
 	{
 		if (type == M00_CUSTOM_SAM_SITE_IGNORE && current < 10)
 		{
-			ignore_ids[current++] = param;
+			ignore_ids[current++] = int(param);
 		}
 	}
 };
@@ -3023,7 +3023,7 @@ DECLARE_SCRIPT(M07_Vehicle_Drop_Controller, "")
 			}
 			else
 			{
-				drop_zone = param;
+				drop_zone = int(param);
 			}
 
 		}
@@ -3399,7 +3399,7 @@ DECLARE_SCRIPT(M07_Nod_Obelisk, "")
 		}
 		if(type == M00_OBELISK_WEAPON_ID)
 		{
-			obelisk_weapon_id = param;
+			obelisk_weapon_id = int(param);
 
 		}
 
@@ -5175,7 +5175,7 @@ DECLARE_SCRIPT(M07_Activate_E10_Tank_Drop, "")
 	{
 		if ( type == M07_PLAYER_VEHICLE_ID )
 		{
-			m07_player_vehicle_id = param;
+			m07_player_vehicle_id = int(param);
 		}
 		if ( type == M07_E10_TANK_CREATED )
 		{
@@ -5223,7 +5223,7 @@ DECLARE_SCRIPT(M07_E10_Tank, "")
 	{
 		if ( type == M07_PLAYER_VEHICLE_ID )
 		{
-			m07_player_vehicle_id = param;
+			m07_player_vehicle_id = int(param);
 			Commands->Start_Timer(obj, this, 3.0f, 10);
 		}
 
@@ -5316,7 +5316,7 @@ DECLARE_SCRIPT(M07_Para_Drop_Controller, "")
 		if (type == M07_VEHICLE_DROP_ZONE)
 		{
 
-			drop_zone = param;
+			drop_zone = int(param);
 
 		}
 		if(type == M07_PARADROP_UNIT_KILLED && active)

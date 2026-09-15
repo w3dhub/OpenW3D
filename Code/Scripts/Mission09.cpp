@@ -709,7 +709,7 @@ DECLARE_SCRIPT (M09_Animating_Mutant, "Animation=0:int")
 			params.Set_Basic( this, 99, MUTANT_GOTO );
 			//params.Set_Movement( loc, RUN, 0.25f );
 			params.Set_Movement( Vector3(0,0,0), RUN, 0.5f);
-			params.WaypathID = param;
+			params.WaypathID = int(param);
 
 			Commands->Action_Goto (obj, params);
 		}
@@ -1015,19 +1015,19 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 			{
 			case 901:
 				{
-					objective_901 = param;
+					objective_901 = int(param);
 				}
 				break;
 
 			case 902:
 				{
-					objective_902 = param;
+					objective_902 = int(param);
 				}
 				break;
 
 			case 903:
 				{
-					objective_903 = param;
+					objective_903 = int(param);
 				}
 				break;
 			}
@@ -1039,23 +1039,23 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 			ActionParamsStruct params;
 
 			params.Set_Basic( this, 99, 951 );
-			params.Set_Movement( Commands->Find_Object (param), 1.2f, 0.5f);
+			params.Set_Movement( Commands->Find_Object (int(param)), 1.2f, 0.5f);
 			Commands->Action_Goto( obj, params );
 		}
 
 		if (type == FOLLOW)
 		{
-			Follow_Function (obj, param);
+			Follow_Function (obj, int(param));
 		}
 
 		if (type == ELEVATOR_EXIT)
 		{
-			attack_path = param;
+			attack_path = int(param);
 
 			ActionParamsStruct params;
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, MOBIUS_GOTO );
-			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (param)), 1.2f, 0.8f );
+			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (int(param))), 1.2f, 0.8f );
 			params.MovePathfind = false;
 
 			Commands->Action_Goto (obj, params);
@@ -1069,7 +1069,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 			ActionParamsStruct params;
 
 			params.Set_Basic( this, 99, ELEV_WAYPOINT );
-			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (param)), 1.2f, 1.0f);
+			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (int(param))), 1.2f, 1.0f);
 
 			Commands->Action_Goto (obj, params);
 
@@ -1083,7 +1083,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 			ActionParamsStruct params;
 
 			params.Set_Basic( this, 99, ELEV_WAYPOINT2 );
-			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (param)), 1.2f, 1.0f);
+			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (int(param))), 1.2f, 1.0f);
 
 			Commands->Action_Goto (obj, params);
 
@@ -2774,7 +2774,7 @@ DECLARE_SCRIPT (M09_Custom_Attack, "")
 
 			ActionParamsStruct params;
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
-			params.Set_Attack(Commands->Find_Object (param), 200.0f, 5.0f, true);
+			params.Set_Attack(Commands->Find_Object (int(param)), 200.0f, 5.0f, true);
 			params.AttackCheckBlocked = false;
 			params.AttackActive = true;
 			Commands->Action_Attack (obj, params);
@@ -3008,7 +3008,7 @@ DECLARE_SCRIPT (M09_Key_Controller_Zones, "")
 	{
 		if ( type == COUNT )
 		{
-			key_count = param;
+			key_count = int(param);
 		}
 	}
 };
@@ -3634,7 +3634,7 @@ DECLARE_SCRIPT (M09_Waypath_Run, "Waypath_num:int, Attacker_num:int, Controller_
 	{
 		if (type == ATTACKER_CHECK)
 		{
-			mutant_id = param;
+			mutant_id = int(param);
 		}
 
 		if (type == DEAD_MUTANT)
@@ -3669,12 +3669,12 @@ DECLARE_SCRIPT (M09_Mutant_Encounter_Controller, "")
 	{
 		if (type == MUTANT_ATTACKER)
 		{
-			mutant_id = param;
+			mutant_id = int(param);
 		}
 
 		if (type == MUTANT_ATTACKEE)
 		{
-			attackee_id = param;
+			attackee_id = int(param);
 		}
 
 		if (type == ATTACKER_CHECK)

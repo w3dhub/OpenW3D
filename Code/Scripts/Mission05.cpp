@@ -1242,7 +1242,7 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 		}
 		if(type == M05_MOVE_DEADEYE)
 		{
-			current_move_loc = param;
+			current_move_loc = int(param);
 
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), DEADEYE_MOVE_LOC);
 			params.Set_Movement (Commands->Find_Object(move_loc[current_move_loc]), RUN, 3.0f);

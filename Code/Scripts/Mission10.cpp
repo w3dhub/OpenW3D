@@ -1233,7 +1233,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 			apache_id[param] = 0;
 			if (!destroyed[param])
 			{
-				Commands->Start_Timer(obj, this, 40.0f, param);
+				Commands->Start_Timer(obj, this, 40.0f, int(param));
 			}
 			else
 			{
@@ -1249,7 +1249,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 			{
 				Return_To_Helipad(area);
 			}
-			area = param;
+			area = int(param);
 			if (area > -1)
 			{
 				Attack_Player(area);
@@ -1587,7 +1587,7 @@ DECLARE_SCRIPT(M10_Reinforcement_Controller, "")
 	{
 		if (type == 3000)
 		{
-			current_area = param;
+			current_area = int(param);
 
 			if (current_area > 2)
 			{
@@ -4672,7 +4672,7 @@ DECLARE_SCRIPT(M10_Holograph_EntryZone2_DME, "")
 	{
 		if (type == KANE_CONV)
 		{
-			kane_id = param;
+			kane_id = int(param);
 		}
 
 		if (param == 8500)

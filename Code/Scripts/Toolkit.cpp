@@ -1003,7 +1003,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Gun, "")
 	{
 		if (type == 1)
 		{
-			missile_object = param;
+			missile_object = int(param);
 		}
 		else if (type == 2)
 		{
@@ -1041,7 +1041,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Missile, "")
 	{
 		if (type == 1)
 		{
-			GameObject * enemy = Commands->Find_Object (param);
+			GameObject * enemy = Commands->Find_Object (int(param));
 			if (enemy)
 			{
 				Vector3 my_position = Commands->Get_Position (obj);
@@ -1389,7 +1389,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon_CNC, "")
 			{
 				if (able_to_fire)
 				{
-					GameObject * target_obj = Commands->Find_Object (param);
+					GameObject * target_obj = Commands->Find_Object (int(param));
 					if (target_obj)
 					{
 						Vector3 enemy_position = Commands->Get_Position (target_obj);
@@ -1400,7 +1400,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon_CNC, "")
 						float difference = Commands->Get_Distance (my_position, enemy_position);
 						if ((difference > 15.0f) && (distance < range))
 						{
-							current_target = param;
+							current_target = int(param);
 							able_to_fire = false;
 							Commands->Start_Timer (obj, this, 2.0f, 1);
 							GameObject * effect = Commands->Find_Object (powerup_effect_id);
@@ -1620,7 +1620,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon, "")
 		{
 			if (able_to_fire)
 			{
-				GameObject * target_obj = Commands->Find_Object (param);
+				GameObject * target_obj = Commands->Find_Object (int(param));
 				if (target_obj)
 				{
 					Vector3 enemy_position = Commands->Get_Position (target_obj);
@@ -1631,7 +1631,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon, "")
 					float difference = Commands->Get_Distance (my_position, enemy_position);
 					if ((difference > 15.0f) && (distance < 70.0f))
 					{
-						current_target = param;
+						current_target = int(param);
 						able_to_fire = false;
 						Commands->Start_Timer (obj, this, 2.5f, 1);
 						GameObject * effect = Commands->Find_Object (powerup_effect_id);

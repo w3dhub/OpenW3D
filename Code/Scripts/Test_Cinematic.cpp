@@ -1037,7 +1037,7 @@ public:
 				if ( ObjectSlots[ slot ] != 0 ) {
 //					Commands->Debug_Message( "Slot number %d used by %d\n", slot, ObjectSlots[ slot ] );
 				} else {
-					ObjectSlots[ slot ] = param;
+					ObjectSlots[ slot ] = int(param);
 //					Commands->Debug_Message( "Slot number %d set to %d\n", slot, ObjectSlots[ slot ] );
 				}
 			}

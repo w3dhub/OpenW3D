@@ -161,7 +161,7 @@ DECLARE_SCRIPT(M00_Siege_Zone_RAD, "Start_Now=1:int, Receive_Type:int, Receive_P
 		if (type == M00_CUSTOM_SIEGE_OBJECT_GROUP_CHANGE)
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Siege_Zone_RAD is being ordered to change its group to %d.\n", param));
-			my_group_id = param;
+			my_group_id = int(param);
 		}
 	}
 };
@@ -226,7 +226,7 @@ DECLARE_SCRIPT(M00_Siege_Actor_RAD, "Start_Now=1:int, Receive_Type:int, Receive_
 		if (type == M00_CUSTOM_SIEGE_OBJECT_GROUP_CHANGE)
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Siege_Actor_RAD is being told to change its group to %d.\n", param));
-			my_group_id = param;
+			my_group_id = int(param);
 		}
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{

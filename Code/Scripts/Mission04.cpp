@@ -5927,7 +5927,7 @@ DECLARE_SCRIPT(M04_RocketEmplacement_01_JDG, "")//103461
 	{
 		if (type == M01_MODIFY_YOUR_ACTION_JDG)
 		{
-			apache_id = param;
+			apache_id = int(param);
 		}
 
 		else if (type == CUSTOM_EVENT_VEHICLE_ENTERED)
@@ -6024,7 +6024,7 @@ DECLARE_SCRIPT(M04_RocketEmplacement_02_JDG, "")//103462
 	{
 		if (type == M01_MODIFY_YOUR_ACTION_JDG)
 		{
-			apache_id = param;
+			apache_id = int(param);
 		}
 
 		else if (type == CUSTOM_EVENT_VEHICLE_ENTERED)
@@ -9432,17 +9432,17 @@ DECLARE_SCRIPT(M04_Firefight_RallyZone, "")//this guys ID number is 101194
 	{
 		if (type == 1)
 		{
-			prisoner01_ID = param;
+			prisoner01_ID = int(param);
 		}
 
 		else if (type == 2)
 		{
-			prisoner02_ID = param;
+			prisoner02_ID = int(param);
 		}
 
 		else if (type == 3)
 		{
-			prisoner03_ID = param;
+			prisoner03_ID = int(param);
 		}
 
 		else if (param == M01_START_ACTING_JDG)

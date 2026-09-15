@@ -210,7 +210,7 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 	{
 		if(type == M06_MENDOZA_ID)
 		{
-			mendoza_id = param;
+			mendoza_id = int(param);
 
 		}
 		if(type == 666 && param == 666)
@@ -523,7 +523,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 		}
 		if(type == M06_MOVE_SYDNEY && !dont_move)
 		{
-			current_move_loc = param;
+			current_move_loc = int(param);
 			if(current_move_loc == 12)
 			{
 				poke_id = 4;
@@ -4904,7 +4904,7 @@ DECLARE_SCRIPT(M06_Flyover_Controller, "")  // 100018
 		ActionParamsStruct params;
 		if(type == M06_FLYOVER_COMPLETE && flyovers)
 		{
-			last = param;
+			last = int(param);
 
 			static constexpr const char *flyover_files[11] =
 			{
