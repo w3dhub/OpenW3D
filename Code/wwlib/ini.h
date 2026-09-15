@@ -137,7 +137,6 @@ class INIClass {
 		/*
 		**	Get the various data types from the section and entry specified.
 		*/
-		PKey Get_PKey(bool fast) const;
 		bool Get_Bool(char const * section, char const * entry, bool defvalue=false) const;
 		float Get_Float(char const * section, char const * entry, float defvalue=0.0f) const;
 		double Get_Double(char const * section, char const * entry, double defvalue=0.0) const;

@@ -52,7 +52,6 @@
  *   INIClass::Get_Float -- Fetch a floating point number from the database.                   *
  *   INIClass::Get_Hex -- Fetches integer [hex format] from the section and entry specified.   *
  *   INIClass::Get_Int -- Fetch an integer entry from the specified section.                   *
- *   INIClass::Get_PKey -- Fetch a key from the ini database.                                  *
  *   INIClass::Get_String -- Fetch the value of a particular entry in a specified section.     *
  *   INIClass::Get_TextBlock -- Fetch a block of normal text.                                  *
  *   INIClass::Get_UUBlock -- Fetch an encoded block from the section specified.               *
@@ -2243,47 +2242,6 @@ bool INIClass::Put_PKey(PKey const & key)
 	len = key.Encode_Exponent(buffer);
 	Put_UUBlock("PrivateKey", buffer, len);
 	return(true);
-}
-
-
-/***********************************************************************************************
- * INIClass::Get_PKey -- Fetch a key from the ini database.                                    *
- *                                                                                             *
- *    This routine will fetch the key from the INI database. The key fetched is controlled by  *
- *    the parameter. There are two choices of key -- the fast or slow key.                     *
- *                                                                                             *
- * INPUT:   fast  -- Should the fast key be retrieved? The fast key has the advantage of       *
- *                   requiring only the modulus value.                                         *
- *                                                                                             *
- * OUTPUT:  Returns with the key retrieved.                                                    *
- *                                                                                             *
- * WARNINGS:   none                                                                            *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   07/08/1996 JLB : Created.                                                                 *
- *=============================================================================================*/
-PKey INIClass::Get_PKey(bool fast) const
-{
-	PKey key;
-	char buffer[512];
-
-	/*
-	**	When retrieving the fast key, the exponent is a known constant. Don't parse the
-	**	exponent from the database.
-	*/
-	if (fast) {
-		BigInt exp = PKey::Fast_Exponent();
-		exp.DEREncode((unsigned char *)buffer);
-		key.Decode_Exponent(buffer);
-	} else {
-		Get_UUBlock("PrivateKey", buffer, sizeof(buffer));
-		key.Decode_Exponent(buffer);
-	}
-
-	Get_UUBlock("PublicKey", buffer, sizeof(buffer));
-	key.Decode_Modulus(buffer);
-
-	return(key);
 }
 
 
