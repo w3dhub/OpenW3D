@@ -4,6 +4,11 @@
 This project is a continuation of the "Command & Conquer: Renegade" game engine that was released as open source software by EA [here](https://github.com/electronicarts/CnC_Renegade).
 It is being developed to be more portable to other platforms, to fix bugs and to develop a platform to build other Renegade like games on top of.
 
+## API Documentation
+
+See the [documentation guide](docs/README.md) to generate the API reference locally,
+review documentation in pull requests, and configure automatic GitHub Pages publishing.
+
 ## Dependencies
 
 OpenW3D makes use of several open source libraries to provide cross platform support.
