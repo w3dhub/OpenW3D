@@ -151,27 +151,6 @@ void	RegistryClass::Set_Float( const char * name, float value )
 	}
 }
 
-int RegistryClass::Get_Bin_Size( const char * name )
-{
-	assert( IsValid );
-
-	DWORD size = 0;
-	::RegQueryValueExA( (HKEY)Key, name, nullptr, nullptr, nullptr, &size );
-	return size;
-}
-
-
-void RegistryClass::Get_Bin( const char * name, void *buffer, int buffer_size )
-{
-	assert( IsValid );
-	assert( buffer != nullptr );
-	assert( buffer_size > 0 );
-
-	DWORD size = buffer_size;
-	::RegQueryValueExA( (HKEY)Key, name, nullptr, nullptr, (LPBYTE)buffer, &size );
-	return ;
-}
-
 void	RegistryClass::Set_Bin( const char * name, const void *buffer, int buffer_size )
 {
 	assert( IsValid );

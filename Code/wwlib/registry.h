@@ -86,8 +86,6 @@ public:
 	//void	Set_String( const unichar_t * name, const unichar_t *value );
 
 	// Binary data type access
-	void	Get_Bin( const char * name, void *buffer, int buffer_size );
-	int	Get_Bin_Size( const char * name );
 	void	Set_Bin( const char * name, const void *buffer, int buffer_size );
 
 	// Value enumeration support
