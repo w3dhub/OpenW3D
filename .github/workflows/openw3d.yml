@@ -29,6 +29,7 @@ jobs:
             cmake-args: -GNinja -DCMAKE_BUILD_TYPE=Release
             shell: pwsh
             arch: x64
+            options: "/W4;/WX"
           - name: MinGW x86
             os: windows-latest
             cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
