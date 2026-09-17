@@ -1,0 +1,56 @@
+# Run from the repository root: doxygen docs/Doxyfile
+PROJECT_NAME           = OpenW3D
+PROJECT_BRIEF          = "Game engine and tools API reference"
+OUTPUT_DIRECTORY       = build/docs
+OUTPUT_LANGUAGE        = English
+
+INPUT                  = Code docs/index.md
+# Some legacy files use uppercase extensions; include them on Linux as well.
+FILE_PATTERNS          = *.h *.hpp *.c *.cpp *.inl *.H *.HPP *.C *.CPP *.INL *.md
+RECURSIVE              = YES
+# pluglib carries old copies of core classes such as Vector3 and Matrix3D;
+# including it would merge those copies into the engine's class documentation.
+EXCLUDE                = Code/Libs Code/Tests Code/Tools/pluglib
+EXCLUDE_SYMLINKS       = YES
+USE_MDFILE_AS_MAINPAGE  = docs/index.md
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        = .
+
+# Include the legacy API even where documentation comments are still missing.
+EXTRACT_ALL            = YES
+EXTRACT_STATIC         = YES
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+BUILTIN_STL_SUPPORT    = YES
+
+# Parse the source without requiring a game build or third-party SDK headers.
+ENABLE_PREPROCESSING   = YES
+SEARCH_INCLUDES        = NO
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_TREEVIEW      = YES
+SEARCHENGINE           = YES
+GENERATE_LATEX         = NO
+
+# Keep inheritance diagrams, but avoid expensive graphs for every function
+# and include relationship in the legacy source tree.
+HAVE_DOT               = YES
+DOT_IMAGE_FORMAT       = svg
+DOT_NUM_THREADS        = 2
+DOT_GRAPH_MAX_NODES     = 50
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = NO
+INCLUDE_GRAPH          = NO
+INCLUDED_BY_GRAPH      = NO
+DIRECTORY_GRAPH        = NO
+CALL_GRAPH             = NO
+CALLER_GRAPH           = NO
+
+# Keep existing parser/documentation warnings available for gradual cleanup.
+# Missing comments must not prevent the initial reference from being built.
+QUIET                  = YES
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = NO
+WARN_AS_ERROR          = NO
+WARN_LOGFILE           = build/docs/doxygen-warnings.log

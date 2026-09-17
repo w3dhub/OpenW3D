@@ -1,0 +1,90 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Code/**'
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Code/**'
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build API reference
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install documentation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends doxygen graphviz
+          doxygen --version
+          dot -V
+
+      - name: Generate documentation
+        run: doxygen docs/Doxyfile
+
+      - name: Check generated pages
+        run: |
+          test -s build/docs/html/index.html
+          test -s build/docs/html/annotated.html
+          test -s build/docs/html/files.html
+
+      - name: Upload documentation for review
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: openw3d-api-docs
+          path: build/docs/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Package site for GitHub Pages
+        if: >-
+          github.repository == 'w3dhub/OpenW3D' &&
+          github.ref == 'refs/heads/main' &&
+          github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: build/docs/html
+
+  deploy:
+    name: Publish API reference
+    needs: build
+    if: >-
+      github.repository == 'w3dhub/OpenW3D' &&
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
