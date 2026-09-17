@@ -36,6 +36,8 @@
 
 #include "WWCOMUtil.h"
 
+#ifdef _WIN32
+
 /******************************************************************************
 *
 * NAME
@@ -240,3 +242,5 @@ bool UnregisterCOMServer(const char* dllName)
 
 	return success;
 	}
+
+#endif // _WIN32
