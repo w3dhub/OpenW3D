@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WDumpMainWindow</class>
+ <widget class="QMainWindow" name="WDumpMainWindow">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>1024</width><height>768</height></rect></property>
+  <property name="minimumSize"><size><width>640</width><height>400</height></size></property>
+  <property name="acceptDrops"><bool>true</bool></property>
+  <property name="windowTitle"><string>WDump</string></property>
+  <property name="windowIcon"><iconset resource="resources.qrc"><normaloff>:/wdump/wdump.ico</normaloff>:/wdump/wdump.ico</iconset></property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="mainLayout">
+    <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property>
+    <property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+    <item><widget class="QSplitter" name="mainSplitter">
+     <property name="orientation"><enum>Qt::Horizontal</enum></property>
+     <widget class="QTreeView" name="treeView">
+      <property name="sizePolicy"><sizepolicy hsizetype="Expanding" vsizetype="Expanding"><horstretch>1</horstretch><verstretch>0</verstretch></sizepolicy></property>
+      <property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property>
+      <attribute name="headerVisible"><bool>false</bool></attribute>
+      <attribute name="headerStretchLastSection"><bool>true</bool></attribute>
+     </widget>
+     <widget class="QSplitter" name="rightSplitter">
+      <property name="sizePolicy"><sizepolicy hsizetype="Expanding" vsizetype="Expanding"><horstretch>2</horstretch><verstretch>0</verstretch></sizepolicy></property>
+      <property name="orientation"><enum>Qt::Vertical</enum></property>
+      <widget class="QTableView" name="tableView">
+       <property name="sizePolicy"><sizepolicy hsizetype="Expanding" vsizetype="Expanding"><horstretch>0</horstretch><verstretch>3</verstretch></sizepolicy></property>
+       <property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property>
+       <attribute name="horizontalHeaderStretchLastSection"><bool>true</bool></attribute>
+       <attribute name="verticalHeaderVisible"><bool>false</bool></attribute>
+      </widget>
+      <widget class="QPlainTextEdit" name="hexView">
+       <property name="sizePolicy"><sizepolicy hsizetype="Expanding" vsizetype="Expanding"><horstretch>0</horstretch><verstretch>2</verstretch></sizepolicy></property>
+       <property name="lineWrapMode"><enum>QPlainTextEdit::NoWrap</enum></property>
+       <property name="readOnly"><bool>true</bool></property>
+       <property name="placeholderText"><string>No chunk selected</string></property>
+      </widget>
+     </widget>
+    </widget></item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <widget class="QMenu" name="fileMenu">
+    <property name="title"><string>&amp;File</string></property>
+    <widget class="QMenu" name="recentMenu"><property name="title"><string>Recent Files</string></property></widget>
+    <addaction name="actionOpen"/><addaction name="recentMenu"/><addaction name="separator"/><addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="viewMenu">
+    <property name="title"><string>&amp;View</string></property>
+    <addaction name="actionToolbar"/><addaction name="actionStatusBar"/><addaction name="separator"/><addaction name="actionSplit"/>
+   </widget>
+   <widget class="QMenu" name="toolsMenu">
+    <property name="title"><string>&amp;Tools</string></property>
+    <addaction name="actionFind"/><addaction name="actionFindNext"/>
+   </widget>
+   <widget class="QMenu" name="helpMenu">
+    <property name="title"><string>&amp;Help</string></property><addaction name="actionAbout"/>
+   </widget>
+   <addaction name="fileMenu"/><addaction name="viewMenu"/><addaction name="toolsMenu"/><addaction name="helpMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle"><string>Main</string></property>
+   <property name="toolButtonStyle"><enum>Qt::ToolButtonIconOnly</enum></property>
+   <attribute name="toolBarArea"><enum>TopToolBarArea</enum></attribute>
+   <attribute name="toolBarBreak"><bool>false</bool></attribute>
+   <addaction name="actionOpen"/><addaction name="actionAbout"/>
+  </widget>
+  <action name="actionOpen"><property name="text"><string>&amp;Open...</string></property><property name="toolTip"><string>Open file</string></property></action>
+  <action name="actionExit"><property name="text"><string>E&amp;xit</string></property></action>
+  <action name="actionToolbar"><property name="checkable"><bool>true</bool></property><property name="checked"><bool>false</bool></property><property name="text"><string>&amp;Toolbar</string></property></action>
+  <action name="actionStatusBar"><property name="checkable"><bool>true</bool></property><property name="checked"><bool>true</bool></property><property name="text"><string>&amp;Status Bar</string></property></action>
+  <action name="actionSplit"><property name="text"><string>S&amp;plit</string></property></action>
+  <action name="actionFind"><property name="text"><string>&amp;Find...</string></property></action>
+  <action name="actionFindNext"><property name="text"><string>Find &amp;Next</string></property><property name="shortcut"><string>F3</string></property></action>
+  <action name="actionAbout"><property name="text"><string>&amp;About WDump...</string></property><property name="toolTip"><string>About WDump</string></property></action>
+ </widget>
+ <tabstops><tabstop>treeView</tabstop><tabstop>tableView</tabstop><tabstop>hexView</tabstop></tabstops>
+ <resources><include location="resources.qrc"/></resources>
+ <connections/>
+</ui>

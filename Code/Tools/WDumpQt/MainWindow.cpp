@@ -17,7 +17,10 @@
 */
 
 #include "MainWindow.h"
+#include "ui_MainWindow.h"
 #include "RecentFiles.h"
+
+#include <utility>
 
 #include <QAction>
 #include <QDragEnterEvent>
@@ -40,113 +43,73 @@
 #include <QSplitter>
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <QStyle>
 #include <QTableView>
 #include <QToolBar>
 #include <QTreeView>
 #include <QUrl>
 #include <QVariant>
-#include <QVBoxLayout>
 #include <QVector>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent),
+      _ui(new Ui::WDumpMainWindow)
 {
     buildUi();
     buildMenus();
-    setAcceptDrops(true);
-    setWindowIcon(QIcon(QStringLiteral(":/wdump/wdump.ico")));
     setWindowTitle(windowTitleForPath(QString()));
-    resize(1024, 768);
+}
+
+MainWindow::~MainWindow()
+{
+    delete _ui;
 }
 
 void MainWindow::buildUi()
 {
+    _ui->setupUi(this);
+    _treeView = _ui->treeView;
+    _tableView = _ui->tableView;
+    _hexView = _ui->hexView;
+    _toolbar = _ui->mainToolBar;
+    _rightSplit = _ui->rightSplitter;
+    _mainSplit = _ui->mainSplitter;
+
     _treeModel = new QStandardItemModel(this);
-    _treeModel->setHorizontalHeaderLabels({QStringLiteral("Chunks")});
-
+    _treeModel->setHorizontalHeaderLabels({tr("Chunks")});
     _tableModel = new QStandardItemModel(this);
-    _tableModel->setHorizontalHeaderLabels({QStringLiteral("Name"), QStringLiteral("Type"), QStringLiteral("Value")});
+    _tableModel->setHorizontalHeaderLabels({tr("Name"), tr("Type"), tr("Value")});
 
-    _treeView = new QTreeView(this);
     _treeView->setModel(_treeModel);
-    _treeView->header()->setStretchLastSection(true);
-    _treeView->header()->hide();
-    connect(_treeView->selectionModel(), &QItemSelectionModel::currentChanged, this, &MainWindow::onTreeSelectionChanged);
-
-    _tableView = new QTableView(this);
+    connect(_treeView->selectionModel(), &QItemSelectionModel::currentChanged,
+            this, &MainWindow::onTreeSelectionChanged);
     _tableView->setModel(_tableModel);
-    _tableView->horizontalHeader()->setStretchLastSection(true);
-    _tableView->verticalHeader()->setVisible(false);
-
-    _hexView = new QPlainTextEdit(this);
-    _hexView->setReadOnly(true);
     _hexView->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-    _hexView->setPlainText(tr("Load a chunk file and select the chunk in the tree view to see its hex data here."));
-
-    _rightSplit = new QSplitter(Qt::Vertical, this);
-    _rightSplit->addWidget(_tableView);
-    _rightSplit->addWidget(_hexView);
-    _rightSplit->setStretchFactor(0, 3);
-    _rightSplit->setStretchFactor(1, 2);
-
-    _mainSplit = new QSplitter(Qt::Horizontal, this);
-    _mainSplit->addWidget(_treeView);
-    _mainSplit->addWidget(_rightSplit);
-    _mainSplit->setStretchFactor(0, 1);
-    _mainSplit->setStretchFactor(1, 2);
-
-    auto *central = new QWidget(this);
-    auto *layout = new QVBoxLayout(central);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(_mainSplit);
-
-    setCentralWidget(central);
     statusBar()->showMessage(tr("Ready"));
 }
 
 void MainWindow::buildMenus()
 {
-    auto *fileMenu = menuBar()->addMenu(tr("&File"));
-    auto *openAction = fileMenu->addAction(tr("&Open..."), this, &MainWindow::openFileDialog, QKeySequence::Open);
-
-    _recentMenu = fileMenu->addMenu(tr("Recent File"));
+    _recentMenu = _ui->recentMenu;
+    _findNextAction = _ui->actionFindNext;
     updateRecentFilesMenu();
 
-    fileMenu->addSeparator();
-    fileMenu->addAction(tr("E&xit"), this, &QWidget::close, QKeySequence::Quit);
+    _ui->actionOpen->setShortcuts(QKeySequence::Open);
+    _ui->actionExit->setShortcuts(QKeySequence::Quit);
+    _ui->actionFind->setShortcuts(QKeySequence::Find);
+    _ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
+    _ui->actionAbout->setIcon(style()->standardIcon(QStyle::SP_MessageBoxInformation));
 
-    auto *viewMenu = menuBar()->addMenu(tr("&View"));
-    auto *toolbarAction = viewMenu->addAction(tr("&Toolbar"));
-    toolbarAction->setCheckable(true);
-    toolbarAction->setChecked(false);
-    auto *statusAction = viewMenu->addAction(tr("&Status Bar"));
-    statusAction->setCheckable(true);
-    statusAction->setChecked(true);
-    viewMenu->addSeparator();
-    viewMenu->addAction(tr("S&plit"), this, &MainWindow::splitViews);
-
-    auto *toolsMenu = menuBar()->addMenu(tr("&Tools"));
-    toolsMenu->addAction(tr("Find..."), this, &MainWindow::openFindDialog, QKeySequence::Find);
-    _findNextAction = toolsMenu->addAction(tr("Find Next"), this, &MainWindow::findNext, QKeySequence(Qt::Key_F3));
-
-    auto *helpMenu = menuBar()->addMenu(tr("&Help"));
-    auto *aboutAction = helpMenu->addAction(tr("&About wdump..."), this, &MainWindow::showAbout);
-
-    _toolbar = addToolBar(tr("Main"));
-    _toolbar->addAction(openAction);
-    _toolbar->addAction(aboutAction);
-    _toolbar->setVisible(false);
-
-    connect(toolbarAction, &QAction::toggled, this, [this](bool visible) {
-        if (_toolbar) {
-            _toolbar->setVisible(visible);
-        }
-    });
-    connect(statusAction, &QAction::toggled, this, [this](bool visible) {
-        if (statusBar()) {
-            statusBar()->setVisible(visible);
-        }
-    });
+    connect(_ui->actionOpen, &QAction::triggered, this, &MainWindow::openFileDialog);
+    connect(_ui->actionExit, &QAction::triggered, this, &QWidget::close);
+    connect(_ui->actionSplit, &QAction::triggered, this, &MainWindow::splitViews);
+    connect(_ui->actionFind, &QAction::triggered, this, &MainWindow::openFindDialog);
+    connect(_findNextAction, &QAction::triggered, this, &MainWindow::findNext);
+    connect(_ui->actionAbout, &QAction::triggered, this, &MainWindow::showAbout);
+    connect(_ui->actionToolbar, &QAction::toggled, _toolbar, &QWidget::setVisible);
+    connect(_toolbar, &QToolBar::visibilityChanged, _ui->actionToolbar, &QAction::setChecked);
+    connect(_ui->actionStatusBar, &QAction::toggled, statusBar(), &QWidget::setVisible);
+    _toolbar->setVisible(_ui->actionToolbar->isChecked());
 }
 
 bool MainWindow::loadFile(const QString &path)
@@ -161,11 +124,14 @@ bool MainWindow::loadFile(const QString &path)
         return false;
     }
 
-    if (!_file.load(path.toStdString())) {
+    wdump::ChunkFile loadedFile;
+    if (!loadedFile.load(path.toStdString())) {
         QMessageBox::warning(this, tr("WDump Qt"), tr("Failed to load file:\n%1").arg(path));
         return false;
     }
 
+    clearViews();
+    _file = std::move(loadedFile);
     rebuildTree();
     _currentFile = fileInfo.absoluteFilePath();
     setWindowTitle(windowTitleForPath(_currentFile));
@@ -363,7 +329,7 @@ void MainWindow::clearViews()
 {
     _treeModel->removeRows(0, _treeModel->rowCount());
     _tableModel->removeRows(0, _tableModel->rowCount());
-    _hexView->setPlainText(tr("Load a chunk file and select the chunk in the tree view to see its hex data here."));
+    _hexView->clear();
 }
 
 QString MainWindow::windowTitleForPath(const QString &path) const
@@ -377,8 +343,6 @@ QString MainWindow::windowTitleForPath(const QString &path) const
 
 void MainWindow::rebuildTree()
 {
-    clearViews();
-
     for (const auto &root : _file.roots())
     {
         addChunkItem(nullptr, *root);
@@ -427,7 +391,7 @@ void MainWindow::showChunk(const wdump::Chunk *chunk)
     _tableModel->removeRows(0, _tableModel->rowCount());
     if (!chunk)
     {
-        _hexView->setPlainText(tr("Load a chunk file and select the chunk in the tree view to see its hex data here."));
+        _hexView->clear();
         return;
     }
 

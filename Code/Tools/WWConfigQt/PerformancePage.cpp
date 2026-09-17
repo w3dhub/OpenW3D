@@ -1,4 +1,5 @@
 #include "PerformancePage.h"
+#include "ui_PerformancePage.h"
 
 #include <algorithm>
 #include <array>
@@ -7,14 +8,10 @@
 
 #include <QCheckBox>
 #include <QComboBox>
-#include <QFormLayout>
-#include <QGridLayout>
 #include <QGroupBox>
-#include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QSlider>
-#include <QVBoxLayout>
 
 #include "../WWConfig/wwconfig_ids.h"
 #include "../../ww3d2/ww3d.h"
@@ -116,100 +113,58 @@ RenderCapabilityInfo QueryRenderCapabilities(const VideoSettings &settings)
 
 PerformancePage::PerformancePage(WWConfigBackend &backend, QWidget *parent)
     : QWidget(parent),
+      m_ui(new Ui::PerformancePage),
       m_backend(backend)
 {
     buildUi();
     refresh();
 }
 
+PerformancePage::~PerformancePage()
+{
+    delete m_ui;
+}
+
 void PerformancePage::buildUi()
 {
-    auto *mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(4, 4, 4, 4);
-    mainLayout->setSpacing(8);
+    m_ui->setupUi(this);
+    m_overallSlider = m_ui->overallSlider;
+    m_expertCheck = m_ui->expertCheck;
+    m_autoButton = m_ui->autoButton;
+    m_expertGroup = m_ui->expertGroup;
+    m_geometrySlider = m_ui->geometrySlider;
+    m_shadowSlider = m_ui->shadowSlider;
+    m_textureSlider = m_ui->textureSlider;
+    m_surfaceSlider = m_ui->surfaceSlider;
+    m_particleSlider = m_ui->particleSlider;
+    m_lightingCombo = m_ui->lightingCombo;
+    m_filterCombo = m_ui->filterCombo;
+    m_terrainCheck = m_ui->terrainCheck;
 
-    auto *detailGroup = new QGroupBox(LocalizedText(m_backend, IDS_DETAIL, tr("Detail")), this);
-    auto *detailLayout = new QGridLayout(detailGroup);
+    m_ui->detailGroup->setTitle(LocalizedText(m_backend, IDS_DETAIL, m_ui->detailGroup->title()));
+    m_ui->lowFastLabel->setText(LocalizedText(m_backend, IDS_LOW_DESC, m_ui->lowFastLabel->text()));
+    m_ui->highSlowLabel->setText(LocalizedText(m_backend, IDS_HIGH_DESC, m_ui->highSlowLabel->text()));
+    m_ui->expertCheck->setText(LocalizedText(m_backend, IDS_EXPERT_MODE, m_ui->expertCheck->text()));
+    m_ui->autoButton->setText(LocalizedText(m_backend, IDS_AUTOCONFIG, m_ui->autoButton->text()));
+    m_ui->expertGroup->setTitle(LocalizedText(m_backend, IDS_EXPERT_SETTINGS, m_ui->expertGroup->title()));
+    m_ui->geometryLabel->setText(LocalizedText(m_backend, IDS_GEOMETRY_DETAIL, m_ui->geometryLabel->text()));
+    m_ui->shadowLabel->setText(LocalizedText(m_backend, IDS_CHARACTER_SHADOWS, m_ui->shadowLabel->text()));
+    m_ui->textureLabel->setText(LocalizedText(m_backend, IDS_TEXTURE_DETAIL, m_ui->textureLabel->text()));
+    m_ui->particleLabel->setText(LocalizedText(m_backend, IDS_PARTICLE_DETAIL, m_ui->particleLabel->text()));
+    m_ui->surfaceLabel->setText(LocalizedText(m_backend, IDS_SURFACE_EFFECT_DETAIL, m_ui->surfaceLabel->text()));
+    m_ui->lightingLabel->setText(LocalizedText(m_backend, IDS_LIGHTING_MODE, m_ui->lightingLabel->text()));
+    m_ui->filterLabel->setText(LocalizedText(m_backend, IDS_TEXTURE_FILTER, m_ui->filterLabel->text()));
+    m_ui->terrainCheck->setText(LocalizedText(m_backend, IDS_TERRAIN_SHADOWS, m_ui->terrainCheck->text()));
 
-    auto *lowFast = new QLabel(LocalizedText(m_backend, IDS_LOW_DESC, tr("Low (fastest)")), detailGroup);
-    lowFast->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    detailLayout->addWidget(lowFast, 0, 0);
+    for (QLabel *label : {m_ui->geometryLowLabel, m_ui->shadowLowLabel,
+                          m_ui->textureLowLabel, m_ui->particleLowLabel, m_ui->surfaceLowLabel}) {
+        label->setText(LocalizedText(m_backend, IDS_LOW, label->text()));
+    }
 
-    m_overallSlider = new QSlider(Qt::Horizontal, detailGroup);
-    m_overallSlider->setRange(0, 3);
-    m_overallSlider->setTickInterval(1);
-    m_overallSlider->setTickPosition(QSlider::TicksBelow);
-    detailLayout->addWidget(m_overallSlider, 0, 1);
-
-    auto *highSlow = new QLabel(LocalizedText(m_backend, IDS_HIGH_DESC, tr("High (slowest)")), detailGroup);
-    highSlow->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    detailLayout->addWidget(highSlow, 0, 2);
-
-    m_expertCheck = new QCheckBox(LocalizedText(m_backend, IDS_EXPERT_MODE, tr("Expert Mode")), detailGroup);
-    detailLayout->addWidget(m_expertCheck, 1, 0, 1, 2);
-
-    m_autoButton = new QPushButton(LocalizedText(m_backend, IDS_AUTOCONFIG, tr("Auto Config")), detailGroup);
-    detailLayout->addWidget(m_autoButton, 1, 2, Qt::AlignRight);
-
-    detailLayout->setColumnStretch(1, 1);
-    mainLayout->addWidget(detailGroup);
-
-    m_expertGroup = new QGroupBox(LocalizedText(m_backend, IDS_EXPERT_SETTINGS, tr("Expert Settings")), this);
-    auto *groupLayout = new QGridLayout(m_expertGroup);
-
-    auto createSlider = [this](int maximum = 2) {
-        auto *slider = new QSlider(Qt::Horizontal, m_expertGroup);
-        slider->setRange(0, maximum);
-        slider->setTickInterval(1);
-        slider->setTickPosition(QSlider::TicksBelow);
-        return slider;
-    };
-
-    m_geometrySlider = createSlider();
-    m_shadowSlider = createSlider(3);
-    m_textureSlider = createSlider();
-    m_particleSlider = createSlider();
-    m_surfaceSlider = createSlider();
-
-    int row = 0;
-    auto addSliderRow = [&](const QString &label, QSlider *slider) {
-        auto *title = new QLabel(label, m_expertGroup);
-        groupLayout->addWidget(title, row, 0);
-        groupLayout->addWidget(slider, row, 1);
-        auto *lowLabel = new QLabel(LocalizedText(m_backend, IDS_LOW, tr("Low")), m_expertGroup);
-        lowLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-        groupLayout->addWidget(lowLabel, row, 2);
-        auto *highLabel = new QLabel(LocalizedText(m_backend, IDS_HIGH, tr("High")), m_expertGroup);
-        groupLayout->addWidget(highLabel, row, 3);
-        ++row;
-    };
-
-    addSliderRow(LocalizedText(m_backend, IDS_GEOMETRY_DETAIL, tr("Geometry Detail")), m_geometrySlider);
-    addSliderRow(LocalizedText(m_backend, IDS_CHARACTER_SHADOWS, tr("Character Shadows")), m_shadowSlider);
-    addSliderRow(LocalizedText(m_backend, IDS_TEXTURE_DETAIL, tr("Texture Detail")), m_textureSlider);
-    addSliderRow(LocalizedText(m_backend, IDS_PARTICLE_DETAIL, tr("Particle Detail")), m_particleSlider);
-    addSliderRow(LocalizedText(m_backend, IDS_SURFACE_EFFECT_DETAIL, tr("Surface Effect Detail")), m_surfaceSlider);
-
-    m_lightingCombo = new QComboBox(m_expertGroup);
-    groupLayout->addWidget(new QLabel(LocalizedText(m_backend, IDS_LIGHTING_MODE, tr("Lighting Mode")), m_expertGroup),
-                           row,
-                           0);
-    groupLayout->addWidget(m_lightingCombo, row, 1);
-    ++row;
-
-    m_filterCombo = new QComboBox(m_expertGroup);
-    groupLayout->addWidget(new QLabel(LocalizedText(m_backend, IDS_TEXTURE_FILTER, tr("Texture Filter")), m_expertGroup),
-                           row,
-                           0);
-    groupLayout->addWidget(m_filterCombo, row, 1);
-    ++row;
-
-    m_terrainCheck = new QCheckBox(LocalizedText(m_backend, IDS_TERRAIN_SHADOWS, tr("Terrain Casts Shadows")),
-                                   m_expertGroup);
-    groupLayout->addWidget(m_terrainCheck, row, 0, 1, 4);
-
-    groupLayout->setColumnStretch(1, 1);
-    mainLayout->addWidget(m_expertGroup);
+    for (QLabel *label : {m_ui->geometryHighLabel, m_ui->shadowHighLabel,
+                          m_ui->textureHighLabel, m_ui->particleHighLabel, m_ui->surfaceHighLabel}) {
+        label->setText(LocalizedText(m_backend, IDS_HIGH, label->text()));
+    }
 
     setExpertControlsEnabled(false);
 
