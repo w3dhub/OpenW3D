@@ -134,7 +134,7 @@ struct  Highscore
     unsigned int points;
     unsigned int rank;
     unsigned int accomplishments;
-    struct Highscore __RPC_FAR *next;
+    struct Highscore *next;
     unsigned char login_name[ 40 ];
     };
 struct  Ladder
@@ -154,7 +154,7 @@ struct  Ladder
     unsigned int win_streak;
     unsigned int reserved1;
     unsigned int reserved2;
-    struct Ladder __RPC_FAR *next;
+    struct Ladder *next;
     unsigned char login_name[ 40 ];
     Locale locale;
     };
@@ -167,7 +167,7 @@ struct  Server
     int timezone;
     float longitude;
     float lattitude;
-    struct Server __RPC_FAR *next;
+    struct Server *next;
     unsigned char name[ 71 ];
     unsigned char connlabel[ 5 ];
     unsigned char conndata[ 128 ];
@@ -188,7 +188,7 @@ struct  Channel
     unsigned int ipaddr;
     int latency;
     int hidden;
-    struct Channel __RPC_FAR *next;
+    struct Channel *next;
     unsigned char name[ 17 ];
     unsigned char topic[ 81 ];
     unsigned char location[ 65 ];
@@ -205,7 +205,7 @@ struct  User
     unsigned int squadID;
     unsigned int ipaddr;
     unsigned int squad_icon;
-    struct User __RPC_FAR *next;
+    struct User *next;
     unsigned char name[ 10 ];
     unsigned char squadname[ 41 ];
     unsigned char squadabbrev[ 10 ];
@@ -217,7 +217,7 @@ struct  Group
     GroupID ident;
     int type;
     unsigned int members;
-    struct Group __RPC_FAR *next;
+    struct Group *next;
     unsigned char name[ 65 ];
     };
 struct  Squad
@@ -231,7 +231,7 @@ struct  Squad
     int icon1;
     int icon2;
     int icon3;
-    struct Squad __RPC_FAR *next;
+    struct Squad *next;
     int rank;
     int team;
     int status;
@@ -247,7 +247,7 @@ struct  Update
     unsigned int SKU;
     unsigned int version;
     int required;
-    struct Update __RPC_FAR *next;
+    struct Update *next;
     unsigned char server[ 65 ];
     unsigned char patchpath[ 256 ];
     unsigned char patchfile[ 33 ];
@@ -285,7 +285,7 @@ typedef struct Squad Squad;
             /* [in] */ int timeout) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestConnection(
-            /* [in] */ Server __RPC_FAR *server,
+            /* [in] */ Server *server,
             /* [in] */ int timeout,
             int domangle) = 0;
 
@@ -294,10 +294,10 @@ typedef struct Squad Squad;
             /* [in] */ int autoping) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestChannelCreate(
-            /* [in] */ Channel __RPC_FAR *channel) = 0;
+            /* [in] */ Channel *channel) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestChannelJoin(
-            /* [in] */ Channel __RPC_FAR *channel) = 0;
+            /* [in] */ Channel *channel) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestChannelLeave( void) = 0;
 
@@ -307,13 +307,13 @@ typedef struct Squad Squad;
             /* [in] */ LPCSTR message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPrivateMessage(
-            /* [in] */ User __RPC_FAR *users,
+            /* [in] */ User *users,
             /* [in] */ LPCSTR message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestLogout( void) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPrivateGameOptions(
-            /* [in] */ User __RPC_FAR *users,
+            /* [in] */ User *users,
             /* [in] */ LPCSTR options) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPublicGameOptions(
@@ -323,37 +323,37 @@ typedef struct Squad Squad;
             /* [in] */ LPCSTR action) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPrivateAction(
-            /* [in] */ User __RPC_FAR *users,
+            /* [in] */ User *users,
             /* [in] */ LPCSTR action) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestGameStart(
-            /* [in] */ User __RPC_FAR *users) = 0;
+            /* [in] */ User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestChannelTopic(
             /* [in] */ LPCSTR topic) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetVersion(
-            /* [in] */ unsigned int __RPC_FAR *version) = 0;
+            /* [in] */ unsigned int *version) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestUserKick(
-            /* [in] */ User __RPC_FAR *user) = 0;
+            /* [in] */ User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestUserIP(
-            /* [in] */ User __RPC_FAR *user) = 0;
+            /* [in] */ User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetGametypeInfo(
             unsigned int gtype,
             int icon_size,
-            unsigned char __RPC_FAR *__RPC_FAR *bitmap,
-            int __RPC_FAR *bmp_bytes,
-            LPCSTR __RPC_FAR *name,
-            LPCSTR __RPC_FAR *URL) = 0;
+            unsigned char * *bitmap,
+            int *bmp_bytes,
+            LPCSTR *name,
+            LPCSTR *URL) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestFind(
-            User __RPC_FAR *user) = 0;
+            User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPage(
-            User __RPC_FAR *user,
+            User *user,
             LPCSTR message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetFindPage(
@@ -361,11 +361,11 @@ typedef struct Squad Squad;
             int pageOn) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetSquelch(
-            User __RPC_FAR *user,
+            User *user,
             int squelch) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetSquelch(
-            User __RPC_FAR *user) = 0;
+            User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetChannelFilter(
             int channelType) = 0;
@@ -380,18 +380,18 @@ typedef struct Squad Squad;
             int ban) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetGametypeList(
-            LPCSTR __RPC_FAR *list) = 0;
+            LPCSTR *list) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetHelpURL(
-            LPCSTR __RPC_FAR *url) = 0;
+            LPCSTR *url) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetProductSKU(
             unsigned int SKU) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNick(
             int num,
-            LPCSTR __RPC_FAR *nick,
-            LPCSTR __RPC_FAR *pass) = 0;
+            LPCSTR *nick,
+            LPCSTR *pass) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetNick(
             int num,
@@ -400,14 +400,14 @@ typedef struct Squad Squad;
             int domangle) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetLobbyCount(
-            int __RPC_FAR *count) = 0;
+            int *count) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestRawMessage(
             LPCSTR ircmsg) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetAttributeValue(
             LPCSTR attrib,
-            LPCSTR __RPC_FAR *value) = 0;
+            LPCSTR *value) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetAttributeValue(
             LPCSTR attrib,
@@ -428,25 +428,25 @@ typedef struct Squad Squad;
             Locale locale) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestUserLocale(
-            User __RPC_FAR *users) = 0;
+            User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestUserTeam(
-            User __RPC_FAR *users) = 0;
+            User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNickLocale(
             int nicknum,
-            Locale __RPC_FAR *locale) = 0;
+            Locale *locale) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetNickLocale(
             int nicknum,
             Locale locale) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetLocaleString(
-            LPCSTR __RPC_FAR *loc_string,
+            LPCSTR *loc_string,
             Locale locale) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetLocaleCount(
-            int __RPC_FAR *num) = 0;
+            int *num) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetClientVersion(
             unsigned int version) = 0;
@@ -457,28 +457,28 @@ typedef struct Squad Squad;
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestBuddyList( void) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestBuddyAdd(
-            User __RPC_FAR *newbuddy) = 0;
+            User *newbuddy) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestBuddyDelete(
-            User __RPC_FAR *buddy) = 0;
+            User *buddy) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPublicUnicodeMessage(
-            /* [in] */ const unsigned short __RPC_FAR *message) = 0;
+            /* [in] */ const unsigned short *message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPrivateUnicodeMessage(
-            /* [in] */ User __RPC_FAR *users,
-            /* [in] */ const unsigned short __RPC_FAR *message) = 0;
+            /* [in] */ User *users,
+            /* [in] */ const unsigned short *message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPublicUnicodeAction(
-            /* [in] */ const unsigned short __RPC_FAR *action) = 0;
+            /* [in] */ const unsigned short *action) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestPrivateUnicodeAction(
-            /* [in] */ User __RPC_FAR *users,
-            /* [in] */ const unsigned short __RPC_FAR *action) = 0;
+            /* [in] */ User *users,
+            /* [in] */ const unsigned short *action) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestUnicodePage(
-            User __RPC_FAR *user,
-            const unsigned short __RPC_FAR *message) = 0;
+            User *user,
+            const unsigned short *message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestSetPlayerCount(
             unsigned int currentPlayers,
@@ -487,7 +487,7 @@ typedef struct Squad Squad;
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestServerTime( void) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestInsiderStatus(
-            User __RPC_FAR *users) = 0;
+            User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestSetLocalIP( void) = 0;
 
@@ -502,11 +502,11 @@ typedef struct Squad Squad;
     public:
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnServerList(
             /* [in] */ HRESULT res,
-            /* [in] */ Server __RPC_FAR *servers) = 0;
+            /* [in] */ Server *servers) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUpdateList(
             /* [in] */ HRESULT res,
-            /* [in] */ Update __RPC_FAR *updates) = 0;
+            /* [in] */ Update *updates) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnServerError(
             /* [in] */ HRESULT res,
@@ -522,52 +522,52 @@ typedef struct Squad Squad;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelList(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channels) = 0;
+            /* [in] */ Channel *channels) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelCreate(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel) = 0;
+            /* [in] */ Channel *channel) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelJoin(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            /* [in] */ User __RPC_FAR *user) = 0;
+            /* [in] */ Channel *channel,
+            /* [in] */ User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelLeave(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            /* [in] */ User __RPC_FAR *user) = 0;
+            /* [in] */ Channel *channel,
+            /* [in] */ User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelTopic(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
+            /* [in] */ Channel *channel,
             /* [in] */ LPCSTR topic) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPrivateAction(
             /* [in] */ HRESULT res,
-            /* [in] */ User __RPC_FAR *user,
+            /* [in] */ User *user,
             /* [in] */ LPCSTR action) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPublicAction(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            User __RPC_FAR *user,
+            /* [in] */ Channel *channel,
+            User *user,
             /* [in] */ LPCSTR action) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUserList(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            /* [in] */ User __RPC_FAR *users) = 0;
+            /* [in] */ Channel *channel,
+            /* [in] */ User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPublicMessage(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            /* [in] */ User __RPC_FAR *user,
+            /* [in] */ Channel *channel,
+            /* [in] */ User *user,
             /* [in] */ LPCSTR message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPrivateMessage(
             /* [in] */ HRESULT res,
-            /* [in] */ User __RPC_FAR *user,
+            /* [in] */ User *user,
             /* [in] */ LPCSTR message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnSystemMessage(
@@ -579,45 +579,45 @@ typedef struct Squad Squad;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnLogout(
             /* [in] */ HRESULT status,
-            /* [in] */ User __RPC_FAR *user) = 0;
+            /* [in] */ User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPrivateGameOptions(
             /* [in] */ HRESULT res,
-            /* [in] */ User __RPC_FAR *user,
+            /* [in] */ User *user,
             /* [in] */ LPCSTR options) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPublicGameOptions(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            /* [in] */ User __RPC_FAR *user,
+            /* [in] */ Channel *channel,
+            /* [in] */ User *user,
             /* [in] */ LPCSTR options) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnGameStart(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            /* [in] */ User __RPC_FAR *users,
+            /* [in] */ Channel *channel,
+            /* [in] */ User *users,
             /* [in] */ int gameid) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUserKick(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            /* [in] */ User __RPC_FAR *kicked,
-            /* [in] */ User __RPC_FAR *kicker) = 0;
+            /* [in] */ Channel *channel,
+            /* [in] */ User *kicked,
+            /* [in] */ User *kicker) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUserIP(
             /* [in] */ HRESULT res,
-            /* [in] */ User __RPC_FAR *user) = 0;
+            /* [in] */ User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnFind(
             HRESULT res,
-            Channel __RPC_FAR *chan) = 0;
+            Channel *chan) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPageSend(
             HRESULT res) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPaged(
             HRESULT res,
-            User __RPC_FAR *user,
+            User *user,
             LPCSTR message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnServerBannedYou(
@@ -638,15 +638,15 @@ typedef struct Squad Squad;
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnSquadInfo(
             HRESULT res,
             unsigned int id,
-            Squad __RPC_FAR *squad) = 0;
+            Squad *squad) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUserLocale(
             HRESULT res,
-            User __RPC_FAR *users) = 0;
+            User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUserTeam(
             HRESULT res,
-            User __RPC_FAR *users) = 0;
+            User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnSetLocale(
             HRESULT res,
@@ -658,42 +658,42 @@ typedef struct Squad Squad;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnBuddyList(
             HRESULT res,
-            User __RPC_FAR *buddy_list) = 0;
+            User *buddy_list) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnBuddyAdd(
             HRESULT res,
-            User __RPC_FAR *buddy_added) = 0;
+            User *buddy_added) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnBuddyDelete(
             HRESULT res,
-            User __RPC_FAR *buddy_deleted) = 0;
+            User *buddy_deleted) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPublicUnicodeMessage(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            /* [in] */ User __RPC_FAR *user,
-            /* [in] */ const unsigned short __RPC_FAR *message) = 0;
+            /* [in] */ Channel *channel,
+            /* [in] */ User *user,
+            /* [in] */ const unsigned short *message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPrivateUnicodeMessage(
             /* [in] */ HRESULT res,
-            /* [in] */ User __RPC_FAR *user,
-            /* [in] */ const unsigned short __RPC_FAR *message) = 0;
+            /* [in] */ User *user,
+            /* [in] */ const unsigned short *message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPrivateUnicodeAction(
             /* [in] */ HRESULT res,
-            /* [in] */ User __RPC_FAR *user,
-            /* [in] */ const unsigned short __RPC_FAR *action) = 0;
+            /* [in] */ User *user,
+            /* [in] */ const unsigned short *action) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPublicUnicodeAction(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel,
-            User __RPC_FAR *user,
-            /* [in] */ const unsigned short __RPC_FAR *action) = 0;
+            /* [in] */ Channel *channel,
+            User *user,
+            /* [in] */ const unsigned short *action) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnPagedUnicode(
             HRESULT res,
-            User __RPC_FAR *user,
-            const unsigned short __RPC_FAR *message) = 0;
+            User *user,
+            const unsigned short *message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnServerTime(
             HRESULT res,
@@ -701,7 +701,7 @@ typedef struct Squad Squad;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnInsiderStatus(
             HRESULT res,
-            User __RPC_FAR *users) = 0;
+            User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnSetLocalIP(
             HRESULT res,
@@ -712,7 +712,7 @@ typedef struct Squad Squad;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelListEntry(
             /* [in] */ HRESULT res,
-            /* [in] */ Channel __RPC_FAR *channel) = 0;
+            /* [in] */ Channel *channel) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelListEnd(
             /* [in] */ HRESULT res) = 0;
@@ -768,7 +768,7 @@ typedef struct Squad Squad;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE RequestGameresSend(
             LPCSTR host,
             int port,
-            unsigned char __RPC_FAR *data,
+            unsigned char *data,
             int length) = 0;
 
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE RequestLadderSearch(
@@ -794,13 +794,13 @@ typedef struct Squad Squad;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE RequestPing(
             LPCSTR host,
             int timeout,
-            int __RPC_FAR *handle) = 0;
+            int *handle) = 0;
 
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE PumpMessages( void) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetAvgPing(
             unsigned int ip,
-            int __RPC_FAR *avg) = 0;
+            int *avg) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestNewNick(
             LPCSTR nick,
@@ -855,7 +855,7 @@ typedef struct Squad Squad;
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestLargeGameresSend(
             LPCSTR host,
             int port,
-            unsigned char __RPC_FAR *data,
+            unsigned char *data,
             unsigned int length) = 0;
 
     };
@@ -873,7 +873,7 @@ typedef struct Squad Squad;
 
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE OnLadderList(
             HRESULT res,
-            /* [in] */ Ladder __RPC_FAR *list,
+            /* [in] */ Ladder *list,
             int totalCount,
             int timeStamp,
             int keyRung) = 0;
@@ -894,12 +894,12 @@ typedef struct Squad Squad;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnWDTState(
             HRESULT res,
-            unsigned char __RPC_FAR *state,
+            unsigned char *state,
             int length) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnHighscore(
             HRESULT res,
-            /* [in] */ Highscore __RPC_FAR *list,
+            /* [in] */ Highscore *list,
             int totalCount,
             int timeStamp,
             int keyRung) = 0;
@@ -932,7 +932,7 @@ typedef enum CHAN_CTYPE_ CHAN_CTYPE;
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE PumpMessages( void) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestConnection(
-            Server __RPC_FAR *server,
+            Server *server,
             int timeout) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestMessage(
@@ -941,7 +941,7 @@ typedef enum CHAN_CTYPE_ CHAN_CTYPE;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetTypeFromGID(
             GID id,
-            GTYPE __RPC_FAR *type) = 0;
+            GTYPE *type) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestChannelList( void) = 0;
 
@@ -949,15 +949,15 @@ typedef enum CHAN_CTYPE_ CHAN_CTYPE;
             LPCSTR name) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestChannelLeave(
-            Channel __RPC_FAR *chan) = 0;
+            Channel *chan) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestUserList(
-            Channel __RPC_FAR *chan) = 0;
+            Channel *chan) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestLogout( void) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestChannelCreate(
-            Channel __RPC_FAR *chan) = 0;
+            Channel *chan) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestRawCmd(
             LPCSTR cmd) = 0;
@@ -974,34 +974,34 @@ typedef enum CHAN_CTYPE_ CHAN_CTYPE;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnMessage(
             HRESULT res,
-            User __RPC_FAR *user,
+            User *user,
             LPCSTR message) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelList(
             HRESULT res,
-            Channel __RPC_FAR *list) = 0;
+            Channel *list) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelJoin(
             HRESULT res,
-            Channel __RPC_FAR *chan,
-            User __RPC_FAR *user) = 0;
+            Channel *chan,
+            User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnLogin(
             HRESULT res) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUserList(
             HRESULT res,
-            Channel __RPC_FAR *chan,
-            User __RPC_FAR *users) = 0;
+            Channel *chan,
+            User *users) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelLeave(
             HRESULT res,
-            Channel __RPC_FAR *chan,
-            User __RPC_FAR *user) = 0;
+            Channel *chan,
+            User *user) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnChannelCreate(
             HRESULT res,
-            Channel __RPC_FAR *chan) = 0;
+            Channel *chan) = 0;
 
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUnknownLine(
             HRESULT res,
