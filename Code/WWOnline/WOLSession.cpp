@@ -414,7 +414,7 @@ bool Session::Process(void)
 		MakeLocateUserRequests();
 		}
 
-	DWORD theTime = TIMEGETTIME();
+	unsigned int theTime = TIMEGETTIME();
 
 	if (theTime < mLastUserDataRequestTime)
 		{
