@@ -54,10 +54,7 @@
 #include "specialbuilds.h"
 #include "simplevec.h"
 #include "../Commando/cnetwork.h"
-namespace WOL
-{
 #include <wolapi/chatdefs.h>
-}
 
 namespace WWOnline {
 

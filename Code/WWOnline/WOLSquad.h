@@ -40,10 +40,7 @@
 #include <wwlib/widestring.h>
 #include "WOLLadder.h"
 
-namespace WOL
-{
 #include <wolapi/WOLAPI.h>
-}
 
 #include <vector>
 

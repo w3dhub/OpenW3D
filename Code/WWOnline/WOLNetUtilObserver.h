@@ -38,10 +38,7 @@
 #include <windows.h>
 #include "WOLUser.h"
 
-namespace WOL
-{
 #include <wolapi/WOLAPI.h>
-}
 
 template<typename T> class RefPtr;
 

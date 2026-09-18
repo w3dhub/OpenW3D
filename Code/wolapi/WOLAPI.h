@@ -22,6 +22,8 @@
 #ifndef __WOLAPI_h__
 #define __WOLAPI_h__
 
+namespace WOL {
+
 typedef int time_t;
 
 /* Forward Declarations */
@@ -1026,5 +1028,7 @@ typedef enum CHAN_CTYPE_ CHAN_CTYPE;
             unsigned int options) = 0;
 
     };
+
+}
 
 #endif

@@ -40,10 +40,7 @@
 #include <wwlib/wwstring.h>
 #include <wwdebug/wwdebug.h>
 
-namespace WOL
-{
 #include <wolapi/WOLAPI.h>
-}
 
 namespace WWOnline {
 

@@ -41,10 +41,7 @@
 #include "RefPtr.h"
 #include "WaitCondition.h"
 
-namespace WOL
-{
 #include <wolapi/WOLAPI.h>
-}
 
 namespace WWOnline {
 

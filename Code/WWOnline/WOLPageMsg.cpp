@@ -36,10 +36,7 @@
 
 #include "WOLPageMsg.h"
 
-namespace WOL
-{
 #include <wolapi/chatdefs.h>
-}
 
 namespace WWOnline {
 

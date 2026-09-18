@@ -41,10 +41,7 @@
 #include "RefPtr.h"
 #include <wwlib/widestring.h>
 
-namespace WOL
-{
 #include <wolapi/WOLAPI.h>
-}
 
 #include <vector>
 

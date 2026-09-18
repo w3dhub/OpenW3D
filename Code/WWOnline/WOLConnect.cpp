@@ -42,10 +42,7 @@
 #include "WOLString.h"
 #include <wwdebug/wwdebug.h>
 
-namespace WOL
-{
 #include <wolapi/chatdefs.h>
-}
 
 namespace WWOnline {
 

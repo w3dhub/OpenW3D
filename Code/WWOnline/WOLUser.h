@@ -45,11 +45,8 @@
 #include "WOLSquad.h"
 #include "WOLLadder.h"
 
-namespace WOL
-{
 #include <wolapi/WOLAPI.h>
 #include <wolapi/chatdefs.h>
-}
 
 #include <vector>
 
