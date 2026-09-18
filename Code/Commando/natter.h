@@ -47,7 +47,6 @@
 #define NATTER_H
 
 #include "always.h"
-//#include "nat.h"
 #include	"nataddr.h"
 
 

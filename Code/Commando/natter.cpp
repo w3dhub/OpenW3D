@@ -1092,9 +1092,7 @@ void WOLNATInterfaceClass::Service(void)
 
 		GameOptionsStagingStruct *options = OutgoingOptions[0];
 
-#ifdef WWDEBUG
-		HRESULT res =
-#endif //WWDEBUG
+		[[maybe_unused]] HRESULT res =
 			SessionPtr->GetChatObject()->RequestPrivateGameOptions(&options->User, options->Options);
 		fw_assert(res == S_OK);
 
