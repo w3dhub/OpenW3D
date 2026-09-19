@@ -57,108 +57,108 @@ class ChatObserver :
 		//---------------------------------------------------------------------------
 		// IUnknown methods
 		//---------------------------------------------------------------------------
-		virtual HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv) override;
-		virtual ULONG STDMETHODCALLTYPE AddRef(void) override;
-		virtual ULONG STDMETHODCALLTYPE Release(void) override;
+		HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv) override;
+		RefCountType WOLAPI_CALLTYPE AddRef(void) override;
+		RefCountType WOLAPI_CALLTYPE Release(void) override;
 
 		//---------------------------------------------------------------------------
 		// IChatEvent Methods
 		//---------------------------------------------------------------------------
-		STDMETHOD(OnServerList)(HRESULT hr, WOL::Server* servers) override;
+		WOLAPI_STDMETHOD(OnServerList)(WOL::WOLAPI_RESULT hr, WOL::Server* servers) override;
 
-		STDMETHOD(OnUpdateList)(HRESULT hr, WOL::Update* updates) override;
+		WOLAPI_STDMETHOD(OnUpdateList)(WOL::WOLAPI_RESULT hr, WOL::Update* updates) override;
 
-		STDMETHOD(OnServerError)(HRESULT hr, LPCSTR ircmsg) override;
+		WOLAPI_STDMETHOD(OnServerError)(WOL::WOLAPI_RESULT hr, LPCSTR ircmsg) override;
 
-		STDMETHOD(OnConnection)(HRESULT hr, LPCSTR motd) override;
+		WOLAPI_STDMETHOD(OnConnection)(WOL::WOLAPI_RESULT hr, LPCSTR motd) override;
 
-		STDMETHOD(OnMessageOfTheDay)(HRESULT hr, LPCSTR motd) override;
+		WOLAPI_STDMETHOD(OnMessageOfTheDay)(WOL::WOLAPI_RESULT hr, LPCSTR motd) override;
 
-		STDMETHOD(OnChannelList)(HRESULT hr, WOL::Channel* channels) override;
+		WOLAPI_STDMETHOD(OnChannelList)(WOL::WOLAPI_RESULT hr, WOL::Channel* channels) override;
 
-		STDMETHOD(OnChannelCreate)(HRESULT hr, WOL::Channel* channel) override;
+		WOLAPI_STDMETHOD(OnChannelCreate)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel) override;
 
-		STDMETHOD(OnChannelJoin)(HRESULT hr, WOL::Channel* channel, WOL::User* user) override;
+		WOLAPI_STDMETHOD(OnChannelJoin)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* user) override;
 
-		STDMETHOD(OnChannelLeave)(HRESULT hr, WOL::Channel* channel, WOL::User* user) override;
+		WOLAPI_STDMETHOD(OnChannelLeave)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* user) override;
 
-		STDMETHOD(OnChannelTopic)(HRESULT hr, WOL::Channel* channel, LPCSTR topic) override;
+		WOLAPI_STDMETHOD(OnChannelTopic)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, LPCSTR topic) override;
 
-		STDMETHOD(OnPrivateAction)(HRESULT hr, WOL::User* user, LPCSTR action) override;
+		WOLAPI_STDMETHOD(OnPrivateAction)(WOL::WOLAPI_RESULT hr, WOL::User* user, LPCSTR action) override;
 
-		STDMETHOD(OnPublicAction)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR action) override;
+		WOLAPI_STDMETHOD(OnPublicAction)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR action) override;
 
-		STDMETHOD(OnUserList)(HRESULT hr, WOL::Channel* channel, WOL::User* users) override;
+		WOLAPI_STDMETHOD(OnUserList)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* users) override;
 
-		STDMETHOD(OnPublicMessage)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR message) override;
+		WOLAPI_STDMETHOD(OnPublicMessage)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR message) override;
 
-		STDMETHOD(OnPrivateMessage)(HRESULT hr, WOL::User* user, LPCSTR message) override;
+		WOLAPI_STDMETHOD(OnPrivateMessage)(WOL::WOLAPI_RESULT hr, WOL::User* user, LPCSTR message) override;
 
-		STDMETHOD(OnSystemMessage)(HRESULT hr, LPCSTR message) override;
+		WOLAPI_STDMETHOD(OnSystemMessage)(WOL::WOLAPI_RESULT hr, LPCSTR message) override;
 
-		STDMETHOD(OnNetStatus)(HRESULT hr) override;
+		WOLAPI_STDMETHOD(OnNetStatus)(WOL::WOLAPI_RESULT hr) override;
 
-		STDMETHOD(OnLogout)(HRESULT status, WOL::User* user) override;
+		WOLAPI_STDMETHOD(OnLogout)(WOL::WOLAPI_RESULT status, WOL::User* user) override;
 
-		STDMETHOD(OnPrivateGameOptions)(HRESULT hr, WOL::User* user, LPCSTR options) override;
+		WOLAPI_STDMETHOD(OnPrivateGameOptions)(WOL::WOLAPI_RESULT hr, WOL::User* user, LPCSTR options) override;
 
-		STDMETHOD(OnPublicGameOptions)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR options) override;
+		WOLAPI_STDMETHOD(OnPublicGameOptions)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR options) override;
 
-		STDMETHOD(OnGameStart)(HRESULT hr, WOL::Channel* channel, WOL::User* users, int gameid) override;
+		WOLAPI_STDMETHOD(OnGameStart)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* users, int gameid) override;
 
-		STDMETHOD(OnUserKick)(HRESULT hr, WOL::Channel* channel, WOL::User* kicked, WOL::User* kicker) override;
+		WOLAPI_STDMETHOD(OnUserKick)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* kicked, WOL::User* kicker) override;
 
-		STDMETHOD(OnUserIP)(HRESULT hr, WOL::User* user) override;
+		WOLAPI_STDMETHOD(OnUserIP)(WOL::WOLAPI_RESULT hr, WOL::User* user) override;
 
-		STDMETHOD(OnFind)(HRESULT hr, WOL::Channel* chan) override;
+		WOLAPI_STDMETHOD(OnFind)(WOL::WOLAPI_RESULT hr, WOL::Channel* chan) override;
 
-		STDMETHOD(OnPageSend)(HRESULT hr) override;
+		WOLAPI_STDMETHOD(OnPageSend)(WOL::WOLAPI_RESULT hr) override;
 
-		STDMETHOD(OnPaged)(HRESULT hr, WOL::User* user, LPCSTR message) override;
+		WOLAPI_STDMETHOD(OnPaged)(WOL::WOLAPI_RESULT hr, WOL::User* user, LPCSTR message) override;
 
-		STDMETHOD(OnServerBannedYou)(HRESULT hr, WOL::time_t bannedTill) override;
+		WOLAPI_STDMETHOD(OnServerBannedYou)(WOL::WOLAPI_RESULT hr, WOL::time_t bannedTill) override;
 
-		STDMETHOD(OnUserFlags)(HRESULT hr, LPCSTR name, unsigned int flags, unsigned int mask) override;
+		WOLAPI_STDMETHOD(OnUserFlags)(WOL::WOLAPI_RESULT hr, LPCSTR name, unsigned int flags, unsigned int mask) override;
 
-		STDMETHOD(OnChannelBan)(HRESULT hr, LPCSTR name, int banned) override;
+		WOLAPI_STDMETHOD(OnChannelBan)(WOL::WOLAPI_RESULT hr, LPCSTR name, int banned) override;
 
-		STDMETHOD(OnSquadInfo)(HRESULT hr, unsigned int id, WOL::Squad* squad) override;
+		WOLAPI_STDMETHOD(OnSquadInfo)(WOL::WOLAPI_RESULT hr, unsigned int id, WOL::Squad* squad) override;
 
-		STDMETHOD(OnUserLocale)(HRESULT hr, WOL::User* users) override;
+		WOLAPI_STDMETHOD(OnUserLocale)(WOL::WOLAPI_RESULT hr, WOL::User* users) override;
 
-		STDMETHOD(OnUserTeam)(HRESULT hr, WOL::User* users) override;
+		WOLAPI_STDMETHOD(OnUserTeam)(WOL::WOLAPI_RESULT hr, WOL::User* users) override;
 
-		STDMETHOD(OnSetLocale)(HRESULT hr, WOL::Locale newlocale) override;
+		WOLAPI_STDMETHOD(OnSetLocale)(WOL::WOLAPI_RESULT hr, WOL::Locale newlocale) override;
 
-		STDMETHOD(OnSetTeam)(HRESULT hr, int newteam) override;
+		WOLAPI_STDMETHOD(OnSetTeam)(WOL::WOLAPI_RESULT hr, int newteam) override;
 
-		STDMETHOD(OnBuddyList)(HRESULT hr, WOL::User* buddyList) override;
+		WOLAPI_STDMETHOD(OnBuddyList)(WOL::WOLAPI_RESULT hr, WOL::User* buddyList) override;
 
-		STDMETHOD(OnBuddyAdd)(HRESULT hr, WOL::User* buddyAdded) override;
+		WOLAPI_STDMETHOD(OnBuddyAdd)(WOL::WOLAPI_RESULT hr, WOL::User* buddyAdded) override;
 
-		STDMETHOD(OnBuddyDelete)(HRESULT hr, WOL::User* buddyDeleted) override;
+		WOLAPI_STDMETHOD(OnBuddyDelete)(WOL::WOLAPI_RESULT hr, WOL::User* buddyDeleted) override;
 
-		STDMETHOD(OnPublicUnicodeMessage)(HRESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* message) override;
+		WOLAPI_STDMETHOD(OnPublicUnicodeMessage)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* message) override;
 
-		STDMETHOD(OnPrivateUnicodeMessage)(HRESULT hr, WOL::User* user, const unsigned short* message) override;
+		WOLAPI_STDMETHOD(OnPrivateUnicodeMessage)(WOL::WOLAPI_RESULT hr, WOL::User* user, const unsigned short* message) override;
 
-		STDMETHOD(OnPrivateUnicodeAction)(HRESULT hr, WOL::User* user, const unsigned short* action) override;
+		WOLAPI_STDMETHOD(OnPrivateUnicodeAction)(WOL::WOLAPI_RESULT hr, WOL::User* user, const unsigned short* action) override;
 
-		STDMETHOD(OnPublicUnicodeAction)(HRESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* action) override;
+		WOLAPI_STDMETHOD(OnPublicUnicodeAction)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* action) override;
 
-		STDMETHOD(OnPagedUnicode)(HRESULT hr, WOL::User* user, const unsigned short* message) override;
+		WOLAPI_STDMETHOD(OnPagedUnicode)(WOL::WOLAPI_RESULT hr, WOL::User* user, const unsigned short* message) override;
 
-		STDMETHOD(OnServerTime)(HRESULT hr, WOL::time_t stime) override;
+		WOLAPI_STDMETHOD(OnServerTime)(WOL::WOLAPI_RESULT hr, WOL::time_t stime) override;
 
-		STDMETHOD(OnInsiderStatus)(HRESULT hr, WOL::User* users) override;
+		WOLAPI_STDMETHOD(OnInsiderStatus)(WOL::WOLAPI_RESULT hr, WOL::User* users) override;
 
-		STDMETHOD(OnSetLocalIP)(HRESULT hr, LPCSTR message) override;
+		WOLAPI_STDMETHOD(OnSetLocalIP)(WOL::WOLAPI_RESULT hr, LPCSTR message) override;
 
-		STDMETHOD(OnChannelListBegin)(HRESULT hr) override;
+		WOLAPI_STDMETHOD(OnChannelListBegin)(WOL::WOLAPI_RESULT hr) override;
 
-		STDMETHOD(OnChannelListEntry)(HRESULT hr, WOL::Channel* channel) override;
+		WOLAPI_STDMETHOD(OnChannelListEntry)(WOL::WOLAPI_RESULT hr, WOL::Channel* channel) override;
 
-		STDMETHOD(OnChannelListEnd)(HRESULT hr) override;
+		WOLAPI_STDMETHOD(OnChannelListEnd)(WOL::WOLAPI_RESULT hr) override;
 
 	protected:
 		virtual ~ChatObserver();
@@ -173,7 +173,7 @@ class ChatObserver :
 
 
 	private:
-		ULONG mRefCount;
+		std::atomic<unsigned int> mRefCount;
 		Session* mOuter;
 	};
 

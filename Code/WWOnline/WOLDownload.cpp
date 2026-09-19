@@ -42,6 +42,8 @@
 #include <wwlib/wwstring.h>
 #include <wwdebug/wwdebug.h>
 
+#include <filesystem>
+
 namespace WWOnline {
 
 /******************************************************************************
@@ -549,7 +551,7 @@ void Download::GetProgress(int& bytesRead, int& totalSize, int& timeElapsed, int
 	timeRemaining = mTimeRemaining;
 	}
 
-
+#ifdef _WIN32
 /****************************************************************************
 *
 * NAME
@@ -594,7 +596,7 @@ STDMETHODIMP Download::QueryInterface(const IID& iid, void** ppv)
 *
 ****************************************************************************/
 
-ULONG STDMETHODCALLTYPE Download::AddRef(void)
+ULONG WOLAPI_CALLTYPE Download::AddRef(void)
 	{
 	RefCounted::AddReference();
 	return RefCounted::ReferenceCount();
@@ -615,12 +617,13 @@ ULONG STDMETHODCALLTYPE Download::AddRef(void)
 *
 ****************************************************************************/
 
-ULONG STDMETHODCALLTYPE Download::Release(void)
+ULONG WOLAPI_CALLTYPE Download::Release(void)
 	{
 	ULONG refCount = RefCounted::ReferenceCount();
 	RefCounted::ReleaseReference();
 	return --refCount;
 	}
+#endif
 
 
 /******************************************************************************
@@ -638,7 +641,7 @@ ULONG STDMETHODCALLTYPE Download::Release(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnEnd(void)
+WOLAPI_STDMETHODIMP Download::OnEnd(void)
 	{
 	WWDEBUG_SAY(("WOL: Download End '%s'\n", GetFilename()));
 
@@ -666,7 +669,7 @@ STDMETHODIMP Download::OnEnd(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnError(int error)
+WOLAPI_STDMETHODIMP Download::OnError(int error)
 	{
 	WWDEBUG_SAY(("WOLERROR: Download '%s'\n", GetFilename()));
 
@@ -708,7 +711,7 @@ STDMETHODIMP Download::OnError(int error)
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnProgressUpdate(int bytesRead, int totalSize,
+WOLAPI_STDMETHODIMP Download::OnProgressUpdate(int bytesRead, int totalSize,
 		int timeElapsed, int timeRemaining)
 	{
 	mBytesRead = bytesRead;
@@ -736,7 +739,7 @@ STDMETHODIMP Download::OnProgressUpdate(int bytesRead, int totalSize,
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnQueryResume(void)
+WOLAPI_STDMETHODIMP Download::OnQueryResume(void)
 	{
 	WWDEBUG_SAY(("WOL: Download QueryResume '%s'\n", GetFilename()));
 
@@ -761,7 +764,7 @@ STDMETHODIMP Download::OnQueryResume(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnStatusUpdate(int status)
+WOLAPI_STDMETHODIMP Download::OnStatusUpdate(int status)
 	{
 	#ifdef WWDEBUG
 	static const char* _status[] =

@@ -140,19 +140,21 @@ class Download :
 	// IUnknown methods
 	//---------------------------------------------------------------------------
 	protected:
-		virtual HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv) override;
-		virtual ULONG STDMETHODCALLTYPE AddRef(void) override;
-		virtual ULONG STDMETHODCALLTYPE Release(void) override;
+#ifdef _WIN32
+		HRESULT WOLAPI_CALLTYPE QueryInterface(const IID& iid, void** ppv) override;
+#endif
+		RefCountType WOLAPI_CALLTYPE AddRef(void) override;
+		RefCountType WOLAPI_CALLTYPE Release(void) override;
 
 	//---------------------------------------------------------------------------
 	// IDownloadEvent Methods
 	//---------------------------------------------------------------------------
 	protected:
-		STDMETHOD(OnEnd)(void) override;
-		STDMETHOD(OnError)(int error) override;
-		STDMETHOD(OnProgressUpdate)(int bytesRead, int totalSize, int timeElapsed, int timeRemaining) override;
-		STDMETHOD(OnQueryResume)(void) override;
-		STDMETHOD(OnStatusUpdate)(int status) override;
+		WOLAPI_STDMETHOD(OnEnd)(void) override;
+		WOLAPI_STDMETHOD(OnError)(int error) override;
+		WOLAPI_STDMETHOD(OnProgressUpdate)(int bytesRead, int totalSize, int timeElapsed, int timeRemaining) override;
+		WOLAPI_STDMETHOD(OnQueryResume)(void) override;
+		WOLAPI_STDMETHOD(OnStatusUpdate)(int status) override;
 	};
 
 

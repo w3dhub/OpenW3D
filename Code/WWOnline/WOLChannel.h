@@ -147,7 +147,7 @@ typedef enum
 	ChannelLeaving
 	} ChannelStatus;
 
-ChannelStatus GetChannelStatusFromHResult(HRESULT result);
+ChannelStatus GetChannelStatusFromHResult(WOL::WOLAPI_RESULT result);
 const unichar_t* GetChannelStatusDescription(ChannelStatus status);
 
 class ChannelEvent :
