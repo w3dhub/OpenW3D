@@ -94,11 +94,11 @@ extern const CLSID CLSID_Chat2;
     IRTPatcher : public IUnknown
     {
     public:
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE ApplyPatch(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE ApplyPatch(
             /* [string][in] */ const char *destpath,
             /* [string][in] */ const char *filename) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
 
     };
 
@@ -106,11 +106,11 @@ extern const CLSID CLSID_Chat2;
     IRTPatcherEvent : public IUnknown
     {
     public:
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnProgress(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnProgress(
             /* [in] */ const char *filename,
             /* [in] */ int progress) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnTermination(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnTermination(
             /* [in] */ WOLAPI_BOOL success) = 0;
 
     };
@@ -306,73 +306,73 @@ typedef struct Squad Squad;
     IChat : public IUnknown
     {
     public:
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestServerList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestServerList(
             /* [in] */ unsigned int SKU,
             /* [in] */ unsigned int current_version,
             /* [in] */ const char *loginname,
             /* [in] */ const char *password,
             /* [in] */ int timeout) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestConnection(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestConnection(
             /* [in] */ Server *server,
             /* [in] */ int timeout,
             int domangle) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelList(
             /* [in] */ int channelType,
             /* [in] */ int autoping) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelCreate(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelCreate(
             /* [in] */ Channel *channel) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelJoin(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelJoin(
             /* [in] */ Channel *channel) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelLeave( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelLeave( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserList( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserList( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicMessage(
             /* [in] */ const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateMessage(
             /* [in] */ User *users,
             /* [in] */ const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestLogout( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestLogout( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateGameOptions(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateGameOptions(
             /* [in] */ User *users,
             /* [in] */ const char *options) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicGameOptions(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicGameOptions(
             /* [in] */ const char *options) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicAction(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicAction(
             /* [in] */ const char *action) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateAction(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateAction(
             /* [in] */ User *users,
             /* [in] */ const char *action) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestGameStart(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestGameStart(
             /* [in] */ User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelTopic(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelTopic(
             /* [in] */ const char *topic) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetVersion(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetVersion(
             /* [in] */ unsigned int *version) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserKick(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserKick(
             /* [in] */ User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserIP(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserIP(
             /* [in] */ User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetGametypeInfo(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetGametypeInfo(
             unsigned int gtype,
             int icon_size,
             unsigned char * *bitmap,
@@ -380,149 +380,149 @@ typedef struct Squad Squad;
             const char **name,
             const char **URL) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestFind(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestFind(
             User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPage(
             User *user,
             const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetFindPage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetFindPage(
             int findOn,
             int pageOn) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetSquelch(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetSquelch(
             User *user,
             int squelch) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetSquelch(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetSquelch(
             User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetChannelFilter(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetChannelFilter(
             int channelType) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestGameEnd( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestGameEnd( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetLangFilter(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetLangFilter(
             int onoff) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelBan(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelBan(
             const char *name,
             int ban) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetGametypeList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetGametypeList(
             const char **list) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetHelpURL(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetHelpURL(
             const char **url) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetProductSKU(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetProductSKU(
             unsigned int SKU) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetNick(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetNick(
             int num,
             const char **nick,
             const char **pass) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetNick(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetNick(
             int num,
             const char *nick,
             const char *pass,
             int domangle) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetLobbyCount(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetLobbyCount(
             int *count) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestRawMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestRawMessage(
             const char *ircmsg) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetAttributeValue(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetAttributeValue(
             const char *attrib,
             const char **value) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetAttributeValue(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetAttributeValue(
             const char *attrib,
             const char *value) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetChannelExInfo(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetChannelExInfo(
             const char *info) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE StopAutoping( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE StopAutoping( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestSquadInfo(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestSquadInfo(
             unsigned int id) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestSetTeam(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestSetTeam(
             int team) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestSetLocale(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestSetLocale(
             Locale locale) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserLocale(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserLocale(
             User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserTeam(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserTeam(
             User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetNickLocale(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetNickLocale(
             int nicknum,
             Locale *locale) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetNickLocale(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetNickLocale(
             int nicknum,
             Locale locale) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetLocaleString(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetLocaleString(
             const char **loc_string,
             Locale locale) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetLocaleCount(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetLocaleCount(
             int *num) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetClientVersion(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetClientVersion(
             unsigned int version) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetCodepageFilter(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetCodepageFilter(
             int filter) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestBuddyList( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestBuddyList( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestBuddyAdd(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestBuddyAdd(
             User *newbuddy) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestBuddyDelete(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestBuddyDelete(
             User *buddy) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicUnicodeMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicUnicodeMessage(
             /* [in] */ const unsigned short *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateUnicodeMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateUnicodeMessage(
             /* [in] */ User *users,
             /* [in] */ const unsigned short *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicUnicodeAction(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPublicUnicodeAction(
             /* [in] */ const unsigned short *action) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateUnicodeAction(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPrivateUnicodeAction(
             /* [in] */ User *users,
             /* [in] */ const unsigned short *action) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestUnicodePage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestUnicodePage(
             User *user,
             const unsigned short *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestSetPlayerCount(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestSetPlayerCount(
             unsigned int currentPlayers,
             unsigned int maxPlayers) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestServerTime( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestServerTime( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestInsiderStatus(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestInsiderStatus(
             User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestSetLocalIP( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestSetLocalIP( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestSquadByName(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestSquadByName(
             const char *name) = 0;
 
     };
@@ -531,221 +531,221 @@ typedef struct Squad Squad;
     IChatEvent : public IUnknown
     {
     public:
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnServerList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnServerList(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Server *servers) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUpdateList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUpdateList(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Update *updates) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnServerError(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnServerError(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ const char *ircmsg) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnConnection(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnConnection(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ const char *motd) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnMessageOfTheDay(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnMessageOfTheDay(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ const char *motd) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelList(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channels) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelCreate(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelCreate(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelJoin(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelJoin(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelLeave(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelLeave(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelTopic(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelTopic(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ const char *topic) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateAction(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateAction(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ User *user,
             /* [in] */ const char *action) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicAction(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicAction(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             User *user,
             /* [in] */ const char *action) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUserList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUserList(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicMessage(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ User *user,
             /* [in] */ const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateMessage(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ User *user,
             /* [in] */ const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnSystemMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnSystemMessage(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnNetStatus(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnNetStatus(
             /* [in] */ WOLAPI_RESULT res) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnLogout(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnLogout(
             /* [in] */ WOLAPI_RESULT status,
             /* [in] */ User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateGameOptions(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateGameOptions(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ User *user,
             /* [in] */ const char *options) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicGameOptions(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicGameOptions(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ User *user,
             /* [in] */ const char *options) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnGameStart(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnGameStart(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ User *users,
             /* [in] */ int gameid) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUserKick(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUserKick(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ User *kicked,
             /* [in] */ User *kicker) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUserIP(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUserIP(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnFind(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnFind(
             WOLAPI_RESULT res,
             Channel *chan) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPageSend(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPageSend(
             WOLAPI_RESULT res) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPaged(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPaged(
             WOLAPI_RESULT res,
             User *user,
             const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnServerBannedYou(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnServerBannedYou(
             WOLAPI_RESULT res,
             time_t bannedTill) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUserFlags(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUserFlags(
             WOLAPI_RESULT res,
             const char *name,
             unsigned int flags,
             unsigned int mask) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelBan(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelBan(
             WOLAPI_RESULT res,
             const char *name,
             int banned) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnSquadInfo(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnSquadInfo(
             WOLAPI_RESULT res,
             unsigned int id,
             Squad *squad) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUserLocale(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUserLocale(
             WOLAPI_RESULT res,
             User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUserTeam(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUserTeam(
             WOLAPI_RESULT res,
             User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnSetLocale(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnSetLocale(
             WOLAPI_RESULT res,
             Locale newlocale) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnSetTeam(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnSetTeam(
             WOLAPI_RESULT res,
             int newteam) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnBuddyList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnBuddyList(
             WOLAPI_RESULT res,
             User *buddy_list) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnBuddyAdd(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnBuddyAdd(
             WOLAPI_RESULT res,
             User *buddy_added) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnBuddyDelete(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnBuddyDelete(
             WOLAPI_RESULT res,
             User *buddy_deleted) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicUnicodeMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicUnicodeMessage(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             /* [in] */ User *user,
             /* [in] */ const unsigned short *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateUnicodeMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateUnicodeMessage(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ User *user,
             /* [in] */ const unsigned short *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateUnicodeAction(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPrivateUnicodeAction(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ User *user,
             /* [in] */ const unsigned short *action) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicUnicodeAction(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPublicUnicodeAction(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel,
             User *user,
             /* [in] */ const unsigned short *action) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPagedUnicode(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPagedUnicode(
             WOLAPI_RESULT res,
             User *user,
             const unsigned short *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnServerTime(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnServerTime(
             WOLAPI_RESULT res,
             time_t stime) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnInsiderStatus(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnInsiderStatus(
             WOLAPI_RESULT res,
             User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnSetLocalIP(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnSetLocalIP(
             WOLAPI_RESULT res,
             const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelListBegin(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelListBegin(
             /* [in] */ WOLAPI_RESULT res) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelListEntry(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelListEntry(
             /* [in] */ WOLAPI_RESULT res,
             /* [in] */ Channel *channel) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelListEnd(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelListEnd(
             /* [in] */ WOLAPI_RESULT res) = 0;
 
     };
@@ -754,7 +754,7 @@ typedef struct Squad Squad;
     IDownload : public IUnknown
     {
     public:
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE DownloadFile(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE DownloadFile(
             const char *server,
             const char *login,
             const char *password,
@@ -762,9 +762,9 @@ typedef struct Squad Squad;
             const char *localfile,
             const char *regkey) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE Abort( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE Abort( void) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
 
     };
 
@@ -773,20 +773,20 @@ typedef struct Squad Squad;
     IDownloadEvent : public IUnknown
     {
     public:
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnEnd( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnEnd( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnError(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnError(
             int error) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnProgressUpdate(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnProgressUpdate(
             int bytesread,
             int totalsize,
             int timetaken,
             int timeleft) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnQueryResume( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnQueryResume( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnStatusUpdate(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnStatusUpdate(
             int status) = 0;
 
     };
@@ -796,13 +796,13 @@ typedef struct Squad Squad;
     INetUtil : public IUnknown
     {
     public:
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestGameresSend(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestGameresSend(
             const char *host,
             int port,
             unsigned char *data,
             int length) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestLadderSearch(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestLadderSearch(
             const char *host,
             int port,
             const char *key,
@@ -813,7 +813,7 @@ typedef struct Squad Squad;
             int number,
             int leading) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestLadderList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestLadderList(
             const char *host,
             int port,
             const char *keys,
@@ -822,18 +822,18 @@ typedef struct Squad Squad;
             int cond,
             int sort) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestPing(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestPing(
             const char *host,
             int timeout,
             int *handle) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetAvgPing(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetAvgPing(
             unsigned int ip,
             int *avg) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestNewNick(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestNewNick(
             const char *nick,
             const char *pass,
             const char *email,
@@ -841,18 +841,18 @@ typedef struct Squad Squad;
             int newsletter,
             int shareinfo) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestAgeCheck(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestAgeCheck(
             int month,
             int day,
             int year,
             const char *email) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestWDTState(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestWDTState(
             const char *host,
             int port,
             unsigned char request) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestLocaleLadderList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestLocaleLadderList(
             const char *host,
             int port,
             const char *keys,
@@ -862,7 +862,7 @@ typedef struct Squad Squad;
             int sort,
             Locale locale) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestLocaleLadderSearch(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestLocaleLadderSearch(
             const char *host,
             int port,
             const char *key,
@@ -874,16 +874,16 @@ typedef struct Squad Squad;
             int leading,
             Locale locale) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestHighscore(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestHighscore(
             const char *host,
             int port,
             const char *keys,
             unsigned int SKU) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE SetGameResMD5(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE SetGameResMD5(
             int flag) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestLargeGameresSend(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestLargeGameresSend(
             const char *host,
             int port,
             unsigned char *data,
@@ -896,39 +896,39 @@ typedef struct Squad Squad;
     INetUtilEvent : public IUnknown
     {
     public:
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnPing(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnPing(
             WOLAPI_RESULT res,
             int time,
             unsigned int ip,
             int handle) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnLadderList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnLadderList(
             WOLAPI_RESULT res,
             /* [in] */ Ladder *list,
             int totalCount,
             int timeStamp,
             int keyRung) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnGameresSent(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnGameresSent(
             WOLAPI_RESULT res) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnNewNick(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnNewNick(
             WOLAPI_RESULT res,
             const char *message,
             const char *nick,
             const char *pass) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnAgeCheck(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnAgeCheck(
             WOLAPI_RESULT res,
             int years,
             int consent) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnWDTState(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnWDTState(
             WOLAPI_RESULT res,
             unsigned char *state,
             int length) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnHighscore(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnHighscore(
             WOLAPI_RESULT res,
             /* [in] */ Highscore *list,
             int totalCount,
@@ -960,37 +960,37 @@ typedef enum CHAN_CTYPE_ CHAN_CTYPE;
     IChat2 : public IUnknown
     {
     public:
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE PumpMessages( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestConnection(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestConnection(
             Server *server,
             int timeout) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestMessage(
             GID who,
             const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE GetTypeFromGID(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE GetTypeFromGID(
             GID id,
             GTYPE *type) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelList( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelList( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelJoin(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelJoin(
             const char *name) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelLeave(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelLeave(
             Channel *chan) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestUserList(
             Channel *chan) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestLogout( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestLogout( void) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelCreate(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestChannelCreate(
             Channel *chan) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE RequestRawCmd(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE RequestRawCmd(
             const char *cmd) = 0;
 
     };
@@ -1000,41 +1000,41 @@ typedef enum CHAN_CTYPE_ CHAN_CTYPE;
     IChat2Event : public IUnknown
     {
     public:
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnNetStatus(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnNetStatus(
             WOLAPI_RESULT res) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnMessage(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnMessage(
             WOLAPI_RESULT res,
             User *user,
             const char *message) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelList(
             WOLAPI_RESULT res,
             Channel *list) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelJoin(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelJoin(
             WOLAPI_RESULT res,
             Channel *chan,
             User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnLogin(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnLogin(
             WOLAPI_RESULT res) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUserList(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUserList(
             WOLAPI_RESULT res,
             Channel *chan,
             User *users) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelLeave(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelLeave(
             WOLAPI_RESULT res,
             Channel *chan,
             User *user) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelCreate(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnChannelCreate(
             WOLAPI_RESULT res,
             Channel *chan) = 0;
 
-        virtual /* [helpstring] */ WOLAPI_RESULT WOLAPI_CALLTYPE OnUnknownLine(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE OnUnknownLine(
             WOLAPI_RESULT res,
             const char *line) = 0;
 
@@ -1045,15 +1045,15 @@ typedef enum CHAN_CTYPE_ CHAN_CTYPE;
     IIGROptions : public IUnknown
     {
     public:
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE Init( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE Init( void) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE Is_Auto_Login_Allowed( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE Is_Auto_Login_Allowed( void) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE Is_Storing_Nicks_Allowed( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE Is_Storing_Nicks_Allowed( void) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE Is_Running_Reg_App_Allowed( void) = 0;
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE Is_Running_Reg_App_Allowed( void) = 0;
 
-        virtual /* [helpstring][id] */ WOLAPI_RESULT WOLAPI_CALLTYPE Set_Options(
+        virtual WOLAPI_RESULT WOLAPI_CALLTYPE Set_Options(
             unsigned int options) = 0;
 
     };
