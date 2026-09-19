@@ -25,6 +25,7 @@
 
 #include "regfloat.h"
 
+#include "openw3d.h"
 #include "string.h"
 #include "registry.h"
 #include "wwdebug.h"
@@ -41,7 +42,8 @@ cRegistryFloat::cRegistryFloat(const char *registry_location, const char *key_na
 	if (registry_location == nullptr) {
       strcpy(RegistryLocation, "");
       strcpy(KeyName, "");
-      Set(default_value);
+      Value = default_value;
+      Initialized = true;
    } else {
       WWASSERT(key_name != nullptr);
       WWASSERT(strlen(registry_location) < sizeof(RegistryLocation));
@@ -49,17 +51,8 @@ cRegistryFloat::cRegistryFloat(const char *registry_location, const char *key_na
       strcpy(RegistryLocation, registry_location);
       strcpy(KeyName, key_name);
 
-	   RegistryClass * registry = new RegistryClass(RegistryLocation);
-	   WWASSERT(registry != nullptr && registry->Is_Valid());
-		int temp_1 = 0;
-		WWASSERT(sizeof(temp_1) == sizeof(default_value));
-		::memcpy(&temp_1, &default_value, sizeof(default_value));
-		int temp_2 = registry->Get_Int(KeyName, temp_1);
-		WWASSERT(sizeof(temp_2) == sizeof(Value));
-		::memcpy(&Value, &temp_2, sizeof(temp_2));
-   	delete registry;
-
-      Set(Value);
+      Value = default_value;
+      Initialized = false;
    }
 }
 
@@ -68,13 +61,27 @@ void cRegistryFloat::Set(float value)
 {
    Value = value;
 
-   if (strcmp(RegistryLocation, "")) {
-	   RegistryClass * registry = new RegistryClass(RegistryLocation);
-	   WWASSERT(registry != nullptr && registry->Is_Valid());
-		int temp = 0;
-		WWASSERT(sizeof(temp) == sizeof(Value));
-		::memcpy(&temp, &Value, sizeof(Value));
-      registry->Set_Int(KeyName, temp);
-   	delete registry;
+   if (strcmp(RegistryLocation, "") != 0) {
+	   RegistryClass registry(RegistryLocation);
+	   WWASSERT(registry.Is_Valid());
+	   registry.Set_Float(KeyName, Value);
    }
+   Initialized = true;
+}
+
+//-----------------------------------------------------------------------------
+float cRegistryFloat::Get()
+{
+	if (!Initialized) {
+		WWASSERT(RegistryLocation[0] != '\0');
+		WWASSERT(KeyName[0] != '\0');
+		RegistryClass registry(RegistryLocation);
+		if (!registry.Exists(KeyName)) {
+			registry.Set_Float(KeyName, Value);
+		} else {
+			Value = registry.Get_Float(KeyName, Value);
+		}
+		Initialized = true;
+	}
+	return Value;
 }

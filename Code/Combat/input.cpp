@@ -698,7 +698,7 @@ void	Input::Free_Mappings( void )
 }
 
 
-void	Input::Load_Registry( const char * /* key */ )
+void	Input::Load_Settings( const char * /* key */ )
 {
 	/*RegistryClass * registry = new RegistryClass( key );
 	WWASSERT( registry );
@@ -714,7 +714,7 @@ void	Input::Load_Registry( const char * /* key */ )
 
 }
 
-void	Input::Save_Registry( const char * /* key */ )
+void	Input::Save_Settings( const char * /* key */ )
 {
 	/*RegistryClass * registry = new RegistryClass( key );
 	WWASSERT( registry );

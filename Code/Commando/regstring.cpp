@@ -25,6 +25,7 @@
 
 #include "regstring.h" // I WANNA BE FIRST!
 
+#include "openw3d.h"
 #include "string.h"
 #include "registry.h"
 #include "wwdebug.h"
@@ -42,20 +43,17 @@ cRegistryString::cRegistryString(const char *registry_location, const char *key_
    if (registry_location == nullptr) {
       strcpy(RegistryLocation, "");
       strcpy(KeyName, "");
-      Set(default_value);
+      strcpy(Value, default_value);
+      Initialized = true;
    } else {
-      WWASSERT(strlen(registry_location) < sizeof(RegistryLocation));
       WWASSERT(key_name != nullptr);
+      WWASSERT(strlen(registry_location) < sizeof(RegistryLocation));
       WWASSERT(strlen(key_name) < sizeof(KeyName));
       strcpy(RegistryLocation, registry_location);
       strcpy(KeyName, key_name);
 
-	   RegistryClass * registry = new RegistryClass(RegistryLocation);
-	   WWASSERT(registry != nullptr && registry->Is_Valid());
-		registry->Get_String(KeyName, Value, sizeof(Value), default_value);
-   	delete registry;
-
-      Set(Value);
+      strcpy(Value, default_value);
+      Initialized = false;
    }
 }
 
@@ -68,9 +66,26 @@ void cRegistryString::Set(const char *value)
    strcpy(Value, value);
 
    if (strcmp(RegistryLocation, "")) {
-	   RegistryClass * registry = new RegistryClass(RegistryLocation);
-	   WWASSERT(registry != nullptr && registry->Is_Valid());
-		registry->Set_String(KeyName, Value);
-   	delete registry;
+	   RegistryClass registry(RegistryLocation);
+	   WWASSERT(registry.Is_Valid());
+	   registry.Set_String(KeyName, Value);
    }
+   Initialized = true;
+}
+
+//-----------------------------------------------------------------------------
+const char *cRegistryString::Get()
+{
+	if (!Initialized) {
+		WWASSERT(RegistryLocation[0] != '\0');
+		WWASSERT(KeyName[0] != '\0');
+		RegistryClass registry(RegistryLocation);
+		if (!registry.Exists(KeyName)) {
+			registry.Set_String(KeyName, Value);
+		} else {
+			registry.Get_String(KeyName, Value, sizeof(Value), Value);
+		}
+		Initialized = true;
+	}
+	return Value;
 }

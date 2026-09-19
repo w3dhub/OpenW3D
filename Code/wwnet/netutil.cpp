@@ -42,9 +42,6 @@
 //
 // class statics
 //
-//const WORD cNetUtil::WS_VERSION_REQD = MAKEWORD(1, 1); // Winsock 1.1
-//USHORT cNetUtil::HeaderBytes;
-//USHORT cNetUtil::MaxPacketAppDataSize = MAX_LAN_PACKET_APP_DATA_SIZE;
 UINT cNetUtil::DefaultResendTimeoutMs = 200; // used for singleplayer
 bool cNetUtil::IsInternet = false;
 
@@ -59,23 +56,6 @@ const USHORT	cNetUtil::RESEND_TIMEOUT_INTERNET_MS								= 500;
 const	ULONG		cNetUtil::CLIENT_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til client gives up on server
 const	ULONG		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til server gives up on client
 const	ULONG		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT_LOADING_ALLOWANCE	= 45000;		// Milliseconds extra allowed til server gives up on loading client.
-
-
-//int cNetUtil::DefaultMultiSends							= INVALID_VALUE;
-//int cNetUtil::DefaultMaxResends							= INVALID_VALUE;
-//int cNetUtil::DefaultKeepaliveTimeoutMs				= INVALID_VALUE;
-//int cNetUtil::DesiredSendBufferSizeBytes				= INVALID_VALUE;
-//int cNetUtil::DesiredReceiveBufferSizeBytes			= INVALID_VALUE;
-//int cNetUtil::DefaultServerPort							= INVALID_VALUE;
-//int cNetUtil::MaxReceiveTimeMs							= INVALID_VALUE;
-
-//float cNetUtil::PriorityToleranceDownwards			= INVALID_VALUE;
-//float cNetUtil::PriorityToleranceUpwards				= INVALID_VALUE;
-//float cNetUtil::MaxTPCorrectionDownwards				= INVALID_VALUE;
-//float cNetUtil::MaxTPCorrectionUpwards					= INVALID_VALUE;
-//float cNetUtil::PriorityNoiseFactor						= INVALID_VALUE;
-//float cNetUtil::InitialThresholdPriority				= INVALID_VALUE;
-//float cNetUtil::PriorityGrowthPerSecond				= INVALID_VALUE;
 
 char cNetUtil::WorkingAddressBuffer[]					= "";
 
@@ -434,95 +414,6 @@ void cNetUtil::Set_Socket_Buffer_Sizes(SOCKET sock, int new_size)
    WSA_CHECK(wwnet::SocketGetSockOpt(sock, SOL_SOCKET, SO_RCVBUF, reinterpret_cast<char *>(&buffersize), &opt_len));
    //WWDEBUG_SAY(("  SO_RCVBUF = %d\n", buffersize));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-//-------------------------------------------------------------------------------
-void cNetUtil::Onetime_Init()
-{
-	FileClass * p_ini_file = _TheFileFactory->Get_File("netparams.ini");
-
-	if (p_ini_file != nullptr) {
-
-		INIClass netparams_ini(*p_ini_file);
-
-		WWASSERT(netparams_ini.Section_Count() == 1);
-
-		const LPCSTR SECTION_NAME = "Settings";
-
-		//NETSTATS_SAMPLE_TIME_MS					= netparams_ini.Get_Int(SECTION_NAME, "NETSTATS_SAMPLE_TIME_MS",				INVALID_VALUE);
-		//WWASSERT(NETSTATS_SAMPLE_TIME_MS > 0);
-
-		//RESEND_TIMEOUT_LAN_MS			= netparams_ini.Get_Int(SECTION_NAME, "RESEND_TIMEOUT_LAN_MS",		INVALID_VALUE);
-		//WWASSERT(RESEND_TIMEOUT_LAN_MS > 0);
-
-		//RESEND_TIMEOUT_INTERNET_MS	= netparams_ini.Get_Int(SECTION_NAME, "RESEND_TIMEOUT_INTERNET_MS", INVALID_VALUE);
-		//WWASSERT(RESEND_TIMEOUT_INTERNET_MS > 0);
-
-		//DefaultMultiSends						= netparams_ini.Get_Int(SECTION_NAME, "DefaultMultiSends",					INVALID_VALUE);
-		//WWASSERT(DefaultMultiSends > 0);
-
-		//DefaultMaxResends						= netparams_ini.Get_Int(SECTION_NAME, "DefaultMaxResends",					INVALID_VALUE);
-		//WWASSERT(DefaultMaxResends > 0);
-
-		//DefaultKeepaliveTimeoutMs			= netparams_ini.Get_Int(SECTION_NAME, "DefaultKeepaliveTimeoutMs",		INVALID_VALUE);
-		//WWASSERT(DefaultKeepaliveTimeoutMs > 0);
-
-		//DesiredSendBufferSizeBytes			= netparams_ini.Get_Int(SECTION_NAME, "DesiredSendBufferSizeBytes",		INVALID_VALUE);
-		//WWASSERT(DesiredSendBufferSizeBytes > 0);
-
-		//DESIRED_RECEIVE_BUFFER_SIZE_BYTES		= netparams_ini.Get_Int(SECTION_NAME, "DesiredReceiveBufferSizeBytes",	INVALID_VALUE);
-		//WWASSERT(DesiredReceiveBufferSizeBytes > 0);
-
-		//DefaultServerPort						= netparams_ini.Get_Int(SECTION_NAME, "DefaultServerPort",					INVALID_VALUE);
-		//WWASSERT(DefaultServerPort >= MIN_SERVER_PORT && DefaultServerPort <= MAX_SERVER_PORT);
-
-		//MaxReceiveTimeMs						= netparams_ini.Get_Int(SECTION_NAME, "MaxReceiveTimeMs",					INVALID_VALUE);
-		//WWASSERT(MaxReceiveTimeMs > 0);
-
-		//PriorityToleranceDownwards			= netparams_ini.Get_Float(SECTION_NAME, "PriorityToleranceDownwards",			INVALID_VALUE);
-		//WWASSERT(PriorityToleranceDownwards > -1 - MISCUTIL_EPSILON && PriorityToleranceDownwards < 1 + MISCUTIL_EPSILON);
-
-		//PriorityToleranceUpwards			= netparams_ini.Get_Float(SECTION_NAME, "PriorityToleranceUpwards",			INVALID_VALUE);
-		//WWASSERT(PriorityToleranceUpwards > -1 - MISCUTIL_EPSILON && PriorityToleranceUpwards < 1 + MISCUTIL_EPSILON);
-
-		//MaxTPCorrectionDownwards			= netparams_ini.Get_Float(SECTION_NAME, "MaxTPCorrectionDownwards",	INVALID_VALUE);
-		//WWASSERT(MaxTPCorrectionDownwards > -1 - MISCUTIL_EPSILON && MaxTPCorrectionDownwards < 1 + MISCUTIL_EPSILON);
-
-		//MaxTPCorrectionUpwards				= netparams_ini.Get_Float(SECTION_NAME, "MaxTPCorrectionUpwards",	INVALID_VALUE);
-		//WWASSERT(MaxTPCorrectionUpwards > -1 - MISCUTIL_EPSILON && MaxTPCorrectionUpwards < 1 + MISCUTIL_EPSILON);
-
-		//PriorityNoiseFactor					= netparams_ini.Get_Float(SECTION_NAME, "PriorityNoiseFactor",				INVALID_VALUE);
-		//WWASSERT(PriorityNoiseFactor >= -MISCUTIL_EPSILON);
-
-		//InitialThresholdPriority			= netparams_ini.Get_Float(SECTION_NAME, "InitialThresholdPriority",		INVALID_VALUE);
-		//WWASSERT(InitialThresholdPriority >= -MISCUTIL_EPSILON);
-
-		//PriorityNoiseFactor					= netparams_ini.Get_Float(SECTION_NAME, "PriorityNoiseFactor",				INVALID_VALUE);
-		//WWASSERT(PriorityNoiseFactor >= -MISCUTIL_EPSILON);
-
-		//PriorityGrowthPerSecond				= netparams_ini.Get_Float(SECTION_NAME, "PriorityGrowthPerSecond",		INVALID_VALUE);
-		//WWASSERT(PriorityGrowthPerSecond >= -MISCUTIL_EPSILON);
-
-		_TheFileFactory->Return_File(p_ini_file);
-	}
-}
-*/
 
 void cNetUtil::Create_Unbound_Socket(SOCKET & sock)
 {

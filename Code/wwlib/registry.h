@@ -76,7 +76,7 @@ public:
 	void	Set_Float( const char * name, float value );
 
 	// String data type access
-	char *Get_String( const char * name, char *value, int value_size,
+	void	Get_String( const char * name, char *value, int value_size,
       const char * default_string = nullptr );
 	void	Get_String( const char * name, StringClass &string, const char *default_string = nullptr);
 	void	Set_String( const char * name, const char *value );
@@ -84,11 +84,6 @@ public:
 	// Wide string data type access
 	//void	Get_String( const unichar_t * name, WideStringClass &string, const unichar_t *default_string = nullptr);
 	//void	Set_String( const unichar_t * name, const unichar_t *value );
-
-	// Binary data type access
-	void	Get_Bin( const char * name, void *buffer, int buffer_size );
-	int	Get_Bin_Size( const char * name );
-	void	Set_Bin( const char * name, const void *buffer, int buffer_size );
 
 	// Value enumeration support
 	void	Get_Value_List( DynamicVectorClass<StringClass> &list );
@@ -100,23 +95,16 @@ public:
 	// Read only.
 	static void Set_Read_Only(bool set) {IsLocked = set;}
 
-	//
-	// Bulk registry operations. BE VERY VERY CAREFUL USING THESE
-	//
-	static void Delete_Registry_Tree(char *path);
-	static void Load_Registry(const char *filename, char *old_path, char *new_path);
-	static void Save_Registry(const char *filename, char *path);
-
+	//  //  FIXME: REMOVE THIS LINE
+	// Bulk registry operations. BE VERY VERY CAREFUL USING THESE  //  FIXME: REMOVE THIS LINE
+	//  //  FIXME: REMOVE THIS LINE
+	static void Delete_Registry_Tree(char *path);  //  FIXME: REMOVE THIS LINE
+	static void Load_Registry(const char *filename, char *old_path, char *new_path);  //  FIXME: REMOVE THIS LINE
+	static void Save_Registry(const char *filename, char *path);  //  FIXME: REMOVE THIS LINE
 
 private:
-
-	static void Delete_Registry_Values(HKEY key);
-	static void Save_Registry_Tree(char *path, INIClass *ini);
-	static void Save_Registry_Values(HKEY key, char *path, INIClass *ini);
-
-
-	void *	Key;
-	bool	IsValid;
+	StringClass	SubKey;
+	bool IsValid;
 
 	//
 	// Use this to make the registry 'read only'. Useful for running multiple copies of the app.

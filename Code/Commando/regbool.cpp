@@ -25,6 +25,7 @@
 
 #include "regbool.h" // I WANNA BE FIRST!
 
+#include "openw3d.h"
 #include "string.h"
 #include "registry.h"
 #include "wwdebug.h"
@@ -46,12 +47,8 @@ cRegistryBool::cRegistryBool(const char *registry_location, const char *key_name
    strcpy(RegistryLocation, registry_location);
    strcpy(KeyName, key_name);
 
-	RegistryClass * registry = new RegistryClass(RegistryLocation);
-	WWASSERT(registry != nullptr && registry->Is_Valid());
-   Value = registry->Get_Int(KeyName, default_value == 1);
-   delete registry;
-
-   Set(Value == 1);
+   Value = default_value == 1;
+   Initialized = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -65,12 +62,29 @@ bool cRegistryBool::Set(bool value)
 {
    Value = value;
 
-	WWASSERT(RegistryLocation != nullptr);
-   WWASSERT(KeyName != nullptr);
-	RegistryClass * registry = new RegistryClass(RegistryLocation);
-	WWASSERT(registry != nullptr && registry->Is_Valid());
-   registry->Set_Int(KeyName, Value);
-   delete registry;
+	WWASSERT(RegistryLocation[0] != '\0');
+	WWASSERT(KeyName[0] != '\0');
+	RegistryClass registry(RegistryLocation);
+	WWASSERT(registry.Is_Valid());
+    registry.Set_Bool(KeyName, Value);
+    Initialized = true;
 
    return Value == 1;
+}
+
+//-----------------------------------------------------------------------------
+bool cRegistryBool::Get()
+{
+	if (!Initialized) {
+		WWASSERT(RegistryLocation[0] != '\0');
+		WWASSERT(KeyName[0] != '\0');
+		RegistryClass registry(RegistryLocation);
+		if (!registry.Exists(KeyName)) {
+			registry.Set_Bool(KeyName, Value);
+		} else {
+			Value = registry.Get_Bool(KeyName, Value);
+		};
+		Initialized = true;
+	}
+	return Value;
 }

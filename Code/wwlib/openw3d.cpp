@@ -20,6 +20,7 @@
 
 #include "ini.h"
 #include "pathutil.h"
+#include "wwdialog.h"
 #include "wwstring.h"
 
 #include <cctype>
@@ -27,11 +28,17 @@
 #include <cstring>
 #include <string>
 #include <vector>
+#ifndef _WIN32
+#include <unistd.h>
+#endif
 
 namespace
 {
 	constexpr char CONFIG_ORGANIZATION[] = "W3DHub";
 	constexpr char CONFIG_APPLICATION[] = "OpenW3D";
+
+	INIClass g_config;
+	bool g_config_initialized = false;
 
 	std::string g_config_file_path;
 	bool g_config_file_path_initialized = false;
@@ -182,7 +189,21 @@ bool OpenW3D::Command_Line_Has_Arg(const char *command_line, const char *arg)
 	return false;
 }
 
-bool OpenW3D::Save_Config(const INIClass &ini)
+INIClass & OpenW3D::Get_Config()
+{
+	if (!g_config_file_path_initialized) {
+		WWRELEASE_ERROR(("Cannot access configuration INI before its path has been initialized"));
+		::Show_Message_Box(MESSAGEBOX_SEVERITY_ERROR | MESSAGEBOX_BUTTONS_OK, "Cannot access configuration INI before its path has been initialized", "Invalid configuration");
+		_exit(0);
+	}
+	if (!g_config_initialized) {
+		g_config.Load(Get_Config_File_Path());
+		g_config_initialized = true;
+	}
+	return g_config;
+}
+
+bool OpenW3D::Save_Config()
 {
 	const std::filesystem::path config_path = Get_Config_File_Path();
 	if (!cPathUtil::EnsureDirectoryExists(config_path.parent_path())) {
@@ -190,5 +211,5 @@ bool OpenW3D::Save_Config(const INIClass &ini)
 	}
 
 	const std::string native_path = config_path.string();
-	return ini.Save(native_path.c_str()) != 0;
+	return g_config.Save(native_path.c_str()) != 0;
 }

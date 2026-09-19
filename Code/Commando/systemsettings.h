@@ -45,7 +45,6 @@
 
 class	SystemSettingEntry;
 class	RegistryClass;
-class INIClass;
 class	ConsoleFunctionClass;
 
 //
@@ -93,17 +92,12 @@ class	SystemSettingEntry {
 public:
 	virtual	~SystemSettingEntry(void){};
 	virtual	const char *	Get_Name( void )							= 0;
-	virtual	const char *	Get_INI_Name( void )					= 0;
 	virtual	const char *	Get_Help( void )							= 0;
 	virtual	void				Apply( void )								= 0;
 
 	// Registry save and load
 	virtual	void	Registry_Save( RegistryClass & registry )		= 0;
 	virtual	void	Registry_Load( RegistryClass & registry )		= 0;
-
-	// INI save and load
-	virtual	void	INI_Save( INIClass & ini )		= 0;
-	virtual	void	INI_Load( INIClass & ini )		= 0;
 
 	// Console Access
 	virtual	ConsoleFunctionClass *	Create_Console_Function()	= 0;
@@ -121,9 +115,6 @@ public:
 
 	virtual	void					Registry_Save( RegistryClass & registry ) override;
 	virtual	void					Registry_Load( RegistryClass & registry ) override;
-
-	virtual	void					INI_Save( INIClass & ini ) override;
-	virtual	void					INI_Load( INIClass & ini ) override;
 
 	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 
@@ -150,9 +141,6 @@ public:
 
 	virtual	void					Registry_Save( RegistryClass & registry ) override;
 	virtual	void					Registry_Load( RegistryClass & registry ) override;
-
-	virtual	void					INI_Save( INIClass & ini ) override;
-	virtual	void					INI_Load( INIClass & ini ) override;
 
 	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 
@@ -188,9 +176,6 @@ public:
 
 	virtual	void					Registry_Save( RegistryClass & registry ) override;
 	virtual	void					Registry_Load( RegistryClass & registry ) override;
-
-	virtual	void					INI_Save( INIClass & ini ) override;
-	virtual	void					INI_Load( INIClass & ini ) override;
 
 	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 

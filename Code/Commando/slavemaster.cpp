@@ -46,6 +46,8 @@
 #include "rawfile.h"
 #include "inisup.h"
 #include "natter.h"
+#include "openw3d.h"
+#include "tempfile.h"
 #include "gamesideservercontrol.h"
 #include "win.h"
 #include "gamedata.h"
@@ -56,6 +58,7 @@
 #include "useroptions.h"
 
 
+#include <filesystem>
 #include <string.h>
 #include <stdio.h>
 
@@ -69,12 +72,7 @@
 #define KEY_SLAVE_BANDWIDTH		"Bandwidth"
 #define KEY_SLAVE_PASSWORD			"Password"
 
-const char *RegistryFileName = "slave.ini";
-
 SlaveMasterClass SlaveMaster;
-
-
-extern char DefaultRegistryModifier[1024];
 
 
 /***********************************************************************************************
@@ -93,12 +91,17 @@ extern char DefaultRegistryModifier[1024];
  *=============================================================================================*/
 SlaveServerClass::SlaveServerClass(void)
 {
-	Enable = false;
-	NickName[0] = 0;
-	Serial[0] = 0;
+	NickName[0] = '\0';
+	Serial[0] = '\0';
+	Password[0] = '\0';
 	Port = 0;
+	SettingsFileName[0] = '\0';
+	IniPath[0] = '\0';
+	Enable = false;
+	IsRunning = false;
+	ControlPort = 0;
 	Bandwidth = 0;
-	Password[0] = 0;
+	ProcessInfo = nullptr;
 }
 
 
@@ -558,15 +561,6 @@ void SlaveMasterClass::Startup_Slaves(void)
 						if (SlaveServers[i].Enable) {
 
 							/*
-							** Get an access point into the slaves registry base.
-							*/
-							char slave_name[64];
-							sprintf(slave_name, "\\slave_%d", i);
-							strcpy(DefaultRegistryModifier, slave_name+1);
-							RegistryClass slave_reg(APPLICATION_SUB_KEY_NAME);
-							DefaultRegistryModifier[0] = 0;
-
-							/*
 							** Figure out the name of the .exe to run.
 							*/
 							char path_to_exe[256];
@@ -580,20 +574,19 @@ void SlaveMasterClass::Startup_Slaves(void)
 #else  //FREEDEDICATEDSERVER
 							_makepath(path, drive, dir, "renegade", "exe");
 #endif //FREEDEDICATEDSERVER
-							char regmod[32];
-							sprintf(regmod, "--regmod=slave_%d", i);
-							const char * args[] = {
-								path,
-								"--multi",
-								"--slave",
-								regmod,
-								nullptr,
-								nullptr,
+							std::vector<const char *> v_args = {
+								{
+									path,
+									"--multi",
+									"--slave",
+									"--ini", SlaveServers[i].IniPath,
+								}
 							};
 							if (ConsoleBox.Is_Exclusive()) {
-								args[4] = "--nodx";
+								v_args.push_back("--nodx");
 							}
-							SlaveServers[i].ProcessInfo = ProcessManager::Create_Process(args);
+							v_args.push_back(nullptr);
+							SlaveServers[i].ProcessInfo = ProcessManager::Create_Process(v_args.data());
 							if (SlaveServers[i].ProcessInfo) {
 								SlaveServers[i].IsRunning = true;
 
@@ -649,15 +642,13 @@ void SlaveMasterClass::Shutdown_Slaves(void)
 		for (int i=0 ; i<NumSlaveServers ; i++) {
 			if (SlaveServers[i].IsRunning) {
 
+#if 0
 				/*
 				** Set the slaves auto-restart flag to false or it will just start right up again.
 				*/
-				char slave_name[64];
-				sprintf(slave_name, "\\slave_%d", i);
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass slave_reg(APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
-				DefaultRegistryModifier[0] = 0;
-				slave_reg.Set_Int(AutoRestartClass::REG_VALUE_AUTO_RESTART_FLAG, 0);
+				// FIXME: Make sure slave closes correctly (eventually through a shared secret)
+				// FIXME: disable APPLICATION_SUB_KEY_NAME_WOLSETTINGS -> AutoRestartClass::REG_VALUE_AUTO_RESTART_FLAG of slave
+#endif
 
 				/*
 				** Send the password to the slave to authenticate the connection.
@@ -712,12 +703,7 @@ bool SlaveMasterClass::Shutdown_Slave(char *slave_login)
 				/*
 				** Set the slaves auto-restart flag to false or it will just start right up again.
 				*/
-				char slave_name[64];
-				sprintf(slave_name, "/slave_%d", i);
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass slave_reg(APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
-				DefaultRegistryModifier[0] = 0;
-				slave_reg.Set_Int(AutoRestartClass::REG_VALUE_AUTO_RESTART_FLAG, 0);
+				// FIXME: Disable APPLICATION_SUB_KEY_NAME_WOLSETTINGS -> AutoRestartClass::REG_VALUE_AUTO_RESTART_FLAG of slave
 
 				/*
 				** Send the password to the slave to authenticate the connection.
@@ -801,8 +787,8 @@ char *SlaveMasterClass::Get_Slave_Info(char *buffer, int buflen)
  *                                                                                             *
  * HISTORY:                                                                                    *
  *   11/21/2001 3:44PM ST : Created                                                            *
- *=============================================================================================*/
-void SlaveMasterClass::Create_Registry_Copies(void)
+ *========================================Create_Registry_Copies=====================================================*/
+bool SlaveMasterClass::Create_Registry_Copies(void)
 {
 	WWASSERT(!SlaveMode);
 
@@ -813,18 +799,25 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 	if (app_reg.Is_Valid()) {
 		app_reg.Delete_Value("ProcessId");
 	}
+	RawTempFileClass RegistryTempFile("registry-");
+	if (!RegistryTempFile.Is_Valid()) {
+		WWRELEASE_ERROR(("Failed to create a temporary file the registry clone"));
+		return false;
+	}
 
-	RegistryClass::Save_Registry(RegistryFileName, APPLICATION_SUB_KEY_NAME);
+	if (!OpenW3D::Get_Config().Save(RegistryTempFile)) {
+		WWRELEASE_ERROR(("Failed to save the registry to   a temporary file the registry clone"));
+		return false;
+	}
 
-	char new_path[1024];
 	char slave_name[64];
 
 	for (int i=0 ; i<NumSlaveServers ; i++) {
 		if (SlaveServers[i].Enable) {
-			strcpy(new_path, APPLICATION_SUB_KEY_NAME);
-			sprintf(slave_name, "\\slave_%d", i);
-			strcat(new_path, slave_name);
-			RegistryClass::Load_Registry(RegistryFileName, APPLICATION_SUB_KEY_NAME, new_path);
+			sprintf(slave_name, "slave_%d", i);
+			INIClass slave_ini(RegistryTempFile);
+
+			slave_ini.Put_String(APPLICATION_SUB_KEY_NAME, "Name", slave_name);
 
 			/*
 			** Store the slave settings into the registry.
@@ -834,29 +827,26 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 			** Port numbers.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME_NET_FIREWALL);
-				DefaultRegistryModifier[0] = 0;
 				RegistryClass my_reg(APPLICATION_SUB_KEY_NAME_NET_FIREWALL);
 
 				if (SlaveServers[i].Port != 0) {
-					reg.Set_Int("ForcePort", SlaveServers[i].Port);
+					slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_NET_FIREWALL, "ForcePort", SlaveServers[i].Port);
 				} else {
-					reg.Set_Int("ForcePort", 0);
+					slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_NET_FIREWALL, "ForcePort", 0);
 
 					int port = my_reg.Get_Int("PortBase", PORT_BASE_MIN);
 					port = port + ((i+1) * 256);
 					if (port >= PORT_BASE_MAX-1) {
 						port -= (PORT_BASE_MAX - PORT_BASE_MIN);
 					}
-					reg.Set_Int("PortBase", port);
+					slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_NET_FIREWALL, "PortBase", port);
 
 					port = my_reg.Get_Int("PortPool", PORT_BASE_MIN);
 					port = port + ((i+1) * 1024);
 					if (port >= PORT_POOL_MAX-1) {
 						port -= (PORT_POOL_MAX - PORT_POOL_MIN);
 					}
-					reg.Set_Int("PortPool", port);
+					slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_NET_FIREWALL, "PortPool", port);
 				}
 			}
 
@@ -865,9 +855,6 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 			** Server control info.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL);
-				DefaultRegistryModifier[0] = 0;
 				RegistryClass my_reg(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL);
 
 				/*
@@ -884,15 +871,15 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 				slave_port += i;
 				slave_port++;
 				SlaveServers[i].ControlPort = static_cast<unsigned short>(slave_port);
-				reg.Set_Int(SERVER_CONTROL_PORT_KEY, slave_port);
+				slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL, SERVER_CONTROL_PORT_KEY, slave_port);
 
 				/*
 				** Inherit this from the master now.
 				*/
 				//if (my_sc_port == 0) {
-				//	reg.Set_Int(SERVER_CONTROL_LOOPBACK_KEY, 1);
+				//	slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL, SERVER_CONTROL_LOOPBACK_KEY, 1);
 				//} else {
-				//	reg.Set_Int(SERVER_CONTROL_LOOPBACK_KEY, 0);
+				//	slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL, SERVER_CONTROL_LOOPBACK_KEY, 0);
 				//}
 			}
 
@@ -900,23 +887,15 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 			** Login name.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
-				DefaultRegistryModifier[0] = 0;
-
-				reg.Set_String("AutoLogin", SlaveServers[i].NickName);
-				reg.Set_String("LastLogin", SlaveServers[i].NickName);
+				slave_ini.Put_String(APPLICATION_SUB_KEY_NAME_WOLSETTINGS, "AutoLogin", SlaveServers[i].NickName);
+				slave_ini.Put_String(APPLICATION_SUB_KEY_NAME_WOLSETTINGS, "LastLogin", SlaveServers[i].NickName);
 			}
 
 			/*
 			** Password name.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
-				DefaultRegistryModifier[0] = 0;
-
-				reg.Set_String("AutoPassword", SlaveServers[i].Password);
+				slave_ini.Put_String(APPLICATION_SUB_KEY_NAME_WOLSETTINGS, "AutoPassword", SlaveServers[i].Password);
 			}
 
 
@@ -924,56 +903,40 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 			** Serial number.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME);
-				DefaultRegistryModifier[0] = 0;
-
 				StringClass serial(SlaveServers[i].Serial, true);
 				StringClass encrypted_serial = serial;
 				if (serial.Get_Length()) {
 					ServerSettingsClass::Encrypt_Serial(serial, encrypted_serial);
 				}
-				reg.Set_String(KEY_SLAVE_SERIAL, encrypted_serial.Peek_Buffer());
+				slave_ini.Put_String(APPLICATION_SUB_KEY_NAME, KEY_SLAVE_SERIAL, encrypted_serial.Peek_Buffer());
 			}
 
 			/*
 			** Make it autostart.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
-				DefaultRegistryModifier[0] = 0;
+				slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_WOLSETTINGS, AutoRestartClass::REG_VALUE_AUTO_RESTART_FLAG, 1);
 
-				if (reg.Is_Valid()) {
-					reg.Set_Int(AutoRestartClass::REG_VALUE_AUTO_RESTART_FLAG, 1);
-
-					int game_type = 0;
-					GameModeClass *game_mode = GameModeManager::Find("WOL");
-					if (game_mode && game_mode->Is_Active()) {
-						game_type = 1;
-					}
-					reg.Set_Int(AutoRestartClass::REG_VALUE_AUTO_RESTART_TYPE, game_type);
+				int game_type = 0;
+				GameModeClass *game_mode = GameModeManager::Find("WOL");
+				if (game_mode && game_mode->Is_Active()) {
+					game_type = 1;
 				}
+				slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_WOLSETTINGS, AutoRestartClass::REG_VALUE_AUTO_RESTART_TYPE, game_type);
 			}
 
 			/*
 			** Tell it which multiplayer settings to use.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME_OPTIONS);
-				DefaultRegistryModifier[0] = 0;
-				reg.Set_String("MultiplayerSettings", SlaveServers[i].SettingsFileName);
+				slave_ini.Put_String(APPLICATION_SUB_KEY_NAME_OPTIONS, "MultiplayerSettings", SlaveServers[i].SettingsFileName);
 			}
 
 			/*
 			** Set the SKU number to be the FDS SKU. Do this whether the Master is a FDS or not.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME);
-				DefaultRegistryModifier[0] = 0;
-				reg.Set_Int("SKU", RENEGADE_FDS_SKU);
+				slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME, "SKU", RENEGADE_FDS_SKU);
 			}
 
 			/*
@@ -983,14 +946,10 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 			{
 				int bw = SlaveServers[i].Bandwidth;
 				if (bw != -1) {
-					strcpy(DefaultRegistryModifier, slave_name+1);
-					RegistryClass reg_netopt(APPLICATION_SUB_KEY_NAME_NETOPTIONS);
-					RegistryClass reg_bw(APPLICATION_SUB_KEY_NAME_BANDTEST);
-					DefaultRegistryModifier[0] = 0;
 					RegistryClass my_reg_netopt(APPLICATION_SUB_KEY_NAME_NETOPTIONS);
 					RegistryClass my_reg_bw(APPLICATION_SUB_KEY_NAME_BANDTEST);
 
-					//reg_netopt.Set_Int("BandwidthType", BANDWIDTH_AUTO);
+					//slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_NETOPTIONS, "BandwidthType", BANDWIDTH_AUTO);
 					cUserOptions::Set_Bandwidth_Type(BANDWIDTH_AUTO);
 					int slave_bw = bw;
 
@@ -1004,8 +963,8 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 							slave_bw = slave_bw / (num+1);
 						}
 					}
-					reg_bw.Set_Int("Up", slave_bw);
-					reg_bw.Set_Int("Down", slave_bw);
+					slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_BANDTEST, "Up", slave_bw);
+					slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_BANDTEST, "Down", slave_bw);
 				}
 			}
 
@@ -1015,15 +974,23 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 			** Give the window a different position so we are not completely overlapping.
 			*/
 			{
-				strcpy(DefaultRegistryModifier, slave_name+1);
-				RegistryClass reg(APPLICATION_SUB_KEY_NAME_OPTIONS);
-				DefaultRegistryModifier[0] = 0;
-				reg.Set_Int("WindowX", (i * 32) + 32);
-				reg.Set_Int("WindowY", (i * 32) + 32);
+				slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_OPTIONS, "WindowX", (i * 32) + 32);
+				slave_ini.Put_Int(APPLICATION_SUB_KEY_NAME_OPTIONS, "WindowY", (i * 32) + 32);
 			}
 #endif //(0)
+
+			RawTempFileClass save_ini_file("slave-");
+			if (!save_ini_file.Is_Valid()) {
+				WWRELEASE_SAY(("Failed to create a temporary path for slave server %d", i));
+				SlaveServers[i].Enable = false;
+			} else {
+				save_ini_file.Set_Remove_On_Close(false);
+				slave_ini.Save(save_ini_file);
+				strcpy(SlaveServers[i].IniPath, save_ini_file.File_Name());
+			}
 		}
 	}
+	return true;
 }
 
 
@@ -1052,15 +1019,16 @@ void SlaveMasterClass::Delete_Registry_Copies(void)
 
 	if (result == ERROR_SUCCESS) {
 		int index = 0;
-		char new_path[1024];
-		char slave_name[64];
 
 		while (index < MAX_SLAVES) {
-			strcpy(new_path, APPLICATION_SUB_KEY_NAME);
-			sprintf(slave_name, "\\slave_%d", index);
-			strcat(new_path, slave_name);
-			RegistryClass::Delete_Registry_Tree(new_path);
-			index++;
+			if (SlaveServers[index].IniPath[0] != '\0') {
+				std::error_code ec;
+				std::filesystem::remove(SlaveServers[index].IniPath, ec);
+				if (ec) {
+					WWDEBUG_SAY(("Failed to remove ini of slave %d", index));
+				}
+				SlaveServers[index].IniPath[0] = '\0';
+			}
 		}
 	}
 }

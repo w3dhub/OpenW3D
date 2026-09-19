@@ -30,20 +30,20 @@
 
 /*
 #ifdef MULTIPLAYERDEMO
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\RenegadeMPDemo\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "MPDemo\\RenderDevice"
 #else
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\Renegade\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "RenderDevice"
 #endif // MULTIPLAYERDEMO
 */
 
 #if	defined(FREEDEDICATEDSERVER)
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\RenegadeFDS\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "FDS/RenderDevice"
 #elif defined(MULTIPLAYERDEMO)
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\RenegadeMPDemo\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "MPDemo/RenderDevice"
 #elif defined(BETACLIENT)
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\RenegadeBeta\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "Beta/RenderDevice"
 #else
-#define RENEGADE_SUB_KEY_NAME_RENDER "Software\\Westwood\\Renegade\\Render"
+#define RENEGADE_SUB_KEY_NAME_RENDER "RenderDevice"
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

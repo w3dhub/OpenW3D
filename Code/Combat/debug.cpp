@@ -39,6 +39,7 @@
 #include "ww3dtrig.h"
 #include "wwphystrig.h"
 #include "timemgr.h"
+#include "_globals.h"
 #include "ww3d.h"
 #include "registry.h"
 #include <stdio.h>
@@ -79,8 +80,6 @@ void wwdebug_assert_handler(const char * message);
 bool wwdebug_trigger_handler(int trigger_num);
 void wwdebug_profile_start_handler( const char * title );
 void wwdebug_profile_stop_handler( const char * title );
-
-char DefaultRegistryModifier[1024] = {""};
 
 /*
 **
@@ -398,7 +397,9 @@ void	DebugManager::Display_Text( const WideStringClass & string, const Vector3 &
 void DebugManager::Init_Logfile(void)
 {
 	if (IsSlave) {
-		sprintf(LogfileNameBuffer, "%s%s", DefaultRegistryModifier, DEFAULT_LOGFILE_NAME);
+		RegistryClass registry(APPLICATION_SUB_KEY_NAME);
+		registry.Get_String("Name", LogfileNameBuffer, sizeof(LogfileNameBuffer), "unknown_slave");
+		::strcat(LogfileNameBuffer, DEFAULT_LOGFILE_NAME);
 		LOGFILE = LogfileNameBuffer;
 	}
 

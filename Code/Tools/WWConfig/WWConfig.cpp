@@ -23,6 +23,7 @@
 #include "WWConfig.h"
 #include "WWConfigDlg.h"
 #include "ffactory.h"
+#include "argv.h"
 #include "locale_api.h"
 #include "openw3d.h"
 #include "wwconfig_ids.h"

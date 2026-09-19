@@ -261,7 +261,7 @@ public:
 	//////////////////////////////////////////////////////////////////////
 	//	Default settings
 	//////////////////////////////////////////////////////////////////////
-	void					Load_Default_Volume (int &defaultmusicvolume, int &defaultsoundvolume, int &defaultdialogvolume, int &defaultcinematicvolume);
+	void					Load_Default_Volume (float &defaultmusicvolume, float &defaultsoundvolume, float &defaultdialogvolume, float &defaultcinematicvolume);
 
 	//////////////////////////////////////////////////////////////////////
 	//	File interface methods

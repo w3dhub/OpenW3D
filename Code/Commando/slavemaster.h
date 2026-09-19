@@ -67,6 +67,7 @@ class SlaveServerClass
 		char	Password[64];
 		unsigned short Port;
 		char	SettingsFileName[MAX_PATH];
+		char	IniPath[MAX_PATH];
 
 		bool	Enable;
 		bool	IsRunning;
@@ -117,7 +118,7 @@ class SlaveMasterClass
 	private:
 
 		void Delete_Registry_Copies(void);
-		void Create_Registry_Copies(void);
+		bool Create_Registry_Copies(void);
 		void Wait_For_Slave_Shutdown(void);
 
 		SlaveServerClass SlaveServers[MAX_SLAVES];
