@@ -379,7 +379,7 @@ void ChannelData::SetTournament(unsigned int tournamentType)
 *
 ******************************************************************************/
 
-ChannelStatus GetChannelStatusFromHResult(HRESULT result)
+ChannelStatus GetChannelStatusFromHResult(WOL::WOLAPI_RESULT result)
 	{
 	switch (result)
 		{

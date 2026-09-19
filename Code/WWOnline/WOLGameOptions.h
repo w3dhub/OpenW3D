@@ -38,10 +38,7 @@
 #include "RefPtr.h"
 #include <wwlib/wwstring.h>
 
-namespace WOL
-{
 #include "WOLAPI.h"
-}
 
 #include <vector>
 

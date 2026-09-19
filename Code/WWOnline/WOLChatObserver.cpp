@@ -54,10 +54,7 @@
 #include "specialbuilds.h"
 #include "simplevec.h"
 #include "../Commando/cnetwork.h"
-namespace WOL
-{
 #include <wolapi/chatdefs.h>
-}
 
 namespace WWOnline {
 
@@ -176,10 +173,10 @@ STDMETHODIMP ChatObserver::QueryInterface(const IID& iid, void** ppv)
 *
 ****************************************************************************/
 
-ULONG STDMETHODCALLTYPE ChatObserver::AddRef(void)
+RefCountType WOLAPI_CALLTYPE ChatObserver::AddRef(void)
 	{
-	InterlockedIncrement((LPLONG)&mRefCount);
-	return mRefCount;
+	RefCountType newCount = ++mRefCount;
+	return newCount;
 	}
 
 
@@ -199,17 +196,17 @@ ULONG STDMETHODCALLTYPE ChatObserver::AddRef(void)
 *
 ****************************************************************************/
 
-ULONG STDMETHODCALLTYPE ChatObserver::Release(void)
+RefCountType WOLAPI_CALLTYPE ChatObserver::Release(void)
 	{
-	InterlockedDecrement((LPLONG)&mRefCount);
+	RefCountType newCount = --mRefCount;
 
-	if (mRefCount == 0)
+	if (newCount == 0)
 		{
 		delete this;
 		return 0;
 		}
 
-	return mRefCount;
+	return newCount;
 	}
 
 
@@ -230,7 +227,7 @@ ULONG STDMETHODCALLTYPE ChatObserver::Release(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnServerList(HRESULT result, WOL::Server* servers)
+WOLAPI_STDMETHODIMP ChatObserver::OnServerList(WOL::WOLAPI_RESULT result, WOL::Server* servers)
 	{
 	if (mOuter == nullptr)
 		{
@@ -337,7 +334,7 @@ STDMETHODIMP ChatObserver::OnServerList(HRESULT result, WOL::Server* servers)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnUpdateList(HRESULT result, WOL::Update* updates)
+WOLAPI_STDMETHODIMP ChatObserver::OnUpdateList(WOL::WOLAPI_RESULT result, WOL::Update* updates)
 	{
 	WWDEBUG_SAY(("WOL: OnUpdateList received\n"));
 
@@ -411,7 +408,7 @@ STDMETHODIMP ChatObserver::OnUpdateList(HRESULT result, WOL::Update* updates)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnServerError(HRESULT result, [[maybe_unused]] LPCSTR errorText)
+WOLAPI_STDMETHODIMP ChatObserver::OnServerError(WOL::WOLAPI_RESULT result, [[maybe_unused]] LPCSTR errorText)
 	{
 	if (mOuter == nullptr)
 		{
@@ -455,7 +452,7 @@ STDMETHODIMP ChatObserver::OnServerError(HRESULT result, [[maybe_unused]] LPCSTR
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnConnection(HRESULT result, LPCSTR motd)
+WOLAPI_STDMETHODIMP ChatObserver::OnConnection(WOL::WOLAPI_RESULT result, LPCSTR motd)
 	{
 	if (mOuter == nullptr)
 		{
@@ -593,7 +590,7 @@ STDMETHODIMP ChatObserver::OnConnection(HRESULT result, LPCSTR motd)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnMessageOfTheDay(HRESULT, LPCSTR messageOfTheDay)
+WOLAPI_STDMETHODIMP ChatObserver::OnMessageOfTheDay(WOL::WOLAPI_RESULT, LPCSTR messageOfTheDay)
 	{
 	if (mOuter == nullptr)
 		{
@@ -628,7 +625,7 @@ STDMETHODIMP ChatObserver::OnMessageOfTheDay(HRESULT, LPCSTR messageOfTheDay)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelList(HRESULT result, WOL::Channel* inChannels)
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelList(WOL::WOLAPI_RESULT result, WOL::Channel* inChannels)
 	{
 	if (mOuter == nullptr)
 		{
@@ -765,7 +762,7 @@ STDMETHODIMP ChatObserver::OnChannelList(HRESULT result, WOL::Channel* inChannel
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelCreate(HRESULT result, WOL::Channel* inChannel)
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelCreate(WOL::WOLAPI_RESULT result, WOL::Channel* inChannel)
 	{
 	if (mOuter == nullptr)
 		{
@@ -874,7 +871,7 @@ STDMETHODIMP ChatObserver::OnChannelCreate(HRESULT result, WOL::Channel* inChann
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelJoin(HRESULT result, WOL::Channel* inChannel,
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelJoin(WOL::WOLAPI_RESULT result, WOL::Channel* inChannel,
 		WOL::User* inUser)
 	{
 	if (mOuter == nullptr)
@@ -1034,7 +1031,7 @@ STDMETHODIMP ChatObserver::OnChannelJoin(HRESULT result, WOL::Channel* inChannel
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelLeave(HRESULT result, WOL::Channel* inChannel, WOL::User* inUser)
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelLeave(WOL::WOLAPI_RESULT result, WOL::Channel* inChannel, WOL::User* inUser)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1153,7 +1150,7 @@ STDMETHODIMP ChatObserver::OnChannelLeave(HRESULT result, WOL::Channel* inChanne
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelTopic(HRESULT result, WOL::Channel* inChannel, LPCSTR topic)
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelTopic(WOL::WOLAPI_RESULT result, WOL::Channel* inChannel, LPCSTR topic)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1226,7 +1223,7 @@ STDMETHODIMP ChatObserver::OnChannelTopic(HRESULT result, WOL::Channel* inChanne
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPrivateAction(HRESULT result, WOL::User* user, LPCSTR message)
+WOLAPI_STDMETHODIMP ChatObserver::OnPrivateAction(WOL::WOLAPI_RESULT result, WOL::User* user, LPCSTR message)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1264,7 +1261,7 @@ STDMETHODIMP ChatObserver::OnPrivateAction(HRESULT result, WOL::User* user, LPCS
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPublicAction(HRESULT result, WOL::Channel*, WOL::User* user, LPCSTR message)
+WOLAPI_STDMETHODIMP ChatObserver::OnPublicAction(WOL::WOLAPI_RESULT result, WOL::Channel*, WOL::User* user, LPCSTR message)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1302,7 +1299,7 @@ STDMETHODIMP ChatObserver::OnPublicAction(HRESULT result, WOL::Channel*, WOL::Us
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnUserList(HRESULT result, WOL::Channel* inChannel, WOL::User* inUsers)
+WOLAPI_STDMETHODIMP ChatObserver::OnUserList(WOL::WOLAPI_RESULT result, WOL::Channel* inChannel, WOL::User* inUsers)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1414,7 +1411,7 @@ STDMETHODIMP ChatObserver::OnUserList(HRESULT result, WOL::Channel* inChannel, W
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPublicMessage(HRESULT result, WOL::Channel*, WOL::User* user, LPCSTR message)
+WOLAPI_STDMETHODIMP ChatObserver::OnPublicMessage(WOL::WOLAPI_RESULT result, WOL::Channel*, WOL::User* user, LPCSTR message)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1452,7 +1449,7 @@ STDMETHODIMP ChatObserver::OnPublicMessage(HRESULT result, WOL::Channel*, WOL::U
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPrivateMessage(HRESULT result, WOL::User* user, LPCSTR message)
+WOLAPI_STDMETHODIMP ChatObserver::OnPrivateMessage(WOL::WOLAPI_RESULT result, WOL::User* user, LPCSTR message)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1490,7 +1487,7 @@ STDMETHODIMP ChatObserver::OnPrivateMessage(HRESULT result, WOL::User* user, LPC
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnSystemMessage(HRESULT result, LPCSTR message)
+WOLAPI_STDMETHODIMP ChatObserver::OnSystemMessage(WOL::WOLAPI_RESULT result, LPCSTR message)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1528,7 +1525,7 @@ STDMETHODIMP ChatObserver::OnSystemMessage(HRESULT result, LPCSTR message)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnNetStatus(HRESULT result)
+WOLAPI_STDMETHODIMP ChatObserver::OnNetStatus(WOL::WOLAPI_RESULT result)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1609,7 +1606,7 @@ STDMETHODIMP ChatObserver::OnNetStatus(HRESULT result)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnLogout(HRESULT result, WOL::User* inUser)
+WOLAPI_STDMETHODIMP ChatObserver::OnLogout(WOL::WOLAPI_RESULT result, WOL::User* inUser)
 	{
 	if (FAILED(result))
 		{
@@ -1817,7 +1814,7 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPrivateGameOptions(HRESULT result, WOL::User* inUser, LPCSTR options)
+WOLAPI_STDMETHODIMP ChatObserver::OnPrivateGameOptions(WOL::WOLAPI_RESULT result, WOL::User* inUser, LPCSTR options)
 	{
 	if (mOuter == nullptr)
 		{
@@ -1884,7 +1881,7 @@ STDMETHODIMP ChatObserver::OnPrivateGameOptions(HRESULT result, WOL::User* inUse
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPublicGameOptions(HRESULT result, WOL::Channel* inChannel,
+WOLAPI_STDMETHODIMP ChatObserver::OnPublicGameOptions(WOL::WOLAPI_RESULT result, WOL::Channel* inChannel,
 			WOL::User* inUser, LPCSTR options)
 	{
 	if (mOuter == nullptr)
@@ -1969,7 +1966,7 @@ STDMETHODIMP ChatObserver::OnPublicGameOptions(HRESULT result, WOL::Channel* inC
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
+WOLAPI_STDMETHODIMP ChatObserver::OnGameStart(WOL::WOLAPI_RESULT result, WOL::Channel* inChannel,
 		WOL::User* inUsers, int gameID)
 	{
 	if (mOuter == nullptr)
@@ -2065,7 +2062,7 @@ STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnUserKick(HRESULT result, WOL::Channel* inChannel,
+WOLAPI_STDMETHODIMP ChatObserver::OnUserKick(WOL::WOLAPI_RESULT result, WOL::Channel* inChannel,
 			WOL::User* inUser, [[maybe_unused]] WOL::User* kicker)
 	{
 	if (mOuter == nullptr)
@@ -2168,7 +2165,7 @@ STDMETHODIMP ChatObserver::OnUserKick(HRESULT result, WOL::Channel* inChannel,
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnUserIP(HRESULT result, WOL::User* user)
+WOLAPI_STDMETHODIMP ChatObserver::OnUserIP(WOL::WOLAPI_RESULT result, WOL::User* user)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2215,7 +2212,7 @@ STDMETHODIMP ChatObserver::OnUserIP(HRESULT result, WOL::User* user)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnFind(HRESULT result, WOL::Channel* wolChannel)
+WOLAPI_STDMETHODIMP ChatObserver::OnFind(WOL::WOLAPI_RESULT result, WOL::Channel* wolChannel)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2301,7 +2298,7 @@ STDMETHODIMP ChatObserver::OnFind(HRESULT result, WOL::Channel* wolChannel)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPageSend(HRESULT result)
+WOLAPI_STDMETHODIMP ChatObserver::OnPageSend(WOL::WOLAPI_RESULT result)
 	{
 	PageSendStatus status = PAGESEND_ERROR;
 
@@ -2348,7 +2345,7 @@ STDMETHODIMP ChatObserver::OnPageSend(HRESULT result)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPaged(HRESULT result, WOL::User* user, LPCSTR text)
+WOLAPI_STDMETHODIMP ChatObserver::OnPaged(WOL::WOLAPI_RESULT result, WOL::User* user, LPCSTR text)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2390,7 +2387,7 @@ STDMETHODIMP ChatObserver::OnPaged(HRESULT result, WOL::User* user, LPCSTR text)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnServerBannedYou(HRESULT, WOL::time_t liftedTime)
+WOLAPI_STDMETHODIMP ChatObserver::OnServerBannedYou(WOL::WOLAPI_RESULT, WOL::time_t liftedTime)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2422,7 +2419,7 @@ STDMETHODIMP ChatObserver::OnServerBannedYou(HRESULT, WOL::time_t liftedTime)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelBan(HRESULT result, LPCSTR username, int banned)
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelBan(WOL::WOLAPI_RESULT result, LPCSTR username, int banned)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2474,7 +2471,7 @@ STDMETHODIMP ChatObserver::OnChannelBan(HRESULT result, LPCSTR username, int ban
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnUserFlags(HRESULT result, LPCSTR username, unsigned int flags, unsigned int mask)
+WOLAPI_STDMETHODIMP ChatObserver::OnUserFlags(WOL::WOLAPI_RESULT result, LPCSTR username, unsigned int flags, unsigned int mask)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2524,7 +2521,7 @@ STDMETHODIMP ChatObserver::OnUserFlags(HRESULT result, LPCSTR username, unsigned
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnSquadInfo(HRESULT result, unsigned int /* squadID */, WOL::Squad* inSquad)
+WOLAPI_STDMETHODIMP ChatObserver::OnSquadInfo(WOL::WOLAPI_RESULT result, unsigned int /* squadID */, WOL::Squad* inSquad)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2689,7 +2686,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnUserLocale(HRESULT result, WOL::User* inUsers)
+WOLAPI_STDMETHODIMP ChatObserver::OnUserLocale(WOL::WOLAPI_RESULT result, WOL::User* inUsers)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2769,7 +2766,7 @@ STDMETHODIMP ChatObserver::OnUserLocale(HRESULT result, WOL::User* inUsers)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnSetLocale(HRESULT result, WOL::Locale locale)
+WOLAPI_STDMETHODIMP ChatObserver::OnSetLocale(WOL::WOLAPI_RESULT result, WOL::Locale locale)
 	{
 	if (FAILED(result))
 		{
@@ -2823,7 +2820,7 @@ STDMETHODIMP ChatObserver::OnSetLocale(HRESULT result, WOL::Locale locale)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnUserTeam(HRESULT result, WOL::User* inUsers)
+WOLAPI_STDMETHODIMP ChatObserver::OnUserTeam(WOL::WOLAPI_RESULT result, WOL::User* inUsers)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2878,7 +2875,7 @@ STDMETHODIMP ChatObserver::OnUserTeam(HRESULT result, WOL::User* inUsers)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnSetTeam(HRESULT result, int team)
+WOLAPI_STDMETHODIMP ChatObserver::OnSetTeam(WOL::WOLAPI_RESULT result, int team)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2922,7 +2919,7 @@ STDMETHODIMP ChatObserver::OnSetTeam(HRESULT result, int team)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnBuddyList(HRESULT result, WOL::User* inUsers)
+WOLAPI_STDMETHODIMP ChatObserver::OnBuddyList(WOL::WOLAPI_RESULT result, WOL::User* inUsers)
 	{
 	if (mOuter == nullptr)
 		{
@@ -2993,7 +2990,7 @@ STDMETHODIMP ChatObserver::OnBuddyList(HRESULT result, WOL::User* inUsers)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnBuddyAdd(HRESULT result, WOL::User* inUsers)
+WOLAPI_STDMETHODIMP ChatObserver::OnBuddyAdd(WOL::WOLAPI_RESULT result, WOL::User* inUsers)
 	{
 	if (mOuter == nullptr)
 		{
@@ -3064,7 +3061,7 @@ STDMETHODIMP ChatObserver::OnBuddyAdd(HRESULT result, WOL::User* inUsers)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnBuddyDelete(HRESULT result, WOL::User* inUsers)
+WOLAPI_STDMETHODIMP ChatObserver::OnBuddyDelete(WOL::WOLAPI_RESULT result, WOL::User* inUsers)
 	{
 	if (mOuter == nullptr)
 		{
@@ -3124,7 +3121,7 @@ STDMETHODIMP ChatObserver::OnBuddyDelete(HRESULT result, WOL::User* inUsers)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPublicUnicodeMessage(HRESULT result, WOL::Channel*,
+WOLAPI_STDMETHODIMP ChatObserver::OnPublicUnicodeMessage(WOL::WOLAPI_RESULT result, WOL::Channel*,
 		WOL::User* user, const unsigned short* message)
 	{
 	if (mOuter == nullptr)
@@ -3163,7 +3160,7 @@ STDMETHODIMP ChatObserver::OnPublicUnicodeMessage(HRESULT result, WOL::Channel*,
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPrivateUnicodeMessage(HRESULT result, WOL::User* user,
+WOLAPI_STDMETHODIMP ChatObserver::OnPrivateUnicodeMessage(WOL::WOLAPI_RESULT result, WOL::User* user,
 		const unsigned short* message)
 	{
 	if (mOuter == nullptr)
@@ -3202,7 +3199,7 @@ STDMETHODIMP ChatObserver::OnPrivateUnicodeMessage(HRESULT result, WOL::User* us
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPrivateUnicodeAction(HRESULT result, WOL::User* user,
+WOLAPI_STDMETHODIMP ChatObserver::OnPrivateUnicodeAction(WOL::WOLAPI_RESULT result, WOL::User* user,
 		const unsigned short* message)
 	{
 	if (mOuter == nullptr)
@@ -3241,7 +3238,7 @@ STDMETHODIMP ChatObserver::OnPrivateUnicodeAction(HRESULT result, WOL::User* use
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPublicUnicodeAction(HRESULT result, WOL::Channel*,
+WOLAPI_STDMETHODIMP ChatObserver::OnPublicUnicodeAction(WOL::WOLAPI_RESULT result, WOL::Channel*,
 		WOL::User* user, const unsigned short* message)
 	{
 	if (mOuter == nullptr)
@@ -3280,7 +3277,7 @@ STDMETHODIMP ChatObserver::OnPublicUnicodeAction(HRESULT result, WOL::Channel*,
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnPagedUnicode(HRESULT result, WOL::User* user, const unsigned short* text)
+WOLAPI_STDMETHODIMP ChatObserver::OnPagedUnicode(WOL::WOLAPI_RESULT result, WOL::User* user, const unsigned short* text)
 	{
 	if (mOuter == nullptr)
 		{
@@ -3322,7 +3319,7 @@ STDMETHODIMP ChatObserver::OnPagedUnicode(HRESULT result, WOL::User* user, const
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnServerTime(HRESULT result, WOL::time_t server_time)
+WOLAPI_STDMETHODIMP ChatObserver::OnServerTime(WOL::WOLAPI_RESULT result, WOL::time_t server_time)
 	{
 	if (mOuter == nullptr)
 		{
@@ -3357,7 +3354,7 @@ STDMETHODIMP ChatObserver::OnServerTime(HRESULT result, WOL::time_t server_time)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnInsiderStatus(HRESULT result, WOL::User* wolUsers)
+WOLAPI_STDMETHODIMP ChatObserver::OnInsiderStatus(WOL::WOLAPI_RESULT result, WOL::User* wolUsers)
 	{
 	if (mOuter == nullptr)
 		{
@@ -3407,7 +3404,7 @@ STDMETHODIMP ChatObserver::OnInsiderStatus(HRESULT result, WOL::User* wolUsers)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnSetLocalIP(HRESULT, LPCSTR)
+WOLAPI_STDMETHODIMP ChatObserver::OnSetLocalIP(WOL::WOLAPI_RESULT, LPCSTR)
 	{
 	WWDEBUG_SAY(("WOLWARNING: OnSetLocalIP not implemented\n"));
 	return S_OK;
@@ -3428,7 +3425,7 @@ STDMETHODIMP ChatObserver::OnSetLocalIP(HRESULT, LPCSTR)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelListBegin(HRESULT result)
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelListBegin(WOL::WOLAPI_RESULT result)
 	{
 	if (mOuter == nullptr)
 		{
@@ -3470,7 +3467,7 @@ STDMETHODIMP ChatObserver::OnChannelListBegin(HRESULT result)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelListEntry(HRESULT result, WOL::Channel* wolChannel)
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelListEntry(WOL::WOLAPI_RESULT result, WOL::Channel* wolChannel)
 	{
 	if (mOuter == nullptr)
 		{
@@ -3600,7 +3597,7 @@ STDMETHODIMP ChatObserver::OnChannelListEntry(HRESULT result, WOL::Channel* wolC
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnChannelListEnd(HRESULT result)
+WOLAPI_STDMETHODIMP ChatObserver::OnChannelListEnd(WOL::WOLAPI_RESULT result)
 	{
 	if (mOuter == nullptr)
 		{

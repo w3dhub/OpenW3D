@@ -35,13 +35,13 @@
 #ifndef __WOLERROR_H__
 #define __WOLERROR_H__
 
-#include <objbase.h>
+#include "WOLAPI.h"
 
 namespace WWOnline {
 
-const char* const GetChatErrorString(HRESULT hr);
-const char* const GetNetUtilErrorString(HRESULT hr);
-const char* const GetDownloadErrorString(HRESULT hr);
+const char* const GetChatErrorString(WOL::WOLAPI_RESULT hr);
+const char* const GetNetUtilErrorString(WOL::WOLAPI_RESULT hr);
+const char* const GetDownloadErrorString(WOL::WOLAPI_RESULT hr);
 
 }
 

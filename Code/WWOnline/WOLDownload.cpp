@@ -42,6 +42,8 @@
 #include <wwlib/wwstring.h>
 #include <wwdebug/wwdebug.h>
 
+#include <filesystem>
+
 namespace WWOnline {
 
 /******************************************************************************
@@ -145,6 +147,7 @@ bool Download::CreateDownloadObject(void)
 	//---------------------------------------------------------------------------
 	// Create Download object
 	//---------------------------------------------------------------------------
+#ifdef _WIN32
 	WWDEBUG_SAY(("WOL: Creating IID_IDownload object\n"));
 
 	WOL::IDownload* downloadObject = nullptr;
@@ -171,6 +174,10 @@ bool Download::CreateDownloadObject(void)
 		}
 
 	return true;
+#else
+	WWDEBUG_SAY(("WOL: Creating IID_IDownload unsupported on non-Windows platforms\n"));
+	return false;
+#endif
 	}
 
 
@@ -191,6 +198,7 @@ bool Download::CreateDownloadObject(void)
 
 void Download::ReleaseDownloadObject(void)
 	{
+#ifdef _WIN32
 	// No longer listen to download events.
 	if (mDownloadObject && mDownloadCookie != 0)
 		{
@@ -204,6 +212,9 @@ void Download::ReleaseDownloadObject(void)
 		}
 
 	mDownloadObject.Release();
+#else
+		WWDEBUG_SAY(("Releaseing IDownload object unsupported on non-Windows platforms\n"));
+#endif
 	}
 
 
@@ -252,26 +263,26 @@ bool Download::Start(void)
 		}
 
 	// Attempt to create the target path for the download file.
-	const char* localPath = GetLocalPath();
-	int dirCreated = CreateDirectoryA(localPath, nullptr);
+	std::filesystem::path localPath{GetLocalPath()};
 
-	if (!dirCreated && (ERROR_ALREADY_EXISTS != GetLastError()))
+	std::error_code ec;
+	bool dirCreated = std::filesystem::create_directories(localPath, ec);
+
+	if (!dirCreated && ec)
 		{
-		WWDEBUG_SAY(("WOLERROR: Failed to create download directory '%s'\n", localPath));
-		Print_Win32Error(GetLastError());
+		WWDEBUG_SAY(("WOLERROR: Failed to create download directory '%s'\n", localPath.generic_string().c_str()));
+		WWDEBUG_SAY(("Error: %s\n", ec.message().c_str()));
 		SetError(DOWNLOADEVENT_LOCALFILEOPENFAILED, GetOnErrorText(DOWNLOADEVENT_LOCALFILEOPENFAILED));
 		return false;
 		}
 
 	// Generate full pathname for source and target
-	const char* downloadPath = GetDownloadPath();
+	std::filesystem::path downloadPath{GetDownloadPath()};
 	const char* filename = GetFilename();
 
-	StringClass localFile(true);
-	localFile.Format("%s\\%s", localPath, filename);
+	auto localFile = localPath / filename;
 
-	StringClass downloadFile(true);
-	downloadFile.Format("%s\\%s", downloadPath, filename);
+	auto downloadFile = downloadPath / filename;
 
 	// Initiate download of file.
 	const char* server = GetServerName();
@@ -279,13 +290,19 @@ bool Download::Start(void)
 	const char* password = GetPassword();
 	const char* regPath = product->GetRegistryPath();
 
-	WWDEBUG_SAY(("WOL: Downloading '%s' to '%s'\n", (const char*)downloadFile, (const char*)localFile));
-	HRESULT hr = mDownloadObject->DownloadFile(server, login, password, downloadFile, localFile, regPath);
+	WWASSERT(mDownloadObject != nullptr);
+
+	WWDEBUG_SAY(("WOL: Downloading '%s' to '%s'\n", downloadFile.generic_string().c_str(), localFile.generic_string().c_str()));
+	WOL::WOLAPI_RESULT hr = mDownloadObject->DownloadFile(server, login, password, downloadFile.generic_string().c_str(), localFile.generic_string().c_str(), regPath);
 
 	if (FAILED(hr))
 		{
 		WWDEBUG_SAY(("WOLERROR: DownloadFile() HRESULT = %s\n", GetDownloadErrorString(hr)));
+#ifdef _WIN32
 		AtlUnadvise(mDownloadObject, WOL::IID_IDownloadEvent, mDownloadCookie);
+#else
+		WWDEBUG_SAY(("Disconnecting from IDownload not implemented"));
+#endif
 		SetError(DOWNLOADEVENT_COULDNOTCONNECT, GetOnErrorText(DOWNLOADEVENT_COULDNOTCONNECT));
 		return false;
 		}
@@ -549,7 +566,7 @@ void Download::GetProgress(int& bytesRead, int& totalSize, int& timeElapsed, int
 	timeRemaining = mTimeRemaining;
 	}
 
-
+#ifdef _WIN32
 /****************************************************************************
 *
 * NAME
@@ -594,7 +611,7 @@ STDMETHODIMP Download::QueryInterface(const IID& iid, void** ppv)
 *
 ****************************************************************************/
 
-ULONG STDMETHODCALLTYPE Download::AddRef(void)
+ULONG WOLAPI_CALLTYPE Download::AddRef(void)
 	{
 	RefCounted::AddReference();
 	return RefCounted::ReferenceCount();
@@ -615,12 +632,13 @@ ULONG STDMETHODCALLTYPE Download::AddRef(void)
 *
 ****************************************************************************/
 
-ULONG STDMETHODCALLTYPE Download::Release(void)
+ULONG WOLAPI_CALLTYPE Download::Release(void)
 	{
 	ULONG refCount = RefCounted::ReferenceCount();
 	RefCounted::ReleaseReference();
 	return --refCount;
 	}
+#endif
 
 
 /******************************************************************************
@@ -638,7 +656,7 @@ ULONG STDMETHODCALLTYPE Download::Release(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnEnd(void)
+WOLAPI_STDMETHODIMP Download::OnEnd(void)
 	{
 	WWDEBUG_SAY(("WOL: Download End '%s'\n", GetFilename()));
 
@@ -666,7 +684,7 @@ STDMETHODIMP Download::OnEnd(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnError(int error)
+WOLAPI_STDMETHODIMP Download::OnError(int error)
 	{
 	WWDEBUG_SAY(("WOLERROR: Download '%s'\n", GetFilename()));
 
@@ -708,7 +726,7 @@ STDMETHODIMP Download::OnError(int error)
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnProgressUpdate(int bytesRead, int totalSize,
+WOLAPI_STDMETHODIMP Download::OnProgressUpdate(int bytesRead, int totalSize,
 		int timeElapsed, int timeRemaining)
 	{
 	mBytesRead = bytesRead;
@@ -736,7 +754,7 @@ STDMETHODIMP Download::OnProgressUpdate(int bytesRead, int totalSize,
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnQueryResume(void)
+WOLAPI_STDMETHODIMP Download::OnQueryResume(void)
 	{
 	WWDEBUG_SAY(("WOL: Download QueryResume '%s'\n", GetFilename()));
 
@@ -761,7 +779,7 @@ STDMETHODIMP Download::OnQueryResume(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP Download::OnStatusUpdate(int status)
+WOLAPI_STDMETHODIMP Download::OnStatusUpdate(int status)
 	{
 	#ifdef WWDEBUG
 	static const char* _status[] =

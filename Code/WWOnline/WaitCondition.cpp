@@ -110,7 +110,7 @@ WaitCondition::WaitResult WaitCondition::WaitFor(CallbackHook& hook, unsigned in
 	{
 	WaitBeginning();
 
-	DWORD startTime = TIMEGETTIME();
+	unsigned int startTime = TIMEGETTIME();
 
 	while (GetResult() == Waiting)
 		{

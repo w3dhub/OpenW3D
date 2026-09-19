@@ -39,7 +39,12 @@
 #include <assert.h>
 #include <wwdebug/wwdebug.h>
 
-#include <winsock2.h>
+#ifdef _WIN32
+#include <winsock2.h> // htonl, htons
+#else
+#include <arpa/inet.h> // htonl, htons
+#endif
+
 
 namespace WWOnline {
 

@@ -46,10 +46,7 @@
 #include "WOLString.h"
 #include <wwlib/wwstring.h>
 
-namespace WOL
-{
 #include <wolapi/WOLAPI.h>
-}
 
 namespace WWOnline {
 

@@ -38,10 +38,7 @@
 #include <windows.h>
 #include "WOLUser.h"
 
-namespace WOL
-{
 #include <wolapi/WOLAPI.h>
-}
 
 template<typename T> class RefPtr;
 
@@ -68,19 +65,19 @@ class NetUtilObserver :
 		//---------------------------------------------------------------------------
 		// INetUtilEvent Methods
 		//---------------------------------------------------------------------------
-		STDMETHOD(OnPing)(HRESULT hr, int time, unsigned int ip, int handle) override;
+		WOLAPI_STDMETHOD(OnPing)(WOL::WOLAPI_RESULT hr, int time, unsigned int ip, int handle) override;
 
-		STDMETHOD(OnLadderList)(HRESULT hr, WOL::Ladder* list, int count, int time, int keyRung) override;
+		WOLAPI_STDMETHOD(OnLadderList)(WOL::WOLAPI_RESULT hr, WOL::Ladder* list, int count, int time, int keyRung) override;
 
-		STDMETHOD(OnGameresSent)(HRESULT hr) override;
+		WOLAPI_STDMETHOD(OnGameresSent)(WOL::WOLAPI_RESULT hr) override;
 
-		STDMETHOD(OnNewNick)(HRESULT hr, LPCSTR message, LPCSTR nick, LPCSTR pass) override;
+		WOLAPI_STDMETHOD(OnNewNick)(WOL::WOLAPI_RESULT hr, LPCSTR message, LPCSTR nick, LPCSTR pass) override;
 
-		STDMETHOD(OnAgeCheck)(HRESULT hr, int years, int consent) override;
+		WOLAPI_STDMETHOD(OnAgeCheck)(WOL::WOLAPI_RESULT hr, int years, int consent) override;
 
-		STDMETHOD(OnWDTState)(HRESULT hr, unsigned char* state, int length) override;
+		WOLAPI_STDMETHOD(OnWDTState)(WOL::WOLAPI_RESULT hr, unsigned char* state, int length) override;
 
-		STDMETHOD(OnHighscore)(HRESULT hr, WOL::Highscore* list, int count, int time, int keyRung) override;
+		WOLAPI_STDMETHOD(OnHighscore)(WOL::WOLAPI_RESULT hr, WOL::Highscore* list, int count, int time, int keyRung) override;
 
 	protected:
 		virtual ~NetUtilObserver();

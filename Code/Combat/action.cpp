@@ -73,7 +73,7 @@
 #include "gameobjmanager.h"
 
 #include "colmathaabox.h"
-#include "dinput.h"
+#include <dinput.h>
 #include <algorithm>
 
 int _ActionActCalls = 0;

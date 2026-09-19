@@ -96,7 +96,7 @@ using namespace WWOnline;
 #define PATCH_CHECK_FREQUENCY (1000 * 5)
 
 const int RENEGADE_GAMECODE = 12;
-const unichar_t* RENEGADE_LOBBY_PASSWORD = U_CHAR("not_a_valid_password");	// Password removed per Security review requirements. LFeenanEA - 27th January 2025
+const unichar_t* RENEGADE_LOBBY_PASSWORD = U_CHAR("zotclot9");
 
 const unichar_t* Translate_WOLString(const char* token)
 {
