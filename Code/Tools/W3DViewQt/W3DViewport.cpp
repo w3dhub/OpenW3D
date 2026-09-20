@@ -2044,8 +2044,12 @@ bool W3DViewport::setNullLodIncluded(bool enabled)
     }
 
     auto *hlod = static_cast<HLodClass *>(_renderObject);
+    const bool previous = hlod->Is_NULL_Lod_Included();
     hlod->Include_NULL_Lod(enabled);
-    UpdateLodPrototype(*hlod);
+    if (!UpdateLodPrototype(*hlod)) {
+        hlod->Include_NULL_Lod(previous);
+        return false;
+    }
     return true;
 }
 
@@ -2068,8 +2072,13 @@ bool W3DViewport::recordLodScreenArea()
 
     auto *hlod = static_cast<HLodClass *>(_renderObject);
     const float screen_size = _renderObject->Get_Screen_Size(*_camera);
-    hlod->Set_Max_Screen_Size(hlod->Get_LOD_Level(), screen_size);
-    UpdateLodPrototype(*hlod);
+    const int level = hlod->Get_LOD_Level();
+    const float previous = hlod->Get_Max_Screen_Size(level);
+    hlod->Set_Max_Screen_Size(level, screen_size);
+    if (!UpdateLodPrototype(*hlod)) {
+        hlod->Set_Max_Screen_Size(level, previous);
+        return false;
+    }
     return true;
 }
 

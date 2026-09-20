@@ -229,17 +229,13 @@ void BoneManagementDialog::fillBoneItem(QTreeWidgetItem *boneItem, int boneIndex
         return;
     }
 
-    const char *base_name = _baseModel->Get_Base_Model_Name();
-    if (!base_name || !base_name[0]) {
-        base_name = _baseModel->Get_Name();
-    }
-
+    const QByteArray base_name = AggregateBaseModelName(*_baseModel).toLatin1();
     auto *asset_manager = WW3DAssetManager::Get_Instance();
-    if (!asset_manager || !base_name) {
+    if (!asset_manager || base_name.isEmpty()) {
         return;
     }
 
-    RenderObjClass *orig_model = asset_manager->Create_Render_Obj(base_name);
+    RenderObjClass *orig_model = asset_manager->Create_Render_Obj(base_name.constData());
     if (!orig_model) {
         return;
     }

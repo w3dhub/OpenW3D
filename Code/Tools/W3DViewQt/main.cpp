@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "ViewerAssetManager.h"
 
 #include "AnimatedSoundOptionsDialog.h"
 #include "WWAudio.h"
@@ -281,7 +282,7 @@ int main(int argc, char *argv[])
         AnimatedSoundOptionsDialog::LoadAnimatedSoundSettings();
 
         {
-            WW3DAssetManager asset_manager;
+            ViewerAssetManager asset_manager;
             asset_manager.Set_WW3D_Load_On_Demand(true);
             asset_manager.Set_Activate_Fog_On_Load(true);
 

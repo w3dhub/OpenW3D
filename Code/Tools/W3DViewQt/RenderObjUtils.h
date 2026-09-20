@@ -8,7 +8,8 @@ class RingRenderObjClass;
 class SoundRenderObjClass;
 class SphereRenderObjClass;
 
-void UpdateLodPrototype(HLodClass &hlod);
+bool UpdateLodPrototype(HLodClass &hlod);
+QString AggregateBaseModelName(const RenderObjClass &render_obj);
 void UpdateAggregatePrototype(RenderObjClass &render_obj);
 bool RenameAggregatePrototype(const char *old_name, const char *new_name);
 bool UpdateSpherePrototype(SphereRenderObjClass &sphere,

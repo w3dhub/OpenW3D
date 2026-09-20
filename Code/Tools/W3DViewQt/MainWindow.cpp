@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "ViewerAssetManager.h"
 
 #include "RenderObjUtils.h"
 #include "W3DExportUtils.h"
@@ -225,15 +226,12 @@ bool ConvertDistLodPrototype(WW3DAssetManager *asset_manager, const QString &nam
         return false;
     }
 
-    std::unique_ptr<HLodDefClass> definition(
-        new HLodDefClass(*static_cast<HLodClass *>(render_object.get())));
-
-    // The replacement prototype owns only copied definition data. Drop the
-    // temporary instance before deleting the prototype that created it.
-    render_object.reset();
-
     std::unique_ptr<HLodPrototypeClass> replacement(
-        new HLodPrototypeClass(definition.release()));
+        CreateViewerHlodPrototype(*static_cast<HLodClass *>(render_object.get())));
+    if (!replacement) {
+        return false;
+    }
+    render_object.reset();
     asset_manager->Remove_Prototype(name_bytes.constData());
     asset_manager->Add_Prototype(replacement.release());
     return true;
@@ -358,8 +356,7 @@ HLodPrototypeClass *GenerateLodPrototype(const QString &base_name, LodNamingType
 
     const QByteArray base_bytes = base_name.toLatin1();
     auto *new_lod = new HLodClass(base_bytes.constData(), lod_array.data(), lod_count);
-    auto *definition = new HLodDefClass(*new_lod);
-    auto *prototype = new HLodPrototypeClass(definition);
+    auto *prototype = CreateViewerHlodPrototype(*new_lod);
 
     new_lod->Release_Ref();
     for (auto *item : lod_array) {
@@ -850,10 +847,8 @@ W3DViewMainWindow::W3DViewMainWindow(QWidget *parent)
     // has already initialized. This also keeps startup-file loading reliable
     // when the render device is temporarily unavailable.
     if (auto *asset_manager = WW3DAssetManager::Get_Instance()) {
-        asset_manager->Register_Prototype_Loader(&_ParticleEmitterLoader);
         asset_manager->Register_Prototype_Loader(&_RingLoader);
         asset_manager->Register_Prototype_Loader(&_SphereLoader);
-        asset_manager->Register_Prototype_Loader(&_SoundRenderObjLoader);
     }
 
     _ui->setupUi(this);
@@ -4133,7 +4128,7 @@ void W3DViewMainWindow::exportEmitter()
         path,
         W3D_CHUNK_EMITTER,
         [definition](ChunkSaveClass &save_chunk) {
-            return definition->Save_W3D(save_chunk) == WW3D_ERROR_OK;
+            return SaveViewerEmitter(save_chunk, *definition);
         },
         &error_message);
     if (!ok) {
@@ -4203,8 +4198,8 @@ void W3DViewMainWindow::exportLod()
     const bool ok = W3DExportUtils::SaveChunkFileAtomically(
         path,
         W3D_CHUNK_HLOD,
-        [definition](ChunkSaveClass &save_chunk) {
-            return definition->Save(save_chunk) == WW3D_ERROR_OK;
+        [proto](ChunkSaveClass &save_chunk) {
+            return SaveViewerHlod(save_chunk, *proto);
         },
         &error_message);
     if (!ok) {
