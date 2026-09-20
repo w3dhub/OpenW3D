@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "ViewerAssetManager.h"
 #include "AdvancedAnimationDialog.h"
 #include "AnimationPropertiesDialog.h"
 #include "AnimationSettingsDialog.h"
@@ -2293,7 +2294,7 @@ int main(int argc, char **argv)
     WWMath::Init();
     int result = 0;
     {
-        WW3DAssetManager assetManager;
+        ViewerAssetManager assetManager;
         assetManager.Set_WW3D_Load_On_Demand(true);
         MainWindowCommandTests tests;
         result = QTest::qExec(&tests, argc, argv);

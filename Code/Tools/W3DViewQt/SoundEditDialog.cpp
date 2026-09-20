@@ -1,6 +1,7 @@
 #include "SoundEditDialog.h"
 
 #include "PlaySoundDialog.h"
+#include "ViewerAssetManager.h"
 #include "ui_SoundEditDialog.h"
 
 #include "AudibleSound.h"
@@ -47,12 +48,7 @@ SoundEditDialog::SoundEditDialog(SoundRenderObjClass *sound, QWidget *parent)
 {
     _ui->setupUi(this);
 
-    if (sound) {
-        _sound = sound;
-        _sound->Add_Ref();
-    } else {
-        _sound = new SoundRenderObjClass;
-    }
+    _sound = CreateViewerSoundObject(sound);
 
     if (_sound && _sound->Get_Name()) {
         _oldName = QString::fromLatin1(_sound->Get_Name());

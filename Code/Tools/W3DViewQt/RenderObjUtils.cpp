@@ -1,4 +1,5 @@
 #include "RenderObjUtils.h"
+#include "ViewerAssetManager.h"
 
 #include "agg_def.h"
 #include "assetmgr.h"
@@ -14,31 +15,62 @@
 
 #include <memory>
 
-void UpdateLodPrototype(HLodClass &hlod)
+bool UpdateLodPrototype(HLodClass &hlod)
 {
-    auto *definition = new HLodDefClass(hlod);
-    auto *prototype = new HLodPrototypeClass(definition);
-
     auto *asset_manager = WW3DAssetManager::Get_Instance();
     if (!asset_manager) {
-        delete prototype;
-        return;
+        return false;
     }
-
-    asset_manager->Remove_Prototype(definition->Get_Name());
+    auto *original = dynamic_cast<HLodPrototypeClass *>(
+        asset_manager->Find_Prototype(hlod.Get_Name()));
+    auto *prototype = CreateViewerHlodPrototype(hlod, original);
+    if (!prototype) {
+        return false;
+    }
+    asset_manager->Remove_Prototype(prototype->Get_Name());
     asset_manager->Add_Prototype(prototype);
+    return true;
+}
+
+QString AggregateBaseModelName(const RenderObjClass &render_obj)
+{
+    auto *manager = WW3DAssetManager::Get_Instance();
+    const char *name = render_obj.Get_Name();
+    if (manager && name) {
+        auto *prototype = dynamic_cast<AggregatePrototypeClass *>(manager->Find_Prototype(name));
+        if (prototype && prototype->Get_Definition()) {
+            return QString::fromLatin1(prototype->Get_Definition()->Get_Base_Model_Name());
+        }
+    }
+    const char *base = render_obj.Get_Base_Model_Name();
+    return QString::fromLatin1(base && base[0] ? base : (name ? name : ""));
 }
 
 void UpdateAggregatePrototype(RenderObjClass &render_obj)
 {
-    auto *definition = new AggregateDefClass(render_obj);
-    auto *prototype = new AggregatePrototypeClass(definition);
-
     auto *asset_manager = WW3DAssetManager::Get_Instance();
     if (!asset_manager) {
-        delete prototype;
         return;
     }
+
+    // CompositeRenderObjClass's base-name getter currently returns nullptr.
+    // Rebuild against the registered aggregate's original model, otherwise
+    // Initialize would save the aggregate's own name as its base.
+    auto *registered = dynamic_cast<AggregatePrototypeClass *>(
+        asset_manager->Find_Prototype(render_obj.Get_Name()));
+    if (!registered) {
+        return;
+    }
+    const QByteArray base_name = AggregateBaseModelName(render_obj).toLatin1();
+    RenderObjClass *copy = render_obj.Clone();
+    if (!copy) {
+        return;
+    }
+    copy->Set_Name(base_name.constData());
+    auto *definition = new AggregateDefClass(*copy);
+    copy->Release_Ref();
+    definition->Set_Name(render_obj.Get_Name());
+    auto *prototype = new AggregatePrototypeClass(definition);
 
     asset_manager->Remove_Prototype(definition->Get_Name());
     asset_manager->Add_Prototype(prototype);
@@ -192,7 +224,7 @@ bool UpdateSoundPrototype(SoundRenderObjClass &sound,
     }
 
     auto *definition = new SoundRenderObjDefClass(sound);
-    auto prototype = std::make_unique<SoundRenderObjPrototypeClass>(definition);
+    std::unique_ptr<SoundRenderObjPrototypeClass> prototype(CreateViewerSoundPrototype(definition));
     // The prototype retains its own reference to the definition.
     definition->Release_Ref();
 

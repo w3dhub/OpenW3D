@@ -101,9 +101,16 @@ set(W3DVIEW_QT_UI
     TexturePathDialog.ui
 )
 
+add_library(w3dview_qt_asset_io STATIC ViewerAssetManager.cpp ViewerAssetManager.h)
+target_include_directories(w3dview_qt_asset_io PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(w3dview_qt_asset_io
+    PUBLIC w3d_qt_toolkit wwcommon
+    PRIVATE ww3d2 wwlib wwaudio)
+
 add_executable(w3dview_qt WIN32)
 
 target_sources(w3dview_qt PRIVATE ${W3DVIEW_QT_SRC} ${W3DVIEW_QT_UI})
+target_link_libraries(w3dview_qt PRIVATE w3dview_qt_asset_io)
 
 target_include_directories(w3dview_qt
     PRIVATE
@@ -776,7 +783,18 @@ if(BUILD_TESTING)
             "PATH=path_list_prepend:$<TARGET_FILE_DIR:${W3DVIEW_QT_TEST_LIBRARY}>"
     )
 
+    add_executable(w3dview_qt_asset_io_tests tests/ViewerAssetIOTests.cpp RenderObjUtils.cpp)
+    get_target_property(W3DVIEW_QT_LINK_LIBRARIES w3dview_qt LINK_LIBRARIES)
+    target_link_libraries(w3dview_qt_asset_io_tests PRIVATE
+        ${W3DVIEW_QT_LINK_LIBRARIES} ${W3DVIEW_QT_TEST_LIBRARY})
+    set_target_properties(w3dview_qt_asset_io_tests PROPERTIES AUTOMOC ON)
+    add_test(NAME w3dview_qt_asset_io_tests COMMAND w3dview_qt_asset_io_tests)
+    set_tests_properties(w3dview_qt_asset_io_tests PROPERTIES
+        ENVIRONMENT_MODIFICATION
+            "PATH=path_list_prepend:$<TARGET_FILE_DIR:${W3DVIEW_QT_TEST_LIBRARY}>")
+
     set(W3DVIEW_QT_RUNTIME_TESTS
+        w3dview_qt_asset_io_tests
         w3dview_qt_main_window_tests
         w3dview_qt_settings_save_mask_tests
         w3dview_qt_scene_light_tests
@@ -790,6 +808,36 @@ if(BUILD_TESTING)
     )
     if(WIN32 AND W3DVIEW_QT_ENABLE_NATIVE_VIEWPORT_TESTS)
         list(APPEND W3DVIEW_QT_RUNTIME_TESTS w3dview_qt_viewport_fog_tests)
+    endif()
+
+    foreach(viewer_test IN ITEMS w3dview_qt_main_window_tests
+            w3dview_qt_settings_save_mask_tests w3dview_qt_scene_light_tests
+            w3dview_qt_primitive_shader_tests w3dview_qt_viewport_fog_tests
+            w3dview_qt_sound_dialog_tests)
+        if(TARGET ${viewer_test})
+            target_link_libraries(${viewer_test} PRIVATE w3dview_qt_asset_io)
+        endif()
+    endforeach()
+
+    if(WIN32 AND W3DVIEW_QT_ENABLE_NATIVE_VIEWPORT_TESTS)
+        add_executable(w3dview_qt_native_workflow_tests
+            tests/ViewerNativeWorkflowTests.cpp
+            ${W3DVIEW_QT_MAIN_WINDOW_TEST_SRC} ${W3DVIEW_QT_UI})
+        get_target_property(W3DVIEW_QT_NATIVE_INCLUDES w3dview_qt_main_window_tests INCLUDE_DIRECTORIES)
+        get_target_property(W3DVIEW_QT_NATIVE_LIBRARIES w3dview_qt_main_window_tests LINK_LIBRARIES)
+        target_include_directories(w3dview_qt_native_workflow_tests PRIVATE ${W3DVIEW_QT_NATIVE_INCLUDES})
+        target_link_libraries(w3dview_qt_native_workflow_tests PRIVATE
+            ${W3DVIEW_QT_NATIVE_LIBRARIES} w3dview_qt_asset_io)
+        set_target_properties(w3dview_qt_native_workflow_tests PROPERTIES
+            AUTOMOC ON AUTOUIC ON AUTORCC ON)
+        add_test(NAME w3dview_qt_native_workflow_tests COMMAND w3dview_qt_native_workflow_tests
+            -o native-workflows.txt,txt)
+        set_tests_properties(w3dview_qt_native_workflow_tests PROPERTIES
+            ENVIRONMENT "QT_QPA_PLATFORM=windows;ALSOFT_DRIVERS=null"
+            ENVIRONMENT_MODIFICATION
+                "PATH=path_list_prepend:$<TARGET_FILE_DIR:${W3DVIEW_QT_TEST_LIBRARY}>"
+            LABELS "native" TIMEOUT 90)
+        list(APPEND W3DVIEW_QT_RUNTIME_TESTS w3dview_qt_native_workflow_tests)
     endif()
 
     # PATH locates the Qt DLLs. Set the matching plugin root as well so GUI tests
