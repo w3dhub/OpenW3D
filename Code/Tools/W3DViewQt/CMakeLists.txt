@@ -266,7 +266,8 @@ if(BUILD_TESTING)
         AUTOUIC ON
     )
 
-    add_test(NAME w3dview_qt_main_window_tests COMMAND w3dview_qt_main_window_tests)
+    add_test(NAME w3dview_qt_main_window_tests COMMAND w3dview_qt_main_window_tests
+        -o main-window-tests.txt,txt -o -,txt)
     set_tests_properties(w3dview_qt_main_window_tests PROPERTIES
         ENVIRONMENT "${W3DVIEW_QT_AUDIO_TEST_ENVIRONMENT}"
         ENVIRONMENT_MODIFICATION
@@ -429,7 +430,8 @@ if(BUILD_TESTING)
             AUTOMOC ON
         )
 
-        add_test(NAME w3dview_qt_viewport_fog_tests COMMAND w3dview_qt_viewport_fog_tests)
+        add_test(NAME w3dview_qt_viewport_fog_tests COMMAND w3dview_qt_viewport_fog_tests
+            -o viewport-fog-tests.txt,txt -o -,txt)
         set_tests_properties(w3dview_qt_viewport_fog_tests PROPERTIES
             ENVIRONMENT "QT_QPA_PLATFORM=windows"
             ENVIRONMENT_MODIFICATION
@@ -793,7 +795,29 @@ if(BUILD_TESTING)
         ENVIRONMENT_MODIFICATION
             "PATH=path_list_prepend:$<TARGET_FILE_DIR:${W3DVIEW_QT_TEST_LIBRARY}>")
 
+    add_library(w3dview_qt_test_assets STATIC
+        tests/ExternalTestAssets.cpp tests/ExternalTestAssets.h)
+    target_include_directories(w3dview_qt_test_assets PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+    target_link_libraries(w3dview_qt_test_assets
+        PUBLIC w3d_qt_toolkit wwcommon PRIVATE wwlib)
+    target_link_libraries(w3dview_qt_main_window_tests PRIVATE w3dview_qt_test_assets)
+    set_property(TEST w3dview_qt_main_window_tests APPEND PROPERTY LABELS external-assets)
+    if(TARGET w3dview_qt_viewport_fog_tests)
+        target_link_libraries(w3dview_qt_viewport_fog_tests PRIVATE w3dview_qt_test_assets)
+        set_property(TEST w3dview_qt_viewport_fog_tests APPEND PROPERTY LABELS external-assets)
+    endif()
+
+    add_executable(w3dview_qt_external_assets_tests tests/ExternalTestAssetsTests.cpp)
+    target_link_libraries(w3dview_qt_external_assets_tests PRIVATE
+        w3dview_qt_test_assets ${W3DVIEW_QT_LINK_LIBRARIES} ${W3DVIEW_QT_TEST_LIBRARY})
+    set_target_properties(w3dview_qt_external_assets_tests PROPERTIES AUTOMOC ON)
+    add_test(NAME w3dview_qt_external_assets_tests COMMAND w3dview_qt_external_assets_tests)
+    set_tests_properties(w3dview_qt_external_assets_tests PROPERTIES
+        ENVIRONMENT_MODIFICATION
+            "PATH=path_list_prepend:$<TARGET_FILE_DIR:${W3DVIEW_QT_TEST_LIBRARY}>")
+
     set(W3DVIEW_QT_RUNTIME_TESTS
+        w3dview_qt_external_assets_tests
         w3dview_qt_asset_io_tests
         w3dview_qt_main_window_tests
         w3dview_qt_settings_save_mask_tests

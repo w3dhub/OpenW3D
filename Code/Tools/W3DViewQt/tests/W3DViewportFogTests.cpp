@@ -1,4 +1,5 @@
 #include "W3DViewport.h"
+#include "ExternalTestAssets.h"
 
 #include "assetmgr.h"
 #include "ffactory.h"
@@ -53,17 +54,6 @@ public:
 private:
     StringClass _original;
 };
-
-QString firstExisting(const QDir &root, std::initializer_list<const char *> relativePaths)
-{
-    for (const char *relativePath : relativePaths) {
-        const QString path = root.filePath(QString::fromLatin1(relativePath));
-        if (QFileInfo::exists(path)) {
-            return QFileInfo(path).absoluteFilePath();
-        }
-    }
-    return {};
-}
 
 QString captureFrame(W3DViewport &viewport, const QString &outputDirectory, const QString &name)
 {
@@ -159,10 +149,14 @@ double meanPixelDifference(const QByteArray &first, const QByteArray &second)
 class W3DViewportFogTests final : public QObject
 {
     Q_OBJECT
+public:
+    explicit W3DViewportFogTests(ExternalTestAssets &assets) : _externalAssets(assets) {}
 
 private slots:
     void manualClipPlanesRecalculateFogRange();
     void appliedBackgroundsProduceDistinctFrames();
+private:
+    ExternalTestAssets &_externalAssets;
 };
 
 void W3DViewportFogTests::manualClipPlanesRecalculateFogRange()
@@ -257,22 +251,19 @@ void W3DViewportFogTests::appliedBackgroundsProduceDistinctFrames()
 #ifndef _WIN32
     QSKIP("The applied-background regression requires Windows and Direct3D.");
 #else
-    const QString externalRootPath = qEnvironmentVariable("W3DVIEW_EXTERNAL_ASSET_DIR");
-    if (externalRootPath.isEmpty()) {
-        QSKIP("Set W3DVIEW_EXTERNAL_ASSET_DIR to run the external applied-background regression.");
+    if (!_externalAssets.configured()) {
+        QSKIP("Set W3DVIEW_GAME_DIR or W3DVIEW_EXTERNAL_ASSET_DIR to run the external applied-background regression.");
     }
     if (QGuiApplication::platformName().compare(QStringLiteral("windows"),
                                                 Qt::CaseInsensitive) != 0) {
         QSKIP("The applied-background regression requires the Qt Windows platform plugin.");
     }
 
-    const QDir externalRoot(externalRootPath);
-    const QString bitmapPath = firstExisting(
-        externalRoot, {"textures/mct_screen-fx.tga", "Always/mct_screen-fx.tga"});
-    const QString modelPath = firstExisting(
-        externalRoot, {"w3d/c_chicken.w3d", "Always/c_chicken.w3d"});
-    QVERIFY2(!bitmapPath.isEmpty(), "The supplied mct_screen-fx.tga was not found.");
-    QVERIFY2(!modelPath.isEmpty(), "The supplied c_chicken.w3d was not found.");
+    qInfo().noquote() << "External asset archives:" << _externalAssets.archives().join('\n');
+    const QString bitmapPath = _externalAssets.filePath("mct_screen-fx.tga");
+    QVERIFY2(!bitmapPath.isEmpty(), qPrintable(_externalAssets.error()));
+    const QString modelPath = _externalAssets.filePath("c_chicken.w3d");
+    QVERIFY2(!modelPath.isEmpty(), qPrintable(_externalAssets.error()));
 
     // This dump's mct_screen-fx.tga contains BMP bytes. Preserve the source and
     // stage a valid uncompressed TGA for the legacy extension-driven loader.
@@ -300,8 +291,6 @@ void W3DViewportFogTests::appliedBackgroundsProduceDistinctFrames()
     FileFactorySearchPathGuard searchPaths;
     searchPaths.append(QFileInfo(bitmapPath).absolutePath());
     searchPaths.append(QFileInfo(modelPath).absolutePath());
-    searchPaths.append(externalRoot.filePath("textures"));
-    searchPaths.append(externalRoot.filePath("Always"));
 
     auto *assetManager = WW3DAssetManager::Get_Instance();
     QVERIFY(assetManager);
@@ -374,12 +363,18 @@ int main(int argc, char **argv)
 
     int result = 0;
     {
-        WW3DAssetManager assetManager;
-        assetManager.Set_WW3D_Load_On_Demand(true);
-        assetManager.Set_Activate_Fog_On_Load(true);
+        ExternalTestAssets assets;
+        if (!assets.initialize()) {
+            qCritical().noquote() << assets.error();
+            result = 1;
+        } else {
+            WW3DAssetManager assetManager;
+            assetManager.Set_WW3D_Load_On_Demand(true);
+            assetManager.Set_Activate_Fog_On_Load(true);
 
-        W3DViewportFogTests tests;
-        result = QTest::qExec(&tests, argc, argv);
+            W3DViewportFogTests tests(assets);
+            result = QTest::qExec(&tests, argc, argv);
+        }
     }
 
     WWMath::Shutdown();
