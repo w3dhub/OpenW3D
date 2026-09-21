@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "ExternalTestAssets.h"
 #include "ViewerAssetManager.h"
 #include "AdvancedAnimationDialog.h"
 #include "AnimationPropertiesDialog.h"
@@ -75,6 +76,41 @@ QStringList toStringList(std::initializer_list<const char *> values)
         result.append(QString::fromLatin1(value));
     }
     return result;
+}
+
+// Older emitters omit the optional line chunk. The viewer writes it explicitly;
+// allow exactly that default addition while retaining every original chunk byte.
+QByteArray withDefaultEmitterLineProperties(QByteArray bytes)
+{
+    if (bytes.size() < sizeof(ChunkHeader)) return {};
+    ChunkHeader root;
+    std::memcpy(&root, bytes.constData(), sizeof(root));
+    if (root.ChunkType != W3D_CHUNK_EMITTER
+        || root.Get_Size() != bytes.size() - sizeof(root)) return {};
+    qsizetype insertion = -1;
+    bool hasLineProperties = false;
+    for (qsizetype offset = sizeof(root); offset < bytes.size();) {
+        if (bytes.size() - offset < sizeof(ChunkHeader)) return {};
+        ChunkHeader child;
+        std::memcpy(&child, bytes.constData() + offset, sizeof(child));
+        const qsizetype length = sizeof(child) + child.Get_Size();
+        if (length > bytes.size() - offset) return {};
+        if (child.ChunkType == W3D_CHUNK_EMITTER_LINE_PROPERTIES)
+            hasLineProperties = true;
+        if (child.ChunkType == W3D_CHUNK_EMITTER_PROPS)
+            insertion = offset + length;
+        offset += length;
+    }
+    if (hasLineProperties) return bytes;
+    if (insertion < 0) return {};
+    const W3dEmitterLinePropertiesStruct defaults{};
+    const ChunkHeader line(W3D_CHUNK_EMITTER_LINE_PROPERTIES, sizeof(defaults));
+    QByteArray addition(reinterpret_cast<const char *>(&line), sizeof(line));
+    addition.append(reinterpret_cast<const char *>(&defaults), sizeof(defaults));
+    bytes.insert(insertion, addition);
+    root.Add_Size(static_cast<uint32>(addition.size()));
+    std::memcpy(bytes.data(), &root, sizeof(root));
+    return bytes;
 }
 
 QStringList commandIds(const QList<QAction *> &actions)
@@ -310,6 +346,8 @@ private:
 class MainWindowCommandTests final : public QObject
 {
     Q_OBJECT
+public:
+    explicit MainWindowCommandTests(ExternalTestAssets &assets) : _externalAssets(assets) {}
 
 private slots:
     void initTestCase();
@@ -341,12 +379,15 @@ private:
                         std::initializer_list<const char *> expected) const;
     QModelIndex findRootItem(const QString &prefix) const;
 
+    ExternalTestAssets &_externalAssets;
     std::unique_ptr<QTemporaryDir> _settingsDirectory;
     std::unique_ptr<W3DViewMainWindow> _window;
 };
 
 void MainWindowCommandTests::initTestCase()
 {
+    if (_externalAssets.configured())
+        qInfo().noquote() << "External asset archives:" << _externalAssets.archives().join('\n');
     _settingsDirectory = std::make_unique<QTemporaryDir>();
     QVERIFY2(_settingsDirectory->isValid(), "Could not create an isolated settings directory");
 
@@ -1509,9 +1550,8 @@ void MainWindowCommandTests::generatedHierarchyAnimationFixture()
 
 void MainWindowCommandTests::externalAnimationAssetBundle()
 {
-    const QString assetDirectory = qEnvironmentVariable("W3DVIEW_EXTERNAL_ASSET_DIR");
-    if (assetDirectory.isEmpty()) {
-        QSKIP("Set W3DVIEW_EXTERNAL_ASSET_DIR to run the real-asset animation integration test");
+    if (!_externalAssets.configured()) {
+        QSKIP("Set W3DVIEW_GAME_DIR or W3DVIEW_EXTERNAL_ASSET_DIR to run the real-asset animation integration test");
     }
     [[maybe_unused]] CurrentDirectoryRestorer restoreCurrentDirectory;
 
@@ -1525,8 +1565,8 @@ void MainWindowCommandTests::externalAnimationAssetBundle()
         "h_a_cresentkick.w3d",
     };
     for (const QString &name : assetNames) {
-        const QString path = QDir(assetDirectory).filePath(name);
-        QVERIFY2(QFileInfo::exists(path), qPrintable(QString("Missing integration asset: %1").arg(path)));
+        const QString path = _externalAssets.filePath(name);
+        QVERIFY2(!path.isEmpty(), qPrintable(_externalAssets.error()));
         QVERIFY2(_window->openFilePath(path), qPrintable(QString("Failed to load integration asset: %1").arg(path)));
     }
 
@@ -1579,9 +1619,8 @@ void MainWindowCommandTests::externalAnimationAssetBundle()
 
 void MainWindowCommandTests::externalRealAssetBundle()
 {
-    const QString assetDirectory = qEnvironmentVariable("W3DVIEW_EXTERNAL_ASSET_DIR");
-    if (assetDirectory.isEmpty()) {
-        QSKIP("Set W3DVIEW_EXTERNAL_ASSET_DIR to run the real aggregate, sound, emitter, "
+    if (!_externalAssets.configured()) {
+        QSKIP("Set W3DVIEW_GAME_DIR or W3DVIEW_EXTERNAL_ASSET_DIR to run the real aggregate, sound, emitter, "
               "sphere, ring, and HLOD integration test");
     }
     [[maybe_unused]] CurrentDirectoryRestorer restoreCurrentDirectory;
@@ -1610,9 +1649,8 @@ void MainWindowCommandTests::externalRealAssetBundle()
         "xg_ionc_shock1.w3d",
     };
     for (const QString &name : assetNames) {
-        const QString path = QDir(assetDirectory).filePath(name);
-        QVERIFY2(QFileInfo::exists(path),
-                 qPrintable(QString("Missing integration asset: %1").arg(path)));
+        const QString path = _externalAssets.filePath(name);
+        QVERIFY2(!path.isEmpty(), qPrintable(_externalAssets.error()));
         QVERIFY2(_window->openFilePath(path),
                  qPrintable(QString("Failed to load integration asset: %1").arg(path)));
     }
@@ -1621,9 +1659,8 @@ void MainWindowCommandTests::externalRealAssetBundle()
     // each prototype. The native application owns an initialized audio
     // singleton, while this offscreen test intentionally does not initialize
     // audio or Direct3D, so load the sound definition directly.
-    const QString soundSource = QDir(assetDirectory).filePath("a10_loop.w3d");
-    QVERIFY2(QFileInfo::exists(soundSource),
-             qPrintable(QString("Missing integration asset: %1").arg(soundSource)));
+    const QString soundSource = _externalAssets.filePath("a10_loop.w3d");
+    QVERIFY2(!soundSource.isEmpty(), qPrintable(_externalAssets.error()));
     const QByteArray soundSourceNative =
         QDir::toNativeSeparators(soundSource).toLocal8Bit();
     QVERIFY(assetManager->Load_3D_Assets(soundSourceNative.constData()));
@@ -1781,22 +1818,21 @@ void MainWindowCommandTests::externalRealAssetBundle()
                  emitterFirst,
                  W3D_CHUNK_EMITTER,
                  [emitterDefinition](ChunkSaveClass &save) {
-                     return emitterDefinition->Save_W3D(save) == WW3D_ERROR_OK;
+                     return SaveViewerEmitter(save, *emitterDefinition);
                  }),
              qPrintable(exportError));
-    ParticleEmitterDefClass reloadedEmitter;
-    QVERIFY(loadSingleDefinition(
-        emitterFirst,
-        W3D_CHUNK_EMITTER,
-        [&reloadedEmitter](ChunkLoadClass &load) {
-            return reloadedEmitter.Load_W3D(load) == WW3D_ERROR_OK;
-        }));
-    QCOMPARE(QString::fromLatin1(reloadedEmitter.Get_Name()), QString("e_flare02"));
+    // Reload through the viewer's registered loader, including its line-property fix.
+    assetManager->Remove_Prototype("e_flare02");
+    QVERIFY(assetManager->Load_3D_Assets(QFile::encodeName(emitterFirst).constData()));
+    auto *reloadedEmitter = dynamic_cast<ParticleEmitterPrototypeClass *>(
+        assetManager->Find_Prototype("e_flare02"));
+    QVERIFY(reloadedEmitter);
+    QCOMPARE(QString::fromLatin1(reloadedEmitter->Get_Name()), QString("e_flare02"));
     QVERIFY2(saveAtomically(
                  emitterSecond,
                  W3D_CHUNK_EMITTER,
-                 [&reloadedEmitter](ChunkSaveClass &save) {
-                     return reloadedEmitter.Save_W3D(save) == WW3D_ERROR_OK;
+                 [reloadedEmitter](ChunkSaveClass &save) {
+                     return SaveViewerEmitter(save, *reloadedEmitter->Get_Definition());
                  }),
              qPrintable(exportError));
 
@@ -1845,38 +1881,40 @@ void MainWindowCommandTests::externalRealAssetBundle()
     QVERIFY2(saveAtomically(
                  lodFirst,
                  W3D_CHUNK_HLOD,
-                 [lodDefinition](ChunkSaveClass &save) {
-                     return lodDefinition->Save(save) == WW3D_ERROR_OK;
+                 [lodPrototype](ChunkSaveClass &save) {
+                     return SaveViewerHlod(save, *lodPrototype);
                  }),
              qPrintable(exportError));
-    HLodDefClass reloadedLod;
-    QVERIFY(loadSingleDefinition(
-        lodFirst,
-        W3D_CHUNK_HLOD,
-        [&reloadedLod](ChunkLoadClass &load) {
-            return reloadedLod.Load_W3D(load) == WW3D_ERROR_OK;
-        }));
-    QCOMPARE(QString::fromLatin1(reloadedLod.Get_Name()), QString("C_NOD_SK_"));
+    assetManager->Remove_Prototype("C_NOD_SK_");
+    QVERIFY(assetManager->Load_3D_Assets(QFile::encodeName(lodFirst).constData()));
+    auto *reloadedLod = dynamic_cast<HLodPrototypeClass *>(
+        assetManager->Find_Prototype("C_NOD_SK_"));
+    QVERIFY(reloadedLod);
+    QCOMPARE(QString::fromLatin1(reloadedLod->Get_Name()), QString("C_NOD_SK_"));
     QVERIFY2(saveAtomically(
                  lodSecond,
                  W3D_CHUNK_HLOD,
-                 [&reloadedLod](ChunkSaveClass &save) {
-                     return reloadedLod.Save(save) == WW3D_ERROR_OK;
+                 [reloadedLod](ChunkSaveClass &save) {
+                     return SaveViewerHlod(save, *reloadedLod);
                  }),
              qPrintable(exportError));
 
     QCOMPARE(fileBytes(aggregateSecond), fileBytes(aggregateFirst));
     QCOMPARE(fileBytes(soundSecond), fileBytes(soundFirst));
+    const QByteArray expectedEmitter = withDefaultEmitterLineProperties(
+        fileBytes(_externalAssets.filePath("e_flare02.w3d")));
+    QVERIFY(!expectedEmitter.isEmpty());
+    QCOMPARE(fileBytes(emitterFirst), expectedEmitter);
+    QCOMPARE(fileBytes(emitterSecond), fileBytes(emitterFirst));
 
     const struct {
         QString source;
         QString first;
         QString second;
     } byteStableExports[] = {
-        {QDir(assetDirectory).filePath("xg_ionc_shock0.w3d"), sphereFirst, sphereSecond},
-        {QDir(assetDirectory).filePath("xg_ionc_shock1.w3d"), ringFirst, ringSecond},
-        {QDir(assetDirectory).filePath("c_nod_sk_.w3d"), lodFirst, lodSecond},
-        {QDir(assetDirectory).filePath("e_flare02.w3d"), emitterFirst, emitterSecond},
+        {_externalAssets.filePath("xg_ionc_shock0.w3d"), sphereFirst, sphereSecond},
+        {_externalAssets.filePath("xg_ionc_shock1.w3d"), ringFirst, ringSecond},
+        {_externalAssets.filePath("c_nod_sk_.w3d"), lodFirst, lodSecond},
     };
     for (const auto &exportPaths : byteStableExports) {
         const QByteArray sourceBytes = fileBytes(exportPaths.source);
@@ -1929,9 +1967,8 @@ void MainWindowCommandTests::externalRealAssetBundle()
                  "OpenAL did not create any 2D sources; ensure a playback device or "
                  "ALSOFT_DRIVERS=null is available");
         const QString streamingPath =
-            QDir(assetDirectory).filePath("elie_bounce_1.l.wav");
-        QVERIFY2(QFileInfo::exists(streamingPath),
-                 "The supplied large WAV needed for OpenAL 3D streaming is missing");
+            _externalAssets.filePath("elie_bounce_1.l.wav");
+        QVERIFY2(!streamingPath.isEmpty(), qPrintable(_externalAssets.error()));
         QVERIFY2(QFileInfo(streamingPath).size() > DEF_MAX_3D_BUFFER_SIZE * 2,
                  "The supplied WAV does not cross OpenAL's 3D streaming threshold");
         std::unique_ptr<Sound3DClass, ReleaseRef<Sound3DClass>> streamingSound(
@@ -2051,14 +2088,8 @@ void MainWindowCommandTests::externalRealAssetBundle()
     const QString commandEmitter =
         exportThroughMainWindow("Emitter", "e_flare02", "actionExportEmitter");
     QVERIFY2(!commandEmitter.isEmpty(), qPrintable(commandExportFailure));
-    ParticleEmitterDefClass commandEmitterDefinition;
-    QVERIFY(loadSingleDefinition(
-        commandEmitter,
-        W3D_CHUNK_EMITTER,
-        [&commandEmitterDefinition](ChunkLoadClass &load) {
-            return commandEmitterDefinition.Load_W3D(load) == WW3D_ERROR_OK;
-        }));
-    QCOMPARE(QString::fromLatin1(commandEmitterDefinition.Get_Name()), QString("e_flare02"));
+    // The same bytes have already been reloaded with the viewer loader above.
+    QCOMPARE(fileBytes(commandEmitter), fileBytes(emitterFirst));
 
     const QString commandLod =
         exportThroughMainWindow("H-LOD", "C_NOD_SK_", "actionExportLod");
@@ -2220,7 +2251,7 @@ void MainWindowCommandTests::externalRealAssetBundle()
         QCOMPARE(maxVolume->value(), 20.0);
 
         const QString soundPreviewPath =
-            QDir(assetDirectory).filePath("aircraft_jet_a10_loop_1.wav");
+            _externalAssets.filePath("aircraft_jet_a10_loop_1.wav");
         QVERIFY(QFileInfo::exists(soundPreviewPath));
         fileEdit->setText(QDir::toNativeSeparators(soundPreviewPath));
 
@@ -2294,10 +2325,16 @@ int main(int argc, char **argv)
     WWMath::Init();
     int result = 0;
     {
-        ViewerAssetManager assetManager;
-        assetManager.Set_WW3D_Load_On_Demand(true);
-        MainWindowCommandTests tests;
-        result = QTest::qExec(&tests, argc, argv);
+        ExternalTestAssets assets;
+        if (!assets.initialize()) {
+            qCritical().noquote() << assets.error();
+            result = 1;
+        } else {
+            ViewerAssetManager assetManager;
+            assetManager.Set_WW3D_Load_On_Demand(true);
+            MainWindowCommandTests tests(assets);
+            result = QTest::qExec(&tests, argc, argv);
+        }
     }
     WWMath::Shutdown();
     return result;

@@ -40,13 +40,23 @@ game assets.
 Windows x64 Release, Visual Studio 2022, Qt 6.8.2, Direct3D, OpenAL Soft null output:
 
 - Viewer and all registered test executables built successfully.
-- All 19 registered CTest tests passed, including the two native suites and all
-  28 Designer forms.
-- The asset round-trip suite and native workflow suite also passed with MSVC
-  AddressSanitizer.
-- The existing main-window suite passed 19 cases; its two optional external-asset
-  cases were skipped. The native fog suite passed its generated-scene case;
-  its optional external-background case was skipped.
+- All 20 registered CTest tests passed with the Steam Renegade Data directory
+  enabled, including the two native suites, generated MIX archive coverage,
+  and all 28 Designer forms.
+- The asset round-trip, native workflow, and generated MIX archive suites passed
+  with MSVC AddressSanitizer. The main-window suite also passed all 21 cases under
+  AddressSanitizer with the Steam archives enabled.
+- The native fog/background sanitizer run with the Steam archives exposed an
+  existing shared-engine issue during viewport initialization: `strtrim` calls
+  `strcpy` with overlapping source/destination ranges while parsing `DAZZLE.INI`
+  (`Code/wwlib/trim.cpp:71`). That run did not reach the background assertions.
+  The corresponding Release suite passed; the sanitizer finding remains open.
+- The main-window suite passed 21 cases, including real-asset animation,
+  editing/export, sound preview, and streaming audio. The native fog/background
+  suite passed 4 cases. Neither suite skipped a case.
+- Legacy emitter exports may add the previously absent default line-properties
+  chunk. The real-asset check requires every original chunk byte to be retained
+  and an identical second export through the viewer's loaders.
 - Qt runtime deployment completed with `windeployqt`.
 
 The broader existing regression suites cover menus/action wiring, animation
@@ -58,9 +68,27 @@ Build and native-test commands are in [README.md](README.md). Detailed native
 results are written to `Code/Tools/W3DViewQt/native-workflows.txt` under the build
 directory.
 
+## Testing from a game installation
+
+Set `W3DVIEW_GAME_DIR` to the installation root or its `Data` folder and run
+CTest with `-L external-assets -V` to enable the three external-asset cases.
+The tests discover the Always archives and MIX files, load engine dependencies
+directly from them, and temporarily stage individual files required by Qt.
+The game installation is not modified. Extracted-asset directories remain
+supported through `W3DVIEW_EXTERNAL_ASSET_DIR`.
+
+`ExternalTestAssetsTests` checks install-root/Data discovery, multiple archives,
+loose-file and Always override priority, case-insensitive archive lookup,
+large-file staging, direct engine loading of an archived W3D hierarchy,
+missing/invalid inputs, factory restoration, and temporary-file cleanup.
+These checks use generated archives; they do not constitute validation against
+a real game installation. Commands and lookup details are in [README.md](README.md).
+
 ## Validation limits
 
-The optional tests that require a specific Renegade asset bundle were not run in
-this pass. Physical speaker output was not checked; playback, source gain,
+All three external-asset cases passed in Release against the installed Steam
+edition's archives. The native sanitizer run still requires a separate shared-engine
+fix for the INI trimming issue described above. Physical speaker output was not
+checked; playback, source gain,
 attenuation, and culling were checked against OpenAL Soft's null driver. These
 automated results do not claim a fresh manual review of every asset or UI gesture.

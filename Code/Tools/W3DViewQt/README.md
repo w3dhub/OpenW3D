@@ -15,7 +15,7 @@ From the repository root in a Visual Studio 2022 x64 developer environment:
 ```powershell
 $env:VCPKG_ROOT = 'C:\path\to\vcpkg'
 cmake --preset windows-qt-tools -B build/w3dview-qt
-cmake --build build/w3dview-qt --config Release --target w3dview_qt w3dview_qt_asset_io_tests w3dview_qt_main_window_tests w3dview_qt_settings_save_mask_tests w3dview_qt_scene_light_tests w3dview_qt_emitter_edit_tests w3dview_qt_primitive_shader_tests w3dview_qt_background_object_dialog_tests w3dview_qt_sound_dialog_tests w3dview_qt_resolution_dialog_tests w3dview_qt_export_directory_dialog_tests w3dview_qt_export_utils_tests
+cmake --build build/w3dview-qt --config Release --target w3dview_qt w3dview_qt_asset_io_tests w3dview_qt_external_assets_tests w3dview_qt_main_window_tests w3dview_qt_settings_save_mask_tests w3dview_qt_scene_light_tests w3dview_qt_emitter_edit_tests w3dview_qt_primitive_shader_tests w3dview_qt_background_object_dialog_tests w3dview_qt_sound_dialog_tests w3dview_qt_resolution_dialog_tests w3dview_qt_export_directory_dialog_tests w3dview_qt_export_utils_tests
 ctest --test-dir build/w3dview-qt -C Release --output-on-failure
 ```
 
@@ -55,3 +55,43 @@ The detailed native workflow report is written to `native-workflows.txt` in
 the build's `Code/Tools/W3DViewQt` directory. Audio uses OpenAL Soft's null
 output driver. This tests playback state, source gain, and listener-driven
 culling without requiring speakers.
+
+## Test with an installed game
+
+The external-asset tests can read a Renegade installation directly. Enable and
+build the native tests using the commands above, then set one directory:
+
+```powershell
+$env:W3DVIEW_GAME_DIR = 'C:\Games\Renegade'
+ctest --test-dir build/w3dview-qt -C Release -L external-assets -V
+```
+
+The directory may be the installation root or its `Data` folder. The tests
+discover `Always2.dat`, `Always.dbs`, `Always.dat`, and `*.mix` in that
+folder and `Data`. Loose files take precedence; archive lookup uses the
+listed Always order followed by MIX files in filename order. Dependencies such
+as textures and audio are read through the engine's archive reader. Files needed
+by Qt's filesystem APIs are copied individually into a temporary directory and
+removed after the test process finishes. Game files and archives are not changed.
+
+This enables the animation, real-asset loading/export, and native-background
+cases that otherwise skip. The logs list the archives used and identify missing
+required assets. Detailed reports are saved as `main-window-tests.txt` and
+`viewport-fog-tests.txt` under the build's `Code/Tools/W3DViewQt` directory.
+These cases expect the original Renegade asset names and data; a mod-only
+installation may not contain them. A configured but invalid directory
+or incomplete installation fails the tests instead of silently skipping them.
+
+`W3DVIEW_EXTERNAL_ASSET_DIR` still supports extracted assets (flat folders,
+`Always/`, or `w3d/` and `textures/`). `W3DVIEW_GAME_DIR` takes precedence
+when both are set. Unset it to return to the default generated-fixture run:
+
+```powershell
+Remove-Item Env:W3DVIEW_GAME_DIR -ErrorAction SilentlyContinue
+```
+
+The `w3dview_qt_external_assets_tests` suite verifies the archive lookup with
+generated MIX files and requires no installed game. CTest audio checks still use
+the null output driver; audible speaker/headphone validation remains a manual
+check. This option applies to the tests; it does not add archive browsing to the
+viewer UI.
