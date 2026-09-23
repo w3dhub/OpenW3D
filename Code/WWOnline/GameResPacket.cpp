@@ -216,7 +216,7 @@ unsigned char* GameResPacket::Create_Comms_Packet(unsigned int& size, char* sig_
 			// If sig_offset isn't zero then that would indicate that there were multiple sig entries in the packet.
 			assert(sig_offset == 0);
 			std::ptrdiff_t offset = curbuf - bufferStart;
-			assert(offset >= 0 && offset <= static_cast<ptrdiff_t>(std::numeric_limits<unsigned long>::max()));
+			assert(offset >= 0 && offset <= static_cast<std::ptrdiff_t>(std::numeric_limits<unsigned long>::max()));
 			sig_offset = static_cast<unsigned long>(offset);
 			}
 

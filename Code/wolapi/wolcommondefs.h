@@ -8,6 +8,6 @@
 #define WOLAPI_FACILITY_ITF 4
 
 #define WOLAPI_MAKE_HRESULT(sev,fac,code) \
-	((WOL::WOLAPI_RESULT) (((unsigned long)(sev)<<31) | ((unsigned long)(fac)<<16) | ((unsigned long)(code))) )
+	((WOL::WOLAPI_RESULT) (((unsigned int)(sev)<<31) | ((unsigned int)(fac)<<16) | ((unsigned int)(code))) )
 
 #endif /* WOLAPI_COMMAONDEFS_H */
