@@ -107,13 +107,13 @@ void MainWindow::buildUi()
 void MainWindow::buildMenus()
 {
     auto *fileMenu = menuBar()->addMenu(tr("&File"));
-    auto *openAction = fileMenu->addAction(tr("&Open..."), this, &MainWindow::openFileDialog, QKeySequence::Open);
+    auto *openAction = fileMenu->addAction(tr("&Open..."), QKeySequence::Open, this, &MainWindow::openFileDialog);
 
     _recentMenu = fileMenu->addMenu(tr("Recent File"));
     updateRecentFilesMenu();
 
     fileMenu->addSeparator();
-    fileMenu->addAction(tr("E&xit"), this, &QWidget::close, QKeySequence::Quit);
+    fileMenu->addAction(tr("E&xit"), QKeySequence::Quit, this, &QWidget::close);
 
     auto *viewMenu = menuBar()->addMenu(tr("&View"));
     auto *toolbarAction = viewMenu->addAction(tr("&Toolbar"));
@@ -126,8 +126,8 @@ void MainWindow::buildMenus()
     viewMenu->addAction(tr("S&plit"), this, &MainWindow::splitViews);
 
     auto *toolsMenu = menuBar()->addMenu(tr("&Tools"));
-    toolsMenu->addAction(tr("Find..."), this, &MainWindow::openFindDialog, QKeySequence::Find);
-    _findNextAction = toolsMenu->addAction(tr("Find Next"), this, &MainWindow::findNext, QKeySequence(Qt::Key_F3));
+    toolsMenu->addAction(tr("Find..."), QKeySequence::Find, this, &MainWindow::openFindDialog);
+    _findNextAction = toolsMenu->addAction(tr("Find Next"), QKeySequence(Qt::Key_F3), this, &MainWindow::findNext);
 
     auto *helpMenu = menuBar()->addMenu(tr("&Help"));
     auto *aboutAction = helpMenu->addAction(tr("&About wdump..."), this, &MainWindow::showAbout);

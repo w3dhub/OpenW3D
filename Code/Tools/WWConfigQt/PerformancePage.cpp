@@ -450,9 +450,9 @@ int PerformancePage::comboValue(const QComboBox *combo, int fallback) const
         return fallback;
     }
 
-    const QVariant data = combo->currentData();
-    if (data.isValid()) {
-        return data.toInt();
+    const QVariant tmp_data = combo->currentData();
+    if (tmp_data.isValid()) {
+        return tmp_data.toInt();
     }
 
     return combo->currentIndex();
