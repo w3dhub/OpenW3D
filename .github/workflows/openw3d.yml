@@ -6,6 +6,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  WINDOWS_VCPKG_VERSION: 20261004-174006
+
 jobs:
   job:
     name: ${{ matrix.name }} Build
@@ -30,6 +33,7 @@ jobs:
             shell: pwsh
             arch: x64
             options: "/W4;/WX"
+            vcpkg: true
           - name: MinGW x86
             os: windows-latest
             cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
@@ -83,6 +87,7 @@ jobs:
 
     steps:
 
+    - uses: actions/checkout@v6
     - name: 'Set up MSYS2'
       if: ${{ !!matrix.msys2 }}
       uses: msys2/setup-msys2@v2
@@ -95,10 +100,20 @@ jobs:
           ${{ matrix.msys2-env }}-ninja
           ${{ matrix.msys2-env }}-pkg-config
     - name: 'Set up MSVC dev cmd'
-      if: ${{ !matrix.msys2 }}
       uses: ilammy/msvc-dev-cmd@v1.13.0
       with:
         arch: ${{ matrix.arch }}
+
+    - name: Download vcpkg cache
+      if: ${{ !!matrix.vcpkg }}
+      uses: ethanjli/cached-download-action@v0.1.2
+      with:
+          url: https://dependencies.rm5248.com/windows-vcpkg-export-${{env.WINDOWS_VCPKG_VERSION}}.zip 
+          destination: ${{github.workspace}}/vcpkg.zip
+    - name: Extract vcpkg
+      if: ${{ !!matrix.vcpkg }}
+      run: 7z x vcpkg.zip
+
     - uses: libsdl-org/setup-sdl@main
       if: ${{ !!matrix.sdl3 }}
       id: sdl
@@ -117,12 +132,52 @@ jobs:
           "https://github.com/doitsujin/dxvk/releases/download/v2.7.1/dxvk-native-2.7.1-steamrt-sniper.tar.gz"
 
         sudo tar -xvf /tmp/dxvk-native.tar.gz -C /
-    - uses: actions/checkout@v6
     - name: 'CMake (configure)'
+      if: ${{ !matrix.vcpkg }}
       env:
         W3D_COMPILER_FLAGS:  ${{ matrix.options }}
-      run: |
+      run: >- 
         cmake -S . -B build ${{ matrix.cmake-args }}
+    - name: 'check files'
+      shell: pwsh
+      run: |
+        Get-ChildItem -Recurse -File
+    - name: 'CMake (vcpkg)'
+      if: ${{ !!matrix.vcpkg }}
+      env:
+        W3D_COMPILER_FLAGS:  ${{ matrix.options }}
+      run: >- 
+        cmake -S . -B build ${{ matrix.cmake-args }}
+        -DW3D_BUILD_QT_TOOLS=ON
+        -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg-export-${{env.WINDOWS_VCPKG_VERSION}}/scripts/buildsystems/vcpkg.cmake
+        -DVCPKG_EXPORT=vcpkg-export-${{env.WINDOWS_VCPKG_VERSION}} -DVCPKG_ROOT=${{github.workspace}}/vcpkg-export-${{env.WINDOWS_VCPKG_VERSION}}
+        -DVCPKG_MANIFEST_DIR=""
     - name: 'CMake (build)'
       run: |
         cmake --build build --parallel ${{ matrix.build-args }}
+
+    - name: Create windows zip
+      if: ${{ !!matrix.vcpkg }}
+      shell: pwsh
+      run: |
+        mkdir ./build/openw3d
+        mkdir ./build/dummy-folder
+        cp ./build/*.dll ./build/openw3d
+        cp ./build/*.exe ./build/openw3d
+        cp -r ./build/generic ./build/openw3d
+        cp -r ./build/iconengines ./build/openw3d
+        cp -r ./build/imageformats ./build/openw3d
+        cp -r ./build/networkinformation ./build/openw3d
+        cp -r ./build/platforms ./build/openw3d
+        cp -r ./build/styles ./build/openw3d
+        cp -r ./build/tls ./build/openw3d
+        cd build
+        7z a openw3d.zip openw3d
+
+    - name: Archive binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: openw3d
+        path: |
+          build/openw3d/*
+          build/dummy-folder/
