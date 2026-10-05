@@ -5,12 +5,15 @@
 #include <QDialog>
 #include <QSet>
 #include <QString>
+#include <QVector>
 #include <functional>
 
 class QComboBox;
 class QDoubleSpinBox;
 class QLabel;
 class QTableWidget;
+class QPushButton;
+class EmitterKeyframeBar;
 
 namespace Ui {
 class EmitterEditDialog;
@@ -42,8 +45,29 @@ private slots:
     void toggleMaxParticles(bool enabled);
 
 private:
+    struct ScalarTimeline {
+        QString prefix;
+        EmitterKeyframeBar *bar;
+        QTableWidget *table;
+        QDoubleSpinBox *start;
+        QDoubleSpinBox *time;
+        QDoubleSpinBox *value;
+        QLabel *selection;
+        QPushButton *remove;
+    };
+    void connectScalarTimelines();
+    void refreshScalarTimeline(const ScalarTimeline &channel);
+    void refreshSelectedScalarKey(const ScalarTimeline &channel);
+    void insertScalarKey(const ScalarTimeline &channel, double time);
+    void removeScalarKey(const ScalarTimeline &channel, int index);
     void configureControls();
     void connectDirtyTracking();
+    void connectColorTimelines();
+    void refreshColorTimelines();
+    void refreshSelectedColorKey(bool opacity);
+    void editTimelineColor();
+    void insertTimelineKey(bool opacity, double time);
+    void removeTimelineKey(bool opacity, int index);
     void connectTableEditors(QTableWidget *table, const QString &dirtyKey);
     void loadFromDefinition();
     void loadRandomizer(Vector3Randomizer *randomizer,
@@ -81,6 +105,7 @@ private:
     QString _originalName;
     QString _registeredName;
     QSet<QString> _dirtyFields;
+    QVector<ScalarTimeline> _scalarTimelines;
     ApplyHandler _applyHandler;
     bool _initialApplyRequired = false;
     Ui::EmitterEditDialog *_ui = nullptr;

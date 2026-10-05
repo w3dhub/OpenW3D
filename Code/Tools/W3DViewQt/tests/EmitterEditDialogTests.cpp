@@ -1,4 +1,5 @@
 #include "EmitterEditDialog.h"
+#include "EmitterKeyframeBar.h"
 
 #include "part_ldr.h"
 #include "shader.h"
@@ -10,12 +11,19 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QColorDialog>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
 #include <QLineEdit>
+#include <QMouseEvent>
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QStringList>
+#include <QTabBar>
+#include <QTabWidget>
+#include <QTableWidget>
+#include <QStackedWidget>
+#include <QTimer>
 #include <QtTest/QTest>
 
 #include <cmath>
@@ -324,6 +332,21 @@ void verifyRandomizer(Vector3Randomizer *raw,
             QFAIL("Unexpected randomizer class");
     }
 }
+void getScalarProperty(const ParticleEmitterDefClass &definition, const QString &channel, ParticlePropertyStruct<float> &property)
+{
+    if (channel == "size") definition.Get_Size_Keyframes(property);
+    else if (channel == "rotation") definition.Get_Rotation_Keyframes(property);
+    else if (channel == "frame") definition.Get_Frame_Keyframes(property);
+    else definition.Get_Blur_Time_Keyframes(property);
+}
+
+void setScalarProperty(ParticleEmitterDefClass &definition, const QString &channel, ParticlePropertyStruct<float> &property)
+{
+    if (channel == "size") definition.Set_Size_Keyframes(property);
+    else if (channel == "rotation") definition.Set_Rotation_Keyframes(property, definition.Get_Initial_Orientation_Random());
+    else if (channel == "frame") definition.Set_Frame_Keyframes(property);
+    else definition.Set_Blur_Time_Keyframes(property);
+}
 } // namespace
 
 class EmitterEditDialogTests final : public QObject
@@ -331,6 +354,23 @@ class EmitterEditDialogTests final : public QObject
     Q_OBJECT
 
 private slots:
+    void tabsMatchMfcAndRemainAccessible();
+    void layoutFitsAtMinimumSize();
+    void visualSelectionAndNumericToggleAreReadOnly();
+    void timelineDragInsertDeletePreservesOtherChannels();
+    void timelinePickerCancelAndAccept();
+    void opacityTimelineEditingAndLifetimeRescale();
+    void visualEditsCancelAfterApply();
+    void numericColorLayoutFits();
+    void scalarViewsAreReadOnlyAndFit_data();
+    void scalarViewsAreReadOnlyAndFit();
+    void scalarTimelineEdits_data();
+    void scalarTimelineEdits();
+    void scalarApplyRescaleAndCancel_data();
+    void scalarApplyRescaleAndCancel();
+    void scalarGraphRanges();
+    void timelineHandlesDegenerateLifetime_data();
+    void timelineHandlesDegenerateLifetime();
     void noOpRoundTripPreservesAllObservableData();
     void unrelatedEditPreservesCustomShader();
     void componentEditDoesNotChangeSiblingFields();
@@ -343,6 +383,469 @@ private slots:
     void cancelAfterApplyPreservesLastAppliedDefinition();
     void okDoesNotRepeatCleanApply();
 };
+
+void EmitterEditDialogTests::tabsMatchMfcAndRemainAccessible()
+{
+    EmitterEditDialog dialog(makeFixtureDefinition());
+    auto *tabs = dialog.findChild<QTabWidget *>("tabWidget");
+    auto *renderMode = dialog.findChild<QComboBox *>("renderModeCombo");
+    auto *lineOptions = dialog.findChild<QWidget *>("lineOptionsGroup");
+    auto *lineParameters = dialog.findChild<QWidget *>("lineParametersGroup");
+    auto *blurTime = dialog.findChild<QDoubleSpinBox *>("blurStartSpin");
+    QVERIFY(tabs && renderMode && lineOptions && lineParameters && blurTime);
+
+    const QStringList titles = {"General", "Emission", "Physics", "Color", "Size", "User",
+                                "Line Properties", "Rotation", "Frame / UCoordinate", "Line Group"};
+    QCOMPARE(tabs->count(), titles.size());
+    for (int mode : {W3D_EMITTER_RENDER_MODE_TRI_PARTICLES, W3D_EMITTER_RENDER_MODE_QUAD_PARTICLES,
+                     W3D_EMITTER_RENDER_MODE_LINE, W3D_EMITTER_RENDER_MODE_LINEGRP_TETRA,
+                     W3D_EMITTER_RENDER_MODE_LINEGRP_PRISM}) {
+        renderMode->setCurrentIndex(renderMode->findData(mode));
+        for (int index = 0; index < tabs->count(); ++index) {
+            QCOMPARE(tabs->tabText(index), titles[index]);
+            QVERIFY(tabs->isTabEnabled(index));
+            tabs->setCurrentIndex(index);
+            QCOMPARE(tabs->currentIndex(), index);
+        }
+        QCOMPARE(lineOptions->isEnabled(), mode == W3D_EMITTER_RENDER_MODE_LINE);
+        QCOMPARE(lineParameters->isEnabled(), mode == W3D_EMITTER_RENDER_MODE_LINE);
+        QVERIFY(blurTime->isEnabled());
+    }
+}
+
+void EmitterEditDialogTests::layoutFitsAtMinimumSize()
+{
+    EmitterEditDialog dialog(makeFixtureDefinition());
+    auto *tabs = dialog.findChild<QTabWidget *>("tabWidget");
+    QVERIFY(tabs);
+    dialog.resize(dialog.minimumSize());
+    dialog.show();
+    QApplication::processEvents();
+
+    // All ten full tab labels and the Apply/OK/Cancel row must fit without
+    // horizontal scrolling or the dialog growing beyond its requested size.
+    QCOMPARE(dialog.size(), dialog.minimumSize());
+    QVERIFY(!tabs->usesScrollButtons());
+    QCOMPARE(tabs->elideMode(), Qt::ElideNone);
+    for (int index = 0; index < tabs->count(); ++index) {
+        QVERIFY2(tabs->tabBar()->rect().contains(tabs->tabBar()->tabRect(index)),
+                 qPrintable(tabs->tabText(index)));
+        tabs->setCurrentIndex(index);
+        QApplication::processEvents();
+        QWidget *page = tabs->widget(index);
+        for (QWidget *control : page->findChildren<QWidget *>()) {
+            if (control->isVisible() && (qobject_cast<QAbstractSpinBox *>(control)
+                                        || qobject_cast<QComboBox *>(control)
+                                        || qobject_cast<QPushButton *>(control))) {
+                const QRect bounds(control->mapTo(page, QPoint(0, 0)), control->size());
+                QVERIFY2(page->rect().contains(bounds), qPrintable(control->objectName()));
+            }
+        }
+    }
+    auto *buttons = dialog.findChild<QDialogButtonBox *>("buttonBox");
+    QVERIFY(buttons);
+    QVERIFY(dialog.rect().contains(QRect(buttons->mapTo(&dialog, QPoint(0, 0)), buttons->size())));
+}
+
+void EmitterEditDialogTests::visualSelectionAndNumericToggleAreReadOnly()
+{
+    const auto original = makeFixtureDefinition();
+    EmitterEditDialog dialog(original);
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>("colorGradientBar");
+    auto *opacity = dialog.findChild<EmitterKeyframeBar *>("opacityGradientBar");
+    auto *toggle = dialog.findChild<QCheckBox *>("colorNumericToggle");
+    auto *stack = dialog.findChild<QStackedWidget *>("colorEditorStack");
+    auto *buttons = dialog.findChild<QDialogButtonBox *>("buttonBox");
+    QVERIFY(bar && opacity && toggle && stack && buttons);
+    QCOMPARE(bar->keys().size(), 3);
+    QCOMPARE(opacity->keys().size(), 3);
+    QVERIFY(opacity->opacityMode());
+    QCOMPARE(stack->currentIndex(), 0);
+    QCOMPARE(bar->selectedKey(), 0);
+    QCOMPARE(bar->keys()[1].time, 1.25);
+    bar->setSelectedKey(2);
+    opacity->setSelectedKey(1);
+    toggle->setChecked(true);
+    QCOMPARE(stack->currentIndex(), 1);
+    toggle->setChecked(false);
+    QCOMPARE(stack->currentIndex(), 0);
+    QVERIFY(!buttons->button(QDialogButtonBox::Apply)->isEnabled());
+    auto result = acceptDialog(dialog);
+    QVERIFY(result);
+    compareDefinitions(*result, original);
+}
+
+void EmitterEditDialogTests::timelineDragInsertDeletePreservesOtherChannels()
+{
+    const auto original = makeFixtureDefinition();
+    EmitterEditDialog dialog(original);
+    dialog.findChild<QTabWidget *>("tabWidget")->setCurrentIndex(3);
+    dialog.show();
+    QApplication::processEvents();
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>("colorGradientBar");
+    QVERIFY(bar && bar->isVisible());
+    const auto positionAt = [bar](double time) {
+        return QPoint(12 + qRound(time / bar->duration() * (bar->width() - 24)), bar->keyPosition(0).y());
+    };
+    const QPoint start = bar->keyPosition(1);
+    const QPoint end = positionAt(3.0);
+    QTest::mousePress(bar, Qt::LeftButton, Qt::NoModifier, start);
+    QMouseEvent move(QEvent::MouseMove, end, bar->mapToGlobal(end), Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
+    QApplication::sendEvent(bar, &move);
+    QTest::mouseRelease(bar, Qt::LeftButton, Qt::NoModifier, end);
+    QCOMPARE(bar->selectedKey(), 1);
+    QVERIFY(std::abs(bar->keys()[1].time - 3.0) < 0.05);
+    const double movedTime = bar->keys()[1].time;
+    QCOMPARE(bar->keys()[1].red, 0.2);
+
+    // Ctrl-click empty space inserts the interpolated value, not a default white key.
+    QPoint insert = positionAt(6.0);
+    insert.ry() -= 20;
+    QTest::mouseClick(bar, Qt::LeftButton, Qt::ControlModifier, insert);
+    QCOMPARE(bar->keys().size(), 4);
+    QCOMPARE(bar->selectedKey(), 3);
+    QCOMPARE(bar->keys()[3].red, 0.8);
+    QTest::keyClick(bar, Qt::Key_Delete);
+    QCOMPARE(bar->keys().size(), 3);
+
+    // The fixed starting key cannot be deleted or dragged.
+    bar->setSelectedKey(0);
+    QTest::keyClick(bar, Qt::Key_Delete);
+    QTest::mousePress(bar, Qt::LeftButton, Qt::NoModifier, bar->keyPosition(0));
+    QTest::mouseRelease(bar, Qt::LeftButton, Qt::NoModifier, positionAt(2.0));
+    QCOMPARE(bar->keys().size(), 3);
+    QCOMPARE(bar->keys()[0].time, 0.0);
+
+    auto expected = original;
+    OwnedProperty<Vector3> colors;
+    expected.Get_Color_Keyframes(colors.value);
+    colors.value.KeyTimes[0] = static_cast<float>(movedTime);
+    expected.Set_Color_Keyframes(colors.value);
+    auto result = acceptDialog(dialog);
+    QVERIFY(result);
+    compareDefinitions(*result, expected);
+}
+
+void EmitterEditDialogTests::timelinePickerCancelAndAccept()
+{
+    const auto original = makeFixtureDefinition();
+    EmitterEditDialog dialog(original);
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>("colorGradientBar");
+    auto *edit = dialog.findChild<QPushButton *>("colorKeyEditButton");
+    auto *buttons = dialog.findChild<QDialogButtonBox *>("buttonBox");
+    QVERIFY(bar && edit && buttons);
+    bar->setSelectedKey(1);
+    bool pickerOpened = false;
+    QTimer::singleShot(0, &dialog, [&]() {
+        if (auto *picker = dialog.findChild<QColorDialog *>()) {
+            pickerOpened = true;
+            picker->setCurrentColor(Qt::red);
+            picker->reject();
+        }
+    });
+    edit->click();
+    QVERIFY(pickerOpened);
+    QVERIFY(!buttons->button(QDialogButtonBox::Apply)->isEnabled());
+    QCOMPARE(bar->keys()[1].red, 0.2);
+    QTimer::singleShot(0, &dialog, [&]() {
+        if (auto *picker = dialog.findChild<QColorDialog *>()) {
+            picker->setCurrentColor(Qt::red);
+            picker->accept();
+        }
+    });
+    edit->click();
+    QCOMPARE(bar->keys()[1].red, 1.0);
+    QCOMPARE(bar->keys()[1].green, 0.0);
+    QCOMPARE(bar->keys()[0].red, 0.1);
+    auto expected = original;
+    OwnedProperty<Vector3> colors;
+    expected.Get_Color_Keyframes(colors.value);
+    colors.value.Values[0] = Vector3(1.0f, 0.0f, 0.0f);
+    expected.Set_Color_Keyframes(colors.value);
+    auto result = acceptDialog(dialog);
+    QVERIFY(result);
+    compareDefinitions(*result, expected);
+}
+
+void EmitterEditDialogTests::opacityTimelineEditingAndLifetimeRescale()
+{
+    const auto original = makeFixtureDefinition();
+    EmitterEditDialog dialog(original);
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>("opacityGradientBar");
+    auto *value = dialog.findChild<QDoubleSpinBox *>("opacityKeyValueSpin");
+    auto *time = dialog.findChild<QDoubleSpinBox *>("opacityKeyTimeSpin");
+    auto *buttons = dialog.findChild<QDialogButtonBox *>("buttonBox");
+    QVERIFY(bar && value && time && buttons);
+    bar->setSelectedKey(1);
+    QCOMPARE(value->value(), 75.0);
+    value->setValue(42.5);
+    time->setValue(2.0);
+    QCOMPARE(bar->keys()[1].red, 0.425);
+    QCOMPARE(bar->keys()[1].time, 2.0);
+    QCOMPARE(dialog.findChild<QDoubleSpinBox *>("opacityStartSpin")->value(), 0.9);
+    // Numeric and visual views are two views of the same data.
+    auto *table = dialog.findChild<QTableWidget *>("opacityKeysTable");
+    qobject_cast<QDoubleSpinBox *>(table->cellWidget(0, 1))->setValue(0.625);
+    QCOMPARE(value->value(), 62.5);
+    dialog.findChild<QDoubleSpinBox *>("lifetimeSpin")->setValue(20.0);
+    buttons->button(QDialogButtonBox::Apply)->click();
+    QCOMPARE(bar->keys()[1].time, 4.0);
+    QCOMPARE(bar->duration(), 20.0);
+    QCOMPARE(time->value(), 4.0);
+    QVERIFY(!buttons->button(QDialogButtonBox::Apply)->isEnabled());
+    auto result = dialog.definition();
+    std::unique_ptr<ParticleEmitterDefClass> owned(result);
+    OwnedProperty<float> opacity;
+    result->Get_Opacity_Keyframes(opacity.value);
+    compareValue(opacity.value.Values[0], 0.625f);
+    compareValue(opacity.value.Start, 0.9f);
+    compareValue(opacity.value.Rand, 0.08f);
+    comparePropertyWithScaledTimes(*result, original, &ParticleEmitterDefClass::Get_Color_Keyframes, 2.0f);
+}
+
+void EmitterEditDialogTests::visualEditsCancelAfterApply()
+{
+    const auto original = makeFixtureDefinition();
+    EmitterEditDialog dialog(original);
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>("opacityGradientBar");
+    auto *value = dialog.findChild<QDoubleSpinBox *>("opacityKeyValueSpin");
+    auto *buttons = dialog.findChild<QDialogButtonBox *>("buttonBox");
+    QVERIFY(bar && value && buttons);
+    int applies = 0;
+    dialog.setApplyHandler([&](const ParticleEmitterDefClass &, const QString &) { ++applies; return true; }, dialog.originalName());
+    bar->setSelectedKey(0);
+    value->setValue(50.0);
+    QCOMPARE(applies, 0);
+    buttons->button(QDialogButtonBox::Apply)->click();
+    QCOMPARE(applies, 1);
+    value->setValue(10.0);
+    buttons->button(QDialogButtonBox::Cancel)->click();
+    QCOMPARE(applies, 1);
+    auto expected = original;
+    OwnedProperty<float> opacity;
+    expected.Get_Opacity_Keyframes(opacity.value);
+    opacity.value.Start = 0.5f;
+    expected.Set_Opacity_Keyframes(opacity.value);
+    const std::unique_ptr<ParticleEmitterDefClass> result(dialog.definition());
+    compareDefinitions(*result, expected);
+}
+
+void EmitterEditDialogTests::numericColorLayoutFits()
+{
+    EmitterEditDialog dialog(makeFixtureDefinition());
+    dialog.findChild<QTabWidget *>("tabWidget")->setCurrentIndex(3);
+    dialog.findChild<QCheckBox *>("colorNumericToggle")->setChecked(true);
+    dialog.resize(dialog.minimumSize());
+    dialog.show();
+    QApplication::processEvents();
+    QCOMPARE(dialog.size(), dialog.minimumSize());
+    auto *page = dialog.findChild<QWidget *>("colorNumericPage");
+    QVERIFY(page && page->isVisible());
+    for (QWidget *control : page->findChildren<QWidget *>()) {
+        if (control->isVisible() && (qobject_cast<QPushButton *>(control) || qobject_cast<QTableWidget *>(control))) {
+            QVERIFY2(page->rect().contains(QRect(control->mapTo(page, QPoint(0, 0)), control->size())),
+                     qPrintable(control->objectName()));
+        }
+    }
+}
+
+void EmitterEditDialogTests::scalarViewsAreReadOnlyAndFit_data()
+{
+    QTest::addColumn<QString>("channel");
+    QTest::addColumn<int>("tab");
+    QTest::newRow("size") << QString("size") << 4;
+    QTest::newRow("rotation") << QString("rotation") << 7;
+    QTest::newRow("frame-u") << QString("frame") << 8;
+    QTest::newRow("blur-time") << QString("blur") << 9;
+}
+
+void EmitterEditDialogTests::scalarViewsAreReadOnlyAndFit()
+{
+    QFETCH(QString, channel);
+    QFETCH(int, tab);
+    const auto original = makeFixtureDefinition();
+    EmitterEditDialog dialog(original);
+    auto *tabs = dialog.findChild<QTabWidget *>("tabWidget");
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>(channel + "GraphBar");
+    auto *toggle = dialog.findChild<QCheckBox *>(channel + "NumericToggle");
+    auto *stack = dialog.findChild<QStackedWidget *>(channel + "EditorStack");
+    auto *buttons = dialog.findChild<QDialogButtonBox *>("buttonBox");
+    QVERIFY(tabs && bar && toggle && stack && buttons);
+    tabs->setCurrentIndex(tab);
+    dialog.resize(dialog.minimumSize());
+    dialog.show();
+    QApplication::processEvents();
+    QCOMPARE(dialog.size(), dialog.minimumSize());
+    QVERIFY(bar->scalarMode());
+    QCOMPARE(bar->keys().size(), 3);
+    QCOMPARE(stack->currentIndex(), 0);
+    bar->setSelectedKey(2);
+    for (bool numeric : {true, false}) {
+        toggle->setChecked(numeric);
+        QCOMPARE(stack->currentIndex(), numeric ? 1 : 0);
+        QApplication::processEvents();
+        QWidget *page = stack->currentWidget();
+        for (QWidget *control : page->findChildren<QWidget *>()) {
+            if (control->isVisible() && (qobject_cast<QAbstractSpinBox *>(control)
+                                        || qobject_cast<QPushButton *>(control)
+                                        || qobject_cast<QTableWidget *>(control)
+                                        || qobject_cast<EmitterKeyframeBar *>(control))) {
+                QVERIFY2(page->rect().contains(QRect(control->mapTo(page, QPoint(0, 0)), control->size())),
+                         qPrintable(control->objectName()));
+            }
+        }
+        QVERIFY(dialog.findChild<QDoubleSpinBox *>(channel + "RandomSpin")->isVisible());
+        if (channel == "rotation") QVERIFY(dialog.findChild<QDoubleSpinBox *>("orientationRandomSpin")->isVisible());
+        if (channel == "frame") QVERIFY(dialog.findChild<QComboBox *>("frameModeCombo")->isVisible());
+    }
+    QVERIFY(!buttons->button(QDialogButtonBox::Apply)->isEnabled());
+    auto result = acceptDialog(dialog);
+    QVERIFY(result);
+    compareDefinitions(*result, original);
+}
+
+void EmitterEditDialogTests::scalarTimelineEdits_data() { scalarViewsAreReadOnlyAndFit_data(); }
+
+void EmitterEditDialogTests::scalarTimelineEdits()
+{
+    QFETCH(QString, channel);
+    QFETCH(int, tab);
+    const auto original = makeFixtureDefinition();
+    EmitterEditDialog dialog(original);
+    dialog.findChild<QTabWidget *>("tabWidget")->setCurrentIndex(tab);
+    dialog.show();
+    QApplication::processEvents();
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>(channel + "GraphBar");
+    auto *value = dialog.findChild<QDoubleSpinBox *>(channel + "KeyValueSpin");
+    auto *time = dialog.findChild<QDoubleSpinBox *>(channel + "KeyTimeSpin");
+    auto *table = dialog.findChild<QTableWidget *>(channel + "KeysTable");
+    QVERIFY(bar && value && time && table);
+    // Starting value stays editable; its fixed time cannot move or be deleted.
+    QVERIFY(!time->isEnabled());
+    value->setValue(0.125);
+    QTest::keyClick(bar, Qt::Key_Delete);
+    QCOMPARE(bar->keys().size(), 3);
+    QCOMPARE(bar->keys()[0].time, 0.0);
+    QTest::mouseDClick(bar, Qt::LeftButton, Qt::NoModifier, bar->keyPosition(1));
+    QCOMPARE(bar->selectedKey(), 1);
+    QVERIFY(value->hasFocus());
+    value->setValue(-0.375);
+    QCOMPARE(qobject_cast<QDoubleSpinBox *>(table->cellWidget(0, 1))->value(), -0.375);
+    // Numeric edits feed back into the graph without rounding signed/fractional values.
+    qobject_cast<QDoubleSpinBox *>(table->cellWidget(0, 1))->setValue(-0.625);
+    QCOMPARE(value->value(), -0.625);
+    time->setValue(2.0);
+    QCOMPARE(bar->keys()[1].time, 2.0);
+    const auto positionAt = [bar](double position) {
+        const double pixelsPerSecond = (bar->keyPosition(2).x() - bar->keyPosition(0).x()) / bar->keys()[2].time;
+        return QPoint(bar->keyPosition(0).x() + qRound(position * pixelsPerSecond), bar->keyPosition(0).y());
+    };
+    const QPoint end = positionAt(3.0);
+    QTest::mousePress(bar, Qt::LeftButton, Qt::NoModifier, bar->keyPosition(1));
+    QMouseEvent move(QEvent::MouseMove, end, bar->mapToGlobal(end), Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
+    QApplication::sendEvent(bar, &move);
+    QTest::mouseRelease(bar, Qt::LeftButton, Qt::NoModifier, end);
+    const double movedTime = bar->keys()[1].time;
+    QVERIFY(std::abs(movedTime - 3.0) < 0.05);
+    const auto beforeInsert = bar->keys();
+    QPoint insert = positionAt(3.75);
+    insert.ry() -= 20;
+    QTest::mouseClick(bar, Qt::LeftButton, Qt::ControlModifier, insert);
+    QCOMPARE(bar->keys().size(), 4);
+    QCOMPARE(bar->selectedKey(), 2);
+    const auto inserted = bar->keys()[2];
+    const double blend = (inserted.time - movedTime) / (beforeInsert[2].time - movedTime);
+    QVERIFY(std::abs(inserted.red - (beforeInsert[1].red + (beforeInsert[2].red - beforeInsert[1].red) * blend)) < 0.00001);
+    QTest::keyClick(bar, Qt::Key_Delete);
+    QCOMPARE(bar->keys().size(), 3);
+    auto expected = original;
+    OwnedProperty<float> property;
+    getScalarProperty(expected, channel, property.value);
+    property.value.Start = 0.125f;
+    property.value.Values[0] = -0.625f;
+    property.value.KeyTimes[0] = static_cast<float>(movedTime);
+    setScalarProperty(expected, channel, property.value);
+    auto result = acceptDialog(dialog);
+    QVERIFY(result);
+    compareDefinitions(*result, expected);
+}
+
+void EmitterEditDialogTests::scalarApplyRescaleAndCancel_data() { scalarViewsAreReadOnlyAndFit_data(); }
+
+void EmitterEditDialogTests::scalarApplyRescaleAndCancel()
+{
+    QFETCH(QString, channel);
+    EmitterEditDialog dialog(makeFixtureDefinition());
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>(channel + "GraphBar");
+    auto *value = dialog.findChild<QDoubleSpinBox *>(channel + "KeyValueSpin");
+    auto *time = dialog.findChild<QDoubleSpinBox *>(channel + "KeyTimeSpin");
+    auto *buttons = dialog.findChild<QDialogButtonBox *>("buttonBox");
+    QVERIFY(bar && value && time && buttons);
+    int applies = 0;
+    dialog.setApplyHandler([&](const ParticleEmitterDefClass &, const QString &) { ++applies; return true; }, dialog.originalName());
+    bar->setSelectedKey(1);
+    value->setValue(0.375);
+    time->setValue(2.0);
+    dialog.findChild<QDoubleSpinBox *>("lifetimeSpin")->setValue(20.0);
+    QCOMPARE(applies, 0);
+    buttons->button(QDialogButtonBox::Apply)->click();
+    QCOMPARE(applies, 1);
+    QCOMPARE(bar->duration(), 20.0);
+    QCOMPARE(bar->keys()[1].time, 4.0);
+    QCOMPARE(time->value(), 4.0);
+    QCOMPARE(value->value(), 0.375);
+    QVERIFY(!buttons->button(QDialogButtonBox::Apply)->isEnabled());
+    const std::unique_ptr<ParticleEmitterDefClass> applied(dialog.definition());
+    value->setValue(-9.75);
+    buttons->button(QDialogButtonBox::Cancel)->click();
+    QCOMPARE(applies, 1);
+    const std::unique_ptr<ParticleEmitterDefClass> result(dialog.definition());
+    compareDefinitions(*result, *applied);
+}
+
+void EmitterEditDialogTests::scalarGraphRanges()
+{
+    EmitterKeyframeBar bar;
+    bar.setScalarMode(true);
+    bar.setKeys({{0.0, 0.0}, {0.0, 0.0}}, 0.0);
+    QCOMPARE(bar.valueRange(), qMakePair(0.0, 1.0));
+    bar.setKeys({{0.0, -0.25}, {1.0, -0.25}}, 1.0);
+    QCOMPARE(bar.valueRange(), qMakePair(-0.25, 0.0));
+    bar.setKeys({{0.0, -0.5}, {1.0, 0.25}}, 1.0);
+    QCOMPARE(bar.valueRange(), qMakePair(-0.5, 0.25));
+    QCOMPARE(bar.interpolatedKey(0.5).red, -0.125);
+    // Coincident times must not divide by zero; rendering is read-only.
+    bar.setKeys({{0.0, 0.0}, {0.0, 0.125}, {1.0, -0.375}}, -1.0);
+    QVERIFY(std::isfinite(bar.interpolatedKey(0.0).red));
+    QVERIFY(!bar.grab().isNull());
+    QCOMPARE(bar.keys()[2].red, -0.375);
+}
+
+void EmitterEditDialogTests::timelineHandlesDegenerateLifetime_data()
+{
+    QTest::addColumn<float>("lifetime");
+    QTest::newRow("zero") << 0.0f;
+    QTest::newRow("negative") << -1.0f;
+    QTest::newRow("unlimited") << 5000000.0f;
+    QTest::newRow("keys-after-lifetime") << 1.0f;
+}
+
+void EmitterEditDialogTests::timelineHandlesDegenerateLifetime()
+{
+    QFETCH(float, lifetime);
+    auto original = makeFixtureDefinition();
+    original.Set_Lifetime(lifetime);
+    EmitterEditDialog dialog(original);
+    auto *bar = dialog.findChild<EmitterKeyframeBar *>("colorGradientBar");
+    QVERIFY(bar);
+    QVERIFY(std::isfinite(bar->duration()));
+    QVERIFY(bar->duration() >= 4.5);
+    const auto sample = bar->interpolatedKey(2.5);
+    QVERIFY(std::isfinite(sample.red));
+    auto result = acceptDialog(dialog);
+    QVERIFY(result);
+    compareDefinitions(*result, original);
+}
 
 void EmitterEditDialogTests::noOpRoundTripPreservesAllObservableData()
 {
