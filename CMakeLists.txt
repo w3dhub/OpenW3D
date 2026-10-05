@@ -37,6 +37,12 @@ add_feature_info(OpenW3DHeadless W3D_FDS "Build OpenW3D headless server")
 option(W3D_TOOLS "Build additional tools." ON)
 add_feature_info(OpenW3DTools W3D_TOOLS "Build OpenW3D Mod Tools")
 
+option(W3D_BUILD_DOCS "Enable the API documentation target." OFF)
+add_feature_info(OpenW3DDocs W3D_BUILD_DOCS "Build OpenW3D API documentation")
+if(W3D_BUILD_DOCS)
+    add_subdirectory(docs)
+endif()
+
 option(SYNTAX_CHECK_ONLY "Syntax check the files only?" OFF)
 add_feature_info(SyntaxCheck SYNTAX_CHECK_ONLY "Syntax check files only")
 if(SYNTAX_CHECK_ONLY)

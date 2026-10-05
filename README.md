@@ -6,8 +6,8 @@ It is being developed to be more portable to other platforms, to fix bugs and to
 
 ## API Documentation
 
-See the [documentation guide](docs/README.md) to generate the API reference locally,
-review documentation in pull requests, and configure automatic GitHub Pages publishing.
+See the [documentation guide](docs/README.md) to generate the API reference locally
+and review documentation in pull requests.
 
 ## Dependencies
 

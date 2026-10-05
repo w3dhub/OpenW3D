@@ -1,7 +1,7 @@
-# Run from the repository root: doxygen docs/Doxyfile
+# Configured by CMake; run with cmake --build build/docs --target docs.
 PROJECT_NAME           = OpenW3D
 PROJECT_BRIEF          = "Game engine and tools API reference"
-OUTPUT_DIRECTORY       = build/docs
+OUTPUT_DIRECTORY       = "@CMAKE_CURRENT_BINARY_DIR@"
 OUTPUT_LANGUAGE        = English
 
 INPUT                  = Code docs/index.md
@@ -36,6 +36,7 @@ GENERATE_LATEX         = NO
 # Keep inheritance diagrams, but avoid expensive graphs for every function
 # and include relationship in the legacy source tree.
 HAVE_DOT               = YES
+DOT_PATH               = "@W3D_DOT_DIRECTORY@"
 DOT_IMAGE_FORMAT       = svg
 DOT_NUM_THREADS        = 2
 DOT_GRAPH_MAX_NODES     = 50
@@ -53,4 +54,4 @@ QUIET                  = YES
 WARNINGS               = YES
 WARN_IF_UNDOCUMENTED   = NO
 WARN_AS_ERROR          = NO
-WARN_LOGFILE           = build/docs/doxygen-warnings.log
+WARN_LOGFILE           = "@CMAKE_CURRENT_BINARY_DIR@/doxygen-warnings.log"

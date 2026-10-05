@@ -6,12 +6,14 @@ on:
     paths:
       - 'Code/**'
       - 'docs/**'
+      - 'CMakeLists.txt'
       - '.github/workflows/docs.yml'
   pull_request:
     branches: [main]
     paths:
       - 'Code/**'
       - 'docs/**'
+      - 'CMakeLists.txt'
       - '.github/workflows/docs.yml'
   workflow_dispatch:
 
@@ -25,22 +27,28 @@ concurrency:
 jobs:
   build:
     name: Build API reference
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    # Keep the documentation toolchain independent of runner image updates.
+    container: ubuntu:24.04
     timeout-minutes: 20
     steps:
+      - name: Install documentation tools
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends ca-certificates cmake doxygen git graphviz ninja-build
+          cmake --version
+          doxygen --version
+          dot -V
+
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
 
-      - name: Install documentation tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes --no-install-recommends doxygen graphviz
-          doxygen --version
-          dot -V
+      - name: Configure documentation
+        run: cmake -S docs -B build/docs -G Ninja
 
       - name: Generate documentation
-        run: doxygen docs/Doxyfile
+        run: cmake --build build/docs --target docs
 
       - name: Check generated pages
         run: |
@@ -49,11 +57,13 @@ jobs:
           test -s build/docs/html/files.html
 
       - name: Upload documentation for review
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && hashFiles('build/docs/html/index.html', 'build/docs/doxygen-warnings.log') != '' }}
         uses: actions/upload-artifact@v7
         with:
           name: openw3d-api-docs
-          path: build/docs/
+          path: |
+            build/docs/html/
+            build/docs/doxygen-warnings.log
           if-no-files-found: error
           retention-days: 14
 
@@ -73,7 +83,7 @@ jobs:
       github.repository == 'w3dhub/OpenW3D' &&
       github.ref == 'refs/heads/main' &&
       github.event_name != 'pull_request'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       pages: write
