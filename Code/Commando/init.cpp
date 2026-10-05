@@ -1010,6 +1010,7 @@ bool Game_Init(void)
 	// After TextDisplay is created, install the Display Handler
 	DebugManager::Set_Display_Handler(&TextDisplayHandler);
 
+#if defined(OPENW3D_WIN32)
 	// Load the accelerator table and hand it off to WWLIB.
 	// Note:  Accelerator tables that are loaded from resources (like
 	// we are doing here) do not need to be manually freed.  Windows
@@ -1018,6 +1019,7 @@ bool Game_Init(void)
 	if (haccel) {
 		::Add_Accelerator (MainWindow, haccel);
 	}
+#endif
 
 	//WW3D::Set_Texture_Reduction( 1 );
 

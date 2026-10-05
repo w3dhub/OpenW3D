@@ -40,12 +40,13 @@
 #ifndef MSGLOOP_H
 #define MSGLOOP_H
 
-#ifdef _WIN32
+// Pump the selected backend's events on the main thread. SDL events remain
+// queued for the application's event consumers. Keep the legacy entry point.
+void Windows_Message_Handler(void);
+
+#if defined(OPENW3D_WIN32)
 
 #include <windows.h>
-
-// Main message handler.
-void Windows_Message_Handler(void);
 
 // Modeless dialog box support routines.
 void Remove_Modeless_Dialog(HWND dialog);
@@ -58,6 +59,6 @@ void Remove_Accelerator(HACCEL accelerator);
 // General purpose message intercept handler.
 extern bool (*Message_Intercept_Handler)(MSG &msg);
 
-#endif // _WIN32
+#endif // OPENW3D_WIN32
 
 #endif

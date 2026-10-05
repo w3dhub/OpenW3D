@@ -24,6 +24,7 @@ set(WWLIB_SRC
     mixfile.cpp
     mpmath.cpp
     mpu.cpp
+    msgloop.cpp
     multilist.cpp
     mutex.cpp
     nstrdup.cpp
@@ -151,10 +152,6 @@ set(WWLIB_SRC
     xstraw.h
 )
 
-if(WIN32)
-    list(APPEND WWLIB_SRC msgloop.cpp)
-endif()
-
 if(TARGET ffmpeg)
     list(APPEND WWLIB_SRC FFmpegFile.cpp FFmpegFile.h)
 endif()
@@ -186,6 +183,22 @@ endif()
 target_sources(wwlib PRIVATE ${WWLIB_SRC})
 
 if(BUILD_TESTING)
+    # Build the message loop independently so Linux can test it before all of
+    # wwlib has been ported.
+    add_executable(wwlib_msgloop_tests tests/MessageLoopTests.cpp msgloop.cpp)
+    target_include_directories(wwlib_msgloop_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_compile_features(wwlib_msgloop_tests PRIVATE cxx_std_20)
+    if(W3D_BUILD_OPTION_SDL3)
+        target_link_libraries(wwlib_msgloop_tests PRIVATE SDL3::SDL3-shared)
+    else()
+        target_link_libraries(wwlib_msgloop_tests PRIVATE user32)
+    endif()
+    add_test(NAME wwlib_msgloop_tests COMMAND wwlib_msgloop_tests)
+    set_tests_properties(wwlib_msgloop_tests PROPERTIES
+        ENVIRONMENT "SDL_VIDEODRIVER=dummy"
+        TIMEOUT 10
+    )
+
     add_executable(wwlib_mempool_tests
         tests/MempoolTests.cpp
     )
