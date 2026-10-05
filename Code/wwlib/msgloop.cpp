@@ -39,6 +39,10 @@
  *   Windows_Message_Handler -- Handles windows message.                                       *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "msgloop.h"
+
+#if defined(OPENW3D_WIN32)
+
 #include	"always.h"
 #include	"vector.h"
 #include	"win.h"
@@ -252,3 +256,15 @@ void Remove_Accelerator(HACCEL accelerator)
 		}
 	}
 }
+
+#elif defined(OPENW3D_SDL3)
+
+#include <SDL3/SDL_events.h>
+
+void Windows_Message_Handler(void)
+{
+	// Update device state and leave queued events available for callers to process.
+	SDL_PumpEvents();
+}
+
+#endif

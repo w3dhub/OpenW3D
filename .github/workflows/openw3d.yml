@@ -52,7 +52,7 @@ jobs:
             shell: msys2 {0}
           - name: MinGW x64 SDL3
             os: windows-latest
-            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
+            cmake-args: -DW3D_BUILD_OPTION_SDL3=ON -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
             build-args: --target combat combate renegade renegadeserver ww3d2e wwaudioe wwphyse
             sdl3: true
             msys2: true
@@ -111,6 +111,7 @@ jobs:
       id: sdl
       with:
         install-linux-dependencies: true
+        add-to-environment: true
         version: 3-latest
         cmake-generator: Ninja
         shell: ${{ matrix.shell }}
@@ -144,6 +145,10 @@ jobs:
         -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg-export-${{env.WINDOWS_VCPKG_VERSION}}/scripts/buildsystems/vcpkg.cmake
         -DVCPKG_EXPORT=vcpkg-export-${{env.WINDOWS_VCPKG_VERSION}} -DVCPKG_ROOT=${{github.workspace}}/vcpkg-export-${{env.WINDOWS_VCPKG_VERSION}}
         -DVCPKG_MANIFEST_DIR=""
+    - name: 'Message loop tests'
+      run: |
+        cmake --build build --target wwlib_msgloop_tests
+        ctest --test-dir build --output-on-failure -R '^wwlib_msgloop_tests$'
     - name: 'CMake (build)'
       run: |
         cmake --build build --parallel ${{ matrix.build-args }}
