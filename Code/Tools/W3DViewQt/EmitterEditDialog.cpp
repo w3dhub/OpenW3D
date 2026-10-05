@@ -3,6 +3,7 @@
 #include "ui_EmitterEditDialog.h"
 
 #include "KeyframeTableUtils.h"
+#include "EmitterKeyframeBar.h"
 
 #include "part_ldr.h"
 #include "shader.h"
@@ -14,6 +15,7 @@
 #include <QAbstractItemView>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QColorDialog>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
 #include <QFileDialog>
@@ -23,10 +25,14 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPlainTextEdit>
+#include <QPixmap>
 #include <QPushButton>
+#include <QSignalBlocker>
 #include <QSpinBox>
+#include <QStackedWidget>
 #include <QTableWidget>
 #include <algorithm>
+#include <cmath>
 #include <memory>
 #include <utility>
 
@@ -206,6 +212,8 @@ EmitterEditDialog::EmitterEditDialog(const ParticleEmitterDefClass &definition, 
     loadFromDefinition();
     _registeredName = _originalName;
     connectDirtyTracking();
+    connectColorTimelines();
+    connectScalarTimelines();
 
     connect(_ui->browseButton, &QPushButton::clicked, this, &EmitterEditDialog::browseTexture);
     connect(_ui->useLifetimeCheck, &QCheckBox::toggled, this, &EmitterEditDialog::toggleLifetime);
@@ -218,6 +226,10 @@ EmitterEditDialog::EmitterEditDialog(const ParticleEmitterDefClass &definition, 
 
     updateRenderModeTabs();
     updateApplyButton();
+
+    // Keep every tab and control visible when the platform uses larger fonts.
+    ensurePolished();
+    setMinimumSize(minimumSize().expandedTo(minimumSizeHint()));
 }
 
 EmitterEditDialog::~EmitterEditDialog()
@@ -556,6 +568,286 @@ void EmitterEditDialog::connectDirtyTracking()
                         {_ui->blurStartSpin->value()});
 }
 
+void EmitterEditDialog::connectColorTimelines()
+{
+    connect(_ui->colorNumericToggle, &QCheckBox::toggled, this, [this](bool numeric) {
+        _ui->colorEditorStack->setCurrentIndex(numeric ? 1 : 0);
+    });
+    for (bool opacity : {false, true}) {
+        auto *bar = opacity ? _ui->opacityGradientBar : _ui->colorGradientBar;
+        auto *time = opacity ? _ui->opacityKeyTimeSpin : _ui->colorKeyTimeSpin;
+        auto *add = opacity ? _ui->opacityVisualAddButton : _ui->colorVisualAddButton;
+        auto *remove = opacity ? _ui->opacityVisualRemoveButton : _ui->colorVisualRemoveButton;
+        ConfigureSpin(time, 0.0, kMaximumKeyTime, 6);
+        connect(bar, &EmitterKeyframeBar::keySelected, this, [this, opacity](int) { refreshSelectedColorKey(opacity); });
+        const auto move = [this, opacity](int index, double position) {
+            auto *table = opacity ? _ui->opacityKeysTable : _ui->colorKeysTable;
+            if (index > 0 && index <= table->rowCount()) {
+                qobject_cast<QDoubleSpinBox *>(table->cellWidget(index - 1, 0))->setValue(position);
+            }
+            refreshSelectedColorKey(opacity);
+        };
+        connect(bar, &EmitterKeyframeBar::keyMoved, this, move);
+        connect(time, qOverload<double>(&QDoubleSpinBox::valueChanged), this,
+                [bar, move](double value) { move(bar->selectedKey(), value); });
+        connect(bar, &EmitterKeyframeBar::keyInserted, this,
+                [this, opacity](double position) { insertTimelineKey(opacity, position); });
+        connect(bar, &EmitterKeyframeBar::keyRemoved, this,
+                [this, opacity](int index) { removeTimelineKey(opacity, index); });
+        connect(remove, &QPushButton::clicked, this,
+                [this, opacity, bar]() { removeTimelineKey(opacity, bar->selectedKey()); });
+        connect(add, &QPushButton::clicked, this, [this, opacity, bar]() {
+            bool accepted = false;
+            const double position = QInputDialog::getDouble(this, opacity ? tr("Add Opacity Key") : tr("Add Color Key"),
+                tr("Time (seconds):"), bar->duration() * 0.5, 0.0, kMaximumKeyTime, 6, &accepted);
+            if (accepted) insertTimelineKey(opacity, position);
+        });
+        connect(bar, &EmitterKeyframeBar::editRequested, this, [this, opacity](int) {
+            if (opacity) {
+                _ui->opacityKeyValueSpin->setFocus();
+                _ui->opacityKeyValueSpin->selectAll();
+            } else {
+                editTimelineColor();
+            }
+        });
+    }
+    ConfigureSpin(_ui->opacityKeyValueSpin, 0.0, 100.0, 4);
+    connect(_ui->opacityKeyValueSpin, qOverload<double>(&QDoubleSpinBox::valueChanged), this, [this](double percent) {
+        const int index = _ui->opacityGradientBar->selectedKey();
+        if (index == 0) _ui->opacityStartSpin->setValue(percent / 100.0);
+        else if (index > 0 && index <= _ui->opacityKeysTable->rowCount()) {
+            qobject_cast<QDoubleSpinBox *>(_ui->opacityKeysTable->cellWidget(index - 1, 1))->setValue(percent / 100.0);
+        }
+    });
+    connect(_ui->colorKeyEditButton, &QPushButton::clicked, this, &EmitterEditDialog::editTimelineColor);
+    refreshColorTimelines();
+}
+
+void EmitterEditDialog::refreshColorTimelines()
+{
+    // Tables retain the precise numeric values; QColor is used only for display
+    // and an explicitly accepted picker edit, never for loading/saving a channel.
+    for (bool opacity : {false, true}) {
+        auto *bar = opacity ? _ui->opacityGradientBar : _ui->colorGradientBar;
+        const auto *table = opacity ? _ui->opacityKeysTable : _ui->colorKeysTable;
+        QVector<EmitterKeyframeBar::Key> keys;
+        if (opacity) {
+            const double value = _ui->opacityStartSpin->value();
+            keys.push_back({0.0, value, value, value});
+        } else {
+            keys.push_back({0.0, _ui->colorStartRSpin->value(), _ui->colorStartGSpin->value(), _ui->colorStartBSpin->value()});
+        }
+        double lastTime = 0.0;
+        for (const auto &row : GetKeyframeRows(table)) {
+            keys.push_back(opacity ? EmitterKeyframeBar::Key{row[0], row[1], row[1], row[1]}
+                                   : EmitterKeyframeBar::Key{row[0], row[1], row[2], row[3]});
+            lastTime = std::max(lastTime, row[0]);
+        }
+        const double lifetime = _definition.Get_Lifetime();
+        // An unlimited lifetime must not compress all finite keys into one pixel.
+        const double duration = lifetime > 0.0 && lifetime < kMaximumKeyTime ? lifetime : std::max(1.0, lastTime);
+        bar->setKeys(keys, duration);
+        refreshSelectedColorKey(opacity);
+    }
+}
+
+void EmitterEditDialog::refreshSelectedColorKey(bool opacity)
+{
+    auto *bar = opacity ? _ui->opacityGradientBar : _ui->colorGradientBar;
+    auto *time = opacity ? _ui->opacityKeyTimeSpin : _ui->colorKeyTimeSpin;
+    auto *label = opacity ? _ui->opacityKeySelectionLabel : _ui->colorKeySelectionLabel;
+    auto *remove = opacity ? _ui->opacityVisualRemoveButton : _ui->colorVisualRemoveButton;
+    const int index = bar->selectedKey();
+    const bool valid = index >= 0 && index < bar->keys().size();
+    time->setEnabled(valid && index > 0);
+    remove->setEnabled(valid && index > 0);
+    label->setText(index <= 0 ? tr("Start") : tr("Key %1").arg(index));
+    const QSignalBlocker timeBlocker(time);
+    time->setValue(valid ? bar->keys()[index].time : 0.0);
+    if (opacity) {
+        const QSignalBlocker valueBlocker(_ui->opacityKeyValueSpin);
+        _ui->opacityKeyValueSpin->setEnabled(valid);
+        _ui->opacityKeyValueSpin->setValue(valid ? bar->keys()[index].red * 100.0 : 0.0);
+    } else {
+        _ui->colorKeyEditButton->setEnabled(valid);
+        if (valid) {
+            const auto &key = bar->keys()[index];
+            QPixmap swatch(32, 18);
+            swatch.fill(QColor::fromRgbF(static_cast<float>(key.red), static_cast<float>(key.green), static_cast<float>(key.blue)));
+            _ui->colorKeyEditButton->setIcon(QIcon(swatch));
+            _ui->colorKeyEditButton->setToolTip(tr("RGB: %1, %2, %3").arg(key.red, 0, 'g', 6).arg(key.green, 0, 'g', 6).arg(key.blue, 0, 'g', 6));
+        }
+    }
+}
+
+void EmitterEditDialog::editTimelineColor()
+{
+    const int index = _ui->colorGradientBar->selectedKey();
+    if (index < 0 || index >= _ui->colorGradientBar->keys().size()) return;
+    const auto key = _ui->colorGradientBar->keys()[index];
+    const QColor initial = QColor::fromRgbF(static_cast<float>(key.red), static_cast<float>(key.green), static_cast<float>(key.blue));
+    QColorDialog picker(initial, this);
+    picker.setOption(QColorDialog::DontUseNativeDialog);
+    picker.setWindowTitle(index == 0 ? tr("Starting Color") : tr("Color Key %1").arg(index));
+    if (picker.exec() != QDialog::Accepted || picker.selectedColor() == initial) return;
+    const QColor color = picker.selectedColor();
+    const double channels[] = {color.redF(), color.greenF(), color.blueF()};
+    const QList<QDoubleSpinBox *> start = {_ui->colorStartRSpin, _ui->colorStartGSpin, _ui->colorStartBSpin};
+    for (int component = 0; component < 3; ++component) {
+        auto *spin = index == 0 ? start[component]
+                               : qobject_cast<QDoubleSpinBox *>(_ui->colorKeysTable->cellWidget(index - 1, component + 1));
+        spin->setValue(channels[component]);
+    }
+}
+
+void EmitterEditDialog::insertTimelineKey(bool opacity, double time)
+{
+    auto *bar = opacity ? _ui->opacityGradientBar : _ui->colorGradientBar;
+    auto *table = opacity ? _ui->opacityKeysTable : _ui->colorKeysTable;
+    time = std::clamp(time, 0.0, kMaximumKeyTime);
+    for (int index = 0; index < bar->keys().size(); ++index) {
+        if (std::abs(bar->keys()[index].time - time) < 0.000001) {
+            bar->setSelectedKey(index);
+            return;
+        }
+    }
+    const auto key = bar->interpolatedKey(time);
+    const auto &specs = opacity ? OpacityKeySpecs() : ColorKeySpecs();
+    AddKeyframeRow(table, opacity ? QVector<double>{time, key.red} : QVector<double>{time, key.red, key.green, key.blue}, specs);
+    SortKeyframeRows(table, specs);
+    const QString dirtyKey = opacity ? "opacity.keys" : "color.keys";
+    connectTableEditors(table, dirtyKey);
+    markDirty(dirtyKey);
+    for (int index = 1; index < bar->keys().size(); ++index) {
+        if (std::abs(bar->keys()[index].time - time) < 0.000001) { bar->setSelectedKey(index); break; }
+    }
+}
+
+void EmitterEditDialog::removeTimelineKey(bool opacity, int index)
+{
+    auto *table = opacity ? _ui->opacityKeysTable : _ui->colorKeysTable;
+    if (index <= 0 || index > table->rowCount()) return;
+    table->removeRow(index - 1);
+    markDirty(opacity ? "opacity.keys" : "color.keys");
+}
+
+void EmitterEditDialog::connectScalarTimelines()
+{
+    _scalarTimelines = {
+        {"size", _ui->sizeGraphBar, _ui->sizeKeysTable, _ui->sizeStartSpin, _ui->sizeKeyTimeSpin,
+         _ui->sizeKeyValueSpin, _ui->sizeKeySelectionLabel, _ui->sizeVisualRemoveButton},
+        {"rotation", _ui->rotationGraphBar, _ui->rotationKeysTable, _ui->rotationStartSpin, _ui->rotationKeyTimeSpin,
+         _ui->rotationKeyValueSpin, _ui->rotationKeySelectionLabel, _ui->rotationVisualRemoveButton},
+        {"frame", _ui->frameGraphBar, _ui->frameKeysTable, _ui->frameStartSpin, _ui->frameKeyTimeSpin,
+         _ui->frameKeyValueSpin, _ui->frameKeySelectionLabel, _ui->frameVisualRemoveButton},
+        {"blur", _ui->blurGraphBar, _ui->blurKeysTable, _ui->blurStartSpin, _ui->blurKeyTimeSpin,
+         _ui->blurKeyValueSpin, _ui->blurKeySelectionLabel, _ui->blurVisualRemoveButton},
+    };
+    const auto connectView = [this](QCheckBox *toggle, QStackedWidget *stack,
+                                   QPushButton *add, const ScalarTimeline &channel) {
+        connect(toggle, &QCheckBox::toggled, this, [stack](bool numeric) { stack->setCurrentIndex(numeric ? 1 : 0); });
+        connect(add, &QPushButton::clicked, this, [this, channel]() {
+            bool accepted = false;
+            const double position = QInputDialog::getDouble(this, tr("Add Key"), tr("Time (seconds):"),
+                channel.bar->duration() * 0.5, 0.0, kMaximumKeyTime, 6, &accepted);
+            if (accepted) insertScalarKey(channel, position);
+        });
+    };
+    connectView(_ui->sizeNumericToggle, _ui->sizeEditorStack, _ui->sizeVisualAddButton, _scalarTimelines[0]);
+    connectView(_ui->rotationNumericToggle, _ui->rotationEditorStack, _ui->rotationVisualAddButton, _scalarTimelines[1]);
+    connectView(_ui->frameNumericToggle, _ui->frameEditorStack, _ui->frameVisualAddButton, _scalarTimelines[2]);
+    connectView(_ui->blurNumericToggle, _ui->blurEditorStack, _ui->blurVisualAddButton, _scalarTimelines[3]);
+    for (const auto &channel : _scalarTimelines) {
+        ConfigureSpin(channel.time, 0.0, kMaximumKeyTime, 6);
+        ConfigureSpin(channel.value);
+        connect(channel.bar, &EmitterKeyframeBar::keySelected, this,
+                [this, channel](int) { refreshSelectedScalarKey(channel); });
+        const auto move = [this, channel](int index, double time) {
+            if (index > 0 && index <= channel.table->rowCount()) {
+                qobject_cast<QDoubleSpinBox *>(channel.table->cellWidget(index - 1, 0))->setValue(time);
+            }
+            refreshSelectedScalarKey(channel);
+        };
+        connect(channel.bar, &EmitterKeyframeBar::keyMoved, this, move);
+        connect(channel.time, qOverload<double>(&QDoubleSpinBox::valueChanged), this,
+                [channel, move](double time) { move(channel.bar->selectedKey(), time); });
+        connect(channel.value, qOverload<double>(&QDoubleSpinBox::valueChanged), this, [channel](double value) {
+            const int index = channel.bar->selectedKey();
+            if (index == 0) channel.start->setValue(value);
+            else if (index > 0 && index <= channel.table->rowCount()) {
+                qobject_cast<QDoubleSpinBox *>(channel.table->cellWidget(index - 1, 1))->setValue(value);
+            }
+        });
+        connect(channel.bar, &EmitterKeyframeBar::editRequested, this, [channel](int) {
+            channel.value->setFocus();
+            channel.value->selectAll();
+        });
+        connect(channel.bar, &EmitterKeyframeBar::keyInserted, this,
+                [this, channel](double time) { insertScalarKey(channel, time); });
+        connect(channel.bar, &EmitterKeyframeBar::keyRemoved, this,
+                [this, channel](int index) { removeScalarKey(channel, index); });
+        connect(channel.remove, &QPushButton::clicked, this,
+                [this, channel]() { removeScalarKey(channel, channel.bar->selectedKey()); });
+        refreshScalarTimeline(channel);
+    }
+}
+
+void EmitterEditDialog::refreshScalarTimeline(const ScalarTimeline &channel)
+{
+    QVector<EmitterKeyframeBar::Key> keys = {{0.0, channel.start->value()}};
+    double lastTime = 0.0;
+    for (const auto &row : GetKeyframeRows(channel.table)) {
+        keys.push_back({row[0], row[1]});
+        lastTime = std::max(lastTime, row[0]);
+    }
+    const double lifetime = _definition.Get_Lifetime();
+    channel.bar->setKeys(keys, lifetime > 0.0 && lifetime < kMaximumKeyTime ? lifetime : std::max(1.0, lastTime));
+    refreshSelectedScalarKey(channel);
+}
+
+void EmitterEditDialog::refreshSelectedScalarKey(const ScalarTimeline &channel)
+{
+    const int index = channel.bar->selectedKey();
+    const bool valid = index >= 0 && index < channel.bar->keys().size();
+    channel.time->setEnabled(valid && index > 0);
+    channel.remove->setEnabled(valid && index > 0);
+    channel.value->setEnabled(valid);
+    channel.selection->setText(index <= 0 ? tr("Start") : tr("Key %1").arg(index));
+    const QSignalBlocker timeBlocker(channel.time);
+    const QSignalBlocker valueBlocker(channel.value);
+    channel.time->setValue(valid ? channel.bar->keys()[index].time : 0.0);
+    channel.value->setValue(valid ? channel.bar->keys()[index].red : 0.0);
+}
+
+void EmitterEditDialog::insertScalarKey(const ScalarTimeline &channel, double time)
+{
+    time = std::clamp(time, 0.0, kMaximumKeyTime);
+    for (int index = 0; index < channel.bar->keys().size(); ++index) {
+        if (std::abs(channel.bar->keys()[index].time - time) < 0.000001) {
+            channel.bar->setSelectedKey(index);
+            return;
+        }
+    }
+    const double value = channel.bar->interpolatedKey(time).red;
+    AddKeyframeRow(channel.table, {time, value}, ScalarKeySpecs());
+    SortKeyframeRows(channel.table, ScalarKeySpecs());
+    connectTableEditors(channel.table, channel.prefix + ".keys");
+    markDirty(channel.prefix + ".keys");
+    for (int index = 1; index < channel.bar->keys().size(); ++index) {
+        if (std::abs(channel.bar->keys()[index].time - time) < 0.000001) {
+            channel.bar->setSelectedKey(index);
+            break;
+        }
+    }
+}
+
+void EmitterEditDialog::removeScalarKey(const ScalarTimeline &channel, int index)
+{
+    if (index <= 0 || index > channel.table->rowCount()) return;
+    channel.table->removeRow(index - 1);
+    markDirty(channel.prefix + ".keys");
+}
+
 void EmitterEditDialog::connectTableEditors(QTableWidget *table, const QString &dirtyKey)
 {
     for (int row = 0; row < table->rowCount(); ++row) {
@@ -749,6 +1041,10 @@ bool EmitterEditDialog::updateDefinitionFromUi()
     if (lifetimeChanged) {
         rescaleKeyframeTimes(oldLifetime, newLifetime);
     }
+
+    refreshColorTimelines();
+
+    for (const auto &channel : _scalarTimelines) refreshScalarTimeline(channel);
 
     return true;
 }
@@ -1116,10 +1412,12 @@ Vector3Randomizer *EmitterEditDialog::randomizerFromUi(QComboBox *typeCombo,
 void EmitterEditDialog::updateRenderModeTabs()
 {
     const int mode = _ui->renderModeCombo->currentData().toInt();
-    _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->lineTab), mode == W3D_EMITTER_RENDER_MODE_LINE);
-    const bool lineGroup = mode == W3D_EMITTER_RENDER_MODE_LINEGRP_TETRA ||
-                           mode == W3D_EMITTER_RENDER_MODE_LINEGRP_PRISM;
-    _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->lineGroupTab), lineGroup);
+    // MFC keeps every page accessible, even when line rendering is inactive.
+    // Disable only the line controls so the user can still inspect the page
+    // and see which rendering mode is required. Line Group remains editable.
+    const bool line = mode == W3D_EMITTER_RENDER_MODE_LINE;
+    _ui->lineOptionsGroup->setEnabled(line);
+    _ui->lineParametersGroup->setEnabled(line);
 }
 
 void EmitterEditDialog::applyColorKeyframes()
@@ -1270,6 +1568,10 @@ void EmitterEditDialog::markDirty(const QString &key)
 {
     _dirtyFields.insert(key);
     updateApplyButton();
+    if (key.startsWith("color.") || key.startsWith("opacity.")) refreshColorTimelines();
+    for (const auto &channel : _scalarTimelines) {
+        if (key.startsWith(channel.prefix + ".")) refreshScalarTimeline(channel);
+    }
 }
 
 void EmitterEditDialog::updateApplyButton()

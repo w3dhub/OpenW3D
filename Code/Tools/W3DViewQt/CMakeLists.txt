@@ -28,6 +28,8 @@ set(W3DVIEW_QT_SRC
     ColorLightDialog.h
     EmitterEditDialog.cpp
     EmitterEditDialog.h
+    EmitterKeyframeBar.cpp
+    EmitterKeyframeBar.h
     ExportDirectoryDialog.cpp
     ExportDirectoryDialog.h
     GammaDialog.cpp
@@ -445,6 +447,8 @@ if(BUILD_TESTING)
         EmitterEditDialog.cpp
         EmitterEditDialog.h
         EmitterEditDialog.ui
+        EmitterKeyframeBar.cpp
+        EmitterKeyframeBar.h
         KeyframeTableUtils.cpp
         KeyframeTableUtils.h
     )
