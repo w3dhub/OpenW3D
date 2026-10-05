@@ -34,14 +34,6 @@ jobs:
             arch: x64
             options: "/W4;/WX"
             vcpkg: true
-          - name: MinGW x86
-            os: windows-latest
-            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
-            build-args: --target combat combate renegade renegadeserver ww3d2e wwaudioe wwphyse
-            msys2: true
-            msys2-msystem: mingw32
-            msys2-env: mingw-w64-i686
-            shell: msys2 {0}
           - name: MinGW x64
             os: windows-latest
             cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
