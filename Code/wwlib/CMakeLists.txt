@@ -198,6 +198,12 @@ if(BUILD_TESTING)
         ENVIRONMENT "SDL_VIDEODRIVER=dummy"
         TIMEOUT 10
     )
+    if(W3D_BUILD_OPTION_SDL3 AND WIN32)
+        # MSYS2 shells do not inherit DLL paths added to the Windows PATH.
+        set_tests_properties(wwlib_msgloop_tests PROPERTIES
+            ENVIRONMENT_MODIFICATION "PATH=path_list_prepend:$<TARGET_FILE_DIR:SDL3::SDL3-shared>"
+        )
+    endif()
 
     add_executable(wwlib_mempool_tests
         tests/MempoolTests.cpp
