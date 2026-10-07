@@ -7,7 +7,14 @@
 #include <SDL3/SDL_timer.h>
 #endif
 
+#ifdef _WIN32
+#include <windows.h>
+#elif defined(__linux__)
+#include <unistd.h>
+#endif
+
 #include "debug.h"
+#include <string>
 
 Process::~Process()
 {
@@ -124,4 +131,41 @@ Process *ProcessManager::Create_Process(const char * const *args)
 	auto pid = SDL_GetNumberProperty(props, SDL_PROP_PROCESS_PID_NUMBER, -1);
 	return new Process(sdl_process, int(pid)); // TODO OmniBlade: Investigate consquences of losing part of the pid?
 #endif
+}
+
+
+const char *Process::GetCurrentProcessPath()
+{
+	static std::string process_name_buffer;
+	static const char *process_name;
+	static bool initialized = false;
+	if (!initialized) {
+#ifdef _WIN32
+		process_name_buffer.resize(MAX_PATH);
+		DWORD length = GetModuleFileNameA(NULL, process_name_buffer.data(), static_cast<DWORD>(process_name_buffer.size()));
+		process_name_buffer.resize(length);
+		process_name = process_name_buffer.data();
+#elif defined(__linux__)
+		process_name_buffer.resize(256);
+		StringClass proc_exe_path;
+		while (true) {
+			ssize_t path_length = readlink("/proc/self/exe", process_name_buffer.data(), process_name_buffer.size());
+			if (path_length == -1) {
+				process_name = nullptr;
+				break;
+			}
+			if (static_cast<size_t>(path_length) < process_name_buffer.size())
+			{
+				process_name_buffer.resize(static_cast<size_t>(path_length));
+				process_name = process_name_buffer.data();
+				break;
+			}
+			process_name_buffer.resize(2 * process_name_buffer.size());
+		}
+#else
+#error "Not implemented"
+#endif
+		initialized = true;
+	}
+	return process_name;
 }

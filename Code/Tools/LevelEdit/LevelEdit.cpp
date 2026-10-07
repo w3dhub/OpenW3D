@@ -44,6 +44,7 @@
 #include "wwmath.h"
 #include "wwphys.h"
 #include "translatedb.h"
+#include "openw3d.h"
 #include "presetmgr.h"
 #include "phys.h"
 #include "Utils.h"
@@ -171,6 +172,19 @@ CLevelEditApp::InitInstance (void)
 	if (install_path[::lstrlen(install_path)-1] == '\\') {
 		install_path[::lstrlen(install_path)-1] = 0;
 	}
+
+	//-------------------------------------------------------------------------
+	// Get the Command line parameters.
+	//-------------------------------------------------------------------------
+	const char *cmd = m_lpCmdLine != nullptr ? m_lpCmdLine : "";
+
+	if (!OpenW3D::Set_Config_File_Path_From_Command_Line(cmd)) {
+		::MessageBoxA(nullptr, "Missing value for --ini.", "WWConfig", MB_ICONERROR | MB_OK);
+		return false;
+	}
+
+	// Resolve the config file path before later arguments can change the working directory.
+	OpenW3D::Get_Config_File_Path();
 
 	_pThe3DAssetManager = new EditorAssetMgrClass;
 

@@ -77,6 +77,9 @@ int main(int argc, char *argv[])
         OpenW3D::Set_Config_File_Path_Override(iniPathBytes.constData());
     }
 
+    // Resolve the config file path before later arguments can change the working directory.
+    OpenW3D::Get_Config_File_Path();
+
     app.setWindowIcon(QIcon(QStringLiteral(":/wwconfig/wwconfig.ico")));
 
     int languageOverride = -1;

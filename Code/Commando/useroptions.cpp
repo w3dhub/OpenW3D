@@ -50,8 +50,6 @@
 #include "openw3d.h"
 #include "useroptions.h"
 
-extern char DefaultRegistryModifier[1024];
-
 //
 // Class statics
 //
@@ -144,17 +142,13 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 		}
 
 		if (strcmp(cmd, "--regmod") == 0) {
-            const char *argval = argv[i + 1];
 			i++;
 			if (i >= argc) {
 				retcode = FAILURE;
 				break;
 			}
-			strcpy(DefaultRegistryModifier, argval);
-			#ifdef WWDEBUG
-			fprintf(stderr, "%s", "Registry modifier on command line\n");
-			#endif //WWDEBUG
-			Reread();
+			fprintf(stderr, "%s", "Registry modifiers (--regmod) have been deprecated, use --ini instead. \n");
+			retcode = FAILURE;
 			continue;
 		}
 
@@ -163,14 +157,10 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 			DebugManager::Set_Is_Slave(true);
 
 			// Save out process ID so our master server can find us.
-			char tempmod[512];
-			strcpy(tempmod, DefaultRegistryModifier);
-			strcpy(DefaultRegistryModifier, "");
 			RegistryClass reg(APPLICATION_SUB_KEY_NAME);
 			if (reg.Is_Valid()) {
 				reg.Set_Int("ProcessId", GetCurrentProcessId());
 			}
-			strcpy(DefaultRegistryModifier, tempmod);
 
 			RegistryClass::Set_Read_Only(true);
 			continue;
@@ -389,30 +379,6 @@ void cUserOptions::Set_Bandwidth_Bps(int bandwidth_bps)
 
 	BandwidthBps.Set(bandwidth_bps);
 }
-
-
-
-
-//-----------------------------------------------------------------------------
-void cUserOptions::Reread(void)
-{
-	Sku.Set(RegistryClass(APPLICATION_SUB_KEY_NAME).Get_Int("SKU", Sku.Get()));
-	BandwidthType.Set(RegistryClass(APPLICATION_SUB_KEY_NAME_NETOPTIONS).Get_Int("BandwidthType", BandwidthType.Get()));
-	BandwidthBps.Set(RegistryClass(APPLICATION_SUB_KEY_NAME_NETOPTIONS).Get_Int("BandwidthBps", BandwidthBps.Get()));
-	GameSpyBandwidthType.Set(RegistryClass(APPLICATION_SUB_KEY_NAME_GAMESPY).Get_Int("GameSpyBandwidthType", GameSpyBandwidthType.Get()));
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 cRegistryInt cUserOptions::GameListFilterMaxPing(				APPLICATION_SUB_KEY_NAME_NETOPTIONS, "GameListFilterMaxPing",								9999);

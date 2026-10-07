@@ -410,7 +410,7 @@ bool APIENTRY DllMain(HANDLE, DWORD, void *)
  * HISTORY:                                                                                    *
  *   10/3/2001 11:21AM ST : Created                                                            *
  *=============================================================================================*/
-BANDTEST_API unsigned int Detect_Bandwidth(unsigned int server_ip, unsigned int my_ip, int retries, int &failure_code, unsigned int &downstream, unsigned int api_version, BandtestSettingsStruct *settings, char *regpath)
+BANDTEST_API unsigned int Detect_Bandwidth(unsigned int server_ip, unsigned int my_ip, int retries, int &failure_code, unsigned int &downstream, unsigned int api_version, BandtestSettingsStruct *settings, const char *regpath)
 {
 	if (api_version != BANDTEST_API_VERSION) {
 		return(BANDTEST_WRONG_API_VERSION);

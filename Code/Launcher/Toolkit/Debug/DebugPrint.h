@@ -39,6 +39,8 @@
 
 #ifdef _DEBUG
 
+#include "../../wwlib/wwformat.h"
+
 #ifdef __cplusplus
 extern "C"
 {

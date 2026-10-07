@@ -62,17 +62,20 @@ static const char *VALUE_NAME_CHEATS	= "Cheats";
 //////////////////////////////////////////////////////////////////////
 RenegadeCheatMgrClass::RenegadeCheatMgrClass (void)
 {
+#if 0
+	// FIXME: cannot access registry during static initialization
+
 	//
 	//	Attempt to open the registry key
 	//
 	RegistryClass registry (APPLICATION_SUB_KEY_NAME_OPTIONS);
 	if (registry.Is_Valid ()) {
-
 		//
 		//	Read the values from the registry
 		//
 		//Flags = registry.Get_Int (VALUE_NAME_CHEATS, 0);
 	}
+#endif
 
 	return ;
 }

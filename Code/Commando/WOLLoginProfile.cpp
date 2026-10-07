@@ -158,7 +158,7 @@ LoginProfile* LoginProfile::Get(const unichar_t* loginName, bool createOK)
 		StringClass regKey(255, true);
 		regKey.Format("%s\\%S", APPLICATION_SUB_KEY_NAME_LOGINS, loginName);
 
-		if (RegistryClass::Exists(regKey) || createOK)
+		if (RegistryClass::SectionExists(regKey) || createOK)
 			{
 			return Create(loginName);
 			}

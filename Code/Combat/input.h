@@ -263,8 +263,8 @@ public:
 	static	void	Flush( void );
 
 	// Registry
-	static	void	Load_Registry( const char * key );
-	static	void	Save_Registry( const char * key );
+	static	void	Load_Settings( const char * key );
+	static	void	Save_Settings( const char * key );
 
 	// Mouse
 	static	float	Get_Mouse_Sensitivity( void );

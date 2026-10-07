@@ -14,7 +14,9 @@ public:
 	bool Wait(bool block=true);
 	bool Kill();
 	std::optional<int> Return_Code() const { return mReturnCode; }
-	int Pid() const { return mPid; }
+	int Get_Pid() const { return mPid; }
+
+	static const char *GetCurrentProcessPath();
 
 private:
 #if defined(OPENW3D_WIN32)

@@ -23,6 +23,7 @@
 #include "WWConfig.h"
 #include "WWConfigDlg.h"
 #include "ffactory.h"
+#include "argv.h"
 #include "locale_api.h"
 #include "openw3d.h"
 #include "wwconfig_ids.h"
@@ -91,6 +92,7 @@ BOOL CWWConfigApp::InitInstance()
 		return false;
 	}
 
+	// Resolve the config file path before later arguments can change the working directory.
 	OpenW3D::Get_Config_File_Path();
 
 	//=========================================================================

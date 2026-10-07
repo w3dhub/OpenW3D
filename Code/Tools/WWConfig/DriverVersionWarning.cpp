@@ -30,8 +30,6 @@
 #include "formconv.h"
 #include "locale_api.h"
 #include "wwconfig_ids.h"
-#include "openw3d.h"
-#include "ini.h"
 
 
 extern int GlobalExitValue;
@@ -149,8 +147,10 @@ void CheckDriverVersion()
 	//
 	//	Attempt to open the registry key
 	//
-	INIClass ini(W3D_CONF_FILE);
-	int disabled = ini.Get_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", 0);
+	RegistryClass render_registry(RENEGADE_SUB_KEY_NAME_RENDER);
+	if (!render_registry.Is_Valid()) return;
+
+	int disabled=render_registry.Get_Int( "DriverVersionCheckDisabled" );
 	if (disabled>=87) return;
 
 	IDirect3D9* d3d=nullptr;
@@ -178,10 +178,11 @@ void CheckDriverVersion()
 		int current_adapter_index=D3DADAPTER_DEFAULT;
 
 		//
-		//	Load the render device settings from the config file
+		//	Load the render device settings from the registry
 		//
 		char device_name[256] = { 0 };
-		ini.Get_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, "", device_name, sizeof(device_name));
+		render_registry.Get_String( VALUE_NAME_RENDER_DEVICE_NAME, device_name, sizeof(device_name));
+
 		int adapter_count = d3d->GetAdapterCount();
 		for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
 			D3DADAPTER_IDENTIFIER9 id;
@@ -272,8 +273,7 @@ void CheckDriverVersion()
 		dlg.DoModal();
 	}
 */
-	ini.Put_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", 87);
-	ini.Save(W3D_CONF_FILE);
+	render_registry.Set_Int( "DriverVersionCheckDisabled", 87 );	// Disable checking if driver version is good
 	GlobalExitValue=0;
 
 // IML: Disable driver warning message.
@@ -303,10 +303,9 @@ void DriverVersionWarning::OnDisableDriverVersionDialogCheckbox()
 	// TODO: Add your control notification handler code here
 
 	LRESULT is_disabled = SendDlgItemMessage (IDC_DISABLE_DRIVER_VERSION_DIALOG_CHECKBOX, BM_GETCHECK);
-	INIClass ini(W3D_CONF_FILE);
-
-	ini.Put_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", is_disabled != 0 ? 87 : 0);
-	OpenW3D::Save_Config(ini);
+	RegistryClass render_registry(RENEGADE_SUB_KEY_NAME_RENDER);
+	if (!render_registry.Is_Valid()) return;
+	render_registry.Set_Int( "DriverVersionCheckDisabled", is_disabled ? 87 : 0 );
 
 }
 

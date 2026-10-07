@@ -47,6 +47,7 @@ set(WWLIB_SRC
     systimer.cpp
     tagblock.cpp
     TARGA.CPP
+    tempfile.cpp
     textfile.cpp
     thread.cpp
     trim.cpp

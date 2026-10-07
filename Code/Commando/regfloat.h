@@ -39,13 +39,14 @@ class cRegistryFloat
       cRegistryFloat(const char *registry_location, const char *key_name, float initial_value);
 
       void Set(float value);
-      float Get(void) const {return Value;}
+      float Get();
 
 	private:
 
       float	Value;
       char	RegistryLocation[400];
       char	KeyName[100];
+      bool Initialized;
 };
 
 //-----------------------------------------------------------------------------

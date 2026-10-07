@@ -59,12 +59,14 @@
 #include "Notify.h"
 #include "ServerSettings.h"
 #include "WOLBuddyMgr.h"
+#include "openw3d.h"
 #include "bandwidthcheck.h"
 #include "bandwidth.h"
 #include "gamespyadmin.h"
 #include "specialbuilds.h"
 #include <cstdio>
 #include <algorithm>
+#include <cstdio>
 
 /*
 ** Single instance of restart class.
@@ -76,8 +78,6 @@ AutoRestartClass AutoRestart;
 */
 const char *AutoRestartClass::REG_VALUE_AUTO_RESTART_FLAG = "AutoRestartFlag";
 const char *AutoRestartClass::REG_VALUE_AUTO_RESTART_TYPE = "AutoRestartType";
-static const char *WINDOWS_SUB_KEY_RUN_ONCE = "Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce\\";
-static const char *WINDOWS_SUB_KEY_RUN_ONCE_APP = "Renegade";
 
 /*
 ** Stupid extern for main loop exit.
@@ -909,41 +909,34 @@ void AutoRestartClass::Set_Restart_Flag(bool enable)
 			Set_Exit_On_Exception(false);
 		}
 
-		RegistryClass registry_too(WINDOWS_SUB_KEY_RUN_ONCE);
-		if (registry_too.Is_Valid()) {
+		{
 
 			if (enable) {
-				/*
-				** The the current path and build a path/file combo that points to the launcher.
-				*/
-				char path_to_exe[256];
-				char drive[_MAX_DRIVE];
-				char dir[_MAX_DIR];
-				char path[_MAX_PATH];
-				GetModuleFileNameA(ProgramInstance, path_to_exe, sizeof(path_to_exe));
-				_splitpath(path_to_exe, drive, dir, nullptr, nullptr);
-#ifdef FREEDEDICATEDSERVER
-				_makepath(path, drive, dir, "renegadeserver", "exe");
-#else  //FREEDEDICATEDSERVER
-				_makepath(path, drive, dir, "renegade", "exe");
+				const char *renegade_exe = Process::GetCurrentProcessPath();
+				if (!renegade_exe) {
+					WWRELEASE_ERROR(("Failed to get path to executable, cannot restart\n"));
+					return;
+				}
+				std::vector<const char *> restart_args;
 
-				char options[256];
-				options[0] = 0;
+				restart_args.push_back(renegade_exe);
+				restart_args.push_back("--ini");
+				restart_args.push_back(OpenW3D::Get_Config_File_Path());
+
+				StringClass start_server_arg;
 				if (ServerSettingsClass::Is_Active()) {
-					sprintf(options, " /startserver=%s", ServerSettingsClass::Get_Settings_File_Name());
+					start_server_arg.Format("--startserver=%s", ServerSettingsClass::Get_Settings_File_Name());
+					restart_args.push_back(start_server_arg.Peek_Buffer());
 				}
 
 				if (ConsoleBox.Is_Exclusive()) {
-					strcat(options, " /nodx");
+					restart_args.push_back("--nodx");
 				}
+				restart_args.push_back(nullptr);
 
-				strcat(path, options);
-#endif //FREEDEDICATEDSERVER
-				WWDEBUG_SAY(("Writing %s to RunOnce key\n", path));
-				registry_too.Set_String(WINDOWS_SUB_KEY_RUN_ONCE_APP, path);
+				WWDEBUG_SAY(("Registering app to restart not implemented\n"));
 			} else {
-				WWDEBUG_SAY(("Removing RunOnce key\n"));
-				registry_too.Delete_Value(WINDOWS_SUB_KEY_RUN_ONCE_APP);
+				WWDEBUG_SAY(("Unregistering app from restaring not implemented\n"));
 			}
 		}
 	}
