@@ -20,12 +20,16 @@
 //
 
 // Includes.
-#include "stdafx.h"
-#include "MixFile.h"
+#include "StdAfx.h"
+#include "mixfile.h"
+#include <filesystem>
+#include <system_error>
+#include <string>
+#include <algorithm>
 
 
 // Private functions.
-static unsigned Add_Files (const StringClass &basepath, const StringClass &subpath, MixFileCreator &mixfile);
+static unsigned Add_Files (const std::filesystem::path &basepath, const std::filesystem::path &subpath, MixFileCreator &mixfile);
 
 int main (int argc, char *argv[])
 {
@@ -37,8 +41,8 @@ int main (int argc, char *argv[])
 		for (int c = 1; c < argc - 1; c++) {
 
 			unsigned		filecount;
-			StringClass basepath (argv [c]);
-			StringClass subpath;
+			std::filesystem::path basepath (argv [c]);
+			std::filesystem::path subpath;
 
 			filecount = Add_Files (basepath, subpath, mixfile);
 			if (filecount > 0) {
@@ -56,69 +60,52 @@ int main (int argc, char *argv[])
 }
 
 
-unsigned Add_Files (const StringClass &basepath, const StringClass &subpath, MixFileCreator &mixfile)
+unsigned Add_Files (const std::filesystem::path &basepath, const std::filesystem::path &subpath, MixFileCreator &mixfile)
 {
-	const char wildcardname [] = "*.*";
+	unsigned filecount = 0;
+	std::filesystem::path searchpath = basepath / subpath;
+	std::error_code ec;
+	std::filesystem::directory_iterator iterator(searchpath, ec);
+	const std::filesystem::directory_iterator end;
+	if (!ec) {
+		while (iterator != end) {
 
-	unsigned			 filecount;
-	StringClass		 findfilepathname;
-	WIN32_FIND_DATAA finddata;
-	HANDLE			 handle;
+			const std::filesystem::path filename = iterator->path().filename();
+			const std::string name = filename.string();
 
-	filecount = 0;
-	if (basepath.Get_Length() > 0) {
-		findfilepathname  = basepath;
-		findfilepathname += "\\";
-	}
-	if (subpath.Get_Length() > 0) {
-		findfilepathname += subpath;
-		findfilepathname += "\\";
-	}
-	findfilepathname += wildcardname;
-	handle = FindFirstFileA (findfilepathname, &finddata);
-	if (handle != INVALID_HANDLE_VALUE) {
+			// Skip names beginning with a dot.
+			if (!name.empty() && name[0] != '.') {
 
-		bool done;
-
-		done = false;
-		while (!done) {
-
-			// Filter out system files.
-  			if (finddata.cFileName [0] != '.') {
-
-				StringClass subpathname;
-
-				if (subpath.Get_Length() > 0) {
-					subpathname += subpath;
-					subpathname += "\\";
-				}
-				subpathname += finddata.cFileName;
+				std::filesystem::path subpathname = subpath / filename;
 
 				// Is it a subdirectory?
-	  			if ((finddata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+				std::filesystem::file_status status = iterator->symlink_status(ec);
+				if (ec) {
+					break;
+				}
+				if (std::filesystem::is_directory(status)) {
 
 					// Recurse on subdirectory.
 					filecount += Add_Files (basepath, subpathname, mixfile);
 
-				} else {
+				} else if (std::filesystem::is_regular_file(status)) {
 
-					StringClass fullpathname;
-
-					if (basepath.Get_Length() > 0) {
-						fullpathname += basepath;
-						fullpathname += "\\";
-					}
-					if (subpath.Get_Length() > 0) {
-						fullpathname += subpath;
-						fullpathname += "\\";
-					}
-					fullpathname += finddata.cFileName;
-					mixfile.Add_File (fullpathname, subpathname);
+					std::string fullpathname = (basepath / subpathname).string();
+					std::string savedname = subpathname.generic_string();
+					std::replace(savedname.begin(), savedname.end(), '/', '\\');
+					mixfile.Add_File (fullpathname.c_str(), savedname.c_str());
 					filecount++;
 				}
 			}
-			done = !FindNextFileA (handle, &finddata);
+			iterator.increment(ec);
+			if (ec) {
+				break;
+			}
 		}
+	}
+	if (ec) {
+		fprintf(stderr, "Unable to read directory %s: %s\n",
+			searchpath.string().c_str(), ec.message().c_str());
 	}
 	return (filecount);
 }
