@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BoneManagementDialog</class>
+ <widget class="QDialog" name="BoneManagementDialog">
+  <property name="windowTitle">
+   <string>Bone Management</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="boneGroup">
+     <property name="title">
+      <string>Bone:</string>
+     </property>
+     <layout class="QVBoxLayout" name="boneLayout">
+      <item>
+       <widget class="QTreeWidget" name="boneTree">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="rootIsDecorated">
+         <bool>true</bool>
+        </property>
+        <column>
+         <property name="text">
+          <string>Bone/Attachment</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="controlsLayout" stretch="0,1,0">
+     <item>
+      <widget class="QLabel" name="objectLabel">
+       <property name="text">
+        <string>Object:</string>
+       </property>
+       <property name="buddy">
+        <cstring>objectCombo</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="objectCombo"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="attachButton">
+       <property name="text">
+        <string>Attach</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
