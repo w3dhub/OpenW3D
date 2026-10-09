@@ -17,6 +17,8 @@ CMake AUTOUIC generates `ui_*.h` in the build directory. Edit the forms, not tho
 
 ## Build and test
 
+Test sources live in [tests/Tools/WWConfigQt](../../../tests/Tools/WWConfigQt); shared build and registration instructions are in the [test guide](../../../tests/README.md).
+
 From the repository root in a Visual Studio x64 developer shell with `VCPKG_ROOT` set:
 
 ```powershell

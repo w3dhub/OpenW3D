@@ -58,11 +58,3 @@ if(WIN32)
 endif()
 
 w3d_deploy_qt_runtime(wwconfig_qt)
-
-if(BUILD_TESTING)
-    find_package(Qt6 ${W3D_QT_MIN_VERSION} COMPONENTS Test REQUIRED)
-    add_executable(wwconfig_qt_settings_tests tests/SettingsPageTests.cpp)
-    target_link_libraries(wwconfig_qt_settings_tests PRIVATE wwconfig_qt_widgets)
-    w3d_configure_qt_test(wwconfig_qt_settings_tests)
-    w3d_add_designer_test(wwconfig_qt_designer_forms ${WWCONFIG_QT_UI})
-endif()
