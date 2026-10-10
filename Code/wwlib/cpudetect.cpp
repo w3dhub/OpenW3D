@@ -1007,7 +1007,7 @@ bool CPUDetectClass::CPUID(
 	u_ecx_=cpuInfo[2];
 	u_edx_=cpuInfo[3];
 #else
-	__cpuid(cpuid_type, u_eax_, u_ebx_, u_ecx_, u_edx_);
+	__get_cpuid(cpuid_type, &u_eax_, &u_ebx_, &u_ecx_, &u_edx_);
 #endif
 	return true;
 #else
