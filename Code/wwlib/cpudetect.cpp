@@ -999,7 +999,7 @@ bool CPUDetectClass::CPUID(
 	if (!Has_CPUID_Instruction()) {
 		return false;	// Most processors since 486 have CPUID...
 	}
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !IS_MINGW
 	int cpuInfo[4];
 	__cpuid(cpuInfo, cpuid_type);
 	u_eax_=cpuInfo[0];
