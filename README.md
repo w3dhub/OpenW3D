@@ -25,7 +25,7 @@ For convenience we provide support for using vcpkg to install the required depen
 
 In addition to these, we also use these less commonly packaged libraries that are pulled in by the build system. You do not need to provide these manually unless you are building off line:
 
-[Crunch](https://github.com/binomialllc/crunch)
+[Crunch](https://github.com/DaemonEngine/crunch)
 
 [GameSpySDK](https://github.com/TheAssemblyArmada/GamespySDK)
 
