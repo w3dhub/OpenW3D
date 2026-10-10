@@ -37,7 +37,7 @@
 #include "systimer.h"
 
 #if CPU_X86 || CPU_X86_64
-#if defined(_MSC_VER) && !defined(IS_MINGW)
+#if defined(_MSC_VER)
 #include <intrin.h>
 #else
 #include <x86intrin.h>
@@ -1005,7 +1005,7 @@ bool CPUDetectClass::CPUID(
 	if (!Has_CPUID_Instruction()) {
 		return false;	// Most processors since 486 have CPUID...
 	}
-#if defined(_MSC_VER) && !IS_MINGW
+#if defined(_MSC_VER)
 	int cpuInfo[4];
 	__cpuid(cpuInfo, cpuid_type);
 	u_eax_=cpuInfo[0];
