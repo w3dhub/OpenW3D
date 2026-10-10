@@ -37,11 +37,17 @@
 #include "systimer.h"
 
 #if CPU_X86 || CPU_X86_64
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(IS_MINGW)
 #include <intrin.h>
 #else
 #include <x86intrin.h>
 #include <cpuid.h>
+#endif
+#endif
+
+#if defined(IS_MINGW)
+#ifdef __cpuid
+#undef __cpuid
 #endif
 #endif
 
