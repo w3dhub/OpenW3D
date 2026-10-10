@@ -55,7 +55,6 @@ set(WWLIB_SRC
     verchk.cpp
     widestring.cpp
     win.cpp
-    WWCOMUtil.cpp
     wwfile.cpp
     wwstring.cpp
     xpipe.cpp
@@ -142,7 +141,6 @@ set(WWLIB_SRC
     verchk.h
     widestring.h
     win.h
-    WWCOMUtil.h
     wwdialog.cpp
     wwdialog.h
     wwfile.h
@@ -151,6 +149,10 @@ set(WWLIB_SRC
     xpipe.h
     xstraw.h
 )
+
+if(WIN32)
+    list(APPEND WWLIB_SRC WWCOMUtil.cpp WWCOMUtil.h)
+endif()
 
 if(TARGET ffmpeg)
     list(APPEND WWLIB_SRC FFmpegFile.cpp FFmpegFile.h)
@@ -164,6 +166,10 @@ endif()
 
 # Targets to build.
 add_library(wwlib STATIC)
+
+if(MINGW)
+    target_compile_definitions(wwlib PRIVATE IS_MINGW=1)
+endif()
 
 target_link_libraries(wwlib PRIVATE
     wwcommon
