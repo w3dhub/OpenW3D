@@ -817,7 +817,7 @@ void cPlayer::Set_Fps(int fps)
 }
 
 //------------------------------------------------------------------------------------
-void cPlayer::Set_Last_Update_Time_Ms(DWORD time_ms)
+void cPlayer::Set_Last_Update_Time_Ms(unsigned time_ms)
 {
 	LastUpdateTimeMs = time_ms;
 }
@@ -1066,7 +1066,7 @@ void cPlayer::Set_GameSpy_Auth_State(GAMESPY_AUTH_STATE_ENUM state)
 }
 
 //------------------------------------------------------------------------------------
-void cPlayer::Set_GameSpy_Auth_State_Entry_Time_Ms(DWORD time_ms)
+void cPlayer::Set_GameSpy_Auth_State_Entry_Time_Ms(unsigned time_ms)
 {
 	GameSpyAuthStateEntryTimeMs = time_ms;
 }
@@ -1098,7 +1098,7 @@ void cPlayer::Set_GameSpy_Kick_State(GAMESPY_KICK_STATE_ENUM state)
 }
 
 //------------------------------------------------------------------------------------
-void cPlayer::Set_GameSpy_Kick_State_Entry_Time_Ms(DWORD time_ms)
+void cPlayer::Set_GameSpy_Kick_State_Entry_Time_Ms(unsigned time_ms)
 {
 	GameSpyKickStateEntryTimeMs = time_ms;
 }

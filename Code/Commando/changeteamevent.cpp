@@ -120,7 +120,7 @@ cChangeTeamEvent::Act(void)
 		//	Only reset the player's cash if they've changed teams after 60 seconds
 		// have elapsed.
 		//
-		DWORD playing_time = (TIMEGETTIME() - p_player->Get_Join_Time ());
+		unsigned playing_time = (TIMEGETTIME() - p_player->Get_Join_Time ());
 		if (playing_time > 30000) {
 			p_player->Set_Score(0);
 			p_player->Set_Money(0);

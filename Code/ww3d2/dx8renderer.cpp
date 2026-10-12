@@ -2035,8 +2035,8 @@ void DX8MeshRendererClass::Add_To_Render_List(DecalMeshClass * decalmesh)
 	visible_decal_meshes = decalmesh;
 }
 
-static inline DWORD Float2Unsigned(float f) {
-	return std::bit_cast<DWORD>(f);
+static inline unsigned Float2Unsigned(float f) {
+	return std::bit_cast<unsigned>(f);
 
 }
 void DX8MeshRendererClass::Render_Decal_Meshes()

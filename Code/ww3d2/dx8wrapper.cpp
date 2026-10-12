@@ -355,7 +355,7 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Inits(void)
 	Set_Default_Global_Render_States();
 }
 
-inline DWORD F2DW(float f) { return std::bit_cast<DWORD>(f); }
+inline unsigned F2DW(float f) { return std::bit_cast<unsigned>(f); }
 static constexpr float DX8_ZBIAS_DEPTH_UNIT = 1.0f / 16777216.0f;
 void DX8Wrapper::Set_Default_Global_Render_States(void)
 {

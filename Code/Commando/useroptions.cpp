@@ -217,7 +217,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 				break;
 			}
 			USHORT port = 4848;
-			DWORD addr = 0;
+			unsigned addr = 0;
 
             char *saddr_mem = nullptr;
             const char *saddr = argval;

@@ -1217,8 +1217,8 @@ ParticleEmitterDefClass::Save_User_Data (ChunkSaveClass &chunk_save)
 		// Fill the header structure
 		W3dEmitterUserInfoStruct user_info = { 0 };
 		user_info.Type = m_iUserType;
-		WWASSERT(string_len <= static_cast<size_t>(std::numeric_limits<DWORD>::max()));
-		const DWORD clamped_string_len = static_cast<DWORD>(std::min(string_len, static_cast<size_t>(std::numeric_limits<DWORD>::max())));
+		WWASSERT(string_len <= static_cast<size_t>(std::numeric_limits<unsigned>::max()));
+		const unsigned clamped_string_len = static_cast<unsigned>(std::min(string_len, static_cast<size_t>(std::numeric_limits<unsigned>::max())));
 		user_info.SizeofStringParam = clamped_string_len;
 
 		// Write the user information structure out to the chunk

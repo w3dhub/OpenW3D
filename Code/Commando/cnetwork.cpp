@@ -777,16 +777,16 @@ bool cNetwork::Load(ChunkLoadClass &cload)
 //-----------------------------------------------------------------------------
 void cNetwork::Update_Fps(void)
 {
-	static DWORD last_time_ms = 0;
+	static unsigned last_time_ms = 0;
 	static int frame_count = 0;
-   DWORD time_now_ms = TIMEGETTIME();
+   unsigned time_now_ms = TIMEGETTIME();
 
 	// Handle timer resetting.
 	if (time_now_ms < last_time_ms) {
 		last_time_ms = time_now_ms;
 	}
 	frame_count++;
-	DWORD time_interval = time_now_ms - last_time_ms;
+	unsigned time_interval = time_now_ms - last_time_ms;
 
 	if (time_interval > 1000) {
 

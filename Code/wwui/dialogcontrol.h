@@ -127,14 +127,14 @@ public:
 	virtual const RectClass &	Get_Window_Rect (void) const		{ return Rect; }
 	Vector2				Get_Window_Pos (void) const					{ return Rect.Upper_Left (); }
 	const RectClass &	Get_Client_Rect (void) const					{ return ClientRect; }
-	DWORD					Get_Style (void) const							{ return Style; }
+	unsigned					Get_Style (void) const							{ return Style; }
 	int					Get_ID (void) const								{ return ID; }
 
 	virtual void	Set_Text (const unichar_t *title)					{ Title = title; Set_Dirty ();  }
 	void					Set_Window_Rect (const RectClass &rect)	{ Rect = rect; Update_Client_Rect (); }
 	virtual void	Set_Window_Pos (const Vector2 &pos);
 	void					Set_Client_Rect (const RectClass &rect)	{ ClientRect = rect; }
-	virtual void	Set_Style (DWORD style)							{ Style = style; }
+	virtual void	Set_Style (unsigned style)							{ Style = style; }
 	void					Set_ID (int id)									{ ID = id; }
 
 	//
@@ -240,7 +240,7 @@ protected:
 	WideStringClass		ToolTipText;
 	RectClass				Rect;
 	RectClass				ClientRect;
-	DWORD						Style;
+	unsigned						Style;
 	int						ID;
 	DialogBaseClass *		Parent;
 	bool						HasFocus;

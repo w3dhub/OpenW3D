@@ -95,7 +95,7 @@ ComboBoxCtrlClass::~ComboBoxCtrlClass (void)
 }
 
 
-void ComboBoxCtrlClass::Set_Style(DWORD style)
+void ComboBoxCtrlClass::Set_Style(unsigned style)
 {
 	DialogControlClass::Set_Style(style);
 
