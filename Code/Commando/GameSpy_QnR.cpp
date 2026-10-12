@@ -183,7 +183,7 @@ CGameSpyQnR::~CGameSpyQnR()
 
 void CGameSpyQnR::LaunchArcade(void) {
 	const char *akey = "Software\\GameSpy\\GameSpy Arcade";
-	BOOL launched = false;
+	bool launched = false;
 	HKEY key = nullptr;
 	int result = 0;
 
@@ -261,7 +261,7 @@ void CGameSpyQnR::Init(void) {
 
 			ConsoleBox.Print("Initializing GameSpy Q&R\n");
 
-			BOOL test = false;
+			bool test = false;
 		// Init the GameSpy QnR engine
 		extern unsigned int g_ip_override;
 		char ipstr[32];
@@ -619,9 +619,9 @@ bool Resolve_Master_With_Timeout(const char *host, WORD port, sockaddr_in &out_a
 }
 } // anonymous namespace
 
-BOOL CGameSpyQnR::Parse_HeartBeat_List(const char *list, bool log_on_error) {
+bool CGameSpyQnR::Parse_HeartBeat_List(const char *list, bool log_on_error) {
 
-	BOOL master_added = false;
+	bool master_added = false;
 
 	char *str = new char[strlen(list)+1];
 	strcpy(str, list);
@@ -665,7 +665,7 @@ BOOL CGameSpyQnR::Parse_HeartBeat_List(const char *list, bool log_on_error) {
 	return master_added;
 }
 
-BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const char *value) {
+bool CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const char *value) {
 
 	WWASSERT(value);
 	WWASSERT(outbuf);
@@ -692,14 +692,14 @@ BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key,
 	return true;
 }
 
-BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const WideStringClass &value) {
+bool CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const WideStringClass &value) {
 	static StringClass text;
 
 	value.Convert_To(text);
 	return Append_InfoKey_Pair(outbuf, maxlen, key, text.Peek_Buffer());
 }
 
-BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const StringClass &value) {
+bool CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const StringClass &value) {
 
 	return Append_InfoKey_Pair(outbuf, maxlen, key, value.Peek_Buffer());
 }

@@ -65,7 +65,7 @@ unsigned int cConnection::LastLatencyChange = 0;
 //
 // class statics
 //
-BOOL cConnection::IsFlowControlEnabled				= true;
+bool cConnection::IsFlowControlEnabled				= true;
 UINT cConnection::TotalCompressedBytesSent		= 0;
 UINT cConnection::TotalUncompressedBytesSent		= 0;
 
