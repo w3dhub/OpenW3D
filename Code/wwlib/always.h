@@ -92,10 +92,6 @@ void operator delete(void *p, size_t size) noexcept;
 #define _alloca(size) alloca(size)
 #endif
 
-#ifndef OutputDebugStringA
-#define OutputDebugStringA(s) ((void)(s))
-#endif
-
 // Windows BOOL type
 #ifndef BOOL
 typedef int BOOL;
