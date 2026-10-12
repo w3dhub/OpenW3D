@@ -3320,7 +3320,7 @@ public:
 
 	virtual	void Activate( const char * input ) override {
       WWASSERT(input != nullptr);
-      ULONG bbo = (ULONG) ::atol(input);
+      unsigned bbo = (unsigned) ::atol(input);
 		if (bbo > 0) {
 
       	if (cNetwork::I_Am_Server()) {
@@ -4697,7 +4697,7 @@ public:
 		   Print("%s", Get_Help());
 		} else {
 
-			ULONG ip = p_player->Get_Ip_Address();
+			unsigned ip = p_player->Get_Ip_Address();
 			HOSTENT * p_host = ::gethostbyaddr((char *) &ip, sizeof(ip), AF_INET);
 			char resolved_ip[100] = "";
 			if (p_host != nullptr) {

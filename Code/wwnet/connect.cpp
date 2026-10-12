@@ -304,7 +304,7 @@ void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned 
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Client(ULONG server_ip, USHORT server_port, unsigned short my_port)
+void cConnection::Init_As_Client(unsigned server_ip, USHORT server_port, unsigned short my_port)
 {
    WWDEBUG_SAY(("cConnection::Init_As_Client(%s, %d, %d)\n",
 		cNetUtil::Address_To_String(server_ip), server_port, my_port));
@@ -327,7 +327,7 @@ void cConnection::Init_As_Client(ULONG server_ip, USHORT server_port, unsigned s
 
 //------------------------------------------------------------------------------------
 void cConnection::Init_As_Server(USHORT server_port, int max_players,
-	bool is_dedicated_server, ULONG addr)
+	bool is_dedicated_server, unsigned addr)
 {
    WWDEBUG_SAY(("cConnection::Init_As_Server\n"));
 
@@ -384,7 +384,7 @@ void cConnection::Init_As_Server(USHORT server_port, int max_players,
 }
 
 //------------------------------------------------------------------------------------
-bool cConnection::Bind(USHORT port, ULONG addr)
+bool cConnection::Bind(USHORT port, unsigned addr)
 {
    WWASSERT(!cSinglePlayerData::Is_Single_Player());
 
@@ -1362,7 +1362,7 @@ int cConnection::Low_Level_Receive_Wrapper(cPacket & packet)
 		// diagnostic
 		//
 		if (ret_code > 0) {
-			ULONG ip = packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr;
+			unsigned ip = packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr;
 			WWDEBUG_SAY(("cConnection::Low_Level_Receive_Wrapper: %s\n",
 				cNetUtil::Address_To_String(ip)));
 		}

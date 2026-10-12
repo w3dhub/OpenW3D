@@ -113,7 +113,7 @@ void CCDKeyAuth::DisconnectUser(int localid) {
 
 }
 
-void CCDKeyAuth::AuthenticateUser(int localid, ULONG ip, char *challenge, char *authstring) {
+void CCDKeyAuth::AuthenticateUser(int localid, unsigned ip, char *challenge, char *authstring) {
 
 	// Customize this with our playerdata struct
 	// Take the response from our challenge that we sent to the client

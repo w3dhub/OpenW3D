@@ -53,7 +53,7 @@ public:
 	static bool					Get_Is_Launched_From_Gamespy(void)						{return IsLaunchedFromGamespy;}
 	static void					Set_Is_Server_Gamespy_Listed(bool flag)				{IsServerGamespyListed = flag;}
 	static bool					Get_Is_Server_Gamespy_Listed(void)						{return IsServerGamespyListed;}
-	static void					Set_Game_Host_Ip(ULONG ip);
+	static void					Set_Game_Host_Ip(unsigned ip);
 	static void					Set_Game_Host_Port(USHORT port);
 	static bool					Is_Gamespy_Game(void);
 	static bool					Is_Nickname_Collision(WideStringClass & nickname);
@@ -70,7 +70,7 @@ private:
 	static bool					IsLaunchFromGamespyRequested;
 	static bool					IsLaunchedFromGamespy;
 	static bool					IsServerGamespyListed;
-	static ULONG				GameHostIp;
+	static unsigned				GameHostIp;
 	static USHORT				GameHostPort;
 	static WideStringClass	PasswordAttempt;
 };

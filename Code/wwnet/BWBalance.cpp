@@ -388,8 +388,8 @@ void BandwidthBalancerClass::Adjust_Connection_Budget(cConnection *connection)
 	if (PacketManager.Get_Error_State() == PacketManagerClass::STATE_WS_BUFFERS_FULL) {
 		if (time - _last_time > 10000) {
 			_last_time = time;
-			ULONG bbo = connection->Get_Bandwidth_Budget_Out();
-			ULONG new_bbo = (bbo * 9) / 10;
+			unsigned bbo = connection->Get_Bandwidth_Budget_Out();
+			unsigned new_bbo = (bbo * 9) / 10;
 			connection->Set_Bandwidth_Budget_Out(new_bbo);
 			WWDEBUG_SAY(("*** WARNING BandwidthBalancerClass - Adjusting Server connection BBO from %lu to %lu due to send overflow ***\n", bbo, new_bbo));
 		}

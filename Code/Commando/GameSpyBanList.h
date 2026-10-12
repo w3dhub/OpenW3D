@@ -45,15 +45,15 @@ public:
 protected:
 	char	hashid[33];
 	char	nickname[40];
-	ULONG	ipaddress;
-	ULONG	ipmask;
+	unsigned	ipaddress;
+	unsigned	ipmask;
 	bool	ruletype;
 
 public:
 	const char *Get_Nick_Name(void) {return (const char *)nickname;}
 	const char *Get_Hash_ID(void) {return (const char *)hashid;}
-	ULONG Get_Ip_Address(void) {return ipaddress;}
-	ULONG Get_Ip_Netmask(void) {return ipmask;}
+	unsigned Get_Ip_Address(void) {return ipaddress;}
+	unsigned Get_Ip_Netmask(void) {return ipmask;}
 	bool Get_Rule_Type(void) {return ruletype;}
 };
 
@@ -74,8 +74,8 @@ public:
 	void Think(void);
 	bool Kick_Player(int id) { return Begin_Player_Kick(id);}
 	void Ban_User(const char *nickname, const char *challenge_response = nullptr,
-		ULONG ipaddress = 0xffffffff);
-	bool Is_User_Banned(const char *nickname, const char *challenge_response, ULONG ipaddress);
+		unsigned ipaddress = 0xffffffff);
+	bool Is_User_Banned(const char *nickname, const char *challenge_response, unsigned ipaddress);
 	void LoadBans(void);
 };
 
