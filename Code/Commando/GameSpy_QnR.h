@@ -36,14 +36,14 @@ class CGameSpyQnR
 	friend class CCDKeyAuth;
 protected:
 	char secret_key[9];
-	BOOL m_GSInit;
-	BOOL m_GSEnabled;
-	BOOL m_Offline; // true when no master/heartbeat servers are available
+	bool m_GSInit;
+	bool m_GSEnabled;
+	bool m_Offline; // true when no master/heartbeat servers are available
 	qr_t query_reporting_rec;
 	void DoGameStuff(void);
-	BOOL Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const char *value);
-	BOOL Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const StringClass &value);
-	BOOL Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const WideStringClass &value);
+	bool Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const char *value);
+	bool Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const StringClass &value);
+	bool Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const WideStringClass &value);
 	static const char *gamename;
 	static const char *bname;
 	static const int prodid;
@@ -55,12 +55,12 @@ public:
 	void Init(void);
 	void LaunchArcade(void);
 	void Shutdown(void);
-	BOOL Parse_HeartBeat_List(const char *list, bool log_on_error = true);
+	bool Parse_HeartBeat_List(const char *list, bool log_on_error = true);
 	const char *Get_GameSpy_GameName(void) { return gamename; }
 	const char *Get_Default_HeartBeat_List(void) { return default_heartbeat_list; }
-	BOOL IsOffline(void) const { return m_Offline; }
-	void Enable_Reporting(BOOL enable) { m_GSEnabled = enable; }
-	BOOL IsEnabled(void) { return m_GSEnabled; }
+	bool IsOffline(void) const { return m_Offline; }
+	void Enable_Reporting(bool enable) { m_GSEnabled = enable; }
+	bool IsEnabled(void) { return m_GSEnabled; }
 	void Think();
 	void basic_callback(char *outbuf, int maxlen);
 	void info_callback(char *outbuf, int maxlen);

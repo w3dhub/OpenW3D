@@ -199,7 +199,7 @@ void cNetwork::Init_Client([[maybe_unused]] unsigned short my_port)
 
 	PClientConnection->Set_Bandwidth_Budget_Out(bbo);
 
-   BOOL is_flow_control_enabled = !IS_SOLOPLAY;
+   bool is_flow_control_enabled = !IS_SOLOPLAY;
    PClientConnection->Enable_Flow_Control(is_flow_control_enabled);
 
 	WWASSERT(PTheGameData != nullptr);
@@ -691,7 +691,7 @@ void cNetwork::Init_Server(void)
    double max_acceptable_packetloss_pc = 10;
    PServerConnection->Set_Max_Acceptable_Packetloss_Pc(max_acceptable_packetloss_pc);
 
-   BOOL is_flow_control_enabled = !IS_SOLOPLAY;
+   bool is_flow_control_enabled = !IS_SOLOPLAY;
    PServerConnection->Enable_Flow_Control(is_flow_control_enabled);
 
 	WWASSERT(PTheGameData != nullptr);

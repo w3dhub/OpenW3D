@@ -120,7 +120,7 @@ class cConnection
       void Set_Packet_Duplication(double percent_duplicated);
       void Set_Packet_Latency_Range(int minimum_latency_ms, int maximum_latency_ms);
       void Set_Max_Acceptable_Packetloss_Pc(double max_packetloss_pc);
-      void Enable_Flow_Control(BOOL is_enabled) {IsFlowControlEnabled = is_enabled;}  // This should be called at startup.
+      void Enable_Flow_Control(bool is_enabled) {IsFlowControlEnabled = is_enabled;}  // This should be called at startup.
 	   SList<cPacket> * Get_Packet_List() {return &PacketList;}
 		void Clear_Resend_Counts();
 		int Get_Min_RHost()		{return MinRHost;}
@@ -132,7 +132,7 @@ class cConnection
 		double Get_Max_Acceptable_Packetloss_Pc() const {return MaxAcceptablePacketlossPc;}
 		cNetStats & Get_Combined_Stats() {return CombinedStats;}
 		cNetStats & Get_Averaged_Stats() {return AveragedStats;}
-      static BOOL Is_Flow_Control_Enabled() {return IsFlowControlEnabled;}
+      static bool Is_Flow_Control_Enabled() {return IsFlowControlEnabled;}
 		static UINT Get_Total_Compressed_Bytes_Sent(void)
 			{return TotalCompressedBytesSent;}
 		static UINT Get_Total_Uncompressed_Bytes_Sent(void)
@@ -202,7 +202,7 @@ class cConnection
       unsigned int ThisFrameTimeMs; // to avoid excess timeGetTime clls
       bool IsServer; // for C/S specific-code
       bool IsDedicatedServer; // for C/S specific-code
-      static BOOL IsFlowControlEnabled;
+      static bool IsFlowControlEnabled;
 		bool InitDone; // Used to ensure certain API's are used at the right time.
       SOCKET Sock;
       USHORT SimulatedPacketLossPerRANDMAX;
