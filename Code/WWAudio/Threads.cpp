@@ -96,7 +96,7 @@ WWAudioThreadsClass::Create_Delayed_Release_Thread (LPVOID param)
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
 void
-WWAudioThreadsClass::End_Delayed_Release_Thread (DWORD timeout)
+WWAudioThreadsClass::End_Delayed_Release_Thread (unsigned timeout)
 {
 	//
 	//	If the thread is running, then wait for it to finish
@@ -122,7 +122,7 @@ void
 WWAudioThreadsClass::Add_Delayed_Release_Object
 (
 	RefCountClass *	object,
-	DWORD					delay
+	unsigned					delay
 )
 {
 	if (m_IsFlushing) {
@@ -206,8 +206,8 @@ WWAudioThreadsClass::Flush_Delayed_Release_Objects (void)
 void 
 WWAudioThreadsClass::Delayed_Release_Thread_Proc (LPVOID /*param*/)
 {
-	const DWORD base_timeout = 2000;
-	DWORD timeout = base_timeout + rand () % 1000;
+	const unsigned base_timeout = 2000;
+	unsigned timeout = base_timeout + rand () % 1000;
 
 	//
 	//	Keep looping forever until we are singalled to quit (or an error occurs)
@@ -221,7 +221,7 @@ WWAudioThreadsClass::Delayed_Release_Thread_Proc (LPVOID /*param*/)
 			//	Loop through all the objects in our delay list, and
 			// free any that have expired.
 			//
-			DWORD current_time			= TIMEGETTIME ();
+			unsigned current_time			= TIMEGETTIME ();
 			DELAYED_RELEASE_INFO *curr = nullptr;
 			DELAYED_RELEASE_INFO *prev	= nullptr;
 			DELAYED_RELEASE_INFO *next	= nullptr;

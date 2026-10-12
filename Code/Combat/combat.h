@@ -170,9 +170,9 @@ public:
 	static	int	Get_My_Id( void )						{ return MyId; }
 
 	// Latency support
-	static	void	Set_Last_Round_Trip_Ping_Ms( DWORD ping )		{ LastRoundTripPingMs = ping; }
+	static	void	Set_Last_Round_Trip_Ping_Ms( unsigned ping )		{ LastRoundTripPingMs = ping; }
 	static	unsigned int	Get_Last_Round_Trip_Ping_Ms( void )				{ return LastRoundTripPingMs; }
-	static	void	Set_Avg_Round_Trip_Ping_Ms( DWORD ping )		{ AvgRoundTripPingMs = ping; }
+	static	void	Set_Avg_Round_Trip_Ping_Ms( unsigned ping )		{ AvgRoundTripPingMs = ping; }
 	static	unsigned int	Get_Avg_Round_Trip_Ping_Ms( void )				{ return AvgRoundTripPingMs; }
 
 	// Network Handler Functions

@@ -145,8 +145,8 @@ bool CombatNetworkReceiverInstanceClass::Server_Update_Dynamic_Objects(bool is_u
 	// This code will result in updates at a little less than NetUpdateRate.
 	// This saves bandwidth at the cost of added latency.
 	//
-	static DWORD last_update_time = 0;
-   DWORD time_now = TIMEGETTIME();
+	static unsigned last_update_time = 0;
+   unsigned time_now = TIMEGETTIME();
 	if (!is_urgent && (time_now - last_update_time < 1000 / (float) cUserOptions::NetUpdateRate.Get())) {
 		return(false);
 	}
@@ -251,9 +251,9 @@ bool CombatNetworkReceiverInstanceClass::Client_Update_Dynamic_Objects(bool is_u
 	/*TSS092101*/
 	WWASSERT(cNetwork::I_Am_Client());
 
-	static DWORD last_update_time_ms = 0;
-   DWORD time_now_ms = TIMEGETTIME();
-	DWORD time_elapsed_ms = time_now_ms - last_update_time_ms;
+	static unsigned last_update_time_ms = 0;
+   unsigned time_now_ms = TIMEGETTIME();
+	unsigned time_elapsed_ms = time_now_ms - last_update_time_ms;
 
 	int max_updates_per_second = cUserOptions::NetUpdateRate.Get();
 	WWASSERT(cServerFps::Get_Instance() != nullptr);
@@ -262,7 +262,7 @@ bool CombatNetworkReceiverInstanceClass::Client_Update_Dynamic_Objects(bool is_u
 		max_updates_per_second = server_fps;
 	}
 
-	DWORD min_delay_ms = (DWORD)(1000 / (float) max_updates_per_second);
+	unsigned min_delay_ms = (unsigned)(1000 / (float) max_updates_per_second);
 
 	//is_urgent = true;//XXX
 

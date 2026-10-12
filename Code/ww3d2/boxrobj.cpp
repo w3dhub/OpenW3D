@@ -458,7 +458,7 @@ void BoxRenderObjClass::render_box(RenderInfoClass & /*rinfo*/,const Vector3 & c
 		/*
 		** Dump the box vertices into the sorting dynamic vertex buffer.
 		*/
-		DWORD color = DX8Wrapper::Convert_Color(Color,Opacity);
+		unsigned color = DX8Wrapper::Convert_Color(Color,Opacity);
 
 		int buffer_type = BUFFER_TYPE_DYNAMIC_DX8;
 

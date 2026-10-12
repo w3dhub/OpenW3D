@@ -44,10 +44,11 @@
 #include "rendobj.h"
 #include "mesh.h"
 #include <random.h>
+#include <bit>
 
 Random4Class rand4;
 
-inline DWORD F2DW( FLOAT f ) { return *((DWORD*)&f); }
+inline unsigned F2DW(float f) { return std::bit_cast<unsigned>(f); }
 
 
 // HY 1/26/01

@@ -81,7 +81,7 @@ public:
 	void				Set_Window_Pos (const Vector2 &pos) override;
 	void				Render (void) override;
 
-	void Set_Style(DWORD style) override;
+	void Set_Style(unsigned style) override;
 
 	//
 	//	Content control

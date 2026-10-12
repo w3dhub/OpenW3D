@@ -86,9 +86,9 @@ cClientHintManager::Think
 	//
 	// Do not allow hints to go out at too high a frequency.
 	//
-	static DWORD last_hint_time_ms = 0;
-	DWORD	time_now_ms	= TIMEGETTIME();
-	const DWORD MIN_HINT_DELAY_MS = 1000;
+	static unsigned last_hint_time_ms = 0;
+	unsigned	time_now_ms	= TIMEGETTIME();
+	const unsigned MIN_HINT_DELAY_MS = 1000;
 	if (time_now_ms - last_hint_time_ms < MIN_HINT_DELAY_MS)
 	{
 		//

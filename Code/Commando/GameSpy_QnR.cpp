@@ -320,8 +320,8 @@ Simulates a main game loop
 *****************/
 void CGameSpyQnR::Think()
 {
-	static DWORD stime = (DWORD)(0 - BANLIST_RELOAD_TIME);
-	static DWORD ttime = 0;
+	static unsigned stime = (unsigned)(0 - BANLIST_RELOAD_TIME);
+	static unsigned ttime = 0;
 
 	if (TIMEGETTIME() - stime > BANLIST_RELOAD_TIME) {
 		GameSpyBanList.LoadBans();

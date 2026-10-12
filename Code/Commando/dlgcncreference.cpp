@@ -63,8 +63,8 @@
 //	Static member initialization
 ////////////////////////////////////////////////////////////////
 CnCReferenceMenuClass *	CnCReferenceMenuClass::_TheInstance				= nullptr;
-DWORD							CnCReferenceMenuClass::LastSuicideTimeMs		= 0;
-DWORD							CnCReferenceMenuClass::LastChangeTeamTimeMs	= 0;
+unsigned							CnCReferenceMenuClass::LastSuicideTimeMs		= 0;
+unsigned							CnCReferenceMenuClass::LastChangeTeamTimeMs	= 0;
 
 ////////////////////////////////////////////////////////////////
 //
