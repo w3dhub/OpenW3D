@@ -63,7 +63,7 @@ class cNetUtil
 		static bool		Send_Resource_Failure(const char * sFile, unsigned uLine, int ret_code);
 		static void		Address_To_String(struct sockaddr_in* p_address, char * str, UINT len,
 								USHORT & port);
-		static const char *	Address_To_String(ULONG ip_address);
+		static const char *	Address_To_String(unsigned ip_address);
 		static void		String_To_Address(struct sockaddr_in* p_address, const char * str, USHORT port);
       static void		Create_Unbound_Socket(SOCKET & sock);
       static bool		Create_Bound_Socket(SOCKET & sock, USHORT port, struct sockaddr_in & local_address);
@@ -83,9 +83,9 @@ class cNetUtil
 		static const	USHORT MULTI_SENDS;
 		static const	USHORT RESEND_TIMEOUT_LAN_MS;
 		static const	USHORT RESEND_TIMEOUT_INTERNET_MS;
-		static const	ULONG	 CLIENT_CONNECTION_LOSS_TIMEOUT;
-		static const	ULONG	 SERVER_CONNECTION_LOSS_TIMEOUT;
-		static const	ULONG	 SERVER_CONNECTION_LOSS_TIMEOUT_LOADING_ALLOWANCE;
+		static const	unsigned	 CLIENT_CONNECTION_LOSS_TIMEOUT;
+		static const	unsigned	 SERVER_CONNECTION_LOSS_TIMEOUT;
+		static const	unsigned	 SERVER_CONNECTION_LOSS_TIMEOUT_LOADING_ALLOWANCE;
 
 		static const char *Winsock_Error_Text(int error_code);
 

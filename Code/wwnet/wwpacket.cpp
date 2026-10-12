@@ -238,13 +238,13 @@ void cPacket::Construct_Full_Packet(cPacket & full_packet, cPacket & src_packet)
 	//
 	// Compute a CRC for all the data following the CRC placeholder
 	//
-	//ULONG crc = CRC::Memory(
+	//unsigned crc = CRC::Memory(
 	//	(BYTE *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)),
 	//	full_packet.Get_Max_Size() - sizeof(CRC_PLACEHOLDER));
 
 	// Only CRC the meaningful data in the buffer - not the other 1300ish bytes as well. ST - 9/19/2001 11:18PM
 #ifndef WRAPPER_CRC
-	ULONG crc = CRC::Memory((BYTE *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)), (whole_bit_length / 8) - sizeof(CRC_PLACEHOLDER));
+	unsigned crc = CRC::Memory((BYTE *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)), (whole_bit_length / 8) - sizeof(CRC_PLACEHOLDER));
 
 	//
 	// Overwrite the crc placeholder with the computed crc.

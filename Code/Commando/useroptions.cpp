@@ -399,7 +399,7 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		value = ::strstr(cmd, param);
 		if (value != nullptr) {
 			value += ::strlen(param);
-			ULONG ip = ::inet_addr(value);
+			unsigned ip = ::inet_addr(value);
 			cGameSpyAdmin::Set_Game_Host_Ip(ip);
 			cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
 			continue;

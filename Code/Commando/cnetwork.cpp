@@ -658,7 +658,7 @@ void cNetwork::Init_Server(void)
 	if (IS_SOLOPLAY ||
 		 (GameModeManager::Find("LAN")->Is_Active() && !cGameSpyAdmin::Is_Gamespy_Game())) {
 
-		ULONG bbo = cBandwidth::Get_Bandwidth_Bps_From_Type(BANDWIDTH_LANT1);
+		unsigned bbo = cBandwidth::Get_Bandwidth_Bps_From_Type(BANDWIDTH_LANT1);
 		WWASSERT(bbo > 0);
 		PServerConnection->Set_Bandwidth_Budget_Out(bbo);
 		cBandwidthGraph::Set_Scale(200000);

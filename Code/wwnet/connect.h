@@ -102,9 +102,9 @@ class cConnection
 		cConnection();
 		~cConnection();
 
-      void Init_As_Client(ULONG server_ip, USHORT server_port, unsigned short my_port = 0);
+      void Init_As_Client(unsigned server_ip, USHORT server_port, unsigned short my_port = 0);
       void Init_As_Server(USHORT server_port, int max_players,
-			bool is_dedicated_server, ULONG addr = 0);
+			bool is_dedicated_server, unsigned addr = 0);
       void Connect_Cs(cPacket & app_data);
       void Send_Packet_To_Individual(cPacket & packet, int addressee, BYTE send_flags);
       bool Have_Id() const {return LocalId != ID_UNKNOWN;}
@@ -172,7 +172,7 @@ class cConnection
       void Init_As_Client(struct sockaddr_in* p_server_address, unsigned short my_port = 0);
       bool Demultiplex_R_Or_U_Packet(cPacket * p_packet, int rhost_id);
       void Send_Accept_Sc(int new_rhost_id);
-      bool Bind(USHORT port, ULONG addr = 0);
+      bool Bind(USHORT port, unsigned addr = 0);
       bool Receive_Packet();
 		int Low_Level_Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address);
       int Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address);

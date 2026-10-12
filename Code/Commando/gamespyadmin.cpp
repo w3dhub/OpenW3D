@@ -51,7 +51,7 @@ bool					cGameSpyAdmin::IsUnderGamespyMenuing			= false;
 bool					cGameSpyAdmin::IsLaunchFromGamespyRequested	= false;
 bool					cGameSpyAdmin::IsLaunchedFromGamespy			= false;
 bool					cGameSpyAdmin::IsServerGamespyListed			= false;
-ULONG					cGameSpyAdmin::GameHostIp							= 0;
+unsigned					cGameSpyAdmin::GameHostIp							= 0;
 USHORT				cGameSpyAdmin::GameHostPort						= 0;
 WideStringClass	cGameSpyAdmin::PasswordAttempt;
 
@@ -207,7 +207,7 @@ cGameSpyAdmin::Connect_To_Game_Server
 void
 cGameSpyAdmin::Set_Game_Host_Ip
 (
-	ULONG ip
+	unsigned ip
 )
 {
 	WWASSERT(ip > 0);

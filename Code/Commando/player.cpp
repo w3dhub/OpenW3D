@@ -798,7 +798,7 @@ void cPlayer::Reset_Total_Time(void)
 }
 
 //------------------------------------------------------------------------------------
-void cPlayer::Set_Ip_Address(ULONG ip_address)
+void cPlayer::Set_Ip_Address(unsigned ip_address)
 {
    WWASSERT(ip_address != 0);
 

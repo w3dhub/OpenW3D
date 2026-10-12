@@ -92,7 +92,7 @@ cGameSpyBanList::~cGameSpyBanList() {
 	delete BanList;
 }
 
-void cGameSpyBanList::Ban_User(const char *nickname, const char *challenge_response, DWORD ipaddr) {
+void cGameSpyBanList::Ban_User(const char *nickname, const char *challenge_response, unsigned ipaddr) {
 
 	char *buff = nullptr;
 	char *q = nullptr;
@@ -185,7 +185,7 @@ bool cGameSpyBanList::Final_Player_Kick(int id) {
 }
 
 bool cGameSpyBanList::Is_User_Banned(const char *nickname, const char *challenge_response,
-									 DWORD ipaddress) {
+									 unsigned ipaddress) {
 
 	BanEntry *t = BanList->First();
 

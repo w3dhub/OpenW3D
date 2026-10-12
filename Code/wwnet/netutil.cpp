@@ -53,9 +53,9 @@ const USHORT	cNetUtil::MAX_RESENDS													= 50;
 const USHORT	cNetUtil::MULTI_SENDS													= 10;
 const USHORT	cNetUtil::RESEND_TIMEOUT_LAN_MS										= 300;
 const USHORT	cNetUtil::RESEND_TIMEOUT_INTERNET_MS								= 500;
-const	ULONG		cNetUtil::CLIENT_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til client gives up on server
-const	ULONG		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til server gives up on client
-const	ULONG		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT_LOADING_ALLOWANCE	= 45000;		// Milliseconds extra allowed til server gives up on loading client.
+const	unsigned		cNetUtil::CLIENT_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til client gives up on server
+const	unsigned		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til server gives up on client
+const	unsigned		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT_LOADING_ALLOWANCE	= 45000;		// Milliseconds extra allowed til server gives up on loading client.
 
 char cNetUtil::WorkingAddressBuffer[]					= "";
 
@@ -273,7 +273,7 @@ void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[ma
 }
 
 //-------------------------------------------------------------------------------
-const char * cNetUtil::Address_To_String(ULONG ip)
+const char * cNetUtil::Address_To_String(unsigned ip)
 {
 	IN_ADDR in_addr;
 	in_addr.s_addr = ip;
@@ -551,7 +551,7 @@ void cNetUtil::Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback)
 			//
 			// diagnostic
 			//
-			ULONG ip = packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr;
+			unsigned ip = packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr;
 			WWDEBUG_SAY(("cNetUtil::Lan_Servicing: %s\n", cNetUtil::Address_To_String(ip)));
 			*/
 
