@@ -147,7 +147,7 @@ cGodModeEvent::Export_Creation(BitStreamClass & packet)
 	WWASSERT(SenderId > 0);
 
 	packet.Add(SenderId);
-	packet.Add_Terminated_String((LPCSTR) Password, true);
+	packet.Add_Terminated_String((const char *) Password, true);
 
 	Set_Delete_Pending();
 }

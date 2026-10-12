@@ -2916,9 +2916,9 @@ public:
 
 class KillConsoleFunctionClass : public ConsoleFunctionClass {
 public:
-	virtual LPCSTR Get_Name(void) override	{return "kill";}
-	virtual LPCSTR Get_Help(void) override	{return "KILL <object types> <percent=n> <id=xxxxx> - kills % of types (vehicles,soldiers,powerups,c4s,armeds,smarts,all). Server only";}
-	virtual void Activate(LPCSTR input) override {
+	virtual const char * Get_Name(void) override	{return "kill";}
+	virtual const char * Get_Help(void) override	{return "KILL <object types> <percent=n> <id=xxxxx> - kills % of types (vehicles,soldiers,powerups,c4s,armeds,smarts,all). Server only";}
+	virtual void Activate(const char * input) override {
 
 		/*
 		if (!cNetwork::I_Am_Server()) {

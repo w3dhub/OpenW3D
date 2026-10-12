@@ -1097,7 +1097,7 @@ void cNetwork::Server_Send_Packet_To_All_Connected(cPacket & packet, int mode)
 }
 
 //-----------------------------------------------------------------------------
-LPCSTR cNetwork::Get_Client_Enumeration_String(void)
+const char * cNetwork::Get_Client_Enumeration_String(void)
 {
    WWASSERT(I_Am_Server());
    WWASSERT(PServerConnection->Is_Established());
@@ -1157,7 +1157,7 @@ int cNetwork::Get_My_Id(void)
 }
 
 //-----------------------------------------------------------------------------
-LPCSTR cNetwork::Get_Client_String(int recipient)
+const char * cNetwork::Get_Client_String(int recipient)
 {
    //WWASSERT(I_Am_Server());
    if (recipient > 0) {
@@ -1394,7 +1394,7 @@ float cNetwork::Get_Distance_Priority(Vector3 & pos1, Vector3 & pos2)
 }
 
 //-----------------------------------------------------------------------------
-void cNetwork::Shell_Command(LPCSTR command)
+void cNetwork::Shell_Command(const char * command)
 {
 	WWASSERT(command != nullptr);
 

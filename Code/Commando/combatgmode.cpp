@@ -1084,7 +1084,7 @@ void CombatGameModeClass::Compute_World_Size(void)
 
 //-----------------------------------------------------------------------------
 #define ADD_CASE(exp) case exp: return #exp; break;
-static LPCSTR Playertype_To_String(int player_type)
+static const char * Playertype_To_String(int player_type)
 {
 	switch (player_type) {
 		ADD_CASE(PLAYERTYPE_MUTANT);

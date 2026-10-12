@@ -53,7 +53,7 @@
 
 const int		MAX_PASSWORD_SIZE			= 16;				//including nullptr
 const int		MAX_MAPNAME_SIZE			= 28;				//including nullptr
-const LPCSTR	SERVER_CONFIG_PREFIX		= "svrcfg_";
+const char * const	SERVER_CONFIG_PREFIX		= "svrcfg_";
 const int		MAX_MOTD_LENGTH			= 100;
 #define MAX_CLAN_SLOTS 2
 
@@ -311,8 +311,8 @@ class	cGameData :
 		enum {MAX_MAPS = 100};
 
 		static	int		Get_Mission_Number_From_Map_Name( const char * map_name );
-		void					Load_From_Server_Config(LPCSTR config_file);
-		void					Save_To_Server_Config(LPCSTR config_file);
+		void					Load_From_Server_Config(const char * config_file);
+		void					Save_To_Server_Config(const char * config_file);
 
 	protected:
 

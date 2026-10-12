@@ -84,7 +84,7 @@ public:
 	static void Update_Fps(void);
 	static int Get_Fps(void) {return Fps;}
 	static int Get_Think_Count(void) {return ThinkCount;}
-	static void Shell_Command(LPCSTR command);
+	static void Shell_Command(const char * command);
 
    static void Server_Packet_Handler(cPacket & packet, int rhost_id);
    static void Client_Packet_Handler(cPacket & packet);
@@ -120,16 +120,16 @@ public:
    static void Remove_Player(int player_id);
 	static void Test_For_Team_Defaulting(cPlayer * p_player);
 
-   static void Packet_Graph(Render2DTextClass * renderer, cMsgStatList * p_stat_list, int watch_type, LPCSTR label);
+   static void Packet_Graph(Render2DTextClass * renderer, cMsgStatList * p_stat_list, int watch_type, const char * label);
 	static void Watch_Packets(Render2DTextClass * renderer);
-	static void Bandwidth_Graph(Render2DTextClass * renderer, LPCSTR label, int count, int target_bps, float packetloss_pc,
+	static void Bandwidth_Graph(Render2DTextClass * renderer, const char * label, int count, int target_bps, float packetloss_pc,
 		const int bar_color, bool is_send, float threshold_priority);
 	static void Watch_Bandwidth(Render2DTextClass * renderer);
-	static void Latency_Graph(Render2DTextClass * renderer, LPCSTR label, const float bar_length, cRemoteHost * p_rhost);
-	static void Last_Contact_Graph(Render2DTextClass * renderer, LPCSTR label, const float bar_length, cRemoteHost * p_rhost);
-	static void List_Size_Graph(Render2DTextClass * renderer, LPCSTR label, const float bar_length, int count);
-	static void List_Time_Graph(Render2DTextClass * renderer, LPCSTR label, const float bar_length, int time_ms);
-	static void List_Packet_Size_Graph(Render2DTextClass * renderer, LPCSTR label, const float bar_length, int count);
+	static void Latency_Graph(Render2DTextClass * renderer, const char * label, const float bar_length, cRemoteHost * p_rhost);
+	static void Last_Contact_Graph(Render2DTextClass * renderer, const char * label, const float bar_length, cRemoteHost * p_rhost);
+	static void List_Size_Graph(Render2DTextClass * renderer, const char * label, const float bar_length, int count);
+	static void List_Time_Graph(Render2DTextClass * renderer, const char * label, const float bar_length, int time_ms);
+	static void List_Packet_Size_Graph(Render2DTextClass * renderer, const char * label, const float bar_length, int count);
 	static void Watch_Latency(Render2DTextClass * renderer);
 	static void Watch_Last_Contact(Render2DTextClass * renderer);
 	static void Watch_Size_Lists(Render2DTextClass * renderer);
@@ -149,8 +149,8 @@ public:
    static int Get_My_Team_Number(void);
    static Vector3 Get_My_Color(void);
 
-   static LPCSTR Get_Client_String(int recipient);
-   static LPCSTR Get_Client_Enumeration_String(void);
+   static const char * Get_Client_String(int recipient);
+   static const char * Get_Client_Enumeration_String(void);
 
    static cRemoteHost * Get_Server_Rhost(int client_id);
    static cRemoteHost * Get_Client_Rhost(void);

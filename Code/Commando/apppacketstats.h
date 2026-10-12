@@ -50,7 +50,7 @@ class	cAppPacketStats
 public:
 	static void				Reset(void);
 	static void				Dump_Diagnostics(void);
-	static LPCSTR			Interpret_Type(BYTE app_packet_type);
+	static const char *			Interpret_Type(BYTE app_packet_type);
 	static void				Update_Object_Tally(void);
 
 	static void				Increment_Packets_Sent(BYTE app_packet_type);

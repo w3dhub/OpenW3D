@@ -392,7 +392,7 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		// All 3 must be specified.
 		// Example: Renegade.exe GAMESPY_IPADDR=192.168.10.100 GAMESPY_PORT=3333 GAMESPY_NICKNAME="Bob 1234"
 		//
-		LPCSTR param = nullptr;
+		const char * param = nullptr;
 		char * value = nullptr;
 
 		param = "GAMESPY_IPADDR=";

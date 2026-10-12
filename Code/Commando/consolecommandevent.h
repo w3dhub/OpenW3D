@@ -50,7 +50,7 @@ public:
 
    cConsoleCommandEvent(void);
 
-	void						Init(LPCSTR command);
+	void						Init(const char * command);
 
 	virtual void			Export_Creation(BitStreamClass &packet) override;
 	virtual void			Import_Creation(BitStreamClass &packet) override;

@@ -159,7 +159,7 @@ bool MPWolMainMenuClass::CheckWOLVersion(void)
 	wolText += string;
 
 	char buildString[32] = {0};
-	LPCSTR value = (LPCSTR)(&buildString[0]);
+	const char * value = (const char *)(&buildString[0]);
 	HRESULT hr = wolSession->GetChatObject()->GetAttributeValue("BuildNumber", &value);
 
 	if (SUCCEEDED(hr)) {
