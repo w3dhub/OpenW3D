@@ -58,7 +58,7 @@ cConsoleCommandEvent::cConsoleCommandEvent(void)
 
 //-----------------------------------------------------------------------------
 void
-cConsoleCommandEvent::Init(LPCSTR command)
+cConsoleCommandEvent::Init(const char * command)
 {
 	WWASSERT(cNetwork::I_Am_Server());
 

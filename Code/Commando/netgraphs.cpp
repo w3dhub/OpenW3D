@@ -66,7 +66,7 @@
 
 //-----------------------------------------------------------------------------
 void cNetwork::Packet_Graph(Render2DTextClass * renderer, cMsgStatList * p_stat_list,
-	int watch_type, LPCSTR label)
+	int watch_type, const char * label)
 {
 	WWASSERT(renderer		!= nullptr);
 	WWASSERT(p_stat_list	!= nullptr);
@@ -311,7 +311,7 @@ void cNetwork::Watch_Packets(Render2DTextClass * renderer)
 
 //-----------------------------------------------------------------------------
 void cNetwork::Bandwidth_Graph(Render2DTextClass * renderer,
-	LPCSTR label, int count, int target_bps,
+	const char * label, int count, int target_bps,
 	float packetloss_pc, const int bar_color, bool is_send,
 	float threshold_priority)
 {
@@ -660,7 +660,7 @@ void cNetwork::Watch_Bandwidth(Render2DTextClass * renderer)
 }
 
 //-----------------------------------------------------------------------------
-void cNetwork::Latency_Graph(Render2DTextClass * renderer, LPCSTR label,
+void cNetwork::Latency_Graph(Render2DTextClass * renderer, const char * label,
 	const float bar_length, cRemoteHost * p_rhost)
 {
 	WWASSERT(renderer != nullptr);
@@ -739,7 +739,7 @@ void cNetwork::Watch_Latency(Render2DTextClass * renderer)
 
 //-----------------------------------------------------------------------------
 void cNetwork::Last_Contact_Graph(Render2DTextClass * renderer,
-	LPCSTR label, const float bar_length,
+	const char * label, const float bar_length,
 	cRemoteHost * p_rhost)
 {
 	WWASSERT(renderer != nullptr);
@@ -807,7 +807,7 @@ void cNetwork::Watch_Last_Contact(Render2DTextClass * renderer)
 
 //-----------------------------------------------------------------------------
 void cNetwork::List_Size_Graph(Render2DTextClass * renderer,
-	LPCSTR label, const float bar_length, int count)
+	const char * label, const float bar_length, int count)
 {
 	WWASSERT(renderer != nullptr);
 	WWASSERT(label != nullptr);
@@ -828,7 +828,7 @@ void cNetwork::List_Size_Graph(Render2DTextClass * renderer,
 
 //-----------------------------------------------------------------------------
 void cNetwork::List_Time_Graph(Render2DTextClass * renderer,
-	LPCSTR label, const float bar_length, int time_ms)
+	const char * label, const float bar_length, int time_ms)
 {
 	WWASSERT(renderer != nullptr);
 	WWASSERT(label != nullptr);
@@ -848,7 +848,7 @@ void cNetwork::List_Time_Graph(Render2DTextClass * renderer,
 
 //-----------------------------------------------------------------------------
 void cNetwork::List_Packet_Size_Graph(Render2DTextClass * renderer,
-	LPCSTR label, const float bar_length, int count)
+	const char * label, const float bar_length, int count)
 {
 	WWASSERT(renderer != nullptr);
 	WWASSERT(label != nullptr);

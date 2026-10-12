@@ -185,7 +185,7 @@ class cConnection
 		void Send_Refusal_Sc(struct sockaddr_in* p_address, REFUSAL_CODE refusal_code);
       void Process_Connection_Request(cPacket & packet);
       void Send_Keepalives();
-		static LPCSTR Type_Translation(int type);
+		static const char * Type_Translation(int type);
       bool Sender_Id_Tests(cPacket & packet);
       USHORT Calculate_Packet_Bits(USHORT app_bytes);
       int Single_Player_sendto(cPacket & packet);
@@ -265,7 +265,7 @@ class cConnection
 
 
 
-      //void Init_As_Client(LPCSTR server_ip, USHORT server_port);
+      //void Init_As_Client(const char * server_ip, USHORT server_port);
       //void Send_Packet_To_All(cPacket & packet, BYTE send_flags); // send to all rhosts
 		//cRemoteHost * PRHost[MAX_RHOSTS];
 		//virtual void Server_Broken_Connection_Handler(int rhost_id);

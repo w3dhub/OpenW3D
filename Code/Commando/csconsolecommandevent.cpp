@@ -59,7 +59,7 @@ cCsConsoleCommandEvent::cCsConsoleCommandEvent(void)
 
 //-----------------------------------------------------------------------------
 void
-cCsConsoleCommandEvent::Init(LPCSTR command)
+cCsConsoleCommandEvent::Init(const char * command)
 {
 	WWASSERT(cNetwork::I_Am_Only_Client());
 

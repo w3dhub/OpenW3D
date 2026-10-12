@@ -191,7 +191,7 @@ public:
    virtual	void	Export_State_Cs( BitStreamClass & packet ) override;
 	void				Interpret_Sc_Position_Data(const Vector3 & sc_position);
 	void				Interpret_Sc_State_Data(HumanStateClass::HumanStateType state,
-							int sub_state, LPCSTR trans_name, const Vector3 & velocity, const Vector3 & sc_position);
+							int sub_state, const char * trans_name, const Vector3 & velocity, const Vector3 & sc_position);
 	int				Tally_Vis_Visible_Soldiers(void);
 	bool				Is_In_Elevator(void);
 

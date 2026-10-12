@@ -1223,7 +1223,7 @@ void cPlayerManager::Render_Player_List(void)
 		changed=true;
 	}
 
-	LPCSTR star_text = "*";
+	const char * star_text = "*";
 
 	int displayed_player_count=0;
 	int count = current_count;

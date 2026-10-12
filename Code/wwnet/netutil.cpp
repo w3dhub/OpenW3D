@@ -65,7 +65,7 @@ char cNetUtil::WorkingAddressBuffer[]					= "";
 //
 #define ADD_CASE(exp)    case exp: ::sprintf(error_msg, #exp);  break;
 
-void cNetUtil::Wsa_Error([[maybe_unused]] LPCSTR sFile, [[maybe_unused]] unsigned uLine)
+void cNetUtil::Wsa_Error([[maybe_unused]] const char * sFile, [[maybe_unused]] unsigned uLine)
 {
    [[maybe_unused]] int err = wwnet::SocketGetLastError();
    WWDEBUG_SAY(("* %s:%d: WSA function returned error code: %s\n", sFile, uLine, Winsock_Error_Text(err)));
@@ -161,7 +161,7 @@ int g_c_wouldblock = 0;
 int g_c_nobufs = 0;
 */
 //-----------------------------------------------------------------------------
-bool cNetUtil::Send_Resource_Failure(LPCSTR sFile, unsigned uLine, int ret_code)
+bool cNetUtil::Send_Resource_Failure(const char * sFile, unsigned uLine, int ret_code)
 {
 	bool return_code = false;
 
@@ -189,7 +189,7 @@ bool cNetUtil::Send_Resource_Failure(LPCSTR sFile, unsigned uLine, int ret_code)
 }
 
 //-----------------------------------------------------------------------------
-bool cNetUtil::Would_Block(LPCSTR sFile, unsigned uLine, int ret_code)
+bool cNetUtil::Would_Block(const char * sFile, unsigned uLine, int ret_code)
 {
 	bool retcode = false;
 
@@ -273,7 +273,7 @@ void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[ma
 }
 
 //-------------------------------------------------------------------------------
-LPCSTR cNetUtil::Address_To_String(ULONG ip)
+const char * cNetUtil::Address_To_String(ULONG ip)
 {
 	IN_ADDR in_addr;
 	in_addr.s_addr = ip;
@@ -288,7 +288,7 @@ LPCSTR cNetUtil::Address_To_String(ULONG ip)
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::String_To_Address(struct sockaddr_in* p_address, LPCSTR str, USHORT port)
+void cNetUtil::String_To_Address(struct sockaddr_in* p_address, const char * str, USHORT port)
 {
 	WWASSERT(p_address != nullptr);
 	std::memset(p_address, 0, sizeof(struct sockaddr_in));

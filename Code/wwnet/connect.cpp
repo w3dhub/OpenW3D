@@ -417,7 +417,7 @@ bool cConnection::Bind(USHORT port, ULONG addr)
 
 //------------------------------------------------------------------------------------
 #define ADD_CASE(exp) case exp: return #exp;
-LPCSTR cConnection::Type_Translation(int type)
+const char * cConnection::Type_Translation(int type)
 {
 	switch (type) {
 		ADD_CASE(PACKETTYPE_UNRELIABLE);

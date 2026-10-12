@@ -1470,7 +1470,7 @@ void SoldierGameObj::Interpret_Sc_Position_Data( const Vector3 & sc_position)
 //-----------------------------------------------------------------------------
 void SoldierGameObj::Interpret_Sc_State_Data(
 	HumanStateClass::HumanStateType state, int sub_state,
-	LPCSTR trans_name, const Vector3 & velocity, const Vector3 & sc_position)
+	const char * trans_name, const Vector3 & velocity, const Vector3 & sc_position)
 {
    WWASSERT(CombatManager::I_Am_Only_Client());
 

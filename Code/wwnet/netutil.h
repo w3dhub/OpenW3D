@@ -57,14 +57,14 @@ class cNetUtil
       static void		Wsa_Init();
       static bool		Protocol_Init(bool is_internet);
 		static bool		Get_Local_Address(struct sockaddr_in* p_local_address);
-		static void		Wsa_Error(LPCSTR sFile, unsigned uLine);
+		static void		Wsa_Error(const char * sFile, unsigned uLine);
 		static bool		Is_Same_Address(struct sockaddr_in* p_address1, const struct sockaddr_in* p_address2);
-		static bool		Would_Block(LPCSTR sFile, unsigned uLine, int ret_code);
-		static bool		Send_Resource_Failure(LPCSTR sFile, unsigned uLine, int ret_code);
+		static bool		Would_Block(const char * sFile, unsigned uLine, int ret_code);
+		static bool		Send_Resource_Failure(const char * sFile, unsigned uLine, int ret_code);
 		static void		Address_To_String(struct sockaddr_in* p_address, char * str, UINT len,
 								USHORT & port);
-		static LPCSTR	Address_To_String(ULONG ip_address);
-		static void		String_To_Address(struct sockaddr_in* p_address, LPCSTR str, USHORT port);
+		static const char *	Address_To_String(ULONG ip_address);
+		static void		String_To_Address(struct sockaddr_in* p_address, const char * str, USHORT port);
       static void		Create_Unbound_Socket(SOCKET & sock);
       static bool		Create_Bound_Socket(SOCKET & sock, USHORT port, struct sockaddr_in & local_address);
       static void		Close_Socket(SOCKET & sock);

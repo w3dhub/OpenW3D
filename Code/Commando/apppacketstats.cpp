@@ -174,7 +174,7 @@ cAppPacketStats::Get_Bits_Sent_Tier
 //-----------------------------------------------------------------------------
 #define ADD_CASE(exp)	case exp: return #exp;
 
-LPCSTR
+const char *
 cAppPacketStats::Interpret_Type
 (
 	BYTE app_packet_type
