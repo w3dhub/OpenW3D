@@ -59,6 +59,7 @@
 #include "dlgmplanhostoptions.h"
 #include "debug.h"
 #include "init.h"
+#include <filesystem>
 
 using namespace WWOnline;
 
@@ -647,16 +648,14 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 						//
 						//	Strip off the extension for both the map and the mod package
 						//
-						char map_name[_MAX_FNAME] = { 0 };
-						char mod_name[_MAX_FNAME] = { 0 };
-						::_splitpath (gameInfo.MapName(), nullptr, nullptr, map_name, nullptr);
-						::_splitpath (gameInfo.ModName(), nullptr, nullptr, mod_name, nullptr);
+						std::filesystem::path map_name = std::filesystem::path(gameInfo.MapName()).stem();
+						std::filesystem::path mod_name = std::filesystem::path(gameInfo.ModName()).stem();
 
 						//
 						//	Create the map name from the aggregate of the mod and map
 						//
 						StringClass ascii_map_name;
-						ascii_map_name.Format ("%s/%s", mod_name, map_name);
+						ascii_map_name.Format ("%s/%s", mod_name.string().c_str(), map_name.string().c_str());
 						mapName.Convert_From (ascii_map_name);
 					} else {
 						mapName = gameInfo.MapName();

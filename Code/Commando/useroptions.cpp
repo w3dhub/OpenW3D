@@ -49,6 +49,7 @@
 #include "specialbuilds.h"
 #include "openw3d.h"
 #include "useroptions.h"
+#include "pathutil.h"
 
 //
 // Class statics
@@ -287,16 +288,11 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 
 void cUserOptions::Print_Command_Line_Help(bool error)
 {
-	char path[MAX_PATH];
-	char filename[MAX_PATH];
-	char filesuffix[MAX_PATH];
 	FILE *file = error ? stderr : stdout;
 
-	GetModuleFileNameA(nullptr, path, sizeof(path));
-	_splitpath(path, nullptr, nullptr, filename, filesuffix);
-	_makepath(path, nullptr, nullptr, filename, filesuffix);
-
-	fprintf(file, "usage: %s [--ip IP] [--multi] [--regmod MOD] [--slave] [--startserver INI]\n", path);
+	auto exe_file = cPathUtil::GetExecutableFile().filename();
+	
+	fprintf(file, "usage: %s [--ip IP] [--multi] [--regmod MOD] [--slave] [--startserver INI]\n", exe_file.string().c_str());
 	fprintf(file, "    [--gamedir PATH]\n");
 	fprintf(file, "    [--ini PATH]\n");
 	fprintf(file, "    [--gamespyserver ADDRESS] [--nodx]\n");

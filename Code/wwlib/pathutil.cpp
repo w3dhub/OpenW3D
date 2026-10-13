@@ -21,10 +21,12 @@
 #include <cstdlib>
 #include <system_error>
 
-#if defined(OPENW3D_WIN32)
+#if defined(_WIN32)
 #include <windows.h>
 #include <shlobj.h>
-#elif defined(OPENW3D_SDL3)
+#endif
+
+#if defined(OPENW3D_SDL3)
 #include <SDL3/SDL_filesystem.h>
 #endif
 
@@ -82,6 +84,23 @@ std::filesystem::path cPathUtil::GetExecutableDirectory()
 #endif
 
 	return GetWorkingDirectory();
+}
+
+std::filesystem::path cPathUtil::GetExecutableFile()
+{
+#if defined(_WIN32)
+	char path[32768] = { 0 };
+	DWORD length = GetModuleFileNameA(nullptr, path, sizeof(path));
+	if (length > 0 && length < sizeof(path)) {
+		return std::filesystem::path(path);
+	}
+	
+	return std::filesystem::path("openw3d");
+#elif defined(__linux__)
+	return std::filesystem::canonical("/proc/self/exe");
+#else
+	return std::filesystem::path("openw3d");
+#endif
 }
 
 std::filesystem::path cPathUtil::GetUserConfigDirectory(const char *organization, const char *application)

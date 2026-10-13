@@ -29,6 +29,7 @@ public:
 	static std::filesystem::path MakeAbsolutePath(const std::filesystem::path &path);
 	static std::filesystem::path MakeAbsolutePath(const char *path);
 	static std::filesystem::path GetExecutableDirectory();
+	static std::filesystem::path GetExecutableFile();
 	static std::filesystem::path GetUserConfigDirectory(const char *organization, const char *application);
 
 	static std::filesystem::path ExtractFilename(const std::filesystem::path &path);

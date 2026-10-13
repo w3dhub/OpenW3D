@@ -45,6 +45,7 @@
 #include "rawfile.h"
 #include "gametype.h"
 #include "soutil.h"
+#include "pathutil.h"
 #include <stdio.h>
 #include <win.h>
 
@@ -147,18 +148,10 @@ void ScriptManager::Destroy_Pending(void)
 */
 void ScriptManager::Load_Scripts(const char* dll_filename)
 {
-	char dll_fullpath[MAX_PATH];
-	{
-		char path_to_exe[MAX_PATH];
-		char fdrive[_MAX_DRIVE];
-		char fdir[_MAX_DIR];
-		GetModuleFileNameA(nullptr, path_to_exe, sizeof(path_to_exe));
-		_splitpath(path_to_exe, fdrive, fdir, nullptr, nullptr);
-		_makepath(dll_fullpath, fdrive, fdir, dll_filename, nullptr);
-		dll_filename = dll_fullpath;
-	}
+	auto dll_path = cPathUtil::GetExecutableDirectory();
+	dll_path /= dll_filename;
 
-	Debug_Say(("Script Manager Loading Script File %s\n", dll_filename));
+	Debug_Say(("Script Manager Loading Script File %s\n", dll_path.string().c_str()));
 
 
 	// If we're in multiplay and not the server, just bail
@@ -167,10 +160,10 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 		return;
 	}
 
-	hDLL = SharedObject::LoadObject(dll_filename);
+	hDLL = SharedObject::LoadObject(dll_path.string().c_str());
 
 	if (hDLL == nullptr) {
-		Debug_Say(("Cound not load DLL file %s\n", dll_filename));
+		Debug_Say(("Cound not load DLL file %s\n", dll_path.string().c_str()));
 		return;
 	}
 

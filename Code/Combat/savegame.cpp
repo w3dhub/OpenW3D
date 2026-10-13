@@ -159,12 +159,10 @@ void	SaveGameManager::Pre_Load_Game
 	//
 	//	Get the root name and extension from the filename
 	//
-	char root_name[_MAX_FNAME] = { 0 };
-	char extension[_MAX_EXT] = { 0 };
-	::_splitpath (filename, nullptr, nullptr, root_name, extension);
+	std::filesystem::path path = filename;
 
-	SystemInfoLog::Set_Current_Level(root_name);
-	filename_to_load = filename;
+	SystemInfoLog::Set_Current_Level(path.stem().string().c_str());
+	filename_to_load = path.filename().string().c_str();
 
 	//
 	//	Reset the search order
@@ -177,17 +175,17 @@ void	SaveGameManager::Pre_Load_Game
 	//
 	//	Is this a mix file?
 	//
-	if (::strcmpi (extension, ".mix") == 0) {
+	if (::strcmpi (path.extension().string().c_str(), ".mix") == 0) {
 
-		StringClass thumb_filename(root_name,true);
+		StringClass thumb_filename(path.stem().string().c_str(),true);
 		thumb_filename+=".thu";
 		ThumbnailManagerClass::Add_Thumbnail_Manager(thumb_filename,filename);
 
 		//
 		//	Build the dynamic data filename from mix file's root name
 		//
-		filename_to_load.Format ("%s.ldd", root_name);
-		lsd_filename .Format ("%s.lsd", root_name);
+		filename_to_load.Format ("%s.ldd", path.stem().string().c_str());
+		lsd_filename .Format ("%s.lsd", path.stem().string().c_str());
 
 		//
 		//	HACK HACK - Put the level 9 mix file first...
@@ -198,9 +196,9 @@ void	SaveGameManager::Pre_Load_Game
 			FileFactoryListClass::Get_Instance ()->Set_Search_Start(filename);
 		}
 
-	} else if (::strcmpi (extension, ".lsd") == 0) {
+	} else if (::strcmpi (path.extension().string().c_str(), ".lsd") == 0) {
 		lsd_filename = filename;
-		filename_to_load.Format ("%s.ldd", root_name);
+		filename_to_load.Format ("%s.ldd", path.stem().string().c_str());
 	} else {
 
 		//
@@ -208,16 +206,14 @@ void	SaveGameManager::Pre_Load_Game
 		//
 		StringClass map_name(0,true);
 		if (Peek_Map_Name (filename, map_name)) {
-
-			char mix_root_name[_MAX_FNAME] = { 0 };
-			::_splitpath ((const char *)map_name, nullptr, nullptr, mix_root_name, nullptr);
-
+			std::filesystem::path map = std::filesystem::path(map_name.Peek_Buffer()).stem();
+			
 			//
 			//	Build the mix filename from the map name...
 			//
 			StringClass mix_filename(0, true);
-			lsd_filename.Format ("%s.lsd", mix_root_name);
-			mix_filename.Format ("%s.mix", mix_root_name);
+			lsd_filename.Format ("%s.lsd", map.string().c_str());
+			mix_filename.Format ("%s.mix", map.string().c_str());
 
 			//
 			//	HACK HACK - Put the level 9 mix file first...
@@ -228,7 +224,7 @@ void	SaveGameManager::Pre_Load_Game
 				FileFactoryListClass::Get_Instance ()->Set_Search_Start(mix_filename);
 			}
 
-			StringClass thumb_filename(mix_root_name,true);
+			StringClass thumb_filename(map.string().c_str(),true);
 			thumb_filename+=".thu";
 			ThumbnailManagerClass::Add_Thumbnail_Manager(thumb_filename,mix_filename);
 		}
@@ -317,9 +313,7 @@ bool	SaveGameManager::Smart_Peek_Description
 	//
 	//	Get the root name and extension from the filename
 	//
-	char root_name[_MAX_FNAME] = { 0 };
-	char extension[_MAX_EXT] = { 0 };
-	::_splitpath (filename, nullptr, nullptr, root_name, extension);
+	std::filesystem::path path = filename;
 
 	StringClass filename_to_load(filename,true);
 
@@ -327,7 +321,7 @@ bool	SaveGameManager::Smart_Peek_Description
 	//	Is this a mix file?
 	//
 	FileFactoryClass * mix_factory = nullptr;
-	if (::strcmpi (extension, ".mix") == 0) {
+	if (::strcmpi (path.extension().string().c_str(), ".mix") == 0) {
 
 		//
 		// Configure a mix file factory for this mix file
@@ -341,7 +335,7 @@ bool	SaveGameManager::Smart_Peek_Description
 		//
 		//	Build the dynamic data filename from mix file's root name
 		//
-		filename_to_load.Format ("%s.ldd", root_name);
+		filename_to_load.Format ("%s.ldd", path.stem().string().c_str());
 	}
 
 	//

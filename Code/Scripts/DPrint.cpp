@@ -89,63 +89,6 @@ void DebugPrint(const char* string, ...)
 			// Send string to debugger
 			fprintf(stderr, "%s", _buffer);
 			}
-
-#if 0
-		HANDLE file = INVALID_HANDLE_VALUE;
-
-		// Open log file
-		if (strlen(_filename) == 0)
-			{
-			char path[_MAX_PATH];
-			char drive[_MAX_DRIVE];
-			char dir[_MAX_DIR];
-
-			GetModuleFileNameA(GetModuleHandleA(nullptr), &path[0], sizeof(path));
-			_splitpath(path, drive, dir, nullptr, nullptr);
-			_makepath(_filename, drive, dir, LOGFILE_NAME, "txt");
-
-			file = CreateFileA(_filename, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS,
-				FILE_ATTRIBUTE_NORMAL, nullptr);
-			}
-		else
-			{
-			file = CreateFileA(_filename, GENERIC_WRITE, 0, nullptr, OPEN_ALWAYS,
-				FILE_ATTRIBUTE_NORMAL, nullptr);
-			}
-
-		// Insert carriage return after newlines
-		int i = 0;
-
-		while (_buffer[i] != '\0')
-			{
-			if (_buffer[i] == '\n')
-				{
-				int end = strlen(_buffer);
-				assert((end + 1) <= sizeof(_buffer));
-
-				while (end >= i)
-					{
-					_buffer[end + 1] = _buffer[end];
-					end--;
-					}
-
-				_buffer[i] = '\r';
-				i++;
-				}
-
-			i++;
-			}
-
-		// Send string to log file
-		if (file != INVALID_HANDLE_VALUE)
-			{
-			DWORD written;
-
-			SetFilePointer(file, 0, nullptr, FILE_END);
-			WriteFile(file, &_buffer[0], strlen(_buffer), &written, nullptr);
-			CloseHandle(file);
-			}
-#endif
 		}
 	}
 

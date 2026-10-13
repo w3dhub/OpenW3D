@@ -56,6 +56,7 @@
 #include "registry.h"
 #include "_globals.h"
 #include "dlgmplanhostoptions.h"
+#include <filesystem>
 
 bool MPLanGameListMenuClass::UpdateNickname = false;
 
@@ -393,16 +394,14 @@ MPLanGameListMenuClass::Update_Game_List (void)
 				//
 				//	Strip off the extension for both the map and the mod package
 				//
-				char map_name[_MAX_FNAME] = { 0 };
-				char mod_name[_MAX_FNAME] = { 0 };
-				::_splitpath (channel->Get_Game_Data ()->Get_Map_Name (), nullptr, nullptr, map_name, nullptr);
-				::_splitpath (channel->Get_Game_Data ()->Get_Mod_Name (), nullptr, nullptr, mod_name, nullptr);
-
+				std::filesystem::path map_name = std::filesystem::path(channel->Get_Game_Data ()->Get_Map_Name().Peek_Buffer()).stem();
+				std::filesystem::path mod_name = std::filesystem::path(channel->Get_Game_Data ()->Get_Mod_Name().Peek_Buffer()).stem();
+				
 				//
 				//	Create the map name from the aggregate of the mod and map
 				//
 				StringClass ascii_map_name;
-				ascii_map_name.Format ("%s/%s", mod_name, map_name);
+				ascii_map_name.Format ("%s/%s", mod_name.string().c_str(), map_name.string().c_str());
 				wide_map_name.Convert_From (ascii_map_name);
 			}
 
