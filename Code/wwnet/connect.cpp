@@ -462,7 +462,7 @@ bool cConnection::Sender_Id_Tests(cPacket & packet)
 		// This can happen when the connection is broken... packets in-the-air
 		// may still arrive
 		//
-		BYTE packet_type;
+		uint8_t packet_type;
 		packet_type = packet.Get_Type();
 		WWASSERT(packet_type >= PACKETTYPE_FIRST && packet_type <= PACKETTYPE_LAST);
 		WWDEBUG_SAY(("Packet from broken connection discarded: type %d, id %d, sender %d\n",
@@ -1238,7 +1238,7 @@ int cConnection::Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address)
 	//
 	// Update stats
 	//
-	BYTE packet_type = packet.Get_Type();
+	uint8_t packet_type = packet.Get_Type();
 	WWASSERT(packet_type >= PACKETTYPE_FIRST && packet_type <= PACKETTYPE_LAST);
 	PStatList->Increment_Num_Msg_Sent(packet_type);
 	PStatList->Increment_Num_Byte_Sent(packet_type, full_packet.Get_Compressed_Size_Bytes());
@@ -1394,7 +1394,7 @@ int cConnection::Receive_Wrapper(cPacket & packet)
 			//
 			// Update receive stats
 			//
-			BYTE packet_type = packet.Get_Type();
+			uint8_t packet_type = packet.Get_Type();
 			WWASSERT(packet_type >= PACKETTYPE_FIRST && packet_type <= PACKETTYPE_LAST);
 			PStatList->Increment_Num_Msg_Recd(packet_type);
 			PStatList->Increment_Num_Byte_Recd(packet_type, ret_code);
@@ -1457,7 +1457,7 @@ void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Set_R_And_U_Packet_Id(cPacket & packet, int addressee, BYTE send_type)
+void cConnection::Set_R_And_U_Packet_Id(cPacket & packet, int addressee, uint8_t send_type)
 {
 	WWASSERT(PRHost[addressee] != nullptr);
 
@@ -1488,7 +1488,7 @@ void cConnection::R_And_U_Send(
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Send_Packet_To_Individual(cPacket & packet, int addressee, BYTE send_flags)
+void cConnection::Send_Packet_To_Individual(cPacket & packet, int addressee, uint8_t send_flags)
 {
    WWASSERT(InitDone);
 
@@ -1529,7 +1529,7 @@ void cConnection::Send_Packet_To_Individual(cPacket & packet, int addressee, BYT
 
 /*
 //------------------------------------------------------------------------------------
-void cConnection::Send_Packet_To_All(cPacket & packet, BYTE send_flags)
+void cConnection::Send_Packet_To_All(cPacket & packet, uint8_t send_flags)
 {
    WWASSERT(InitDone);
 
@@ -1998,7 +1998,7 @@ void cConnection::Service_Read()
 
             } else {
 
-               //WWASSERT(p_packet->Get_Type() == (BYTE) PACKETTYPE_UNRELIABLE);
+               //WWASSERT(p_packet->Get_Type() == (uint8_t) PACKETTYPE_UNRELIABLE);
 
 					{
 					//WWPROFILE("Demultiplex_R_Or_U_Packet");

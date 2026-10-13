@@ -127,7 +127,7 @@ void cDiagnostics::Show_Object_Tally(void)
 	Add_Diagnostic("Object stats (reset with APTR command):");
 	Add_Diagnostic("%s", cAppPacketStats::Get_Heading().Peek_Buffer());
 
-	for (BYTE i = 0; i < APPPACKETTYPE_COUNT; i++)
+	for (uint8_t i = 0; i < APPPACKETTYPE_COUNT; i++)
 	{
 		Add_Diagnostic("%s", cAppPacketStats::Get_Description(i).Peek_Buffer());
 	}

@@ -67,8 +67,8 @@ class cRemoteHost
       cRemoteHost();
       ~cRemoteHost();
 
-		void Add_Packet(cPacket & packet, BYTE list_type);
-		void Remove_Packet(int reliable_packet_id, BYTE list_type);
+		void Add_Packet(cPacket & packet, uint8_t list_type);
+		void Remove_Packet(int reliable_packet_id, uint8_t list_type);
       void Toggle_Flow_Control();
 		void Init_Stats();
 		int Get_Last_Service_Count()						{return LastServiceCount;}

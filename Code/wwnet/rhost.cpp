@@ -185,7 +185,7 @@ cRemoteHost::~cRemoteHost()
 }
 
 //------------------------------------------------------------------------------------
-void cRemoteHost::Add_Packet(cPacket & packet, BYTE list_type)
+void cRemoteHost::Add_Packet(cPacket & packet, uint8_t list_type)
 {
 	WWASSERT(
       list_type == RELIABLE_SEND_LIST   ||
@@ -246,7 +246,7 @@ void cRemoteHost::Add_Packet(cPacket & packet, BYTE list_type)
 }
 
 //------------------------------------------------------------------------------------
-void cRemoteHost::Remove_Packet(int packet_id, BYTE list_type)
+void cRemoteHost::Remove_Packet(int packet_id, uint8_t list_type)
 {
    WWASSERT(packet_id >= 0);
 	WWASSERT(

@@ -144,7 +144,7 @@ void cPacket::Get_Quaternion(Quaternion & q)
 }
 
 //------------------------------------------------------------------------------------
-void cPacket::Set_Type(BYTE type)
+void cPacket::Set_Type(uint8_t type)
 {
    WWASSERT(Type == UNDEFINED_TYPE || Type == type);
 
@@ -184,7 +184,7 @@ void cPacket::Set_Num_Sends(int num_sends)
 
 /*
 //------------------------------------------------------------------------------------
-BYTE cPacket::Peek_Message_Type() const
+uint8_t cPacket::Peek_Message_Type() const
 {
 	//
 	// Note that using Get is the only valid way to read data from a packet!
@@ -192,7 +192,7 @@ BYTE cPacket::Peek_Message_Type() const
 
 	cPacket temp_packet;
 	temp_packet = *this;
-	BYTE message_type;
+	uint8_t message_type;
 	temp_packet.Get(message_type);
 	temp_packet.Flush();
 
@@ -222,7 +222,7 @@ void cPacket::Construct_Full_Packet(cPacket & full_packet, cPacket & src_packet)
 #endif //WRAPPER_CRC
 	full_packet.Add(src_packet.Get_Type(), BITPACK_PACKET_TYPE);
    full_packet.Add(src_packet.Get_Id(), BITPACK_PACKET_ID);
-   full_packet.Add((BYTE)src_packet.Get_Sender_Id());
+   full_packet.Add((uint8_t)src_packet.Get_Sender_Id());
 	full_packet.Add((USHORT)src_packet.Get_Bit_Length());
 
 	int header_bit_length = full_packet.Get_Bit_Length();
@@ -239,12 +239,12 @@ void cPacket::Construct_Full_Packet(cPacket & full_packet, cPacket & src_packet)
 	// Compute a CRC for all the data following the CRC placeholder
 	//
 	//unsigned crc = CRC::Memory(
-	//	(BYTE *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)),
+	//	(uint8_t *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)),
 	//	full_packet.Get_Max_Size() - sizeof(CRC_PLACEHOLDER));
 
 	// Only CRC the meaningful data in the buffer - not the other 1300ish bytes as well. ST - 9/19/2001 11:18PM
 #ifndef WRAPPER_CRC
-	unsigned crc = CRC::Memory((BYTE *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)), (whole_bit_length / 8) - sizeof(CRC_PLACEHOLDER));
+	unsigned crc = CRC::Memory((uint8_t *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)), (whole_bit_length / 8) - sizeof(CRC_PLACEHOLDER));
 
 	//
 	// Overwrite the crc placeholder with the computed crc.
@@ -265,7 +265,7 @@ void cPacket::Construct_App_Packet(cPacket & packet, cPacket & full_packet)
 #ifndef WRAPPER_CRC
    int remote_crc;
 #endif //WRAPPER_CRC
-	BYTE type;
+	uint8_t type;
 	int packet_id;
 	char sender_id;
 	USHORT bit_size;
@@ -293,7 +293,7 @@ void cPacket::Construct_App_Packet(cPacket & packet, cPacket & full_packet)
 		//
 		// Only CRC the meaningful data in the buffer - not the other 1300ish bytes as well. ST - 9/19/2001 11:29PM
 		//
-		int local_crc = CRC::Memory((BYTE *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)), ((bit_size / 8) + PACKET_HEADER_SIZE) - sizeof(CRC_PLACEHOLDER));
+		int local_crc = CRC::Memory((uint8_t *) (full_packet.Get_Data() + sizeof(CRC_PLACEHOLDER)), ((bit_size / 8) + PACKET_HEADER_SIZE) - sizeof(CRC_PLACEHOLDER));
 
 		if (local_crc == remote_crc) {
 			packet.Set_Is_Crc_Correct(true);

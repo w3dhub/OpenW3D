@@ -129,7 +129,7 @@ cClientHintManager::Think
 		NetworkObjectClass * p_object = NetworkObjectMgrClass::Get_Object(index);
 		WWASSERT(p_object != nullptr);
 
-		BYTE type = p_object->Get_App_Packet_Type();
+		uint8_t type = p_object->Get_App_Packet_Type();
 
 		if (type == APPPACKETTYPE_SOLDIER || type == APPPACKETTYPE_VEHICLE)
 		{

@@ -63,8 +63,8 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		void				Get_Quaternion(Quaternion & q);
 		const cFromAddress *	Get_From_Address_Wrapper() const {return &PFromAddressWrapper;}
 		cFromAddress *	Get_From_Address_Wrapper() {return &PFromAddressWrapper;}
-      void				Set_Type(BYTE type);
-      BYTE				Get_Type() const						{return Type;}
+      void				Set_Type(uint8_t type);
+      uint8_t				Get_Type() const						{return Type;}
 		void				Set_Id(int id);
       int				Get_Id() const							{WWASSERT(Id != UNDEFINED_ID); return Id;}//NEW
 		void				Set_Sender_Id(int sender_id);
@@ -85,7 +85,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		static void		Construct_Full_Packet(cPacket & full_packet, cPacket & src_packet);
 		static void		Construct_App_Packet(cPacket & packet, cPacket & full_packet);
 		static USHORT	Get_Packet_Header_Size(void)		{return (PACKET_HEADER_SIZE);}
-		//BYTE				Peek_Message_Type() const;
+		//uint8_t				Peek_Message_Type() const;
 		static unsigned int Get_Default_Send_Time(void) {return(DefSendTime);}
 
 	private:
@@ -100,7 +100,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		static const unsigned int DefSendTime;
 
 		cFromAddress	PFromAddressWrapper;
-		BYTE				Type;
+		uint8_t				Type;
       int				Id;
       int				SenderId;
       unsigned int	SendTime;
@@ -141,7 +141,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		//void Set_Return_Code(int return_code) {ReturnCode = return_code;}
       //int Get_Return_Code() const			{return ReturnCode;}
 
-      //BYTE Get_Type() const					{WWASSERT(Type != UNDEFINED_TYPE); return Type;}//NEW
+      //uint8_t Get_Type() const					{WWASSERT(Type != UNDEFINED_TYPE); return Type;}//NEW
 
 
 

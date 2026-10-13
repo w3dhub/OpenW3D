@@ -1000,7 +1000,7 @@ void cNetwork::Client_Send_Packet([[maybe_unused]] cPacket & packet, [[maybe_unu
 		PClientConnection->Send_Packet_To_Individual(packet, 0, static_cast<unsigned char>(mode));
 
 		/*
-		BYTE message_type = packet.Peek_Message_Type();
+		uint8_t message_type = packet.Peek_Message_Type();
 		PClientStatList->Increment_Num_Msg_Sent(message_type);
 		PClientStatList->Increment_Num_Byte_Sent(message_type, packet.Get_Compressed_Size_Bytes());
 		*/
@@ -1047,7 +1047,7 @@ void cNetwork::Server_Send_Packet(cPacket & packet, int mode, int recipient)
 					packet, client_id, static_cast<unsigned char>(mode));
 
 				/*
-				BYTE message_type = packet.Peek_Message_Type();
+				uint8_t message_type = packet.Peek_Message_Type();
 				PServerStatListGroup->Increment_Num_Msg_Sent(client_id - 1, message_type);
 				PServerStatListGroup->Increment_Num_Byte_Sent(client_id - 1, message_type, packet.Get_Compressed_Size_Bytes());
 				*/
@@ -1058,7 +1058,7 @@ void cNetwork::Server_Send_Packet(cPacket & packet, int mode, int recipient)
 		PServerConnection->Send_Packet_To_Individual(packet, recipient, static_cast<unsigned char>(mode));
 
 		/*
-		BYTE message_type = packet.Peek_Message_Type();
+		uint8_t message_type = packet.Peek_Message_Type();
 		PServerStatListGroup->Increment_Num_Msg_Sent(recipient - 1, message_type);
 		PServerStatListGroup->Increment_Num_Byte_Sent(recipient - 1, message_type, packet.Get_Compressed_Size_Bytes());
 		*/
@@ -1080,7 +1080,7 @@ void cNetwork::Server_Send_Packet_To_All_Connected(cPacket & packet, int mode)
 	WWASSERT(I_Am_Server());
    WWASSERT(PServerConnection->Is_Established());
 
-	//BYTE message_type = packet.Peek_Message_Type();
+	//uint8_t message_type = packet.Peek_Message_Type();
 
    for (int rhost_id = PServerConnection->Get_Min_RHost(); rhost_id <= PServerConnection->Get_Max_RHost(); rhost_id++) {
 		if (Get_Server_Rhost(rhost_id) != nullptr) {

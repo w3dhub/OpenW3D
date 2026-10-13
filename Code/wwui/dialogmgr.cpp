@@ -64,7 +64,7 @@ int												DialogMgrClass::TestArrayMaxCount;
 bool												DialogMgrClass::IsFirstRender	= false;
 bool												DialogMgrClass::IsInMenuMode	= false;
 DialogBaseClass *								DialogMgrClass::ActiveDialog	= nullptr;
-BYTE												DialogMgrClass::KeyboardState[256];
+uint8_t												DialogMgrClass::KeyboardState[256];
 DialogControlClass *							DialogMgrClass::InputCapture = nullptr;
 DialogControlClass *							DialogMgrClass::FocusControl = nullptr;
 WWUIInputClass *								DialogMgrClass::Input = nullptr;

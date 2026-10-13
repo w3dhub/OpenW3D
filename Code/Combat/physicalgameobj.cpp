@@ -470,8 +470,8 @@ bool	PhysicalGameObj::Save( ChunkSaveClass & csave )
 	float						TimePriority;
 	float						VolatilityPriority;
 	float						Priority;
-	BYTE						ClientUpdateSkips[255];
-	BYTE						ServerUpdateSkips;
+	uint8_t						ClientUpdateSkips[255];
+	uint8_t						ServerUpdateSkips;
 	cPacket					StatePacket;
 	int						StatePacketUnchangedCount;
 	Vector3					TintColor;
@@ -841,7 +841,7 @@ void	PhysicalGameObj::Attach_To_Object_Bone( PhysicalGameObj * host, const char 
 	return ;
 }
 
-void PhysicalGameObj::Reset_Server_Skips(BYTE value)
+void PhysicalGameObj::Reset_Server_Skips(uint8_t value)
 {
 	ServerUpdateSkips = value;
 }
