@@ -167,10 +167,6 @@ endif()
 # Targets to build.
 add_library(wwlib STATIC)
 
-if(MINGW)
-    target_compile_definitions(wwlib PRIVATE IS_MINGW=1)
-endif()
-
 target_link_libraries(wwlib PRIVATE
     wwcommon
     wwutil

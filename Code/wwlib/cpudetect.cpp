@@ -45,7 +45,7 @@
 #endif
 #endif
 
-#if defined(IS_MINGW)
+#if defined(__MINGW32__)
 #ifdef __cpuid
 #undef __cpuid
 #endif
