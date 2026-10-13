@@ -129,7 +129,7 @@ cCsTextObj::Export_Creation(BitStreamClass & packet)
 	cNetEvent::Export_Creation(packet);
 
 	packet.Add(SenderId);
-	packet.Add((BYTE) Type);
+	packet.Add((uint8_t) Type);
 	packet.Add_Wide_Terminated_String(Text);
 	packet.Add(Recipient);
 
@@ -145,7 +145,7 @@ cCsTextObj::Import_Creation(BitStreamClass & packet)
 	cNetEvent::Import_Creation(packet);
 
 	packet.Get(SenderId);
-	BYTE type = packet.Get(type);
+	uint8_t type = packet.Get(type);
 	Type = (TextMessageEnum) type;
 	packet.Get_Wide_Terminated_String(Text.Get_Buffer(256), 256);
 	packet.Get(Recipient);

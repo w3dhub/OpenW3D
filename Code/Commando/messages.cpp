@@ -955,7 +955,7 @@ cNetwork::Send_Object_Update(NetworkObjectClass *object, int client_id)
 	packet.Add(object->Is_Delete_Pending());
 	//packet.Add(object->Get_App_Packet_Type());
 
-	BYTE type = object->Get_App_Packet_Type();
+	uint8_t type = object->Get_App_Packet_Type();
 	int bits_start = packet.Get_Bit_Write_Position();
 
 	//

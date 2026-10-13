@@ -72,9 +72,9 @@ typedef enum {
 // Strictly speaking SEND_UNRELIABLE could be deduced by absense
 // of SEND_RELIABLE, but it's inclusion makes a clearer API.
 //
-const BYTE SEND_RELIABLE   = 0x01; // you must specify this or SEND_UNRELIABLE
-const BYTE SEND_UNRELIABLE = 0x02; // you must specify this or SEND_RELIABLE
-const BYTE SEND_MULTI      = 0x04; // For SEND_UNRELIABLE only. Default is single send.
+const uint8_t SEND_RELIABLE   = 0x01; // you must specify this or SEND_UNRELIABLE
+const uint8_t SEND_UNRELIABLE = 0x02; // you must specify this or SEND_RELIABLE
+const uint8_t SEND_MULTI      = 0x04; // For SEND_UNRELIABLE only. Default is single send.
 
 class cMsgStatList;
 
@@ -106,7 +106,7 @@ class cConnection
       void Init_As_Server(USHORT server_port, int max_players,
 			bool is_dedicated_server, unsigned addr = 0);
       void Connect_Cs(cPacket & app_data);
-      void Send_Packet_To_Individual(cPacket & packet, int addressee, BYTE send_flags);
+      void Send_Packet_To_Individual(cPacket & packet, int addressee, uint8_t send_flags);
       bool Have_Id() const {return LocalId != ID_UNKNOWN;}
       bool Is_Established() const;
 		void Service_Read();
@@ -179,7 +179,7 @@ class cConnection
       int Send_Wrapper(cPacket & packet, int addressee);
 		int Low_Level_Receive_Wrapper(cPacket & packet);
       int Receive_Wrapper(cPacket & packet);
-      void Set_R_And_U_Packet_Id(cPacket & packet, int addressee, BYTE send_type);
+      void Set_R_And_U_Packet_Id(cPacket & packet, int addressee, uint8_t send_type);
       void R_And_U_Send(cPacket & packet, int addressee);
       void Send_Ack(struct sockaddr_in* p_address, int reliable_packet_id);
 		void Send_Refusal_Sc(struct sockaddr_in* p_address, REFUSAL_CODE refusal_code);
@@ -266,7 +266,7 @@ class cConnection
 
 
       //void Init_As_Client(const char * server_ip, USHORT server_port);
-      //void Send_Packet_To_All(cPacket & packet, BYTE send_flags); // send to all rhosts
+      //void Send_Packet_To_All(cPacket & packet, uint8_t send_flags); // send to all rhosts
 		//cRemoteHost * PRHost[MAX_RHOSTS];
 		//virtual void Server_Broken_Connection_Handler(int rhost_id);
 		//virtual void Client_Broken_Connection_Handler();

@@ -104,8 +104,8 @@ public:
 	//
 	//	Keyboard Input
 	//
-	static BYTE *	Get_Keyboard_State (void)								{ return KeyboardState; }
-	static BYTE		Get_VKey_State (BYTE index)							{ return KeyboardState[index]; }
+	static uint8_t *	Get_Keyboard_State (void)								{ return KeyboardState; }
+	static uint8_t		Get_VKey_State (uint8_t index)							{ return KeyboardState[index]; }
 
 	static void Reset (void);
 
@@ -216,7 +216,7 @@ private:
 	static bool												IsFirstRender;
 	static bool												IsInMenuMode;
 	static DialogBaseClass *							ActiveDialog;
-	static BYTE												KeyboardState[256];
+	static uint8_t												KeyboardState[256];
 	static bool												LastMouseButtonState[MB_COUNT];
 	static DialogControlClass *						InputCapture;
 	static DialogControlClass *						FocusControl;

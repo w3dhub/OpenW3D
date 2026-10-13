@@ -357,7 +357,7 @@ cScTextObj::Export_Creation(BitStreamClass & packet)
 {
 	cNetEvent::Export_Creation(packet);
 
-	packet.Add((BYTE) Type);
+	packet.Add((uint8_t) Type);
 	packet.Add(SenderId);
 	packet.Add(RecipientId);
 	packet.Add(IsHostAdminMessage);
@@ -374,7 +374,7 @@ cScTextObj::Import_Creation(BitStreamClass & packet)
 
 	WWASSERT(cNetwork::I_Am_Only_Client());
 
-	BYTE type = packet.Get(type);
+	uint8_t type = packet.Get(type);
 	Type = (TextMessageEnum) type;
 	packet.Get(SenderId);
 	packet.Get(RecipientId);

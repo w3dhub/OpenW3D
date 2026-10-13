@@ -205,7 +205,7 @@ void cLanChat::Send_Position_Broadcast(void)
 		PositionBroadcastNumber++;
 
 		cPacket packet;
-		packet.Add((BYTE) LAN_MESSAGE_POSITION);
+		packet.Add((uint8_t) LAN_MESSAGE_POSITION);
 		packet.Add_Wide_Terminated_String(cNetInterface::Get_Nickname());
 		packet.Add(PositionBroadcastNumber);
 		bool is_hosting = cNetwork::I_Am_Server() &&
@@ -298,7 +298,7 @@ void cLanChat::Lan_Packet_Handler(cPacket & packet)
 
 	} else {
 
-		BYTE packet_type = packet.Get(packet_type);
+		uint8_t packet_type = packet.Get(packet_type);
 
 		switch (packet_type) {
 
