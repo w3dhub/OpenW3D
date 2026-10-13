@@ -56,6 +56,7 @@
 #include "ConsoleMode.h"
 #include "specialbuilds.h"
 #include "useroptions.h"
+#include "pathutil.h"
 
 
 #include <filesystem>
@@ -563,20 +564,10 @@ void SlaveMasterClass::Startup_Slaves(void)
 							/*
 							** Figure out the name of the .exe to run.
 							*/
-							char path_to_exe[256];
-							char drive[_MAX_DRIVE];
-							char dir[_MAX_DIR];
-							char path[_MAX_PATH];
-							GetModuleFileNameA(ProgramInstance, path_to_exe, sizeof(path_to_exe));
-							_splitpath(path_to_exe, drive, dir, nullptr, nullptr);
-#ifdef FREEDEDICATEDSERVER
-							_makepath(path, drive, dir, "renegadeserver", "exe");
-#else  //FREEDEDICATEDSERVER
-							_makepath(path, drive, dir, "renegade", "exe");
-#endif //FREEDEDICATEDSERVER
+							auto path = cPathUtil::GetExecutableFile().filename();
 							std::vector<const char *> v_args = {
 								{
-									path,
+									path.string().c_str(),
 									"--multi",
 									"--slave",
 									"--ini", SlaveServers[i].IniPath,
