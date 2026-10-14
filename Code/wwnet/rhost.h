@@ -40,7 +40,7 @@
 #include "win.h"
 #include "network-typedefs.h"
 
-//const USHORT MAX_MESSAGE_TYPES = 256;
+//const uint16_t MAX_MESSAGE_TYPES = 256;
 
 
 //
@@ -101,7 +101,7 @@ class cRemoteHost
 		float Get_Average_Priority(void)					{return(AverageObjectPriority);}
 
 
-		USHORT Get_Resend_Timeout_Ms() const			{return ResendTimeoutMs;}
+		uint16_t Get_Resend_Timeout_Ms() const			{return ResendTimeoutMs;}
 
       //
       // Ping
@@ -172,7 +172,7 @@ class cRemoteHost
 		double			TPIncrement;
 		int				LastReliableSendId;
 		int				LastUnreliableSendId;
-		USHORT			ResendTimeoutMs;
+		uint16_t			ResendTimeoutMs;
 		int				NumInternalPings;
 		int				TotalInternalPingtimeMs;
       int				AverageInternalPingtimeMs;

@@ -102,8 +102,8 @@ class cConnection
 		cConnection();
 		~cConnection();
 
-      void Init_As_Client(unsigned server_ip, USHORT server_port, unsigned short my_port = 0);
-      void Init_As_Server(USHORT server_port, int max_players,
+      void Init_As_Client(unsigned server_ip, uint16_t server_port, unsigned short my_port = 0);
+      void Init_As_Server(uint16_t server_port, int max_players,
 			bool is_dedicated_server, unsigned addr = 0);
       void Connect_Cs(cPacket & app_data);
       void Send_Packet_To_Individual(cPacket & packet, int addressee, uint8_t send_flags);
@@ -172,7 +172,7 @@ class cConnection
       void Init_As_Client(struct sockaddr_in* p_server_address, unsigned short my_port = 0);
       bool Demultiplex_R_Or_U_Packet(cPacket * p_packet, int rhost_id);
       void Send_Accept_Sc(int new_rhost_id);
-      bool Bind(USHORT port, unsigned addr = 0);
+      bool Bind(uint16_t port, unsigned addr = 0);
       bool Receive_Packet();
 		int Low_Level_Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address);
       int Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address);
@@ -187,7 +187,7 @@ class cConnection
       void Send_Keepalives();
 		static const char * Type_Translation(int type);
       bool Sender_Id_Tests(cPacket & packet);
-      USHORT Calculate_Packet_Bits(USHORT app_bytes);
+      uint16_t Calculate_Packet_Bits(uint16_t app_bytes);
       int Single_Player_sendto(cPacket & packet);
       int Single_Player_recvfrom(char * data);
       int Address_To_Rhostid(const struct sockaddr_in* p_address);
@@ -195,7 +195,7 @@ class cConnection
 		bool Is_Packet_Too_Old(const cPacket *packet, cRemoteHost *rhost);
 
       int LocalId;		// Each client has a unique id
-      USHORT LocalPort; // port we are bound to.
+      uint16_t LocalPort; // port we are bound to.
 		double MaxAcceptablePacketlossPc;
 		cNetStats CombinedStats;
 		cNetStats AveragedStats;
@@ -205,8 +205,8 @@ class cConnection
       static bool IsFlowControlEnabled;
 		bool InitDone; // Used to ensure certain API's are used at the right time.
       SOCKET Sock;
-      USHORT SimulatedPacketLossPerRANDMAX;
-      USHORT SimulatedPacketDuplicationPerRANDMAX;
+      uint16_t SimulatedPacketLossPerRANDMAX;
+      uint16_t SimulatedPacketDuplicationPerRANDMAX;
       int MinimumLatencyMs;
       int MaximumLatencyMs;
       int RefusalPacketSendId; // server
@@ -265,7 +265,7 @@ class cConnection
 
 
 
-      //void Init_As_Client(const char * server_ip, USHORT server_port);
+      //void Init_As_Client(const char * server_ip, uint16_t server_port);
       //void Send_Packet_To_All(cPacket & packet, uint8_t send_flags); // send to all rhosts
 		//cRemoteHost * PRHost[MAX_RHOSTS];
 		//virtual void Server_Broken_Connection_Handler(int rhost_id);

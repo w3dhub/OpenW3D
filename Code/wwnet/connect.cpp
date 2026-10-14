@@ -304,7 +304,7 @@ void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned 
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Client(unsigned server_ip, USHORT server_port, unsigned short my_port)
+void cConnection::Init_As_Client(unsigned server_ip, uint16_t server_port, unsigned short my_port)
 {
    WWDEBUG_SAY(("cConnection::Init_As_Client(%s, %d, %d)\n",
 		cNetUtil::Address_To_String(server_ip), server_port, my_port));
@@ -326,7 +326,7 @@ void cConnection::Init_As_Client(unsigned server_ip, USHORT server_port, unsigne
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Server(USHORT server_port, int max_players,
+void cConnection::Init_As_Server(uint16_t server_port, int max_players,
 	bool is_dedicated_server, unsigned addr)
 {
    WWDEBUG_SAY(("cConnection::Init_As_Server\n"));
@@ -384,7 +384,7 @@ void cConnection::Init_As_Server(USHORT server_port, int max_players,
 }
 
 //------------------------------------------------------------------------------------
-bool cConnection::Bind(USHORT port, unsigned addr)
+bool cConnection::Bind(uint16_t port, unsigned addr)
 {
    WWASSERT(!cSinglePlayerData::Is_Single_Player());
 
@@ -503,9 +503,9 @@ bool cConnection::Sender_Id_Tests(cPacket & packet)
 }
 
 //------------------------------------------------------------------------------------
-USHORT cConnection::Calculate_Packet_Bits(USHORT app_bytes)
+uint16_t cConnection::Calculate_Packet_Bits(uint16_t app_bytes)
 {
-   //USHORT packet_bits = 0;
+   //uint16_t packet_bits = 0;
 
    //
    // From the app bytes, work out an approximate expected number
@@ -537,7 +537,7 @@ USHORT cConnection::Calculate_Packet_Bits(USHORT app_bytes)
 	//
 	//HeaderBytes = 33;
 
-   USHORT packet_bits = (USHORT)((app_bytes + 33) * 11.328125);
+   uint16_t packet_bits = (uint16_t)((app_bytes + 33) * 11.328125);
 
    return packet_bits;
 }
@@ -552,7 +552,7 @@ void cConnection::Set_Packet_Loss(double percent_lost)
 
    WWASSERT(percent_lost >= 0 && percent_lost <= 100);
 
-   SimulatedPacketLossPerRANDMAX = (USHORT) cMathUtil::Round(
+   SimulatedPacketLossPerRANDMAX = (uint16_t) cMathUtil::Round(
 		percent_lost / 100.0 * RAND_MAX);
 
 	WWDEBUG_SAY(("cConnection::Set_Packet_Loss: %hu / %d\n", SimulatedPacketLossPerRANDMAX, RAND_MAX));
@@ -572,7 +572,7 @@ void cConnection::Set_Packet_Duplication(double percent_duplicated)
    //
    // Globally:
    //
-   SimulatedPacketDuplicationPerRANDMAX = (USHORT) cMathUtil::Round(
+   SimulatedPacketDuplicationPerRANDMAX = (uint16_t) cMathUtil::Round(
 		percent_duplicated / 100.0 * RAND_MAX);
 
 	WWDEBUG_SAY(("cConnection::Set_Packet_Duplication: %d / %d\n",  SimulatedPacketDuplicationPerRANDMAX, RAND_MAX));
@@ -742,7 +742,7 @@ bool cConnection::Receive_Packet()
    //
 	// Measurement stats
 	//
-	USHORT packet_bits = Calculate_Packet_Bits(USHORT(ret_code));
+	uint16_t packet_bits = Calculate_Packet_Bits(uint16_t(ret_code));
 
    int addressee = Address_To_Rhostid(&packet.Get_From_Address_Wrapper()->FromAddress);
    if (addressee != INVALID_RHOST_ID) {
@@ -1444,7 +1444,7 @@ void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p
 			TotalCompressedBytesSent	+= packet.Get_Compressed_Size_Bytes();
 			TotalUncompressedBytesSent += packet.Get_Uncompressed_Size_Bytes();
 
-         USHORT bits_sent = Calculate_Packet_Bits(USHORT(packet.Get_Compressed_Size_Bytes()));
+         uint16_t bits_sent = Calculate_Packet_Bits(uint16_t(packet.Get_Compressed_Size_Bytes()));
 
          if (rhost_id != INVALID_RHOST_ID) {
             PRHost[rhost_id]->Get_Stats().StatSample[STAT_PktSent]++;

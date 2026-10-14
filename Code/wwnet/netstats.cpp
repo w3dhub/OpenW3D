@@ -155,7 +155,7 @@ bool cNetStats::Update_If_Sample_Done(int this_frame_time, bool force_update)
 
 
 
-//const USHORT cNetStats::SAMPLE_TIME = 500;
+//const uint16_t cNetStats::SAMPLE_TIME = 500;
 
    // crash here when exit server thread before client
    //WWASSERT(packetloss_pc >= 0 && packetloss_pc <= 100);

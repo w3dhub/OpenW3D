@@ -62,27 +62,27 @@ class cNetUtil
 		static bool		Would_Block(const char * sFile, unsigned uLine, int ret_code);
 		static bool		Send_Resource_Failure(const char * sFile, unsigned uLine, int ret_code);
 		static void		Address_To_String(struct sockaddr_in* p_address, char * str, UINT len,
-								USHORT & port);
+								uint16_t & port);
 		static const char *	Address_To_String(unsigned ip_address);
-		static void		String_To_Address(struct sockaddr_in* p_address, const char * str, USHORT port);
+		static void		String_To_Address(struct sockaddr_in* p_address, const char * str, uint16_t port);
       static void		Create_Unbound_Socket(SOCKET & sock);
-      static bool		Create_Bound_Socket(SOCKET & sock, USHORT port, struct sockaddr_in & local_address);
+      static bool		Create_Bound_Socket(SOCKET & sock, uint16_t port, struct sockaddr_in & local_address);
       static void		Close_Socket(SOCKET & sock);
-      static void		Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address, USHORT port);
-      static void		Create_Local_Address(struct sockaddr_in* p_local_address, USHORT port);
-      static void		Broadcast(SOCKET & sock, USHORT port, cPacket & packet);
+      static void		Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address, uint16_t port);
+      static void		Create_Local_Address(struct sockaddr_in* p_local_address, uint16_t port);
+      static void		Broadcast(SOCKET & sock, uint16_t port, cPacket & packet);
       static bool		Is_Tcpip_Present();
       static void		Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback);
 		static bool		Is_Internet() {return IsInternet;}
 		static void		Set_Socket_Buffer_Sizes(SOCKET sock, int new_size = 10000);
       static UINT		Get_Default_Resend_Timeout_Ms() {return DefaultResendTimeoutMs;}
 
-		static const	USHORT NETSTATS_SAMPLE_TIME_MS;
-		static const	USHORT KEEPALIVE_TIMEOUT_MS;
-		static const	USHORT MAX_RESENDS;
-		static const	USHORT MULTI_SENDS;
-		static const	USHORT RESEND_TIMEOUT_LAN_MS;
-		static const	USHORT RESEND_TIMEOUT_INTERNET_MS;
+		static const	uint16_t NETSTATS_SAMPLE_TIME_MS;
+		static const	uint16_t KEEPALIVE_TIMEOUT_MS;
+		static const	uint16_t MAX_RESENDS;
+		static const	uint16_t MULTI_SENDS;
+		static const	uint16_t RESEND_TIMEOUT_LAN_MS;
+		static const	uint16_t RESEND_TIMEOUT_INTERNET_MS;
 		static const	unsigned	 CLIENT_CONNECTION_LOSS_TIMEOUT;
 		static const	unsigned	 SERVER_CONNECTION_LOSS_TIMEOUT;
 		static const	unsigned	 SERVER_CONNECTION_LOSS_TIMEOUT_LOADING_ALLOWANCE;
@@ -90,7 +90,7 @@ class cNetUtil
 		static const char *Winsock_Error_Text(int error_code);
 
    private:
-		static int		Get_Local_Tcpip_Addresses(struct sockaddr_in ip_address[], USHORT max_addresses);
+		static int		Get_Local_Tcpip_Addresses(struct sockaddr_in ip_address[], uint16_t max_addresses);
 
 		static bool		IsInternet;
       static UINT		DefaultResendTimeoutMs;

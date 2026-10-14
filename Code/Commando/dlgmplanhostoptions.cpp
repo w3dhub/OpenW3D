@@ -400,7 +400,7 @@ MPLanHostBasicOptionsTabClass::On_Init_Dialog (void)
 
 		int current_index = -1;
 
-		for (USHORT index = 0; index < nic_count; index++) {
+		for (uint16_t index = 0; index < nic_count; index++) {
 			WideStringClass nic_string;
 			nic_string.Convert_From(cNetUtil::Address_To_String(nics[index]));
 			nic_combobox->Add_String( nic_string );
