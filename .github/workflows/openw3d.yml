@@ -75,6 +75,7 @@ jobs:
                wwdebug
                wwbitpack
                wwtranslatedb
+               wwlib
             shell: bash
 
     steps:

@@ -63,6 +63,7 @@
 #include <string.h>
 #include <new>
 #include <cstdint>
+#include <climits>
 
 class	NoInitClass;
 

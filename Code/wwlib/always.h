@@ -91,6 +91,12 @@ void operator delete(void *p, size_t size) noexcept;
 #ifndef _alloca
 #define _alloca(size) alloca(size)
 #endif
+
+// Windows BOOL type
+#ifndef BOOL
+typedef int BOOL;
+#endif
+
 #endif // !_WIN32
 
 #endif

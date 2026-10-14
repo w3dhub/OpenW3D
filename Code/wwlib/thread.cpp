@@ -67,7 +67,9 @@ ThreadClass::InternalThreadFunctionReturnType INTERNAL_THREAD_FUNCTION_CALL_CONV
 	assert(0);
 #endif
 
+#ifdef _WIN32
 	Register_Thread_ID(tc->mThreadID, tc->ThreadName);
+#endif
 
 #ifdef _MSC_VER
 	__try {
@@ -78,7 +80,9 @@ ThreadClass::InternalThreadFunctionReturnType INTERNAL_THREAD_FUNCTION_CALL_CONV
 	tc->Thread_Function();
 #endif
 
+#ifdef _WIN32
 	Unregister_Thread_ID(tc->mThreadID, tc->ThreadName);
+#endif
 	tc->mThreadID = 0;
 	tc->mRunning = false;
 	return 0;
