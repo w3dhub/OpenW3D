@@ -52,7 +52,7 @@ bool					cGameSpyAdmin::IsLaunchFromGamespyRequested	= false;
 bool					cGameSpyAdmin::IsLaunchedFromGamespy			= false;
 bool					cGameSpyAdmin::IsServerGamespyListed			= false;
 unsigned					cGameSpyAdmin::GameHostIp							= 0;
-USHORT				cGameSpyAdmin::GameHostPort						= 0;
+uint16_t				cGameSpyAdmin::GameHostPort						= 0;
 WideStringClass	cGameSpyAdmin::PasswordAttempt;
 
 // It's 2:00am....see DoDialog below..
@@ -218,7 +218,7 @@ cGameSpyAdmin::Set_Game_Host_Ip
 void
 cGameSpyAdmin::Set_Game_Host_Port
 (
-	USHORT port
+	uint16_t port
 )
 {
 	WWASSERT(port > 0);

@@ -35,6 +35,7 @@
 #include "network-typedefs.h"
 
 #include "chatshre.h"
+#include <cstdint>
 
 class cPacket;
 
@@ -76,8 +77,8 @@ class cLanChat
       unsigned						LastPositionBroadcastTimeMs;
       int						PositionBroadcastNumber;
 		ChatLocationEnum		CurrentLocation;
-		static const USHORT	LAN_BROADCAST_INTERVAL_MS;
-		static const USHORT	LAN_PORT;
+		static const uint16_t	LAN_BROADCAST_INTERVAL_MS;
+		static const uint16_t	LAN_PORT;
 };
 
 #endif // LANCHAT_H

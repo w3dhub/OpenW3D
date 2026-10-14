@@ -43,10 +43,10 @@ DEFINE_AUTO_POOL(cPacket, 256)
 // Class statics
 //
 #ifdef WRAPPER_CRC
-const USHORT	cPacket::PACKET_HEADER_SIZE	= 7;
+const uint16_t	cPacket::PACKET_HEADER_SIZE	= 7;
 #else //WRAPPER_CRC
 const int		cPacket::CRC_PLACEHOLDER		= 99999;
-const USHORT	cPacket::PACKET_HEADER_SIZE	= 11;
+const uint16_t	cPacket::PACKET_HEADER_SIZE	= 11;
 #endif //WRAPPER_CRC
 int				cPacket::RefCount					= 0;
 bool				cPacket::EncoderInit				= true;
@@ -223,7 +223,7 @@ void cPacket::Construct_Full_Packet(cPacket & full_packet, cPacket & src_packet)
 	full_packet.Add(src_packet.Get_Type(), BITPACK_PACKET_TYPE);
    full_packet.Add(src_packet.Get_Id(), BITPACK_PACKET_ID);
    full_packet.Add((uint8_t)src_packet.Get_Sender_Id());
-	full_packet.Add((USHORT)src_packet.Get_Bit_Length());
+	full_packet.Add((uint16_t)src_packet.Get_Bit_Length());
 
 	int header_bit_length = full_packet.Get_Bit_Length();
 	WWASSERT(header_bit_length == PACKET_HEADER_SIZE * 8);
@@ -268,7 +268,7 @@ void cPacket::Construct_App_Packet(cPacket & packet, cPacket & full_packet)
 	uint8_t type;
 	int packet_id;
 	char sender_id;
-	USHORT bit_size;
+	uint16_t bit_size;
 
 #ifndef WRAPPER_CRC
 	full_packet.Get(remote_crc);

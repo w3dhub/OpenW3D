@@ -177,4 +177,4 @@ class cNetStats
 
 
 
-		//static const USHORT SAMPLE_TIME; // stats gathering period in ms
+		//static const uint16_t SAMPLE_TIME; // stats gathering period in ms

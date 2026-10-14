@@ -84,7 +84,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		static int		Get_Ref_Count()						{return RefCount;}
 		static void		Construct_Full_Packet(cPacket & full_packet, cPacket & src_packet);
 		static void		Construct_App_Packet(cPacket & packet, cPacket & full_packet);
-		static USHORT	Get_Packet_Header_Size(void)		{return (PACKET_HEADER_SIZE);}
+		static uint16_t	Get_Packet_Header_Size(void)		{return (PACKET_HEADER_SIZE);}
 		//uint8_t				Peek_Message_Type() const;
 		static unsigned int Get_Default_Send_Time(void) {return(DefSendTime);}
 
@@ -96,7 +96,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 
 		static const int		CRC_PLACEHOLDER;
 #endif //WRAPPER_CRC
-		static const USHORT	PACKET_HEADER_SIZE;
+		static const uint16_t	PACKET_HEADER_SIZE;
 		static const unsigned int DefSendTime;
 
 		cFromAddress	PFromAddressWrapper;
@@ -149,7 +149,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 // Maximum Transmission Unit (MTU) for LAN is 1500.
 //
 //const int		CRC_PLACEHOLDER							= 99999;
-//const USHORT	PACKET_HEADER_SIZE						= 17;
-//const USHORT	MAX_LAN_PACKET_APP_DATA_SIZE			= MAX_BUFFER_SIZE;
-//const USHORT	MAX_INTERNET_PACKET_APP_DATA_SIZE	= 512;
-//const USHORT	MAX_PACKET_APP_DATA_SIZE				= 512;
+//const uint16_t	PACKET_HEADER_SIZE						= 17;
+//const uint16_t	MAX_LAN_PACKET_APP_DATA_SIZE			= MAX_BUFFER_SIZE;
+//const uint16_t	MAX_INTERNET_PACKET_APP_DATA_SIZE	= 512;
+//const uint16_t	MAX_PACKET_APP_DATA_SIZE				= 512;

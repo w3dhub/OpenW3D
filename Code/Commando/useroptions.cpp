@@ -216,7 +216,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 				retcode = FAILURE;
 				break;
 			}
-			USHORT port = 4848;
+			uint16_t port = 4848;
 			unsigned addr = 0;
 
             char *saddr_mem = nullptr;
@@ -229,7 +229,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
                     return FAILURE;
                 }
                 if (arg_port != 0 || arg_port > 0) {
-                    port = USHORT(arg_port);
+                    port = uint16_t(arg_port);
                 }
                 saddr = saddr_mem = new char[tport - argval + 1];
                 memcpy(saddr_mem, argval, tport - argval);
@@ -409,7 +409,7 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		value = ::strstr(cmd, param);
 		if (value != nullptr) {
 			value += ::strlen(param);
-			USHORT port = (USHORT)::atol(value);
+			uint16_t port = (uint16_t)::atol(value);
 			cGameSpyAdmin::Set_Game_Host_Port(port);
 			cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
 			continue;
