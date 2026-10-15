@@ -508,7 +508,7 @@ MainMenuDialogClass::Update_Version_Number (void)
 
 	WideStringClass build_hash(BuildInfoClass::Get_Build_Commit_String(), true);
 	if(BuildInfoClass::Is_Build_Dirty())
-		build_hash += L"~";
+		build_hash += U_CHAR("~");
 
 	WideStringClass build_date(BuildInfoClass::Get_Build_Date_String(), true);
 	WideStringClass build_author(BuildInfoClass::Get_Builder_Name(), true);
