@@ -96,7 +96,6 @@ endif()
 
 
 set(_state_variable_names
-    GIT_DIR
     GIT_HAVE_INFO
     GIT_IS_DIRTY
     GIT_REVISION_HASH
@@ -365,10 +364,16 @@ function(Main)
             if(changed OR NOT EXISTS "${POST_CONFIGURE_FILE}")
                 GitStateChangedAction()
             endif()
-        else()
+        elseif(NOT TARGET check_git)
             # >> Executes at configure time.
             SetupGitMonitoring()
-            GitStateChangedAction()
+
+            # Check if the repo has changed.
+            # If so, run the change action.
+            CheckGit("${GIT_WORKING_DIR}" changed)
+            if(changed OR NOT EXISTS "${POST_CONFIGURE_FILE}")
+                GitStateChangedAction()
+            endif()
         endif()
     else()
         FakeGit()
