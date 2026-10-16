@@ -57,6 +57,11 @@ class BuildInfoClass
 		/*
 		** Gets the 32 bit build number.
 		*/
+		static unsigned int Get_Network_Version_Number(void);
+		
+		/*
+		** Gets the 32 bit build number.
+		*/
 		static unsigned int Get_Build_Number(void);
 
 		/*

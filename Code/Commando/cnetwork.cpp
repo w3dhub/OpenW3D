@@ -518,7 +518,7 @@ void cNetwork::Compute_Exe_Key(void)
 	// 11/07/01
 	// We now match only on build number.
 	//
-	string.Format("RENEGADE %u", BuildInfoClass::Get_Build_Number());
+	string.Format("RENEGADE %u", BuildInfoClass::Get_Network_Version_Number());
 
 	WWDEBUG_SAY(("File id string: %s\n", string.Peek_Buffer()));
 	key_string += string;

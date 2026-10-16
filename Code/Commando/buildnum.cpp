@@ -37,7 +37,29 @@
 #include "wwdebug.h"
 #include "gitinfo.h"
 #include <stdio.h>
-#include <string.h>
+
+/***********************************************************************************************
+ * BuildInfoClass::Get_Network_Version_Number -- Gets the 32 bit build number.                           *
+ *                                                                                             *
+ *                                                                                             *
+ *                                                                                             *
+ * INPUT:    Nothing                                                                           *
+ *                                                                                             *
+ * OUTPUT:   Network protocol version number                                                                      *
+ *                                                                                             *
+ * WARNINGS: None                                                                              *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   10/16/2026 : Created                                                            *
+ *=============================================================================================*/
+unsigned int BuildInfoClass::Get_Network_Version_Number(void)
+{
+	// This constant was stamped into the retail exe and is used in the network version CRC
+	// and gamespy code.
+	// Orginally 0x00000346, it should be incremented if the network protocol changes.
+	static constexpr unsigned int NETWORK_VERSION = 0x00000346;
+	return (NETWORK_VERSION);
+}
 
 /***********************************************************************************************
  * BuildInfoClass::Get_Build_Number -- Gets the 32 bit build number.                           *
