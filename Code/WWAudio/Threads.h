@@ -37,9 +37,9 @@
 #ifndef __WWAUDIO_THREADS_H
 #define __WWAUDIO_THREADS_H
 
-#include <windows.h>
-#include "vector.h"
-#include "mutex.h"
+#include "thread.h"
+#include <condition_variable>
+#include <mutex>
 
 // Forward declarations
 class RefCountClass;
@@ -70,41 +70,40 @@ class WWAudioThreadsClass
 		//
 		//	Delayed release mechanism
 		//
-		static HANDLE		Create_Delayed_Release_Thread (LPVOID param = nullptr);
-		static void			End_Delayed_Release_Thread (DWORD timeout = 20000);
-		static void			Add_Delayed_Release_Object (RefCountClass *object, DWORD delay = 2000);
+		static ThreadClass *Create_Delayed_Release_Thread ();
+		static void			End_Delayed_Release_Thread (uint32_t timeout = 20000);
+		static void			Add_Delayed_Release_Object (RefCountClass *object, uint32_t delay = 2000);
 		static void			Flush_Delayed_Release_Objects (void);
 
 	private:
 
 		//////////////////////////////////////////////////////////////////////
-		//	Private methods
-		//////////////////////////////////////////////////////////////////////
-		static void	Delayed_Release_Thread_Proc (LPVOID param);
-
-		//////////////////////////////////////////////////////////////////////
 		//	Private data types
 		//////////////////////////////////////////////////////////////////////
-		typedef struct _DELAYED_RELEASE_INFO
+		struct DELAYED_RELEASE_INFO
 		{
 			RefCountClass *	object;
-			DWORD					time;
+			uint32_t		time;
 
-			_DELAYED_RELEASE_INFO *next;
-			_DELAYED_RELEASE_INFO *prev;
+			DELAYED_RELEASE_INFO *next;
+			DELAYED_RELEASE_INFO *prev;
 
-		} DELAYED_RELEASE_INFO;
+		};
+
+		class DelayedThreadClass : public ThreadClass {
+		protected:
+			void Thread_Function() override;
+		};
 
 		//typedef DynamicVectorClass<DELAYED_RELEASE_INFO *>	RELEASE_LIST;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Private member data
 		//////////////////////////////////////////////////////////////////////
-		static HANDLE						m_hDelayedReleaseThread;
-		static HANDLE						m_hDelayedReleaseEvent;
-		static CriticalSectionClass	m_CriticalSection;
+		static DelayedThreadClass			*	m_hDelayedReleaseThread;
+		static std::condition_variable	m_hDelayedReleaseConditionVariable;
 		static DELAYED_RELEASE_INFO *	m_ReleaseListHead;
-		static CriticalSectionClass	m_ListMutex;
+		static std::mutex	m_ListMutex;
 		static bool							m_IsFlushing;
 };
 
