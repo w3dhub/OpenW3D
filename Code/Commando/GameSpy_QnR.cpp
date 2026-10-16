@@ -362,7 +362,7 @@ void CGameSpyQnR::basic_callback(char *outbuf, int maxlen)
 	outbuf[0] = 0;
 
 	StringClass b(true);
-	b.Format("%d", BuildInfoClass::Get_Build_Number());
+	b.Format("%d", BuildInfoClass::Get_Network_Version_Number());
 	sprintf(outbuf, "\\gamename\\%s\\gamever\\%s", gamename, b.Peek_Buffer());
 //	sprintf(outbuf, "\\gamename\\%s\\gamever\\%s\\location\\%d", gamename, b.Peek_Buffer(), 1);
 
