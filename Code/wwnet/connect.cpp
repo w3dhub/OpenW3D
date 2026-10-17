@@ -66,8 +66,8 @@ unsigned int cConnection::LastLatencyChange = 0;
 // class statics
 //
 bool cConnection::IsFlowControlEnabled				= true;
-UINT cConnection::TotalCompressedBytesSent		= 0;
-UINT cConnection::TotalUncompressedBytesSent		= 0;
+unsigned cConnection::TotalCompressedBytesSent		= 0;
+unsigned cConnection::TotalUncompressedBytesSent		= 0;
 
 static const int		INVALID_RHOST_ID			= -1;
 

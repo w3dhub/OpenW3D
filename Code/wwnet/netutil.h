@@ -61,7 +61,7 @@ class cNetUtil
 		static bool		Is_Same_Address(struct sockaddr_in* p_address1, const struct sockaddr_in* p_address2);
 		static bool		Would_Block(const char * sFile, unsigned uLine, int ret_code);
 		static bool		Send_Resource_Failure(const char * sFile, unsigned uLine, int ret_code);
-		static void		Address_To_String(struct sockaddr_in* p_address, char * str, UINT len,
+		static void		Address_To_String(struct sockaddr_in* p_address, char * str, unsigned len,
 								uint16_t & port);
 		static const char *	Address_To_String(uint32_t ip_address);
 		static void		String_To_Address(struct sockaddr_in* p_address, const char * str, uint16_t port);
@@ -75,7 +75,7 @@ class cNetUtil
       static void		Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback);
 		static bool		Is_Internet() {return IsInternet;}
 		static void		Set_Socket_Buffer_Sizes(SOCKET sock, int new_size = 10000);
-      static UINT		Get_Default_Resend_Timeout_Ms() {return DefaultResendTimeoutMs;}
+      static unsigned		Get_Default_Resend_Timeout_Ms() {return DefaultResendTimeoutMs;}
 
 		static const	uint16_t NETSTATS_SAMPLE_TIME_MS;
 		static const	uint16_t KEEPALIVE_TIMEOUT_MS;
@@ -93,7 +93,7 @@ class cNetUtil
 		static int		Get_Local_Tcpip_Addresses(struct sockaddr_in ip_address[], uint16_t max_addresses);
 
 		static bool		IsInternet;
-      static UINT		DefaultResendTimeoutMs;
+      static unsigned		DefaultResendTimeoutMs;
 		static char		WorkingAddressBuffer[300];
 };
 

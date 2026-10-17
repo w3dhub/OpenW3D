@@ -592,8 +592,8 @@ void cNetwork::Onetime_Shutdown(void)
 	delete NetworkReceiver;
 
 #if 0
-	UINT comp_bytes	= cConnection::Get_Total_Compressed_Bytes_Sent();
-	UINT uncomp_bytes = cConnection::Get_Total_Uncompressed_Bytes_Sent();
+	unsigned comp_bytes	= cConnection::Get_Total_Compressed_Bytes_Sent();
+	unsigned uncomp_bytes = cConnection::Get_Total_Uncompressed_Bytes_Sent();
 	Debug_Say(("\n"));
 	Debug_Say(("TotalCompressedBytesSent   = %d\n", comp_bytes));
 	Debug_Say(("Without compression        = %d\n", uncomp_bytes));
@@ -1264,12 +1264,12 @@ void cNetwork::Process_Eviction_Sc(cPacket & packet)
    WWASSERT(I_Am_Client());
 
 
-	UINT min_bps;
+	unsigned min_bps;
 	packet.Get(min_bps);//naughty... type conversion
    float max_packetloss;
 	packet.Get(max_packetloss);
 
-   //UINT sustainable_bps  = (UINT) packet.Get();
+   //unsigned sustainable_bps  = (unsigned) packet.Get();
 
 	WWDEBUG_SAY(("\n* You were evicted from the server for inadequate bandwidth performance.\n"
          "* This server requires packetloss of less than %5.2f %%, and a minimum\n"

@@ -43,7 +43,7 @@
 //
 // class statics
 //
-UINT cNetUtil::DefaultResendTimeoutMs = 200; // used for singleplayer
+unsigned cNetUtil::DefaultResendTimeoutMs = 200; // used for singleplayer
 bool cNetUtil::IsInternet = false;
 
 static const int INVALID_VALUE = -999;
@@ -258,7 +258,7 @@ bool cNetUtil::Is_Same_Address(struct sockaddr_in* p_address1, const struct sock
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[maybe_unused]] UINT len,
+void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[maybe_unused]] unsigned len,
    uint16_t & port)
 {
 	WWASSERT(p_address != nullptr);

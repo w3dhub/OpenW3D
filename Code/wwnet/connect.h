@@ -133,9 +133,9 @@ class cConnection
 		cNetStats & Get_Combined_Stats() {return CombinedStats;}
 		cNetStats & Get_Averaged_Stats() {return AveragedStats;}
       static bool Is_Flow_Control_Enabled() {return IsFlowControlEnabled;}
-		static UINT Get_Total_Compressed_Bytes_Sent(void)
+		static unsigned Get_Total_Compressed_Bytes_Sent(void)
 			{return TotalCompressedBytesSent;}
-		static UINT Get_Total_Uncompressed_Bytes_Sent(void)
+		static unsigned Get_Total_Uncompressed_Bytes_Sent(void)
 			{return TotalUncompressedBytesSent;}
 		cMsgStatList *	Get_Stat_List(void) {return PStatList;}
 		bool Is_Bad_Connection(void) {return(IsBadConnection);};
@@ -220,8 +220,8 @@ class cConnection
 		int MaxRHost;
       int					NumRHosts;
 		bool					IsDestroy;
-		static UINT			TotalCompressedBytesSent;
-		static UINT			TotalUncompressedBytesSent;
+		static unsigned			TotalCompressedBytesSent;
+		static unsigned			TotalUncompressedBytesSent;
 		cMsgStatList *		PStatList;
 		unsigned int		ExtraTimeoutTime;
 		unsigned int		ExtraTimeoutTimeStarted;
