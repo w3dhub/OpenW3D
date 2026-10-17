@@ -129,7 +129,7 @@ void CSAnnouncement::Export_Creation(BitStreamClass& packet)
 	packet.Add(mFromID);
 	packet.Add(mAnnouncementID);
 	packet.Add(mRadioCmdID);
-	packet.Add((BYTE)mType);
+	packet.Add((uint8_t)mType);
 
 	Set_Delete_Pending();
 	}
@@ -145,7 +145,7 @@ void CSAnnouncement::Import_Creation(BitStreamClass& packet)
 	packet.Get(mAnnouncementID);
 	packet.Get(mRadioCmdID);
 
-	BYTE type = 0;
+	uint8_t type = 0;
 	packet.Get(type);
 	mType = (AnnouncementEnum)type;
 
@@ -317,7 +317,7 @@ void SCAnnouncement::Export_Creation(BitStreamClass& packet)
 	packet.Add(mFromID);
 	packet.Add(mAnnouncementID);
 	packet.Add(mRadioCmdID);
-	packet.Add((BYTE)mType);
+	packet.Add((uint8_t)mType);
 
 	Set_Delete_Pending();
 	}
@@ -335,7 +335,7 @@ void SCAnnouncement::Import_Creation(BitStreamClass& packet)
 	packet.Get(mAnnouncementID);
 	packet.Add(mRadioCmdID);
 
-	BYTE type = 0;
+	uint8_t type = 0;
 	packet.Get(type);
 	mType = (AnnouncementEnum)type;
 

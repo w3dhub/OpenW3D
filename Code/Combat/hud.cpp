@@ -2880,7 +2880,7 @@ void 	HUDClass::Think()
 		//
 		float width					= status_bar_rect.Width() * HUDInfo::Get_Action_Status_Value();
 		status_bar_rect.Right	= status_bar_rect.Left + int(width);
-		DWORD color					= VRGB_TO_INT32( Vector3( 1.0F, 0.25F, 0 ) );
+		unsigned color					= VRGB_TO_INT32( Vector3( 1.0F, 0.25F, 0 ) );
 		RenderImages[ACTION_STATUSBAR_RENDERER]->Add_Quad( status_bar_rect, color );
 
 	} else {

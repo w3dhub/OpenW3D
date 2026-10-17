@@ -50,21 +50,21 @@ class	cAppPacketStats
 public:
 	static void				Reset(void);
 	static void				Dump_Diagnostics(void);
-	static LPCSTR			Interpret_Type(BYTE app_packet_type);
+	static const char *			Interpret_Type(uint8_t app_packet_type);
 	static void				Update_Object_Tally(void);
 
-	static void				Increment_Packets_Sent(BYTE app_packet_type);
-	static void				Increment_Bits_Sent(BYTE app_packet_type, unsigned int bits);
-	static void				Increment_Bits_Sent_Tier(BYTE app_packet_type, PACKET_TIER_ENUM tier, unsigned int bits);
+	static void				Increment_Packets_Sent(uint8_t app_packet_type);
+	static void				Increment_Bits_Sent(uint8_t app_packet_type, unsigned int bits);
+	static void				Increment_Bits_Sent_Tier(uint8_t app_packet_type, PACKET_TIER_ENUM tier, unsigned int bits);
 
-	static unsigned int		Get_Packets_Sent(BYTE app_packet_type);
-	static unsigned int		Get_Bits_Sent(BYTE app_packet_type);
-	static unsigned int		Get_Bits_Sent_Tier(BYTE app_packet_type, PACKET_TIER_ENUM tier);
+	static unsigned int		Get_Packets_Sent(uint8_t app_packet_type);
+	static unsigned int		Get_Bits_Sent(uint8_t app_packet_type);
+	static unsigned int		Get_Bits_Sent_Tier(uint8_t app_packet_type, PACKET_TIER_ENUM tier);
 
-	static unsigned int		Get_Object_Tally(BYTE app_packet_type);
+	static unsigned int		Get_Object_Tally(uint8_t app_packet_type);
 
 	static StringClass &	Get_Heading(void);
-	static StringClass &	Get_Description(BYTE app_packet_type);
+	static StringClass &	Get_Description(uint8_t app_packet_type);
 
 private:
 	static unsigned int		PacketsSent[APPPACKETTYPE_COUNT];

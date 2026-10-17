@@ -433,7 +433,7 @@ void ShaderClass::Apply()
 
 	if(diff & (ShaderClass::MASK_COLORMASK | ShaderClass::MASK_SRCBLEND | ShaderClass::MASK_DSTBLEND | ShaderClass::MASK_ALPHATEST))
 	{
-		ULONG planeMask = 0xffffff;
+		unsigned planeMask = 0xffffff;
 
 		if(Get_Color_Mask() != ShaderClass::COLOR_WRITE_ENABLE)
 			planeMask = 0;
@@ -455,7 +455,7 @@ void ShaderClass::Apply()
 			blendAlpha |= dstBlendLUT[ int(Get_Dst_Blend_Func()) ].useAlpha;
 		}
 
-		BOOL blendOn = false;
+		bool blendOn = false;
 
 		if(sf != D3DBLEND_ONE || df != D3DBLEND_ZERO)
 		{
@@ -465,7 +465,7 @@ void ShaderClass::Apply()
 		}
 		DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHABLENDENABLE,blendOn);
 
-		BOOL alphaTest = false;
+		bool alphaTest = false;
 
 		if(Get_Alpha_Test() == ShaderClass::ALPHATEST_ENABLE)
 		{
@@ -497,7 +497,7 @@ void ShaderClass::Apply()
 		// can defer the "fog enabled" check inside the "fog settings changed" check.
 		if (DX8Wrapper::Get_Current_Caps()->Is_Fog_Allowed() && DX8Wrapper::Get_Fog_Enable()) {
 
-			BOOL fm = false;
+			bool fm = false;
 			D3DCOLOR fogColor = DX8Wrapper::Get_Fog_Color();
 
 			switch(Get_Fog_Func())

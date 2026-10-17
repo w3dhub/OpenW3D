@@ -216,8 +216,8 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 				retcode = FAILURE;
 				break;
 			}
-			USHORT port = 4848;
-			DWORD addr = 0;
+			uint16_t port = 4848;
+			uint32_t addr = 0;
 
             char *saddr_mem = nullptr;
             const char *saddr = argval;
@@ -229,7 +229,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
                     return FAILURE;
                 }
                 if (arg_port != 0 || arg_port > 0) {
-                    port = USHORT(arg_port);
+                    port = uint16_t(arg_port);
                 }
                 saddr = saddr_mem = new char[tport - argval + 1];
                 memcpy(saddr_mem, argval, tport - argval);
@@ -392,14 +392,14 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		// All 3 must be specified.
 		// Example: Renegade.exe GAMESPY_IPADDR=192.168.10.100 GAMESPY_PORT=3333 GAMESPY_NICKNAME="Bob 1234"
 		//
-		LPCSTR param = nullptr;
+		const char * param = nullptr;
 		char * value = nullptr;
 
 		param = "GAMESPY_IPADDR=";
 		value = ::strstr(cmd, param);
 		if (value != nullptr) {
 			value += ::strlen(param);
-			ULONG ip = ::inet_addr(value);
+			uint32_t ip = ::inet_addr(value);
 			cGameSpyAdmin::Set_Game_Host_Ip(ip);
 			cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
 			continue;
@@ -409,7 +409,7 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		value = ::strstr(cmd, param);
 		if (value != nullptr) {
 			value += ::strlen(param);
-			USHORT port = (USHORT)::atol(value);
+			uint16_t port = (uint16_t)::atol(value);
 			cGameSpyAdmin::Set_Game_Host_Port(port);
 			cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
 			continue;

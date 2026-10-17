@@ -112,7 +112,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 	}
 
 	int network_obj_id		= packet.Get (network_obj_id);
-	BYTE dirty_bits			= packet.Get (dirty_bits);
+	uint8_t dirty_bits			= packet.Get (dirty_bits);
 	bool is_delete_pending	= packet.Get (is_delete_pending);
 
 	//
@@ -275,9 +275,9 @@ void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 	}
 
 	int network_obj_id		= packet.Get (network_obj_id);
-	BYTE dirty_bits			= packet.Get (dirty_bits);
+	uint8_t dirty_bits			= packet.Get (dirty_bits);
 	bool is_delete_pending	= packet.Get (is_delete_pending);
-	//BYTE app_packet_type		= packet.Get (app_packet_type);
+	//uint8_t app_packet_type		= packet.Get (app_packet_type);
 
 	//
 	//	Lookup the object this data belongs to
@@ -401,4 +401,4 @@ void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 
 
 
-	//BYTE app_packet_type		= packet.Get (app_packet_type);
+	//uint8_t app_packet_type		= packet.Get (app_packet_type);

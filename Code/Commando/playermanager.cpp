@@ -504,7 +504,7 @@ void cPlayerManager::Compute_Ladder_Points(int winning_team)
 
 	cPlayerManager::Sort_Players(false);
 
-	DWORD min_qualifying_time_ms = The_Game()->Get_Min_Qualifying_Time_Minutes() * 60 * 1000;
+	unsigned min_qualifying_time_ms = The_Game()->Get_Min_Qualifying_Time_Minutes() * 60 * 1000;
 
 	int i = 0;
 
@@ -611,7 +611,7 @@ WideStringClass cPlayerManager::Determine_Mvp_Name(void)
 	WideStringClass mvp_name;
 
 	WWASSERT(The_Game() != nullptr);
-	DWORD min_qualifying_time_ms = The_Game()->Get_Min_Qualifying_Time_Minutes() * 60 * 1000;
+	unsigned min_qualifying_time_ms = The_Game()->Get_Min_Qualifying_Time_Minutes() * 60 * 1000;
 
 	//
 	// Find the top active, time-qualifying player.
@@ -1223,7 +1223,7 @@ void cPlayerManager::Render_Player_List(void)
 		changed=true;
 	}
 
-	LPCSTR star_text = "*";
+	const char * star_text = "*";
 
 	int displayed_player_count=0;
 	int count = current_count;

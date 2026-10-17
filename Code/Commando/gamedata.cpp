@@ -1001,7 +1001,7 @@ void cGameData::Import_Tier_2_Data(cPacket & packet)
 }
 
 //-----------------------------------------------------------------------------
-void cGameData::Load_From_Server_Config(LPCSTR config_file)
+void cGameData::Load_From_Server_Config(const char * config_file)
 {
 	WWASSERT(config_file != nullptr);
    WWASSERT(cMiscUtil::Is_String_Different(config_file, ""));
@@ -1146,7 +1146,7 @@ void cGameData::Load_From_Server_Config(LPCSTR config_file)
 }
 
 //-----------------------------------------------------------------------------
-void cGameData::Save_To_Server_Config(LPCSTR config_file)
+void cGameData::Save_To_Server_Config(const char * config_file)
 {
 	WWASSERT(config_file != nullptr);
    WWASSERT(cMiscUtil::Is_String_Different(config_file, ""));

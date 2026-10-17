@@ -110,7 +110,7 @@ class ResourceFileClass final : public FileClass
 #ifdef OPENW3D_SDL3
 struct StaticResourceFileClass {
 	const char *filename;
-	const std::uint8_t *data;
+	const uint8_t *data;
 	size_t size;
 };
 

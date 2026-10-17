@@ -38,24 +38,25 @@
 #include "ini.h"
 #include "systimer.h"
 #include "fromaddress.h"
+#include <cinttypes>
 
 //
 // class statics
 //
-UINT cNetUtil::DefaultResendTimeoutMs = 200; // used for singleplayer
+unsigned cNetUtil::DefaultResendTimeoutMs = 200; // used for singleplayer
 bool cNetUtil::IsInternet = false;
 
 static const int INVALID_VALUE = -999;
 
-const USHORT	cNetUtil::NETSTATS_SAMPLE_TIME_MS									= 2000;
-const USHORT	cNetUtil::KEEPALIVE_TIMEOUT_MS										= 2000;
-const USHORT	cNetUtil::MAX_RESENDS													= 50;
-const USHORT	cNetUtil::MULTI_SENDS													= 10;
-const USHORT	cNetUtil::RESEND_TIMEOUT_LAN_MS										= 300;
-const USHORT	cNetUtil::RESEND_TIMEOUT_INTERNET_MS								= 500;
-const	ULONG		cNetUtil::CLIENT_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til client gives up on server
-const	ULONG		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til server gives up on client
-const	ULONG		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT_LOADING_ALLOWANCE	= 45000;		// Milliseconds extra allowed til server gives up on loading client.
+const uint16_t	cNetUtil::NETSTATS_SAMPLE_TIME_MS									= 2000;
+const uint16_t	cNetUtil::KEEPALIVE_TIMEOUT_MS										= 2000;
+const uint16_t	cNetUtil::MAX_RESENDS													= 50;
+const uint16_t	cNetUtil::MULTI_SENDS													= 10;
+const uint16_t	cNetUtil::RESEND_TIMEOUT_LAN_MS										= 300;
+const uint16_t	cNetUtil::RESEND_TIMEOUT_INTERNET_MS								= 500;
+const	unsigned		cNetUtil::CLIENT_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til client gives up on server
+const	unsigned		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT							= 15000;		// Milliseconds til server gives up on client
+const	unsigned		cNetUtil::SERVER_CONNECTION_LOSS_TIMEOUT_LOADING_ALLOWANCE	= 45000;		// Milliseconds extra allowed til server gives up on loading client.
 
 char cNetUtil::WorkingAddressBuffer[]					= "";
 
@@ -65,7 +66,7 @@ char cNetUtil::WorkingAddressBuffer[]					= "";
 //
 #define ADD_CASE(exp)    case exp: ::sprintf(error_msg, #exp);  break;
 
-void cNetUtil::Wsa_Error([[maybe_unused]] LPCSTR sFile, [[maybe_unused]] unsigned uLine)
+void cNetUtil::Wsa_Error([[maybe_unused]] const char * sFile, [[maybe_unused]] unsigned uLine)
 {
    [[maybe_unused]] int err = wwnet::SocketGetLastError();
    WWDEBUG_SAY(("* %s:%d: WSA function returned error code: %s\n", sFile, uLine, Winsock_Error_Text(err)));
@@ -161,7 +162,7 @@ int g_c_wouldblock = 0;
 int g_c_nobufs = 0;
 */
 //-----------------------------------------------------------------------------
-bool cNetUtil::Send_Resource_Failure(LPCSTR sFile, unsigned uLine, int ret_code)
+bool cNetUtil::Send_Resource_Failure(const char * sFile, unsigned uLine, int ret_code)
 {
 	bool return_code = false;
 
@@ -189,7 +190,7 @@ bool cNetUtil::Send_Resource_Failure(LPCSTR sFile, unsigned uLine, int ret_code)
 }
 
 //-----------------------------------------------------------------------------
-bool cNetUtil::Would_Block(LPCSTR sFile, unsigned uLine, int ret_code)
+bool cNetUtil::Would_Block(const char * sFile, unsigned uLine, int ret_code)
 {
 	bool retcode = false;
 
@@ -257,8 +258,8 @@ bool cNetUtil::Is_Same_Address(struct sockaddr_in* p_address1, const struct sock
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[maybe_unused]] UINT len,
-   USHORT & port)
+void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[maybe_unused]] unsigned len,
+   uint16_t & port)
 {
 	WWASSERT(p_address != nullptr);
    WWASSERT(str != nullptr);
@@ -273,13 +274,13 @@ void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[ma
 }
 
 //-------------------------------------------------------------------------------
-LPCSTR cNetUtil::Address_To_String(ULONG ip)
+const char * cNetUtil::Address_To_String(uint32_t ip)
 {
 	IN_ADDR in_addr;
 	in_addr.s_addr = ip;
 	char * p = ::inet_ntoa(in_addr);
 	if (p == nullptr) {
-		::sprintf(WorkingAddressBuffer, "Invalid ip (%lu)", ip);
+		::sprintf(WorkingAddressBuffer, "Invalid ip (%" PRIu32 ")", ip);
 	} else {
 		::strcpy(WorkingAddressBuffer, p);
 	}
@@ -288,7 +289,7 @@ LPCSTR cNetUtil::Address_To_String(ULONG ip)
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::String_To_Address(struct sockaddr_in* p_address, LPCSTR str, USHORT port)
+void cNetUtil::String_To_Address(struct sockaddr_in* p_address, const char * str, uint16_t port)
 {
 	WWASSERT(p_address != nullptr);
 	std::memset(p_address, 0, sizeof(struct sockaddr_in));
@@ -436,7 +437,7 @@ void cNetUtil::Create_Unbound_Socket(SOCKET & sock)
 }
 
 //-------------------------------------------------------------------------------
-bool cNetUtil::Create_Bound_Socket(SOCKET & sock, USHORT port, struct sockaddr_in & local_address)
+bool cNetUtil::Create_Bound_Socket(SOCKET & sock, uint16_t port, struct sockaddr_in & local_address)
 {
    //
    // TSS - is all this necessary or is above function OK?
@@ -464,7 +465,7 @@ void cNetUtil::Close_Socket(SOCKET & sock)
 }
 
 //-----------------------------------------------------------------------------
-void cNetUtil::Broadcast(SOCKET & sock, USHORT port, cPacket & packet)
+void cNetUtil::Broadcast(SOCKET & sock, uint16_t port, cPacket & packet)
 {
    struct sockaddr_in broadcast_address;
    Create_Broadcast_Address(&broadcast_address, port);
@@ -480,7 +481,7 @@ void cNetUtil::Broadcast(SOCKET & sock, USHORT port, cPacket & packet)
 
 //-------------------------------------------------------------------------------
 void cNetUtil::Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address,
-   USHORT port)
+   uint16_t port)
 {
    WWASSERT(p_broadcast_address != nullptr);
    std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
@@ -491,7 +492,7 @@ void cNetUtil::Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address,
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::Create_Local_Address(struct sockaddr_in* p_local_address, USHORT port)
+void cNetUtil::Create_Local_Address(struct sockaddr_in* p_local_address, uint16_t port)
 {
    WWASSERT(p_local_address != nullptr);
    std::memset(p_local_address, 0, sizeof(struct sockaddr_in));
@@ -507,13 +508,13 @@ bool cNetUtil::Get_Local_Address(struct sockaddr_in* p_local_address)
 	WWASSERT(p_local_address != nullptr);
 
 	/*
-	const USHORT MAX_ADDRESSES = 1;
+	const uint16_t MAX_ADDRESSES = 1;
 	int num_addresses = Get_Local_Tcpip_Addresses(p_local_address, MAX_ADDRESSES);
 
 	return (num_addresses == 1);
 	*/
 
-	const USHORT MAX_ADDRESSES = 10;
+	const uint16_t MAX_ADDRESSES = 10;
 	struct sockaddr_in local_address[MAX_ADDRESSES];
 	int num_addresses = Get_Local_Tcpip_Addresses(local_address, MAX_ADDRESSES);
 
@@ -551,7 +552,7 @@ void cNetUtil::Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback)
 			//
 			// diagnostic
 			//
-			ULONG ip = packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr;
+			unsigned ip = packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr;
 			WWDEBUG_SAY(("cNetUtil::Lan_Servicing: %s\n", cNetUtil::Address_To_String(ip)));
 			*/
 

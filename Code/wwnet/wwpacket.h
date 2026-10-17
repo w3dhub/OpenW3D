@@ -55,16 +55,16 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		enum {UNDEFINED_ID		= -1};
 
 		int				Get_Max_Size() const					{return BitStreamClass::Get_Buffer_Size();}
-      void				Set_Bit_Length(UINT bit_position){BitStreamClass::Set_Bit_Write_Position(bit_position);}
-      UINT				Get_Bit_Length(void)					{return BitStreamClass::Get_Bit_Write_Position();}
+      void				Set_Bit_Length(unsigned bit_position){BitStreamClass::Set_Bit_Write_Position(bit_position);}
+      unsigned				Get_Bit_Length(void)					{return BitStreamClass::Get_Bit_Write_Position();}
 		void				Add_Vector3(Vector3 & v);
 		void				Get_Vector3(Vector3 & v);
       void				Add_Quaternion(Quaternion & q);
 		void				Get_Quaternion(Quaternion & q);
 		const cFromAddress *	Get_From_Address_Wrapper() const {return &PFromAddressWrapper;}
 		cFromAddress *	Get_From_Address_Wrapper() {return &PFromAddressWrapper;}
-      void				Set_Type(BYTE type);
-      BYTE				Get_Type() const						{return Type;}
+      void				Set_Type(uint8_t type);
+      uint8_t				Get_Type() const						{return Type;}
 		void				Set_Id(int id);
       int				Get_Id() const							{WWASSERT(Id != UNDEFINED_ID); return Id;}//NEW
 		void				Set_Sender_Id(int sender_id);
@@ -84,8 +84,8 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		static int		Get_Ref_Count()						{return RefCount;}
 		static void		Construct_Full_Packet(cPacket & full_packet, cPacket & src_packet);
 		static void		Construct_App_Packet(cPacket & packet, cPacket & full_packet);
-		static USHORT	Get_Packet_Header_Size(void)		{return (PACKET_HEADER_SIZE);}
-		//BYTE				Peek_Message_Type() const;
+		static uint16_t	Get_Packet_Header_Size(void)		{return (PACKET_HEADER_SIZE);}
+		//uint8_t				Peek_Message_Type() const;
 		static unsigned int Get_Default_Send_Time(void) {return(DefSendTime);}
 
 	private:
@@ -96,11 +96,11 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 
 		static const int		CRC_PLACEHOLDER;
 #endif //WRAPPER_CRC
-		static const USHORT	PACKET_HEADER_SIZE;
+		static const uint16_t	PACKET_HEADER_SIZE;
 		static const unsigned int DefSendTime;
 
 		cFromAddress	PFromAddressWrapper;
-		BYTE				Type;
+		uint8_t				Type;
       int				Id;
       int				SenderId;
       unsigned int	SendTime;
@@ -141,7 +141,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		//void Set_Return_Code(int return_code) {ReturnCode = return_code;}
       //int Get_Return_Code() const			{return ReturnCode;}
 
-      //BYTE Get_Type() const					{WWASSERT(Type != UNDEFINED_TYPE); return Type;}//NEW
+      //uint8_t Get_Type() const					{WWASSERT(Type != UNDEFINED_TYPE); return Type;}//NEW
 
 
 
@@ -149,7 +149,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 // Maximum Transmission Unit (MTU) for LAN is 1500.
 //
 //const int		CRC_PLACEHOLDER							= 99999;
-//const USHORT	PACKET_HEADER_SIZE						= 17;
-//const USHORT	MAX_LAN_PACKET_APP_DATA_SIZE			= MAX_BUFFER_SIZE;
-//const USHORT	MAX_INTERNET_PACKET_APP_DATA_SIZE	= 512;
-//const USHORT	MAX_PACKET_APP_DATA_SIZE				= 512;
+//const uint16_t	PACKET_HEADER_SIZE						= 17;
+//const uint16_t	MAX_LAN_PACKET_APP_DATA_SIZE			= MAX_BUFFER_SIZE;
+//const uint16_t	MAX_INTERNET_PACKET_APP_DATA_SIZE	= 512;
+//const uint16_t	MAX_PACKET_APP_DATA_SIZE				= 512;

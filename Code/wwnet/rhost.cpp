@@ -55,7 +55,7 @@ cRemoteHost::cRemoteHost() :
    MustEvict(false),
    LastReliableSendId(-2),		// dummy value
    LastUnreliableSendId(-2),	// dummy value
-	ResendTimeoutMs(USHORT(cNetUtil::Get_Default_Resend_Timeout_Ms())),
+	ResendTimeoutMs(uint16_t(cNetUtil::Get_Default_Resend_Timeout_Ms())),
 	LastServiceCount(0),
 	LastContactTime(0),
 	TargetBps(0),
@@ -185,7 +185,7 @@ cRemoteHost::~cRemoteHost()
 }
 
 //------------------------------------------------------------------------------------
-void cRemoteHost::Add_Packet(cPacket & packet, BYTE list_type)
+void cRemoteHost::Add_Packet(cPacket & packet, uint8_t list_type)
 {
 	WWASSERT(
       list_type == RELIABLE_SEND_LIST   ||
@@ -246,7 +246,7 @@ void cRemoteHost::Add_Packet(cPacket & packet, BYTE list_type)
 }
 
 //------------------------------------------------------------------------------------
-void cRemoteHost::Remove_Packet(int packet_id, BYTE list_type)
+void cRemoteHost::Remove_Packet(int packet_id, uint8_t list_type)
 {
    WWASSERT(packet_id >= 0);
 	WWASSERT(
@@ -679,10 +679,10 @@ void cRemoteHost::Adjust_Resend_Timeout(void)
 			candidate_resend_timeout_ms = std::min(candidate_resend_timeout_ms, 3000);
 			candidate_resend_timeout_ms = std::max(candidate_resend_timeout_ms, 333);
 
-			ResendTimeoutMs = USHORT((ResendTimeoutMs + candidate_resend_timeout_ms) / 2);
+			ResendTimeoutMs = uint16_t((ResendTimeoutMs + candidate_resend_timeout_ms) / 2);
 			if (candidate_resend_timeout_ms < ResendTimeoutMs) {
 				WWASSERT(candidate_resend_timeout_ms < 0xffff);
-				ResendTimeoutMs = USHORT(candidate_resend_timeout_ms);
+				ResendTimeoutMs = uint16_t(candidate_resend_timeout_ms);
 				//WWDEBUG_SAY((">> ResendTimeoutMs for rhost %d = %d\n", Id, ResendTimeoutMs));
 			}
 

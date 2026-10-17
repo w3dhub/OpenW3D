@@ -400,14 +400,14 @@ float	ControlClass::Get_Clamp(AnalogControl control)
 */
 
 /*
-BYTE ControlClass::Scale_Analog(float clamp, float unscaled)
+uint8_t ControlClass::Scale_Analog(float clamp, float unscaled)
 {
    WWASSERT(unscaled > -clamp - WWMATH_EPSILON);
    WWASSERT(unscaled < +clamp + WWMATH_EPSILON);
-   return (BYTE) (255 * WWMath::Clamp((unscaled + clamp) / (2 * clamp)));
+   return (uint8_t) (255 * WWMath::Clamp((unscaled + clamp) / (2 * clamp)));
 }
 
-float ControlClass::Unscale_Analog(float clamp, BYTE scaled)
+float ControlClass::Unscale_Analog(float clamp, uint8_t scaled)
 {
    float unscaled;
    if (scaled == 127) { // scaling perturbs zero, special-case it

@@ -186,8 +186,8 @@ public:
 	virtual	SimpleGameObj			*As_SimpleGameObj( void )		{ return nullptr; }
 
 	// Network diagnostics
-	BYTE		Get_Server_Skips(void) {return ServerUpdateSkips;}
-	void		Reset_Server_Skips(BYTE value);
+	uint8_t		Get_Server_Skips(void) {return ServerUpdateSkips;}
+	void		Reset_Server_Skips(uint8_t value);
 	void		Increment_Server_Skips(void);
 
 
@@ -261,7 +261,7 @@ private:
 	//
 	// Networking bandwidth stuff
 	//
-	BYTE						ServerUpdateSkips;
+	uint8_t						ServerUpdateSkips;
 
 	//Vector3					TintColor;
 

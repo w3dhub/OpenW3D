@@ -413,7 +413,7 @@ void DebugManager::Init_Logfile(void)
 }
 
 //---------------------------------------------------------------------------
-void DebugManager::Write_To_File(LPCSTR str)
+void DebugManager::Write_To_File(const char * str)
 {
 	//
    // I open/close for each write so as to maximize integrity of this file.

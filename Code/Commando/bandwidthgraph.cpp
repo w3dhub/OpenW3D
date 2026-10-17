@@ -253,8 +253,8 @@ cBandwidthGraph::Think
 
 	YPosition += YIncrement;
 
-	DWORD bps = 0;
-	DWORD target_bps = 0;
+	unsigned bps = 0;
+	unsigned target_bps = 0;
 
 	//
 	// Client bandwidth

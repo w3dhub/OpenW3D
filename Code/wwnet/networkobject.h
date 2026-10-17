@@ -142,8 +142,8 @@ public:
 	//
 	// Record application packet type
 	//
-	void					Set_App_Packet_Type (BYTE type)	{ AppPacketType = type; }
-	BYTE					Get_App_Packet_Type (void)			{ return AppPacketType; }
+	void					Set_App_Packet_Type (uint8_t type)	{ AppPacketType = type; }
+	uint8_t					Get_App_Packet_Type (void)			{ return AppPacketType; }
 
 	//
 	//	Dirty bit support
@@ -152,12 +152,12 @@ public:
 	virtual void		Set_Object_Dirty_Bit (int client_id, DIRTY_BIT dirty_bit, bool onoff);
 	virtual void		Clear_Object_Dirty_Bits (void);
 	virtual bool		Get_Object_Dirty_Bit (int client_id, DIRTY_BIT dirty_bit);
-	virtual BYTE		Get_Object_Dirty_Bits (int client_id);
-	virtual void		Set_Object_Dirty_Bits (int client_id, BYTE bits);
+	virtual uint8_t		Get_Object_Dirty_Bits (int client_id);
+	virtual void		Set_Object_Dirty_Bits (int client_id, uint8_t bits);
 	virtual bool		Is_Client_Dirty (int client_id);
 
 	inline bool			Get_Object_Dirty_Bit_2 (int client_id, DIRTY_BIT dirty_bit);
-	inline BYTE			Get_Object_Dirty_Bits_2 (int client_id);
+	inline uint8_t			Get_Object_Dirty_Bits_2 (int client_id);
 
 	//
 	//	Filtering support
@@ -172,14 +172,14 @@ public:
 	void					Reset_Client_Hint_Count(int client_id);
 	void					Increment_Client_Hint_Count(int client_id);
 	void					Hint_To_All_Clients(void);
-	BYTE					Get_Client_Hint_Count(int client_id);
-	inline BYTE			Get_Client_Hint_Count_2(int client_id);
+	uint8_t					Get_Client_Hint_Count(int client_id);
+	inline uint8_t			Get_Client_Hint_Count_2(int client_id);
 	void					Reset_Import_State_Count (void)					{ ImportStateCount = 0; }
 	void					Increment_Import_State_Count (void)				{ ImportStateCount ++; }
 	int					Get_Import_State_Count (void)						{ return ImportStateCount; }
 	void					Reset_Last_Clientside_Update_Time (void);
-	void					Set_Last_Clientside_Update_Time (ULONG time);
-	ULONG					Get_Last_Clientside_Update_Time (void)			{ return LastClientsideUpdateTime; }
+	void					Set_Last_Clientside_Update_Time (unsigned time);
+	unsigned					Get_Last_Clientside_Update_Time (void)			{ return LastClientsideUpdateTime; }
 	int					Get_Clientside_Update_Frequency(void);
 
 	//
@@ -245,17 +245,17 @@ private:
 	struct PerClientUpdateInfoStruct {
 		unsigned int	LastUpdateTime;
 		unsigned short	UpdateRate;
-		BYTE				ClientHintCount;
+		uint8_t				ClientHintCount;
 	} UpdateInfo [MAX_CLIENT_COUNT];
 
-	BYTE					ClientStatus[MAX_CLIENT_COUNT];
+	uint8_t					ClientStatus[MAX_CLIENT_COUNT];
 	int					ImportStateCount;
-	ULONG					LastClientsideUpdateTime;
-	ULONG					ClientsideUpdateFrequencySampleStartTime;
+	unsigned					LastClientsideUpdateTime;
+	unsigned					ClientsideUpdateFrequencySampleStartTime;
 	int					ClientsideUpdateFrequencySampleCount;
 	int					ClientsideUpdateRate;
 	bool					IsDeletePending;
-	BYTE					AppPacketType;
+	uint8_t					AppPacketType;
 
 	int					LastObjectIdIDamaged;
 	int					LastObjectIdIGotDamagedBy;
@@ -316,7 +316,7 @@ inline bool NetworkObjectClass::Get_Object_Dirty_Bit_2 (int client_id, DIRTY_BIT
 //	Get_Object_Dirty_Bits
 //
 ////////////////////////////////////////////////////////////////
-inline BYTE NetworkObjectClass::Get_Object_Dirty_Bits_2 (int client_id)
+inline uint8_t NetworkObjectClass::Get_Object_Dirty_Bits_2 (int client_id)
 {
 	return ClientStatus[client_id];
 }
@@ -327,7 +327,7 @@ inline BYTE NetworkObjectClass::Get_Object_Dirty_Bits_2 (int client_id)
 //	Get_Client_Hint_Count
 //
 ////////////////////////////////////////////////////////////////
-inline BYTE NetworkObjectClass::Get_Client_Hint_Count_2(int client_id)
+inline uint8_t NetworkObjectClass::Get_Client_Hint_Count_2(int client_id)
 {
 	return UpdateInfo[client_id].ClientHintCount;
 }

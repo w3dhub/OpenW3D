@@ -65,9 +65,9 @@ unsigned int cConnection::LastLatencyChange = 0;
 //
 // class statics
 //
-BOOL cConnection::IsFlowControlEnabled				= true;
-UINT cConnection::TotalCompressedBytesSent		= 0;
-UINT cConnection::TotalUncompressedBytesSent		= 0;
+bool cConnection::IsFlowControlEnabled				= true;
+unsigned cConnection::TotalCompressedBytesSent		= 0;
+unsigned cConnection::TotalUncompressedBytesSent		= 0;
 
 static const int		INVALID_RHOST_ID			= -1;
 
@@ -257,7 +257,7 @@ void cConnection::Init_Stats()
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned short my_port)
+void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, uint16_t my_port)
 {
    WWASSERT(p_server_address != nullptr);
    WWASSERT(!InitDone);
@@ -304,7 +304,7 @@ void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned 
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Client(ULONG server_ip, USHORT server_port, unsigned short my_port)
+void cConnection::Init_As_Client(uint32_t server_ip, uint16_t server_port, uint16_t my_port)
 {
    WWDEBUG_SAY(("cConnection::Init_As_Client(%s, %d, %d)\n",
 		cNetUtil::Address_To_String(server_ip), server_port, my_port));
@@ -326,8 +326,8 @@ void cConnection::Init_As_Client(ULONG server_ip, USHORT server_port, unsigned s
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Server(USHORT server_port, int max_players,
-	bool is_dedicated_server, ULONG addr)
+void cConnection::Init_As_Server(uint16_t server_port, int max_players,
+	bool is_dedicated_server, uint32_t addr)
 {
    WWDEBUG_SAY(("cConnection::Init_As_Server\n"));
 
@@ -384,7 +384,7 @@ void cConnection::Init_As_Server(USHORT server_port, int max_players,
 }
 
 //------------------------------------------------------------------------------------
-bool cConnection::Bind(USHORT port, ULONG addr)
+bool cConnection::Bind(uint16_t port, uint32_t addr)
 {
    WWASSERT(!cSinglePlayerData::Is_Single_Player());
 
@@ -417,7 +417,7 @@ bool cConnection::Bind(USHORT port, ULONG addr)
 
 //------------------------------------------------------------------------------------
 #define ADD_CASE(exp) case exp: return #exp;
-LPCSTR cConnection::Type_Translation(int type)
+const char * cConnection::Type_Translation(int type)
 {
 	switch (type) {
 		ADD_CASE(PACKETTYPE_UNRELIABLE);
@@ -462,7 +462,7 @@ bool cConnection::Sender_Id_Tests(cPacket & packet)
 		// This can happen when the connection is broken... packets in-the-air
 		// may still arrive
 		//
-		BYTE packet_type;
+		uint8_t packet_type;
 		packet_type = packet.Get_Type();
 		WWASSERT(packet_type >= PACKETTYPE_FIRST && packet_type <= PACKETTYPE_LAST);
 		WWDEBUG_SAY(("Packet from broken connection discarded: type %d, id %d, sender %d\n",
@@ -503,9 +503,9 @@ bool cConnection::Sender_Id_Tests(cPacket & packet)
 }
 
 //------------------------------------------------------------------------------------
-USHORT cConnection::Calculate_Packet_Bits(USHORT app_bytes)
+uint16_t cConnection::Calculate_Packet_Bits(uint16_t app_bytes)
 {
-   //USHORT packet_bits = 0;
+   //uint16_t packet_bits = 0;
 
    //
    // From the app bytes, work out an approximate expected number
@@ -537,7 +537,7 @@ USHORT cConnection::Calculate_Packet_Bits(USHORT app_bytes)
 	//
 	//HeaderBytes = 33;
 
-   USHORT packet_bits = (USHORT)((app_bytes + 33) * 11.328125);
+   uint16_t packet_bits = (uint16_t)((app_bytes + 33) * 11.328125);
 
    return packet_bits;
 }
@@ -552,7 +552,7 @@ void cConnection::Set_Packet_Loss(double percent_lost)
 
    WWASSERT(percent_lost >= 0 && percent_lost <= 100);
 
-   SimulatedPacketLossPerRANDMAX = (USHORT) cMathUtil::Round(
+   SimulatedPacketLossPerRANDMAX = (uint16_t) cMathUtil::Round(
 		percent_lost / 100.0 * RAND_MAX);
 
 	WWDEBUG_SAY(("cConnection::Set_Packet_Loss: %hu / %d\n", SimulatedPacketLossPerRANDMAX, RAND_MAX));
@@ -572,7 +572,7 @@ void cConnection::Set_Packet_Duplication(double percent_duplicated)
    //
    // Globally:
    //
-   SimulatedPacketDuplicationPerRANDMAX = (USHORT) cMathUtil::Round(
+   SimulatedPacketDuplicationPerRANDMAX = (uint16_t) cMathUtil::Round(
 		percent_duplicated / 100.0 * RAND_MAX);
 
 	WWDEBUG_SAY(("cConnection::Set_Packet_Duplication: %d / %d\n",  SimulatedPacketDuplicationPerRANDMAX, RAND_MAX));
@@ -742,7 +742,7 @@ bool cConnection::Receive_Packet()
    //
 	// Measurement stats
 	//
-	USHORT packet_bits = Calculate_Packet_Bits(USHORT(ret_code));
+	uint16_t packet_bits = Calculate_Packet_Bits(uint16_t(ret_code));
 
    int addressee = Address_To_Rhostid(&packet.Get_From_Address_Wrapper()->FromAddress);
    if (addressee != INVALID_RHOST_ID) {
@@ -1238,7 +1238,7 @@ int cConnection::Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address)
 	//
 	// Update stats
 	//
-	BYTE packet_type = packet.Get_Type();
+	uint8_t packet_type = packet.Get_Type();
 	WWASSERT(packet_type >= PACKETTYPE_FIRST && packet_type <= PACKETTYPE_LAST);
 	PStatList->Increment_Num_Msg_Sent(packet_type);
 	PStatList->Increment_Num_Byte_Sent(packet_type, full_packet.Get_Compressed_Size_Bytes());
@@ -1362,7 +1362,7 @@ int cConnection::Low_Level_Receive_Wrapper(cPacket & packet)
 		// diagnostic
 		//
 		if (ret_code > 0) {
-			ULONG ip = packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr;
+			unsigned ip = packet.Get_From_Address_Wrapper()->FromAddress.sin_addr.s_addr;
 			WWDEBUG_SAY(("cConnection::Low_Level_Receive_Wrapper: %s\n",
 				cNetUtil::Address_To_String(ip)));
 		}
@@ -1394,7 +1394,7 @@ int cConnection::Receive_Wrapper(cPacket & packet)
 			//
 			// Update receive stats
 			//
-			BYTE packet_type = packet.Get_Type();
+			uint8_t packet_type = packet.Get_Type();
 			WWASSERT(packet_type >= PACKETTYPE_FIRST && packet_type <= PACKETTYPE_LAST);
 			PStatList->Increment_Num_Msg_Recd(packet_type);
 			PStatList->Increment_Num_Byte_Recd(packet_type, ret_code);
@@ -1444,7 +1444,7 @@ void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p
 			TotalCompressedBytesSent	+= packet.Get_Compressed_Size_Bytes();
 			TotalUncompressedBytesSent += packet.Get_Uncompressed_Size_Bytes();
 
-         USHORT bits_sent = Calculate_Packet_Bits(USHORT(packet.Get_Compressed_Size_Bytes()));
+         uint16_t bits_sent = Calculate_Packet_Bits(uint16_t(packet.Get_Compressed_Size_Bytes()));
 
          if (rhost_id != INVALID_RHOST_ID) {
             PRHost[rhost_id]->Get_Stats().StatSample[STAT_PktSent]++;
@@ -1457,7 +1457,7 @@ void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Set_R_And_U_Packet_Id(cPacket & packet, int addressee, BYTE send_type)
+void cConnection::Set_R_And_U_Packet_Id(cPacket & packet, int addressee, uint8_t send_type)
 {
 	WWASSERT(PRHost[addressee] != nullptr);
 
@@ -1488,7 +1488,7 @@ void cConnection::R_And_U_Send(
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Send_Packet_To_Individual(cPacket & packet, int addressee, BYTE send_flags)
+void cConnection::Send_Packet_To_Individual(cPacket & packet, int addressee, uint8_t send_flags)
 {
    WWASSERT(InitDone);
 
@@ -1529,7 +1529,7 @@ void cConnection::Send_Packet_To_Individual(cPacket & packet, int addressee, BYT
 
 /*
 //------------------------------------------------------------------------------------
-void cConnection::Send_Packet_To_All(cPacket & packet, BYTE send_flags)
+void cConnection::Send_Packet_To_All(cPacket & packet, uint8_t send_flags)
 {
    WWASSERT(InitDone);
 
@@ -1998,7 +1998,7 @@ void cConnection::Service_Read()
 
             } else {
 
-               //WWASSERT(p_packet->Get_Type() == (BYTE) PACKETTYPE_UNRELIABLE);
+               //WWASSERT(p_packet->Get_Type() == (uint8_t) PACKETTYPE_UNRELIABLE);
 
 					{
 					//WWPROFILE("Demultiplex_R_Or_U_Packet");

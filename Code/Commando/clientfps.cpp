@@ -88,7 +88,7 @@ CClientFps::Set_Fps(int fps)
 
 	WWASSERT(fps >= 0);
 
-	Fps = (BYTE) fps;
+	Fps = (uint8_t) fps;
 
 	Set_Object_Dirty_Bit(0, NetworkObjectClass::BIT_FREQUENT, true);
 }

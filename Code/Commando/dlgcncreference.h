@@ -93,8 +93,8 @@ private:
 	float										Timer;
 
 	enum				{ACTION_TIMEOUT_MS = 10000};
-	static DWORD	LastSuicideTimeMs;
-	static DWORD	LastChangeTeamTimeMs;
+	static unsigned	LastSuicideTimeMs;
+	static unsigned	LastChangeTeamTimeMs;
 };
 
 

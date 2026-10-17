@@ -171,8 +171,8 @@ public:
 	static	void	Display_Text(const WideStringClass & string, const Vector3 & color = Vector3( 1,1,1 ) );
 
    static	void	Init_Logfile(void);
-	static	void	Write_To_File(LPCSTR str);
-	static	LPCSTR Logfile_Name(void) {return LOGFILE;}
+	static	void	Write_To_File(const char * str);
+	static	const char * Logfile_Name(void) {return LOGFILE;}
 
 	static	void	Enable_Memory_Logging( bool enable );
 

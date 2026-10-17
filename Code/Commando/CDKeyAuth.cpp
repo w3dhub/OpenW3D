@@ -113,7 +113,7 @@ void CCDKeyAuth::DisconnectUser(int localid) {
 
 }
 
-void CCDKeyAuth::AuthenticateUser(int localid, ULONG ip, char *challenge, char *authstring) {
+void CCDKeyAuth::AuthenticateUser(int localid, uint32_t ip, char *challenge, char *authstring) {
 
 	// Customize this with our playerdata struct
 	// Take the response from our challenge that we sent to the client
@@ -149,7 +149,7 @@ void CCDKeyAuth::AuthSerial(const char *challenge, StringClass &resp) {
 	*outb = 0;
 
 	// MD5 Hash Here.
-	MD5Digest((BYTE *)cdkey, unsigned(strlen(cdkey)), md5hash);
+	MD5Digest((uint8_t *)cdkey, unsigned(strlen(cdkey)), md5hash);
 
 	// hashserial, challenge, outbuf
 	gcd_compute_response(cdkey, (char *)challenge, response, CDResponseMethod_NEWAUTH);

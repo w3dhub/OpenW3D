@@ -78,7 +78,7 @@ cAppPacketStats::Dump_Diagnostics
 	WWDEBUG_SAY(("cAppPacketStats::Dump_Diagnostics:\n"));
 	WWDEBUG_SAY(("%s\n", Get_Heading().Peek_Buffer()));
 
-	for (BYTE i = 0; i < APPPACKETTYPE_COUNT; i++)
+	for (uint8_t i = 0; i < APPPACKETTYPE_COUNT; i++)
 	{
 		WWDEBUG_SAY(("%s\n", Get_Description(i).Peek_Buffer()));
 	}
@@ -91,7 +91,7 @@ cAppPacketStats::Dump_Diagnostics
 void
 cAppPacketStats::Increment_Packets_Sent
 (
-	BYTE app_packet_type
+	uint8_t app_packet_type
 )
 {
 	WWASSERT(app_packet_type != APPPACKETTYPE_ALL && app_packet_type < APPPACKETTYPE_COUNT);
@@ -105,7 +105,7 @@ cAppPacketStats::Increment_Packets_Sent
 void
 cAppPacketStats::Increment_Bits_Sent
 (
-	BYTE	app_packet_type,
+	uint8_t	app_packet_type,
 	unsigned int	bits
 )
 {
@@ -121,7 +121,7 @@ cAppPacketStats::Increment_Bits_Sent
 void
 cAppPacketStats::Increment_Bits_Sent_Tier
 (
-	BYTE				app_packet_type,
+	uint8_t				app_packet_type,
 	PACKET_TIER_ENUM	tier,
 	unsigned int		bits
 )
@@ -138,7 +138,7 @@ cAppPacketStats::Increment_Bits_Sent_Tier
 unsigned int
 cAppPacketStats::Get_Packets_Sent
 (
-	BYTE app_packet_type
+	uint8_t app_packet_type
 )
 {
 	WWASSERT(app_packet_type < APPPACKETTYPE_COUNT);
@@ -150,7 +150,7 @@ cAppPacketStats::Get_Packets_Sent
 unsigned int
 cAppPacketStats::Get_Bits_Sent
 (
-	BYTE	app_packet_type
+	uint8_t	app_packet_type
 )
 {
 	WWASSERT(app_packet_type < APPPACKETTYPE_COUNT);
@@ -162,7 +162,7 @@ cAppPacketStats::Get_Bits_Sent
 unsigned int
 cAppPacketStats::Get_Bits_Sent_Tier
 (
-	BYTE					app_packet_type,
+	uint8_t					app_packet_type,
 	PACKET_TIER_ENUM	tier
 )
 {
@@ -174,10 +174,10 @@ cAppPacketStats::Get_Bits_Sent_Tier
 //-----------------------------------------------------------------------------
 #define ADD_CASE(exp)	case exp: return #exp;
 
-LPCSTR
+const char *
 cAppPacketStats::Interpret_Type
 (
-	BYTE app_packet_type
+	uint8_t app_packet_type
 )
 {
    switch (app_packet_type)
@@ -279,7 +279,7 @@ cAppPacketStats::Update_Object_Tally
 
 		if (p_object != nullptr)
 		{
-			BYTE type = p_object->Get_App_Packet_Type();
+			uint8_t type = p_object->Get_App_Packet_Type();
 			WWASSERT(type < APPPACKETTYPE_ALL);
 
 			ObjectTally[type]++;
@@ -299,7 +299,7 @@ cAppPacketStats::Update_Object_Tally
 unsigned int
 cAppPacketStats::Get_Object_Tally
 (
-	BYTE app_packet_type
+	uint8_t app_packet_type
 )
 {
 	WWASSERT(app_packet_type < APPPACKETTYPE_COUNT);
@@ -337,7 +337,7 @@ cAppPacketStats::Get_Heading
 StringClass &
 cAppPacketStats::Get_Description
 (
-	BYTE type
+	uint8_t type
 )
 {
 	WWASSERT(type < APPPACKETTYPE_COUNT);

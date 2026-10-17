@@ -139,7 +139,7 @@ NetworkObjectClass::Set_Network_ID (int id)
 //	Get_Object_Dirty_Bits
 //
 ////////////////////////////////////////////////////////////////
-BYTE
+uint8_t
 NetworkObjectClass::Get_Object_Dirty_Bits (int client_id)
 {
 	return ClientStatus[client_id];
@@ -152,7 +152,7 @@ NetworkObjectClass::Get_Object_Dirty_Bits (int client_id)
 //
 ////////////////////////////////////////////////////////////////
 void
-NetworkObjectClass::Set_Object_Dirty_Bits (int client_id, BYTE bits)
+NetworkObjectClass::Set_Object_Dirty_Bits (int client_id, uint8_t bits)
 {
 	ClientStatus[client_id] = bits;
 }
@@ -318,7 +318,7 @@ NetworkObjectClass::Hint_To_All_Clients(void)
 //	Get_Client_Hint_Count
 //
 ////////////////////////////////////////////////////////////////
-BYTE
+uint8_t
 NetworkObjectClass::Get_Client_Hint_Count(int client_id)
 {
 	WWASSERT(client_id >= 0 && client_id < MAX_CLIENT_COUNT);
@@ -617,7 +617,7 @@ void NetworkObjectClass::Reset_Last_Clientside_Update_Time(void)
 //
 //	10/19/2001 12:19PM ST
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void NetworkObjectClass::Set_Last_Clientside_Update_Time (ULONG time)
+void NetworkObjectClass::Set_Last_Clientside_Update_Time (unsigned time)
 {
 	LastClientsideUpdateTime = time;
 	ClientsideUpdateFrequencySampleCount++;
