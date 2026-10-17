@@ -231,7 +231,7 @@ class cPlayer : public PlayerDataClass, public NetworkObjectClass {
 		int					Ping;
 		unsigned					JoinTimeMs;
 		unsigned					TotalTimeMs;
-		unsigned					IpAddress;
+		uint32_t					IpAddress;
 		int					Fps;
 		unsigned					LastUpdateTimeMs;
 		int					FastSortKey;

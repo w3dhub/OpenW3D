@@ -45,15 +45,15 @@ public:
 protected:
 	char	hashid[33];
 	char	nickname[40];
-	unsigned	ipaddress;
-	unsigned	ipmask;
+	uint32_t	ipaddress;
+	uint32_t	ipmask;
 	bool	ruletype;
 
 public:
 	const char *Get_Nick_Name(void) {return (const char *)nickname;}
 	const char *Get_Hash_ID(void) {return (const char *)hashid;}
-	unsigned Get_Ip_Address(void) {return ipaddress;}
-	unsigned Get_Ip_Netmask(void) {return ipmask;}
+	uint32_t Get_Ip_Address(void) {return ipaddress;}
+	uint32_t Get_Ip_Netmask(void) {return ipmask;}
 	bool Get_Rule_Type(void) {return ruletype;}
 };
 
