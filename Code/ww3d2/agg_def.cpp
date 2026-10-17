@@ -618,7 +618,7 @@ AggregateDefClass::Read_Info (ChunkLoadClass &chunk_load)
 		ret_val = WW3D_ERROR_OK;
 
 		// Read all the subobjects from the file
-		for (UINT isubobject = 0;
+		for (unsigned isubobject = 0;
 			  (isubobject < m_Info.SubobjectCount) && (ret_val == WW3D_ERROR_OK);
 			  isubobject ++) {
 

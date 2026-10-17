@@ -55,8 +55,8 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		enum {UNDEFINED_ID		= -1};
 
 		int				Get_Max_Size() const					{return BitStreamClass::Get_Buffer_Size();}
-      void				Set_Bit_Length(UINT bit_position){BitStreamClass::Set_Bit_Write_Position(bit_position);}
-      UINT				Get_Bit_Length(void)					{return BitStreamClass::Get_Bit_Write_Position();}
+      void				Set_Bit_Length(unsigned bit_position){BitStreamClass::Set_Bit_Write_Position(bit_position);}
+      unsigned				Get_Bit_Length(void)					{return BitStreamClass::Get_Bit_Write_Position();}
 		void				Add_Vector3(Vector3 & v);
 		void				Get_Vector3(Vector3 & v);
       void				Add_Quaternion(Quaternion & q);
