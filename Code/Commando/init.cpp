@@ -117,6 +117,8 @@
 #include "gitinfo.h"
 #include <cstdio>
 #include <cinttypes>
+#include <filesystem>
+#include <regex>
 
 extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
 
@@ -140,10 +142,10 @@ extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
 /*
 ** This defines the subdirectory where the game will load all data from
 */
-const char *	DATA_SUBDIRECTORY			= "DATA/";
-const char *	SAVE_SUBDIRECTORY			= "DATA/SAVE/";
-const char *	CONFIG_SUBDIRECTORY		= "DATA/CONFIG/";
-const char *	MOVIES_SUBDIRECTORY		= "DATA/MOVIES/";
+const char DATA_SUBDIRECTORY[]			= "Data/";
+const char SAVE_SUBDIRECTORY[]			= "Data/save/";
+const char CONFIG_SUBDIRECTORY[]		= "Data/config/";
+const char MOVIES_SUBDIRECTORY[]		= "Data/Movies/";
 
 
 #define	STRINGS_FILENAME					"STRINGS.TDB"
@@ -709,31 +711,27 @@ bool Game_Init(void)
 	_TheSimpleFileFactory->Set_Strip_Path( true );
 
 	_RenegadeFileFactory.Add_FileFactory( &RenegadeBaseFileFactory, "" );
-	_RenegadeFileFactory.Add_FileFactory( new MixFileFactoryClass( "Always2.dat", &RenegadeBaseFileFactory ), "Always2.dat" );
-	_RenegadeFileFactory.Add_FileFactory( new MixFileFactoryClass( "Always.dbs", &RenegadeBaseFileFactory ), "Always.dbs" );
-	_RenegadeFileFactory.Add_FileFactory( new MixFileFactoryClass( "Always.dat", &RenegadeBaseFileFactory ), "Always.dat" );
 
-	//
-	//	Search for all mix files in the data directory
-	//
-	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= true;
-	HANDLE file_find				= nullptr;
-	for (file_find = ::FindFirstFileA ("data/*.mix", &find_info);
-		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{
-		//
-		//	Add this mix file to our mix file factory list
-		//
-		_RenegadeFileFactory.Add_FileFactory( new MixFileFactoryClass (find_info.cFileName, &RenegadeBaseFileFactory ), find_info.cFileName );
-	}
+	// Can't rely on casing being correct in case sensitive OS, so search for all of these in the directory iteration.
+	const std::regex adat_filter("^Always\\.dat$", std::regex::icase);
+	const std::regex a2dat_filter("^Always2\\.dat$", std::regex::icase);
+	const std::regex adbs_filter("^Always\\.dbs$", std::regex::icase);
+	const std::regex mix_filter("^.*\\.mix$", std::regex::icase);
 
-	//
-	//	Close the search handle
-	//
-	if (file_find != INVALID_HANDLE_VALUE) {
-		::FindClose (file_find);
+	for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+			if (!entry.is_regular_file()) {
+				continue;
+			}
+			
+			std::string filename = entry.path().filename().string();
+
+			if (std::regex_match(filename, adat_filter) || std::regex_match(filename, a2dat_filter) 
+			|| std::regex_match(filename, adbs_filter) || std::regex_match(filename, mix_filter)) {
+					//
+					//	Add this mix file to our mix file factory list
+					//
+					_RenegadeFileFactory.Add_FileFactory( new MixFileFactoryClass (filename.c_str(), &RenegadeBaseFileFactory), filename.c_str());
+			}
 	}
 
 	_TheFileFactory = &_RenegadeFileFactory;
@@ -796,7 +794,7 @@ bool Game_Init(void)
 	default:
 		WWDEBUG_SAY(("WW3D::Init Failed!\r\n"));
 		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_ERROR,
-			"DirectX 8.0 or later is required to play C&C:Renegade.",
+			"DirectX 9.0 or later is required to play C&C:Renegade.",
 			"Renegade Graphics Initialization Error.");
 		return false;
 	}
