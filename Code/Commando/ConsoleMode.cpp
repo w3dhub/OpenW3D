@@ -53,6 +53,9 @@
 #include "specialbuilds.h"
 #include "ServerSettings.h"
 #include <limits>
+#include <filesystem>
+#include <chrono>
+#include <regex>
 
 /*
 ** Single instance of console.
@@ -450,37 +453,34 @@ void ConsoleModeClass::cprintf(char const * string, ...)
 const char *ConsoleModeClass::Get_Log_File_Name(void)
 {
 	static char _log_file_name[256];
-	static int _last_day = -1;
+	static unsigned _last_day = UINT_MAX;
 
-	SYSTEMTIME time;
-	GetLocalTime(&time);
-	sprintf(_log_file_name, "renlog_%d-%d-%02d.txt", time.wMonth, time.wDay, time.wYear);
+	// Generate filename for today.
+	std::chrono::time_point time(std::chrono::system_clock::now());
+	std::chrono::year_month_day ymd(std::chrono::floor<std::chrono::days>(time));
+	sprintf(_log_file_name, "renlog_%04d-%02u-%02u.txt", static_cast<int>(ymd.year()), static_cast<unsigned>(ymd.month()), static_cast<unsigned>(ymd.day()));
 
-	if (_last_day != time.wDay && ServerSettingsClass::Get_Disk_Log_Size() != -1) {
-		_last_day = time.wDay;
+	// Rotate any logs that are older than the oldest allowed.
+	if (_last_day != static_cast<unsigned>(ymd.day()) && ServerSettingsClass::Get_Disk_Log_Size() != -1) {
+		_last_day = static_cast<unsigned>(ymd.day());
+		std::chrono::time_point oldest(time - std::chrono::hours(ServerSettingsClass::Get_Disk_Log_Size() * 24));
+		std::chrono::file_time oldfile(std::chrono::clock_cast<std::chrono::file_clock>(oldest));
+#if !defined __MINGW32__
+		oldfile = std::chrono::clock_cast<std::chrono::file_clock>(oldest);
+#elif defined _WIN32
+		oldfile = std::chrono::file_clock::from_utc(std::chrono::utc_clock::from_sys(oldest));
+#else
+		oldfile = std::chrono::file_clock::from_sys(oldest);
+#endif
+		std::regex filter("^renlog_.*\\.txt$", std::regex::icase);
 
-		FILETIME file_time;
-		if (SystemTimeToFileTime(&time, &file_time)) {
-			int64_t int_file_time;
-			memcpy(&int_file_time, &file_time, sizeof(int_file_time));
-			int64_t time_diff = ((int64_t)10000000) * ((int64_t)60*60*24*ServerSettingsClass::Get_Disk_Log_Size());
-			int_file_time -= time_diff;
-			memcpy(&file_time, &int_file_time, sizeof(file_time));
-
-			/*
-			** Find all log files.
-			*/
-  			WIN32_FIND_DATAA find_data;
-			HANDLE find_handle = FindFirstFileA("renlog_*.txt", &find_data);
-			while (find_handle != INVALID_HANDLE_VALUE) {
-				if (CompareFileTime(&find_data.ftLastWriteTime, &file_time) == -1) {
-					DeleteFileA(find_data.cFileName);
+		for (const auto& entry : std::filesystem::directory_iterator("./")) {
+				if (entry.is_regular_file()) {
+						std::string filename = entry.path().filename().string();
+						if (std::regex_match(filename, filter) && entry.last_write_time() < oldfile) {
+								std::filesystem::remove(entry);
+						}
 				}
-				if (!FindNextFileA(find_handle, &find_data)) {
-					break;
-				}
-			}
-			FindClose(find_handle);
 		}
 	}
 

@@ -37,6 +37,8 @@
 #include "skinpackagemgr.h"
 #include "registry.h"
 #include "_globals.h"
+#include <regex>
+#include <filesystem>
 
 
 /////////////////////////////////////////////////////////////////////
@@ -106,31 +108,30 @@ SkinPackageMgrClass::Shutdown (void)
 void
 SkinPackageMgrClass::Build_List (void)
 {
-	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= true;
-	HANDLE file_find				= nullptr;
-
 	//
-	//	Build a list of all the saved games we know about
+	//	Build a list of all the skin packages we know about
 	//
-	for (file_find = ::FindFirstFileA ("*.pkg", &find_info);
-		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{
-		//
-		//	Create the package from the data in this mix file
-		//
-		SkinPackageClass package;
-		package.Set_Package_Filename (find_info.cFileName);
+	const std::regex pkg_filter("^.*\\.pkg$", std::regex::icase);
 
-		//
-		//	Add the package to our list
-		//
-		PackageList.Add (package);
-	}
+	for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+			if (!entry.is_regular_file()) {
+				continue;
+			}
+			
+			std::string filename = entry.path().filename().string();
 
-	if (file_find != INVALID_HANDLE_VALUE) {
-		::FindClose (file_find);
+			if (std::regex_match(filename, pkg_filter)) {
+					//
+					//	Create the package from the data in this mix file
+					//
+					SkinPackageClass package;
+					package.Set_Package_Filename (filename.c_str());
+
+					//
+					//	Add the package to our list
+					//
+					PackageList.Add (package);
+			}
 	}
 
 	return ;
