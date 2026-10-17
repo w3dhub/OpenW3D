@@ -257,7 +257,7 @@ void cConnection::Init_Stats()
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned short my_port)
+void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, uint16_t my_port)
 {
    WWASSERT(p_server_address != nullptr);
    WWASSERT(!InitDone);
@@ -304,7 +304,7 @@ void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned 
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Client(unsigned server_ip, uint16_t server_port, unsigned short my_port)
+void cConnection::Init_As_Client(uint32_t server_ip, uint16_t server_port, uint16_t my_port)
 {
    WWDEBUG_SAY(("cConnection::Init_As_Client(%s, %d, %d)\n",
 		cNetUtil::Address_To_String(server_ip), server_port, my_port));
@@ -327,7 +327,7 @@ void cConnection::Init_As_Client(unsigned server_ip, uint16_t server_port, unsig
 
 //------------------------------------------------------------------------------------
 void cConnection::Init_As_Server(uint16_t server_port, int max_players,
-	bool is_dedicated_server, unsigned addr)
+	bool is_dedicated_server, uint32_t addr)
 {
    WWDEBUG_SAY(("cConnection::Init_As_Server\n"));
 
@@ -384,7 +384,7 @@ void cConnection::Init_As_Server(uint16_t server_port, int max_players,
 }
 
 //------------------------------------------------------------------------------------
-bool cConnection::Bind(uint16_t port, unsigned addr)
+bool cConnection::Bind(uint16_t port, uint32_t addr)
 {
    WWASSERT(!cSinglePlayerData::Is_Single_Player());
 

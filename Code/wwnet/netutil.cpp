@@ -38,6 +38,7 @@
 #include "ini.h"
 #include "systimer.h"
 #include "fromaddress.h"
+#include <cinttypes>
 
 //
 // class statics
@@ -273,13 +274,13 @@ void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[ma
 }
 
 //-------------------------------------------------------------------------------
-const char * cNetUtil::Address_To_String(unsigned ip)
+const char * cNetUtil::Address_To_String(uint32_t ip)
 {
 	IN_ADDR in_addr;
 	in_addr.s_addr = ip;
 	char * p = ::inet_ntoa(in_addr);
 	if (p == nullptr) {
-		::sprintf(WorkingAddressBuffer, "Invalid ip (%lu)", ip);
+		::sprintf(WorkingAddressBuffer, "Invalid ip (%" PRIu32 ")", ip);
 	} else {
 		::strcpy(WorkingAddressBuffer, p);
 	}

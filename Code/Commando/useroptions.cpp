@@ -217,7 +217,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 				break;
 			}
 			uint16_t port = 4848;
-			unsigned addr = 0;
+			uint32_t addr = 0;
 
             char *saddr_mem = nullptr;
             const char *saddr = argval;
@@ -399,7 +399,7 @@ cRegistryBool cUserOptions::GameListFilterShowOnlyGamesIRankFor(	APPLICATION_SUB
 		value = ::strstr(cmd, param);
 		if (value != nullptr) {
 			value += ::strlen(param);
-			unsigned ip = ::inet_addr(value);
+			uint32_t ip = ::inet_addr(value);
 			cGameSpyAdmin::Set_Game_Host_Ip(ip);
 			cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
 			continue;

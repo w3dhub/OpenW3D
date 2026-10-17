@@ -102,9 +102,9 @@ class cConnection
 		cConnection();
 		~cConnection();
 
-      void Init_As_Client(unsigned server_ip, uint16_t server_port, unsigned short my_port = 0);
+      void Init_As_Client(uint32_t server_ip, uint16_t server_port, uint16_t my_port = 0);
       void Init_As_Server(uint16_t server_port, int max_players,
-			bool is_dedicated_server, unsigned addr = 0);
+			bool is_dedicated_server, uint32_t addr = 0);
       void Connect_Cs(cPacket & app_data);
       void Send_Packet_To_Individual(cPacket & packet, int addressee, uint8_t send_flags);
       bool Have_Id() const {return LocalId != ID_UNKNOWN;}
@@ -169,10 +169,10 @@ class cConnection
       cConnection(const cConnection& rhs); // Disallow copy (compile/link time)
       cConnection& operator=(const cConnection& rhs); // Disallow assignment (compile/link time)
 
-      void Init_As_Client(struct sockaddr_in* p_server_address, unsigned short my_port = 0);
+      void Init_As_Client(struct sockaddr_in* p_server_address, uint16_t my_port = 0);
       bool Demultiplex_R_Or_U_Packet(cPacket * p_packet, int rhost_id);
       void Send_Accept_Sc(int new_rhost_id);
-      bool Bind(uint16_t port, unsigned addr = 0);
+      bool Bind(uint16_t port, uint32_t addr = 0);
       bool Receive_Packet();
 		int Low_Level_Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address);
       int Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address);

@@ -63,7 +63,7 @@ class cNetUtil
 		static bool		Send_Resource_Failure(const char * sFile, unsigned uLine, int ret_code);
 		static void		Address_To_String(struct sockaddr_in* p_address, char * str, UINT len,
 								uint16_t & port);
-		static const char *	Address_To_String(unsigned ip_address);
+		static const char *	Address_To_String(uint32_t ip_address);
 		static void		String_To_Address(struct sockaddr_in* p_address, const char * str, uint16_t port);
       static void		Create_Unbound_Socket(SOCKET & sock);
       static bool		Create_Bound_Socket(SOCKET & sock, uint16_t port, struct sockaddr_in & local_address);
