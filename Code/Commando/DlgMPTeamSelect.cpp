@@ -846,7 +846,7 @@ void DlgMPTeamSelect::ProcessWOLGameInfo(DlgMPTeamSelect& dialog, const char* da
 		PARSE_HEXDWORD(info, " ", mapCRC);
 
 		StringClass mapname(64, true);
-		ModPackageMgrClass::Find_Filename_From_CRC ("*.mix", mapCRC, &mapname);
+		ModPackageMgrClass::Find_Filename_From_CRC (std::regex("^.*\\.mix$", std::regex::icase), mapCRC, &mapname);
 
 		WideStringClass text(255, true);
 		text.Format(TRANSLATE (IDS_MENU_MAP_NAME_FORMAT), (const char*)mapname);

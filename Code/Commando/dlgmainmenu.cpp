@@ -67,6 +67,8 @@
 #include "string_ids.h"
 #include "gamespyadmin.h"
 #include "gitinfo.h"
+#include <filesystem>
+#include <regex>
 
 ////////////////////////////////////////////////////////////////
 //	Static member initialization
@@ -313,42 +315,32 @@ StringClass
 MainMenuDialogClass::Choose_Skirmish_Map (void)
 {
 	DynamicVectorClass<StringClass>	map_list;
-	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= true;
-	HANDLE file_find				= nullptr;
-	StringClass file_filter;
 
 	//
 	// Look for any skirmish maps.
 	//
-	file_filter.Format("data/skirmish*.mix");
-	keep_going = true;
-	for (file_find = ::FindFirstFileA (file_filter, &find_info);
-		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{
-		map_list.Add (find_info.cFileName);
-	}
-
-	if (file_find != INVALID_HANDLE_VALUE) {
-		::FindClose (file_find);
+	const std::regex skirmish_filter("^Skirmish.*\\.mix$", std::regex::icase);
+	for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+			if (entry.is_regular_file()) {
+					std::string filename = entry.path().filename().string();
+					if (std::regex_match(filename, skirmish_filter)) {
+							map_list.Add(filename.c_str());
+					}
+			}
 	}
 
 	if (map_list.Count() == 0) {
 		//
 		// No skirmish maps found. Look for a C&C map.
 		//
-		file_filter.Format("data/c&c_*.mix");
-		keep_going = true;
-		for (file_find = ::FindFirstFileA (file_filter, &find_info);
-			 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-			  keep_going = ::FindNextFileA (file_find, &find_info))
-		{
-			map_list.Add (find_info.cFileName);
-		}
-
-		if (file_find != INVALID_HANDLE_VALUE) {
-			::FindClose (file_find);
+		const std::regex cnc_filter("^C&C_.*\\.mix$", std::regex::icase);
+		for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+				if (entry.is_regular_file()) {
+						std::string filename = entry.path().filename().string();
+						if (std::regex_match(filename, cnc_filter)) {
+								map_list.Add(filename.c_str());
+						}
+				}
 		}
 	}
 

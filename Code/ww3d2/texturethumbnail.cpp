@@ -29,8 +29,12 @@
 #include "rawfile.h"
 #include "mixfile.h"
 #include "wwdialog.h"
-#include <windows.h>
 #include <climits>
+#include <regex>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 DLListClass<ThumbnailManagerClass> ThumbnailManagerClass::ThumbnailManagerList;
 static bool message_box_displayed=false;
@@ -663,40 +667,63 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 
 	// Collect all mix file names
 	DynamicVectorClass<StringClass> mix_names;
+	StringClass adat_name;
 
-	const std::filesystem::path cur_dir = cPathUtil::GetWorkingDirectory();
-	const std::filesystem::path new_dir = cur_dir / "Data";
-	cPathUtil::SetWorkingDirectory(new_dir);
+	const std::regex mix_filter("^.*\\.mix$", std::regex::icase);
+	const std::regex adat_filter("^Always.dat$", std::regex::icase);
 
-	WIN32_FIND_DATAA find_data;
-	HANDLE handle=FindFirstFileA("*.mix",&find_data);
-	if (handle!=INVALID_HANDLE_VALUE) {
-		for (;;) {
-			if (!(find_data.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY)) {
-				mix_names.Add(find_data.cFileName);
+	for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+			if (!entry.is_regular_file()) {
+				continue;
 			}
-			if (!FindNextFileA(handle,&find_data)) {
-				FindClose(handle);
-				break;
+			
+			std::string filename = entry.path().filename().string();
+
+			if (std::regex_match(filename, mix_filter)) {
+				mix_names.Add(filename.c_str());
 			}
-		}
+
+			if (std::regex_match(filename, adat_filter)) {
+				adat_name = filename.c_str();
+			}
 	}
-	cPathUtil::SetWorkingDirectory(cur_dir);
 
 	// First generate thumbnails for always.dat
-	Update_Thumbnail_File("always.dat",display_message_box);
+	Update_Thumbnail_File(adat_name, display_message_box);
 
 	// Then loop over all .mix files
 	for (int i=0;i<mix_names.Count();++i) {
-		Update_Thumbnail_File(mix_names[i],display_message_box);
+		Update_Thumbnail_File(mix_names[i], display_message_box);
 	}
 }
 
 void ThumbnailManagerClass::Init()
 {
+	// Get the correctly cased file name via search in case we are on case sensitive file system.
+	const std::regex a2dat_filter("^Always2.dat$", std::regex::icase);
+	const std::regex adat_filter("^Always.dat$", std::regex::icase);
+	StringClass adat_name;
+	StringClass a2dat_name;
+
+	for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+			if (!entry.is_regular_file()) {
+				continue;
+			}
+			
+			std::string filename = entry.path().filename().string();
+
+			if (std::regex_match(filename, a2dat_filter)) {
+				a2dat_name = filename.c_str();
+			}
+
+			if (std::regex_match(filename, adat_filter)) {
+				adat_name = filename.c_str();
+			}
+	}
+
 	// Renegade uses always.dat... Should all our games use, or should this be moved to somewhere else?
-	Add_Thumbnail_Manager("always.thu","always.dat");
-	Add_Thumbnail_Manager("always2.thu","always2.dat");
+	Add_Thumbnail_Manager("always.thu",adat_name);
+	Add_Thumbnail_Manager("always2.thu",a2dat_name);
 }
 
 void ThumbnailManagerClass::Deinit()

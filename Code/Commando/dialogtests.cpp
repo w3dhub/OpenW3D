@@ -934,55 +934,6 @@ MPMainMenuClass::On_Init_Dialog (void)
 
 ////////////////////////////////////////////////////////////////
 //
-//	Add_Folders
-//
-////////////////////////////////////////////////////////////////
-/*void
-Add_Folders (const char *path, TreeCtrlClass *tree_ctrl, TreeItemClass *parent_item)
-{
-	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= true;
-	HANDLE file_find				= nullptr;
-
-	StringClass full_path = path;
-	full_path += "\\*.*";
-
-	//
-	//	Build a list of all the maps we know about
-	//
-	for (file_find = ::FindFirstFileA (full_path, &find_info);
-		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{
-		//
-		//	Only do directories
-		//
-		if ((find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-			if (find_info.cFileName[0] != '.') {
-				WideStringClass display_name;
-				display_name.Convert_From (find_info.cFileName);
-				TreeItemClass *new_item = tree_ctrl->Insert_Item (display_name, TreeCtrlClass::ICON_FOLDER,
-																	TreeCtrlClass::ICON_FOLDER_OPEN, parent_item);
-
-				new_item->Set_Needs_Children (true);
-			}
-		}
-	}
-
-	if (file_find != INVALID_HANDLE_VALUE) {
-		::FindClose (file_find);
-	}
-
-	//
-	//	Sort the immediate children...
-	//
-	tree_ctrl->Sort_Children_Alphabetically (parent_item);
-	return ;
-}*/
-
-
-////////////////////////////////////////////////////////////////
-//
 //	On_Init_Dialog
 //
 ////////////////////////////////////////////////////////////////
