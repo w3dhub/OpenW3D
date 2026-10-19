@@ -503,12 +503,7 @@ int cNetwork::Get_Data_Files_CRC(void)
 
 void cNetwork::Compute_Exe_Key(void)
 {
-   WWDEBUG_SAY(("cNetwork::Compute_Exe_Key\n"));
-
-	char exe_filename[500];
-   int succeeded = 0;
-	succeeded = ::GetModuleFileNameA(nullptr, exe_filename, sizeof(exe_filename));
-	WWASSERT(succeeded);
+	WWDEBUG_SAY(("cNetwork::Compute_Exe_Key\n"));
 
 	StringClass key_string;
 	StringClass string;

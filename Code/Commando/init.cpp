@@ -114,7 +114,9 @@
 #include "specialbuilds.h"
 #include "wwdialog.h"
 #include "debugbreak.h"
+#include "gitinfo.h"
 #include <cstdio>
+#include <cinttypes>
 
 extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
 
@@ -203,45 +205,32 @@ void Append_To_Assert_History(const char * message)
 		return;
 	}
 
-	char line[2000] = "";
-
 	//
 	// Blank lines plus timestamp
 	//
-	::sprintf(line, "\n\nWhen:       %s\n", cMiscUtil::Get_Text_Time());
-	::fwrite(line, 1, ::strlen(line), file);
+	::fprintf(file, "\n\nWhen:       %s\n", cMiscUtil::Get_Text_Time());
 
 	//
 	// version #
 	//
-	::sprintf(line, "Version:    %d\n", DebugManager::Get_Version_Number());
-	::fwrite(line, 1, ::strlen(line), file);
+	::fprintf(file, "Version:    %d\n", DebugManager::Get_Version_Number());
 
 	//
 	// Full filename
 	//
-	char full_filename[MAX_PATH];
-	::GetModuleFileNameA(nullptr, full_filename, sizeof(full_filename));
-	::sprintf(line, "Filename:   %s\n", full_filename);
-	::fwrite(line, 1, ::strlen(line), file);
+	auto full_filename = cPathUtil::GetExecutableFile();
+	::fprintf(file, "Filename:   %s\n", full_filename.string().c_str());
 
 	//
 	// File size
 	//
-	HANDLE hfile = ::CreateFileA(full_filename, 0, 0, nullptr, OPEN_EXISTING, 0L, nullptr);
-	if (hfile != INVALID_HANDLE_VALUE)
-	{
-		DWORD file_size = ::GetFileSize(hfile, nullptr);
-		::CloseHandle(hfile);
-		::sprintf(line, "Filesize:   %ld\n", file_size);
-		::fwrite(line, 1, ::strlen(line), file);
-	}
+	uintmax_t file_size = std::filesystem::file_size(full_filename);
+	::fprintf(file, "Filesize:   %" PRIdMAX "\n", file_size);
 
 	//
 	// The assert message itself
 	//
-	::sprintf(line, "Assert:     %s\n", message);
-	::fwrite(line, 1, ::strlen(line), file);
+	::fprintf(file, "Assert:     %s\n", message);
 
 	::fclose(file);
 }
@@ -423,42 +412,31 @@ void	Construct_Directory_Structure(void)
 	//
 	//	Lookup the path of the executable
 	//
-	char path[MAX_PATH] = { 0 };
-	::GetModuleFileNameA (nullptr, path, sizeof (path));
+	auto path = cPathUtil::GetExecutableDirectory();
+	auto data_dir = path / "Data";
 
-	//
-	//	Strip off the filename
-	//
-	char *filename = ::strrchr (path, '\\');
-	if (filename != nullptr) {
-		filename[1] = 0;
-	}
-
-	StringClass data_dir(path,true);
-	data_dir += "data";
-
-	StringClass save_dir(data_dir +  "/save",true);
-	StringClass config_dir(data_dir +  "/config",true);
+	auto save_dir = data_dir / "save";
+	auto config_dir= data_dir / "config";
 
 	//
 	//	Create the data directory if necessary
 	//
 	if (!cPathUtil::PathExists (data_dir)) {
-		::CreateDirectoryA (data_dir, nullptr);
+		cPathUtil::EnsureDirectoryExists(data_dir);
 	}
 
 	//
 	//	Create the save directory if necessary
 	//
 	if (!cPathUtil::PathExists (save_dir)) {
-		::CreateDirectoryA (save_dir, nullptr);
+		cPathUtil::EnsureDirectoryExists(save_dir);
 	}
 
 	//
 	//	Create the config directory if necessary
 	//
 	if (!cPathUtil::PathExists (config_dir)) {
-		::CreateDirectoryA (config_dir, nullptr);
+		cPathUtil::EnsureDirectoryExists(config_dir);
 	}
 
 
@@ -468,20 +446,8 @@ void	Construct_Directory_Structure(void)
 static bool Verify_Log_Directory(const StringClass& folder)
 {
 	if (cPathUtil::PathExists(folder)) return true;
-	//HANDLE file;
-	//file = CreateFileA(folder, 0, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	//if (file!=INVALID_HANDLE_VALUE) {
-	//	CloseHandle(file);
-	//	return true;
-	//}
 
-	if (CreateDirectoryA(folder,nullptr)) {
-		return true;
-	}
-	if (GetLastError() == ERROR_ALREADY_EXISTS) {
-		return(true);
-	}
-	return false;
+	return cPathUtil::EnsureDirectoryExists(folder.Peek_Buffer());
 }
 
 static bool Create_Log_File_Name(const StringClass& folder, StringClass& filename,bool use_numbering)
@@ -615,34 +581,14 @@ bool RestartNeeded = true;
  * HISTORY:                                                                                    *
  *   12/3/2001 11:26PM ST : Created                                                            *
  *=============================================================================================*/
-void Get_Version_Number(unsigned int * major, unsigned int * minor) {
-	unsigned int file_minor = 0;
-	unsigned int file_major = 1;
-	char filename[MAX_PATH];
-
-	GetModuleFileNameA(nullptr, filename, sizeof(filename));
-	DWORD dwHandle;
-	DWORD version_info_size = GetFileVersionInfoSizeA(filename, &dwHandle);
-	if (version_info_size == 0) {
-		return;
-	}
-	char *version_info_buffer = new char[version_info_size];
-	if (GetFileVersionInfoA(filename, 0, version_info_size, version_info_buffer)) {
-		VS_FIXEDFILEINFO * vs_fixed_file_info = nullptr;
-		UINT len = 0;
-		if (VerQueryValueA(version_info_buffer, "\\", reinterpret_cast<void **>(&vs_fixed_file_info), &len)) {
-			file_major = vs_fixed_file_info->dwFileVersionMS;
-			file_minor = vs_fixed_file_info->dwFileVersionLS;
-		}
-	}
-	delete[] version_info_buffer;
-
-	DebugManager::Set_Version_Number(file_major);
+void Get_Version_Number(unsigned int * major, unsigned int * minor)
+{
+	DebugManager::Set_Version_Number(GitMajor);
 	if (major != nullptr) {
-		*major = file_major;
+		*major = GitMajor;
 	}
 	if (minor != nullptr) {
-		*minor = file_minor;
+		*minor = GitMinor;
 	}
 }
 
