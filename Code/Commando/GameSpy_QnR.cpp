@@ -484,69 +484,16 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 		StringClass value(true);
 		const char *zero = "0"; const char *one = "1";
 
-//		WideStringClass timelimit;
-//		The_Game()->Get_Time_Limit_Text(timelimit);
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "timeleft", timelimit)) break;
-
-//		value.Format("%d", The_Game()->Get_Time_Limit_Minutes());
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "timelimit", value)) break;
-
-//		if (b.Is_Empty()) {
-//			char filename[MAX_PATH];
-//			GetModuleFileNameA(nullptr, filename, sizeof(filename));
-//			VS_FIXEDFILEINFO version;
-//			GetVersionInfo(filename, &version);
-//			int ver = version.dwFileVersionMS;
-//
-//			b.Format("%s %s V%d.%3.3d(%s-%d)", "Win-X86", bname, (ver&0xffff0000)>>16, ver&0xffff,
-//				BuildInfoClass::Get_Builder_Initials(), BuildInfoClass::Get_Build_Number());
-//		}
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "Version", b)) break;
-
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "ServerMOTD", WideStringClass(The_Game()->Get_Motd()))) break;
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "OwnerName", The_Game()->Get_Owner())) break;
 		value.Format("%d", (int)cUserOptions::BandwidthBps.Get());
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "BW", value)) break;
-//		int utime = time(nullptr) - StartTime;
-//		value.Format("%d:%d:%d:%d", utime/60/60/24, (utime/60/60)%24, (utime/60)%60, utime%60);
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "Uptime", value)) break;
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "CSVR", ConsoleBox.Is_Exclusive() ? one : zero)) break;
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "DED", The_Game()->IsDedicated.Get() ? one : zero)) break;
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "DG", The_Game()->DriverIsAlwaysGunner.Get() ? one : zero)) break;
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "password", The_Game()->IsPassworded.Get() ? one : zero)) break;
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "TC", The_Game()->IsTeamChangingAllowed.Get() ? one : zero)) break;
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "WeaponSpawning", The_Game()->SpawnWeapons.Get() ? one : zero)) break;
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "TeamRemix", The_Game()->RemixTeams.Get() ? one : zero)) break;
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "BuildingRepair", The_Game()->CanRepairBuildings.Get() ? one : zero)) break;
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "FF", The_Game()->IsFriendlyFirePermitted.Get() ? one : zero)) break;
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "BaseDestructionEndsGame", The_Game()->As_Cnc()->BaseDestructionEndsGame.Get() ? one : zero)) break;
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "BeaconPlacementEndsGame", The_Game()->As_Cnc()->BeaconPlacementEndsGame.Get() ? one : zero)) break;
-//		value.Format("%d", (int)The_Game()->Get_Radar_Mode());
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "RadarMode", value)) break;
 		value.Format("%d", The_Game()->As_Cnc()->Get_Starting_Credits());
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "SC", value)) break;
-
-//		cTeam * p_team;
-//		for (SLNode<cTeam> * objnode = cTeamManager::Get_Team_Object_List()->Head()
-//				; objnode != nullptr; objnode = objnode->Next()) {
-//
-//			p_team = objnode->Data();
-//			WWASSERT(p_team != nullptr);
-//
-//			if (p_team->Get_Id() == PLAYERTYPE_GDI) {
-//				value.Format("%.0f", p_team->Get_Score());
-//				if (!Append_InfoKey_Pair(outbuf, maxlen, "GDI_Score", value)) break;
-//			} else if (p_team->Get_Id() == PLAYERTYPE_NOD) {
-//				value.Format("%.0f", p_team->Get_Score());
-//				if (!Append_InfoKey_Pair(outbuf, maxlen, "NOD_Score", value)) break;
-//			}
-//		}
-
-		// These don't apply to LAN/GameSpy Games
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "ClanMatch", The_Game()->IsClanGame.Get() ? one : zero)) break;
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "Laddered", The_Game()->IsLaddered.Get() ? one : zero)) break;
-//		if (!Append_InfoKey_Pair(outbuf, maxlen, "QuickMatch", The_Game()->Is_QuickMatch_Server() ? one : zero)) break;
-
 
 		break;
 

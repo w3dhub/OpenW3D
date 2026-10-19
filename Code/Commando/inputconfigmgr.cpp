@@ -692,20 +692,11 @@ InputConfigMgrClass::Get_Config_Path (StringClass &full_path)
 	//
 	//	Lookup the path of the executable
 	//
-	char path[MAX_PATH] = { 0 };
-	::GetModuleFileNameA (nullptr, path, sizeof (path));
-
-	//
-	//	Strip off the filename
-	//
-	char *filename_portion = ::strrchr (path, '\\');
-	if (filename_portion != nullptr) {
-		filename_portion[0] = 0;
-	}
-
+	auto path = cPathUtil::GetExecutableDirectory() / "Data" / "config";
+	
 	//
 	//	Build the full path from the EXE's directory
 	//
-	full_path.Format ("%s/data/config", path);
+	full_path = path.string().c_str();
 	return ;
 }

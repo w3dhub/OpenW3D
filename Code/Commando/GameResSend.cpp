@@ -36,6 +36,8 @@
 #include "gamedata.h"
 #include "player.h"
 #include "ConsoleMode.h"
+#include "buildnum.h"
+#include "gitinfo.h"
 #include <Combat/playertype.h>
 #include <WWOnline/GameResPacket.h>
 #include <WWOnline/WOLSession.h>
@@ -49,6 +51,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <algorithm>
+#include <limits>
 
 using namespace WWOnline;
 
@@ -97,32 +100,25 @@ void SendGameResults(unsigned int gameID, cGameData* theGame, SList<cPlayer>* pl
 	stats.Add_Field("GSKU", gameSKU);
 
 	// Version of executable.
-	char filename[MAX_PATH];
-	GetModuleFileNameA(nullptr, filename, sizeof(filename));
-	VS_FIXEDFILEINFO version;
-	GetVersionInfo(filename, &version);
-	stats.Add_Field("VERS", (unsigned int)version.dwFileVersionMS);
+	stats.Add_Field("VERS", BuildInfoClass::Get_Network_Version_Number());
 
 	// Executable build date
-	FileCreationTime time;
-	GetFileCreationTime(filename, &time);
-
+	struct tm *time = gmtime(&GitCommitTimeStamp);
 	char buildDate[20];
 	sprintf(buildDate, "%02d/%02d/%04d %02d:%02d:%02d",
-		time.month, time.day, time.year, time.hour, time.minute, time.second);
+		time->tm_mon + 1, time->tm_mday, time->tm_year + 1900, time->tm_hour, time->tm_min, time->tm_sec);
 	stats.Add_Field("DATE", buildDate);
 
 	// Proocessor information
 	stats.Add_Field("PROC", (char*)CPUDetectClass::Get_Processor_String());
 	stats.Add_Field("PSPD", (unsigned int)CPUDetectClass::Get_Processor_Speed());
 
-	// Amount of system memory on server
-	MEMORYSTATUS memStatus;
-	GlobalMemoryStatus(&memStatus);
-	stats.Add_Field("SMEM", (unsigned int)memStatus.dwTotalPhys);
+	// Amount of system memory on server, stat field can't be larger than 32bit so 4GB is most that can be reported.
+	uint32_t memory = static_cast<uint32_t>(std::min<uint64_t>(std::numeric_limits<uint32_t>::max(), CPUDetectClass::Get_Total_Physical_Memory()));
+	stats.Add_Field("SMEM", memory);
 
 	// Video card information
-	DWORD cardInfo[4];
+	uint32_t cardInfo[4];
 	if (ConsoleBox.Is_Exclusive()) {
 		strcpy((char*)&cardInfo[0], "ConsoleMode");
 	} else {
