@@ -1,3 +1,17 @@
+/*
+** Copyright 2026 OpenW3D contributors
+**
+** This program is free software: you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation, either version 3 of the License, or
+** (at your option) any later version.
+** This program is distributed WITHOUT ANY WARRANTY; without even the
+** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+** See the GNU General Public License for more details.
+** You should have received a copy of the GNU General Public License
+** along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
 #include "SphereEditDialog.h"
 
 #include "ui_SphereEditDialog.h"
@@ -29,14 +43,12 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QTableWidget>
+#include <QtMath>
 #include <algorithm>
 #include <optional>
 #include <utility>
 
 namespace {
-constexpr float kDegToRad = 3.14159265358979323846f / 180.0f;
-constexpr float kRadToDeg = 180.0f / 3.14159265358979323846f;
-
 struct ShaderPreset {
     const char *label;
     ShaderClass shader;
@@ -100,8 +112,8 @@ std::optional<double> PromptKeyTime(QWidget *parent, const QString &title)
 AlphaVectorStruct BuildAlphaVector(float intensity, float y_deg, float z_deg)
 {
     Matrix3 rot_mat(true);
-    rot_mat.Rotate_Y(y_deg * kDegToRad);
-    rot_mat.Rotate_Z(z_deg * kDegToRad);
+    rot_mat.Rotate_Y(qDegreesToRadians(y_deg));
+    rot_mat.Rotate_Z(qDegreesToRadians(z_deg));
 
     AlphaVectorStruct value;
     value.intensity = intensity;
@@ -113,8 +125,8 @@ void AlphaVectorAngles(const AlphaVectorStruct &value, float &y_deg, float &z_de
 {
     Matrix3D rotation = Build_Matrix3D(value.angle);
     EulerAnglesClass euler(rotation, EulerOrderXYZr);
-    y_deg = static_cast<float>(euler.Get_Angle(1) * kRadToDeg);
-    z_deg = static_cast<float>(euler.Get_Angle(2) * kRadToDeg);
+    y_deg = qRadiansToDegrees(euler.Get_Angle(1));
+    z_deg = qRadiansToDegrees(euler.Get_Angle(2));
     y_deg = static_cast<float>(WWMath::Wrap(y_deg, 0.0f, 360.0f));
     z_deg = static_cast<float>(WWMath::Wrap(z_deg, 0.0f, 360.0f));
 }

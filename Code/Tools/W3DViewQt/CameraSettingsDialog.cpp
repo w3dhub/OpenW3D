@@ -1,3 +1,17 @@
+/*
+** Copyright 2026 OpenW3D contributors
+**
+** This program is free software: you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation, either version 3 of the License, or
+** (at your option) any later version.
+** This program is distributed WITHOUT ANY WARRANTY; without even the
+** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+** See the GNU General Public License for more details.
+** You should have received a copy of the GNU General Public License
+** along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
 #include "CameraSettingsDialog.h"
 
 #include "W3DViewport.h"
@@ -7,12 +21,10 @@
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
 #include <QPushButton>
+#include <QtMath>
 #include <cmath>
 
 namespace {
-constexpr double kPi = 3.14159265358979323846;
-constexpr double kRadToDeg = 180.0 / kPi;
-constexpr double kDegToRad = kPi / 180.0;
 constexpr double kLensConstant = 18.0 / 1000.0;
 } // namespace
 
@@ -149,7 +161,7 @@ void CameraSettingsDialog::updateLensFromHfov()
     }
 
     _updating = true;
-    const double hfov_rad = _ui->hfovSpinBox->value() * kDegToRad;
+    const double hfov_rad = qDegreesToRadians(_ui->hfovSpinBox->value());
     if (hfov_rad > 0.0) {
         const double lens = (kLensConstant / std::tan(hfov_rad / 2.0)) * 1000.0;
         _ui->lensSpinBox->setValue(lens);
@@ -168,8 +180,8 @@ void CameraSettingsDialog::updateFovFromLens()
     if (lens > 0.0) {
         const double hfov = std::atan(kLensConstant / lens) * 2.0;
         const double vfov = (3.0 * hfov) / 4.0;
-        _ui->hfovSpinBox->setValue(hfov * kRadToDeg);
-        _ui->vfovSpinBox->setValue(vfov * kRadToDeg);
+        _ui->hfovSpinBox->setValue(qRadiansToDegrees(hfov));
+        _ui->vfovSpinBox->setValue(qRadiansToDegrees(vfov));
     }
     _updating = false;
 }
