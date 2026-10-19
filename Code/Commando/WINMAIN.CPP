@@ -45,6 +45,10 @@
 #include "WINMAIN.H"
 #define _WIN32_WINDOWS 0x0401
 #include "winmain_compat.h"
+#ifdef FREEDEDICATEDSERVER
+#include "console/ConsoleHost.h"
+#include "console/Utf8Arguments.h"
+#endif
 #if defined(OPENW3D_WIN32)
 #include <windows.h>
 #elif defined(OPENW3D_SDL3)
@@ -153,6 +157,15 @@ int Top_Level_Exception_Filter(EXCEPTION_POINTERS *e_info)
  *=============================================================================================*/
 int main(int argc, char *argv[])
 {
+#if defined(FREEDEDICATEDSERVER) && defined(_WIN32)
+	OpenW3D::Utf8Arguments arguments;
+	if (!arguments.Args) {
+		fprintf(stderr, "Could not convert command line to UTF-8\n");
+		return 1;
+	}
+	argc = arguments.Count;
+	argv = arguments.Args;
+#endif
 	WWMemoryLogClass::Init();	// This switches memlog from static to dynamic allocations mode
 
 	// The INI config path must be configured as early as possible.
@@ -220,6 +233,18 @@ int main(int argc, char *argv[])
 		cUserOptions::Print_Command_Line_Help(false);
 		return 0;
 	}
+
+#ifdef FREEDEDICATEDSERVER
+	OpenW3D::ConsoleHost console_host;
+	if (!console_host.Initialize(SlaveMaster.Am_I_Slave())) {
+		fprintf(stderr, "%s\n", console_host.Last_Error().c_str());
+		return 1;
+	}
+	ConsoleBox.Set_Host(&console_host);
+	struct DetachConsoleHost {
+		~DetachConsoleHost() { ConsoleBox.Set_Host(nullptr); }
+	} detach_console_host;
+#endif
 
 #if WEBBROWSER_ENABLED
 #ifdef _DEBUG // Denzil - DO NOT COMPILE INTO FINAL BUILD

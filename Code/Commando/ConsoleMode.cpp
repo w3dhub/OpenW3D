@@ -53,6 +53,9 @@
 #include "specialbuilds.h"
 #include "ServerSettings.h"
 #include <limits>
+#ifdef FREEDEDICATEDSERVER
+#include "console/ConsoleHost.h"
+#endif
 
 /*
 ** Single instance of console.
@@ -134,6 +137,14 @@ ConsoleModeClass::~ConsoleModeClass(void)
  *=============================================================================================*/
 void ConsoleModeClass::Init(void)
 {
+#ifdef FREEDEDICATEDSERVER
+	if (Host) {
+		Print("Renegade Free Dedicated Server ");
+		Print("v%s %s-%s %s\n", BuildInfoClass::Get_Build_Version_String(), BuildInfoClass::Get_Build_Commit_String(), BuildInfoClass::Get_Build_Number_String(), BuildInfoClass::Get_Build_Date_String());
+		Print("Console mode active\n");
+		return;
+	}
+#endif
 	if (ConsoleOutputHandle == INVALID_HANDLE_VALUE) {
 
 		/*
@@ -289,6 +300,7 @@ StringClass ConsoleModeClass::Compose_Window_Title(char *name, char *settings, b
  *=============================================================================================*/
 void ConsoleModeClass::Set_Title(char *name, char *settings)
 {
+	if (Host) return;
 	if (ConsoleOutputHandle) {
 		StringClass title = Compose_Window_Title(name, settings, SlaveMaster.Am_I_Slave());
 		strcpy(Title, title.Peek_Buffer());
@@ -316,7 +328,7 @@ void ConsoleModeClass::Set_Title(char *name, char *settings)
  *=============================================================================================*/
 void ConsoleModeClass::Print(char const * string, ...)
 {
-	if (ConsoleOutputHandle != INVALID_HANDLE_VALUE) {
+	if (Host || ConsoleOutputHandle != INVALID_HANDLE_VALUE) {
 		char buffer[8192];
 
 		va_list va;
@@ -362,7 +374,7 @@ void ConsoleModeClass::Print_Maybe(char const * string, ...)
 		va_end(va);
 		Log_To_Disk(buffer);
 
-		if (Pos == 1 && (TIMEGETTIME() - LastKeypressTime > 5 * 1000) && ConsoleOutputHandle != INVALID_HANDLE_VALUE) {
+		if (Host || (Pos == 1 && (TIMEGETTIME() - LastKeypressTime > 5 * 1000) && ConsoleOutputHandle != INVALID_HANDLE_VALUE)) {
 
 			/*
 			** Have to use '%s' here or we end up doing the formatting twice.
@@ -426,7 +438,20 @@ void ConsoleModeClass::cprintf(char const * string, ...)
 		/*
 		** Have to use '%s' here or we end up doing the formatting twice.
 		*/
-		::_cprintf("%s", buffer);
+#ifdef FREEDEDICATEDSERVER
+		if (Host) {
+			// Legacy progress messages end in CR to overwrite the current line.
+			// The dedicated host emits complete plain lines instead.
+			std::string plain;
+			for (const char *ch = buffer; *ch; ++ch) {
+				if (*ch == '\r' && ch[1] == '\n') continue;
+				plain += *ch == '\r' ? '\n' : *ch;
+			}
+			Host->Write(plain);
+		}
+		else
+#endif
+			::_cprintf("%s", buffer);
 		GameSideServerControlClass::Print("%s", buffer);
 	}
 }
@@ -505,7 +530,7 @@ const char *ConsoleModeClass::Get_Log_File_Name(void)
  *=============================================================================================*/
 void ConsoleModeClass::Log_To_Disk(const char *string)
 {
-	if (ConsoleOutputHandle != INVALID_HANDLE_VALUE) {
+	if (Host || ConsoleOutputHandle != INVALID_HANDLE_VALUE) {
 		if (ServerSettingsClass::Get_Disk_Log_Size() > 0) {
    		FILE *log_file = fopen(Get_Log_File_Name(), "at");
    		if (log_file != nullptr) {
@@ -538,6 +563,20 @@ void ConsoleModeClass::Log_To_Disk(const char *string)
  *=============================================================================================*/
 void ConsoleModeClass::Think(void)
 {
+#ifdef FREEDEDICATEDSERVER
+	if (Host) {
+		if (ShutdownDispatched) return;
+		if (Host->Shutdown_Requested()) {
+			ShutdownDispatched = true;
+			// Use the existing quit command: it also disables automatic restart.
+			ConsoleFunctionManager::Parse_Input("quit");
+			return;
+		}
+		std::vector<std::string> commands;
+		Host->Poll(commands);
+		for (const auto &command : commands) ConsoleFunctionManager::Parse_Input(command.c_str());
+	}
+#endif
 	static char string[256] = ">";
 	int key = 0;
 	static char suggestion[256] = "";
@@ -698,8 +737,11 @@ void ConsoleModeClass::Think(void)
 			}
 		}
 
+	}
+
+	if (Host || ConsoleInputHandle != INVALID_HANDLE_VALUE) {
 		/*
-		** Print up game info if console is idle.
+		** Preserve periodic game info, without a prompt for the dedicated host.
 		*/
 		delay--;
 		if (delay <= 0) {
@@ -721,7 +763,7 @@ void ConsoleModeClass::Think(void)
 					if (cNetwork::PServerConnection && cNetwork::PServerConnection->Get_Num_RHosts() != num_players) {
 						num_players = cNetwork::PServerConnection->Get_Num_RHosts();
 						ConsoleFunctionManager::Parse_Input("game_info");
-						cprintf(">");
+						if (!Host) cprintf(">");
 						last_info_time = time;
 						Apply_Attributes();
 					}
@@ -752,6 +794,15 @@ void ConsoleModeClass::Think(void)
  *=============================================================================================*/
 void ConsoleModeClass::Add_Message(WideStringClass *formatted_text, Vector3 *text_color, bool forced)
 {
+	if (Host) {
+		if (formatted_text) {
+			StringClass string(128, true);
+			formatted_text->Convert_To(string);
+			cprintf("%s", string.Peek_Buffer());
+			Log_To_Disk(string.Peek_Buffer());
+		}
+		return;
+	}
 
 	if (!ProfileMode && formatted_text && text_color && (forced || (Pos == 1 && TIMEGETTIME() - LastKeypressTime > 3 * 1000))) {
 
@@ -826,6 +877,7 @@ void ConsoleModeClass::Add_Message(WideStringClass *formatted_text, Vector3 *tex
  *=============================================================================================*/
 void ConsoleModeClass::Apply_Attributes(void)
 {
+	if (Host) return;
 
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	int ok = GetConsoleScreenBufferInfo(ConsoleOutputHandle, &info);
@@ -856,8 +908,20 @@ void ConsoleModeClass::Apply_Attributes(void)
  * HISTORY:                                                                                    *
  *   1/13/2002 12:56PM ST : Created                                                            *
  *=============================================================================================*/
+void ConsoleModeClass::Set_Profile_Mode(bool set)
+{
+	if (Host) {
+		if (set) Print("Interactive profiling display is unavailable in the dedicated console.\n");
+		return;
+	}
+	ProfileMode = set;
+	LastProfileCRC = 0;
+	LastProfilePrint = 0;
+}
+
 void ConsoleModeClass::Update_Profile(StringClass profile_string)
 {
+	if (Host) return;
 
 	if (profile_string.Get_Length() && ProfileMode && TIMEGETTIME() - LastProfilePrint > 1500) {
 
@@ -954,6 +1018,7 @@ void ConsoleModeClass::Update_Profile(StringClass profile_string)
  *=============================================================================================*/
 void ConsoleModeClass::Handle_Profile_Key(int key)
 {
+	if (Host) return;
 	if (Get_Console()) {
 		if (key >= '0' && key <= '9') {
 			char profile_text[4];

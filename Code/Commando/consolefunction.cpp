@@ -5344,6 +5344,17 @@ void ConsoleFunctionManager::Next_Verbose_Help_Screen(void)
 //------------------------------------------------------------------------------------
 void	ConsoleFunctionManager::Parse_Input( const char * string )
 {
+#ifdef FREEDEDICATEDSERVER
+	// Some builds omit these development commands entirely. Give the same
+	// explanation in every dedicated build, without enabling a display mode.
+	for (const char *command : {"profile", "quick_stats", "qs", "stats"}) {
+		const size_t length = strlen(command);
+		if (!strnicmp(string, command, length) && (string[length] == '\0' || string[length] == ' ')) {
+			ConsoleBox.Set_Profile_Mode(true);
+			return;
+		}
+	}
+#endif
 	if (!strnicmp(string, "help", 4)) {
 		Help( string + 4 );
 	} else {
