@@ -42,6 +42,7 @@
 class WideStringClass;
 class StringClass;
 class Vector3;
+namespace OpenW3D { class ConsoleHost; }
 
 /*
 ** This is a console interface for the game so you can do stuff even if you can't display the main game window.
@@ -61,6 +62,8 @@ class ConsoleModeClass
 		** Init.
 		*/
 		void Init(void);
+		// The dedicated main owns this host; the client keeps its legacy console.
+		void Set_Host(OpenW3D::ConsoleHost *host) { Host = host; ShutdownDispatched = false; }
 		void Set_Title(char *name, char *settings);
 
 		/*
@@ -81,7 +84,7 @@ class ConsoleModeClass
 		** Profiling support.
 		*/
 		void Update_Profile(StringClass profile_string);
-		void Set_Profile_Mode(bool set) {ProfileMode = set; LastProfileCRC = 0; LastProfilePrint = 0;}
+		void Set_Profile_Mode(bool set);
 		void Handle_Profile_Key(int key);
 
 		/*
@@ -100,6 +103,8 @@ class ConsoleModeClass
 		const char *Get_Log_File_Name(void);
 
 	private:
+		OpenW3D::ConsoleHost *Host = nullptr;
+		bool ShutdownDispatched = false;
 		/*
 		** Private functions.
 		*/

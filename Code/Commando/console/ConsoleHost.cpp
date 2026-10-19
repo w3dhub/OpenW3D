@@ -9,6 +9,8 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <io.h>
+#include <fcntl.h>
 #else
 #include <csignal>
 #include <fcntl.h>
@@ -26,6 +28,18 @@ BOOL WINAPI ControlHandler(DWORD event)
     if (event != CTRL_C_EVENT && event != CTRL_BREAK_EVENT) return FALSE;
     InterlockedExchange(&StopRequested, 1);
     return TRUE;
+}
+bool BindPrivateStream(FILE *stream, const char *device, DWORD standard_handle)
+{
+    // A child launched without standard handles can have CRT descriptor -2.
+    if (_fileno(stream) < 0 && !std::freopen("NUL", "r+", stream)) return false;
+    const int source = _open(device, _O_RDWR | _O_TEXT);
+    if (source < 0) return false;
+    const int destination = _fileno(stream);
+    const bool bound = source == destination || _dup2(source, destination) == 0;
+    if (source != destination) _close(source);
+    std::clearerr(stream);
+    return bound && SetStdHandle(standard_handle, reinterpret_cast<HANDLE>(_get_osfhandle(destination)));
 }
 #else
 volatile sig_atomic_t StopRequested = 0;
@@ -70,13 +84,21 @@ bool ConsoleHost::Initialize(bool private_windows_console)
     if (private_windows_console) {
         std::fflush(stdout);
         std::fflush(stderr);
+        // Retire CRT references before detaching, keeping valid descriptors for
+        // subsequent rebinding. AllocConsole may reuse old console handle values.
+        if (!BindPrivateStream(stdin, "NUL", STD_INPUT_HANDLE) ||
+            !BindPrivateStream(stdout, "NUL", STD_OUTPUT_HANDLE) ||
+            !BindPrivateStream(stderr, "NUL", STD_ERROR_HANDLE)) {
+            s.Error = "Could not release slave console streams.";
+            return false;
+        }
         FreeConsole();
         if (!AllocConsole()) { s.Error = "Could not allocate slave console."; return false; }
         s.OwnConsole = true;
         // Console mode APIs need read/write handles, including for stdout.
-        if (!std::freopen("CONIN$", "r+", stdin) ||
-            !std::freopen("CONOUT$", "w+", stdout) ||
-            !std::freopen("CONOUT$", "w+", stderr)) {
+        if (!BindPrivateStream(stdin, "CONIN$", STD_INPUT_HANDLE) ||
+            !BindPrivateStream(stdout, "CONOUT$", STD_OUTPUT_HANDLE) ||
+            !BindPrivateStream(stderr, "CONOUT$", STD_ERROR_HANDLE)) {
             s.Error = "Could not bind slave console streams.";
             FreeConsole();
             s.OwnConsole = false;
