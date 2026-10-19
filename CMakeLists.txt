@@ -13,6 +13,7 @@ endif()
 project(commando LANGUAGES C CXX)
 
 include(CTest)
+add_feature_info(OpenW3DTests BUILD_TESTING "Build OpenW3D automated tests")
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
