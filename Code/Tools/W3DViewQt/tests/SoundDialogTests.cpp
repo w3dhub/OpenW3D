@@ -17,6 +17,7 @@
 
 #include "AudibleSound.h"
 #include "WWAudio.h"
+#include "openw3d.h"
 
 #include <QApplication>
 #include <QDataStream>
@@ -166,6 +167,9 @@ void SoundDialogTests::successfulPreviewPlaysAndStopsWithOpenAL()
     const QByteArray wav = makeMonoPcmWav();
     QCOMPARE(soundFile.write(wav), static_cast<qint64>(wav.size()));
     soundFile.close();
+
+    const QByteArray configPath = QFile::encodeName(fixtureDirectory.filePath(W3D_CONF_FILENAME));
+    OpenW3D::Set_Config_File_Path_Override(configPath.constData());
 
     std::unique_ptr<WWAudioClass> audio(WWAudioClass::Create_Instance());
     QVERIFY(audio != nullptr);

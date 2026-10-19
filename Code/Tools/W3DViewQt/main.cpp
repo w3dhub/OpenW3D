@@ -18,6 +18,7 @@
 #include "AnimatedSoundOptionsDialog.h"
 #include "WWAudio.h"
 #include "assetmgr.h"
+#include "openw3d.h"
 #include "wwmath.h"
 
 #include <QApplication>
@@ -295,6 +296,8 @@ int main(int argc, char *argv[])
         }
 #endif
 
+        // Audio initialization reads the engine configuration through RegistryClass.
+        OpenW3D::Get_Config_File_Path();
         WWMath::Init();
         AnimatedSoundOptionsDialog::LoadAnimatedSoundSettings();
 

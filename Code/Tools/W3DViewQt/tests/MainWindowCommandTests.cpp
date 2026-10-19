@@ -26,6 +26,7 @@
 #include "W3DViewport.h"
 #include "Sound3D.h"
 #include "WWAudio.h"
+#include "openw3d.h"
 #include "agg_def.h"
 #include "assetmgr.h"
 #include "chunkio.h"
@@ -404,6 +405,9 @@ void MainWindowCommandTests::initTestCase()
         qInfo().noquote() << "External asset archives:" << _externalAssets.archives().join('\n');
     _settingsDirectory = std::make_unique<QTemporaryDir>();
     QVERIFY2(_settingsDirectory->isValid(), "Could not create an isolated settings directory");
+
+    const QByteArray configPath = QFile::encodeName(_settingsDirectory->filePath(W3D_CONF_FILENAME));
+    OpenW3D::Set_Config_File_Path_Override(configPath.constData());
 
     QSettings::setDefaultFormat(QSettings::IniFormat);
     QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, _settingsDirectory->path());
