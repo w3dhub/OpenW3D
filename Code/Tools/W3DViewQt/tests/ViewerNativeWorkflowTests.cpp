@@ -19,6 +19,7 @@
 #include "AudibleSound.h"
 #include "Sound3D.h"
 #include "WWAudio.h"
+#include "openw3d.h"
 #include "soundhandle.h"
 #include "soundrobj.h"
 #include "agg_def.h"
@@ -694,6 +695,13 @@ void ViewerNativeWorkflowTests::cleanupTestCase()
 int main(int argc, char **argv)
 {
     QApplication application(argc, argv);
+    QTemporaryDir configDirectory;
+    if (!configDirectory.isValid()) {
+        qCritical("Could not create an isolated engine configuration directory");
+        return 1;
+    }
+    const QByteArray configPath = QFile::encodeName(configDirectory.filePath(W3D_CONF_FILENAME));
+    OpenW3D::Set_Config_File_Path_Override(configPath.constData());
     WWMath::Init();
     int result;
     std::unique_ptr<WWAudioClass> audio(WWAudioClass::Create_Instance());
