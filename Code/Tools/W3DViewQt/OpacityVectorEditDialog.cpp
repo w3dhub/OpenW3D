@@ -1,3 +1,17 @@
+/*
+** Copyright 2026 OpenW3D contributors
+**
+** This program is free software: you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation, either version 3 of the License, or
+** (at your option) any later version.
+** This program is distributed WITHOUT ANY WARRANTY; without even the
+** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+** See the GNU General Public License for more details.
+** You should have received a copy of the GNU General Public License
+** along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
 #include "OpacityVectorEditDialog.h"
 
 #include "ui_OpacityVectorEditDialog.h"
@@ -11,19 +25,17 @@
 #include <QDoubleSpinBox>
 #include <QSlider>
 #include <QSpinBox>
+#include <QtMath>
 #include <algorithm>
 #include <cmath>
 
 namespace {
-constexpr float kDegToRad = 3.14159265358979323846f / 180.0f;
-constexpr float kRadToDeg = 180.0f / 3.14159265358979323846f;
-
 void QuaternionToAngles(const Quaternion &quat, float &y_deg, float &z_deg)
 {
     Matrix3D rotation = Build_Matrix3D(quat);
     EulerAnglesClass euler(rotation, EulerOrderXYZr);
-    y_deg = static_cast<float>(euler.Get_Angle(1) * kRadToDeg);
-    z_deg = static_cast<float>(euler.Get_Angle(2) * kRadToDeg);
+    y_deg = qRadiansToDegrees(euler.Get_Angle(1));
+    z_deg = qRadiansToDegrees(euler.Get_Angle(2));
     y_deg = static_cast<float>(WWMath::Wrap(y_deg, 0.0f, 360.0f));
     z_deg = static_cast<float>(WWMath::Wrap(z_deg, 0.0f, 360.0f));
 }
@@ -101,13 +113,13 @@ void OpacityVectorEditDialog::syncFromValue()
 float OpacityVectorEditDialog::sliderPositionFromIntensity(float intensity) const
 {
     const float percent = std::clamp(intensity / 10.0f, 0.0f, 1.0f);
-    const float pos = std::atan(percent * 11.0f) / (84.5f * kDegToRad) * 10.0f;
+    const float pos = std::atan(percent * 11.0f) / qDegreesToRadians(84.5f) * 10.0f;
     return std::clamp(pos, 0.0f, 10.0f);
 }
 
 float OpacityVectorEditDialog::intensityFromSliderPosition(float position) const
 {
-    const float percent = std::tan((position / 10.0f) * 84.5f * kDegToRad) / 11.0f;
+    const float percent = std::tan(qDegreesToRadians((position / 10.0f) * 84.5f)) / 11.0f;
     return 10.0f * std::clamp(percent, 0.0f, 1.0f);
 }
 
@@ -118,8 +130,8 @@ void OpacityVectorEditDialog::updateValueFromControls()
     const float z_deg = static_cast<float>(_ui->angleZSpin->value());
 
     Matrix3 rot_mat(true);
-    rot_mat.Rotate_Y(y_deg * kDegToRad);
-    rot_mat.Rotate_Z(z_deg * kDegToRad);
+    rot_mat.Rotate_Y(qDegreesToRadians(y_deg));
+    rot_mat.Rotate_Z(qDegreesToRadians(z_deg));
 
     _value.angle = Build_Quaternion(rot_mat);
     _value.intensity = intensity;

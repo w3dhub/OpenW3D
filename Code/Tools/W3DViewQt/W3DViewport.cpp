@@ -1,3 +1,17 @@
+/*
+** Copyright 2026 OpenW3D contributors
+**
+** This program is free software: you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation, either version 3 of the License, or
+** (at your option) any later version.
+** This program is distributed WITHOUT ANY WARRANTY; without even the
+** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+** See the GNU General Public License for more details.
+** You should have received a copy of the GNU General Public License
+** along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
 #include "W3DViewport.h"
 
 #include "RenderObjUtils.h"
@@ -37,17 +51,16 @@
 #include <QMouseEvent>
 #include <QDir>
 #include <QWheelEvent>
+#include <QtMath>
 #include <algorithm>
 #include <cmath>
+#include <numbers>
 
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
 namespace {
-constexpr double kPi = 3.14159265358979323846;
-constexpr double kRadToDeg = 180.0 / kPi;
-constexpr double kDegToRad = kPi / 180.0;
 constexpr const char *kCameraBoneName = "CAMERA";
 
 Matrix3D BuildCameraBoneTransform(const Matrix3D &bone_transform)
@@ -1250,8 +1263,8 @@ bool W3DViewport::isManualClipPlanesEnabled() const
 
 void W3DViewport::setCameraFovDegrees(double hfov_deg, double vfov_deg)
 {
-    const double hfov = hfov_deg * kDegToRad;
-    const double vfov = vfov_deg * kDegToRad;
+    const double hfov = qDegreesToRadians(hfov_deg);
+    const double vfov = qDegreesToRadians(vfov_deg);
     _manualHfov = hfov;
     _manualVfov = vfov;
     if (_camera) {
@@ -1267,12 +1280,12 @@ void W3DViewport::cameraFovDegrees(double &hfov_deg, double &vfov_deg) const
         hfov = _camera->Get_Horizontal_FOV();
         vfov = _camera->Get_Vertical_FOV();
     } else if (hfov <= 0.0 || vfov <= 0.0) {
-        hfov = 45.0 * kDegToRad;
-        vfov = 45.0 * kDegToRad;
+        hfov = qDegreesToRadians(45.0);
+        vfov = qDegreesToRadians(45.0);
     }
 
-    hfov_deg = hfov * kRadToDeg;
-    vfov_deg = vfov * kRadToDeg;
+    hfov_deg = qRadiansToDegrees(hfov);
+    vfov_deg = qRadiansToDegrees(vfov);
 }
 
 void W3DViewport::setCameraClipPlanes(float znear, float zfar)
@@ -1560,10 +1573,10 @@ void W3DViewport::setCameraPosition(CameraPosition position)
         transform.Look_At(_orbitCenter + Vector3(0.0f, _cameraDistance, 0.0f), _orbitCenter, 0.0f);
         break;
     case CameraPosition::Top:
-        transform.Look_At(_orbitCenter + Vector3(0.0f, 0.0f, _cameraDistance), _orbitCenter, 3.1415926535f);
+        transform.Look_At(_orbitCenter + Vector3(0.0f, 0.0f, _cameraDistance), _orbitCenter, std::numbers::pi_v<float>);
         break;
     case CameraPosition::Bottom:
-        transform.Look_At(_orbitCenter + Vector3(0.0f, 0.0f, -_cameraDistance), _orbitCenter, 3.1415926535f);
+        transform.Look_At(_orbitCenter + Vector3(0.0f, 0.0f, -_cameraDistance), _orbitCenter, std::numbers::pi_v<float>);
         break;
     }
 

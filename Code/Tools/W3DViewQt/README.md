@@ -2,6 +2,14 @@
 
 W3DViewQt is the Qt Widgets port of the legacy MFC W3D Viewer. Widget hierarchy, labels, layouts, static menus, actions, toolbars, and tab order live in the checked-in `.ui` files in this directory. Selection-specific and data-driven menu entries remain in C++, along with engine behavior, validation, and signal handling.
 
+## Opening files
+
+On Windows, one W3DViewQt instance runs per user session. Launching the viewer
+again forwards any `.w3d` command-line paths to the existing window, restores it
+if minimized, and activates it. Launching without file paths only activates the
+window. If the running instance cannot be contacted, the new process reports an
+error and exits. This applies to W3DViewQt independently of the legacy MFC viewer.
+
 ## Editing layouts
 
 Open a `.ui` file with Qt Designer, save it in place, and rebuild the target. Do not edit generated `ui_*.h` files; CMake AUTOUIC regenerates them in the build tree. `MainWindow.ui` promotes its central viewport widget to `W3DViewport`, whose Direct3D implementation intentionally remains in C++.
@@ -95,3 +103,21 @@ generated MIX files and requires no installed game. CTest audio checks still use
 the null output driver; audible speaker/headphone validation remains a manual
 check. This option applies to the tests; it does not add archive browsing to the
 viewer UI.
+
+## Validation coverage and limits
+
+The automated suites cover action wiring, settings save masks, camera and scene
+controls, animation, emitter and primitive editing, aggregate and HLOD changes,
+sound lifetime and attenuation, asset export round trips, and Designer forms.
+Native workflow tests use generated assets; external-asset cases additionally
+exercise original Renegade data when a game directory is configured.
+
+Manual validation still includes audible playback through speakers/headphones,
+visual comparison with the MFC viewer, and interactive inspection of dialogs,
+fullscreen, screenshots, AVI captures, and settings restoration. Null-driver
+audio and automated assertions do not establish those results.
+
+The native fog/background AddressSanitizer run with Steam archives has exposed
+an existing engine issue: `strtrim` uses overlapping `strcpy` while parsing
+`DAZZLE.INI` (`Code/wwlib/trim.cpp`). That run stops during viewport initialization
+and needs a separate engine fix; the corresponding Release run has passed.

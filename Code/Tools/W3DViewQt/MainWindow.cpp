@@ -1,3 +1,17 @@
+/*
+** Copyright 2026 OpenW3D contributors
+**
+** This program is free software: you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation, either version 3 of the License, or
+** (at your option) any later version.
+** This program is distributed WITHOUT ANY WARRANTY; without even the
+** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+** See the GNU General Public License for more details.
+** You should have received a copy of the GNU General Public License
+** along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
 #include "MainWindow.h"
 #include "ViewerAssetManager.h"
 
@@ -71,6 +85,7 @@
 #include <QVector>
 #include <QVariant>
 #include <QClipboard>
+#include <QtMath>
 #include <algorithm>
 #include <limits>
 #include <memory>
@@ -109,9 +124,6 @@ constexpr int kRoleName = Qt::UserRole + 2;
 constexpr int kRoleHierarchyName = Qt::UserRole + 3;
 constexpr int kRolePointer = Qt::UserRole + 4;
 constexpr int kRoleClassId = Qt::UserRole + 5;
-constexpr double kPi = 3.14159265358979323846;
-constexpr double kDegToRad = kPi / 180.0;
-constexpr double kRadToDeg = 180.0 / kPi;
 constexpr int kMaxRecentFiles = 9;
 
 QString NormalizeOptionalPath(const QString &path)
@@ -2642,8 +2654,8 @@ void W3DViewMainWindow::openCameraSettings()
     QSettings settings;
     settings.setValue("Config/UseManualFOV", manual_fov);
     settings.setValue("Config/UseManualClipPlanes", manual_clip);
-    settings.setValue("Config/hfov", hfov_deg * kDegToRad);
-    settings.setValue("Config/vfov", vfov_deg * kDegToRad);
+    settings.setValue("Config/hfov", qDegreesToRadians(hfov_deg));
+    settings.setValue("Config/vfov", qDegreesToRadians(vfov_deg));
     settings.setValue("Config/znear", znear);
     settings.setValue("Config/zfar", zfar);
     _viewport->resetCamera();
@@ -5363,7 +5375,7 @@ void W3DViewMainWindow::loadAppSettings()
         _viewport->setAutoResetEnabled(_autoResetCamera);
         _viewport->setManualFovEnabled(manual_fov);
         if (manual_fov && hfov_rad > 0.0 && vfov_rad > 0.0) {
-            _viewport->setCameraFovDegrees(hfov_rad * kRadToDeg, vfov_rad * kRadToDeg);
+            _viewport->setCameraFovDegrees(qRadiansToDegrees(hfov_rad), qRadiansToDegrees(vfov_rad));
         }
         _viewport->setManualClipPlanesEnabled(manual_clip);
         if (manual_clip) {
