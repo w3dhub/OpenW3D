@@ -201,15 +201,8 @@ LoadSPGameMenuClass::Build_List (const char *search_dir, const std::regex &searc
 			//
 			//	Get the time this file was last written
 			//
-			std::chrono::time_point<std::chrono::system_clock> ftime;
-			
-#if !defined __MINGW32__
-		ftime = std::chrono::clock_cast<std::chrono::system_clock>(entry.last_write_time());
-#elif defined _WIN32
-		ftime = std::chrono::utc_clock::to_sys(std::chrono::file_clock::to_utc(entry.last_write_time()));
-#else
-		ftime = std::chrono::file_clock::to_sys(entry.last_write_time());
-#endif
+			std::chrono::time_point<std::chrono::system_clock> ftime;	
+			ftime = std::chrono::clock_cast<std::chrono::system_clock>(entry.last_write_time());
 
 			std::chrono::time_point fd(std::chrono::floor<std::chrono::days>(ftime));
 			std::chrono::year_month_day ymd(fd);

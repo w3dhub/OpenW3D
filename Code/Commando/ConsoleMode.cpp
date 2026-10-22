@@ -465,13 +465,7 @@ const char *ConsoleModeClass::Get_Log_File_Name(void)
 		_last_day = static_cast<unsigned>(ymd.day());
 		std::chrono::time_point oldest(time - std::chrono::hours(ServerSettingsClass::Get_Disk_Log_Size() * 24));
 		std::chrono::file_time oldfile(std::chrono::clock_cast<std::chrono::file_clock>(oldest));
-#if !defined __MINGW32__
 		oldfile = std::chrono::clock_cast<std::chrono::file_clock>(oldest);
-#elif defined _WIN32
-		oldfile = std::chrono::file_clock::from_utc(std::chrono::utc_clock::from_sys(oldest));
-#else
-		oldfile = std::chrono::file_clock::from_sys(oldest);
-#endif
 		std::regex filter("^renlog_.*\\.txt$", std::regex::icase);
 
 		for (const auto& entry : std::filesystem::directory_iterator("./")) {
