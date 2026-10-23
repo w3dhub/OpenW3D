@@ -303,9 +303,7 @@ WideStringClass::Format (const unichar_t *format, ...)
 
 			if (conv_buffer[i] == U_CHAR('s')) {
 				conv_buffer[i] = U_CHAR('S');
-			}
-
-			if (conv_buffer[i] == U_CHAR('S')) {
+			} else if (conv_buffer[i] == U_CHAR('S')) {
 				conv_buffer[i] = U_CHAR('s');
 			}
 		}
