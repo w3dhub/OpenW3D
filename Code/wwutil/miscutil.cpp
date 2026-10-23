@@ -91,26 +91,12 @@ bool cMiscUtil::Is_String_Different(const char * str1, const char * str2)
 //-----------------------------------------------------------------------------
 bool cMiscUtil::File_Exists(const char * filename)
 {
-#if 0
-   WWASSERT(filename != nullptr);
-
-	WIN32_FIND_DATAA find_info;
-   HANDLE file_handle = ::FindFirstFileA(filename, &find_info);
-
-	if (file_handle != INVALID_HANDLE_VALUE) {
-		::FindClose(file_handle);
-		return true;
-	} else {
-		return false;
-	}
-#else
 	FileClass * file = _TheFileFactory->Get_File( filename );
 	if ( file && file->Is_Available() ) {
 		return true;
 	}
 	_TheFileFactory->Return_File( file );
 	return false;
-#endif
 }
 
 //-----------------------------------------------------------------------------

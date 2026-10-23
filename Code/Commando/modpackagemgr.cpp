@@ -43,6 +43,8 @@
 #include "ffactory.h"
 #include "mixfile.h"
 #include "gametype.h"
+#include <filesystem>
+#include <regex>
 
 
 /////////////////////////////////////////////////////////////////////
@@ -114,31 +116,30 @@ ModPackageMgrClass::Shutdown (void)
 void
 ModPackageMgrClass::Build_List (void)
 {
-	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= true;
-	HANDLE file_find				= nullptr;
-
 	//
-	//	Build a list of all the saved games we know about
+	//	Build a list of all the mod packages we know about
 	//
-	for (file_find = ::FindFirstFileA ("data/*.pkg", &find_info);
-		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{
-		//
-		//	Create the package from the data in this mix file
-		//
-		ModPackageClass package;
-		package.Set_Package_Filename (find_info.cFileName);
+	const std::regex pkg_filter("^.*\\.pkg$", std::regex::icase);
 
-		//
-		//	Add the package to our list
-		//
-		PackageList.Add (package);
-	}
+	for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+			if (!entry.is_regular_file()) {
+				continue;
+			}
+			
+			std::string filename = entry.path().filename().string();
 
-	if (file_find != INVALID_HANDLE_VALUE) {
-		::FindClose (file_find);
+			if (std::regex_match(filename, pkg_filter)) {
+					//
+					//	Create the package from the data in this mix file
+					//
+					ModPackageClass package;
+					package.Set_Package_Filename (filename.c_str());
+
+					//
+					//	Add the package to our list
+					//
+					PackageList.Add (package);
+			}
 	}
 
 	return ;
@@ -294,7 +295,7 @@ ModPackageMgrClass::Get_Mod_Map_Name_From_CRC
 		//
 		//	Try to find the map from its CRC
 		//
-		retval = Find_Filename_From_CRC ("*.mix", map_name_crc, map_name);
+		retval = Find_Filename_From_CRC (std::regex("^.*\\.mix$", std::regex::icase), map_name_crc, map_name);
 
 	} else {
 		(*mod_name) = "";
@@ -303,7 +304,7 @@ ModPackageMgrClass::Get_Mod_Map_Name_From_CRC
 		//
 		//	Try to find the mod from its CRC
 		//
-		if (Find_Filename_From_CRC ("*.pkg", mod_name_crc, mod_name)) {
+		if (Find_Filename_From_CRC (std::regex("^.*\\.pkg$", std::regex::icase), mod_name_crc, mod_name)) {
 
 			//
 			//	Get a pointer to this mod package
@@ -331,50 +332,43 @@ ModPackageMgrClass::Get_Mod_Map_Name_From_CRC
 bool
 ModPackageMgrClass::Find_Filename_From_CRC
 (
-	const char *	search_mask,
+	const std::regex	search_mask,
 	uint32			filename_crc,
 	StringClass *	filename
 )
 {
-	if (search_mask == nullptr || filename == nullptr) {
+	if (filename == nullptr) {
 		return false;
 	}
 
 	bool retval = false;
 
-
-	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= true;
-	HANDLE file_find				= nullptr;
-
 	(*filename) = "";
-
-	StringClass full_search_mask	= "data/";
-	full_search_mask					+= search_mask;
 
 	//
 	//	Build a list of all the saved games we know about
 	//
-	for (file_find = ::FindFirstFileA (full_search_mask, &find_info);
-		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{
-		//
-		//	Is this the map we were looking for?
-		//
-		if (::CRC_Stringi (find_info.cFileName) == filename_crc) {
+	for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+			if (!entry.is_regular_file()) {
+				continue;
+			}
+			
+			std::string fname = entry.path().filename().string();
 
-			//
-			//	Return the file name to the caller
-			//
-			(*filename) = find_info.cFileName;
-			retval = true;
-			break;
-		}
-	}
+			if (std::regex_match(fname, search_mask)) {
+					//
+					//	Is this the map we were looking for?
+					//
+					if (::CRC_Stringi (fname.c_str()) == filename_crc) {
 
-	if (file_find != INVALID_HANDLE_VALUE) {
-		::FindClose (file_find);
+						//
+						//	Return the file name to the caller
+						//
+						(*filename) = fname.c_str();
+						retval = true;
+						break;
+					}
+			}
 	}
 
 	return retval;

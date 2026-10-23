@@ -53,6 +53,8 @@
 #include "_globals.h"
 #include "dialogtests.h"
 #include "specialbuilds.h"
+#include <chrono>
+#include <filesystem>
 
 
 ////////////////////////////////////////////////////////////////
@@ -101,19 +103,17 @@ LoadSPGameMenuClass::On_Init_Dialog (void)
 		//	Build the lists
 		//
 		int start_index = 0;
-		//start_index = Build_List ("data\\*.mix", start_index);
-		//start_index = Build_List ("data\\m??_*.mix", start_index);
-		StringClass file_filter;
-		file_filter = "data/m*.mix";
+		std::string file_filter;
+		file_filter = "^M.*\\.mix$";
 
 #ifdef WWDEBUG
 		if (cDevOptions::FilterLevelFiles.Is_False()) {
-			file_filter = "data/mix";
+			file_filter = "^.*\\.mix$";
 		}
 #endif // WWDEBUG
 
-		start_index = Build_List (file_filter, start_index);
-		Build_List ("data/save/*.sav", start_index);
+		start_index = Build_List ("Data", std::regex(file_filter, std::regex::icase), start_index);
+		Build_List ("Data/save", std::regex("^.*\\.sav$", std::regex::icase), start_index);
 
 		//
 		//	Sort the list and select the first entry
@@ -140,47 +140,33 @@ LoadSPGameMenuClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 int
-LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
+LoadSPGameMenuClass::Build_List (const char *search_dir, const std::regex &search_string, int start_index)
 {
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
-
-	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= true;
-	HANDLE file_find			= nullptr;
-
-	//
-	//	Get the path to the directory we'll be searching
-	//
-	StringClass path_name;
-	const char *search_dir = ::strrchr (search_string, '\\');
-	if (search_dir != nullptr) {
-
-		//
-		//	Strip the search mask from the string
-		//
-		path_name	= search_string;
-		const size_t len		= ::strlen (search_string);
-		const size_t index_offset	= static_cast<size_t>(search_dir - search_string);
-		path_name.Erase (static_cast<int>(index_offset), static_cast<int>(len - index_offset));
-	}
 
 	//
 	//	Build a list of all the saved games we know about
 	//
 	int index = start_index;
-	for (file_find = ::FindFirstFileA (search_string, &find_info);
-		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{
-//		if (1 || Is_Game_Allowed( find_info.cFileName ) ) {
-		if ( Is_Game_Allowed( find_info.cFileName ) ) {
+	for (const auto& entry : std::filesystem::directory_iterator(search_dir)) {
+		if(!entry.is_regular_file()) {
+			continue;
+		}
+
+		std::string filename = entry.path().filename().string();
+
+		if(!std::regex_match(filename, search_string)) {
+			continue;
+		}
+
+		if ( Is_Game_Allowed( filename.c_str() ) ) {
 
 			//
 			//	Get the user description and map name from the file
 			//
 			WideStringClass description;
 			WideStringClass map_name;
-			SaveGameManager::Smart_Peek_Description (find_info.cFileName, description, map_name);
+			SaveGameManager::Smart_Peek_Description (filename.c_str(), description, map_name);
 
 			//
 			//	Default to the map name if we don't have a description
@@ -190,11 +176,11 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 			}
 
 			// Get rank
-			int rank = Get_Game_Rank( find_info.cFileName );
+			int rank = Get_Game_Rank( filename.c_str() );
 
 			// Modify description for games with a rank
 			if ( rank ) {
-				int mission = atoi( find_info.cFileName+1 );
+				int mission = atoi( filename.c_str()+1 );
 				switch ( mission ) {
 					case 0:	description = TRANSLATE( IDS_LoadScreen_Tutorial_Item_00_Title ); break;
 					case 1:	description = TRANSLATE( IDS_Enc_Miss_Title_M01_01 ); break;
@@ -215,18 +201,20 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 			//
 			//	Get the time this file was last written
 			//
-			SYSTEMTIME system_time	= { 0 };
-			FILETIME local_time		= { 0 };
-			::FileTimeToLocalFileTime (&find_info.ftLastWriteTime, &local_time);
-			::FileTimeToSystemTime (&local_time, &system_time);
+			std::chrono::time_point<std::chrono::system_clock> ftime;	
+			ftime = std::chrono::clock_cast<std::chrono::system_clock>(entry.last_write_time());
+
+			std::chrono::time_point fd(std::chrono::floor<std::chrono::days>(ftime));
+			std::chrono::year_month_day ymd(fd);
+			std::chrono::hh_mm_ss hms(std::chrono::floor<std::chrono::seconds>(ftime - fd));
 
 			//
 			//	Build the time and date strings
 			//
 			WideStringClass time_string;
 			WideStringClass date_string;
-			time_string.Format (U_CHAR("%d:%02d:%02d"), system_time.wHour, system_time.wMinute, system_time.wSecond);
-			date_string.Format (U_CHAR("%d/%d/%d"), system_time.wMonth, system_time.wDay, system_time.wYear);
+			time_string.Format (U_CHAR("%d:%02d:%02d"), hms.hours().count(), hms.minutes().count(), hms.seconds().count());
+			date_string.Format (U_CHAR("%02u/%02u/%04d"), static_cast<unsigned>(ymd.month()), static_cast<unsigned>(ymd.day()), static_cast<int>(ymd.year()));
 
 			//
 			//	Add this entry to the list control
@@ -242,19 +230,15 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 				//
 				//	Build the full path to the file
 				//
-				StringClass file_path = path_name;
+				StringClass file_path = search_dir;
 				file_path += "/";
-				file_path += find_info.cFileName;
+				file_path += filename.c_str();
 
-				list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)new FILETIME(local_time));
+				list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)new std::chrono::time_point<std::chrono::system_clock>(ftime));
 				list_ctrl->Set_Entry_Data (item_index, 1, (uintptr_t)new StringClass(file_path));
-				list_ctrl->Set_Entry_Data (item_index, 2, (uintptr_t)new StringClass(find_info.cFileName));
+				list_ctrl->Set_Entry_Data (item_index, 2, (uintptr_t)new StringClass(filename.c_str()));
 			}
 		}
-	}
-
-	if (file_find != INVALID_HANDLE_VALUE) {
-		::FindClose (file_find);
 	}
 
 	return index;
@@ -407,7 +391,7 @@ LoadSPGameMenuClass::On_ListCtrl_Delete_Entry
 		//
 		//	Remove the data we associated with this entry
 		//
-		FILETIME *file_time		= (FILETIME *)list_ctrl->Get_Entry_Data (item_index, 0);
+		std::chrono::time_point<std::chrono::system_clock> *file_time		= (std::chrono::time_point<std::chrono::system_clock> *)list_ctrl->Get_Entry_Data (item_index, 0);
 		StringClass *path			= (StringClass *)list_ctrl->Get_Entry_Data (item_index, 1);
 		StringClass *filename	= (StringClass *)list_ctrl->Get_Entry_Data (item_index, 2);
 		list_ctrl->Set_Entry_Data (item_index, 0, 0);
@@ -447,17 +431,22 @@ LoadSPGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_in
 	//
 	//	Get the sorting params
 	//
-	int	sort_col_index = LOWORD (user_param);
-	BOOL	sort_ascending	= HIWORD (user_param);
+	int	sort_col_index = user_param & 0xFFFF;
+	bool	sort_ascending	= (user_param >> 16) != 0;
 
 	if (sort_col_index == 0 || sort_col_index == 1) {
 
 		//
 		//	Sort by time
 		//
-		FILETIME *file_time1 = (FILETIME *)list_ctrl->Get_Entry_Data (item_index1, 0);
-		FILETIME *file_time2 = (FILETIME *)list_ctrl->Get_Entry_Data (item_index2, 0);
-		retval = ::CompareFileTime (file_time1, file_time2);
+		std::chrono::time_point<std::chrono::system_clock> *file_time1 = (std::chrono::time_point<std::chrono::system_clock> *)list_ctrl->Get_Entry_Data (item_index1, 0);
+		std::chrono::time_point<std::chrono::system_clock> *file_time2 = (std::chrono::time_point<std::chrono::system_clock> *)list_ctrl->Get_Entry_Data (item_index2, 0);
+		retval = 0;
+			if (*file_time1 < *file_time2) {
+				retval = -1;
+			} else if (*file_time1 < *file_time2) {
+				retval = 1;
+			}
 
 	} else {
 

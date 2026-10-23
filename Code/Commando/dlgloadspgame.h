@@ -45,6 +45,7 @@
 #include "renegadedialog.h"
 #include "menudialog.h"
 #include "DlgMessageBox.h"
+#include <regex>
 
 
 ////////////////////////////////////////////////////////////////
@@ -108,7 +109,7 @@ private:
 	////////////////////////////////////////////////////////////////
 	void		Load_Game (void);
 	void		Delete_Game (bool prompt);
-	int			Build_List (const char *search_string, int start_index);
+	int			Build_List (const char *search_dir, const std::regex &search_string, int start_index);
 
 	static	bool	Is_Game_Allowed(const char * filename);
 	static	int		Get_Game_Rank(const char * filename);
