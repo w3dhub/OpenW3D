@@ -256,7 +256,6 @@ set(COMBAT_SRC
     assets.cpp
     crandom.cpp
     debug.cpp
-    directinput.cpp
     timemgr.cpp
     assets.h
     crandom.h
@@ -276,6 +275,16 @@ target_link_libraries(combat PRIVATE
     dinput8
     dxguid
 )
+
+if(W3D_BUILD_OPTION_SDL3)
+    list(APPEND COMBAT_SRC
+        directinput_sdl3.cpp
+    )
+else()
+    list(APPEND COMBAT_SRC
+        directinput.cpp
+    )
+endif()
 
 target_sources(combat PRIVATE ${COMBAT_SRC})
 

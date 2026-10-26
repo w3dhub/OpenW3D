@@ -67,7 +67,7 @@
 #include "systimer.h"
 #include "translatedb.h"
 
-#include <dinput.h>
+#include "openw3d_input.h"
 #include <algorithm>
 
 

@@ -49,8 +49,7 @@
 #include "vehicle.h"
 #include "combat.h"
 #include "ccamera.h"
-
-#include <dinput.h>
+#include "openw3d_input.h"
 
 #include <stdio.h>
 #include <algorithm>
@@ -108,9 +107,8 @@ const char *DEFAULT_INPUT_FILENAME = "DEFAULT_INPUT.CFG";
 #define	ENTRY_MOUSE_2D_INVERT		"Mouse2DInvert"
 #define	ENTRY_TARGET_STEERING		"TargetSteering"
 
-
 typedef struct {
-	short	ID;
+	uint32_t	ID;
 	const char	*Name;
 } StringID;
 

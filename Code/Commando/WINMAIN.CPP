@@ -165,6 +165,14 @@ int main(int argc, char *argv[])
 	// Resolve the config file path before later arguments can change the working directory.
 	OpenW3D::Get_Config_File_Path();
 
+#if defined(OPENW3D_SDL3)
+	// Initialize SDL3 handling
+	if(!SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO)){
+		fprintf(stderr, "Unable to initialize SDL3");
+		return 1;
+	}
+#endif
+
 #ifdef _DEBUG
 	/*
 	**	Setup to track memory heap integrity and check for
@@ -697,6 +705,29 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
  *=============================================================================================*/
 static BOOL Create_Main_Window(void)
 {
+#if defined(OPENW3D_SDL3)
+	SDL_Window* window = SDL_CreateWindow("Renegade - SDL",
+		800, 600,
+		0);
+	if(!window){
+		fprintf(stderr, "%s", SDL_GetError());
+		return FALSE;
+	}
+
+	SDL_PropertiesID props = SDL_GetWindowProperties(window);
+	HWND hwnd = static_cast<HWND>(SDL_GetPointerProperty(props, SDL_PROP_WINDOW_WIN32_HWND_POINTER, nullptr));
+	if(!hwnd){
+		fprintf(stderr, "%s", SDL_GetError());
+		return FALSE;
+	}
+	MainWindow = hwnd;
+
+	if(!SDL_SetWindowRelativeMouseMode(window, true)){
+		fprintf(stderr, "%s", SDL_GetError());
+		return FALSE;
+	}
+
+#else
 	WNDCLASSA    wc;
 	BOOL        rc;
 
@@ -728,6 +759,7 @@ static BOOL Create_Main_Window(void)
 
 		SetFocus(MainWindow);
 	}
+#endif
 
 	return TRUE;
 }
