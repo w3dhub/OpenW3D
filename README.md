@@ -48,6 +48,10 @@ It is also possible to build from various IDE by using the presets provided in `
 You can also create your own prests by creating and populating `CMakeUserPresets.json` in the root folder of the cloned repository. This is useful for development or testing purposes to create additional build options.
 See [cmake-presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) for more information.
 
+## Tests
+
+See the [test guide](tests/README.md) for building, running, and adding automated tests.
+
 ## Running the Game
 
 To use the compiled binaries, you must provide game data. At the time of writing only the original C&C: Renegade game is tested and supported.
