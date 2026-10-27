@@ -84,14 +84,19 @@ bool ConsoleHost::Initialize(bool private_windows_console)
     if (private_windows_console) {
         std::fflush(stdout);
         std::fflush(stderr);
-        // Retire CRT references before detaching, keeping valid descriptors for
-        // subsequent rebinding. AllocConsole may reuse old console handle values.
-        if (!BindPrivateStream(stdin, "NUL", STD_INPUT_HANDLE) ||
-            !BindPrivateStream(stdout, "NUL", STD_OUTPUT_HANDLE) ||
-            !BindPrivateStream(stderr, "NUL", STD_ERROR_HANDLE)) {
-            s.Error = "Could not release slave console streams.";
-            return false;
+        // Ensure even a detached child has CRT descriptors before releasing all
+        // three together. Do not leave handles in the CRT across FreeConsole:
+        // it can invalidate them, and AllocConsole can reuse their values.
+        for (FILE *stream : {stdin, stdout, stderr}) {
+            if (_fileno(stream) < 0 && !std::freopen("NUL", "r+", stream)) {
+                s.Error = "Could not prepare slave console streams.";
+                return false;
+            }
         }
+        for (FILE *stream : {stdin, stdout, stderr}) _close(_fileno(stream));
+        SetStdHandle(STD_INPUT_HANDLE, nullptr);
+        SetStdHandle(STD_OUTPUT_HANDLE, nullptr);
+        SetStdHandle(STD_ERROR_HANDLE, nullptr);
         FreeConsole();
         if (!AllocConsole()) { s.Error = "Could not allocate slave console."; return false; }
         s.OwnConsole = true;

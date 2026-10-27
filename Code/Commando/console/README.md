@@ -16,6 +16,8 @@ commands, disk log, and server-control forwarding remain in use. Output keeps
 flowing while a command is being typed. `profile`, `quick_stats`/`qs`, and `stats`
 report that the interactive display is unavailable.
 Progress messages that previously overwrote a line now end with a newline.
+Once a command requests exit, pending commands are no longer dispatched. For
+example, a piped `quit` followed by `restart` preserves the quit request.
 
 Input accepts UTF-8 bytes, LF or CRLF, and at most 200 bytes per command (excluding
 the delimiter). Oversized lines are rejected through their delimiter, never
@@ -45,12 +47,15 @@ cmake --build build/console --config Release --parallel
 ctest --test-dir build/console -C Release --output-on-failure
 ```
 
-The standalone CI job runs this on Windows x64 and Linux. Unit and subprocess
+The standalone CI job runs this on Windows x64 and Linux; the MinGW game jobs
+also build and run the console suite with their own compiler. Unit and subprocess
 tests cover fragmented input, UTF-8, editing, line limits, EOF, absent stdin,
 continued ticks, redirection, handler restoration, and actual interrupts. Windows
-control-event tests run in an isolated hidden console; they never signal the
-terminal running CTest. They also exercise private-console ownership and Unicode
-input/output. The regular Windows game builds check the linked PE subsystem:
+control-event tests run in isolated hidden consoles; they never signal the
+terminal running CTest. Ctrl+C and Ctrl+Break each start with a clear shutdown
+flag in a fresh process. Repeated private-console launches cover terminal,
+redirected, and detached startup, as well as Unicode input/output. The regular
+Windows game builds check the linked PE subsystem:
 GUI for `renegade`, console for `renegadeserver`.
 
 **Linux validation covers this console module, not a runnable Linux server.**
@@ -78,6 +83,18 @@ Win32 and SDL3 builds:
 3. Restart and use Ctrl+C; check orderly cleanup and disabled automatic restart.
 4. Launch a slave and confirm it has its own console, input goes to the intended
    process, and the master still receives its own commands.
+
+The optional command-batch regression uses a disposable asset installation and
+copies the engine INI before launching. Supply a LAN server configuration and
+make the server's runtime libraries available as for a normal launch:
+
+```sh
+python Code/Commando/console/tests/server_command_batch_test.py path/to/renegadeserver.exe path/to/copied-game path/to/engine.ini path/to/server.ini
+```
+
+It verifies that a command following `quit` is ignored and automatic restart is
+disabled. It reports the engine exit code separately: the existing engine
+teardown crash remains outside this console change.
 
 Startup failure paths may still show dialogs or wait for a key. Those paths are
 explicitly deferred; they are not evidence that the host's input polling blocks.

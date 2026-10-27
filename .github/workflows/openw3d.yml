@@ -119,6 +119,7 @@ jobs:
           ${{ matrix.msys2-env }}-ffmpeg
           ${{ matrix.msys2-env }}-ninja
           ${{ matrix.msys2-env }}-pkg-config
+          ${{ matrix.msys2-env }}-python
     - name: 'Set up MSVC dev cmd'
       uses: ilammy/msvc-dev-cmd@v1.13.0
       with:
@@ -180,6 +181,13 @@ jobs:
     - name: 'CMake (build)'
       run: |
         cmake --build build --parallel ${{ matrix.build-args }}
+
+    - name: MinGW console tests
+      if: ${{ !!matrix.msys2 }}
+      run: |
+        cmake -S Code/Commando/console -B build-console -G Ninja -DCMAKE_BUILD_TYPE=Release
+        cmake --build build-console --parallel
+        ctest --test-dir build-console --output-on-failure
 
     - name: Verify client and server subsystems
       if: runner.os == 'Windows'

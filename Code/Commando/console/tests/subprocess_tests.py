@@ -142,24 +142,29 @@ class ConsoleTests(unittest.TestCase):
         startup = subprocess.STARTUPINFO()
         startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
         startup.wShowWindow = subprocess.SW_HIDE
-        for args in ([], ["private"]):
-            with self.subTest(args=args):
-                result = subprocess.run([WINDOWS_TEST, *args], stdin=subprocess.PIPE,
-                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                                        creationflags=subprocess.CREATE_NEW_CONSOLE,
-                                        startupinfo=startup, timeout=10)
-                self.assertEqual(result.returncode, 0, (result.stdout, result.stderr))
-                # Even terminal input must not echo into a redirected stdout.
-                self.assertEqual(result.stdout, b"WINDOWS CONSOLE OK\n")
-        # Also exercise untouched CRT terminal descriptors, not just redirected
-        # handles. The result goes to a file so Popen need not override stdio.
-        with tempfile.TemporaryDirectory() as directory:
-            report = pathlib.Path(directory) / "console-report.txt"
-            result = subprocess.run([WINDOWS_TEST, "private", str(report)],
-                                    creationflags=subprocess.CREATE_NEW_CONSOLE,
-                                    startupinfo=startup, timeout=10)
-            self.assertEqual(result.returncode, 0, report.read_bytes())
-            self.assertEqual(report.read_bytes(), b"WINDOWS CONSOLE OK\n")
+        for event in ([], ["--break"]):
+            for mode in ([], ["--private"]):
+                with self.subTest(event=event, mode=mode, streams="redirected"):
+                    result = subprocess.run([WINDOWS_TEST, *mode, *event], stdin=subprocess.PIPE,
+                                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                            creationflags=subprocess.CREATE_NEW_CONSOLE,
+                                            startupinfo=startup, timeout=10)
+                    self.assertEqual(result.returncode, 0, (result.stdout, result.stderr))
+                    # Even terminal input must not echo into a redirected stdout.
+                    self.assertEqual(result.stdout, b"WINDOWS CONSOLE OK\n")
+            # Leave CRT terminal descriptors untouched and repeat to expose
+            # stale-handle reuse during detach/allocation. Also cover absent
+            # console handles, as supplied by a detached process launcher.
+            with tempfile.TemporaryDirectory() as directory:
+                report = pathlib.Path(directory) / "console-report.txt"
+                for flags in (subprocess.CREATE_NEW_CONSOLE, subprocess.DETACHED_PROCESS):
+                    for attempt in range(8):
+                        with self.subTest(event=event, flags=flags, attempt=attempt):
+                            result = subprocess.run([WINDOWS_TEST, "--private", *event, "--report", str(report)],
+                                                    creationflags=flags, startupinfo=startup, timeout=10)
+                            contents = report.read_bytes() if report.exists() else b"No test report"
+                            self.assertEqual(result.returncode, 0, contents)
+                            self.assertEqual(contents, b"WINDOWS CONSOLE OK\n")
 
 
 if __name__ == "__main__":

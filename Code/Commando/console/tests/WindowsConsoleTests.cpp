@@ -38,15 +38,23 @@ void Key(HANDLE input, wchar_t ch, WORD repeats = 1)
 
 int main(int argc, char **argv)
 {
+    bool private_console = false;
+    DWORD control_event = CTRL_C_EVENT;
+    const char *report_path = nullptr;
+    for (int i = 1; i < argc; ++i) {
+        if (std::strcmp(argv[i], "--private") == 0) private_console = true;
+        else if (std::strcmp(argv[i], "--break") == 0) control_event = CTRL_BREAK_EVENT;
+        else if (std::strcmp(argv[i], "--report") == 0 && i + 1 < argc) report_path = argv[++i];
+        else return 2;
+    }
     // Save the test report pipe before a private slave rebinds its streams.
-    if (argc > 2) {
+    if (report_path) {
         // Leave CRT startup's terminal descriptors untouched for this case.
-        Report = CreateFileA(argv[2], GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, 0, nullptr);
+        Report = CreateFileA(report_path, GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, 0, nullptr);
         Check(Report != INVALID_HANDLE_VALUE, "open report");
     } else {
         Check(DuplicateHandle(GetCurrentProcess(), GetStdHandle(STD_OUTPUT_HANDLE), GetCurrentProcess(), &Report, 0, FALSE, DUPLICATE_SAME_ACCESS) != FALSE, "duplicate report");
     }
-    bool private_console = argc > 1;
     HANDLE input = INVALID_HANDLE_VALUE;
     DWORD original_mode = 0;
     if (!private_console) {
@@ -80,12 +88,15 @@ int main(int argc, char **argv)
         for (const auto &line : commands) { Check(line == "ok", "oversized repeats"); ++received; }
     }
     Check(received == 1, "retained events");
-    for (DWORD event : {CTRL_C_EVENT, CTRL_BREAK_EVENT}) {
-        Check(GenerateConsoleCtrlEvent(event, 0) != FALSE, "generate control event");
+    // Each event type gets a fresh process: a previous event must not leave the
+    // flag set and hide a handler that acknowledges this event without stopping.
+    Check(!host.Shutdown_Requested(), "initial shutdown state");
+    for (int delivery = 0; delivery < 2; ++delivery) {
+        Check(GenerateConsoleCtrlEvent(control_event, 0) != FALSE, "generate control event");
         for (int i = 0; i < 100 && !host.Shutdown_Requested(); ++i) Sleep(10);
         Check(host.Shutdown_Requested(), "shutdown flag");
-        Check(InterlockedCompareExchange(&PreviousCalls, 0, 0) == 0, "host handled event");
         Sleep(50);
+        Check(InterlockedCompareExchange(&PreviousCalls, 0, 0) == 0, "host handled event");
     }
     host.Shutdown();
     if (!private_console) {
