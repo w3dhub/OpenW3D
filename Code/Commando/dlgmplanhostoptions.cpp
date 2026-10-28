@@ -65,6 +65,8 @@
 #include "gamespyadmin.h"
 #include "specialbuilds.h"
 #include <algorithm>
+#include <filesystem>
+#include <regex>
 
 ////////////////////////////////////////////////////////////////
 //
@@ -1541,46 +1543,40 @@ MPLanHostMapCycleOptionsTabClass::Build_Map_List (void)
 {
 	MapList.Delete_All ();
 
-	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= true;
-	HANDLE file_find				= nullptr;
-
 	//
 	//	Build a list of all the maps we know about
 	//
-
-	StringClass file_filter;
+	std::string file_filter;
 	WWASSERT(The_Game() != nullptr);
 	if (The_Game()->Is_Cnc()) {
-		file_filter.Format("data/c&c_*.mix");
+		file_filter = "^C&C_.*\\.mix$";
 	} else {
-		file_filter.Format("data/mp_*.mix");
+		file_filter = "^MP_.*\\.mix$";
 	}
 
 #ifdef WWDEBUG
 	if (cDevOptions::FilterLevelFiles.Is_False()) {
-		file_filter = "data/*.mix";
+		file_filter = "^.*\\.mix$";
 	}
 #endif // WWDEBUG
 
-	for (file_find = ::FindFirstFileA (file_filter, &find_info);
-		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{
-		//
-		//	Convert the string to a wide character format
-		//
-		WideStringClass map_name;
-		map_name.Convert_From (find_info.cFileName);
+	const std::regex regex_filter(file_filter, std::regex::icase);
+	for (const auto& entry : std::filesystem::directory_iterator("Data")) {
+			if (entry.is_regular_file()) {
+					std::string filename = entry.path().filename().string();
+					if (std::regex_match(filename, regex_filter)) {
+							//
+							//	Convert the string to a wide character format
+							//
+							WideStringClass map_name;
+							map_name.Convert_From (filename.c_str());
 
-		//
-		//	Add this name to our list
-		//
-		MapList.Add (map_name);
-	}
-
-	if (file_find != INVALID_HANDLE_VALUE) {
-		::FindClose (file_find);
+							//
+							//	Add this name to our list
+							//
+							MapList.Add (map_name);
+					}
+			}
 	}
 
 	return ;
