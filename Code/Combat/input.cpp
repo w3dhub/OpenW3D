@@ -108,7 +108,7 @@ const char *DEFAULT_INPUT_FILENAME = "DEFAULT_INPUT.CFG";
 #define	ENTRY_TARGET_STEERING		"TargetSteering"
 
 typedef struct {
-	uint32_t	ID;
+	short	ID;
 	const char	*Name;
 } StringID;
 
