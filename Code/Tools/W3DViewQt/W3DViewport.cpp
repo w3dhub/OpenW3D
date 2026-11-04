@@ -540,7 +540,6 @@ void W3DViewport::mouseMoveEvent(QMouseEvent *event)
     }
 
     const QPoint current = event->pos();
-    const int delta_x = _lastPos.x() - current.x();
     const int delta_y = _lastPos.y() - current.y();
 
     const bool control_down = event->modifiers().testFlag(Qt::ControlModifier);

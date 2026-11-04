@@ -38,7 +38,7 @@ void ClearTable(QTableWidget *table)
 }
 
 QTableWidget *CreateKeyframeTable(const QStringList &headers,
-                                  const QVector<KeyframeColumnSpec> &specs,
+                                  const QVector<KeyframeColumnSpec> & /*specs*/,
                                   QWidget *parent)
 {
     auto *table = new QTableWidget(parent);

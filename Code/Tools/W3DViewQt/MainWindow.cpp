@@ -4493,8 +4493,8 @@ void W3DViewMainWindow::copyAssets()
         }
 
         const QFileInfo dest_info(dest_path);
-        QDir dest_dir = dest_info.dir();
-        if (!dest_dir.exists() && !dest_dir.mkpath(".")) {
+        QDir dependency_dir = dest_info.dir();
+        if (!dependency_dir.exists() && !dependency_dir.mkpath(".")) {
             failures.append(src_path);
             continue;
         }
