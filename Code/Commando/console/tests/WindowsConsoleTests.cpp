@@ -63,6 +63,10 @@ int main(int argc, char **argv)
         Check(GetConsoleMode(input, &original_mode) != FALSE, "original mode");
         Check(SetConsoleCtrlHandler(PreviousHandler, TRUE) != FALSE, "previous handler");
     }
+    // MSYS2 can pass an inherited ignore-Ctrl+C attribute to native children.
+    // A new console does not clear it. Enable delivery in this isolated test
+    // process so we exercise the host's handler, independent of the parent shell.
+    Check(SetConsoleCtrlHandler(nullptr, FALSE) != FALSE, "enable Ctrl+C delivery");
     OpenW3D::ConsoleHost host;
     bool initialized = host.Initialize(private_console);
     Check(initialized, host.Last_Error().c_str());

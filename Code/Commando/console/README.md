@@ -52,8 +52,10 @@ also build and run the console suite with their own compiler. Unit and subproces
 tests cover fragmented input, UTF-8, editing, line limits, EOF, absent stdin,
 continued ticks, redirection, handler restoration, and actual interrupts. Windows
 control-event tests run in isolated hidden consoles; they never signal the
-terminal running CTest. Ctrl+C and Ctrl+Break each start with a clear shutdown
-flag in a fresh process. Repeated private-console launches cover terminal,
+terminal running CTest. The test child explicitly enables Ctrl+C delivery so an
+inherited ignore-Ctrl+C setting from MSYS2 cannot suppress the test signal.
+Ctrl+C and Ctrl+Break each start with a clear shutdown flag in a fresh process.
+Repeated private-console launches cover terminal,
 redirected, and detached startup, as well as Unicode input/output. The regular
 Windows game builds check the linked PE subsystem:
 GUI for `renegade`, console for `renegadeserver`.
