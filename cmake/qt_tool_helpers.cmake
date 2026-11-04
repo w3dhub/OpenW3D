@@ -25,11 +25,12 @@ function(w3d_deploy_qt_runtime target)
 
     if(deploy_command)
         add_custom_command(TARGET ${target} POST_BUILD
-            COMMAND "${deploy_command}"
-                "--$<IF:$<CONFIG:Debug>,debug,release>"
-                --no-translations
-                --dir "$<TARGET_FILE_DIR:${target}>"
-                "$<TARGET_FILE:${target}>"
+            COMMAND "${CMAKE_COMMAND}"
+                "-DQT_DEPLOY_EXECUTABLE=${deploy_command}"
+                "-DQT_DEPLOY_MODE=$<IF:$<CONFIG:Debug>,debug,release>"
+                "-DQT_DEPLOY_DIR=$<TARGET_FILE_DIR:${target}>"
+                "-DQT_DEPLOY_BINARY=$<TARGET_FILE:${target}>"
+                -P "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/deploy_qt_runtime.cmake"
             COMMENT "Deploying the Qt runtime for ${target}"
             VERBATIM)
     else()
