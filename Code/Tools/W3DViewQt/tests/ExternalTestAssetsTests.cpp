@@ -94,7 +94,7 @@ void ExternalTestAssetsTests::gameArchivesAndDependencies()
     const QString data = game.filePath("Data");
     const QString mainArchive = QDir(data).filePath("Always.dat");
     const QString extraArchive = QDir(data).filePath("level.mix");
-    const QByteArray audio(220001, char(0x83));
+    const QByteArray audio(220001, '\x83');
     QVERIFY(writeArchive(mainArchive, {{"MODEL.W3D", "base-model"},
                                       {"override.txt", "base"},
                                       {"dependency.wav", audio}}));

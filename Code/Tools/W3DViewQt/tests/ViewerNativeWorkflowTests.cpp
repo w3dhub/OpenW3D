@@ -476,7 +476,9 @@ void ViewerNativeWorkflowTests::visibleSettingsRoundTrip()
 
 void ViewerNativeWorkflowTests::quickSettingsKeys()
 {
-    QApplication::setActiveWindow(window.get());
+    // Activate only Qt's shortcut dispatch: this offscreen test window deliberately
+    // refuses desktop focus, so QWidget::activateWindow() is not appropriate here.
+    QT_IGNORE_DEPRECATIONS(QApplication::setActiveWindow(window.get());)
     viewport->setFocus();
     for (int slot = 1; slot <= 9; ++slot) {
         const QString path = QCoreApplication::applicationDirPath() +
