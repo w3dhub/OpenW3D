@@ -77,30 +77,7 @@ int		ExitCode = EXIT_SUCCESS;
 #include <SDL3/SDL.h>
 #include "directinput.h"
 
-static void handle_window_focus(const SDL_Event* event){
-	switch(event->type){
-	case SDL_EVENT_WINDOW_FOCUS_GAINED:
-		WWDEBUG_SAY(("***** FOCUS GAINED *****\n"));
-		GameInFocus = true;
-		// On_Focus_Restore();
-		break;
-	case SDL_EVENT_WINDOW_FOCUS_LOST:
-		WWDEBUG_SAY(("***** FOCUS LOST *****\n"));
-		GameInFocus = false;
-		break;
-	}
-	// if (wParam && !GameInFocus) {
-	// 	WWDEBUG_SAY(("***** FOCUS GAINED *****\n"));
-	// 	GameInFocus = true;
-	// 	On_Focus_Restore();
-	// } else if (!wParam && GameInFocus) {
-	// 	WWDEBUG_SAY(("***** FOCUS LOST *****\n"));
-	// 	GameInFocus = false;
-	// 	On_Focus_Loss();
-	// }
-}
-
-static void handle_sdl_events(){
+static void Handle_SDL_Events(){
 	SDL_Event event;
     while (SDL_PollEvent(&event)) {
 		switch(event.type){
@@ -119,8 +96,10 @@ static void handle_sdl_events(){
 			break;
 
 			case SDL_EVENT_WINDOW_FOCUS_GAINED:
+			GameInFocus = true;
+			break;
 			case SDL_EVENT_WINDOW_FOCUS_LOST:
-			handle_window_focus(&event);
+			GameInFocus = false;
 			break;
 
 
@@ -218,7 +197,7 @@ void _Game_Main_Loop_Loop(void)
 
    Windows_Message_Handler();
 #ifdef OPENW3D_SDL3
-	handle_sdl_events();
+	Handle_SDL_Events();
 #endif
 
 #ifdef WWDEBUG
