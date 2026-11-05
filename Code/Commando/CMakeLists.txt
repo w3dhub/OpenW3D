@@ -488,11 +488,13 @@ if(W3D_CLIENT) # Full game client
 endif()
 
 if(W3D_FDS) # Dedicated headless server
-    add_executable(renegadeserver WIN32 ${COMMANDO_SRC})
+    add_subdirectory(console)
+    add_executable(renegadeserver ${COMMANDO_SRC})
 
     target_link_libraries(renegadeserver PRIVATE
         commando
         gitinfo
+        server_console
     )
 
     target_compile_definitions(renegadeserver PRIVATE FREEDEDICATEDSERVER)
