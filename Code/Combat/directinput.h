@@ -44,6 +44,8 @@
 #include "vector3.h"
 #include "vector2.h"
 
+#include "openw3d_input.h"
+
 typedef enum {
 	DIK_SHIFT = 0xF0,
 	DIK_CONTROL,
@@ -140,6 +142,12 @@ public:
 	//	Return the DIK ID of the last keyboard key pressed
 	//
 	static int		Get_Last_Key_Pressed (void)	{ return LastKeyPressed; }
+
+#if defined(OPENW3D_SDL3)
+	static void SDL3_Key_Pressed(SDL_KeyboardEvent* evt);
+	static void SDL3_Mouse_Motion_Event(SDL_MouseMotionEvent* evt);
+	static void SDL3_Mouse_Button_Event(SDL_MouseButtonEvent* evt);
+#endif
 
 private:
 

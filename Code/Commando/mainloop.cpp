@@ -73,6 +73,43 @@
 bool	RunMainLoop = true;
 int		ExitCode = EXIT_SUCCESS;
 
+#ifdef OPENW3D_SDL3
+#include <SDL3/SDL.h>
+#include "directinput.h"
+
+static void Handle_SDL_Events(){
+	SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+		switch(event.type){
+			case SDL_EVENT_KEY_DOWN:
+			case SDL_EVENT_KEY_UP:
+			DirectInput::SDL3_Key_Pressed(&event.key);
+			break;
+
+			case SDL_EVENT_MOUSE_BUTTON_DOWN:
+			case SDL_EVENT_MOUSE_BUTTON_UP:
+			DirectInput::SDL3_Mouse_Button_Event(&event.button);
+			break;
+
+			case SDL_EVENT_MOUSE_MOTION:
+			DirectInput::SDL3_Mouse_Motion_Event(&event.motion);
+			break;
+
+			case SDL_EVENT_WINDOW_FOCUS_GAINED:
+			GameInFocus = true;
+			break;
+			case SDL_EVENT_WINDOW_FOCUS_LOST:
+			GameInFocus = false;
+			break;
+
+
+			default:
+			WWDEBUG_SAY(("Unknown SDL event\n"));
+		}
+	}
+}
+#endif
+
 void Stop_Main_Loop(int exitCode)
 {
 	RunMainLoop = false;
@@ -159,6 +196,10 @@ void _Game_Main_Loop_Loop(void)
   // PROFILE(	"Audio", WWAudioClass::Get_Instance ()->On_Frame_Update (0) );
 
    Windows_Message_Handler();
+#ifdef OPENW3D_SDL3
+	Handle_SDL_Events();
+#endif
+
 #ifdef WWDEBUG
    // Sometimes it is useful to be able to artificially lower the frame rate
    Sleep(cDevOptions::DesiredFrameSleepMs.Get());

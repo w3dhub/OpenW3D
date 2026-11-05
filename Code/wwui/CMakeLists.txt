@@ -101,3 +101,7 @@ target_link_libraries(wwui PRIVATE
 )
 
 target_sources(wwui PRIVATE ${WWUI_SRC})
+
+if(W3D_BUILD_OPTION_SDL3)
+    target_link_libraries(wwui PRIVATE SDL3::Headers)
+endif()
