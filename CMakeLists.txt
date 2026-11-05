@@ -13,6 +13,7 @@ endif()
 project(commando LANGUAGES C CXX)
 
 include(CTest)
+add_feature_info(OpenW3DTests BUILD_TESTING "Build OpenW3D automated tests")
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -148,6 +149,10 @@ include(gamespy)
 
 # Add main build targets
 add_subdirectory(Code)
+
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
 
 feature_summary(WHAT ENABLED_FEATURES DESCRIPTION "Enabled features:")
 feature_summary(WHAT DISABLED_FEATURES DESCRIPTION "Disabled features:")
