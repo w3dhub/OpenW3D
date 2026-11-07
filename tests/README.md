@@ -7,6 +7,17 @@ test executables or test-only Qt dependencies.
 
 Test source directories mirror the corresponding component under `Code/`.
 Production libraries, widgets, and Designer forms stay with their applications.
+
+W3DViewQt tests live under `tests/Tools/W3DViewQt`; their registration is grouped
+in `tests/cmake/W3DViewQtTests.cmake`, included by `tests/CMakeLists.txt` when the
+viewer target exists. They retain the individual CTest names and are also built
+by `w3d_tests`. Set `W3DVIEW_QT_ENABLE_NATIVE_VIEWPORT_TESTS=ON` to include the
+native viewport/workflow tests. Set `W3DVIEW_GAME_DIR` or
+`W3DVIEW_EXTERNAL_ASSET_DIR` to enable cases using an installed game or extracted
+assets; the generated-fixture tests require neither.
+The native test setup creates an empty `Data` directory in the test working
+directory because engine thumbnail initialization currently requires it.
+
 The historical projects under `Code/Tests/` are legacy samples and are not part
 of the CMake/CTest suite.
 
