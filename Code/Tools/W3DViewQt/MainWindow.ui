@@ -1,0 +1,1105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>W3DViewMainWindow</class>
+ <widget class="QMainWindow" name="W3DViewMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>W3DViewQt</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="centralLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QSplitter" name="mainSplitter">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>false</bool>
+      </property>
+      <widget class="QTreeView" name="assetTreeView"/>
+      <widget class="W3DViewport" name="viewport" native="true"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="fileMenu">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="exportMenu">
+     <property name="title">
+      <string>Ex&amp;port...</string>
+     </property>
+     <addaction name="actionExportAggregate"/>
+     <addaction name="actionExportEmitter"/>
+     <addaction name="actionExportLod"/>
+     <addaction name="actionExportPrimitive"/>
+     <addaction name="actionExportSoundObject"/>
+    </widget>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionMungeSortOnLoad"/>
+    <addaction name="actionEnableGammaCorrection"/>
+    <addaction name="separator"/>
+    <addaction name="actionSaveSettings"/>
+    <addaction name="actionLoadSettings"/>
+    <addaction name="separator"/>
+    <addaction name="actionImportFacialAnims"/>
+    <addaction name="exportMenu"/>
+    <addaction name="separator"/>
+    <addaction name="actionFileTexturePath"/>
+    <addaction name="actionAnimatedSoundOptions"/>
+    <addaction name="separator"/>
+    <addaction name="actionRecentFilesPlaceholder"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="settingsMenu">
+    <property name="title">
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="actionTexturePaths"/>
+    <addaction name="actionAutoExpandAssetTree"/>
+   </widget>
+   <widget class="QMenu" name="viewMenu">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <widget class="QMenu" name="toolbarsMenu">
+     <property name="title">
+      <string>&amp;Toolbars</string>
+     </property>
+     <addaction name="actionToolbarMain"/>
+     <addaction name="actionToolbarObject"/>
+     <addaction name="actionToolbarAnimation"/>
+    </widget>
+    <widget class="QMenu" name="npatchesMenu">
+     <property name="title">
+      <string>N-Patches Subdivision Level</string>
+     </property>
+    </widget>
+    <addaction name="toolbarsMenu"/>
+    <addaction name="actionStatusBar"/>
+    <addaction name="separator"/>
+    <addaction name="actionSlideshowPrev"/>
+    <addaction name="actionSlideshowNext"/>
+    <addaction name="separator"/>
+    <addaction name="actionChangeResolution"/>
+    <addaction name="separator"/>
+    <addaction name="actionWireframe"/>
+    <addaction name="actionSorting"/>
+    <addaction name="actionInvertBackfaceCulling"/>
+    <addaction name="actionGamma"/>
+    <addaction name="separator"/>
+    <addaction name="npatchesMenu"/>
+    <addaction name="actionNpatchesGap"/>
+   </widget>
+   <widget class="QMenu" name="objectMenu">
+    <property name="title">
+     <string>&amp;Object</string>
+    </property>
+    <addaction name="actionObjectRotateX"/>
+    <addaction name="actionObjectRotateY"/>
+    <addaction name="actionObjectRotateZ"/>
+    <addaction name="separator"/>
+    <addaction name="actionObjectProperties"/>
+    <addaction name="separator"/>
+    <addaction name="actionRestrictAnims"/>
+    <addaction name="separator"/>
+    <addaction name="actionObjectReset"/>
+    <addaction name="separator"/>
+    <addaction name="actionObjectAlternateMaterials"/>
+   </widget>
+   <widget class="QMenu" name="emittersMenu">
+    <property name="title">
+     <string>&amp;Emitters</string>
+    </property>
+    <widget class="QMenu" name="emittersEditMenu">
+     <property name="title">
+      <string>E&amp;dit</string>
+     </property>
+    </widget>
+    <addaction name="actionCreateEmitter"/>
+    <addaction name="actionScaleEmitter"/>
+    <addaction name="separator"/>
+    <addaction name="actionEditEmitter"/>
+    <addaction name="emittersEditMenu"/>
+   </widget>
+   <widget class="QMenu" name="primitivesMenu">
+    <property name="title">
+     <string>&amp;Primitives</string>
+    </property>
+    <addaction name="actionCreateSphere"/>
+    <addaction name="actionCreateRing"/>
+    <addaction name="separator"/>
+    <addaction name="actionEditPrimitive"/>
+   </widget>
+   <widget class="QMenu" name="soundMenu">
+    <property name="title">
+     <string>&amp;Sound</string>
+    </property>
+    <addaction name="actionCreateSoundObject"/>
+    <addaction name="separator"/>
+    <addaction name="actionEditSoundObject"/>
+   </widget>
+   <widget class="QMenu" name="lightingMenu">
+    <property name="title">
+     <string>Ligh&amp;ting</string>
+    </property>
+    <addaction name="actionLightRotateY"/>
+    <addaction name="actionLightRotateZ"/>
+    <addaction name="separator"/>
+    <addaction name="actionAmbientLight"/>
+    <addaction name="actionSceneLight"/>
+    <addaction name="separator"/>
+    <addaction name="actionIncreaseAmbientLight"/>
+    <addaction name="actionDecreaseAmbientLight"/>
+    <addaction name="actionIncreaseSceneLight"/>
+    <addaction name="actionDecreaseSceneLight"/>
+    <addaction name="separator"/>
+    <addaction name="actionExposePrelit"/>
+    <addaction name="actionKillSceneLight"/>
+    <addaction name="separator"/>
+    <addaction name="actionPrelitVertex"/>
+    <addaction name="actionPrelitMultipass"/>
+    <addaction name="actionPrelitMultitex"/>
+   </widget>
+   <widget class="QMenu" name="cameraMenu">
+    <property name="title">
+     <string>&amp;Camera</string>
+    </property>
+    <addaction name="actionCameraFront"/>
+    <addaction name="actionCameraBack"/>
+    <addaction name="actionCameraLeft"/>
+    <addaction name="actionCameraRight"/>
+    <addaction name="actionCameraTop"/>
+    <addaction name="actionCameraBottom"/>
+    <addaction name="separator"/>
+    <addaction name="actionCameraRotateX"/>
+    <addaction name="actionCameraRotateY"/>
+    <addaction name="actionCameraRotateZ"/>
+    <addaction name="actionCameraCopyScreen"/>
+    <addaction name="separator"/>
+    <addaction name="actionCameraAnimate"/>
+    <addaction name="actionCameraBonePosX"/>
+    <addaction name="separator"/>
+    <addaction name="actionCameraSettings"/>
+    <addaction name="actionCameraDistance"/>
+    <addaction name="separator"/>
+    <addaction name="actionCameraResetOnDisplay"/>
+    <addaction name="actionCameraReset"/>
+   </widget>
+   <widget class="QMenu" name="backgroundMenu">
+    <property name="title">
+     <string>&amp;Background</string>
+    </property>
+    <addaction name="actionBackgroundColor"/>
+    <addaction name="actionBackgroundBitmap"/>
+    <addaction name="actionBackgroundObject"/>
+    <addaction name="separator"/>
+    <addaction name="actionFog"/>
+   </widget>
+   <widget class="QMenu" name="movieMenu">
+    <property name="title">
+     <string>&amp;Movie</string>
+    </property>
+    <addaction name="actionMakeMovie"/>
+    <addaction name="actionCaptureScreenshot"/>
+   </widget>
+   <widget class="QMenu" name="helpMenu">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="fileMenu"/>
+   <addaction name="settingsMenu"/>
+   <addaction name="viewMenu"/>
+   <addaction name="objectMenu"/>
+   <addaction name="emittersMenu"/>
+   <addaction name="primitivesMenu"/>
+   <addaction name="soundMenu"/>
+   <addaction name="lightingMenu"/>
+   <addaction name="cameraMenu"/>
+   <addaction name="backgroundMenu"/>
+   <addaction name="movieMenu"/>
+   <addaction name="helpMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <widget class="QWidget" name="permanentStatusPanel">
+    <layout class="QHBoxLayout" name="permanentStatusLayout">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="statusPolysLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="statusParticlesLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="statusCameraLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="statusFramesLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="statusFpsLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="statusResolutionLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="MainToolbar">
+   <property name="windowTitle">
+    <string>Main</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="separator"/>
+   <addaction name="actionExportEmitter"/>
+   <addaction name="actionExportAggregate"/>
+   <addaction name="actionExportLod"/>
+   <addaction name="actionExportPrimitive"/>
+   <addaction name="actionExportSoundObject"/>
+   <addaction name="separator"/>
+   <addaction name="actionListMissingTextures"/>
+   <addaction name="separator"/>
+   <addaction name="actionCopyAssets"/>
+   <addaction name="separator"/>
+   <addaction name="actionAddToLineup"/>
+   <addaction name="separator"/>
+   <addaction name="actionAbout"/>
+  </widget>
+  <widget class="QToolBar" name="ObjectToolbar">
+   <property name="windowTitle">
+    <string>Object</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionCameraRotateY"/>
+   <addaction name="actionCameraRotateX"/>
+   <addaction name="actionCameraRotateZ"/>
+   <addaction name="actionObjectRotateZ"/>
+  </widget>
+  <widget class="QToolBar" name="AnimationToolbar">
+   <property name="visible">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Animation</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionToolbarAnimationPlay"/>
+   <addaction name="actionToolbarAnimationStop"/>
+   <addaction name="actionToolbarAnimationPause"/>
+   <addaction name="actionToolbarAnimationStepBack"/>
+   <addaction name="actionToolbarAnimationStepForward"/>
+  </widget>
+  <action name="actionNew">
+   <property name="text">
+    <string>&amp;New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>&amp;Open...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionMungeSortOnLoad">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Munge Sort on Load</string>
+   </property>
+  </action>
+  <action name="actionEnableGammaCorrection">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Enable Gamma Correction</string>
+   </property>
+  </action>
+  <action name="actionSaveSettings">
+   <property name="text">
+    <string>&amp;Save Settings...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionLoadSettings">
+   <property name="text">
+    <string>Load &amp;Settings...</string>
+   </property>
+  </action>
+  <action name="actionRecentFilesPlaceholder">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Recent File</string>
+   </property>
+  </action>
+  <action name="actionImportFacialAnims">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Import Facial Anims...</string>
+   </property>
+  </action>
+  <action name="actionExportAggregate">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Aggregate...</string>
+   </property>
+  </action>
+  <action name="actionExportEmitter">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Emitter...</string>
+   </property>
+  </action>
+  <action name="actionExportLod">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;LOD...</string>
+   </property>
+  </action>
+  <action name="actionExportPrimitive">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Primitive...</string>
+   </property>
+  </action>
+  <action name="actionExportSoundObject">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Sound Object...</string>
+   </property>
+  </action>
+  <action name="actionFileTexturePath">
+   <property name="text">
+    <string>&amp;Texture Path...</string>
+   </property>
+  </action>
+  <action name="actionAnimatedSoundOptions">
+   <property name="text">
+    <string>&amp;Animated Sound Options...</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionTexturePaths">
+   <property name="text">
+    <string>&amp;Texture Paths...</string>
+   </property>
+  </action>
+  <action name="actionAutoExpandAssetTree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Auto Expand Asset Tree</string>
+   </property>
+  </action>
+  <action name="actionToolbarMain">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Main</string>
+   </property>
+  </action>
+  <action name="actionToolbarObject">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Object</string>
+   </property>
+  </action>
+  <action name="actionToolbarAnimation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Animation</string>
+   </property>
+  </action>
+  <action name="actionStatusBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Status Bar</string>
+   </property>
+  </action>
+  <action name="actionSlideshowPrev">
+   <property name="text">
+    <string>&amp;Prev</string>
+   </property>
+   <property name="shortcut">
+    <string>PgUp</string>
+   </property>
+  </action>
+  <action name="actionSlideshowNext">
+   <property name="text">
+    <string>&amp;Next</string>
+   </property>
+   <property name="shortcut">
+    <string>PgDown</string>
+   </property>
+  </action>
+  <action name="actionWireframe">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Wireframe Mode</string>
+   </property>
+  </action>
+  <action name="actionSorting">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Polygon Sorting</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionInvertBackfaceCulling">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Invert Backface Culling</string>
+   </property>
+  </action>
+  <action name="actionGamma">
+   <property name="text">
+    <string>Set &amp;Gamma</string>
+   </property>
+  </action>
+  <action name="actionChangeResolution">
+   <property name="text">
+    <string>Change &amp;Resolution...</string>
+   </property>
+   <property name="statusTip">
+    <string>Change the viewing resolution</string>
+   </property>
+  </action>
+  <action name="actionNpatchesGap">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>N-Patches Gap Filling</string>
+   </property>
+  </action>
+  <action name="actionObjectRotateX">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Rotate &amp;X</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionObjectRotateY">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Rotate &amp;Y</string>
+   </property>
+  </action>
+  <action name="actionObjectRotateZ">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/rotate-z.bmp</normaloff>
+     <normalon>:/w3dview/rotate-z-selected.bmp</normalon>:/w3dview/rotate-z.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate &amp;Z</string>
+   </property>
+  </action>
+  <action name="actionObjectProperties">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Properties...</string>
+   </property>
+   <property name="shortcut">
+    <string>Return</string>
+   </property>
+  </action>
+  <action name="actionRestrictAnims">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Restrict Anims</string>
+   </property>
+  </action>
+  <action name="actionObjectReset">
+   <property name="text">
+    <string>&amp;Reset</string>
+   </property>
+  </action>
+  <action name="actionObjectAlternateMaterials">
+   <property name="text">
+    <string>Toggle Alternate Materials</string>
+   </property>
+  </action>
+  <action name="actionCreateEmitter">
+   <property name="text">
+    <string>&amp;Create Emitter...</string>
+   </property>
+  </action>
+  <action name="actionScaleEmitter">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Scale Emitter...</string>
+   </property>
+  </action>
+  <action name="actionEditEmitter">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Edit Emitter</string>
+   </property>
+  </action>
+  <action name="actionCreateSphere">
+   <property name="text">
+    <string>Create &amp;Sphere...</string>
+   </property>
+  </action>
+  <action name="actionCreateRing">
+   <property name="text">
+    <string>Create &amp;Ring...</string>
+   </property>
+  </action>
+  <action name="actionEditPrimitive">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Edit Primitive...</string>
+   </property>
+  </action>
+  <action name="actionCreateSoundObject">
+   <property name="text">
+    <string>&amp;Create Sound Object...</string>
+   </property>
+  </action>
+  <action name="actionEditSoundObject">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Edit Sound Object...</string>
+   </property>
+  </action>
+  <action name="actionLightRotateY">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Rotate &amp;Y</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Up</string>
+   </property>
+  </action>
+  <action name="actionLightRotateZ">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Rotate &amp;Z</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Right</string>
+   </property>
+  </action>
+  <action name="actionAmbientLight">
+   <property name="text">
+    <string>&amp;Ambient...</string>
+   </property>
+  </action>
+  <action name="actionSceneLight">
+   <property name="text">
+    <string>&amp;Scene Light...</string>
+   </property>
+  </action>
+  <action name="actionIncreaseAmbientLight">
+   <property name="text">
+    <string>&amp;Inc Ambient Intensity</string>
+   </property>
+  </action>
+  <action name="actionDecreaseAmbientLight">
+   <property name="text">
+    <string>&amp;Dec Ambient Intensity</string>
+   </property>
+   <property name="shortcut">
+    <string>-</string>
+   </property>
+  </action>
+  <action name="actionIncreaseSceneLight">
+   <property name="text">
+    <string>Inc Scene &amp;Light Intensity</string>
+   </property>
+  </action>
+  <action name="actionDecreaseSceneLight">
+   <property name="text">
+    <string>De&amp;c Scene Light Intensity</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionExposePrelit">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Expose Precalculated Lighting</string>
+   </property>
+  </action>
+  <action name="actionKillSceneLight">
+   <property name="text">
+    <string>Kill Scene Light</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+*</string>
+   </property>
+  </action>
+  <action name="actionPrelitVertex">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Vertex Lighting</string>
+   </property>
+  </action>
+  <action name="actionPrelitMultipass">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Multi-&amp;Pass Lighting</string>
+   </property>
+  </action>
+  <action name="actionPrelitMultitex">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Multi-Te&amp;xture Lighting</string>
+   </property>
+  </action>
+  <action name="actionCameraFront">
+   <property name="text">
+    <string>&amp;Front</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionCameraBack">
+   <property name="text">
+    <string>&amp;Back</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionCameraLeft">
+   <property name="text">
+    <string>&amp;Left</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionCameraRight">
+   <property name="text">
+    <string>&amp;Right</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionCameraTop">
+   <property name="text">
+    <string>&amp;Top</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionCameraBottom">
+   <property name="text">
+    <string>Bo&amp;ttom</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionCameraRotateX">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/y-direction.bmp</normaloff>
+     <normalon>:/w3dview/y-direction-selected.bmp</normalon>:/w3dview/y-direction.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate &amp;X Only</string>
+   </property>
+  </action>
+  <action name="actionCameraRotateY">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/x-direction.bmp</normaloff>
+     <normalon>:/w3dview/x-direction-selected.bmp</normalon>:/w3dview/x-direction.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate &amp;Y Only</string>
+   </property>
+  </action>
+  <action name="actionCameraRotateZ">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/z-direction.bmp</normaloff>
+     <normalon>:/w3dview/z-direction-selected.bmp</normalon>:/w3dview/z-direction.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate &amp;Z Only</string>
+   </property>
+  </action>
+  <action name="actionCameraCopyScreen">
+   <property name="text">
+    <string>&amp;Copy Screen Size To Clipboard</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionCameraAnimate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Animate Camera</string>
+   </property>
+   <property name="shortcut">
+    <string>F8</string>
+   </property>
+  </action>
+  <action name="actionCameraBonePosX">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>+X Camera</string>
+   </property>
+  </action>
+  <action name="actionCameraSettings">
+   <property name="text">
+    <string>Settin&amp;gs...</string>
+   </property>
+  </action>
+  <action name="actionCameraDistance">
+   <property name="text">
+    <string>&amp;Set Distance...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionCameraResetOnDisplay">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Reset on &amp;Display</string>
+   </property>
+  </action>
+  <action name="actionCameraReset">
+   <property name="text">
+    <string>R&amp;eset</string>
+   </property>
+  </action>
+  <action name="actionBackgroundColor">
+   <property name="text">
+    <string>&amp;Color...</string>
+   </property>
+  </action>
+  <action name="actionBackgroundBitmap">
+   <property name="text">
+    <string>&amp;Bitmap...</string>
+   </property>
+  </action>
+  <action name="actionBackgroundObject">
+   <property name="text">
+    <string>&amp;Object...</string>
+   </property>
+  </action>
+  <action name="actionFog">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fog</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+F</string>
+   </property>
+  </action>
+  <action name="actionMakeMovie">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Make Movie...</string>
+   </property>
+  </action>
+  <action name="actionCaptureScreenshot">
+   <property name="text">
+    <string>&amp;Capture Screen Shot...</string>
+   </property>
+   <property name="shortcut">
+    <string>F7</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About...</string>
+   </property>
+  </action>
+  <action name="actionListMissingTextures">
+   <property name="text">
+    <string>List Missing Textures</string>
+   </property>
+  </action>
+  <action name="actionCopyAssets">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Copy Asset Files...</string>
+   </property>
+  </action>
+  <action name="actionAddToLineup">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Add To Lineup...</string>
+   </property>
+  </action>
+  <action name="actionToolbarAnimationPlay">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/play.bmp</normaloff>
+     <normalon>:/w3dview/play-selected.bmp</normalon>:/w3dview/play.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Play</string>
+   </property>
+  </action>
+  <action name="actionToolbarAnimationStop">
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/stop.bmp</normaloff>
+     <activeoff>:/w3dview/stop-selected.bmp</activeoff>:/w3dview/stop.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Stop</string>
+   </property>
+  </action>
+  <action name="actionToolbarAnimationPause">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/pause.bmp</normaloff>
+     <normalon>:/w3dview/pause-selected.bmp</normalon>:/w3dview/pause.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>P&amp;ause</string>
+   </property>
+  </action>
+  <action name="actionToolbarAnimationStepBack">
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/reverse.bmp</normaloff>
+     <activeoff>:/w3dview/reverse-selected.bmp</activeoff>:/w3dview/reverse.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Step &amp;Back</string>
+   </property>
+  </action>
+  <action name="actionToolbarAnimationStepForward">
+   <property name="icon">
+    <iconset resource="W3DViewQt.qrc">
+     <normaloff>:/w3dview/ffwd.bmp</normaloff>
+     <activeoff>:/w3dview/ffwd-selected.bmp</activeoff>:/w3dview/ffwd.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Step &amp;Forward</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>W3DViewport</class>
+   <extends>QWidget</extends>
+   <header location="local">W3DViewport.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="W3DViewQt.qrc"/>
+ </resources>
+ <connections/>
+</ui>
