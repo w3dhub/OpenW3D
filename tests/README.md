@@ -32,6 +32,17 @@ their Windows requirement. The standalone message-loop test can be built on
 Linux with SDL3 without building the rest of `wwlib`; other engine targets still
 have portability limitations, so `w3d_tests` is not a portable-only subset.
 
+The dedicated server console suite can also run without the engine dependencies:
+
+```sh
+cmake -S tests/Commando/console -B build/console -DCMAKE_BUILD_TYPE=Release
+cmake --build build/console --config Release --target w3d_tests
+ctest --test-dir build/console -C Release --output-on-failure
+```
+
+Python 3 is optional for this suite. Without it, CMake keeps the C++ unit tests
+and skips only the subprocess tests and their helper executables.
+
 ## Add a test
 
 1. Place the source under the matching component directory here.

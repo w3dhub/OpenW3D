@@ -5,6 +5,10 @@ add_custom_target(w3d_tests)
 
 set(code_dir "${PROJECT_SOURCE_DIR}/Code")
 
+if(TARGET server_console)
+    add_subdirectory(Commando/console)
+endif()
+
 w3d_add_test(wwaudio_lifetime_tests
     SOURCES WWAudio/WWAudioLifetimeTests.cpp
     LIBRARIES wwaudio ww3d2 wwdebug wwlib wwmath wwphys wwsaveload wwcommon)

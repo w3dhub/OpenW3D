@@ -4,24 +4,15 @@
 #include "CommandLine.h"
 
 #include <algorithm>
-#include <cerrno>
 #include <cstdio>
 
-#ifdef _WIN32
 #include <windows.h>
 #include <io.h>
 #include <fcntl.h>
-#else
-#include <csignal>
-#include <fcntl.h>
-#include <poll.h>
-#include <unistd.h>
-#endif
 
 namespace OpenW3D {
 namespace {
 bool HostActive = false;
-#ifdef _WIN32
 volatile LONG StopRequested = 0;
 BOOL WINAPI ControlHandler(DWORD event)
 {
@@ -41,10 +32,6 @@ bool BindPrivateStream(FILE *stream, const char *device, DWORD standard_handle)
     std::clearerr(stream);
     return bound && SetStdHandle(standard_handle, reinterpret_cast<HANDLE>(_get_osfhandle(destination)));
 }
-#else
-volatile sig_atomic_t StopRequested = 0;
-void SignalHandler(int) { StopRequested = 1; }
-#endif
 }
 
 struct ConsoleHost::Impl {
@@ -52,7 +39,6 @@ struct ConsoleHost::Impl {
     bool InputOpen = false;
     ConsoleCommandLine Lines;
     std::string Error;
-#ifdef _WIN32
     HANDLE Input = INVALID_HANDLE_VALUE;
     HANDLE Output[2] = {INVALID_HANDLE_VALUE, INVALID_HANDLE_VALUE};
     bool TerminalInput = false;
@@ -64,9 +50,6 @@ struct ConsoleHost::Impl {
     INPUT_RECORD Events[64] {};
     DWORD EventCount = 0;
     DWORD NextEvent = 0;
-#else
-    struct sigaction OldInt {}, OldTerm {}, OldPipe {};
-#endif
 };
 
 ConsoleHost::ConsoleHost() : State(std::make_unique<Impl>()) {}
@@ -78,7 +61,6 @@ bool ConsoleHost::Initialize(bool private_windows_console)
     if (s.Initialized) return true;
     if (HostActive) { s.Error = "A console host is already active."; return false; }
     s = Impl{};
-#ifdef _WIN32
     // Only slave children replace their inherited console and streams. This must
     // precede handler registration: AllocConsole resets the handler table.
     if (private_windows_console) {
@@ -139,28 +121,6 @@ bool ConsoleHost::Initialize(bool private_windows_console)
         s.ModeChanged = false;
         return false;
     }
-#else
-    (void)private_windows_console;
-    s.InputOpen = fcntl(STDIN_FILENO, F_GETFD) != -1;
-    struct sigaction action {};
-    action.sa_handler = SignalHandler;
-    sigemptyset(&action.sa_mask);
-    StopRequested = 0;
-    if (sigaction(SIGINT, &action, &s.OldInt) != 0) {
-        s.Error = "Could not register SIGINT handler."; return false;
-    }
-    if (sigaction(SIGTERM, &action, &s.OldTerm) != 0) {
-        sigaction(SIGINT, &s.OldInt, nullptr);
-        s.Error = "Could not register SIGTERM handler."; return false;
-    }
-    // A log consumer closing its pipe must not terminate the game in write().
-    action.sa_handler = SIG_IGN;
-    if (sigaction(SIGPIPE, &action, &s.OldPipe) != 0) {
-        sigaction(SIGTERM, &s.OldTerm, nullptr);
-        sigaction(SIGINT, &s.OldInt, nullptr);
-        s.Error = "Could not disable SIGPIPE."; return false;
-    }
-#endif
     s.Initialized = HostActive = true;
     return true;
 }
@@ -169,16 +129,10 @@ void ConsoleHost::Shutdown()
 {
     auto &s = *State;
     if (!s.Initialized) return;
-#ifdef _WIN32
     SetConsoleCtrlHandler(ControlHandler, FALSE);
     if (s.ModeChanged) SetConsoleMode(s.Input, s.SavedMode);
     if (s.OwnConsole) FreeConsole();
     s.OwnConsole = s.ModeChanged = false;
-#else
-    sigaction(SIGINT, &s.OldInt, nullptr);
-    sigaction(SIGTERM, &s.OldTerm, nullptr);
-    sigaction(SIGPIPE, &s.OldPipe, nullptr);
-#endif
     s.Initialized = s.InputOpen = HostActive = false;
 }
 
@@ -187,7 +141,6 @@ bool ConsoleHost::Write(std::string_view text, bool error)
     if (!State->Initialized) return false;
     // Preserve ordering with legacy stdio users without replacing their streams.
     std::fflush(error ? stderr : stdout);
-#ifdef _WIN32
     auto &s = *State;
     HANDLE output = s.Output[error ? 1 : 0];
     if (!output || output == INVALID_HANDLE_VALUE) return false;
@@ -216,14 +169,6 @@ bool ConsoleHost::Write(std::string_view text, bool error)
         }
         text.remove_prefix(length);
     }
-#else
-    while (!text.empty()) {
-        ssize_t count = write(error ? STDERR_FILENO : STDOUT_FILENO, text.data(), text.size());
-        if (count < 0 && errno == EINTR) continue;
-        if (count <= 0) return false;
-        text.remove_prefix(static_cast<size_t>(count));
-    }
-#endif
     return true;
 }
 
@@ -238,7 +183,6 @@ void ConsoleHost::Poll(std::vector<std::string> &commands)
     // bounding both storage and the amount of work performed by any game tick.
     if (s.InputOpen && !s.Lines.HasCommands()) {
         char bytes[256];
-#ifdef _WIN32
         if (s.TerminalInput) {
             DWORD available = 0;
             if (s.NextEvent == s.EventCount) {
@@ -307,22 +251,6 @@ void ConsoleHost::Poll(std::vector<std::string> &commands)
                 }
             }
         }
-#else
-        struct pollfd input {STDIN_FILENO, POLLIN, 0};
-        int ready = poll(&input, 1, 0);
-        if (ready < 0) {
-            failed = errno != EINTR;
-        } else if (ready > 0) {
-            if (input.revents & (POLLIN | POLLHUP)) {
-                ssize_t count = read(STDIN_FILENO, bytes, sizeof(bytes));
-                if (count > 0) s.Lines.Feed(std::string_view(bytes, static_cast<size_t>(count)));
-                else if (count == 0) eof = true;
-                else failed = errno != EINTR && errno != EAGAIN;
-            } else if (input.revents & (POLLERR | POLLNVAL)) {
-                failed = true;
-            }
-        }
-#endif
     }
     if (eof) { s.Lines.Finish(); s.InputOpen = false; }
     if (failed) {
@@ -337,11 +265,7 @@ void ConsoleHost::Poll(std::vector<std::string> &commands)
 
 bool ConsoleHost::Shutdown_Requested() const
 {
-#ifdef _WIN32
     return State->Initialized && InterlockedCompareExchange(&StopRequested, 0, 0) != 0;
-#else
-    return State->Initialized && StopRequested != 0;
-#endif
 }
 bool ConsoleHost::Input_Closed() const { return !State->InputOpen; }
 const std::string &ConsoleHost::Last_Error() const { return State->Error; }

@@ -22,9 +22,12 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.x'
-      - run: cmake -S Code/Commando/console -B build-console -DCMAKE_BUILD_TYPE=Release
+      - run: cmake -S tests/Commando/console -B build-console -DCMAKE_BUILD_TYPE=Release
       - run: cmake --build build-console --config Release --parallel
       - run: ctest --test-dir build-console -C Release --output-on-failure
+      - run: cmake -S tests/Commando/console -B build-console-no-python -DCMAKE_BUILD_TYPE=Release -DCMAKE_DISABLE_FIND_PACKAGE_Python3=ON
+      - run: cmake --build build-console-no-python --config Release --parallel
+      - run: ctest --test-dir build-console-no-python -C Release --output-on-failure
 
   job:
     name: ${{ matrix.name }} Build
@@ -185,14 +188,14 @@ jobs:
     - name: MinGW console tests
       if: ${{ !!matrix.msys2 }}
       run: |
-        cmake -S Code/Commando/console -B build-console -G Ninja -DCMAKE_BUILD_TYPE=Release
+        cmake -S tests/Commando/console -B build-console -G Ninja -DCMAKE_BUILD_TYPE=Release
         cmake --build build-console --parallel
         ctest --test-dir build-console --output-on-failure
 
     - name: Verify client and server subsystems
       if: runner.os == 'Windows'
       shell: pwsh
-      run: python Code/Commando/console/tests/verify_subsystems.py build/renegade.exe build/renegadeserver.exe
+      run: python tests/Commando/console/verify_subsystems.py build/renegade.exe build/renegadeserver.exe
 
     - name: Create windows zip
       if: ${{ !!matrix.vcpkg }}

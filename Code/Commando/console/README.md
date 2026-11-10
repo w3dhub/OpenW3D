@@ -38,14 +38,23 @@ from Ctrl+C; no new service or session-shutdown behavior is introduced here.
 
 ## Standalone build and tests
 
-The module needs a C++20 compiler and CMake 3.25+. Tests additionally need Python
-3. It has no game, DirectX, SDL, or asset dependency:
+The module needs a C++20 compiler and CMake 3.25+. The tests live in
+`tests/Commando/console` and have no game, DirectX, SDL, or asset dependency:
 
 ```sh
-cmake -S Code/Commando/console -B build/console -DCMAKE_BUILD_TYPE=Release
+cmake -S tests/Commando/console -B build/console -DCMAKE_BUILD_TYPE=Release
 cmake --build build/console --config Release --parallel
 ctest --test-dir build/console -C Release --output-on-failure
 ```
+
+The C++ unit tests always build when `BUILD_TESTING` is enabled. Python 3 is
+optional; when it is unavailable, CMake skips the subprocess tests and their
+helper executables. The normal repository build also registers these tests and
+includes their executables in the `w3d_tests` target. To build just the production
+library, configure `Code/Commando/console` directly instead.
+
+CMake selects `ConsoleHost_win32.cpp` on Windows and `ConsoleHost_posix.cpp` on
+other platforms. Both implement the same `ConsoleHost` interface.
 
 The standalone CI job runs this on Windows x64 and Linux; the MinGW game jobs
 also build and run the console suite with their own compiler. Unit and subprocess
@@ -91,7 +100,7 @@ copies the engine INI before launching. Supply a LAN server configuration and
 make the server's runtime libraries available as for a normal launch:
 
 ```sh
-python Code/Commando/console/tests/server_command_batch_test.py path/to/renegadeserver.exe path/to/copied-game path/to/engine.ini path/to/server.ini
+python tests/Commando/console/server_command_batch_test.py path/to/renegadeserver.exe path/to/copied-game path/to/engine.ini path/to/server.ini
 ```
 
 It verifies that a command following `quit` is ignored and automatic restart is
