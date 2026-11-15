@@ -48,7 +48,7 @@
 #include "string_ids.h"
 #include "rendobj.h"
 #include "input.h"
-#include "dinput.h"
+#include "openw3d_input.h"
 #include "timemgr.h"
 #include "gametype.h"
 

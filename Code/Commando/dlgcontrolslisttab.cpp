@@ -42,7 +42,7 @@
 #include "string_ids.h"
 #include "translatedb.h"
 
-#include <dinput.h>
+#include "openw3d_input.h"
 #include "directinput.h"
 
 

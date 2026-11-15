@@ -1,0 +1,142 @@
+/*
+**	Command & Conquer Renegade(tm)
+**	Copyright 2026 OpenW3D Developers
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#pragma once
+
+#if defined(OPENW3D_WIN32)
+#include <dinput.h>
+#elif defined(OPENW3D_SDL3)
+#include <SDL3/SDL_keycode.h>
+
+// Map SDL keys to their directinput counterparts until we only depend on SDL
+#define DIK_F1 SDL_SCANCODE_F1
+#define DIK_F2 SDL_SCANCODE_F2
+#define DIK_F3 SDL_SCANCODE_F3
+#define DIK_F4 SDL_SCANCODE_F4
+#define DIK_F5 SDL_SCANCODE_F5
+#define DIK_F6 SDL_SCANCODE_F6
+#define DIK_F7 SDL_SCANCODE_F7
+#define DIK_F8 SDL_SCANCODE_F8
+#define DIK_F9 SDL_SCANCODE_F9
+#define DIK_F10 SDL_SCANCODE_F10
+#define DIK_F11 SDL_SCANCODE_F11
+#define DIK_F12 SDL_SCANCODE_F12
+#define DIK_0 SDL_SCANCODE_0
+#define DIK_1 SDL_SCANCODE_1
+#define DIK_2 SDL_SCANCODE_2
+#define DIK_3 SDL_SCANCODE_3
+#define DIK_4 SDL_SCANCODE_4
+#define DIK_5 SDL_SCANCODE_5
+#define DIK_6 SDL_SCANCODE_6
+#define DIK_7 SDL_SCANCODE_7
+#define DIK_8 SDL_SCANCODE_8
+#define DIK_9 SDL_SCANCODE_9
+#define DIK_A SDL_SCANCODE_A
+#define DIK_B SDL_SCANCODE_B
+#define DIK_C SDL_SCANCODE_C
+#define DIK_D SDL_SCANCODE_D
+#define DIK_E SDL_SCANCODE_E
+#define DIK_F SDL_SCANCODE_F
+#define DIK_G SDL_SCANCODE_G
+#define DIK_H SDL_SCANCODE_H
+#define DIK_I SDL_SCANCODE_I
+#define DIK_J SDL_SCANCODE_J
+#define DIK_K SDL_SCANCODE_K
+#define DIK_L SDL_SCANCODE_L
+#define DIK_M SDL_SCANCODE_M
+#define DIK_N SDL_SCANCODE_N
+#define DIK_O SDL_SCANCODE_O
+#define DIK_P SDL_SCANCODE_P
+#define DIK_Q SDL_SCANCODE_Q
+#define DIK_R SDL_SCANCODE_R
+#define DIK_S SDL_SCANCODE_S
+#define DIK_T SDL_SCANCODE_T
+#define DIK_U SDL_SCANCODE_U
+#define DIK_V SDL_SCANCODE_V
+#define DIK_W SDL_SCANCODE_W
+#define DIK_X SDL_SCANCODE_X
+#define DIK_Y SDL_SCANCODE_Y
+#define DIK_Z SDL_SCANCODE_Z
+#define DIK_MINUS SDL_SCANCODE_MINUS
+#define DIK_EQUALS SDL_SCANCODE_EQUALS
+#define DIK_BACK SDL_SCANCODE_BACKSPACE
+#define DIK_TAB SDL_SCANCODE_TAB
+#define DIK_LBRACKET SDL_SCANCODE_LEFTBRACKET
+#define DIK_RBRACKET SDL_SCANCODE_RIGHTBRACKET
+#define DIK_RETURN SDL_SCANCODE_RETURN
+#define DIK_SEMICOLON SDL_SCANCODE_SEMICOLON
+#define DIK_APOSTROPHE SDL_SCANCODE_APOSTROPHE
+#define DIK_GRAVE SDL_SCANCODE_GRAVE
+#define DIK_BACKSLASH SDL_SCANCODE_BACKSLASH
+#define DIK_COMMA SDL_SCANCODE_COMMA
+#define DIK_PERIOD SDL_SCANCODE_PERIOD
+#define DIK_SLASH SDL_SCANCODE_SLASH
+#define DIK_SPACE SDL_SCANCODE_SPACE
+#define DIK_CAPITAL SDL_SCANCODE_CAPSLOCK
+#define DIK_NUMLOCK SDL_SCANCODE_NUMLOCKCLEAR
+#define DIK_SCROLL SDL_SCANCODE_SCROLLLOCK
+#define DIK_ESCAPE SDL_SCANCODE_ESCAPE
+#define DIK_NUMPAD0 SDL_SCANCODE_KP_0
+#define DIK_NUMPAD1 SDL_SCANCODE_KP_1
+#define DIK_NUMPAD2 SDL_SCANCODE_KP_2
+#define DIK_NUMPAD3 SDL_SCANCODE_KP_3
+#define DIK_NUMPAD4 SDL_SCANCODE_KP_4
+#define DIK_NUMPAD5 SDL_SCANCODE_KP_5
+#define DIK_NUMPAD6 SDL_SCANCODE_KP_6
+#define DIK_NUMPAD7 SDL_SCANCODE_KP_7
+#define DIK_NUMPAD8 SDL_SCANCODE_KP_8
+#define DIK_NUMPAD9 SDL_SCANCODE_KP_9
+#define DIK_SUBTRACT SDL_SCANCODE_KP_MINUS
+#define DIK_MULTIPLY SDL_SCANCODE_KP_MULTIPLY
+#define DIK_ADD SDL_SCANCODE_KP_PLUS
+#define DIK_DECIMAL SDL_SCANCODE_KP_PERIOD
+#define DIK_NUMPADENTER SDL_SCANCODE_KP_ENTER
+#define DIK_DIVIDE SDL_SCANCODE_KP_DIVIDE
+#define DIK_HOME SDL_SCANCODE_HOME
+#define DIK_PRIOR SDL_SCANCODE_PAGEUP
+#define DIK_END SDL_SCANCODE_END
+#define DIK_NEXT SDL_SCANCODE_PAGEDOWN
+#define DIK_INSERT SDL_SCANCODE_INSERT
+#define DIK_DELETE SDL_SCANCODE_DELETE
+#define DIK_UP SDL_SCANCODE_UP
+#define DIK_DOWN SDL_SCANCODE_DOWN
+#define DIK_LEFT SDL_SCANCODE_LEFT
+#define DIK_RIGHT SDL_SCANCODE_RIGHT
+#define DIK_SYSRQ SDL_SCANCODE_SYSREQ
+#define DIK_LSHIFT SDL_SCANCODE_LSHIFT
+#define DIK_RSHIFT SDL_SCANCODE_RSHIFT
+#define DIK_LALT SDL_SCANCODE_LALT
+#define DIK_RALT SDL_SCANCODE_RALT
+#define DIK_LWIN SDL_SCANCODE_LGUI
+#define DIK_RWIN SDL_SCANCODE_RGUI
+#define DIK_LMENU SDL_SCANCODE_MENU
+#define DIK_RMENU SDL_SCANCODE_MENU
+
+// these keys are modifiers in SDL, not keys as in directinput
+#define DIK_LCONTROL SDL_KMOD_LCTRL
+#define DIK_RCONTROL SDL_KMOD_RCTRL
+// #define DIK_CONTROL SDL_KMOD_CTRL
+// #define DIK_SHIFT SDL_KMOD_SHIFT
+// #define DIK_ALT SDL_KMOD_ALT
+// #define DIK_WIN (SDLK_LMETA | SDLK_RMETA)
+#define DIK_APPS SDL_SCANCODE_UNKNOWN
+
+struct SDL_KeyboardEvent;
+struct SDL_MouseMotionEvent;
+struct SDL_MouseButtonEvent;
+
+#endif
