@@ -47,6 +47,7 @@
 #include "widestring.h"
 #include "bittype.h"
 #include "controladvisesink.h"
+#include "wwuiplatform.h"
 
 
 ////////////////////////////////////////////////////////////////

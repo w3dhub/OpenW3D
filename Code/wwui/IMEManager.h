@@ -40,8 +40,20 @@
 #include "IMECandidate.h"
 #include "Notify.h"
 #include "widestring.h"
+#include "wwuiplatform.h"
+
+#if defined(OPENW3D_WIN32)
 #include "win.h"
 #include <imm.h>
+#elif defined(OPENW3D_SDL3)
+union SDL_Event;
+struct SDL_Window;
+
+// SDL has no IME guidelines, GetGuideline() always returns this.
+#ifndef GL_LEVEL_NOGUIDELINE
+#define GL_LEVEL_NOGUIDELINE 0
+#endif
+#endif
 
 namespace IME {
 
@@ -87,7 +99,7 @@ class IMEManager :
 		public Notifier<CandidateEvent>
 	{
 	public:
-		static IMEManager* Create(HWND hwnd);
+		static IMEManager* Create(WWUIWindowHandle hwnd);
 
 		void Activate(void);
 		void Deactivate(void);
@@ -100,10 +112,10 @@ class IMEManager :
 		const unichar_t* GetDescription(void) const
 			{return mIMEDescription;}
 
-		WORD GetLanguageID(void) const
+		uint16_t GetLanguageID(void) const
 			{return mLangID;}
 
-		UINT GetCodePage(void) const
+		uint32_t GetCodePage(void) const
 			{return mCodePage;}
 
 		const unichar_t* GetResultString(void) const
@@ -125,21 +137,29 @@ class IMEManager :
 
 		void GetTargetClause(unsigned int& start, unsigned int& end);
 
+#if defined(OPENW3D_WIN32)
 		bool GetCompositionFont(LPLOGFONT lpFont);
+#endif
 
 		const IMECandidateCollection GetCandidateColl(void) const
 			{return mCandidateColl;}
 
 		unsigned int GetGuideline(unichar_t* outString, int length);
 
+#if defined(OPENW3D_WIN32)
 		bool ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT& result);
+#elif defined(OPENW3D_SDL3)
+		// Returns true if the event was consumed by the IME.
+		bool ProcessEvent(const SDL_Event& event);
+#endif
 
 	protected:
 		IMEManager();
 		virtual ~IMEManager();
 
-		bool FinalizeCreate(HWND hwnd);
+		bool FinalizeCreate(WWUIWindowHandle hwnd);
 
+#if defined(OPENW3D_WIN32)
 		LRESULT IMENotify(WPARAM wParam, LPARAM lParam);
 
 		HKL InputLanguageChangeRequest(HKL hkl);
@@ -166,6 +186,16 @@ class IMEManager :
 
 		int ConvertAttrForUnicode(unsigned char* mbcs, unsigned char* attr);
 		int ConvertClauseForUnicode(unsigned char* mbcs, int length, unsigned int* clause);
+#elif defined(OPENW3D_SDL3)
+		void ResetComposition(void);
+		void StartComposition(void);
+		void EndComposition(void);
+		void DoComposition(const char* text, int start, int length);
+		void DoResult(const char* text);
+		void DoCandidates(const char* const* candidates, int count, int selection);
+
+		void UpdateTextInput(void);
+#endif
 
 		DECLARE_NOTIFIER(IMEEvent)
 		DECLARE_NOTIFIER(UnicodeChar)
@@ -177,22 +207,36 @@ class IMEManager :
 		const IMEManager& operator=(const IMEManager&);
 
 	private:
+#if defined(OPENW3D_WIN32)
 		HWND mHWND;
 		HIMC mDefaultHIMC;
 		HIMC mHIMC;
 
 		HIMC mDisabledHIMC;
+#elif defined(OPENW3D_SDL3)
+		SDL_Window* mTextInputWindow;
+		bool mActive;
+		bool mTextInputPassword;
+		bool mCandidatesOpen;
+
+		unsigned int mTargetStart;
+		unsigned int mTargetEnd;
+#endif
 		unsigned int mDisableCount;
 
-		WORD mLangID;
-		UINT mCodePage;
+		uint16_t mLangID;
+		uint32_t mCodePage;
 		WideStringClass mIMEDescription;
+#if defined(OPENW3D_WIN32)
 		DWORD mIMEProperties;
 
 		bool mHilite;
+#endif
 		bool mStartCandListFrom1;
+#if defined(OPENW3D_WIN32)
 		bool mOSCanUnicode;
 		bool mUseUnicode;
+#endif
 		bool mInComposition;
 
 		#ifdef SHOW_IME_TYPING
@@ -201,8 +245,10 @@ class IMEManager :
 		#endif
 
 		unichar_t mCompositionString[IME_MAX_STRING_LEN];
+#if defined(OPENW3D_WIN32)
 		unsigned char mCompositionAttr[IME_MAX_STRING_LEN];
 		unsigned int mCompositionClause[IME_MAX_STRING_LEN / 2];
+#endif
 
 		int mCompositionCursorPos;
 

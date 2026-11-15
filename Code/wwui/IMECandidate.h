@@ -36,10 +36,15 @@
 #define __IMECANDIDATE_H__
 
 #include "Notify.h"
-#include "win.h"
 #include "unichar.h"
-#include <imm.h>
 #include <vector>
+
+#if defined(OPENW3D_WIN32)
+#include "win.h"
+#include <imm.h>
+#elif defined(OPENW3D_SDL3)
+#include <string>
+#endif
 
 namespace IME {
 
@@ -49,8 +54,15 @@ class IMECandidate
 		IMECandidate();
 		~IMECandidate();
 
+#if defined(OPENW3D_WIN32)
 		void Open(int index, HWND hwnd, UINT codepage, bool unicode, bool startFrom1);
 		void Read(void);
+#elif defined(OPENW3D_SDL3)
+		void Open(int index, bool startFrom1);
+
+		// Set the candidate list from the UTF-8 strings provided by SDL.
+		void Set(const char* const* candidates, int count, int selection);
+#endif
 		void Close(void);
 
 		bool IsValid(void) const;
@@ -87,6 +99,7 @@ class IMECandidate
 		bool IsStartFrom1(void) const;
 
 	private:
+#if defined(OPENW3D_WIN32)
 		int mIndex;
 		HWND mHWND;
 		UINT mCodePage;
@@ -98,6 +111,14 @@ class IMECandidate
 
 		// Multibyte -> Unicode string conversion buffer
 		wchar_t mTempString[80];
+#elif defined(OPENW3D_SDL3)
+		int mIndex;
+		bool mStartFrom1;
+
+		std::vector<std::basic_string<unichar_t>> mCandidates;
+		unsigned int mSelection;
+		unsigned int mPageStart;
+#endif
 	};
 
 

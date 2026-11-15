@@ -44,8 +44,12 @@
 #include "vector3.h"
 #include "refcount.h"
 #include "bittype.h"
-#include "win.h"
+#include "wwuiplatform.h"
 #include "IMEManager.h"
+
+#if defined(OPENW3D_SDL3)
+union SDL_Event;
+#endif
 
 ////////////////////////////////////////////////////////////////
 //
@@ -97,9 +101,13 @@ public:
 	virtual void				Enter_Menu_Mode (void)	{};
 	virtual void				Exit_Menu_Mode (void)	{};
 
+#if defined(OPENW3D_WIN32)
 	bool ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT& result);
+#elif defined(OPENW3D_SDL3)
+	bool ProcessEvent(const SDL_Event& event);
+#endif
 
-	void InitIME(HWND hwnd);
+	void InitIME(WWUIWindowHandle hwnd);
 
 	IME::IMEManager* GetIME(void) const;
 
