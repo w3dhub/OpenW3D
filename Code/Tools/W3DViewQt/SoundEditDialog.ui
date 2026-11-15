@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SoundEditDialog</class>
+ <widget class="QDialog" name="SoundEditDialog">
+  <property name="windowTitle">
+   <string>Sound Object</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="nameLabel">
+       <property name="text">
+        <string>Name:</string>
+       </property>
+       <property name="buddy">
+        <cstring>nameEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="nameEdit">
+       <property name="maxLength">
+        <number>15</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="filenameLabel">
+       <property name="text">
+        <string>Filename:</string>
+       </property>
+       <property name="buddy">
+        <cstring>fileEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <layout class="QHBoxLayout" name="fileLayout">
+       <item>
+        <widget class="QLineEdit" name="fileEdit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="browseButton">
+         <property name="text">
+          <string>Browse...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QGroupBox" name="typeGroup">
+       <property name="title">
+        <string>Sound Type</string>
+       </property>
+       <layout class="QHBoxLayout" name="typeLayout">
+        <item>
+         <widget class="QRadioButton" name="radio3d">
+          <property name="text">
+           <string>3D</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radio2d">
+          <property name="text">
+           <string>2D</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="2">
+      <widget class="QGroupBox" name="categoryGroup">
+       <property name="title">
+        <string>Category</string>
+       </property>
+       <layout class="QHBoxLayout" name="categoryLayout">
+        <item>
+         <widget class="QRadioButton" name="radioEffect">
+          <property name="text">
+           <string>Sound Effect</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioMusic">
+          <property name="text">
+           <string>Music</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="2">
+      <widget class="QCheckBox" name="infiniteLoops">
+       <property name="text">
+        <string>Infinite Loops</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0" colspan="2">
+      <widget class="QCheckBox" name="stopWhenHidden">
+       <property name="text">
+        <string>Stop When Hidden</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="volumeLabel">
+       <property name="text">
+        <string>Volume:</string>
+       </property>
+       <property name="buddy">
+        <cstring>volumeSlider</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QSlider" name="volumeSlider">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="priorityLabel">
+       <property name="text">
+        <string>Priority:</string>
+       </property>
+       <property name="buddy">
+        <cstring>prioritySlider</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QSlider" name="prioritySlider">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="dropOffLabel">
+       <property name="text">
+        <string>Drop-off Radius:</string>
+       </property>
+       <property name="buddy">
+        <cstring>dropOffEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QDoubleSpinBox" name="dropOffEdit">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100000.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="maxVolLabel">
+       <property name="text">
+        <string>Max-Vol Radius:</string>
+       </property>
+       <property name="buddy">
+        <cstring>maxVolEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QDoubleSpinBox" name="maxVolEdit">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100000.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="triggerRadiusLabel">
+       <property name="text">
+        <string>Trigger Radius:</string>
+       </property>
+       <property name="buddy">
+        <cstring>triggerRadiusEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QDoubleSpinBox" name="triggerRadiusEdit">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100000.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="playButton">
+     <property name="text">
+      <string>Play...</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

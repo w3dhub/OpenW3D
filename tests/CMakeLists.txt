@@ -50,7 +50,7 @@ w3d_add_test(wwlib_mempool_tests
     LIBRARIES wwlib wwdebug wwcommon)
 target_include_directories(wwlib_mempool_tests PRIVATE "${code_dir}/wwlib")
 
-if(TARGET wwconfig_qt_widgets OR TARGET wdump_qt_widgets)
+if(TARGET wwconfig_qt_widgets OR TARGET wdump_qt_widgets OR TARGET w3dview_qt_widgets)
     find_package(Qt6 ${W3D_QT_MIN_VERSION} COMPONENTS Test REQUIRED)
 endif()
 
@@ -70,4 +70,8 @@ if(TARGET wdump_qt_widgets)
         ARGS -o -,txt)
     w3d_configure_qt_test(wdump_qt_window_tests)
     w3d_add_designer_test(wdump_qt_designer_forms wdump_qt_widgets)
+endif()
+
+if(TARGET w3dview_qt_widgets)
+    include(cmake/W3DViewQtTests.cmake)
 endif()

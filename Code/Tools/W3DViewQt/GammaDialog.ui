@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GammaDialog</class>
+ <widget class="QDialog" name="GammaDialog">
+  <property name="windowTitle">
+   <string>Gamma</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="instructionsLabel">
+     <property name="text">
+      <string>Calibration instructions
+A. Set Gamma to 1.0 and Monitor Contrast and Brightness to maximum
+B. Adjust Monitor Brightness down so Bar 3 is barely visible
+C. Adjust Monitor Contrast as preferred but Bars 1,2,3,4 must be distinguishable from each other
+D. Set the Gamma using the Slider below so the gray box on the left matches its checkered surroundings
+E. Press OK to save settings</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="gammaValueLabel">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSlider" name="gammaSlider">
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>30</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
