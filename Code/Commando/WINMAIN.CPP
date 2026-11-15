@@ -536,7 +536,10 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
 	**	Pass this message through to the input handler. If the message
 	**	was processed and requires no further action, then return with
 	**	this information.
+	**
+	**	SDL3 builds pass SDL events to the input handler from the main loop instead.
 	*/
+#if defined(OPENW3D_WIN32)
 	if (_TheWWUIInput && Input::Is_Console_Enabled () == false) {
 		LRESULT result = 0;
 
@@ -546,6 +549,7 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
 			return result;
 		}
 	}
+#endif
 
 	switch (message )
 	{
@@ -706,6 +710,10 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
 static BOOL Create_Main_Window(void)
 {
 #if defined(OPENW3D_SDL3)
+	// WWUI draws the IME composition string and candidate list itself, so
+	// have SDL send those to us rather than showing the system IME windows.
+	SDL_SetHint(SDL_HINT_IME_IMPLEMENTED_UI, "composition,candidates");
+
 	SDL_Window* window = SDL_CreateWindow("Renegade - SDL",
 		800, 600,
 		0);

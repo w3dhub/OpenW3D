@@ -84,6 +84,7 @@ jobs:
                wwbitpack
                wwtranslatedb
                wwlib
+               wwui
             shell: bash
 
     steps:
@@ -134,6 +135,8 @@ jobs:
           "https://github.com/doitsujin/dxvk/releases/download/v2.7.1/dxvk-native-2.7.1-steamrt-sniper.tar.gz"
 
         sudo tar -xvf /tmp/dxvk-native.tar.gz -C /
+        # The packaged .pc files point at the dxvk build directory, not /usr
+        sudo sed -i 's|^prefix=.*|prefix=/usr|' /usr/lib/pkgconfig/dxvk-*.pc /usr/lib32/pkgconfig/dxvk-*.pc
     - name: 'CMake (configure)'
       if: ${{ !matrix.vcpkg }}
       env:

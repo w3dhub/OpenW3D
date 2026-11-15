@@ -39,6 +39,10 @@
 #include "dialogmgr.h"
 #include "wwmemlog.h"
 
+#if defined(OPENW3D_SDL3)
+#include <SDL3/SDL_events.h>
+#endif
+
 
 WWUIInputClass::WWUIInputClass(void) :
 	mIMEManager(nullptr)
@@ -54,7 +58,7 @@ WWUIInputClass::~WWUIInputClass(void)
 }
 
 
-void WWUIInputClass::InitIME(HWND hwnd)
+void WWUIInputClass::InitIME(WWUIWindowHandle hwnd)
 {
 	if (mIMEManager == nullptr) {
 		mIMEManager = IME::IMEManager::Create(hwnd);
@@ -77,6 +81,7 @@ IME::IMEManager* WWUIInputClass::GetIME(void) const
 }
 
 
+#if defined(OPENW3D_WIN32)
 bool WWUIInputClass::ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT& result)
 {
 	WWMEMLOG(MEM_GAMEDATA);
@@ -109,6 +114,61 @@ bool WWUIInputClass::ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 
 	return false;
 }
+#elif defined(OPENW3D_SDL3)
+bool WWUIInputClass::ProcessEvent(const SDL_Event& event)
+{
+	WWMEMLOG(MEM_GAMEDATA);
+
+	if (mIMEManager) {
+		if (mIMEManager->ProcessEvent(event)) {
+			return true;
+		}
+	}
+
+	switch (event.type) {
+		case SDL_EVENT_KEY_DOWN: {
+			int vk = WWUIPlatform::SDL_Keycode_To_VK(event.key.key);
+			if (vk == 0) {
+				return false;
+			}
+
+			// Build the key data the same way as the WM_KEYDOWN lParam:
+			// repeat count, scan code and previous key state.
+			uint32 key_data = 1 | ((uint32(event.key.raw) & 0xFF) << 16);
+			if (event.key.repeat) {
+				key_data |= (1 << 30);
+			}
+
+			return DialogMgrClass::On_Key_Down(vk, key_data);
+			}
+			break;
+
+		case SDL_EVENT_KEY_UP: {
+			int vk = WWUIPlatform::SDL_Keycode_To_VK(event.key.key);
+			if (vk == 0) {
+				return false;
+			}
+
+			return DialogMgrClass::On_Key_Up(vk);
+			}
+			break;
+
+		case SDL_EVENT_TEXT_INPUT: {
+			std::basic_string<unichar_t> text = WWUIPlatform::UTF8_To_Unichar(event.text.text);
+			for (unichar_t ch : text) {
+				DialogMgrClass::On_Unicode_Char(ch);
+			}
+			return true;
+			}
+			break;
+
+		default:
+			break;
+	}
+
+	return false;
+}
+#endif
 
 
 void WWUIInputClass::HandleNotification(IME::UnicodeChar& unicode)

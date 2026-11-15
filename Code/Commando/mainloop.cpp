@@ -76,10 +76,20 @@ int		ExitCode = EXIT_SUCCESS;
 #ifdef OPENW3D_SDL3
 #include <SDL3/SDL.h>
 #include "directinput.h"
+#include "renegadedialogmgr.h"
+#include "wwuiinput.h"
 
 static void Handle_SDL_Events(){
 	SDL_Event event;
     while (SDL_PollEvent(&event)) {
+		//
+		//	Pass the event through to the UI input handler, the same as
+		// Main_Window_Proc does for the Win32 window messages.
+		//
+		if (_TheWWUIInput && Input::Is_Console_Enabled () == false) {
+			_TheWWUIInput->ProcessEvent(event);
+		}
+
 		switch(event.type){
 			case SDL_EVENT_KEY_DOWN:
 			case SDL_EVENT_KEY_UP:
@@ -100,6 +110,13 @@ static void Handle_SDL_Events(){
 			break;
 			case SDL_EVENT_WINDOW_FOCUS_LOST:
 			GameInFocus = false;
+			break;
+
+			// Handled by the UI input handler
+			case SDL_EVENT_TEXT_INPUT:
+			case SDL_EVENT_TEXT_EDITING:
+			case SDL_EVENT_TEXT_EDITING_CANDIDATES:
+			case SDL_EVENT_KEYMAP_CHANGED:
 			break;
 
 

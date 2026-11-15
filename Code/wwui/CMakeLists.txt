@@ -13,9 +13,7 @@ set(WWUI_SRC
     editctrl.cpp
     healthbarctrl.cpp
     imagectrl.cpp
-    IMECandidate.cpp
     IMECandidateCtrl.cpp
-    IMEManager.cpp
     inputctrl.cpp
     listctrl.cpp
     listiconmgr.cpp
@@ -57,9 +55,7 @@ set(WWUI_SRC
     healthbarctrl.h
     imagectrl.h
     IMECandidate.h
-    IMECandidate.h
     IMECandidateCtrl.h
-    IMEManager.h
     IMEManager.h
     inputctrl.h
     listctrl.h
@@ -85,7 +81,23 @@ set(WWUI_SRC
     treectrl.h
     viewerctrl.h
     wwuiinput.h
+    wwuiplatform.h
 )
+
+# Input and IME are provided by SDL3 or by Win32 depending on the backend.
+if(W3D_BUILD_OPTION_SDL3)
+    list(APPEND WWUI_SRC
+        IMECandidate_sdl3.cpp
+        IMEManager_sdl3.cpp
+        wwuiplatform_sdl3.cpp
+    )
+else()
+    list(APPEND WWUI_SRC
+        IMECandidate.cpp
+        IMEManager.cpp
+        wwuiplatform_win32.cpp
+    )
+endif()
 
 # Targets to build.
 add_library(wwui STATIC)
@@ -97,11 +109,14 @@ target_compile_definitions(wwui PRIVATE
 
 target_link_libraries(wwui PRIVATE
     wwcommon
-    imm32
 )
+
+if(WIN32)
+    target_link_libraries(wwui PRIVATE imm32)
+endif()
 
 target_sources(wwui PRIVATE ${WWUI_SRC})
 
 if(W3D_BUILD_OPTION_SDL3)
-    target_link_libraries(wwui PRIVATE SDL3::Headers)
+    target_link_libraries(wwui PRIVATE SDL3::SDL3-shared)
 endif()

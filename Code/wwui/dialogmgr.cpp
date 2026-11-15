@@ -52,6 +52,7 @@
 #include "dialogtransition.h"
 #include "systimer.h"
 #include "tooltip.h"
+#include "wwuiplatform.h"
 
 
 ////////////////////////////////////////////////////////////////
@@ -674,7 +675,7 @@ DialogMgrClass::On_Key_Down (uint32 key_id, uint32 key_data)
 	//
 	//	Update the keyboard state
 	//
-	::GetKeyboardState (KeyboardState);
+	WWUIPlatform::Get_Keyboard_State (KeyboardState);
 
 	//
 	//	Notify the active dialog (if any)
@@ -702,7 +703,7 @@ DialogMgrClass::On_Key_Up (uint32 key_id)
 	//
 	//	Update the keyboard state
 	//
-	::GetKeyboardState (KeyboardState);
+	WWUIPlatform::Get_Keyboard_State (KeyboardState);
 
 	//
 	//	Notify the active dialog (if any)
@@ -730,7 +731,7 @@ DialogMgrClass::On_Unicode_Char (uint16 unicode)
 	//
 	//	Update the keyboard state
 	//
-	::GetKeyboardState (KeyboardState);
+	WWUIPlatform::Get_Keyboard_State (KeyboardState);
 
 	//
 	//	Notify the active dialog (if any)

@@ -38,7 +38,7 @@
 #include "assetmgr.h"
 #include "stylemgr.h"
 #include "dialogbase.h"
-#include <winuser.h>
+#include "wwuiplatform.h"
 #include <algorithm>
 #include <limits>
 
@@ -55,8 +55,6 @@ MultiLineTextCtrlClass::MultiLineTextCtrlClass (void)	:
 	RowCount (0),
 	RowsPerPage (0)
 {
-	UINT scrolllines;
-
 	//
 	//	Configure the renderers
 	//
@@ -72,7 +70,7 @@ MultiLineTextCtrlClass::MultiLineTextCtrlClass (void)	:
 	ScrollBarCtrl.Set_Is_Embedded (true);
 
 	// Calculate the no. of lines to scroll for each mouse wheel increment.
-	SystemParametersInfo (SPI_GETWHEELSCROLLLINES, 0, &scrolllines, 0);
+	int scrolllines = WWUIPlatform::Get_Wheel_Scroll_Lines ();
 	MouseWheelIncrement = ((float) scrolllines) / ((float) WHEEL_DELTA);
 
 	return ;

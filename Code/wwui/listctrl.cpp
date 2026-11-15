@@ -43,7 +43,10 @@
 #include "dialogmgr.h"
 #include "dialogbase.h"
 #include "stylemgr.h"
+#include "wwuiplatform.h"
+#ifdef _WIN32
 #include <commctrl.h>
+#endif
 #include <algorithm>
 
 
@@ -470,7 +473,7 @@ ListCtrlClass::Sort_Alphabetically (int col_index, SORT_TYPE type)
 	//
 	//	Sort the entries
 	//
-	Sort (Default_Sort_Callback, MAKELONG ((WORD)col_index, (WORD)type));
+	Sort (Default_Sort_Callback, (uint32 (uint16 (col_index)) | (uint32 (uint16 (type)) << 16)));
 
 	//
 	//	Update the sort marker
@@ -491,8 +494,8 @@ ListCtrlClass::Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1,
 	//
 	//	Get the sorting params
 	//
-	int	sort_col_index = LOWORD (user_param);
-	SORT_TYPE sort_type = (SORT_TYPE)HIWORD (user_param);
+	int	sort_col_index = (user_param & 0xFFFF);
+	SORT_TYPE sort_type = (SORT_TYPE)((user_param >> 16) & 0xFFFF);
 
 	//
 	//	Sort by name
